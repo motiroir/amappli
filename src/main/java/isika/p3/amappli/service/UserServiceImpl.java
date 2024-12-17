@@ -3,7 +3,6 @@ package isika.p3.amappli.service;
 import java.math.BigDecimal;
 import java.util.Locale;
 
-import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
