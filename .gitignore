@@ -4,6 +4,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+**/persistence.xml
+
 ### STS ###
 .apt_generated
 .sts4-cache
