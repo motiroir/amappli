@@ -1,5 +1,6 @@
 package isika.p3.amappli.service;
 
+import java.math.BigDecimal;
 import java.util.Locale;
 
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -26,11 +27,17 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-    public void addUser(User user) {
+    public void addPlatformUser(User user) {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         user.setPassword(
             passwordEncoder.encode(user.getPassword())
         );
+        // At first, the platform user has no tenancy space
+        user.setTenancy(null);
+        // The user is active, he's only deactivated if there's a problem
+        user.setActive(true);
+        // The user has 0 credits by default
+        user.setCreditBalance(new BigDecimal(0));
         userRepository.save(user);
     }
 
@@ -59,7 +66,7 @@ public class UserServiceImpl implements UserService {
                 .isActive(true)
                 .build();
             
-            addUser(u);
+            addPlatformUser(u);
         }
 
     }
