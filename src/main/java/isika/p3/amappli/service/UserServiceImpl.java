@@ -1,0 +1,66 @@
+package isika.p3.amappli.service;
+
+import java.util.Locale;
+
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.github.javafaker.Faker;
+
+import isika.p3.amappli.entities.user.Address;
+import isika.p3.amappli.entities.user.ContactInfo;
+import isika.p3.amappli.entities.user.User;
+import isika.p3.amappli.repo.UserRepository;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+    // @Value("${PASSWORD_SALT}")
+    // private String passwordSalt;
+
+    private final UserRepository userRepository;
+
+
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public void addUser(User user) {
+        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        user.setPassword(
+            passwordEncoder.encode(user.getPassword())
+        );
+        userRepository.save(user);
+    }
+
+    public void generateUsers() {
+
+        Faker faker = new Faker(new Locale("fr-FR"));
+        for(int i=0;i < 20 ;i++){
+            Address a = Address.builder()
+                .line1(faker.address().buildingNumber())
+                .line2(faker.address().streetName())
+                .postCode(faker.address().zipCode())
+                .city(faker.address().cityName())
+                .build();
+
+            ContactInfo cI = ContactInfo.builder()
+                .name(faker.name().lastName())
+                .firstName(faker.name().firstName())
+                .phoneNumber(faker.phoneNumber().phoneNumber())
+                .build();
+
+            User u = User.builder()
+                .email(faker.internet().emailAddress())
+                .password(faker.internet().password())
+                .address(a)
+                .contactInfo(cI)
+                .isActive(true)
+                .build();
+            
+            addUser(u);
+        }
+
+    }
+}
