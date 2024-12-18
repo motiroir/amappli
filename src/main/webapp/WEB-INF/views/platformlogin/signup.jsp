@@ -55,7 +55,7 @@
                     <form:errors path="confirmPassword" class="invalid-feedback d-block" />
                 </div>
 
-                <button type="button" class="badge rounded-pill bg-primary" id="sign-up-button">
+                <button type="button" class="rounded-pill bg-primary" id="sign-up-button">
                     S'inscrire
                 </button>
             </div>
@@ -63,12 +63,12 @@
             <div id="connect">
                 <h1 class="display-5">Déjà inscrit.e ?</h1>
                 <hr>
-                <a class="badge rounded-pill bg-primary" href="${pageContext.request.contextPath}/">Se connecter</a>
+                <a class="rounded-pill bg-primary" href="${pageContext.request.contextPath}/">Se connecter</a>
             </div>
 
             <div id="form-part-2">
 
-                <button type="button" class="badge rounded-pill bg-primary" id="sign-up-button">
+                <button type="button" class="rounded-pill bg-primary" id="sign-up-button">
                     Retour
                 </button>
 

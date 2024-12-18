@@ -23,7 +23,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public Validator getValidator() {
         return validator;  // Return the autowired validator
     }
-    
+
 	@Bean(name = "viewResolver")
     public InternalResourceViewResolver getViewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
