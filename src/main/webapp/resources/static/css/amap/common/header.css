@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+
+/* body {
+	margin: 0;
+	font-family: 
+} */
+
+.header-bg {
+	background-color: #FFBE98;
+	padding         : 10px 0;
+}
+
+.nav-link {
+	color      : black !important;
+	font-weight: bold;
+}
+
+.logo {
+	max-width: 50px;
+}
+
+.signup-btn {
+	color           : black;
+	background-color: white;
+	border-color    : #F29F05;
+	border-radius   : 25px;
+	font-size       : 15px;
+	text-align      : center;
+	cursor          : pointer;
+	padding         : 10px 30px 10px 30px;
+	border          : 1px solid #ffffff
+}
+
+.signup-btn:hover {
+	background-color: white;
+	color           : #FFBE98;
+	border          : 1px solid #FFBE98
+}
+
+.icons i {
+	font-size  : 1.5rem;
+	margin-left: 15px;
+	color      : black;
+	position   : relative;
+}
+
+.icons .badge {
+	position        : absolute;
+	top             : -5px;
+	right           : -10px;
+	font-size       : 0.7rem;
+	background-color: red;
+	color           : white;
+}
