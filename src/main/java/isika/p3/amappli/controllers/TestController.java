@@ -18,7 +18,7 @@ public class TestController {
 		this.userService = userService;
 	}
 
-	@GetMapping
+	@GetMapping("test")
 	public String home(Model model) {
 		model.addAttribute("message","Hello Spring MVC From Model");
 		return "test";
