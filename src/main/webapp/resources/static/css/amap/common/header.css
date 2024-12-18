@@ -1,55 +1,77 @@
 @charset "UTF-8";
 
-
-/* body {
-	margin: 0;
-	font-family: 
-} */
-
-.header-bg {
-	background-color: #FFBE98;
-	padding         : 10px 0;
+body {
+    margin: 0;
+    background-color: #FFBE98; 
 }
 
-.nav-link {
-	color      : black !important;
-	font-weight: bold;
+
+.container-fluid {
+    background-color:  #FFBE98; 
+    padding: 10px 20px;
 }
 
-.logo {
-	max-width: 50px;
+/* Logo */
+#logo-header {
+    border-radius: 50%;
+   background-color: #E3E3E3;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
 }
 
-.signup-btn {
-	color           : black;
-	background-color: white;
-	border-color    : #F29F05;
-	border-radius   : 25px;
-	font-size       : 15px;
-	text-align      : center;
-	cursor          : pointer;
-	padding         : 10px 30px 10px 30px;
-	border          : 1px solid #ffffff
+/* Navbar */
+.navbar-nav .nav-item .nav-link {
+    color: #333; 
+    font-weight: bold;
+    margin: 0 10px;
+    text-decoration: none;
+    transition: color 0.3s;
 }
 
-.signup-btn:hover {
-	background-color: white;
-	color           : #FFBE98;
-	border          : 1px solid #FFBE98
+.navbar-nav .nav-item .nav-link:hover {
+    color: #000; 
 }
 
-.icons i {
-	font-size  : 1.5rem;
-	margin-left: 15px;
-	color      : black;
-	position   : relative;
+
+.btn {
+    font-weight: bold;
+    border-radius: 80px;
+    padding: 5px 15px;
+    font-size: 14px;
 }
 
-.icons .badge {
-	position        : absolute;
-	top             : -5px;
-	right           : -10px;
-	font-size       : 0.7rem;
-	background-color: red;
-	color           : white;
+.btn-outline-light {
+    color: #333; /* Texte */
+    border: 1px solid #333;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-outline-light:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.btn-success {
+    background-color: #fff;
+    color: #333;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-success:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+
+@media (max-width: 768px) {
+    .navbar-nav {
+        text-align: center;
+    }
+
+    #logo-header {
+        margin-bottom: 10px;
+    }
 }

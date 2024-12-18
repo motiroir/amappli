@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -5,10 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Footer Amap</title>
     <link rel="stylesheet" href="<c:url value='/resources/bootstrap/bootstrap.min.css' />">
+    <link rel="stylesheet" href="<c:url value='/resources/amap/common/footer.css' />">
     
-    <style >
-
-    </style>
+   
 </head>
 <body>
     <footer class="custom-footer-bg text-dark py-4">
@@ -18,10 +22,10 @@
                 <div class="col-md-4">
                     <h5 class="fw-bold">Notre histoire</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-dark text-decoration-none">À propos</a></li>
+                        <li><a href="#" class="text-dark text-decoration-none">A propos</a></li>
                         <li><a href="#" class="text-dark text-decoration-none">Partenaires</a></li>
                         <li><a href="#" class="text-dark text-decoration-none">Nos produits</a></li>
-                        <li><a href="#" class="text-dark text-decoration-none">Nos évènements</a></li>
+                        <li><a href="#" class="text-dark text-decoration-none">Nos événements</a></li>
                     </ul>
                 </div>
                 <!-- Colonne "Une question ?" -->
@@ -31,7 +35,7 @@
                         <li><a href="#" class="text-dark text-decoration-none">Contact</a></li>
                         <li><a href="#" class="text-dark text-decoration-none">FAQ</a></li>
                     </ul>
-                    <!-- Réseaux sociaux -->
+                    <!-- RÃ©seaux sociaux -->
                     <div>
                         <h6 class="fw-bold">Réseaux sociaux :</h6>
                         <a href="#" class="text-dark me-2"><i class="bi bi-twitter"></i></a>
@@ -39,7 +43,7 @@
                         <a href="#" class="text-dark me-2"><i class="bi bi-instagram"></i></a>
                     </div>
                 </div>
-                <!-- Colonne "Où nous trouver ?" -->
+                <!-- Colonne "OÃ¹ nous trouver ?" -->
                 <div class="col-md-4">
                     <h5 class="fw-bold">Où nous trouver ?</h5>
                     <p class="mb-0">Adresse:</p>
