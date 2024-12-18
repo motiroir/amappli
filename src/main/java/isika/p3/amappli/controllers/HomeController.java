@@ -9,19 +9,19 @@ import isika.p3.amappli.service.UserService;
 
 @Controller
 @RequestMapping("/")
-public class TestController {
+public class HomeController {
 
 	private final UserService userService;
 	
 	
-	public TestController(UserService userService) {
+	public HomeController(UserService userService) {
 		this.userService = userService;
 	}
 
 	@GetMapping
 	public String home(Model model) {
-		model.addAttribute("message","Hello Spring MVC From Model");
-		return "test";
+//		model.addAttribute("message","Hadoken");
+		return "amappli/home";
 	}
 	
 	@GetMapping("/writeusers")

@@ -1,0 +1,152 @@
+@import "includes/utils.css";
+@import "includes/header.css";
+@import "includes/footer.css";
+
+body {
+  font-family: Futura, Nunito, Inter, Arial, sans-serif;
+  background-color: var(--snow);
+  overflow-x: hidden;
+}
+body h1 {
+  font-size: calc(1.375rem + 2vw);
+}
+
+.section-peach {
+  background-color: var(--peach);
+}
+.section-peach span {
+  background-color: var(--snow);
+  padding: 5px 10px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  font-style: italic;
+  font-size: 13px;
+}
+
+#competence-technique {
+  position: relative;
+}
+
+#smiley {
+  height: 50px;
+  width: 50px;
+  position: relative;
+  right: 11px;
+  bottom: 28px;
+  z-index: 2;
+}
+
+#advantages h5 {
+  font-family: Nunito;
+  font-weight: 700;
+  overflow-y: hidden;
+}
+#advantages p {
+  line-height: normal;
+}
+#advantages .cardboard {
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+.golden-star {
+  max-height: 25px;
+}
+
+#subscriptions {
+  font-family: Nunito;
+}
+#subscriptions > div {
+  background-color: var(--peach);
+  border: 1px solid var(--tangerine);
+}
+#subscriptions > div > .pricing {
+  --duration: 1s;
+  --ease: cubic-bezier(0.7, 0, 0.3, 1);
+  transition: background-position var(--duration) var(--ease);
+  cursor: pointer;
+}
+#subscriptions > div > .pricing h2, #subscriptions > div > .pricing h3 {
+  overflow-y: hidden;
+}
+
+#pricing-1 {
+  box-shadow: 0px 4px 4px rgb(255, 165, 112);
+  background: linear-gradient(to bottom, var(--snow) 50%, rgb(255, 165, 112) 50%);
+  background-size: 100% 220%;
+  background-position: top;
+}
+
+#pricing-1:hover,
+#pricing-2:hover,
+#pricing-3:hover {
+  background-position: bottom;
+}
+
+#pricing-2 {
+  box-shadow: 0px 4px 4px 0px rgba(143, 202, 160, 0.87);
+  background: linear-gradient(to bottom, var(--snow) 50%, rgba(143, 202, 160, 0.87) 50%);
+  background-size: 100% 205%;
+  background-position: top;
+}
+
+#pricing-3 {
+  box-shadow: 0px 4px 4px 0px rgb(251, 197, 20);
+  background: linear-gradient(to bottom, var(--snow) 50%, rgb(251, 197, 20) 50%);
+  background-size: 100% 205%;
+  background-position: top;
+}
+
+.partner img {
+  max-height: 100px;
+  object-fit: contain;
+}
+
+.cardboard {
+  overflow: hidden;
+}
+.cardboard::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: #daeaf2;
+}
+
+/* ---------------------------------- */
+/* SCROLL ANIMATION */
+.cardboard {
+  --duration: 1s;
+  --ease: cubic-bezier(0.7, 0, 0.3, 1);
+  opacity: 0;
+  transition: opacity var(--duration) linear;
+}
+.cardboard::before {
+  transform: scaleX(0);
+  transform-origin: top left;
+  transform: scaleX(0);
+  transition: transform var(--duration) var(--ease);
+}
+.cardboard p {
+  transition: clip-path var(--duration) var(--ease);
+  transition-delay: var(--duration);
+  clip-path: polygon(0 0, 0% 0, 0% 100%, 0 100%);
+}
+.cardboard:nth-child(odd) {
+  transition-delay: 0.2s;
+}
+.cardboard:nth-child(odd)::before {
+  transform-origin: top right;
+}
+.cardboard:nth-child(odd) p {
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+}
+.cardboard[data-viewport-position="0"] {
+  opacity: 1;
+}
+.cardboard[data-viewport-position="0"]::before {
+  transform: scaleX(1);
+}
+.cardboard[data-viewport-position="0"] p {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
