@@ -14,33 +14,36 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="contracts")
+@Table(name = "contracts")
 public class Contract {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(nullable = false)
-	private String contractName; 
-	
+	private String contractName;
+
+	@Enumerated(EnumType.STRING)
+	public ContractType contractType;
+
 	@Column(length = 500)
 	private String contractDescription;
-	
+
 	@Enumerated(EnumType.STRING)
-	private ContractWeight contractWeight; 
-	
+	private ContractWeight contractWeight;
+
 	@Column(nullable = false)
 	private Double contractPrice;
-	
+
 	private String imageUrl;
-	
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateCreation;
-	
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate startDate;
-	
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate endDate;
 
@@ -80,6 +83,14 @@ public class Contract {
 		return endDate;
 	}
 
+	public ContractType getContractType() {
+		return contractType;
+	}
+
+	public void setContractType(ContractType contractType) {
+		this.contractType = contractType;
+	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -115,7 +126,5 @@ public class Contract {
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
-	
-	
 
 }

@@ -1,12 +1,12 @@
 package isika.p3.amappli.entities.contract;
 
-public enum ContractWeight {
+public enum ContractType {
 
-	SMALL("Petit"), AVERAGE("Moyen"), BIG("Grand");
+	FRUITS_CONTRACT("Panier de fruits"), VEGETABLES_CONTRACT("Panier de légumes"), MIX_CONTRACT("Panier mixte");
 
 	private final String displayName;
 
-	ContractWeight(String displayName) {
+	ContractType(String displayName) {
 		this.displayName = displayName;
 	}
 
