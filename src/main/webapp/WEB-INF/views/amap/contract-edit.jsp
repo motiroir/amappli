@@ -9,8 +9,7 @@
 <body>
 	<h2>Modifier un Contrat</h2>
 	<form:form name="contractForm" method="POST"
-		action="/Amappli/amap/contracts/update" modelAttribute="contract"
-		onsubmit="return confirmUpdate();">
+		action="/Amappli/amap/contracts/update" modelAttribute="contract">
 		<form:hidden path="id" />
         Nom du contrat : <form:input path="contractName" />
 		<br>

@@ -4,6 +4,7 @@ import java.beans.PropertyEditorSupport;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -54,9 +55,41 @@ public class ContractController {
 		model.addAttribute("currentDate", currentDate);
 		return "amap/contract-form";
 	}
+	
+	private String formatContractName(String name) {
+	    if (name == null || name.isEmpty()) {
+	        return name;
+	    }
+	    name = name.trim().toLowerCase();
+	    return name.substring(0, 1).toUpperCase() + name.substring(1);
+	}
+	
+	private String formatContractDescription(String description) {
+	    if (description == null || description.isEmpty()) {
+	        return description;
+	    }
+
+	    description = description.trim().toLowerCase();
+	    String[] sentences = description.split("\\.\\s*");
+
+	    StringBuilder formattedDescription = new StringBuilder();
+	    for (String sentence : sentences) {
+	        if (!sentence.isEmpty()) {
+	            formattedDescription.append(sentence.substring(0, 1).toUpperCase())
+	                                .append(sentence.substring(1))
+	                                .append(". ");
+	        }
+	    }
+
+	    // Supprimer l'espace supplémentaire à la fin
+	    return formattedDescription.toString().trim();
+	}
+
 
 	@PostMapping("/add")
 	public String addContract(@ModelAttribute("contract") Contract contract) {
+		contract.setContractName(formatContractName(contract.getContractName()));
+	    contract.setContractDescription(formatContractDescription(contract.getContractDescription()));
 		contract.setDateCreation(LocalDate.now());
 		contractService.save(contract);
 		return "redirect:/amap/contracts/form";
@@ -65,40 +98,41 @@ public class ContractController {
 	@GetMapping("/list")
 	public String listContracts(Model model) {
 		List<Contract> contracts = contractService.findAll();
+		contracts.sort(Comparator.comparing(Contract::getContractName, String.CASE_INSENSITIVE_ORDER));
 		model.addAttribute("contracts", contracts);
 		return "amap/contract-list";
 	}
-	
+
 	@PostMapping("/delete/{id}")
 	public String deleteContract(@PathVariable("id") Long id) {
-	    contractService.deletedById(id);
-	    return "redirect:/amap/contracts/list";
+		contractService.deletedById(id);
+		return "redirect:/amap/contracts/list";
 	}
-	
+
 	@GetMapping("/edit/{id}")
 	public String editContractForm(@PathVariable("id") Long id, Model model) {
-	    Contract contract = contractService.findById(id);
-	    model.addAttribute("contract", contract);
-	    model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
-	    model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
-	    return "amap/contract-edit";
+		Contract contract = contractService.findById(id);
+		model.addAttribute("contract", contract);
+		model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
+		model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
+		return "amap/contract-edit";
 	}
 
 	@PostMapping("/update")
 	public String updateContract(@ModelAttribute("contract") Contract updatedContract) {
-	    Contract existingContract = contractService.findById(updatedContract.getId());
+		Contract existingContract = contractService.findById(updatedContract.getId());
 
-	    existingContract.setContractName(updatedContract.getContractName());
-	    existingContract.setContractType(updatedContract.getContractType());
-	    existingContract.setContractDescription(updatedContract.getContractDescription());
-	    existingContract.setContractWeight(updatedContract.getContractWeight());
-	    existingContract.setContractPrice(updatedContract.getContractPrice());
-	    existingContract.setStartDate(updatedContract.getStartDate());
-	    existingContract.setEndDate(updatedContract.getEndDate());
-	    existingContract.setImageUrl(updatedContract.getImageUrl());
+		existingContract.setContractName(formatContractName(updatedContract.getContractName()));
+		existingContract.setContractType(updatedContract.getContractType());
+	    existingContract.setContractDescription(formatContractDescription(updatedContract.getContractDescription()));
+		existingContract.setContractWeight(updatedContract.getContractWeight());
+		existingContract.setContractPrice(updatedContract.getContractPrice());
+		existingContract.setStartDate(updatedContract.getStartDate());
+		existingContract.setEndDate(updatedContract.getEndDate());
+		existingContract.setImageUrl(updatedContract.getImageUrl());
 
-	    contractService.save(existingContract);
-	    return "redirect:/amap/contracts/list";
+		contractService.save(existingContract);
+		return "redirect:/amap/contracts/list";
 	}
 
 }

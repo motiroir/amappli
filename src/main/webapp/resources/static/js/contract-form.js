@@ -1,49 +1,46 @@
-// Fonction pour mettre à jour la date minimale de endDate
-function updateEndDate() {
-    const startDateInput = document.getElementById("startDate");
-    const endDateInput = document.getElementById("endDate");
+document.addEventListener("DOMContentLoaded", function() {
+	const startDateInput = document.getElementById("startDate");
+	const endDateInput = document.getElementById("endDate");
 
-    // Récupère la valeur de la date de début
-    const startDateValue = startDateInput.value;
+	if (!startDateInput || !endDateInput) {
+		console.error("Champs startDate ou endDate introuvables !");
+		return;
+	}
 
-    if (startDateValue) {
-        // Activer le champ endDate
-        endDateInput.disabled = false;
+	// Fonction pour calculer la date minimum de endDate (+3 mois après startDate)
+	function calculateMinEndDate(startDate) {
+		const start = new Date(startDate);
+		const minEndDate = new Date(start.setMonth(start.getMonth() + 3));
+		const year = minEndDate.getFullYear();
+		const month = String(minEndDate.getMonth() + 1).padStart(2, "0");
+		const day = String(minEndDate.getDate()).padStart(2, "0");
+		return `${year}-${month}-${day}`;
+	}
 
-        // Calculer la date minimum pour endDate (+3 mois)
-        const startDate = new Date(startDateValue);
-        const minEndDate = new Date(startDate.setMonth(startDate.getMonth() + 3));
+	// Initialiser startDate et endDate au chargement
+	const today = new Date();
+	const year = today.getFullYear();
+	const month = String(today.getMonth() + 1).padStart(2, "0");
+	const day = String(today.getDate()).padStart(2, "0");
+	const todayFormatted = `${year}-${month}-${day}`;
 
-        // Format YYYY-MM-DD pour endDate
-        const year = minEndDate.getFullYear();
-        const month = String(minEndDate.getMonth() + 1).padStart(2, '0');
-        const day = String(minEndDate.getDate()).padStart(2, '0');
-        const minDate = `${year}-${month}-${day}`;
+	if (!startDateInput.value) {
+		startDateInput.value = todayFormatted;
+	}
 
-        // Appliquer la valeur minimale à endDate
-        endDateInput.min = minDate;
+	const minEndDate = calculateMinEndDate(startDateInput.value);
+	endDateInput.min = minEndDate; // Applique le min dès le départ
+	if (!endDateInput.value) {
+		endDateInput.value = minEndDate;
+	}
 
-        // Réinitialiser la valeur de endDate si elle est inférieure à minDate
-        if (endDateInput.value && endDateInput.value < minDate) {
-            endDateInput.value = minDate;
-        }
-    } else {
-        // Désactiver endDate si startDate n'est pas sélectionnée
-        endDateInput.disabled = true;
-        endDateInput.value = "";
-    }
-}
+	// Mettre à jour endDate lorsque startDate change
+	startDateInput.addEventListener("change", function() {
+		const newMinEndDate = calculateMinEndDate(startDateInput.value);
+		endDateInput.min = newMinEndDate;
 
-// Désactiver endDate au chargement initial de la page
-document.addEventListener("DOMContentLoaded", function () {
-    const startDateInput = document.getElementById("startDate");
-    const endDateInput = document.getElementById("endDate");
-
-    // Désactiver endDate si startDate est vide au chargement
-    if (!startDateInput.value) {
-        endDateInput.disabled = true;
-    }
-
-    // Ajouter un listener sur startDate pour appeler updateEndDate
-    startDateInput.addEventListener("change", updateEndDate);
+		if (endDateInput.value < newMinEndDate) {
+			endDateInput.value = newMinEndDate;
+		}
+	});
 });

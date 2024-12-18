@@ -36,17 +36,15 @@
 					<td>${contract.endDate}</td>
 					<td>${contract.dateCreation}</td>
 					<td>${contract.imageUrl}</td>
-					<td>
-					<a href="/Amappli/amap/contracts/edit/${contract.id}">
-						<button type="button">Modifier</button>
+					<td><a href="/Amappli/amap/contracts/edit/${contract.id}">
+							<button type="button">Modifier</button>
 					</a>
 						<form action="/Amappli/amap/contracts/delete/${contract.id}"
 							method="POST">
 							<button type="submit"
 								onclick="return confirm('Voulez-vous vraiment supprimer le contrat ${contract.contractName} ?');">
 								Supprimer</button>
-						</form>
-					</td>
+						</form></td>
 				</tr>
 			</c:forEach>
 		</tbody>

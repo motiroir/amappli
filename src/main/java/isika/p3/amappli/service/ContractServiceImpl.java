@@ -8,17 +8,17 @@ import isika.p3.amappli.entities.contract.Contract;
 import isika.p3.amappli.repo.ContractRepository;
 
 @Service
-public class ContractServiceImpl implements ContractService{
+public class ContractServiceImpl implements ContractService {
 
-	private final ContractRepository contractRepository; 
-	
+	private final ContractRepository contractRepository;
+
 	public ContractServiceImpl(ContractRepository contractRepository) {
-        this.contractRepository = contractRepository;
-    }
-	
+		this.contractRepository = contractRepository;
+	}
+
 	@Override
 	public Contract save(Contract contract) {
-		
+
 		return contractRepository.save(contract);
 	}
 
@@ -36,6 +36,5 @@ public class ContractServiceImpl implements ContractService{
 	public Contract findById(Long id) {
 		return contractRepository.findById(id).orElse(null);
 	}
-
 
 }

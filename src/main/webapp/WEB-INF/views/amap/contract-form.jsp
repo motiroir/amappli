@@ -31,18 +31,18 @@
         Prix : <form:input path="contractPrice" type="number"
 			step="0.01" />
 		<br>
-Date de début : <form:input path="startDate" type="date" id="startDate"
-			min="${currentDate}" onchange="updateEndDate()" />
+        Date de début : 
+        <form:input path="startDate" type="date" id="startDate"
+			min="${currentDate}" />
 		<br>
-        Date de fin : <form:input path="endDate" type="date"
-			id="endDate" disabled="disabled" />
+        Date de fin : 
+        <form:input path="endDate" type="date" id="endDate" />
 		<br>
         Image URL : <form:input path="imageUrl" />
 		<br>
 		<input type="submit" value="Ajouter Contrat" />
 		<a href="/Amappli/amap/contracts/list">Voir la liste des contrats</a>
 	</form:form>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/contract-form.js"></script>
+	<script src="<c:url value='/resources/js/contract-form.js' />"></script>
 </body>
 </html>
