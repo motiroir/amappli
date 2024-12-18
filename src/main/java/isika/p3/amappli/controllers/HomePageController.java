@@ -12,7 +12,7 @@ import isika.p3.amappli.entities.tenancy.HomePageContent;
 import isika.p3.amappli.service.HomePageContentService;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/amap/")
 public class HomePageController {
 
 	@Autowired

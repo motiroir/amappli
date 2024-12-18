@@ -16,7 +16,7 @@ import isika.p3.amappli.service.UserService;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/login/")
 public class LoginController {
 
     private final UserService userService;

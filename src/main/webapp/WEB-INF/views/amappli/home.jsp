@@ -221,6 +221,8 @@
 
 	<script
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
+	<script
+		src="<c:url value='/resources/js/LoadingWhenVisible.js' />"></script>
 </body>
 
 </html>

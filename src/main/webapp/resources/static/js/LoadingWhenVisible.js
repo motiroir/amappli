@@ -9,8 +9,6 @@ let observer = new IntersectionObserver((entries) => {
     entries.forEach(({ target, intersectionRatio, boundingClientRect }) => {
         target.dataset.visible = intersectionRatio > 0.25;
 
-        console.log(target);
-
         if (target.nodeName !== "IMG") {
 
             let viewportPosition = 1;
