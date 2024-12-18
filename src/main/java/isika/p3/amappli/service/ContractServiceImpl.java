@@ -27,4 +27,15 @@ public class ContractServiceImpl implements ContractService{
 		return contractRepository.findAll();
 	}
 
+	@Override
+	public void deletedById(Long id) {
+		contractRepository.deleteById(id);
+	}
+
+	@Override
+	public Contract findById(Long id) {
+		return contractRepository.findById(id).orElse(null);
+	}
+
+
 }

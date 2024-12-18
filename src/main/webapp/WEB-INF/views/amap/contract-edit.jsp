@@ -4,12 +4,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
-<title>Ajouter un Contrat</title>
+<title>Modifier un Contrat</title>
 </head>
 <body>
-	<h2>Ajouter un Contrat</h2>
-	<form:form method="POST" action="/Amappli/amap/contracts/add"
-		modelAttribute="contract">
+	<h2>Modifier un Contrat</h2>
+	<form:form name="contractForm" method="POST"
+		action="/Amappli/amap/contracts/update" modelAttribute="contract"
+		onsubmit="return confirmUpdate();">
+		<form:hidden path="id" />
         Nom du contrat : <form:input path="contractName" />
 		<br>
         Type de Contrat :
@@ -31,18 +33,18 @@
         Prix : <form:input path="contractPrice" type="number"
 			step="0.01" />
 		<br>
-Date de début : <form:input path="startDate" type="date" id="startDate"
-			min="${currentDate}" onchange="updateEndDate()" />
+        Date de début : <form:input path="startDate" type="date" />
 		<br>
-        Date de fin : <form:input path="endDate" type="date"
-			id="endDate" disabled="disabled" />
+        Date de fin : <form:input path="endDate" type="date" />
 		<br>
         Image URL : <form:input path="imageUrl" />
 		<br>
-		<input type="submit" value="Ajouter Contrat" />
-		<a href="/Amappli/amap/contracts/list">Voir la liste des contrats</a>
+		<br>
+		<button type="submit">Valider les modifications</button>
+		<a href="/Amappli/amap/contracts/list">
+			<button type="button">Annuler</button>
+		</a>
 	</form:form>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/contract-form.js"></script>
+	<script src="<c:url value='/resources/js/contract-edit.js' />"></script>
 </body>
 </html>

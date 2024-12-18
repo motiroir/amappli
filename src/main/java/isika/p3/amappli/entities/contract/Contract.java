@@ -21,7 +21,6 @@ public class Contract {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false)
 	private String contractName;
 
 	@Enumerated(EnumType.STRING)
@@ -33,7 +32,6 @@ public class Contract {
 	@Enumerated(EnumType.STRING)
 	private ContractWeight contractWeight;
 
-	@Column(nullable = false)
 	private Double contractPrice;
 
 	private String imageUrl;

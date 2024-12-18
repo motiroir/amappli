@@ -12,7 +12,9 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import isika.p3.amappli.entities.contract.Contract;
 import isika.p3.amappli.entities.contract.ContractType;
@@ -20,6 +22,7 @@ import isika.p3.amappli.entities.contract.ContractWeight;
 import isika.p3.amappli.service.ContractService;
 
 @Controller
+@RequestMapping("/amap/contracts")
 public class ContractController {
 
 	private final ContractService contractService;
@@ -42,26 +45,60 @@ public class ContractController {
 		});
 	}
 
-	@GetMapping("/contracts/form")
+	@GetMapping("/form")
 	public String showForm(Model model) {
 		model.addAttribute("contract", new Contract());
 		model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
 		model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
-		return "contract-form";
+		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		model.addAttribute("currentDate", currentDate);
+		return "amap/contract-form";
 	}
 
-	@PostMapping("/contracts/add")
+	@PostMapping("/add")
 	public String addContract(@ModelAttribute("contract") Contract contract) {
 		contract.setDateCreation(LocalDate.now());
 		contractService.save(contract);
-		return "redirect:/contracts/form";
+		return "redirect:/amap/contracts/form";
 	}
 
-	@GetMapping("/contracts/list")
+	@GetMapping("/list")
 	public String listContracts(Model model) {
 		List<Contract> contracts = contractService.findAll();
 		model.addAttribute("contracts", contracts);
-		return "contract-list";
+		return "amap/contract-list";
+	}
+	
+	@PostMapping("/delete/{id}")
+	public String deleteContract(@PathVariable("id") Long id) {
+	    contractService.deletedById(id);
+	    return "redirect:/amap/contracts/list";
+	}
+	
+	@GetMapping("/edit/{id}")
+	public String editContractForm(@PathVariable("id") Long id, Model model) {
+	    Contract contract = contractService.findById(id);
+	    model.addAttribute("contract", contract);
+	    model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
+	    model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
+	    return "amap/contract-edit";
+	}
+
+	@PostMapping("/update")
+	public String updateContract(@ModelAttribute("contract") Contract updatedContract) {
+	    Contract existingContract = contractService.findById(updatedContract.getId());
+
+	    existingContract.setContractName(updatedContract.getContractName());
+	    existingContract.setContractType(updatedContract.getContractType());
+	    existingContract.setContractDescription(updatedContract.getContractDescription());
+	    existingContract.setContractWeight(updatedContract.getContractWeight());
+	    existingContract.setContractPrice(updatedContract.getContractPrice());
+	    existingContract.setStartDate(updatedContract.getStartDate());
+	    existingContract.setEndDate(updatedContract.getEndDate());
+	    existingContract.setImageUrl(updatedContract.getImageUrl());
+
+	    contractService.save(existingContract);
+	    return "redirect:/amap/contracts/list";
 	}
 
 }
