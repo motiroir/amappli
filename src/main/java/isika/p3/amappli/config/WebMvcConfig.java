@@ -3,6 +3,8 @@ package isika.p3.amappli.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.support.DefaultFormattingConversionService;
+import org.springframework.format.support.FormattingConversionService;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
@@ -16,4 +18,5 @@ public class WebMvcConfig {
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }
+	
 }
