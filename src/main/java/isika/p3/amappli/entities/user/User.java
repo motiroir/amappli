@@ -16,6 +16,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,12 +34,19 @@ public class User {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
-
+	
+	@NotBlank(message = "L'email est obligatoire.")
+	@Size(max=70, message = "L''email doit faire 70 caractères maximum.")
+    @Email( message = "L''email est invalide.")
     @Column(nullable = false, unique = true)
     private String email;
-
+	
+	@NotBlank(message = "Champ obligatoire.")
     @Column(nullable = false)
     private String password;
+    
+	@NotBlank(message = "Champ obligatoire.")
+    private String confirmPassword;
 
     private BigDecimal creditBalance;
 
