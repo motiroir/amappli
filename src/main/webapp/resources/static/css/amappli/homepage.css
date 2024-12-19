@@ -6,7 +6,6 @@
 
 body {
 	font-family: 'Futura', 'Nunito', 'Inter', Arial, sans-serif;
-	background-color: var(--snow);
 	overflow-x: hidden;
 }
 
@@ -15,24 +14,11 @@ body h1 {
 }
 
 body h1, body h2, body h3, body h4, body h5, body h6 {
-	color: var(--peach);
+	color: var(--main-font-color);
 }
 
 p {
 	font-weight: lighter;
-}
-
-.bg-peach {
-	background-color: var(--peach);
-}
-
-.bg-snow {
-	background-color: var(--snow);
-}
-
-.bg-light-olive {
-	background-color: var(--light-olive);
-	color: var(--snow);
 }
 
 #catchphrase h1 {
@@ -45,7 +31,7 @@ p {
 }
 
 .underline {
-	border-bottom: 1px solid var(--peach);
+	border-bottom: 1px solid var(--main-font-color);
 }
 
 .title-holder {
@@ -89,40 +75,18 @@ p {
 	cursor: pointer;
 }
 
-#subscriptions>div>.pricing h2, #subscriptions>div>.pricing h3 {
+#subscriptions>div>.pricing h2,
+#subscriptions>div>.pricing h3 {
 	overflow-y: hidden;
 }
 
-#pricing-1 {
-	box-shadow: 0px 4px 4px rgb(255, 165, 112);
-	background: linear-gradient(to bottom, var(--snow) 50%,
-		rgb(255, 165, 112) 50%);
-	background-size: 100% 220%;
-	background-position: top;
-}
-
-#pricing-1:hover, #pricing-2:hover, #pricing-3:hover {
-	background-position: bottom;
-}
-
-#pricing-2 {
-	box-shadow: 0px 4px 4px 0px rgba(143, 202, 160, 0.87);
-	background: linear-gradient(to bottom, var(--snow) 50%,
-		rgba(143, 202, 160, 0.87) 50%);
-	background-size: 100% 205%;
-	background-position: top;
-}
-
-#pricing-3 {
-	box-shadow: 0px 4px 4px 0px rgb(251, 197, 20);
-	background: linear-gradient(to bottom, var(--snow) 50%,
-		rgb(251, 197, 20) 50%);
-	background-size: 100% 205%;
-	background-position: top;
+.pricing p {
+	font-weight: 400;
+	font-size: 12px;
 }
 
 .partner img {
-	max-height: 100px;
+	max-height: 50px;
 	object-fit: contain;
 }
 

@@ -1,156 +1,41 @@
 @import "../../common/fonts.css";
-  
+@import "theme/theme-1-dark.css";
+@import "theme/theme-1-light.css";
+
 :root {
-  --peach         : #ffbe98;
-  --light-tangerine: #FFB185;
-  --tangerine     : #FFA570;
-  --light-olive   : #455449;
-  --olive         : #223026;
-  --snow          : #FFFAF8;
-  font-family: 'Nunito Sans';
+  --orange-050: #ffcbad;
+  --orange-100: #ffbe98;    /* peach */
+  --orange-300: #FFB185;    /* light tangerine */
+  --orange-600: #ffa570;    /* tangerine */
+  --green-400 : #8dac95;
+  --green-500 : #336140;
+  --green-600 : #284b32;
+  --green-700 : #455449;    /* light olive */
+  --green-800 : #344238;
+  --green-900 : rgb(34, 48, 38);    /* olive */
+  --white-300 : #FFFAF8;    /* snow */
+  --black-900 : #0e0e0e;
+  --black-700 : #292929;
+  --black-400 : #A1A1A1;
+  --black-200 : #C4C4C4;
 }
 
-
-.theme-1.dark .btn-olive {
-  --bs-btn-color                : var(--peach);
-  --bs-btn-bg                   : var(--olive);
-  --bs-btn-border-color         : var(--olive);
-  --bs-btn-hover-color          : var(--peach);
-  --bs-btn-hover-bg             : #336140;
-  --bs-btn-hover-border-color   : #284b32;
-  --bs-btn-focus-shadow-rgb     : 130, 138, 145;
-  --bs-btn-active-color         : var(--snow);
-  --bs-btn-active-bg            : #243629;
-  --bs-btn-active-border-color  : #294230;
-  --bs-btn-active-shadow        : inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color       : var(--snow);
-  --bs-btn-disabled-bg          : var(--olive);
-  --bs-btn-disabled-border-color: var(--olive);
-  font-family: 'Nunito Sans';
+.nunito {
+  font-family: 'Nunito'!important;
 }
 
-.theme-1.dark .btn-outline-olive {
-  --bs-btn-color                : var(--olive);
-  --bs-btn-border-color         : var(--olive);
-  --bs-btn-hover-color          : var(--snow);
-  --bs-btn-hover-bg             : var(--olive);
-  --bs-btn-hover-border-color   : var(--olive);
-  --bs-btn-focus-shadow-rgb     : 108, 117, 125;
-  --bs-btn-active-color         : var(--snow);
-  --bs-btn-active-bg            : var(--olive);
-  --bs-btn-active-border-color  : var(--olive);
-  --bs-btn-active-shadow        : inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color       : var(--olive);
-  --bs-btn-disabled-bg          : transparent;
-  --bs-btn-disabled-border-color: var(--olive);
-  --bs-gradient                 : none;
-  font-family: 'Nunito Sans';
+.nunito-sans {
+  font-family: 'Nunito Sans'!important;
 }
 
-.theme-1.dark .btn-tangerine {
-  --bs-btn-color                : var(--olive);
-  --bs-btn-bg                   : var(--tangerine);
-  --bs-btn-border-color         : var(--tangerine);
-  --bs-btn-hover-color          : var(--olive);
-  --bs-btn-hover-bg             : #fdc2a0;
-  --bs-btn-hover-border-color   : var(--tangerine);
-  --bs-btn-focus-shadow-rgb     : 130, 138, 145;
-  --bs-btn-active-color         : var(--olive);
-  --bs-btn-active-bg            : #ffc3a0;
-  --bs-btn-active-border-color  : #f59157;
-  --bs-btn-active-shadow        : inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color       : var(--olive);
-  --bs-btn-disabled-bg          : var(--tangerine);
-  --bs-btn-disabled-border-color: var(--tangerine);
-  font-family: 'Nunito Sans';
+.futura {
+  font-family: 'Futura'!important;
 }
 
-.theme-1.dark .btn-outline-tangerine {
-  --bs-btn-color                : var(--tangerine);
-  --bs-btn-border-color         : var(--tangerine);
-  --bs-btn-hover-color          : var(--olive);
-  --bs-btn-hover-bg             : var(--tangerine);
-  --bs-btn-hover-border-color   : var(--tangerine);
-  --bs-btn-focus-shadow-rgb     : 108, 117, 125;
-  --bs-btn-active-color         : var(--olive);
-  --bs-btn-active-bg            : var(--tangerine);
-  --bs-btn-active-border-color  : var(--tangerine);
-  --bs-btn-active-shadow        : inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color       : var(--tangerine);
-  --bs-btn-disabled-bg          : transparent;
-  --bs-btn-disabled-border-color: var(--tangerine);
-  --bs-gradient                 : none;
-  font-family: 'Nunito Sans';
+.futura-condensed {
+  font-family: 'Futura Condensed'!important;
 }
 
-.theme-1.dark .btn-peach {
-  --bs-btn-color                : var(--olive);
-  --bs-btn-bg                   : var(--peach);
-  --bs-btn-border-color         : var(--peach);
-  --bs-btn-hover-color          : var(--tangerine);
-  --bs-btn-hover-bg             : #ffcbad;
-  --bs-btn-hover-border-color   : var(--peach);
-  --bs-btn-focus-shadow-rgb     : 130, 138, 145;
-  --bs-btn-active-color         : #ffcbad;
-  --bs-btn-active-bg            : var(--peach);
-  --bs-btn-active-border-color  : #fcb084;
-  --bs-btn-active-shadow        : inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color       : var(--peach);
-  --bs-btn-disabled-bg          : var(--peach);
-  --bs-btn-disabled-border-color: var(--peach);
-  font-family: 'Nunito Sans';
-}
-
-.theme-1.dark .btn-outline-peach {
-  --bs-btn-color                : var(--peach);
-  --bs-btn-border-color         : var(--peach);
-  --bs-btn-hover-color          : var(--peach);
-  --bs-btn-hover-bg             : var(--peach);
-  --bs-btn-hover-border-color   : var(--peach);
-  --bs-btn-focus-shadow-rgb     : 108, 117, 125;
-  --bs-btn-active-color         : var(--tangerine);
-  --bs-btn-active-bg            : var(--peach);
-  --bs-btn-active-border-color  : var(--peach);
-  --bs-btn-active-shadow        : inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color       : var(--peach);
-  --bs-btn-disabled-bg          : transparent;
-  --bs-btn-disabled-border-color: var(--peach);
-  --bs-gradient                 : none;
-  font-family: 'Nunito Sans';
-}
-
-.theme-1.dark .btn-snow {
-  --bs-btn-color                : var(--olive);
-  --bs-btn-bg                   : var(--snow);
-  --bs-btn-border-color         : var(--olive);
-  --bs-btn-hover-color          : var(--olive);
-  --bs-btn-hover-bg             : #c4c4c4;
-  --bs-btn-hover-border-color   : var(--olive);
-  --bs-btn-focus-shadow-rgb     : 130, 138, 145;
-  --bs-btn-active-color         : var(--olive);
-  --bs-btn-active-bg            : #c4c4c4;
-  --bs-btn-active-border-color  : var(--olive);
-  --bs-btn-active-shadow        : inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color       : #c4c4c4;;
-  --bs-btn-disabled-bg          : var(--snow);
-  --bs-btn-disabled-border-color: #c4c4c4;;
-  font-family: 'Nunito Sans';
-}
-
-.theme-1.dark .btn-outline-snow {
-  --bs-btn-color                : var(--snow);
-  --bs-btn-border-color         : var(--snow);
-  --bs-btn-hover-color          : var(--olive);
-  --bs-btn-hover-bg             : var(--snow);
-  --bs-btn-hover-border-color   : var(--snow);
-  --bs-btn-focus-shadow-rgb     : 108, 117, 125;
-  --bs-btn-active-color         : var(--olive);
-  --bs-btn-active-bg            : var(--snow);
-  --bs-btn-active-border-color  : var(--snow);
-  --bs-btn-active-shadow        : inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color       : var(--snow);
-  --bs-btn-disabled-bg          : transparent;
-  --bs-btn-disabled-border-color: var(--snow);
-  --bs-gradient                 : none;
-  font-family: 'Nunito Sans';
+.pointer {
+  cursor: pointer!important;
 }

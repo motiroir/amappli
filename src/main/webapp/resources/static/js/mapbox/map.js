@@ -31,3 +31,9 @@ map.dragRotate.disable();
 map.keyboard.disable();
 map.doubleClickZoom.disable();
 map.touchZoomRotate.disable();
+
+let copyrights = document.getElementsByClassName("mapboxgl-ctrl-bottom-right")[0];
+let watermark = document.getElementsByClassName("mapboxgl-ctrl-bottom-left")[0];
+
+copyrights.remove();
+watermark.remove();
