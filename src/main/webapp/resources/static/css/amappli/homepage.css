@@ -123,19 +123,7 @@ p {
 .cardboard p {
 	transition: clip-path var(--duration) var(--ease);
 	transition-delay: var(--duration);
-	clip-path: polygon(0 0, 0% 0, 0% 100%, 0 100%);
-}
-
-.cardboard:nth-child(odd) {
-	transition-delay: 0.2s;
-}
-
-.cardboard:nth-child(odd)::before {
-	transform-origin: top right;
-}
-
-.cardboard:nth-child(odd) p {
-	clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+	clip-path: polygon(0 0, 0 0, 100% 0%, 100% 0%);
 }
 
 .cardboard[data-viewport-position="0"] {
@@ -147,7 +135,7 @@ p {
 }
 
 .cardboard[data-viewport-position="0"] p {
-	clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+	clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0);
 }
 
 #map {

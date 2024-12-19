@@ -211,14 +211,11 @@
 		<jsp:include page="common/footer.jsp" />
 	</footer>
 
-	<script
-		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
-	<script
-		src="<c:url value='/resources/js/LoadingWhenVisible.js' />"></script>
-	<script
-		src="<c:url value='/resources/js/mapbox/mapbox-gl.js' />"></script>
-	<script
-		src="<c:url value='/resources/js/mapbox/map.js' />"></script>
+	<script	src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
+	<script	src="<c:url value='/resources/js/loading-when-visible.js' />"></script>
+	<script	src="<c:url value='/resources/js/theme-swap.js' />"></script>
+	<script	src="<c:url value='/resources/js/mapbox/mapbox-gl.js' />"></script>
+	<script	src="<c:url value='/resources/js/mapbox/map.js' />"></script>
 </body>
 
 </html>
