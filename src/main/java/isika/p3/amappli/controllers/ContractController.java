@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -24,7 +25,10 @@ import org.springframework.web.multipart.MultipartFile;
 import isika.p3.amappli.entities.contract.Contract;
 import isika.p3.amappli.entities.contract.ContractType;
 import isika.p3.amappli.entities.contract.ContractWeight;
+import isika.p3.amappli.entities.contract.DeliveryDay;
+import isika.p3.amappli.entities.contract.DeliveryRecurrence;
 import isika.p3.amappli.service.ContractService;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/amap/contracts")
@@ -55,6 +59,8 @@ public class ContractController {
 		model.addAttribute("contract", new Contract());
 		model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
 		model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
+		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
+		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
 		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		model.addAttribute("currentDate", currentDate);
 		return "amap/contract-form";
@@ -91,13 +97,30 @@ public class ContractController {
 
 
 	@PostMapping("/add")
-	public String addContract(@ModelAttribute("contract") Contract contract) {
-		contract.setContractName(formatContractName(contract.getContractName()));
+	public String addContract(@Valid @ModelAttribute("contract") Contract contract, BindingResult result, Model model) {
+	    if (result.hasErrors()) {
+	        // Ajouter les listes nécessaires à la vue en cas d'erreur
+	        model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
+	        model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
+	        model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
+	        model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
+	        String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+	        model.addAttribute("currentDate", currentDate);
+	        
+	        return "amap/contract-form"; // Retourner au formulaire en cas d'erreur
+	    }
+	    
+	    // Formatage des champs
+	    contract.setContractName(formatContractName(contract.getContractName()));
 	    contract.setContractDescription(formatContractDescription(contract.getContractDescription()));
-		contract.setDateCreation(LocalDate.now());
-		contractService.save(contract);
-		return "redirect:/amap/contracts/form";
+	    contract.setDateCreation(LocalDate.now());
+	    
+	    // Enregistrer le contrat
+	    contractService.save(contract);
+	    
+	    return "redirect:/amap/contracts/form";
 	}
+
 
 	@GetMapping("/list")
 	public String listContracts(Model model) {
@@ -119,6 +142,8 @@ public class ContractController {
 		model.addAttribute("contract", contract);
 		model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
 		model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
+		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
+		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
 		return "amap/contract-edit";
 	}
 
@@ -134,6 +159,9 @@ public class ContractController {
 		existingContract.setStartDate(updatedContract.getStartDate());
 		existingContract.setEndDate(updatedContract.getEndDate());
 		existingContract.setImageUrl(updatedContract.getImageUrl());
+		existingContract.setDeliveryRecurrence(updatedContract.getDeliveryRecurrence());
+		existingContract.setDeliveryDay(updatedContract.getDeliveryDay());
+		existingContract.setQuantity(updatedContract.getQuantity());
 
 		contractService.save(existingContract);
 		return "redirect:/amap/contracts/list";

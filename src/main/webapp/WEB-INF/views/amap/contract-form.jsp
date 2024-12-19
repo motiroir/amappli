@@ -49,7 +49,6 @@ request.setAttribute("currentPage", currentPage);
 	max-width: 100%;
 	border-radius: 20px;
 }
-
 </style>
 </head>
 <body>
@@ -68,13 +67,16 @@ request.setAttribute("currentPage", currentPage);
 								<!-- Première colonne -->
 								<div class="col-md-4">
 									<div class="mb-3">
-										<input type="text" class="form-control" id="contractName"
-											name="contractName" placeholder="Nom du contrat">
+										<label for="contractName" class="form-label">Nom du
+											panier</label> <input type="text" class="form-control"
+											id="contractName" name="contractName"
+											placeholder="Exemple : Panier d'hiver" required maxlength="100">
 									</div>
 									<div class="mb-3">
-										<select class="form-select form-control" id="contractType"
-											name="contractType">
-											<option selected disabled>Type de panier</option>
+										<label for="contractType" class="form-label">Type de
+											panier</label> <select class="form-select form-control"
+											id="contractType" name="contractType" required>
+											<option selected disabled>Fruits, légumes, mixte ?</option>
 											<option value="FRUITS_CONTRACT">Panier de fruits</option>
 											<option value="VEGETABLES_CONTRACT">Panier de
 												légumes</option>
@@ -82,47 +84,87 @@ request.setAttribute("currentPage", currentPage);
 										</select>
 									</div>
 									<div class="mb-3">
-										<select class="form-select form-control" id="producer"
-											name="producer">
-											<option selected disabled>Producteur</option>
-										</select>
-									</div>
-									<div class="mb-3">
-										<input type="date" class="form-control" id="startDate"
-											name="startDate" min="${currentDate}">
-									</div>
-									<div class="mb-3">
-										<input type="date" class="form-control" id="endDate"
-											name="endDate">
-									</div>
-								</div>
-
-								<!-- Deuxième colonne -->
-								<div class="col-md-4">
-									<div class="mb-3">
-										<textarea class="form-control" id="contractDescription"
-											name="contractDescription" rows="3"
-											placeholder="Description des produits"></textarea>
-									</div>
-									<div class="mb-3">
-										<select class="form-select form-control" id="contractWeight"
-											name="contractWeight">
-											<option selected disabled>Taille du panier</option>
+										<label for="contractWeight" class="form-label">Taille
+											du panier</label> <select class="form-select form-control"
+											id="contractWeight" name="contractWeight" required>
+											<option selected disabled>Petit, moyen, grand ?</option>
 											<option value="SMALL">Petit</option>
 											<option value="AVERAGE">Moyen</option>
 											<option value="BIG">Grand</option>
 										</select>
 									</div>
 									<div class="mb-3">
+										<label for="producer" class="form-label">Producteur</label> <select
+											class="form-select form-control" id="producer"
+											name="producer">
+											<option selected disabled></option>
+										</select>
+									</div>
+									<div class="mb-3">
+										<label for="startDate" class="form-label">Date de
+											début du contrat</label> <input type="date" class="form-control"
+											id="startDate" name="startDate" required min="${currentDate}">
+									</div>
+									<div class="mb-3">
+										<label for="endDate" class="form-label">Date de fin du
+											contrat</label> <input type="date" class="form-control" id="endDate"
+											name="endDate" required>
+									</div>
+								</div>
+
+								<!-- Deuxième colonne -->
+								<div class="col-md-4">
+									<div class="mb-3">
+										<label for="contractDescription" class="form-label">Produits
+											composant le panier</label>
+										<textarea class="form-control" id="contractDescription"
+											name="contractDescription" rows="3"
+											placeholder="Pommes, carottes, oignons..." required maxlength="500"></textarea>
+									</div>
+									<div class="mb-3">
+										<label for="contractPrice" class="form-label">Prix de
+											vente</label>
 										<div class="input-group">
 											<input type="number" class="form-control" id="contractPrice"
-												name="contractPrice" step="0.01" placeholder="Prix">
+												name="contractPrice" step="1.00" placeholder="Prix" required min="0.01">
 											<span class="input-group-text">€</span>
 										</div>
 									</div>
 									<div class="mb-3">
-										<input type="number" class="form-control" id="quantity"
-											name="quantity" placeholder="Quantité">
+										<label for="deliveryRecurrence" class="form-label">Fréquence
+											de livraison au point de collecte</label> <select
+											class="form-select form-control" id="deliveryRecurrence"
+											name="deliveryRecurrence" required>
+											<option selected disabled></option>
+											<option value="WEEKLY">Hebdomadaire</option>
+											<option value="BIMONTHLY">Bimensuel</option>
+											<option value="MONTHLY">Mensuel</option>
+										</select>
+									</div>
+									<div class="mb-3">
+										<label for="deliveryDay" class="form-label">Jour de
+											livraison au point de collecte</label> <select
+											class="form-select form-control" id="deliveryDay"
+											name="deliveryDay" required>
+											<option selected disabled></option>
+											<option value="MONDAY">Lundi</option>
+											<option value="TUESDAY">Mardi</option>
+											<option value="WEDNESDAY">Mercredi</option>
+											<option value="THURSDAY">Jeudi</option>
+											<option value="FRIDAY">Vendredi</option>
+											<option value="SATURDAY">Samedi</option>
+											<option value="SUNDAY">Dimanche</option>
+										</select>
+									</div>
+									<div class="mb-3">
+										<label for="quantity" class="form-label">Quantité
+											disponible entre chaque livraison</label>
+										<div class="input-group">
+											<input type="number" class="form-control" id="quantity"
+												name="quantity" step="1.00" required min="1"
+												placeholder="0">
+											<span class="input-group-text">paniers</span>
+										</div>
 									</div>
 								</div>
 
@@ -130,7 +172,7 @@ request.setAttribute("currentPage", currentPage);
 								<div class="col-md-4">
 									<div class="mb-3 d-flex align-items-center">
 										<input type="text" class="form-control me-2" id="imageUrl"
-											name="imageUrl" placeholder="URL de l'image">
+											name="imageUrl" placeholder="Photo de votre panier" required maxlength="255">
 										<button type="button" class="btn btn-secondary">Ajouter</button>
 									</div>
 
