@@ -45,8 +45,6 @@ public class User {
     @Column(nullable = false)
     private String password;
     
-	@NotBlank(message = "Champ obligatoire.")
-    private String confirmPassword;
 
     private BigDecimal creditBalance;
 

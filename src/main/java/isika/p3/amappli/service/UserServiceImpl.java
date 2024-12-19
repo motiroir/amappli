@@ -10,12 +10,13 @@ import org.springframework.stereotype.Service;
 
 import com.github.javafaker.Faker;
 
+import isika.p3.amappli.dto.UserDTO;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.entities.user.ContactInfo;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.exceptions.EmailAlreadyExistsException;
-import isika.p3.amappli.repo.RoleRepository;
+
 import isika.p3.amappli.repo.TenancyRepository;
 import isika.p3.amappli.repo.UserRepository;
 import jakarta.transaction.Transactional;
@@ -38,9 +39,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private TenancyService tenancyService;
     
+
     
     @Override
-    public User registerUser(User user, Long tenancyId) {
+    @Transactional
+    public User registerUser(UserDTO userDTO, Long tenancyId) {
         // Vérifiez si la tenancy existe
         Tenancy tenancy = tenancyService.getTenancyById(tenancyId);
         if (tenancy == null) {
@@ -48,16 +51,27 @@ public class UserServiceImpl implements UserService {
         }
 
         // Vérifiez si l'email existe déjà pour cette tenancy
-        if (userRepository.existsByEmailAndTenancy(user.getEmail(), tenancy)) {
-            throw new RuntimeException("Un utilisateur avec cet email existe déjà pour cette tenancy.");
+        if (userRepository.existsByEmailAndTenancy(userDTO.getEmail(), tenancy)) {
+            throw new EmailAlreadyExistsException("Un utilisateur avec cet email existe déjà pour cette tenancy.");
         }
+
+        // Convertir UserDTO en entité User
+        User user = new User();
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(userDTO.getPassword());
+        user.setCreditBalance(userDTO.getCreditBalance() != null ? userDTO.getCreditBalance() : BigDecimal.ZERO);
+        user.setAddress(userDTO.getAddress()); // Si address est déjà une entité
+        user.setContactInfo(userDTO.getContactInfo()); // Idem pour contactInfo
+
+        // Encoder le mot de passe
+        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 
         // Associer l'utilisateur à la tenancy
         user.setTenancy(tenancy);
         user.setActive(true); // Activation par défaut
-        user.setCreditBalance(BigDecimal.ZERO);
 
-        // Sauvegarder
+        // Sauvegarder l'utilisateur
         return userRepository.save(user);
     }
 
@@ -68,17 +82,27 @@ public class UserServiceImpl implements UserService {
     }
     
     
-    
-    
-    
-    
-    
-    
+    public User authenticateUser(String email, String password) throws RuntimeException {
+        // Création d'un PasswordEncoder
+        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        
+        User user = userRepository.findByEmail(email);
+        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+            return user;
+        } else {
+            throw new RuntimeException("Email ou mot de passe incorrect.");
+        }
+    }
 
-//    @Autowired
-//    private RoleRepository roleRepository;
-    
 
+    
+    
+    
+    
+    
+    
+    
+    
     @Transactional
     public void addPlatformUser(User user) throws EmailAlreadyExistsException{
         try {
@@ -99,33 +123,6 @@ public class UserServiceImpl implements UserService {
         }
         
     }
-//    
-//    
-//    @Transactional
-//    public void addTenancyUser(User user, Long tenancyId) throws EmailAlreadyExistsException {
-//        try {
-//            PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-//            user.setPassword(passwordEncoder.encode(user.getPassword()));
-//
-//            // Rechercher la Tenancy existante par son ID
-//            Tenancy tenancy = tenancyRepository.findById(tenancyId)
-//                                               .orElseThrow(() -> new RuntimeException("Tenancy not found"));
-//
-//            // Associer l'utilisateur à la Tenancy
-//            user.setTenancy(tenancy);
-//
-//            // Sauvegarder l'utilisateur
-//            userRepository.save(user);
-//
-//        } catch (Exception e) {
-//            throw new RuntimeException("Error while saving user", e);
-//        }
-//    }
-
-    
-    
-    
-    
     
 
     @Transactional
