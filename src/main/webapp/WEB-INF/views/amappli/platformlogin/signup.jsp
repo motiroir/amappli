@@ -10,7 +10,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <style>
     body {
-        background-image: url("/img/peach_lines.svg");
+        background-image: url("/resources/img/peach_lines.svg");
     }
 </style>
 </head>
@@ -30,7 +30,7 @@
         </div>
         <hr>
 
-        <form:form action="${pageContext.request.contextPath}/signup" method="post" modelAttribute="newUserDTO">
+        <form:form action="${pageContext.request.contextPath}/start/signup" method="post" modelAttribute="newUserDTO">
             <div id="form-part-1">
 
                 <div class="mb-3">
@@ -143,6 +143,7 @@
             formPart1.style.display = "none";
             formPart2.style.display = "block";
             progressBar.style.width = "50%";
+            progressBar.ariaValueNow = "50";
         }
 
 

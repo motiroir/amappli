@@ -5,6 +5,7 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import jakarta.servlet.MultipartConfigElement;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRegistration;
@@ -22,6 +23,17 @@ public class WebAppInitializer implements WebApplicationInitializer {
 
 		dispatcher.setLoadOnStartup(1);
 		dispatcher.addMapping("/");
+
+		// Configure multipart handling
+        MultipartConfigElement multipartConfig = new MultipartConfigElement(
+				System.getProperty("java.io.tmpdir"),  // Temporary location for files
+                20971520,        // Max file size: 20MB
+                41943040,        // Max request size: 40MB
+                0                // File size threshold: Write directly to disk
+        );
+        dispatcher.setMultipartConfig(multipartConfig);
 	}
+
+	
 
 }
