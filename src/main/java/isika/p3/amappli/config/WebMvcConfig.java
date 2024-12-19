@@ -12,6 +12,9 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+
+import jakarta.servlet.MultipartConfigElement;
+
 @Configuration
 @ComponentScan("isika")
 @EnableWebMvc
@@ -40,5 +43,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addResourceLocations("/resources/static/")
                 .setCachePeriod(3600);
     }
-   
+    
 }
