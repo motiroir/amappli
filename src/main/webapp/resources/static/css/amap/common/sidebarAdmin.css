@@ -1,0 +1,73 @@
+/* Conteneur de la sidebar */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background-color: #FFFAF8;
+    padding: 20px;
+    border-right: 1px solid #223026;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+}
+
+/* Titres principaux */
+.sidebar .menu-title {
+    font-weight: bold;
+    font-size: 24px;
+    color: #000;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.sidebar .menu-title.active {
+    color: #FFA570;
+}
+
+/* Sous-rubriques */
+.sidebar .submenu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 10px;
+    display: none; /* Masqué par défaut */
+    border-left: 1px solid #223026;
+}
+
+.sidebar .submenu.active {
+    display: block; /* Affiché lorsque l'accordéon est ouvert */
+}
+
+.sidebar .menu-item {
+    font-size: 20px;
+    color: #000;
+    margin: 5px 0;
+    text-decoration: none;
+    display: block;
+}
+
+.sidebar .menu-item.active {
+    color: #FFA570;
+}
+
+.sidebar .menu-item.disabled {
+    color: #A1A1A1;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Badge PRO */
+.sidebar .pro-badge {
+    font-size: 14px;
+    font-weight: bold;
+    color: #A1A1A1;
+    border: 1px solid #A1A1A1;
+    border-radius: 12px;
+    padding: 2px 6px;
+    margin-left: 10px;
+}
+
+/* Séparateurs */
+.sidebar .separator {
+    border-top: 1px solid #223026;
+    margin: 15px 0;
+}
