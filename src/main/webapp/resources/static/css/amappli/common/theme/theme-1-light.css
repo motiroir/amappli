@@ -4,10 +4,10 @@
 }
 
 .theme-1.dark .btn-900 {
-    --bs-btn-color                : var(--orange-100);
+    --bs-btn-color                : var(--orange-100a);
     --bs-btn-bg                   : var(--green-900);
     --bs-btn-border-color         : var(--green-900);
-    --bs-btn-hover-color          : var(--orange-100);
+    --bs-btn-hover-color          : var(--orange-100a);
     --bs-btn-hover-bg             : var(--green-500);
     --bs-btn-hover-border-color   : var(--green-600);
     --bs-btn-focus-shadow-rgb     : 130, 138, 145;
@@ -113,36 +113,36 @@
 
 .theme-1.dark .btn-300 {
     --bs-btn-color                : var(--green-900);
-    --bs-btn-bg                   : var(--orange-100);
-    --bs-btn-border-color         : var(--orange-100);
+    --bs-btn-bg                   : var(--orange-100a);
+    --bs-btn-border-color         : var(--orange-100a);
     --bs-btn-hover-color          : var(--orange-600);
     --bs-btn-hover-bg             : var(--orange-050);
-    --bs-btn-hover-border-color   : var(--orange-100);
+    --bs-btn-hover-border-color   : var(--orange-100a);
     --bs-btn-focus-shadow-rgb     : 130, 138, 145;
     --bs-btn-active-color         : var(--orange-050);
-    --bs-btn-active-bg            : var(--orange-100);
+    --bs-btn-active-bg            : var(--orange-100a);
     --bs-btn-active-border-color  : var(--orange-050);
     --bs-btn-active-shadow        : inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    --bs-btn-disabled-color       : var(--orange-100);
+    --bs-btn-disabled-color       : var(--orange-100a);
     --bs-btn-disabled-bg          : var(--black-400);
-    --bs-btn-disabled-border-color: var(--orange-100);
+    --bs-btn-disabled-border-color: var(--orange-100a);
     font-family                   : 'Nunito Sans';
 }
 
 .theme-1.dark .btn-outline-300 {
-    --bs-btn-color                : var(--orange-100);
-    --bs-btn-border-color         : var(--orange-100);
-    --bs-btn-hover-color          : var(--orange-100);
-    --bs-btn-hover-bg             : var(--orange-100);
-    --bs-btn-hover-border-color   : var(--orange-100);
+    --bs-btn-color                : var(--orange-100a);
+    --bs-btn-border-color         : var(--orange-100a);
+    --bs-btn-hover-color          : var(--orange-100a);
+    --bs-btn-hover-bg             : var(--orange-100a);
+    --bs-btn-hover-border-color   : var(--orange-100a);
     --bs-btn-focus-shadow-rgb     : 108, 117, 125;
     --bs-btn-active-color         : var(--orange-600);
-    --bs-btn-active-bg            : var(--orange-100);
-    --bs-btn-active-border-color  : var(--orange-100);
+    --bs-btn-active-bg            : var(--orange-100a);
+    --bs-btn-active-border-color  : var(--orange-100a);
     --bs-btn-active-shadow        : inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    --bs-btn-disabled-color       : var(--orange-100);
+    --bs-btn-disabled-color       : var(--orange-100a);
     --bs-btn-disabled-bg          : transparent;
-    --bs-btn-disabled-border-color: var(--orange-100);
+    --bs-btn-disabled-border-color: var(--orange-100a);
     --bs-gradient                 : none;
     font-family                   : 'Nunito Sans';
 }
@@ -206,7 +206,7 @@
 }
 
 .theme-1.dark .bg-300 {
-    background-color: var(--orange-100) !important;
+    background-color: var(--orange-100a) !important;
 }
 
 .theme-1.dark .bg-100 {
@@ -218,12 +218,12 @@
 }
 
 .theme-1.dark .navbar {
-    --bs-navbar-color                : rgba(var(--orange-100), 0.65);
-    --bs-navbar-hover-color          : rgba(var(--orange-100), 0.8);
-    --bs-navbar-disabled-color       : rgba(var(--orange-100), 0.3);
-    --bs-navbar-active-color         : rgba(var(--orange-100), 1);
+    --bs-navbar-color                : rgba(var(--orange-100a), 0.65);
+    --bs-navbar-hover-color          : rgba(var(--orange-100a), 0.8);
+    --bs-navbar-disabled-color       : rgba(var(--orange-100a), 0.3);
+    --bs-navbar-active-color         : rgba(var(--orange-100a), 1);
     --bs-navbar-toggler-icon-bg      : url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 190, 152, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-    --bs-navbar-toggler-border-color : var(--orange-100);
+    --bs-navbar-toggler-border-color : var(--orange-100a);
     --bs-navbar-toggler-border-radius: var(--bs-border-radius);
 }
 
@@ -249,7 +249,7 @@
 }
 
 .theme-1.dark .fc-300 {
-    color: var(--orange-100) !important;
+    color: var(--orange-100a) !important;
 }
 
 .theme-1.dark .fc-100 {
@@ -281,7 +281,7 @@
 }
 
 .theme-1.dark .fch-300:hover {
-    color: var(--orange-100) !important;
+    color: var(--orange-100a) !important;
 }
 
 .theme-1.dark .fch-100:hover {
@@ -313,7 +313,7 @@
 }
 
 .theme-1.dark .fill-300 {
-    fill: var(--orange-100) !important;
+    fill: var(--orange-100a) !important;
 }
 
 .theme-1.dark .fill-100 {
