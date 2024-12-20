@@ -1,6 +1,7 @@
 package isika.p3.amappli.service;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Base64;
 import java.util.List;
 
@@ -52,6 +53,8 @@ public class ContractServiceImpl implements ContractService {
 		contract.setDeliveryRecurrence(DeliveryRecurrence.valueOf(contractDTO.getDeliveryRecurrence()));
 		contract.setDeliveryDay(DeliveryDay.valueOf(contractDTO.getDeliveryDay()));
 		contract.setQuantity(contractDTO.getQuantity());
+		contract.setDateCreation(LocalDate.now());
+		
 
 		// Traitement de l'image
 		if (!contractDTO.getImage().isEmpty()) {

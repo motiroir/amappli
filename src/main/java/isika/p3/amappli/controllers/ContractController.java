@@ -97,25 +97,6 @@ public class ContractController {
 	    contractService.save(newContractDTO);
 	    return "redirect:/amap/contracts/list";
 	}
-//	@PostMapping("/add")
-//	public String addContract(@ModelAttribute("contract") Contract contract) {
-//	    try {
-//	        if (contract.getImageFile() != null && !contract.getImageFile().isEmpty()) {
-//	            MultipartFile file = contract.getImageFile();
-//	            contract.setImageUrl(file.getOriginalFilename());
-//	            contract.setImageType(file.getContentType());
-//	            byte[] fileContent = file.getBytes();
-//	            contract.setImageBase64(Base64.getEncoder().encodeToString(fileContent));
-//	        }
-//	    } catch (IOException e) {
-//	        e.printStackTrace();
-//	    }
-//		contract.setContractName(formatContractName(contract.getContractName()));
-//		contract.setContractDescription(formatContractDescription(contract.getContractDescription()));
-//		contract.setDateCreation(LocalDate.now());
-//		contractService.save(contract);
-//		return "redirect:/amap/contracts/list";
-//	}
 
 	@GetMapping("/list")
 	public String listContracts(Model model) {
