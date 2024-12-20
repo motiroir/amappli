@@ -2,20 +2,7 @@ package isika.p3.amappli.entities.contract;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.multipart.MultipartFile;
-
-import isika.p3.amappli.entities.tenancy.Graphism;
-import isika.p3.amappli.entities.tenancy.HomePageContent;
-import isika.p3.amappli.entities.tenancy.Options;
-import isika.p3.amappli.entities.tenancy.ServiceSubscription;
-import isika.p3.amappli.entities.tenancy.Tenancy;
-import isika.p3.amappli.entities.user.Address;
-import isika.p3.amappli.entities.user.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -25,7 +12,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import jakarta.validation.constraints.DecimalMin;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

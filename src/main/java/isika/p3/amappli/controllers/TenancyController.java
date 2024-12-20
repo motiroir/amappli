@@ -1,7 +1,6 @@
 package isika.p3.amappli.controllers;
 
 import java.util.List;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;

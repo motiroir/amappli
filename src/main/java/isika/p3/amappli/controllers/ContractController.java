@@ -1,11 +1,9 @@
 package isika.p3.amappli.controllers;
 
 import java.beans.PropertyEditorSupport;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.Comparator;
 import java.util.List;
 
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
 
 import isika.p3.amappli.dto.ContractDTO;
 import isika.p3.amappli.entities.contract.Contract;

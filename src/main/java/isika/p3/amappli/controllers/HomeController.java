@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import isika.p3.amappli.service.UserService;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/platform")
 public class HomeController {
 
 	private final UserService userService;
@@ -18,7 +18,7 @@ public class HomeController {
 		this.userService = userService;
 	}
 
-	@GetMapping("/")
+	@GetMapping()
 	public String home(Model model) {
 //		model.addAttribute("message","Hadoken");
 		return "amappli/home";

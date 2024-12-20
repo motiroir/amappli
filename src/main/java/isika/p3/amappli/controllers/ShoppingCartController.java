@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import isika.p3.amappli.entities.order.ShoppingCart;
-import isika.p3.amappli.entities.order.ShoppingCartItem;
 import isika.p3.amappli.service.ShoppingCartServiceImpl;
 
 @Controller
