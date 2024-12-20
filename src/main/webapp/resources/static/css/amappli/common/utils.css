@@ -1,44 +1,43 @@
-@import "fonts.css";
-  
+@import "../../common/fonts.css";
+@import "theme/theme-1-dark.css";
+@import "theme/theme-1-light.css";
+
 :root {
-  --peach         : rgb(255, 190, 152);
-  --lightTangerine: #FFB185;
-  --tangerine     : #FFA570;
-  --olive         : #223026;
-  --snow          : #FFFAF8;
+  --orange-050: #ffcbad;
+  --orange-100: #ffbe98;    /* peach */
+  --orange-300: #FFB185;    /* light tangerine */
+  --orange-600: #ffa570;    /* tangerine */
+  --orange-700: #d07946;
+  --orange-900: #B95317;
+  --green-400 : #8dac95;
+  --green-500 : #336140;
+  --green-600 : #284b32;
+  --green-700 : #455449;    /* light olive */
+  --green-800 : #344238;
+  --green-900 : #223026;    /* olive */
+  --white-300 : #FFFAF8;    /* snow */
+  --black-900 : #0e0e0e;
+  --black-700 : #292929;
+  --black-400 : #A1A1A1;
+  --black-200 : #C4C4C4;
 }
 
-
-.btn-olive {
-  --bs-btn-color                : var(--snow);
-  --bs-btn-bg                   : var(--olive);
-  --bs-btn-border-color         : var(--olive);
-  --bs-btn-hover-color          : var(--snow);
-  --bs-btn-hover-bg             : #336140;
-  --bs-btn-hover-border-color   : #284b32;
-  --bs-btn-focus-shadow-rgb     : 130, 138, 145;
-  --bs-btn-active-color         : var(--snow);
-  --bs-btn-active-bg            : #243629;
-  --bs-btn-active-border-color  : #294230;
-  --bs-btn-active-shadow        : inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color       : var(--snow);
-  --bs-btn-disabled-bg          : var(--olive);
-  --bs-btn-disabled-border-color: var(--olive);
+.nunito {
+  font-family: 'Nunito'!important;
 }
 
-.btn-outline-olive {
-  --bs-btn-color                : var(--olive);
-  --bs-btn-border-color         : var(--olive);
-  --bs-btn-hover-color          : var(--snow);
-  --bs-btn-hover-bg             : var(--olive);
-  --bs-btn-hover-border-color   : var(--olive);
-  --bs-btn-focus-shadow-rgb     : 108, 117, 125;
-  --bs-btn-active-color         : var(--snow);
-  --bs-btn-active-bg            : var(--olive);
-  --bs-btn-active-border-color  : var(--olive);
-  --bs-btn-active-shadow        : inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color       : var(--olive);
-  --bs-btn-disabled-bg          : transparent;
-  --bs-btn-disabled-border-color: var(--olive);
-  --bs-gradient                 : none;
+.nunito-sans {
+  font-family: 'Nunito Sans'!important;
+}
+
+.futura {
+  font-family: 'Futura'!important;
+}
+
+.futura-condensed {
+  font-family: 'Futura Condensed'!important;
+}
+
+.pointer {
+  cursor: pointer!important;
 }

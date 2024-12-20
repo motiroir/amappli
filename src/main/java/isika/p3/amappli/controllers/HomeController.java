@@ -18,7 +18,7 @@ public class HomeController {
 		this.userService = userService;
 	}
 
-	@GetMapping("test")
+	@GetMapping("/")
 	public String home(Model model) {
 //		model.addAttribute("message","Hadoken");
 		return "amappli/home";
