@@ -1,11 +1,12 @@
 package isika.p3.amappli.entities.order;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,18 +24,21 @@ public class ShoppingCartItem {
     @Getter @Setter
 	private Long shoppingItemId;
 	
-//	@Getter @Setter
-//	private ShoppingCart shoppingCart;
+	@Getter @Setter
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shoppingCartId", nullable = false)
+	private ShoppingCart shoppingCart;
 	
 	@Getter @Setter
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "shoppableId", nullable = false)
 	private Shoppable shoppable;
 	
 	@Getter @Setter
 	private int quantity;
 
-//	public double getTotalPrice() {
-//		return shoppable.getPrice() * quantity;
-//	}
+	public double getTotalPrice() {
+		return shoppable.getPrice() * quantity;
+	}
 
 }
