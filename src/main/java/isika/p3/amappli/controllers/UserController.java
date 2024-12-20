@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import isika.p3.amappli.dto.LoginDTO;
 import isika.p3.amappli.dto.UserDTO;
-import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.service.UserService;
 import jakarta.validation.Valid;
 
@@ -77,24 +76,24 @@ public class UserController {
     }
 
     // Traitement de la connexion
-    @PostMapping("/login")
-    public String loginUser(@PathVariable("tenancyId") Long tenancyId, 
-                            @Valid LoginDTO loginDTO, 
-                            BindingResult bindingResult, 
-                            Model model) {
-        if (bindingResult.hasErrors()) {
-            return "amap/amaplogin/login";
-        }
+    // @PostMapping("/login")
+    // public String loginUser(@PathVariable("tenancyId") Long tenancyId, 
+    //                         @Valid LoginDTO loginDTO, 
+    //                         BindingResult bindingResult, 
+    //                         Model model) {
+    //     if (bindingResult.hasErrors()) {
+    //         return "amap/amaplogin/login";
+    //     }
 
-        try {
-            User user = userService.authenticateUser(loginDTO.getEmail(), loginDTO.getPassword());
-            // Authentification réussie, 
-            return "redirect:/tenancies/" + tenancyId + "/home"; 
-        } catch (RuntimeException e) {
-            model.addAttribute("error", e.getMessage());
-            return "amap/amaplogin/login";
-        }
-    }
+    //     try {
+    //         User user = userService.authenticateUser(loginDTO.getEmail(), loginDTO.getPassword());
+    //         // Authentification réussie, 
+    //         return "redirect:/tenancies/" + tenancyId + "/home"; 
+    //     } catch (RuntimeException e) {
+    //         model.addAttribute("error", e.getMessage());
+    //         return "amap/amaplogin/login";
+    //     }
+    // }
     
 }
 
