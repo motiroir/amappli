@@ -3,8 +3,10 @@ package isika.p3.amappli.config;
 import org.springframework.lang.NonNull;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import jakarta.servlet.FilterRegistration;
 import jakarta.servlet.MultipartConfigElement;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
@@ -32,6 +34,10 @@ public class WebAppInitializer implements WebApplicationInitializer {
                 0                // File size threshold: Write directly to disk
         );
         dispatcher.setMultipartConfig(multipartConfig);
+
+		// Security Filter
+		FilterRegistration.Dynamic springSecurityFilterChain = servletContext.addFilter("springSecurityFilterChain", new DelegatingFilterProxy());
+		springSecurityFilterChain.addMappingForUrlPatterns(null,false,"/*");
 	}
 
 	

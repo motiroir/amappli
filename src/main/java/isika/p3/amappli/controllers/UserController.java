@@ -53,7 +53,7 @@ public class UserController {
         }
         
         try {
-            userService.registerUser(userDTO, tenancyId);
+            userService.addTenancyUser(userDTO, tenancyId);
             return "redirect:/tenancies/" + tenancyId + "/amap/amaplogin/login-done";
         } catch (RuntimeException e) {
             model.addAttribute("error", e.getMessage());
