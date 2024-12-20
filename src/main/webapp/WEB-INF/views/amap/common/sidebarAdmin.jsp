@@ -7,7 +7,15 @@
             Vos utilisateurs
         </div>
         <ul id="users" class="submenu ${currentMainMenu == 'users' ? 'active' : ''}">
-            <!-- Pas de sous-rubrique pour l'instant -->
+                        <li>
+                <a href="" class="menu-item ${currentPage == '' ? 'active' : ''}">Vos adéhrents</a>
+            </li>
+                        <li>
+                <a href="" class="menu-item ${currentPage == '' ? 'active' : ''}">Vos fournisseurs</a>
+            </li>
+            <li>
+                <a class="menu-item disabled">Vos rôles personnalisés<span class="pro-badge">PRO</span></a>
+            </li>
         </ul>
     </div>
     <div class="separator"></div>
@@ -18,9 +26,10 @@
             Vos produits
         </div>
         <ul id="products" class="submenu ${currentMainMenu == 'products' ? 'active' : ''}">
-            <li>
-                <a href="/amap/contracts" class="menu-item ${currentPage == 'contracts' ? 'active' : ''}">Les contrats</a>
-            </li>
+<li>
+    <a href="<c:url value='/amap/contracts/list' />" class="menu-item ${currentPage == 'contracts' ? 'active' : ''}">Les contrats</a>
+</li>
+
             <li>
                 <a class="menu-item disabled">L'épicerie<span class="pro-badge">PRO</span></a>
             </li>
@@ -54,7 +63,7 @@
     <div class="separator"></div>
 
     <!-- Rubriques PRO -->
-    <div class="menu-title pro">Vos statistiques<span class="pro-badge">PRO</span></div>
+    <div class="menu-title pro">Statistiques<span class="pro-badge">PRO</span></div>
     <div class="menu-title pro">Messagerie<span class="pro-badge">PRO</span></div>
     <div class="menu-title pro">Newsletter<span class="pro-badge">PRO</span></div>
 </div>

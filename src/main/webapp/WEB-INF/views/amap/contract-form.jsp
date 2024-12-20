@@ -49,6 +49,18 @@ request.setAttribute("currentPage", currentPage);
 	max-width: 100%;
 	border-radius: 20px;
 }
+.btn-back {
+	display: inline-flex;
+	align-items: center;
+	color: #FFA570;
+	background: none;
+	border: none;
+	font-size: 40px;
+	font-weight: bold;
+	text-decoration: none;
+	cursor: pointer;
+	margin-bottom: 20px;
+}
 </style>
 </head>
 <body>
@@ -60,6 +72,8 @@ request.setAttribute("currentPage", currentPage);
 			<div class="row justify-content-center">
 				<div class="col-lg-10">
 					<div class="form-container">
+					<a href="<c:url value='/amap/contracts/list' />" class="btn-back">
+							<i class="bi-arrow-left-circle"></i></a>
 						<h2 class="mb-4" style="font-weight: bold; text-align: left;">Ajouter
 							un contrat</h2>
 						<form method="POST" action="/Amappli/amap/contracts/add">

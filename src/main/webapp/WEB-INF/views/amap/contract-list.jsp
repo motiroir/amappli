@@ -18,6 +18,9 @@
 
 
 .table-container {
+    display: flex;
+    justify-content: space-between; /* Ajoute un espacement égal entre le titre et le bouton */
+    align-items: center; /* Aligne verticalement le bouton et le titre */
     background-color: #fff;
     border-radius: 8px;
     padding: 20px;
@@ -71,6 +74,24 @@
     cursor: pointer;
 }
 
+.btn-create {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px; /* Taille du texte */
+    font-weight: bold; /* Texte en gras */
+    color: #FFA570; /* Couleur du texte */
+    border: 2px solid #FFA570; /* Bordure */
+    border-radius: 50px; /* Coins arrondis */
+    padding: 10px 10px; /* Espacement interne */
+    text-decoration: none; /* Supprime le soulignement */
+    background-color: transparent; /* Pas de fond pour l'instant */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+
 .btn-delete:hover {
     background-color: #FFE4C2;
 }
@@ -102,9 +123,10 @@
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="col-12">
-                    <div class="table-container">
-                        <h2 style="font-weight: bold;">Liste des contrats</h2>
-
+<div class="table-container d-flex justify-content-between align-items-center">
+    <h2 style="font-weight: bold;">Liste des contrats</h2>
+    <a href="<c:url value='/amap/contracts/form' />" class="btn-create"><span class="icon">+</span>Créer un contrat</a>
+</div>
                         <!-- Mode tableau pour desktop -->
                         <div class="d-none d-md-block">
                             <table class="table">
@@ -136,8 +158,8 @@
                                             <td>${contract.endDate}</td>
                                             <td>
                                                 <div class='d-flex justify-content-start align-items-center'>
-                                                    <button class="btn-modify me-2"
-                                                        onclick="window.location.href='<c:url value='/amap/contracts/edit/${contract.id}' />'">Modifier</button>
+<!--                                                     <button class="btn-modify me-2" -->
+<%--                                                         onclick="window.location.href='<c:url value='/amap/contracts/edit/${contract.id}' />'">Modifier</button> --%>
                                                     <form method="POST"
                                                         action="<c:url value='/amap/contracts/delete/${contract.id}' />"
                                                         style="display: inline;">
@@ -168,7 +190,7 @@
                                             <strong>Date de début :</strong> ${contract.startDate}
                                         </p>
                                         <div class="d-flex justify-content-between">
-                                            <button class="btn-modify">Modifier</button>
+<!--                                             <button class="btn-modify">Modifier</button> -->
                                             <form method="POST"
                                                 action="<c:url value='/amap/contracts/delete/${contract.id}' />">
                                                 <button type="submit" class="btn-delete">-</button>
