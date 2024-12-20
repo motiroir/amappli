@@ -122,6 +122,14 @@ public class ContractController {
 		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
 		return "amap/contract-edit";
 	}
+	
+	@GetMapping("/detail/{id}")
+	public String viewContractDetail(@PathVariable("id") Long id, Model model) {
+	    Contract contract = contractService.findById(id);
+	    model.addAttribute("contract", contract);
+	    return "amap/contract-detail";
+	}
+
 
 //	@PostMapping("/update")
 //	public String updateContract(@ModelAttribute("contract") Contract updatedContract) {
