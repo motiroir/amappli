@@ -1,5 +1,6 @@
 package isika.p3.amappli.entities.tenancy;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,7 +11,6 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,14 +19,12 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -39,6 +37,10 @@ public class Tenancy {
     @Column(nullable = false)
     private String tenancyName;
 
+    private String tenancySlogan;
+
+    private BigDecimal membershipFeePrice;
+
     @Embedded
     private Address address;
     
@@ -47,6 +49,7 @@ public class Tenancy {
     private LocalDateTime dateLastModified;
 
     @OneToMany(targetEntity = User.class, mappedBy = "tenancy", cascade = CascadeType.ALL)
+    @Builder.Default
     private Set<User> users = new HashSet<User>();
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -56,7 +59,7 @@ public class Tenancy {
     @JoinColumn( name="optionsId")
     private Options options;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "tenancy")
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "homePageContentId")
     private HomePageContent homePageContent;
 

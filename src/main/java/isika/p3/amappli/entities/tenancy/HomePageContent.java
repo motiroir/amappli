@@ -3,6 +3,7 @@ package isika.p3.amappli.entities.tenancy;
 import java.util.List;
 import java.util.ArrayList;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,7 +31,7 @@ public class HomePageContent {
 
     private Boolean showSuppliers;
 
-    @OneToMany( targetEntity = ContentBlock.class, mappedBy = "homePageContent")
+    @OneToMany( targetEntity = ContentBlock.class, mappedBy = "homePageContent", cascade = CascadeType.ALL)
     @Builder.Default
     private List<ContentBlock> contents = new ArrayList<ContentBlock>();
 
