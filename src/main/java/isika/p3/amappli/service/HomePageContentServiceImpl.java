@@ -24,6 +24,7 @@ public class HomePageContentServiceImpl implements HomePageContentService {
     @Override
     public Optional<HomePageContent> getHomePageContentById(Long id) {
         return homePageContentRepository.findById(id);
+        
     }
 
 

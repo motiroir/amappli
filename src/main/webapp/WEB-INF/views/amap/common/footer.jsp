@@ -50,18 +50,18 @@
 				<div class="col-md-4">
 					<h5 class="fw-bold">Où nous trouver ?</h5>
 					<p class="mb-0">Adresse:</p>
-					<p>${tenancy.address.line1}</p>
-					<p>${tenancy.address.line2}</p>
-					<p>${tenancy.address.postCode}</p>
-					<p>${tenancy.address.city}</p>
+
+					<p>${addressLine1}</p>
+					<p>${addressLine2}</p>
+					<p>${addressPostCode}${addressCity}</p>
+
+				</div>
+				<!-- Copyright -->
+				<div class="text-center mt-4">
+					<p class="mb-0">&copy; 2024 Groupe 1 - Projet 3 Isika - Tous
+						droits réservés</p>
 				</div>
 			</div>
-			<!-- Copyright -->
-			<div class="text-center mt-4">
-				<p class="mb-0">&copy; 2024 Groupe 1 - Projet 3 Isika - Tous
-					droits réservés</p>
-			</div>
-		</div>
 	</footer>
 
 	<link

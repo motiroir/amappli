@@ -35,18 +35,19 @@
             <div class="form-part">
 
                 <div class="mb-3">
-                    <form:label for="input-tenancy-slogan" class="form-label display-6" path="tenancyName">Quel est le nom de votre AMAP ?</form:label>
-                    <form:input type="text" class="form-control" id="input-tenancy-slogan" aria-describedby="input-tenancy-slogan" path="tenancySlogan" required="true" aria-required="true"/>
-                    <form:errors path="tenancySlogan" class="invalid-feedback d-block" />
+                    <form:label for="input-tenancy-name" class="form-label display-6" path="tenancyName">Quel est le nom de votre AMAP ?</form:label>
+                        <form:input type="text" class="form-control" id="input-tenancy-name" aria-describedby="input-tenancy-name" path="tenancyName" required="true" aria-required="true"/>
+                    <form:errors path="tenancyName" class="invalid-feedback d-block" />
                 </div>
             </div>
 
             <div class="form-part">
 
                 <div class="mb-3">
-                    <form:label for="input-tenancy-name" class="form-label display-6" path="tenancyName">Quel est le slogan de votre AMAP ?</form:label>
-                    <form:input type="text" class="form-control" id="input-tenancy-name" aria-describedby="input-tenancy-name" path="tenancyName" required="true" aria-required="true"/>
-                    <form:errors path="tenancyName" class="invalid-feedback d-block" />
+                    <form:label for="input-tenancy-slogan" class="form-label display-6" path="tenancyName">Quel est le slogan de votre AMAP ?</form:label>
+                    <form:input type="text" class="form-control" id="input-tenancy-slogan" aria-describedby="input-tenancy-slogan" path="tenancySlogan" required="true" aria-required="true"/>
+                    <form:errors path="tenancySlogan" class="invalid-feedback d-block" />
+                
                 </div>
             </div>
 
