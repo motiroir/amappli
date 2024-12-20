@@ -2,8 +2,6 @@ package isika.p3.amappli.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,7 +16,6 @@ import isika.p3.amappli.dto.ValueDTO;
 import isika.p3.amappli.entities.tenancy.ColorPalette;
 import isika.p3.amappli.entities.tenancy.ContentBlock;
 import isika.p3.amappli.entities.tenancy.FontChoice;
-import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.exceptions.EmailAlreadyExistsException;
 import isika.p3.amappli.service.ContentBlockService;
 import isika.p3.amappli.service.TenancyService;
@@ -53,16 +50,10 @@ public class LoginController {
         if(result.hasErrors()){
             return "amappli/platformlogin/signup";
         }
-        // Get info from DTO into new User
-        User user = new User();
-        BeanUtils.copyProperties(newUserDTO,user);
-        // Nested properties are not copied by BeanUtils
-        user.setAddress(newUserDTO.getAddress());
-        user.setContactInfo(newUserDTO.getContactInfo());
-
+        
         // Write user in DB
         try {
-            userService.addPlatformUser(user);
+            userService.addPlatformUser(newUserDTO);
         }
         catch (EmailAlreadyExistsException e)
         {

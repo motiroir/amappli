@@ -3,6 +3,7 @@ package isika.p3.amappli.service;
 import java.math.BigDecimal;
 import java.util.Locale;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.javafaker.Faker;
 
+import isika.p3.amappli.dto.NewUserDTO;
 import isika.p3.amappli.dto.UserDTO;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.Address;
@@ -77,18 +79,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
-    public void addPlatformUser(User user) throws EmailAlreadyExistsException{
+    public void addPlatformUser(NewUserDTO newUserDTO) throws EmailAlreadyExistsException{
         try {
-            user.setPassword(
-                passwordEncoder.encode(user.getPassword())
-            );
+            // Get info from DTO into new User
+            User user = new User();
+            BeanUtils.copyProperties(newUserDTO,user);
+            // Nested properties are not copied by BeanUtils
+            user.setAddress(newUserDTO.getAddress());
+            user.setContactInfo(newUserDTO.getContactInfo());
+
             // At first, the platform user has no tenancy space
             user.setTenancy(null);
             // The user is active, he's only deactivated if there's a problem
             user.setActive(true);
             // The user has 0 credits by default
             user.setCreditBalance(new BigDecimal(0));
-            userRepository.save(user);
+            saveUser(user); //encoding done inside
         }
         catch (RuntimeException e){
             throw new EmailAlreadyExistsException("Cet email est déjà utilisé.");
@@ -123,19 +129,19 @@ public class UserServiceImpl implements UserService {
                 .isActive(true)
                 .build();
             
-            addPlatformUser(u);
+            saveUser(u);
         }
 
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'loadUserByUsername'");
     }
 
     @Override
     public void saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
