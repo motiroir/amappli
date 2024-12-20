@@ -13,14 +13,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "contracts")
@@ -30,53 +22,36 @@ public class Contract {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-    @NotBlank(message = "Le nom du contrat est obligatoire.")
-    @Size(max = 100, message = "Le nom du contrat ne doit pas dépasser 100 caractères.")
 	private String contractName;
 
-    @NotNull(message = "Le type de contrat est obligatoire.")
 	@Enumerated(EnumType.STRING)
 	public ContractType contractType;
 
-    @NotBlank(message = "La description est obligatoire.")
-    @Size(max = 500, message = "La description ne doit pas dépasser 500 caractères.")
+	@Column(length = 500)
 	private String contractDescription;
 
-    @NotNull(message = "La taille du contrat est obligatoire.")
 	@Enumerated(EnumType.STRING)
 	private ContractWeight contractWeight;
 
-    @NotNull(message = "Le prix est obligatoire.")
-    @DecimalMin(value = "0.01", message = "Le prix doit être supérieur à 0.")
-    @Column(precision = 10, scale = 2)
-    private BigDecimal contractPrice;
+	private BigDecimal contractPrice;
 
-    @Size(max = 255, message = "L'URL de l'image ne doit pas dépasser 255 caractères.")
 	private String imageUrl;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateCreation;
 
-    @NotNull(message = "La date de début est obligatoire.")
-    @FutureOrPresent(message = "La date de début doit être dans le futur ou aujourd'hui.")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate startDate;
 
-    @NotNull(message = "La date de fin est obligatoire.")
-    @Future(message = "La date de fin doit être dans le futur.")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate endDate;
 	
-    @NotNull(message = "La fréquence de livraison est obligatoire.")
-    @Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.STRING)
 	private DeliveryRecurrence deliveryRecurrence;
 	
-    @NotNull(message = "Le jour de livraison est obligatoire.")
-    @Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.STRING)
 	private DeliveryDay deliveryDay;
 	
-    @NotNull(message = "La quantité est obligatoire.")
-    @Min(value = 1, message = "La quantité doit être au moins de 1 panier.")
 	private Integer quantity;
 	
 

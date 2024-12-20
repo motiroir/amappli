@@ -11,7 +11,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -28,7 +27,6 @@ import isika.p3.amappli.entities.contract.ContractWeight;
 import isika.p3.amappli.entities.contract.DeliveryDay;
 import isika.p3.amappli.entities.contract.DeliveryRecurrence;
 import isika.p3.amappli.service.ContractService;
-import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/amap/contracts")
@@ -65,62 +63,43 @@ public class ContractController {
 		model.addAttribute("currentDate", currentDate);
 		return "amap/contract-form";
 	}
-	
+
 	private String formatContractName(String name) {
-	    if (name == null || name.isEmpty()) {
-	        return name;
-	    }
-	    name = name.trim().toLowerCase();
-	    return name.substring(0, 1).toUpperCase() + name.substring(1);
+		if (name == null || name.isEmpty()) {
+			return name;
+		}
+		name = name.trim().toLowerCase();
+		return name.substring(0, 1).toUpperCase() + name.substring(1);
 	}
-	
+
 	private String formatContractDescription(String description) {
-	    if (description == null || description.isEmpty()) {
-	        return description;
-	    }
+		if (description == null || description.isEmpty()) {
+			return description;
+		}
 
-	    description = description.trim().toLowerCase();
-	    String[] sentences = description.split("\\.\\s*");
+		description = description.trim().toLowerCase();
+		String[] sentences = description.split("\\.\\s*");
 
-	    StringBuilder formattedDescription = new StringBuilder();
-	    for (String sentence : sentences) {
-	        if (!sentence.isEmpty()) {
-	            formattedDescription.append(sentence.substring(0, 1).toUpperCase())
-	                                .append(sentence.substring(1))
-	                                .append(". ");
-	        }
-	    }
+		StringBuilder formattedDescription = new StringBuilder();
+		for (String sentence : sentences) {
+			if (!sentence.isEmpty()) {
+				formattedDescription.append(sentence.substring(0, 1).toUpperCase()).append(sentence.substring(1))
+						.append(". ");
+			}
+		}
 
-	    // Supprimer l'espace supplémentaire à la fin
-	    return formattedDescription.toString().trim();
+		// Supprimer l'espace supplémentaire à la fin
+		return formattedDescription.toString().trim();
 	}
-
 
 	@PostMapping("/add")
-	public String addContract(@Valid @ModelAttribute("contract") Contract contract, BindingResult result, Model model) {
-	    if (result.hasErrors()) {
-	        // Ajouter les listes nécessaires à la vue en cas d'erreur
-	        model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
-	        model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
-	        model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
-	        model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
-	        String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-	        model.addAttribute("currentDate", currentDate);
-	        
-	        return "amap/contract-form"; // Retourner au formulaire en cas d'erreur
-	    }
-	    
-	    // Formatage des champs
-	    contract.setContractName(formatContractName(contract.getContractName()));
-	    contract.setContractDescription(formatContractDescription(contract.getContractDescription()));
-	    contract.setDateCreation(LocalDate.now());
-	    
-	    // Enregistrer le contrat
-	    contractService.save(contract);
-	    
-	    return "redirect:/amap/contracts/form";
+	public String addContract(@ModelAttribute("contract") Contract contract) {
+		contract.setContractName(formatContractName(contract.getContractName()));
+		contract.setContractDescription(formatContractDescription(contract.getContractDescription()));
+		contract.setDateCreation(LocalDate.now());
+		contractService.save(contract);
+		return "redirect:/amap/contracts/form";
 	}
-
 
 	@GetMapping("/list")
 	public String listContracts(Model model) {
@@ -153,7 +132,7 @@ public class ContractController {
 
 		existingContract.setContractName(formatContractName(updatedContract.getContractName()));
 		existingContract.setContractType(updatedContract.getContractType());
-	    existingContract.setContractDescription(formatContractDescription(updatedContract.getContractDescription()));
+		existingContract.setContractDescription(formatContractDescription(updatedContract.getContractDescription()));
 		existingContract.setContractWeight(updatedContract.getContractWeight());
 		existingContract.setContractPrice(updatedContract.getContractPrice());
 		existingContract.setStartDate(updatedContract.getStartDate());
@@ -166,5 +145,4 @@ public class ContractController {
 		contractService.save(existingContract);
 		return "redirect:/amap/contracts/list";
 	}
-
 }

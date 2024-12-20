@@ -12,11 +12,6 @@
 <link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />"
 	rel="stylesheet">
 <style>
-body {
-	background-color: #f9f9f9;
-	font-family: Arial, sans-serif;
-}
-
 .form-container {
 	background-color: #fff;
 	border-radius: 8px;
@@ -71,37 +66,19 @@ body {
 							<div class="col-md-4">
 								<div class="mb-3">
 									<label for="contractName" class="form-label">Nom du
-										contrat</label>
+										panier</label>
 									<form:input path="contractName" class="form-control"
 										placeholder="Nom du contrat" />
 								</div>
 								<div class="mb-3">
 									<label for="contractType" class="form-label">Types de
-										produit</label>
+										panier</label>
 									<form:select path="contractType"
 										class="form-select form-control">
 										<c:forEach var="type" items="${contractTypes}">
 											<form:option value="${type}" label="${type.displayName}" />
 										</c:forEach>
 									</form:select>
-								</div>
-								<div class="mb-3">
-									<label for="startDate" class="form-label">Date de début</label>
-									<form:input path="startDate" type="date" class="form-control" />
-								</div>
-								<div class="mb-3">
-									<label for="endDate" class="form-label">Date de fin</label>
-									<form:input path="endDate" type="date" class="form-control" />
-								</div>
-							</div>
-
-							<!-- Deuxième colonne -->
-							<div class="col-md-4">
-								<div class="mb-3">
-									<label for="contractDescription" class="form-label">Description
-										des produits</label>
-									<form:textarea path="contractDescription" rows="3"
-										class="form-control" placeholder="Description des produits"></form:textarea>
 								</div>
 								<div class="mb-3">
 									<label for="contractWeight" class="form-label">Taille</label>
@@ -112,15 +89,57 @@ body {
 										</c:forEach>
 									</form:select>
 								</div>
+								
+											<!-- Ajouter producteur -->
 								<div class="mb-3">
-									<label for="contractPrice" class="form-label">Prix</label>
+									<label for="startDate" class="form-label">Date de début du contrat</label>
+									<form:input path="startDate" type="date" class="form-control" />
+								</div>
+								<div class="mb-3">
+									<label for="endDate" class="form-label">Date de fin du contrat</label>
+									<form:input path="endDate" type="date" class="form-control" />
+								</div>
+							</div>
+
+							<!-- Deuxième colonne -->
+							<div class="col-md-4">
+								<div class="mb-3">
+									<label for="contractDescription" class="form-label">Produits composant le panier</label>
+									<form:textarea path="contractDescription" rows="3"
+										class="form-control" placeholder="Description des produits"></form:textarea>
+								</div>
+								<div class="mb-3">
+									<label for="contractPrice" class="form-label">Prix de vente</label>
 									<div class="input-group">
 										<form:input path="contractPrice" type="number" step="0.01"
 											class="form-control" placeholder="Prix" />
 										<span class="input-group-text">€</span>
 									</div>
 								</div>
-							</div>
+                                <div class="mb-3">
+                                    <label for="deliveryRecurrence" class="form-label">Fréquence de livraison</label>
+                                    <form:select path="deliveryRecurrence" class="form-select form-control">
+                                        <c:forEach var="recurrence" items="${deliveryRecurrence}">
+                                            <form:option value="${recurrence}" label="${recurrence.displayName}" />
+                                        </c:forEach>
+                                    </form:select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="deliveryDay" class="form-label">Jour de livraison</label>
+                                    <form:select path="deliveryDay" class="form-select form-control">
+                                        <c:forEach var="day" items="${deliveryDay}">
+                                            <form:option value="${day}" label="${day.displayName}" />
+                                        </c:forEach>
+                                    </form:select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="quantity" class="form-label">Quantité</label>
+                                    <div class="input-group">
+                                        <form:input path="quantity" type="number" step="1" class="form-control" placeholder="Quantité" />
+                                        <span class="input-group-text">paniers</span>
+                                    </div>
+                                </div>
+                            </div>
 
 							<!-- Troisième colonne -->
 							<div class="col-md-4">
