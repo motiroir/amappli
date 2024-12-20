@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import isika.p3.amappli.entities.order.ShoppingCart;
 import isika.p3.amappli.entities.order.ShoppingCartItem;
@@ -30,17 +31,27 @@ public class ShoppingCartController {
     }
 
     @PostMapping("/{cartId}/add")
-    public String addItem(@PathVariable("cartId") Long cartId, @ModelAttribute ShoppingCartItem item) {
-        shoppingCartService.addItemToCart(cartId, item);
+    public String addItem(@PathVariable("cartId") Long cartId,
+                          @RequestParam("shoppableId") Long shoppableId,
+                          @RequestParam("quantity") int quantity) {
+    	System.out.println("Received cartId: " + cartId + ", shoppableId: " + shoppableId + ", quantity: " + quantity);
+        shoppingCartService.addItemToCart(cartId, shoppableId, quantity);
         return "redirect:/cart/" + cartId;
     }
 
-    @PostMapping("/{cartId}/remove/{itemId}")
-    public String removeItem(@PathVariable("cartId") Long cartId, @PathVariable Long itemId) {
-        shoppingCartService.removeItemFromCart(cartId, itemId);
+    @PostMapping("/{cartId}/updateQuantity/{itemId}")
+    public String updateItemQuantity(
+            @PathVariable("cartId") Long cartId, 
+            @PathVariable("itemId") Long itemId, 
+            @ModelAttribute("action") String action) {
+        if ("increase".equals(action)) {
+            shoppingCartService.increaseItemQuantity(cartId, itemId);
+        } else if ("decrease".equals(action)) {
+            shoppingCartService.decreaseItemQuantity(cartId, itemId);
+        }
         return "redirect:/cart/" + cartId;
     }
-    
+
     
     @GetMapping("/init")
     public String initializeCart() {

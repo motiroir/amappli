@@ -37,20 +37,65 @@ public class ShoppingCartServiceImpl {
         return cart;
     }
     
-    public ShoppingCart addItemToCart(Long cartId, ShoppingCartItem item) {
+    public ShoppingCart addItemToCart(Long cartId, Long shoppableId, int quantity) {
         ShoppingCart cart = getOrCreateCart(cartId);
-        item.setShoppingCart(cart);
-        cart.getShoppingCartItems().add(item);
-        itemsRepo.save(item); 
-        return shoppingCartRepo.save(cart); 
-    }    
+
+        ProductMock product = productMockRepo.findById(shoppableId)
+                .orElseThrow(() -> new RuntimeException("Product not found with ID: " + shoppableId));
+
+        // check if stock is enough
+        if (product.getStock() < quantity) {
+            throw new RuntimeException("Insufficient stock for product: " + product.getName());
+        }
+
+        // check if item is alreay in shoppingCart
+        ShoppingCartItem existingItem = cart.getShoppingCartItems().stream()
+                .filter(item -> item.getShoppable().getId().equals(shoppableId))
+                .findFirst()
+                .orElse(null);
+
+        if (existingItem != null) {
+            // if item is in shopping cart change quantity
+            existingItem.setQuantity(existingItem.getQuantity() + quantity);
+        } else {
+            // if not add item
+            ShoppingCartItem newItem = ShoppingCartItem.builder()
+                    .shoppingCart(cart)
+                    .shoppable(product)
+                    .quantity(quantity)
+                    .build();
+            cart.getShoppingCartItems().add(newItem);
+            itemsRepo.save(newItem);
+        }
+
+        return shoppingCartRepo.save(cart);
+    }  
     
-    public ShoppingCart removeItemFromCart(Long cartId, Long itemId) {
-        ShoppingCart cart = getOrCreateCart(cartId);
-        cart.getShoppingCartItems().removeIf(item -> item.getShoppingItemId().equals(itemId));
-        itemsRepo.deleteById(itemId); 
-        return shoppingCartRepo.save(cart); 
-    }   
+    public void increaseItemQuantity(Long cartId, Long itemId) {
+        ShoppingCart cart = getShoppingCartById(cartId);
+        cart.getShoppingCartItems().stream()
+            .filter(item -> item.getShoppingItemId().equals(itemId))
+            .findFirst()
+            .ifPresent(item -> item.setQuantity(item.getQuantity() + 1));
+        shoppingCartRepo.save(cart);
+    }
+
+    public void decreaseItemQuantity(Long cartId, Long itemId) {
+        ShoppingCart cart = getShoppingCartById(cartId);
+        cart.getShoppingCartItems().stream()
+            .filter(item -> item.getShoppingItemId().equals(itemId))
+            .findFirst()
+            .ifPresent(item -> {
+                if (item.getQuantity() > 1) {
+                    item.setQuantity(item.getQuantity() - 1);
+                } else {
+                    // delete item if quantity gets to 0
+                    cart.getShoppingCartItems().remove(item);
+                }
+            });
+        shoppingCartRepo.save(cart);
+    }
+
     
     public double calculateTotal(Long cartId) {
         ShoppingCart cart = getOrCreateCart(cartId);
