@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (currentIndex < allFormParts.length - 1) {
                 currentIndex++;
                 updateVisibility();
-                if(currentIndex == 9) {
+                if(currentIndex == allFormParts.length - 2) {
                     computeOptionChoice();
                 }
             }
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (currentIndex > 0){
             currentIndex--;
             updateVisibility();
-            if(currentIndex == 9) {
+            if(currentIndex == allFormParts.length - 2) {
                 computeOptionChoice();
             }
         }

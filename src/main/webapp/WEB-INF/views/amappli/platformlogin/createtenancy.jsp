@@ -35,15 +35,65 @@
             <div class="form-part">
 
                 <div class="mb-3">
-                    <form:label for="input-tenancy-name" class="form-label display-6" path="tenancyName">Quel est le nom de votre amap ?</form:label>
+                    <form:label for="input-tenancy-slogan" class="form-label display-6" path="tenancyName">Quel est le nom de votre AMAP ?</form:label>
+                    <form:input type="text" class="form-control" id="input-tenancy-slogan" aria-describedby="input-tenancy-slogan" path="tenancySlogan" required="true" aria-required="true"/>
+                    <form:errors path="tenancySlogan" class="invalid-feedback d-block" />
+                </div>
+            </div>
+
+            <div class="form-part">
+
+                <div class="mb-3">
+                    <form:label for="input-tenancy-name" class="form-label display-6" path="tenancyName">Quel est le slogan de votre AMAP ?</form:label>
                     <form:input type="text" class="form-control" id="input-tenancy-name" aria-describedby="input-tenancy-name" path="tenancyName" required="true" aria-required="true"/>
                     <form:errors path="tenancyName" class="invalid-feedback d-block" />
                 </div>
             </div>
 
             <div class="form-part">
+
+                <div class="mb-3">
+                    <form:label for="input-membership-price" class="form-label display-6" path="membershipFeePrice">Combien coûte la cotisation annuelle dans votre AMAP ?</form:label>
+                    <form:input type="text" class="form-control" id="input-membership-price" aria-describedby="input-tenancy-name" path="membershipFeePrice" required="true" aria-required="true"/>
+                    <form:errors path="membershipFeePrice" class="invalid-feedback d-block" />
+                </div>
+            </div>
+
+            <div class="form-part">
+                <h1 class="display-6">Où se situe votre AMAP?</h1>
+                <div class="mb-3">
+                    <form:label for="address-line1" class="form-label" path="address.line1">Ligne 1</form:label>
+                    <form:input type="text" class="form-control" id="address-line1" path="address.line1"/>
+                    <form:errors path="address.line1" class="invalid-feedback d-block" />
+                </div>
+
+                <div class="mb-3">
+                    <form:label for="address-line2" class="form-label" path="address.line2">Ligne 2</form:label>
+                    <form:input type="text" class="form-control" id="address-line2" path="address.line2" required="true" aria-required="true"/>
+                    <form:errors path="address.line2" class="invalid-feedback d-block" />
+                </div>
+
+                <div class="mb-3">
+                    <form:label for="address-postcode" class="form-label" path="address.postCode">Code Postal</form:label>
+                    <form:input type="text" class="form-control" id="address-postcode" path="address.postCode" required="true" aria-required="true"/>
+                    <form:errors path="address.postCode" class="invalid-feedback d-block" />
+                </div>
+
+                <div class="mb-3">
+                    <form:label for="address-city" class="form-label" path="address.city">Ville</form:label>
+                    <form:input type="text" class="form-control" id="address-city" path="address.city" required="true" aria-required="true"/>
+                    <form:errors path="address.city" class="invalid-feedback d-block" />
+                </div>
+            </div>
+
+            <div class="form-part">
+                <h1 class="display-6">Avez-vous un logo ?</h1>
+                <form:input type="file" class="form-control" id="input-logo" aria-describedby="input-logo" path="logo" accept="image/png,image/jpeg,image/svg"/>
+            </div>
+
+            <div class="form-part">
                 <h1 class="display-6">Quelles sont vos valeurs ?</h1>
-                <p>changed again again!</p>
+                <p>Elles apparaîtront sur votre page d'accueil.</p>
                 <div id="value-form" class="d-flex flex-row justify-content-center">
                 <c:forEach items="${newTenancyDTO.values}" var="valueDTO" varStatus="status">
                     <div class="mb-3 d-flex flex-column">
@@ -52,9 +102,15 @@
                         <form:input type="file" class="form-control" id="input-value-description-${status.index}" aria-describedby="input-value-file" path="values[${status.index}].file" accept="image/png,image/jpeg,image/svg"/>
                     </div>
                 </c:forEach>
-                </div>
-                
-                
+                </div>               
+            </div>
+
+            <div class="form-part">
+                <h1 class="display-6">Présentez-vous à vos adhérents!</h1>
+                <p>Vous pourrez ajouter plus de contenu sur votre page d'accueil par la suite.</p>
+                <form:input class="form-control" id="input-hp-title" aria-describedby="input-hp-title" path="firstHomePageTitle" />
+                <form:textarea class="form-control" id="input-hp-text" aria-describedby="input-hp-text" path="firstHomePageText" />
+                <form:input type="file" class="form-control" id="input-hp-image" aria-describedby="input-hp-image" path="firstHomePagePic" accept="image/png,image/jpeg,image/svg"/>
             </div>
 
             <div class="form-part">
@@ -171,10 +227,11 @@
             <div class="form-part">
                 <h1 class="display-6">Choississez maintenant votre abonnement à Amappli:</h1>
 
-                <form:radiobutton path="option1" value="true" label="Petit potager" id="option-1" name="option-selection" />
-                <form:radiobutton path="option2" value="true" label="Verger" id="option-2" name="option-selection" />
-                <form:radiobutton path="option3" value="true" label="Ferme" id="option-3" name="option-selection" />
-
+                <ul>
+                    <li><form:radiobutton path="option1" value="true" label="Petit potager" id="option-1" name="option-selection" /></li>
+                    <li><form:radiobutton path="option2" value="true" label="Verger" id="option-2" name="option-selection" /></li>
+                    <li><form:radiobutton path="option3" value="true" label="Ferme" id="option-3" name="option-selection" /></li>
+                </ul>
                 <button type="submit" class="btn btn-primary">Valider</button>
             </div>
 

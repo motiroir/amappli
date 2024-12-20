@@ -37,7 +37,7 @@ public class ContentBlock {
     private String contentImg;
 
     @ManyToOne
-    @JoinColumn( name = "homePageContentId", nullable = false)
+    @JoinColumn( name = "homePageContentId")
     private HomePageContent homePageContent;
 
 

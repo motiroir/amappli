@@ -1,5 +1,6 @@
 package isika.p3.amappli.entities.tenancy;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,6 +37,10 @@ public class Tenancy {
 
     @Column(nullable = false)
     private String tenancyName;
+
+    private String tenancySlogan;
+
+    private BigDecimal membershipFeePrice;
 
     @Embedded
     private Address address;
