@@ -5,8 +5,17 @@
 <html>
 <head>
 <title>Shopping Cart</title>
+
+<link rel="stylesheet" href="<c:url value='/resources/bootstrap/bootstrap.min.css'/>" />
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+<link rel="stylesheet" href="<c:url value='/resources/css/amap/common/header.css' />">
+<link rel="stylesheet" href="<c:url value='/resources/css/amap/common/footer.css' />">
+<link rel="stylesheet" href="<c:url value='/resources/css/amap/homePage.css' />">
 </head>
 <body>
+
+ <jsp:include page="common/header.jsp" />
+ <div id="map"></div>
 	<h1>Shopping Cart</h1>
 
 	<table border="1">
@@ -50,5 +59,8 @@
     <input type="number" name="quantity" id="quantity" required>
     <button type="submit">Add to Cart</button>
 </form>
+
+
+ <jsp:include page="common/footer.jsp" />
 </body>
 </html>
