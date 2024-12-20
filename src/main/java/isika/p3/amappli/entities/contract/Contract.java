@@ -1,5 +1,6 @@
 package isika.p3.amappli.entities.contract;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,7 +22,6 @@ public class Contract {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false)
 	private String contractName;
 
 	@Enumerated(EnumType.STRING)
@@ -33,8 +33,7 @@ public class Contract {
 	@Enumerated(EnumType.STRING)
 	private ContractWeight contractWeight;
 
-	@Column(nullable = false)
-	private Double contractPrice;
+	private BigDecimal contractPrice;
 
 	private String imageUrl;
 
@@ -46,6 +45,15 @@ public class Contract {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate endDate;
+	
+	@Enumerated(EnumType.STRING)
+	private DeliveryRecurrence deliveryRecurrence;
+	
+	@Enumerated(EnumType.STRING)
+	private DeliveryDay deliveryDay;
+	
+	private Integer quantity;
+	
 
 	public Long getId() {
 		return id;
@@ -63,7 +71,7 @@ public class Contract {
 		return contractWeight;
 	}
 
-	public Double getContractPrice() {
+	public BigDecimal getContractPrice() {
 		return contractPrice;
 	}
 
@@ -87,6 +95,30 @@ public class Contract {
 		return contractType;
 	}
 
+	public DeliveryRecurrence getDeliveryRecurrence() {
+		return deliveryRecurrence;
+	}
+
+	public DeliveryDay getDeliveryDay() {
+		return deliveryDay;
+	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setDeliveryRecurrence(DeliveryRecurrence deliveryRecurrence) {
+		this.deliveryRecurrence = deliveryRecurrence;
+	}
+
+	public void setDeliveryDay(DeliveryDay deliveryDay) {
+		this.deliveryDay = deliveryDay;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
 	public void setContractType(ContractType contractType) {
 		this.contractType = contractType;
 	}
@@ -107,7 +139,7 @@ public class Contract {
 		this.contractWeight = contractWeight;
 	}
 
-	public void setContractPrice(Double contractPrice) {
+	public void setContractPrice(BigDecimal contractPrice) {
 		this.contractPrice = contractPrice;
 	}
 

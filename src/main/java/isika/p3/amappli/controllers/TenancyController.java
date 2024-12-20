@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import isika.p3.amappli.entities.tenancy.HomePageContent;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.service.TenancyService;
 
@@ -26,15 +27,35 @@ public class TenancyController {
 		// Appeler la méthode pour ajouter les tenancies de test
 		tenancyService.addTestTenancies();
 		model.addAttribute("message", "Test tenancies added successfully!");
-		return "tenancy/tenancy-list";
+		return "amappli/tenancy/tenancy-list";
 	}
 
 	@GetMapping
 	public String getAllTenancies(Model model) {
 		List<Tenancy> tenancies = tenancyService.getAllTenancies();
 		model.addAttribute("tenancies", tenancies);
-		return "tenancy/tenancy-list";
+		System.out.println(tenancies.size());
+		return "amappli/tenancy/tenancy-list";
 	}
+	
+	@GetMapping("/{id}/home")
+    public String getHomePageContent(@PathVariable("id") Long id, Model model) {
+        HomePageContent homePageContent = tenancyService.getHomePageContentByTenancyId(id);
+        
+        Tenancy tenancy = tenancyService.getTenancyById(id);
+        
+        if (homePageContent != null) {
+            model.addAttribute("homePageContent", homePageContent);
+            model.addAttribute("tenancyName", tenancy.getTenancyName()); 
+        } else {
+            model.addAttribute("message", "Page d'accueil non trouvée.");
+        }
+        
+        return "amap/homePage"; 
+    }
+	
+	
+	
 
 	@GetMapping("/{id}")
 	public String getTenancyById(@PathVariable Long id, Model model) {
@@ -60,5 +81,7 @@ public class TenancyController {
 		tenancyService.deleteTenancy(id);
 		return "redirect:/tenancies";
 	}
+	
+	
 
 }

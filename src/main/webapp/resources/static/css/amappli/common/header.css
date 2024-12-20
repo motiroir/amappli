@@ -1,26 +1,2 @@
-header {
-    background-color: var(--olive);
-    color           : var(--peach);
-}
-
-header .nav-link {
-    color          : var(--peach);
-    text-decoration: none;
-}
-
-header .nav-link:hover {
-    color: var(--tangerine);
-}
-
-header .navbar {
-    --bs-navbar-toggler-border-color: var(--peach);
-}
-
-header .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 190, 152, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}
-
-header #logo-header {
-    max-height: 100px;
-    object-fit: contain;
-}
+/* yes it is empty
+I let it here so we don't think we forgot it */

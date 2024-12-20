@@ -20,10 +20,13 @@ import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -43,8 +46,7 @@ public class Tenancy {
 
     private LocalDateTime dateLastModified;
 
-    @OneToMany(targetEntity = User.class, mappedBy = "tenancy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @Builder.Default
+    @OneToMany(targetEntity = User.class, mappedBy = "tenancy", cascade = CascadeType.ALL)
     private Set<User> users = new HashSet<User>();
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -54,7 +56,7 @@ public class Tenancy {
     @JoinColumn( name="optionsId")
     private Options options;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "tenancy")
     @JoinColumn(name = "homePageContentId")
     private HomePageContent homePageContent;
 

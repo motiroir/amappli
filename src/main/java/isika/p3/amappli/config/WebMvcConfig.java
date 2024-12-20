@@ -6,37 +6,38 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.validation.Validator;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import jakarta.servlet.MultipartConfigElement;
 
 @Configuration
 @ComponentScan("isika")
 @EnableWebMvc
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    @Autowired
-    private Validator validator; // Autowire the validator bean from the container
+	@Autowired
+	private Validator validator; // Autowire the validator bean from the container
 
-    @Override
-    public Validator getValidator() {
-        return validator; // Return the autowired validator
-    }
+	@Override
+	public Validator getValidator() {
+		return validator; // Return the autowired validator
+	}
 
-    @Bean(name = "viewResolver")
-    public InternalResourceViewResolver getViewResolver() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setPrefix("/WEB-INF/views/");
-        viewResolver.setSuffix(".jsp");
-        return viewResolver;
-    }
+	@Bean(name = "viewResolver")
+	public InternalResourceViewResolver getViewResolver() {
+		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+		viewResolver.setPrefix("/WEB-INF/views/");
+		viewResolver.setSuffix(".jsp");
+		return viewResolver;
+	}
 
-    @Override
-    public void addResourceHandlers(@NonNull ResourceHandlerRegistry registry) {
-        registry
-                .addResourceHandler("/resources/**")
-                .addResourceLocations("/resources/static/")
-                .setCachePeriod(3600);
-    }
+	@Override
+	public void addResourceHandlers(@NonNull ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/static/").setCachePeriod(3600);
+	}
+
 }
