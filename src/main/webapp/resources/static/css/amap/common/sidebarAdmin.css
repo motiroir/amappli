@@ -71,3 +71,142 @@
     border-top: 1px solid #223026;
     margin: 15px 0;
 }
+
+.form-container {
+	background-color: #fff;
+	border-radius: 8px;
+}
+
+.form-control {
+	border-radius: 20px;
+	border: 1px solid #000000;
+	color: #000000;
+}
+
+.form-control::placeholder {
+	color: #A1A1A1;
+}
+
+.btn-custom {
+	background-color: #FFA570;
+	color: #000000;
+	border: none;
+	border-radius: 100px;
+}
+
+.btn-custom:hover {
+	background-color: #e69500;
+}
+
+.image-preview {
+	max-width: 100%;
+	border-radius: 20px;
+}
+.btn-back {
+	display: inline-flex;
+	align-items: center;
+	color: #FFA570;
+	background: none;
+	border: none;
+	font-size: 40px;
+	font-weight: bold;
+	text-decoration: none;
+	cursor: pointer;
+	margin-bottom: 20px;
+}
+
+
+
+.table-container {
+    display: flex;
+    justify-content: space-between; /* Ajoute un espacement égal entre le titre et le bouton */
+    align-items: center; /* Aligne verticalement le bouton et le titre */
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table th {
+    font-weight: bold;
+    font-size: 16px;
+    border-bottom: 2px solid #000;
+    text-align: left;
+    padding: 10px;
+}
+
+.table td {
+    font-size: 16px;
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.btn-modify {
+    font-size: 16px;
+    font-weight: bold;
+    color: #FFA570;
+    border: 2px solid #FFA570;
+    border-radius: 5px;
+    padding: 5px 10px;
+    background: none;
+    cursor: pointer;
+}
+
+.btn-modify:hover {
+    background-color: #FFE4C2;
+}
+
+.btn-delete, .btn-view {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #FFA570;
+    border-radius: 50%;
+    font-size: 20px;
+    color: #FFA570;
+    background: none;
+    cursor: pointer;
+	margin-right: 5px;
+}
+
+.btn-delete:hover, .btn-view:hover {
+    background-color: #FFE4C2;
+}
+
+.btn-create {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px; /* Taille du texte */
+    font-weight: bold; /* Texte en gras */
+    color: #FFA570; /* Couleur du texte */
+    border: 2px solid #FFA570; /* Bordure */
+    border-radius: 50px; /* Coins arrondis */
+    padding: 10px 10px; /* Espacement interne */
+    text-decoration: none; /* Supprime le soulignement */
+    background-color: transparent; /* Pas de fond pour l'instant */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+@media ( max-width : 768px) {
+    .table-container {
+        overflow-x: auto;
+    }
+    .table th, .table td {
+        white-space: nowrap;
+    }
+    .d-md-none {
+        display: block !important;
+    }
+    .d-md-table-cell {
+        display: none !important;
+    }
+}

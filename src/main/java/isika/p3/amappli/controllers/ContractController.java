@@ -94,7 +94,7 @@ public class ContractController {
 		contract.setContractDescription(formatContractDescription(contract.getContractDescription()));
 		contract.setDateCreation(LocalDate.now());
 		contractService.save(contract);
-		return "redirect:/amap/contracts/form";
+		return "redirect:/amap/contracts/list";
 	}
 
 	@GetMapping("/list")

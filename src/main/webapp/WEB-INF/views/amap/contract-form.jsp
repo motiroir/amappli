@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" 
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <%
@@ -18,49 +18,15 @@ request.setAttribute("currentPage", currentPage);
 <link
 	href="<c:url value='/resources/css/amap/common/sidebarAdmin.css' />"
 	rel="stylesheet">
+	
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+	
 <style>
-.form-container {
-	background-color: #fff;
-	border-radius: 8px;
-}
-
-.form-control {
-	border-radius: 20px;
-	border: 1px solid #000000;
-	color: #000000;
-}
-
-.form-control::placeholder {
-	color: #A1A1A1;
-}
-
-.btn-custom {
-	background-color: #FFA570;
-	color: #000000;
-	border: none;
-	border-radius: 100px;
-}
-
-.btn-custom:hover {
-	background-color: #e69500;
-}
-
-.image-preview {
-	max-width: 100%;
-	border-radius: 20px;
-}
-.btn-back {
-	display: inline-flex;
-	align-items: center;
-	color: #FFA570;
-	background: none;
-	border: none;
-	font-size: 40px;
-	font-weight: bold;
-	text-decoration: none;
-	cursor: pointer;
-	margin-bottom: 20px;
-}
+    .header-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
 </style>
 </head>
 <body>
@@ -72,10 +38,13 @@ request.setAttribute("currentPage", currentPage);
 			<div class="row justify-content-center">
 				<div class="col-lg-10">
 					<div class="form-container">
-					<a href="<c:url value='/amap/contracts/list' />" class="btn-back">
-							<i class="bi-arrow-left-circle"></i></a>
-						<h2 class="mb-4" style="font-weight: bold; text-align: left;">Ajouter
-							un contrat</h2>
+                        <div class="header-container">
+                            <a href="<c:url value='/amap/contracts/list' />" class="btn-back">
+                                <i class="bi bi-arrow-left-circle"></i>
+                            </a>
+                            <h2 class="mb-4" style="font-weight: bold; text-align: left;">Ajouter
+                                un contrat</h2>
+                        </div>
 						<form method="POST" action="/Amappli/amap/contracts/add">
 							<div class="row">
 								<!-- Première colonne -->
