@@ -8,12 +8,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-  <h1>Liste des Amaps </h1>
-    <ul>
-        <c:forEach var="tenancy" items="${tenancies}">
-            <li>${tenancy.tenancyName} </li>
-        </c:forEach>
-    </ul>
+<h1>Ajout des rôles</h1>
+
+    <c:if test="${not empty message}">
+        <p style="color: green;">${message}</p>
+    </c:if>
+    <c:if test="${not empty error}">
+        <p style="color: red;">${error}</p>
+    </c:if>
+
     
 </body>
 </html>

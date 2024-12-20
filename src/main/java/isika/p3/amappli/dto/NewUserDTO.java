@@ -48,4 +48,7 @@ public class NewUserDTO {
 
     private Tenancy tenancy;
 
+  
+    
+
 }

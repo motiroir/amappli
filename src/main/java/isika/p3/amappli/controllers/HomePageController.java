@@ -18,19 +18,12 @@ public class HomePageController {
 	@Autowired
 	private HomePageContentService homePageContentService;
 
-	// @GetMapping("/tenancyHome")
-	// public String displayHomePage(Model model) {
-	// List<HomePageContent> contentList = homePageContentService.findAll();
-	// model.addAttribute("contents", contentList);
-	// return "tenancyHome";
-	// }
-
 	// Page d'accueil
-	@GetMapping
+	@GetMapping("/amapHomePage")
 	public String getHomePage(Model model) {
 		HomePageContent homePageContent = homePageContentService.getCurrentHomePageContent();
 		model.addAttribute("homePageContent", homePageContent);
-		return "homePage"; // La vue homePage.jsp
+		return "amap/homePage";
 	}
 
 	// Formulaire pour mettre à jour le sous-titre de la page d'accueil
@@ -46,6 +39,6 @@ public class HomePageController {
 		} else {
 			model.addAttribute("message", "Erreur lors de la mise à jour du titre.");
 		}
-		return "homePage"; // Retourne à la vue homePage.jsp
+		return "amap/homePage"; // Retourne à la vue homePage.jsp
 	}
 }
