@@ -26,6 +26,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.DecimalMin;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -55,6 +56,7 @@ public class Contract {
 	@Enumerated(EnumType.STRING)
 	private ContractWeight contractWeight;
 
+	@DecimalMin(value = "0.01", message = "Le prix doit être supérieur à 0.")
 	private BigDecimal contractPrice;
 
 	@Column(name = "image_type")

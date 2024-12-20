@@ -109,7 +109,7 @@ request.setAttribute("currentPage", currentPage);
 											vente</label>
 										<div class="input-group">
 											<input type="number" class="form-control" id="contractPrice"
-												name="contractPrice" step="1.00" placeholder="Prix">
+												name="contractPrice" step="0.01" placeholder="Prix">
 											<span class="input-group-text">€</span>
 										</div>
 									</div>
