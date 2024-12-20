@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,7 +33,8 @@ public class Graphism {
 
     private String logoImgType;
 
-    private Byte[] logoImg;
+    @Lob
+    private String logoImg;
 
     @OneToOne
     @JoinColumn(name = "tenancyId")

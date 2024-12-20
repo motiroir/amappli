@@ -7,10 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Inscription sur Amappli</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link href="<c:url value='/resources/bootstrap/bootstrap.min.css'/>" rel="stylesheet">
 <style>
     body {
-        background-image: url("/img/peach_lines.svg");
+        background-image: url("<c:url value='/resources/img/peach_lines.svg'/>");
     }
 </style>
 </head>
@@ -30,7 +30,7 @@
         </div>
         <hr>
 
-        <form:form action="${pageContext.request.contextPath}/signup" method="post" modelAttribute="newUserDTO">
+        <form:form action="${pageContext.request.contextPath}/start/signup" method="post" modelAttribute="newUserDTO">
             <div id="form-part-1">
 
                 <div class="mb-3">
@@ -124,30 +124,7 @@
         </form:form>
 
     </div>
-    <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        let formPart1 = document.getElementById("form-part-1");
-        let formPart2 = document.getElementById("form-part-2");
-        let connectPart = document.getElementById("connect");
-        let signUpButton = document.getElementById("sign-up-button");
-        let progressBar = document.getElementById("the-progress-bar");
-
-        formPart2.style.display = "none";
-
-        signUpButton.addEventListener("click", function() {
-            continueSignUp();
-        });
-
-        function continueSignUp() {
-            connectPart.style.display = "none";
-            formPart1.style.display = "none";
-            formPart2.style.display = "block";
-            progressBar.style.width = "50%";
-        }
-
-
-    });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </script src="<c:url value='/resources/js/platformsignup.js'/>"></script>
+    <script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js'/>"></script>
 </body>
 </html>

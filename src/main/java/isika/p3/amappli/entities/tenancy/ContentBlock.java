@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,16 +23,21 @@ public class ContentBlock {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long contentBlockId;
 
+    private boolean isValue;
+
     private String contentTitle;
 
     private String contentText;
 
-    private String contentImgType;
+    private String contentImgName;
 
-    private Byte[] contentImg;
+    private String contentImgTypeMIME;
+
+    @Lob
+    private String contentImg;
 
     @ManyToOne
-    @JoinColumn( name = "homePageContentId", nullable = false)
+    @JoinColumn( name = "homePageContentId")
     private HomePageContent homePageContent;
 
 
