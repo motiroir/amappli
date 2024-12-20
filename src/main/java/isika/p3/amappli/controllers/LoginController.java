@@ -1,8 +1,6 @@
 package isika.p3.amappli.controllers;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -19,9 +17,7 @@ import isika.p3.amappli.dto.NewUserDTO;
 import isika.p3.amappli.dto.ValueDTO;
 import isika.p3.amappli.entities.tenancy.ColorPalette;
 import isika.p3.amappli.entities.tenancy.ContentBlock;
-import isika.p3.amappli.entities.tenancy.Graphism;
-import isika.p3.amappli.entities.tenancy.HomePageContent;
-import isika.p3.amappli.entities.tenancy.Tenancy;
+import isika.p3.amappli.entities.tenancy.FontChoice;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.exceptions.EmailAlreadyExistsException;
 import isika.p3.amappli.service.ContentBlockService;
@@ -87,50 +83,18 @@ public class LoginController {
         model.addAttribute("newTenancyDTO",newTenancyDTO);
         // Give the color palettes options for the form
         model.addAttribute("colorPalettes",ColorPalette.values());
+        model.addAttribute("fontChoices", FontChoice.values());
         return "amappli/platformlogin/createtenancy";
     }
 
     @PostMapping("/creation")
     public String tenancyCreation(@ModelAttribute("newTenancyDTO") NewTenancyDTO newTenancyDTO) {
-        System.out.println("Received Tenancy Name: " + newTenancyDTO.getTenancyName());
 
-        Tenancy tenancy = new Tenancy();
-        Graphism graphism  = new Graphism();
-        HomePageContent homePageContent = new HomePageContent();
-        for(ValueDTO v : newTenancyDTO.getValues()) {
-            if( v.getName().length() > 0) {
-                ContentBlock cb = ContentBlock.builder()
-                            .isValue(true)
-                            .contentTitle(v.getName())
-                            .contentText(v.getDescription())
-                            .build();
-                if(!v.getFile().isEmpty()) {
-                    cb.setContentImgName(v.getFile().getOriginalFilename());
-                    cb.setContentImgTypeMIME(v.getFile().getContentType());
-                    try {
-                        System.out.println("v.getFile() type: " + v.getFile().getClass().getName());
-                       byte[] thebytes = v.getFile().getBytes();
-                       cb.setContentImg(Base64.getEncoder().encodeToString(thebytes));
-                       System.out.println("Byte data length: " + v.getFile().getBytes().length);  // Log the byte length
-                    } catch (IOException e) {
-                        System.out.println("something went wrong setting the bytes");
-                        e.printStackTrace();
-                    }
-                }
-                cb.setHomePageContent(homePageContent);
-                //contentBlockService.save(cb);
-                homePageContent.getContents().add(cb);
-            }
-        }
-        tenancy.setHomePageContent(homePageContent);
-        tenancy.setTenancyName(newTenancyDTO.getTenancyName());
-        graphism.setColorPalette(newTenancyDTO.getColorPalette());
-        tenancy.setGraphism(graphism);
-        tenancyService.createTenancy(tenancy);
+        tenancyService.createTenancyFromWelcomeForm(newTenancyDTO);
         return "amappli/platformlogin/signupdone";
     }
 
-    @GetMapping("/start/showimg")
+    @GetMapping("/showimg")
     public String tryToShowImg(Model model){
         ContentBlock cb = contentBlockService.findById(1L);
         String base64Image = "data:"+cb.getContentImgTypeMIME()+";base64," + cb.getContentImg();

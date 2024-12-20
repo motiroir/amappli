@@ -7,49 +7,41 @@
 <head>
 <meta charset="UTF-8">
 <title>Création de votre espace AMAP</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link href="<c:url value='/resources/bootstrap/bootstrap.min.css'/>" rel="stylesheet">
 <style>
     body {
         background-image: url("<c:url value='/resources/img/peach_lines.svg'/>");
     }
 </style>
 </head>
-<body>
+<body class="d-flex justify-content-center">
     <div class="container w-75 p-5 h-75">
 
-        <div class="title d-flex">
-            <h1 class="display-4 w-100">Faisons connaissance</h1>
+        <div class="title">
+            <h1 class="display-4">Faisons connaissance</h1>
             <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
                 <div class="progress-bar" style="width: 0%" id="the-progress-bar"></div>
             </div>
         </div>
         <hr>
 
-        <div id="form-part-0">
+        <div class="form-part">
             <p>Pour vous aider à créer le site de votre AMAP, nous allons vous poser une série de questions pour mieux vous connaître. Cela devrait prendre moins de 5 minutes. Veuillez préparer les informations concernant votre AMAP.</p>
             <h1 class="display-6">Etes-vous prêts ?</h1>
-            <button type="button" class="rounded-pill bg-primary" id="continue-button-0">c'est parti !</button>
         </div>
 
         <form:form action="${pageContext.request.contextPath}/start/creation" method="post" modelAttribute="newTenancyDTO" enctype="multipart/form-data">
-            <div id="form-part-1">
+            
+            <div class="form-part">
 
                 <div class="mb-3">
                     <form:label for="input-tenancy-name" class="form-label display-6" path="tenancyName">Quel est le nom de votre amap ?</form:label>
                     <form:input type="text" class="form-control" id="input-tenancy-name" aria-describedby="input-tenancy-name" path="tenancyName" required="true" aria-required="true"/>
                     <form:errors path="tenancyName" class="invalid-feedback d-block" />
-
-
-                <button type="button" class="rounded-pill bg-primary" id="go-back-button-1">
-                        Retour
-                </button>
-                <button type="button" class="rounded-pill bg-primary" id="continue-button-1">
-                        Continuer
-                </button>
                 </div>
             </div>
 
-            <div id="form-part-2">
+            <div class="form-part">
                 <h1 class="display-6">Quelles sont vos valeurs ?</h1>
                 <p>changed again again!</p>
                 <div id="value-form" class="d-flex flex-row justify-content-center">
@@ -61,72 +53,143 @@
                     </div>
                 </c:forEach>
                 </div>
-                <button type="button" class="rounded-pill bg-primary" id="go-back-button-1">
-                    Retour
-                </button>
-                <button type="button" class="rounded-pill bg-primary" id="continue-button-1">
-                    Continuer
-                </button>
+                
                 
             </div>
 
-            <div id="form-part-3">
+            <div class="form-part">
+                <div id="font-choices" class="d-flex flex-row justify-content-center">
+                    <c:forEach items="${fontChoices}" var="font">
+                        <img src="<c:url value='/resources/img/logo_amappli_peach.png' />" with="100" height="100"/>
+                        <form:radiobutton path="fontChoice" value="${font}" label="${font}" name="font-selection" />
+                    </c:forEach>
+                </div>
+                
+            </div>
+
+            <div class="form-part">
                 <div id="palette-choices" class="d-flex flex-row justify-content-center">
                     <c:forEach items="${colorPalettes}" var="palette">
                         <img src="<c:url value='/resources/img/logo_amappli_peach.png' />" with="100" height="100"/>
                         <form:radiobutton path="colorPalette" value="${palette}" label="${palette}" name="palette-selection" />
                     </c:forEach>
                 </div>
-                <button type="button" class="rounded-pill bg-primary" id="go-back-button-1">
-                    Retour
-                </button>
-                <button type="button" class="rounded-pill bg-primary" id="continue-button-1">
-                    Continuer
-                </button>
+                
             </div>
 
-            <div id="form-part-4">
-                <h1 class="display-6">Des paniers oui, mais quoi d'autres ?</h1>
+            <div class="form-part">
+                <h1 class="display-6">Des paniers oui, mais quoi d'autre ?</h1>
 
                 <ul>
-                    <li>
-                        <span>Est-ce que vous vendez des produits à l'unité en plus de vos paniers ?</span>
-                        <form:radiobutton path="marketPlace" value="true" name="question-1" class="btn-check" id="question-1-true"/>
-                        <label class="btn btn-outline-primary" for="question-1-true">Oui</label>
-                        <form:radiobutton path="marketPlace" value="false" name="question-1" class="btn-check" id="question-1-false"/>
-                        <label class="btn btn-outline-primary" for="question-1-false">Non</label>
+                    <li class="d-flex flex-row">
+                        <span class="float-start">Est-ce que vous vendez des produits à l'unité en plus de vos paniers ?</span>
+                        <input type="radio" value="true" name="question-1" class="btn-check float-end" id="question-1-true" checked/>
+                        <label class="btn btn-outline-primary float-end" for="question-1-true">Oui</label>
+                        <input type="radio" value="false" name="question-1" class="btn-check float-end" id="question-1-false"/>
+                        <label class="btn btn-outline-primary float-end" for="question-1-false">Non</label>
                     </li>
                     <li>
                         <span>Est-ce que vous souhaitez proposer des lots et des promos à vos adhérents ?</span>
-                        <form:radiobutton path="promos" value="true" name="question-1" class="btn-check" id="question-2-true"/>
+                        <input type="radio" value="true" name="question-2" class="btn-check" id="question-2-true" checked/>
                         <label class="btn btn-outline-primary" for="question-2-true">Oui</label>
-                        <form:radiobutton path="promos" value="false" name="question-1" class="btn-check" id="question-2-false"/>
+                        <input type="radio" value="false" name="question-2" class="btn-check" id="question-2-false"/>
                         <label class="btn btn-outline-primary" for="question-2-false">Non</label> 
                     </li>
                     <li>
                         <span>Organisez-vous des ateliers que vous souhaiteriez mettre à disposition de vos adhérents sur ce site ?</span>
-                        <form:radiobutton path="events" value="true" name="question-1" class="btn-check" id="question-3-true"/>
+                        <input type="radio" value="true" name="question-3" class="btn-check" id="question-3-true" checked/>
                         <label class="btn btn-outline-primary" for="question-3-true">Oui</label>
-                        <form:radiobutton path="events" value="false" name="question-1" class="btn-check" id="question-3-false"/>
+                        <input type="radio" value="false" name="question-3" class="btn-check" id="question-3-false"/>
                         <label class="btn btn-outline-primary" for="question-3-false">Non</label> 
                     </li>
                 </ul>
             </div>
 
-            <div id="form-part-x">
+            <div class="form-part">
+                <h1 class="display-6">Des paniers oui, mais quoi d'autre ?</h1>
 
-              
+                <ul>
+                    <li class="d-flex flex-row">
+                        <span class="float-start">Voulez-vous activer le paiement en ligne ?</span>
+                        <input type="radio" value="true" name="question-4" class="btn-check" id="question-4-true" checked/>
+                        <label class="btn btn-outline-primary float-end" for="question-4-true">Oui</label>
+                        <input type="radio" value="false" name="question-4" class="btn-check" id="question-1-false"/>
+                        <label class="btn btn-outline-primary float-end" for="question-4-false">Non</label>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form-part">
+                <h1 class="display-6">Des paniers oui, mais quoi d'autre ?</h1>
+
+                <ul>
+                    <li class="d-flex flex-row">
+                        <span class="float-start">Souhaitez-vous que vos producteurs puissent ajouter eux-même leurs produits sur le site ?</span>
+                        <input type="radio" value="true" name="question-5" class="btn-check float-end" id="question-5-true" checked/>
+                        <label class="btn btn-outline-primary float-end" for="question-5-true">Oui</label>
+                        <input type="radio" value="false" name="question-5" class="btn-check float-end" id="question-5-false"/>
+                        <label class="btn btn-outline-primary float-end" for="question-5-false">Non</label>
+                    </li>
+                    <li>
+                        <span>Est-ce que vous souhaitez donner des accès personnalisés à vos bénévoles ? Par exemple leur permettre d’accéder à la liste des commandes de vos adhérents mais sans leur donner accès à leurs informations personnelles.</span>
+                        <input type="radio" value="true" name="question-6" class="btn-check" id="question-6-true" checked/>
+                        <label class="btn btn-outline-primary" for="question-6-true">Oui</label>
+                        <input type="radio" value="false" name="question-6" class="btn-check" id="question-6-false"/>
+                        <label class="btn btn-outline-primary" for="question-6-false">Non</label> 
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form-part">
+                <h1 class="display-6">Des paniers oui, mais quoi d'autre ?</h1>
+
+                <ul>
+                    <li>
+                        <span>Souhaitez-vous avoir la possibilité d’afficher des statistiques à partir de vos données ?</span>
+                        <input type="radio" value="true" name="question-7" class="btn-check" id="question-7-true" checked/>
+                        <label class="btn btn-outline-primary" for="question-7-true">Oui</label>
+                        <input type="radio" value="false" name="question-7" class="btn-check" id="question-7-false"/>
+                        <label class="btn btn-outline-primary" for="question-7-false">Non</label> 
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form-part">
+                <h1 class="display-6">Des paniers oui, mais quoi d'autre ?</h1>
+
+                <ul>
+                    <li>
+                        <span>Souhaitez-vous améliorer le quotidien de vos adhérents en leur proposant des options de favoris, et la possibilité de choisir entre un thème dark et un thème light ?</span>
+                        <input type="radio" value="true" name="question-8" class="btn-check" id="question-8-true" checked/>
+                        <label class="btn btn-outline-primary" for="question-8-true">Oui</label>
+                        <input type="radio" value="false" name="question-8" class="btn-check" id="question-8-false"/>
+                        <label class="btn btn-outline-primary" for="question-8-false">Non</label> 
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form-part">
+                <h1 class="display-6">Choississez maintenant votre abonnement à Amappli:</h1>
+
+                <form:radiobutton path="option1" value="true" label="Petit potager" id="option-1" name="option-selection" />
+                <form:radiobutton path="option2" value="true" label="Verger" id="option-2" name="option-selection" />
+                <form:radiobutton path="option3" value="true" label="Ferme" id="option-3" name="option-selection" />
+
                 <button type="submit" class="btn btn-primary">Valider</button>
             </div>
 
+            <div id="nav-button">
+                <button type="button" class="rounded-pill bg-primary" id="go-back-button">
+                    Retour
+                </button>
+                <button type="button" class="rounded-pill bg-primary" id="continue-button">
+                    Continuer
+                </button>
+            </div>
         </form:form>
 
     </div>
-    <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        
-    });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js'/>"></script>
+    <script src="<c:url value='/resources/js/tenancycreation.js'/>"></script>
 </body>
 </html>

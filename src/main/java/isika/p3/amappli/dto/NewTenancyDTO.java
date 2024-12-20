@@ -3,6 +3,8 @@ package isika.p3.amappli.dto;
 import java.util.List;
 
 import isika.p3.amappli.entities.tenancy.ColorPalette;
+import isika.p3.amappli.entities.tenancy.FontChoice;
+import isika.p3.amappli.entities.user.Address;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,10 +17,15 @@ public class NewTenancyDTO {
 
     private ColorPalette colorPalette;
 
-    private boolean marketPlace;
+    private boolean option1;
 
-    private boolean promos;
+    private boolean option2;
 
-    private boolean events;
+    private boolean option3;
 
+    private FontChoice fontChoice;
+
+    private boolean newAdress;
+
+    private Address address;
 }
