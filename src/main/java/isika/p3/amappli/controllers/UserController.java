@@ -27,7 +27,6 @@ public class UserController {
     // Afficher le formulaire d'inscription
     @GetMapping("/signup")
     public String showRegistrationForm(@PathVariable("tenancyId") Long tenancyId, Model model) {
-        // Créer un nouvel objet UserDTO pour le formulaire
         UserDTO userDTO = new UserDTO();
         model.addAttribute("userDTO", userDTO);
         model.addAttribute("tenancyId", tenancyId);
@@ -48,7 +47,7 @@ public class UserController {
                                BindingResult bindingResult,
                                Model model) {
         if (bindingResult.hasErrors()) {
-            // Si des erreurs de validation existent, renvoyer le formulaire avec les erreurs
+           
             model.addAttribute("userDTO", userDTO);
             return "amap/amaplogin/signup-form";
         }
@@ -89,13 +88,14 @@ public class UserController {
 
         try {
             User user = userService.authenticateUser(loginDTO.getEmail(), loginDTO.getPassword());
-            // Authentification réussie, redirigez l'utilisateur vers la page d'accueil ou le tableau de bord
-            return "redirect:/tenancies/" + tenancyId + "/home"; // Changez cette URL selon votre logique
+            // Authentification réussie, 
+            return "redirect:/tenancies/" + tenancyId + "/home"; 
         } catch (RuntimeException e) {
             model.addAttribute("error", e.getMessage());
             return "amap/amaplogin/login";
         }
     }
+    
 }
 
 

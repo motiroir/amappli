@@ -81,5 +81,7 @@ public class TenancyController {
 		tenancyService.deleteTenancy(id);
 		return "redirect:/tenancies";
 	}
+	
+	
 
 }
