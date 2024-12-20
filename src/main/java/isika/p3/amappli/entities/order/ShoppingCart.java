@@ -1,7 +1,7 @@
 package isika.p3.amappli.entities.order;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
 
 import isika.p3.amappli.entities.user.User;
 import jakarta.persistence.CascadeType;
@@ -39,6 +39,6 @@ public class ShoppingCart {
 	@Builder.Default
 	//@OneToMany(targetEntity = ShoppingCartItem.class, mappedBy="shoppingCart", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@OneToMany(mappedBy = "shoppingCart", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<ShoppingCartItem> shoppingCartItems = new HashSet<ShoppingCartItem>();
+	private List<ShoppingCartItem> shoppingCartItems = new ArrayList<ShoppingCartItem>();
 	
 }

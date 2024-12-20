@@ -30,7 +30,7 @@ public class ShoppingCartItem {
 	private ShoppingCart shoppingCart;
 	
 	@Getter @Setter
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "shoppableId", nullable = false)
 	private Shoppable shoppable;
 	

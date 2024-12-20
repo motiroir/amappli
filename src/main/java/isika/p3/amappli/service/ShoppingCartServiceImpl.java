@@ -9,8 +9,10 @@ import isika.p3.amappli.entities.order.ShoppingCartItem;
 import isika.p3.amappli.repo.ProductMockRepository;
 import isika.p3.amappli.repo.ShoppingCartItemRepository;
 import isika.p3.amappli.repo.ShoppingCartRepository;
+import jakarta.transaction.Transactional;
 
 @Service
+@Transactional
 public class ShoppingCartServiceImpl {
 
 	@Autowired
@@ -24,6 +26,15 @@ public class ShoppingCartServiceImpl {
 	// get shopping cart by id or create new 
     public ShoppingCart getOrCreateCart(Long cartId) {
         return shoppingCartRepo.findById(cartId).orElse(new ShoppingCart());
+    }
+    
+    @Transactional
+    public ShoppingCart getShoppingCartById(Long id) {
+        ShoppingCart cart = shoppingCartRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Shopping Cart not found"));
+        // force initialization of  items
+        cart.getShoppingCartItems().size();
+        return cart;
     }
     
     public ShoppingCart addItemToCart(Long cartId, ShoppingCartItem item) {
@@ -72,6 +83,7 @@ public class ShoppingCartServiceImpl {
         productMockRepo.save(product3);
 
         ShoppingCart cart = ShoppingCart.builder().build();
+        shoppingCartRepo.save(cart);
 
         ShoppingCartItem item1 = ShoppingCartItem.builder()
                 .shoppingCart(cart)
@@ -92,9 +104,6 @@ public class ShoppingCartServiceImpl {
         itemsRepo.save(item2);
         itemsRepo.save(item3);
         
-        cart.getShoppingCartItems().add(item2);
-        cart.getShoppingCartItems().add(item3);
-        shoppingCartRepo.save(cart);
     }
 	
 }

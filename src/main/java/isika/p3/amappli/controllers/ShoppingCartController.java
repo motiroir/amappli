@@ -22,7 +22,8 @@ public class ShoppingCartController {
 	
     @GetMapping("/{cartId}")
     public String viewCart(@PathVariable("cartId") Long cartId, Model model) {
-        ShoppingCart cart = shoppingCartService.getOrCreateCart(cartId);
+        //ShoppingCart cart = shoppingCartService.getOrCreateCart(cartId);
+        ShoppingCart cart = shoppingCartService.getShoppingCartById(cartId);
         model.addAttribute("cart", cart);
         model.addAttribute("total", shoppingCartService.calculateTotal(cartId));
         return "amap/shopping-cart";
@@ -44,7 +45,7 @@ public class ShoppingCartController {
     @GetMapping("/init")
     public String initializeCart() {
     	shoppingCartService.initShoppingCart();
-    	return "redirect:/cart";
+    	return "redirect:/cart/1";
     }
     
     

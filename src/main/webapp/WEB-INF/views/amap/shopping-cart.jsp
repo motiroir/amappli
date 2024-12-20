@@ -22,9 +22,9 @@
         <tbody>
             <c:forEach var="item" items="${cart.shoppingCartItems}">
                 <tr>
-                    <td>${item.shoppable.name}</td>
-                    <td>${item.shoppable.price}</td>
-                    <td>${item.quantity}</td>
+                    <td>${item.shoppable.getInfo()}</td>
+                    <td>${item.shoppable.getPrice()}</td>
+                    <td>${item.getQuantity()}</td>
                     <td>${item.totalPrice}</td>
                     <td>
                         <form method="post" action="${pageContext.request.contextPath}/cart/${cart.shoppingCartId}/remove/${item.shoppingItemId}">
