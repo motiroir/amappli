@@ -1,6 +1,8 @@
 package isika.p3.amappli.controllers;
 
 import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,8 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import isika.p3.amappli.entities.tenancy.ContentBlock;
+import isika.p3.amappli.entities.tenancy.Graphism;
 import isika.p3.amappli.entities.tenancy.HomePageContent;
 import isika.p3.amappli.entities.tenancy.Tenancy;
+import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.service.TenancyService;
 
 @Controller
@@ -46,7 +51,37 @@ public class TenancyController {
         
         if (homePageContent != null) {
             model.addAttribute("homePageContent", homePageContent);
-            model.addAttribute("tenancyName", tenancy.getTenancyName()); 
+            model.addAttribute("tenancyName", tenancy.getTenancyName());
+            model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
+            Graphism graphism = tenancy.getGraphism();
+            model.addAttribute("logoImg", graphism != null ? graphism.getLogoImg() : null);
+            
+            Address address = tenancy.getAddress(); 
+            model.addAttribute("addressLine1", address != null ? address.getLine1() : null);
+            model.addAttribute("addressLine2", address != null ? address.getLine2() : null);
+            model.addAttribute("addressPostCode", address != null ? address.getPostCode() : null);
+            model.addAttribute("addressCity", address != null ? address.getCity() : null);
+            
+           
+            
+            List<ContentBlock> contentBlocks = homePageContent.getContents();
+            
+            // Filtrer les ContentBlocks avec isValue == true
+            List<ContentBlock> valueBlocks = contentBlocks.stream()
+                .filter(ContentBlock::isValue)  // Récupérer uniquement les ContentBlock avec isValue == true
+                .collect(Collectors.toList());
+            
+            // Ajouter les ContentBlock à afficher au modèle
+            model.addAttribute("valueBlocks", valueBlocks); // Liste des ContentBlock avec isValue = true
+
+            // Récupérer et ajouter le block de présentation
+            ContentBlock presentationBlock = contentBlocks.stream()
+                .filter(block -> !block.isValue()) // Block de présentation (isValue == false)
+                .findFirst()
+                .orElse(null); // Si aucun block n'est trouvé, mettre null
+
+            model.addAttribute("presentationBlock", presentationBlock); // Ajouter le block de présentation
+            
         } else {
             model.addAttribute("message", "Page d'accueil non trouvée.");
         }

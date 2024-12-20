@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import isika.p3.amappli.entities.tenancy.HomePageContent;
 import isika.p3.amappli.dto.NewTenancyDTO;
 import isika.p3.amappli.dto.ValueDTO;
+import isika.p3.amappli.entities.tenancy.ColorPalette;
 import isika.p3.amappli.entities.tenancy.ContentBlock;
+import isika.p3.amappli.entities.tenancy.FontChoice;
 import isika.p3.amappli.entities.tenancy.Graphism;
 import isika.p3.amappli.entities.tenancy.Options;
 import isika.p3.amappli.entities.tenancy.Tenancy;
@@ -70,58 +72,91 @@ public class TenancyServiceImpl implements TenancyService{
     
     // Méthode pour ajouter des tenancies de test
     public void addTestTenancies() {
+        // Création d'une Tenancy
         Tenancy t1 = Tenancy.builder()
                 .tenancyName("BioColi")
+                .tenancySlogan("Manger bio, c'est facile avec BioColi!")  
                 .address(new Address("123 Rue A", "Paris", "75000", "France"))
                 .dateCreated(LocalDateTime.now())
                 .dateLastModified(LocalDateTime.now())
                 .build();
         
+        // Création du Graphism pour Tenancy
+        Graphism graphism1 = Graphism.builder()
+                .colorPalette(ColorPalette.PALETTE1)  
+                .fontChoice(FontChoice.FUTURA)     
+                .logoImgType("image/jpeg")
+                .logoImg(Base64.getEncoder().encodeToString("logoBytesPlaceholder".getBytes())) 
+                .tenancy(t1)
+                .build();
+        t1.setGraphism(graphism1);
+
+        // Création du HomePageContent pour la Tenancy
         HomePageContent homePageContent1 = HomePageContent.builder()
                 .subTitle("UN PANIER BIO, LOCAL et de SAISON")
                 .showSuppliers(true)
-                .tenancy(t1)  
+                .tenancy(t1) // Association de HomePageContent avec Tenancy
                 .build();
         
+        // Création des 4 ContentBlock pour la Tenancy
+
+        // 1. Le ContentBlock pour la présentation de l'AMAP
+        ContentBlock presentationBlock = ContentBlock.builder()
+                .isValue(false)  
+                .contentTitle("Présentation de BioColi")
+                .contentText("BioColi est une AMAP dédiée à la distribution de paniers bio, locaux et de saison.")
+                .contentImgName("biocoli-presentation.jpg")
+                .contentImgTypeMIME("image/jpeg")
+                .contentImg(Base64.getEncoder().encodeToString("imageBytesPlaceholder".getBytes())) 
+                .homePageContent(homePageContent1) 
+                .build();
+        
+        // 2. ContentBlock pour la première valeur de l'AMAP
+        ContentBlock valueBlock1 = ContentBlock.builder()
+                .isValue(true)  // Ce block représente une valeur de l'AMAP
+                .contentTitle("Soutien à l'Agriculture Durable")
+                .contentText("Nous soutenons les pratiques agricoles respectueuses de l'environnement.")
+                .contentImgName("value1.jpg")
+                .contentImgTypeMIME("image/jpeg")
+                .contentImg(Base64.getEncoder().encodeToString("imageBytesPlaceholder".getBytes())) 
+                .homePageContent(homePageContent1) // Association avec HomePageContent
+                .build();
+        
+        // 3. ContentBlock pour la deuxième valeur de l'AMAP
+        ContentBlock valueBlock2 = ContentBlock.builder()
+                .isValue(true)  // Ce block représente une valeur de l'AMAP
+                .contentTitle("Transparence et Traçabilité")
+                .contentText("Tous nos produits sont traçables et proviennent de fermes locales.")
+                .contentImgName("value2.jpg")
+                .contentImgTypeMIME("image/jpeg")
+                .contentImg(Base64.getEncoder().encodeToString("imageBytesPlaceholder".getBytes())) 
+                .homePageContent(homePageContent1) // Association avec HomePageContent
+                .build();
+        
+        // 4. ContentBlock pour la troisième valeur de l'AMAP
+        ContentBlock valueBlock3 = ContentBlock.builder()
+                .isValue(true)  // Ce block représente une valeur de l'AMAP
+                .contentTitle("Frais et Local")
+                .contentText("Nos produits sont livrés directement des fermes locales aux consommateurs.")
+                .contentImgName("value3.jpg")
+                .contentImgTypeMIME("image/jpeg")
+                .contentImg(Base64.getEncoder().encodeToString("imageBytesPlaceholder".getBytes())) 
+                .homePageContent(homePageContent1) 
+                .build();
+        
+        // Ajouter les ContentBlock dans HomePageContent
+        homePageContent1.getContents().add(presentationBlock);
+        homePageContent1.getContents().add(valueBlock1);
+        homePageContent1.getContents().add(valueBlock2);
+        homePageContent1.getContents().add(valueBlock3);
+
+        // Associer le HomePageContent à la Tenancy
         t1.setHomePageContent(homePageContent1);
+
+        // Sauvegarder la Tenancy avec ses ContentBlock et HomePageContent
         tenancyRepository.save(t1);
-        
-        
-        Tenancy t2 = Tenancy.builder()
-                .tenancyName("AgriNov")
-                .address(new Address("456 Rue B", "Lyon", "69000", "France"))
-                .dateCreated(LocalDateTime.now())
-                .dateLastModified(LocalDateTime.now())
-                .build();
-        
-        
-        HomePageContent homePageContent2 = HomePageContent.builder()
-                .subTitle("UN PANIER BIO, LOCAL et de SAISON")
-                .showSuppliers(false)
-                .tenancy(t2)
-                .build();
-   
-        t2.setHomePageContent(homePageContent2);
-        tenancyRepository.save(t2);
-        
-        
-        Tenancy t3 = Tenancy.builder()
-                .tenancyName("Groots")
-                .address(new Address("789 Rue C", "Marseille", "13000", "France"))
-                .dateCreated(LocalDateTime.now())
-                .dateLastModified(LocalDateTime.now())
-                .build();
-        
-        
-        HomePageContent homePageContent3 = HomePageContent.builder()
-                .subTitle("UN PANIER BIO, LOCAL et de SAISON")
-                .showSuppliers(true)
-                .tenancy(t3)
-                .build();
-      
-        t3.setHomePageContent(homePageContent3);
-        tenancyRepository.save(t3);
     }
+
 
     @Override
     public void createTenancyFromWelcomeForm(NewTenancyDTO newTenancyDTO) {
