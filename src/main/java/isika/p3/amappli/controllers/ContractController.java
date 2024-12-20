@@ -1,9 +1,11 @@
 package isika.p3.amappli.controllers;
 
 import java.beans.PropertyEditorSupport;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Comparator;
 import java.util.List;
 
@@ -16,7 +18,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
+import isika.p3.amappli.dto.ContractDTO;
 import isika.p3.amappli.entities.contract.Contract;
 import isika.p3.amappli.entities.contract.ContractType;
 import isika.p3.amappli.entities.contract.ContractWeight;
@@ -89,13 +93,29 @@ public class ContractController {
 	}
 
 	@PostMapping("/add")
-	public String addContract(@ModelAttribute("contract") Contract contract) {
-		contract.setContractName(formatContractName(contract.getContractName()));
-		contract.setContractDescription(formatContractDescription(contract.getContractDescription()));
-		contract.setDateCreation(LocalDate.now());
-		contractService.save(contract);
-		return "redirect:/amap/contracts/list";
+	public String addContract(@ModelAttribute("newContractDTO") ContractDTO newContractDTO) {
+	    contractService.save(newContractDTO);
+	    return "redirect:/amap/contracts/list";
 	}
+//	@PostMapping("/add")
+//	public String addContract(@ModelAttribute("contract") Contract contract) {
+//	    try {
+//	        if (contract.getImageFile() != null && !contract.getImageFile().isEmpty()) {
+//	            MultipartFile file = contract.getImageFile();
+//	            contract.setImageUrl(file.getOriginalFilename());
+//	            contract.setImageType(file.getContentType());
+//	            byte[] fileContent = file.getBytes();
+//	            contract.setImageBase64(Base64.getEncoder().encodeToString(fileContent));
+//	        }
+//	    } catch (IOException e) {
+//	        e.printStackTrace();
+//	    }
+//		contract.setContractName(formatContractName(contract.getContractName()));
+//		contract.setContractDescription(formatContractDescription(contract.getContractDescription()));
+//		contract.setDateCreation(LocalDate.now());
+//		contractService.save(contract);
+//		return "redirect:/amap/contracts/list";
+//	}
 
 	@GetMapping("/list")
 	public String listContracts(Model model) {
@@ -122,23 +142,23 @@ public class ContractController {
 		return "amap/contract-edit";
 	}
 
-	@PostMapping("/update")
-	public String updateContract(@ModelAttribute("contract") Contract updatedContract) {
-		Contract existingContract = contractService.findById(updatedContract.getId());
-
-		existingContract.setContractName(formatContractName(updatedContract.getContractName()));
-		existingContract.setContractType(updatedContract.getContractType());
-		existingContract.setContractDescription(formatContractDescription(updatedContract.getContractDescription()));
-		existingContract.setContractWeight(updatedContract.getContractWeight());
-		existingContract.setContractPrice(updatedContract.getContractPrice());
-		existingContract.setStartDate(updatedContract.getStartDate());
-		existingContract.setEndDate(updatedContract.getEndDate());
-		existingContract.setImageUrl(updatedContract.getImageUrl());
-		existingContract.setDeliveryRecurrence(updatedContract.getDeliveryRecurrence());
-		existingContract.setDeliveryDay(updatedContract.getDeliveryDay());
-		existingContract.setQuantity(updatedContract.getQuantity());
-
-		contractService.save(existingContract);
-		return "redirect:/amap/contracts/list";
-	}
+//	@PostMapping("/update")
+//	public String updateContract(@ModelAttribute("contract") Contract updatedContract) {
+//		Contract existingContract = contractService.findById(updatedContract.getId());
+//
+//		existingContract.setContractName(formatContractName(updatedContract.getContractName()));
+//		existingContract.setContractType(updatedContract.getContractType());
+//		existingContract.setContractDescription(formatContractDescription(updatedContract.getContractDescription()));
+//		existingContract.setContractWeight(updatedContract.getContractWeight());
+//		existingContract.setContractPrice(updatedContract.getContractPrice());
+//		existingContract.setStartDate(updatedContract.getStartDate());
+//		existingContract.setEndDate(updatedContract.getEndDate());
+////		existingContract.setImageUrl(updatedContract.getImageUrl());
+//		existingContract.setDeliveryRecurrence(updatedContract.getDeliveryRecurrence());
+//		existingContract.setDeliveryDay(updatedContract.getDeliveryDay());
+//		existingContract.setQuantity(updatedContract.getQuantity());
+//
+//		contractService.save(existingContract);
+//		return "redirect:/amap/contracts/list";
+//	}
 }

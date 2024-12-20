@@ -45,7 +45,7 @@ request.setAttribute("currentPage", currentPage);
                             <h2 class="mb-4" style="font-weight: bold; text-align: left;">Ajouter
                                 un contrat</h2>
                         </div>
-						<form method="POST" action="/Amappli/amap/contracts/add">
+						<form method="POST" action="/Amappli/amap/contracts/add" enctype="multipart/form-data">
 							<div class="row">
 								<!-- Première colonne -->
 								<div class="col-md-4">
@@ -154,8 +154,8 @@ request.setAttribute("currentPage", currentPage);
 								<!-- Troisième colonne -->
 								<div class="col-md-4">
 									<div class="mb-3 d-flex align-items-center">
-										<input type="text" class="form-control me-2" id="imageUrl"
-											name="imageUrl" placeholder="Photo de votre panier">
+										        <label for="image" class="form-label">Photo du panier</label>
+        <input type="file" class="form-control" id="image" name="image">
 										<button type="button" class="btn btn-secondary">Ajouter</button>
 									</div>
 

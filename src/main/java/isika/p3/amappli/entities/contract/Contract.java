@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import isika.p3.amappli.entities.tenancy.Graphism;
 import isika.p3.amappli.entities.tenancy.HomePageContent;
@@ -22,7 +23,9 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -54,7 +57,12 @@ public class Contract {
 
 	private BigDecimal contractPrice;
 
-	private String imageUrl;
+	@Column(name = "image_type")
+	private String imageType;
+
+	@Lob
+	@Column(name = "image_data")
+	private String imageData; // Stockera les données de l'image encodées en Base64
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateCreation;

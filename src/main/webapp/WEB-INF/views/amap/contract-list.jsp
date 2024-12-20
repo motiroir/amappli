@@ -46,6 +46,7 @@ request.setAttribute("currentPage", currentPage);
 						<table class="table">
 							<thead>
 								<tr>
+								<th>Image</th>
 									<th>Nom</th>
 									<th>Type</th>
 									<th class="d-none d-lg-table-cell">Producteur</th>
@@ -61,6 +62,11 @@ request.setAttribute("currentPage", currentPage);
 							<tbody>
 								<c:forEach var="contract" items="${contracts}">
 									<tr>
+            <td>
+                <c:if test="${not empty contract.imageData}">
+                    <img src="data:${contract.imageType};base64,${contract.imageData}" alt="Image du contrat" style="width: 50px; height: 50px;">
+                </c:if>
+            </td>
 										<td>${contract.contractName}</td>
 										<td>${contract.contractType.displayName}</td>
 										<td class="d-none d-lg-table-cell">Producteur exemple</td>
