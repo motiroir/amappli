@@ -155,7 +155,7 @@ request.setAttribute("currentPage", currentPage);
 
 								<!-- Troisième colonne -->
 								<div class="col-md-4">
-									<div class="mb-3 d-flex align-items-center">
+									<div class="mb-3">
 										<label for="image" class="form-label">Photo du panier</label>
 										<input type="file" class="form-control" id="image"
 											name="image" accept="image/png,image/jpeg,image/svg">

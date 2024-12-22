@@ -77,14 +77,43 @@
 	border-radius: 8px;
 }
 
+/* Champs de formulaire : Couleur par défaut */
 .form-control {
 	border-radius: 20px;
-	border: 1px solid #000000;
-	color: #000000;
+	border: 1px solid #A1A1A1;
+	color: #A1A1A1;
 }
 
 .form-control::placeholder {
 	color: #A1A1A1;
+}
+
+/* Champs de formulaire : Lorsqu'il contient une valeur */
+.form-control:not(:placeholder-shown), .form-control:focus {
+	border: 1px solid #000000;
+	color: #000000;
+}
+
+/* Placeholder lorsqu'il y a un focus */
+.form-control:focus::placeholder {
+	color: #000000;
+}
+
+/* Dropdown par défaut */
+.form-select {
+	border: 1px solid #A1A1A1;
+	color: #A1A1A1;
+}
+
+/* Dropdown lorsqu'une option est sélectionnée */
+.form-select option:not([disabled]) {
+	color: #000000;
+}
+
+/* Dropdown : focus ou sélection */
+.form-select:focus {
+	border: 1px solid #000000;
+	color: #000000;
 }
 
 .btn-custom {
@@ -102,6 +131,7 @@
 	max-width: 100%;
 	border-radius: 20px;
 }
+
 .btn-back {
 	display: inline-flex;
 	align-items: center;
@@ -114,8 +144,6 @@
 	cursor: pointer;
 	margin-bottom: 20px;
 }
-
-
 
 .table-container {
     display: flex;
@@ -195,7 +223,6 @@
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-
 @media ( max-width : 768px) {
     .table-container {
         overflow-x: auto;
@@ -249,4 +276,3 @@
 .search-bar .me-4 {
     margin-right: 20px;
 }
-
