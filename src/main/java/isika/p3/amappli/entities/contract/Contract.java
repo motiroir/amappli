@@ -2,9 +2,7 @@ package isika.p3.amappli.entities.contract;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
 import org.springframework.format.annotation.DateTimeFormat;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,9 +10,20 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMin;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "contracts")
 public class Contract {
 
@@ -33,9 +42,15 @@ public class Contract {
 	@Enumerated(EnumType.STRING)
 	private ContractWeight contractWeight;
 
+	@DecimalMin(value = "0.01", message = "Le prix doit être supérieur à 0.")
 	private BigDecimal contractPrice;
 
-	private String imageUrl;
+	@Column(name = "image_type")
+	private String imageType;
+
+	@Lob
+	@Column(name = "image_data")
+	private String imageData; // Stockera les données de l'image encodées en Base64
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateCreation;
@@ -54,109 +69,5 @@ public class Contract {
 	
 	private Integer quantity;
 	
-
-	public Long getId() {
-		return id;
-	}
-
-	public String getContractName() {
-		return contractName;
-	}
-
-	public String getContractDescription() {
-		return contractDescription;
-	}
-
-	public ContractWeight getContractWeight() {
-		return contractWeight;
-	}
-
-	public BigDecimal getContractPrice() {
-		return contractPrice;
-	}
-
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public LocalDate getDateCreation() {
-		return dateCreation;
-	}
-
-	public LocalDate getStartDate() {
-		return startDate;
-	}
-
-	public LocalDate getEndDate() {
-		return endDate;
-	}
-
-	public ContractType getContractType() {
-		return contractType;
-	}
-
-	public DeliveryRecurrence getDeliveryRecurrence() {
-		return deliveryRecurrence;
-	}
-
-	public DeliveryDay getDeliveryDay() {
-		return deliveryDay;
-	}
-
-	public Integer getQuantity() {
-		return quantity;
-	}
-
-	public void setDeliveryRecurrence(DeliveryRecurrence deliveryRecurrence) {
-		this.deliveryRecurrence = deliveryRecurrence;
-	}
-
-	public void setDeliveryDay(DeliveryDay deliveryDay) {
-		this.deliveryDay = deliveryDay;
-	}
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
-
-	public void setContractType(ContractType contractType) {
-		this.contractType = contractType;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setContractName(String contractName) {
-		this.contractName = contractName;
-	}
-
-	public void setContractDescription(String contractDescription) {
-		this.contractDescription = contractDescription;
-	}
-
-	public void setContractWeight(ContractWeight contractWeight) {
-		this.contractWeight = contractWeight;
-	}
-
-	public void setContractPrice(BigDecimal contractPrice) {
-		this.contractPrice = contractPrice;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
-	public void setDateCreation(LocalDate dateCreation) {
-		this.dateCreation = dateCreation;
-	}
-
-	public void setStartDate(LocalDate startDate) {
-		this.startDate = startDate;
-	}
-
-	public void setEndDate(LocalDate endDate) {
-		this.endDate = endDate;
-	}
 
 }

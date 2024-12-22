@@ -117,10 +117,8 @@ body {
 <div class="hero">
   <div class="hero-content">
     <h1 class="hero-text">Bienvenue sur le site de  ${tenancyName}</h1>
-     <h2 class="hero-text">${homePageContent.subTitle}</h2>
-    <p>
-      Si vous avez envie de manger sain, frais et local... des produits de saison, si vous avez envie d'apporter votre soutien aux producteurs de notre AMAP, au travers d’un partenariat, alors vous êtes sur le bon site !
-    </p>
+     <h2 class="hero-text">${tenancySlogan}</h2>
+   
     <div class="buttons">
       <button class="btn btn-info">Qui Sommes-nous ?</button>
       <button class="btn btn-info">Adhérer à l'AMAP</button>
@@ -128,15 +126,30 @@ body {
   </div>
   <div class="hero-image">
   <img src="<c:url value='/resources/img/imageHomePage.png' />" alt="Légumes frais" class="image-box">
-    
   </div>
-</div>
+  </div>
+   
+       <!-- Affichage du block de présentation -->
+    <c:if test="${not empty presentationBlock}">
+        <div class="presentation-block">
+            <h2>${presentationBlock.contentTitle}</h2>
+            <p>${presentationBlock.contentText}</p>
+            <img src="/images/${presentationBlock.contentImgName}" alt="Image de présentation" />
+        </div>
+    </c:if>
 
-    
-    
-    
-    
-  
+    <!-- Affichage des ContentBlock avec isValue == true -->
+    <c:if test="${not empty valueBlocks}">
+        <div class="value-blocks">
+            <c:forEach items="${valueBlocks}" var="block">
+                <div class="value-block">
+                    <h3>${block.contentTitle}</h3>
+                    <p>${block.contentText}</p>
+                    <img src="/images/${block.contentImgName}" alt="Image de valeur" />
+                </div>
+            </c:forEach>
+        </div>
+    </c:if>
                    
   <!-- Inclure le footer -->
     <jsp:include page="common/footer.jsp" />

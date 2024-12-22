@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import isika.p3.amappli.dto.ContractDTO;
 import isika.p3.amappli.entities.contract.Contract;
 import isika.p3.amappli.entities.contract.ContractType;
 import isika.p3.amappli.entities.contract.ContractWeight;
@@ -89,12 +90,9 @@ public class ContractController {
 	}
 
 	@PostMapping("/add")
-	public String addContract(@ModelAttribute("contract") Contract contract) {
-		contract.setContractName(formatContractName(contract.getContractName()));
-		contract.setContractDescription(formatContractDescription(contract.getContractDescription()));
-		contract.setDateCreation(LocalDate.now());
-		contractService.save(contract);
-		return "redirect:/amap/contracts/form";
+	public String addContract(@ModelAttribute("newContractDTO") ContractDTO newContractDTO) {
+	    contractService.save(newContractDTO);
+	    return "redirect:/amap/contracts/list";
 	}
 
 	@GetMapping("/list")
@@ -121,24 +119,32 @@ public class ContractController {
 		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
 		return "amap/contract-edit";
 	}
-
-	@PostMapping("/update")
-	public String updateContract(@ModelAttribute("contract") Contract updatedContract) {
-		Contract existingContract = contractService.findById(updatedContract.getId());
-
-		existingContract.setContractName(formatContractName(updatedContract.getContractName()));
-		existingContract.setContractType(updatedContract.getContractType());
-		existingContract.setContractDescription(formatContractDescription(updatedContract.getContractDescription()));
-		existingContract.setContractWeight(updatedContract.getContractWeight());
-		existingContract.setContractPrice(updatedContract.getContractPrice());
-		existingContract.setStartDate(updatedContract.getStartDate());
-		existingContract.setEndDate(updatedContract.getEndDate());
-		existingContract.setImageUrl(updatedContract.getImageUrl());
-		existingContract.setDeliveryRecurrence(updatedContract.getDeliveryRecurrence());
-		existingContract.setDeliveryDay(updatedContract.getDeliveryDay());
-		existingContract.setQuantity(updatedContract.getQuantity());
-
-		contractService.save(existingContract);
-		return "redirect:/amap/contracts/list";
+	
+	@GetMapping("/detail/{id}")
+	public String viewContractDetail(@PathVariable("id") Long id, Model model) {
+	    Contract contract = contractService.findById(id);
+	    model.addAttribute("contract", contract);
+	    return "amap/contract-detail";
 	}
+
+
+//	@PostMapping("/update")
+//	public String updateContract(@ModelAttribute("contract") Contract updatedContract) {
+//		Contract existingContract = contractService.findById(updatedContract.getId());
+//
+//		existingContract.setContractName(formatContractName(updatedContract.getContractName()));
+//		existingContract.setContractType(updatedContract.getContractType());
+//		existingContract.setContractDescription(formatContractDescription(updatedContract.getContractDescription()));
+//		existingContract.setContractWeight(updatedContract.getContractWeight());
+//		existingContract.setContractPrice(updatedContract.getContractPrice());
+//		existingContract.setStartDate(updatedContract.getStartDate());
+//		existingContract.setEndDate(updatedContract.getEndDate());
+////		existingContract.setImageUrl(updatedContract.getImageUrl());
+//		existingContract.setDeliveryRecurrence(updatedContract.getDeliveryRecurrence());
+//		existingContract.setDeliveryDay(updatedContract.getDeliveryDay());
+//		existingContract.setQuantity(updatedContract.getQuantity());
+//
+//		contractService.save(existingContract);
+//		return "redirect:/amap/contracts/list";
+//	}
 }

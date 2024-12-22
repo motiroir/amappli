@@ -1,0 +1,43 @@
+@import "../common/fonts.css";
+@import "theme/theme-1-dark.css";
+@import "theme/theme-1-light.css";
+
+:root {
+  --orange-050: #ffcbad;
+  --orange-100: #ffbe98;    /* peach */
+  --orange-300: #FFB185;    /* light tangerine */
+  --orange-600: #ffa570;    /* tangerine */
+  --orange-700: #d07946;
+  --orange-900: #B95317;
+  --green-400 : #8dac95;
+  --green-500 : #336140;
+  --green-600 : #284b32;
+  --green-700 : #455449;    /* light olive */
+  --green-800 : #344238;
+  --green-900 : #223026;    /* olive */
+  --white-300 : #FFFAF8;    /* snow */
+  --black-900 : #0e0e0e;
+  --black-700 : #292929;
+  --black-400 : #A1A1A1;
+  --black-200 : #C4C4C4;
+}
+
+.nunito {
+  font-family: 'Nunito'!important;
+}
+
+.nunito-sans {
+  font-family: 'Nunito Sans'!important;
+}
+
+.futura {
+  font-family: 'Futura'!important;
+}
+
+.futura-condensed {
+  font-family: 'Futura Condensed'!important;
+}
+
+.pointer {
+  cursor: pointer!important;
+}

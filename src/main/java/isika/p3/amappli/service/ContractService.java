@@ -2,11 +2,12 @@ package isika.p3.amappli.service;
 
 import java.util.List;
 
+import isika.p3.amappli.dto.ContractDTO;
 import isika.p3.amappli.entities.contract.Contract;
 
 public interface ContractService {
 
-	Contract save(Contract contract);
+	void save(ContractDTO contractDTO);
 
 	List<Contract> findAll();
 

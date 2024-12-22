@@ -9,17 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/sectest")
 public class SecurityController {
     
+    //@PreAuthorize("hasRole('USER')")
     @GetMapping("/login")
     public String goToLogin(Model model){
         return "secexamples/login";
     }
 
+    //@PreAuthorize("hasRole('USER')")
     @GetMapping("/logout")
     public String goToLogout(Model model){
         return "secexamples/logout";
     }
 
-
+    //@PreAuthorize("hasRole('USER')")
     @GetMapping("/needanyauth")
     public String goToAuthTest(Model model){
         return "secexamples/needanyauth";

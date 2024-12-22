@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,7 +32,7 @@ public class HomePageContent {
 
     private Boolean showSuppliers;
 
-    @OneToMany( targetEntity = ContentBlock.class, mappedBy = "homePageContent", cascade = CascadeType.ALL)
+    @OneToMany( targetEntity = ContentBlock.class, mappedBy = "homePageContent", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @Builder.Default
     private List<ContentBlock> contents = new ArrayList<ContentBlock>();
 

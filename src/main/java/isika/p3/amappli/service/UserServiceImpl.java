@@ -4,8 +4,7 @@ import java.math.BigDecimal;
 import java.util.Locale;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,6 +23,7 @@ import isika.p3.amappli.repo.UserRepository;
 import jakarta.transaction.Transactional;
 
 @Service
+@Primary
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -132,11 +132,6 @@ public class UserServiceImpl implements UserService {
             saveUser(u);
         }
 
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        throw new UnsupportedOperationException("Unimplemented method 'loadUserByUsername'");
     }
 
     @Override
