@@ -36,8 +36,8 @@ public class User {
     private Long userId;
 	
 	@NotBlank(message = "L'email est obligatoire.")
-	@Size(max=70, message = "L''email doit faire 70 caractères maximum.")
-    @Email( message = "L''email est invalide.")
+	@Size(max=70, message = "L'email doit faire 70 caractères maximum.")
+    @Email( message = "L'email est invalide.")
     @Column(nullable = false, unique = true)
     private String email;
 	
@@ -68,4 +68,7 @@ public class User {
         inverseJoinColumns = @JoinColumn( name = "roleId")
     )
     private Set<Role> roles = new HashSet<Role>();
+    
+    @Column(nullable = true)
+    private CompanyDetails companyDetails;
 }

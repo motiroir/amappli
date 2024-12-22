@@ -19,7 +19,7 @@ public class Address {
     @Size(max=70, message = "Le complément d'adresse doit faire 70 caractères maximum.")
     private String line1;
 
-    @NotBlank( message = "L''adresse est obligatoire.")
+    @NotBlank( message = "L'adresse est obligatoire.")
 	@Size(max=100, message = "L'adresse doit faire 100 caractères maximum.")
     private String line2;
 

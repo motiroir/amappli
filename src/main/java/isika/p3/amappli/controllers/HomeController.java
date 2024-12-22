@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import isika.p3.amappli.service.UserService;
 
 @Controller
+<<<<<<< Updated upstream
 @RequestMapping("/")
+=======
+@RequestMapping("/plateform")
+>>>>>>> Stashed changes
 public class HomeController {
 
 	private final UserService userService;

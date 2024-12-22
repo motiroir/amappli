@@ -42,12 +42,12 @@ public class UserController {
 
     // Enregistrer l'utilisateur
     @PostMapping("/signup")
-    public String registerUser(@PathVariable("tenancyId") Long tenancyId,
-                               @ModelAttribute @Valid UserDTO userDTO, 
-                               BindingResult bindingResult,
-                               Model model) {
+    public String registerUser( @PathVariable("tenancyId") Long tenancyId,
+                                @ModelAttribute @Valid UserDTO userDTO, 
+                                BindingResult bindingResult,
+                                Model model) {
         if (bindingResult.hasErrors()) {
-           
+            
             model.addAttribute("userDTO", userDTO);
             return "amap/amaplogin/signup-form";
         }

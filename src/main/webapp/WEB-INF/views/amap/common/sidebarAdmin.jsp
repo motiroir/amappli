@@ -3,15 +3,15 @@
 <div class="sidebar">
     <!-- Vos utilisateurs -->
     <div>
-        <div class="menu-title ${currentMainMenu == 'users' ? 'active' : ''}" onclick="toggleMenu('users')">
+        <div id="users" class="menu-title ${currentMainMenu == 'users' ? 'active' : ''}" onmouseover="toggleMenu('users')">
             Vos utilisateurs
         </div>
-        <ul id="users" class="submenu ${currentMainMenu == 'users' ? 'active' : ''}">
-                        <li>
-                <a href="" class="menu-item ${currentPage == '' ? 'active' : ''}">Vos adéhrents</a>
+        <ul id="users-submenu" class="submenu ${currentMainMenu == 'users' ? 'active' : ''}">
+            <li>
+                <a href="" class="menu-item ${currentPage == 'users' ? 'active' : ''}">Vos adhérents</a>
             </li>
-                        <li>
-                <a href="" class="menu-item ${currentPage == '' ? 'active' : ''}">Vos fournisseurs</a>
+            <li>
+                <a href="" class="menu-item ${currentPage == 'providers' ? 'active' : ''}">Vos fournisseurs</a>
             </li>
             <li>
                 <a class="menu-item disabled">Vos rôles personnalisés<span class="pro-badge">PRO</span></a>
@@ -22,14 +22,13 @@
 
     <!-- Vos produits -->
     <div>
-        <div class="menu-title ${currentMainMenu == 'products' ? 'active' : ''}" onclick="toggleMenu('products')">
+        <div id="products" class="menu-title ${currentMainMenu == 'products' ? 'active' : ''}" onmouseover="toggleMenu('products')">
             Vos produits
         </div>
-        <ul id="products" class="submenu ${currentMainMenu == 'products' ? 'active' : ''}">
-<li>
-    <a href="<c:url value='/amap/contracts/list' />" class="menu-item ${currentPage == 'contracts' ? 'active' : ''}">Les contrats</a>
-</li>
-
+        <ul id="products-submenu" class="submenu ${currentMainMenu == 'products' ? 'active' : ''}">
+            <li>
+                <a href="<c:url value='/amap/contracts/list' />" class="menu-item ${currentPage == 'contracts' ? 'active' : ''}">Les contrats</a>
+            </li>
             <li>
                 <a class="menu-item disabled">L'épicerie<span class="pro-badge">PRO</span></a>
             </li>
@@ -42,10 +41,10 @@
 
     <!-- Votre site -->
     <div>
-        <div class="menu-title ${currentMainMenu == 'site' ? 'active' : ''}" onclick="toggleMenu('site')">
+        <div id="site" class="menu-title ${currentMainMenu == 'site' ? 'active' : ''}" onmouseover="toggleMenu('site')">
             Votre site
         </div>
-        <ul id="site" class="submenu ${currentMainMenu == 'site' ? 'active' : ''}">
+        <ul id="site-submenu" class="submenu ${currentMainMenu == 'site' ? 'active' : ''}">
             <!-- Pas de sous-rubrique pour l'instant -->
         </ul>
     </div>
@@ -53,10 +52,10 @@
 
     <!-- Vos fonctionnalités -->
     <div>
-        <div class="menu-title ${currentMainMenu == 'features' ? 'active' : ''}" onclick="toggleMenu('features')">
+        <div id="features" class="menu-title ${currentMainMenu == 'features' ? 'active' : ''}" onmouseover="toggleMenu('features')">
             Vos fonctionnalités
         </div>
-        <ul id="features" class="submenu ${currentMainMenu == 'features' ? 'active' : ''}">
+        <ul id="features-submenu" class="submenu ${currentMainMenu == 'features' ? 'active' : ''}">
             <!-- Pas de sous-rubrique pour l'instant -->
         </ul>
     </div>
@@ -72,12 +71,17 @@
     // Script pour gérer l'accordéon
     function toggleMenu(menuId) {
         const menu = document.getElementById(menuId);
-        if (menu.classList.contains('active')) {
+        const subMenu = document.getElementById(menuId + "-submenu");
+        console.log(subMenu);
+/*         if (menu.classList.contains('active')) {
             menu.classList.remove('active');
-        } else {
-            document.querySelectorAll('.submenu').forEach(submenu => submenu.classList.remove('active'));
+            subMenu.classList.remove('active');
+        } else { */
+            document.querySelectorAll('.submenu').forEach(everySubmenu => everySubmenu.classList.remove('active'));
+            document.querySelectorAll('.menu-title').forEach(menuTitle => menuTitle.classList.remove('active'));
             menu.classList.add('active');
-        }
+            subMenu.classList.add('active');
+     /*    } */
     }
 </script>
 

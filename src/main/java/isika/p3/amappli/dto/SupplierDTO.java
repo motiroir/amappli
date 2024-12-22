@@ -3,6 +3,7 @@ package isika.p3.amappli.dto;
 import java.math.BigDecimal;
 
 import isika.p3.amappli.entities.user.Address;
+import isika.p3.amappli.entities.user.CompanyDetails;
 import isika.p3.amappli.entities.user.ContactInfo;
 import isika.p3.amappli.validation.annotation.PasswordMatches;
 import jakarta.validation.Valid;
@@ -15,7 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @PasswordMatches
-public class UserDTO {
+public class SupplierDTO {
 
     @NotBlank(message = "L'email est obligatoire.")
     @Size(max = 70, message = "L'email doit faire 70 caractères maximum.")
@@ -35,4 +36,7 @@ public class UserDTO {
 
     @Valid
     private ContactInfo contactInfo;
+    
+    @Valid
+    private CompanyDetails companyDetails;
 }
