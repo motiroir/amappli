@@ -49,7 +49,7 @@ public class Contract {
 	private String imageType;
 
 	@Lob
-	@Column(name = "image_data")
+	@Column(name = "image_data", columnDefinition = "LONGTEXT")
 	private String imageData; // Stockera les données de l'image encodées en Base64
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%
 String currentMainMenu = "products"; // Détermine la rubrique active
-String currentPage = "contracts"; // Détermine la sous-rubrique active
+String currentPage = "products"; // Détermine la sous-rubrique active
 request.setAttribute("currentMainMenu", currentMainMenu);
 request.setAttribute("currentPage", currentPage);
 %>
@@ -13,7 +13,7 @@ request.setAttribute("currentPage", currentPage);
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Liste des Contrats</title>
+<title>Liste des Produits</title>
 <link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />"
 	rel="stylesheet">
 <link
@@ -40,9 +40,9 @@ request.setAttribute("currentPage", currentPage);
 			<div class="row justify-content-center">
 				<div class="col-12">
 <div class="search-bar d-flex align-items-center mb-3">
-    <!-- Nombre total de contrats -->
+    <!-- Nombre total de produits -->
     <div class="me-4" style="font-size: 22px; font-weight: 400;">
-        <span>${contracts.size()} éléments</span>
+        <span>${products.size()} éléments</span>
     </div>
 
     <!-- Dropdown pour trier -->
@@ -50,7 +50,6 @@ request.setAttribute("currentPage", currentPage);
         <label for="sortBy" class="me-2" style="font-size: 22px; font-weight: 400;">Trié par</label>
         <select id="sortBy" class="form-select custom-select" style="width: auto;">
             <option value="name">Nom</option>
-            <option value="producer">Producteur</option>
             <option value="priceAsc">Prix croissant</option>
             <option value="priceDesc">Prix décroissant</option>
         </select>
@@ -63,10 +62,10 @@ request.setAttribute("currentPage", currentPage);
 </div>
 					<div
 						class="table-container d-flex justify-content-between align-items-center">
-						<h2 style="font-weight: bold;">Liste des contrats</h2>
-						<a href="<c:url value='/amap/contracts/form' />"
+						<h2 style="font-weight: bold;">Liste des produits</h2>
+						<a href="<c:url value='/amap/products/form' />"
 							class="btn-create"> <span class="icon">+</span>Créer un
-							contrat
+							produit
 						</a>
 					</div>
 					<!-- Mode tableau -->
@@ -75,34 +74,32 @@ request.setAttribute("currentPage", currentPage);
 							<tr>
 								<th>Image</th>
 								<th>Nom</th>
-								<th>Type</th>
 								<th>Producteur</th>
 								<th>Prix</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="contract" items="${contracts}">
+							<c:forEach var="product" items="${products}">
 								<tr>
-									<td><c:if test="${not empty contract.imageData}">
+									<td><c:if test="${not empty product.imageData}">
 											<img
-												src="data:${contract.imageType};base64,${contract.imageData}"
-												alt="Image du contrat"
+												src="data:${product.imageType};base64,${product.imageData}"
+												alt="Image du produit"
 												style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover;">
-										</c:if></td>
-									<td>${contract.contractName}</td>
-									<td>${contract.contractType.displayName}</td>
-									<td class="d-none d-lg-table-cell">Producteur exemple</td>
-									<td>${contract.contractPrice}€</td>
+											</c:if></td>
+									<td>${product.productName}</td>
+									<td class="d-none d-lg-table-cell">Non défini</td>
+									<td>${product.productPrice}€</td>
 									<td>
 										<div class='d-flex justify-content-start align-items-center'>
 											<a
-												href="<c:url value='/amap/contracts/detail/${contract.id}' />"
+												href="<c:url value='/amap/products/detail/${product.id}' />"
 												class="btn-view"> <i class="bi bi-eye"></i>
 											</a>
-											<form:form method="POST" action="${pageContext.request.contextPath}/amap/contracts/delete/${contract.id}" style="display: inline;">
+											<form:form method="POST" action="${pageContext.request.contextPath}/amap/products/delete/${product.id}" style="display: inline;">
 												<button type="submit" class="btn-delete"
-													onclick="return confirm('Voulez-vous vraiment supprimer le contrat ${contract.contractName} ?');">
+													onclick="return confirm('Voulez-vous vraiment supprimer le produit ${product.productName} ?');">
 													<i class="bi bi-trash"></i>
 												</button>
 											</form:form>
@@ -145,8 +142,7 @@ request.setAttribute("currentPage", currentPage);
 
         function getValue(row, criteria) {
             if (criteria === "name") return row.cells[1].innerText.trim();
-            if (criteria === "producer") return row.cells[3].innerText.trim();
-            if (criteria === "priceAsc" || criteria === "priceDesc") return row.cells[4].innerText.trim().replace("€", "");
+            if (criteria === "priceAsc" || criteria === "priceDesc") return row.cells[3].innerText.trim().replace("€", "");
             return "";
         }
 
@@ -155,8 +151,7 @@ request.setAttribute("currentPage", currentPage);
             const rows = tableBody.querySelectorAll("tr");
             rows.forEach(row => {
                 const name = row.cells[1].innerText.toLowerCase();
-                const producer = row.cells[3].innerText.toLowerCase();
-                if (name.includes(query) || producer.includes(query)) {
+                if (name.includes(query)) {
                     row.style.display = "";
                 } else {
                     row.style.display = "none";

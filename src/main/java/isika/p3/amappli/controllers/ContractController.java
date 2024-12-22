@@ -35,6 +35,9 @@ public class ContractController {
 		this.contractService = contractService;
 	}
 
+	/**
+	 * Initializes custom data binding for LocalDate.
+	 */
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport() {
@@ -49,6 +52,9 @@ public class ContractController {
 		});
 	}
 
+	/**
+	 * Displays the form for adding a new contract.
+	 */
 	@GetMapping("/form")
 	public String showForm(Model model) {
 		model.addAttribute("contract", new Contract());
@@ -61,6 +67,9 @@ public class ContractController {
 		return "amap/contract-form";
 	}
 
+	/**
+	 * Format the contractName from the form
+	 */
 	private String formatContractName(String name) {
 		if (name == null || name.isEmpty()) {
 			return name;
@@ -69,6 +78,9 @@ public class ContractController {
 		return name.substring(0, 1).toUpperCase() + name.substring(1);
 	}
 
+	/**
+	 * Format the contractDescription from the form
+	 */
 	private String formatContractDescription(String description) {
 		if (description == null || description.isEmpty()) {
 			return description;
@@ -89,12 +101,18 @@ public class ContractController {
 		return formattedDescription.toString().trim();
 	}
 
+	/**
+	 * Saves a new contract to the database.
+	 */
 	@PostMapping("/add")
-	public String addContract(@ModelAttribute("newContractDTO") ContractDTO newContractDTO) {
-	    contractService.save(newContractDTO);
-	    return "redirect:/amap/contracts/list";
+	public String addContract(@ModelAttribute("contractDTO") ContractDTO newContractDTO) {
+		contractService.save(newContractDTO);
+		return "redirect:/amap/contracts/list";
 	}
 
+	/**
+	 * Displays a list of all contracts.
+	 */
 	@GetMapping("/list")
 	public String listContracts(Model model) {
 		List<Contract> contracts = contractService.findAll();
@@ -103,12 +121,18 @@ public class ContractController {
 		return "amap/contract-list";
 	}
 
+	/**
+	 * Deletes a contract by its ID.
+	 */
 	@PostMapping("/delete/{id}")
 	public String deleteContract(@PathVariable("id") Long id) {
 		contractService.deletedById(id);
 		return "redirect:/amap/contracts/list";
 	}
 
+	/**
+	 * Displays the edit form for a specific contract.
+	 */
 	@GetMapping("/edit/{id}")
 	public String editContractForm(@PathVariable("id") Long id, Model model) {
 		Contract contract = contractService.findById(id);
@@ -119,14 +143,16 @@ public class ContractController {
 		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
 		return "amap/contract-edit";
 	}
-	
+
+	/**
+	 * Displays the details of a specific contract.
+	 */
 	@GetMapping("/detail/{id}")
 	public String viewContractDetail(@PathVariable("id") Long id, Model model) {
-	    Contract contract = contractService.findById(id);
-	    model.addAttribute("contract", contract);
-	    return "amap/contract-detail";
+		Contract contract = contractService.findById(id);
+		model.addAttribute("contract", contract);
+		return "amap/contract-detail";
 	}
-
 
 //	@PostMapping("/update")
 //	public String updateContract(@ModelAttribute("contract") Contract updatedContract) {

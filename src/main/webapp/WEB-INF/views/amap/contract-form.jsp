@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%
 String currentMainMenu = "products"; // Détermine la rubrique active
 String currentPage = "contracts"; // Détermine la sous-rubrique active
@@ -18,15 +19,17 @@ request.setAttribute("currentPage", currentPage);
 <link
 	href="<c:url value='/resources/css/amap/common/sidebarAdmin.css' />"
 	rel="stylesheet">
-	
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-	
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+	rel="stylesheet">
+
 <style>
-    .header-container {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
+.header-container {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
 </style>
 </head>
 <body>
@@ -38,14 +41,15 @@ request.setAttribute("currentPage", currentPage);
 			<div class="row justify-content-center">
 				<div class="col-lg-10">
 					<div class="form-container">
-                        <div class="header-container">
-                            <a href="<c:url value='/amap/contracts/list' />" class="btn-back">
-                                <i class="bi bi-arrow-left-circle"></i>
-                            </a>
-                            <h2 class="mb-4" style="font-weight: bold; text-align: left;">Ajouter
-                                un contrat</h2>
-                        </div>
-						<form method="POST" action="/Amappli/amap/contracts/add" enctype="multipart/form-data">
+						<div class="header-container">
+							<a href="<c:url value='/amap/contracts/list' />" class="btn-back">
+								<i class="bi bi-arrow-left-circle"></i>
+							</a>
+							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Ajouter
+								un contrat</h2>
+						</div>
+						<form:form method="POST" action="/Amappli/amap/contracts/add"
+							enctype="multipart/form-data">
 							<div class="row">
 								<!-- Première colonne -->
 								<div class="col-md-4">
@@ -84,8 +88,7 @@ request.setAttribute("currentPage", currentPage);
 										</select>
 									</div>
 									<div class="mb-3">
-										<label for="startDate" class="form-label">Date de
-											début du contrat</label> <input type="date" class="form-control"
+										<label for="startDate" class="form-label">Date de début du contrat</label> <input type="date" class="form-control"
 											id="startDate" name="startDate" min="${currentDate}">
 									</div>
 									<div class="mb-3">
@@ -101,7 +104,7 @@ request.setAttribute("currentPage", currentPage);
 										<label for="contractDescription" class="form-label">Produits
 											composant le panier</label>
 										<textarea class="form-control" id="contractDescription"
-											name="contractDescription" rows="3"
+											name="contractDescription" rows="5"
 											placeholder="Pommes, carottes, oignons..."></textarea>
 									</div>
 									<div class="mb-3">
@@ -144,9 +147,8 @@ request.setAttribute("currentPage", currentPage);
 											disponible entre chaque livraison</label>
 										<div class="input-group">
 											<input type="number" class="form-control" id="quantity"
-												name="quantity" step="1.00"
-												placeholder="0">
-											<span class="input-group-text">paniers</span>
+												name="quantity" step="1.00" placeholder="0"> <span
+												class="input-group-text">paniers</span>
 										</div>
 									</div>
 								</div>
@@ -154,11 +156,10 @@ request.setAttribute("currentPage", currentPage);
 								<!-- Troisième colonne -->
 								<div class="col-md-4">
 									<div class="mb-3 d-flex align-items-center">
-										        <label for="image" class="form-label">Photo du panier</label>
-        <input type="file" class="form-control" id="image" name="image">
-										<button type="button" class="btn btn-secondary">Ajouter</button>
+										<label for="image" class="form-label">Photo du panier</label>
+										<input type="file" class="form-control" id="image"
+											name="image" accept="image/png,image/jpeg,image/svg">
 									</div>
-
 									<div class="mb-3 text-center">
 										<img src="https://via.placeholder.com/150"
 											alt="Aperçu du produit" class="image-preview">
@@ -172,7 +173,7 @@ request.setAttribute("currentPage", currentPage);
 									</div>
 								</div>
 							</div>
-						</form>
+						</form:form>
 					</div>
 				</div>
 			</div>
@@ -181,5 +182,24 @@ request.setAttribute("currentPage", currentPage);
 	<script
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 	<script src="<c:url value='/resources/js/contract-form.js' />"></script>
+		<script>document.addEventListener("DOMContentLoaded", function () {
+    const fileInput = document.getElementById("image");
+    const previewImage = document.querySelector(".image-preview");
+
+    if (fileInput && previewImage) {
+        fileInput.addEventListener("change", function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    previewImage.src = e.target.result; // Met à jour l'URL de l'image
+                };
+
+                reader.readAsDataURL(file); // Lit le fichier comme une URL de données
+            }
+        });
+    }
+});</script>
 </body>
 </html>

@@ -54,11 +54,10 @@ public class ContractServiceImpl implements ContractService {
 		contract.setDeliveryDay(DeliveryDay.valueOf(contractDTO.getDeliveryDay()));
 		contract.setQuantity(contractDTO.getQuantity());
 		contract.setDateCreation(LocalDate.now());
-		
 
-		// Traitement de l'image
+		//Image treatment
 		if (!contractDTO.getImage().isEmpty()) {
-			if (contractDTO.getImage().getSize() > 5242880) { // Limite de 5MB
+			if (contractDTO.getImage().getSize() > 20971520) {
 				throw new IllegalArgumentException("La taille de l'image dépasse la limite de 5MB.");
 			}
 			try {
