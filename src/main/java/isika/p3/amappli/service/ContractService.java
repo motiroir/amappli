@@ -11,7 +11,7 @@ public interface ContractService {
 
 	List<Contract> findAll();
 
-	void deletedById(Long id);
+	void deleteById(Long id);
 
 	Contract findById(Long id);
 }

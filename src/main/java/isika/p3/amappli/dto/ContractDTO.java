@@ -21,5 +21,6 @@ public class ContractDTO {
     private MultipartFile image; // Champ pour l'image
     private String deliveryRecurrence; // Attribut ajouté
     private String deliveryDay;        // Attribut ajouté
-    private Integer quantity; 
+    private Integer quantity;
+    private LocalDate dateCreation;
 }

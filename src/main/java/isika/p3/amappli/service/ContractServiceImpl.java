@@ -30,7 +30,7 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
-	public void deletedById(Long id) {
+	public void deleteById(Long id) {
 		contractRepository.deleteById(id);
 	}
 

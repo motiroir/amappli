@@ -126,7 +126,7 @@ public class ContractController {
 	 */
 	@PostMapping("/delete/{id}")
 	public String deleteContract(@PathVariable("id") Long id) {
-		contractService.deletedById(id);
+		contractService.deleteById(id);
 		return "redirect:/amap/contracts/list";
 	}
 
