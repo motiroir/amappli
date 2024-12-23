@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> header Amap</title>
     <link rel="stylesheet" href="<c:url value='/resources/bootstrap/bootstrap.min.css' />">
-    <link rel="stylesheet" href="<c:url value='/resources/amap/common/header.css' />">
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-light">

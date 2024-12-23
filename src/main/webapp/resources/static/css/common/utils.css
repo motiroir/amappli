@@ -1,4 +1,4 @@
-@import "../common/fonts.css";
+@import "fonts.css";
 @import "theme/theme-1-dark.css";
 @import "theme/theme-1-light.css";
 
@@ -40,4 +40,16 @@
 
 .pointer {
   cursor: pointer!important;
+}
+
+#map {
+	width: 100vw;
+	height: 100vh;
+	/* La carte prend tout l'écran */
+	position: fixed;
+	/* Elle sert de background */
+	top: 0;
+	left: 0;
+	z-index: -1;
+	/* Place la carte derrière le contenu */
 }

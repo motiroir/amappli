@@ -1,0 +1,4 @@
+@charset "UTF-8";
+@import "../common/utils.css";
+@import "common/header.css"; 
+@import "common/footer.css";

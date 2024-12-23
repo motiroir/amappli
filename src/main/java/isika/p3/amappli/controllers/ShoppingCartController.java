@@ -11,21 +11,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import isika.p3.amappli.entities.order.ShoppingCart;
+import isika.p3.amappli.service.GraphismServiceImpl;
 import isika.p3.amappli.service.ShoppingCartServiceImpl;
 
 @Controller
-@RequestMapping("/cart")
+@RequestMapping("/{tenancyId}/cart")
 public class ShoppingCartController {
 
 	@Autowired
 	private ShoppingCartServiceImpl shoppingCartService;
+	@Autowired
+	private GraphismServiceImpl graphismService;
 	
     @GetMapping("/{cartId}")
-    public String viewCart(@PathVariable("cartId") Long cartId, Model model) {
-        //ShoppingCart cart = shoppingCartService.getOrCreateCart(cartId);
+    public String viewCart(@PathVariable("cartId") Long cartId, @PathVariable("tenancyId") Long tenancyId, Model model) {
         ShoppingCart cart = shoppingCartService.getShoppingCartById(cartId);
         model.addAttribute("cart", cart);
         model.addAttribute("total", shoppingCartService.calculateTotal(cartId));
+        
+        //get map style depending on tenancy
+        String mapStyle = graphismService.getMapboxStyleByTenancyId(tenancyId);
+        model.addAttribute("mapStyle", mapStyle);
+        
         return "amap/shopping-cart";
     }
 
@@ -50,7 +57,6 @@ public class ShoppingCartController {
         }
         return "redirect:/cart/" + cartId;
     }
-
     
     @GetMapping("/init")
     public String initializeCart() {

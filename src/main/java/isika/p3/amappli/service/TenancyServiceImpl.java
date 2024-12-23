@@ -155,6 +155,91 @@ public class TenancyServiceImpl implements TenancyService{
 
         // Sauvegarder la Tenancy avec ses ContentBlock et HomePageContent
         tenancyRepository.save(t1);
+        
+        //DEUXIEME TENANCY
+     // Création d'une Tenancy
+        Tenancy t2 = Tenancy.builder()
+                .tenancyName("Agrinov")
+                .tenancySlogan("L'innovation au service de l'agriculture de proximité")  
+                .address(new Address("Cave voutée de la Garenne Valentin", "Clisson", "44190", "France"))
+                .dateCreated(LocalDateTime.now())
+                .dateLastModified(LocalDateTime.now())
+                .build();
+        
+        // Création du Graphism pour Tenancy
+        Graphism graphism2 = Graphism.builder()
+                .colorPalette(ColorPalette.PALETTE2)  
+                .fontChoice(FontChoice.NINITO)     
+                .logoImgType("image/jpeg")
+                .logoImg(Base64.getEncoder().encodeToString("logoBytesPlaceholder".getBytes())) 
+                .tenancy(t2)
+                .build();
+        t2.setGraphism(graphism2);
+
+        // Création du HomePageContent pour la Tenancy
+        HomePageContent homePageContent2 = HomePageContent.builder()
+                .subTitle("Un panier bio, local et de saison.")
+                .showSuppliers(true)
+                .tenancy(t2) // Association de HomePageContent avec Tenancy
+                .build();
+        
+        // Création des 4 ContentBlock pour la Tenancy
+
+        // 1. Le ContentBlock pour la présentation de l'AMAP
+        ContentBlock presentationBlock2 = ContentBlock.builder()
+                .isValue(false)  
+                .contentTitle("Présentation d'Agrinov")
+                .contentText("Agrinov est une AMAP dédiée à la distribution de paniers bio, locaux et de saison.")
+                .contentImgName("agrinov-presentation.jpg")
+                .contentImgTypeMIME("image/jpeg")
+                .contentImg(Base64.getEncoder().encodeToString("imageBytesPlaceholder".getBytes())) 
+                .homePageContent(homePageContent2) 
+                .build();
+        
+        // 2. ContentBlock pour la première valeur de l'AMAP
+        ContentBlock valueBlock21 = ContentBlock.builder()
+                .isValue(true)  // Ce block représente une valeur de l'AMAP
+                .contentTitle("Soutien à l'Agriculture Durable")
+                .contentText("Nous soutenons les pratiques agricoles respectueuses de l'environnement.")
+                .contentImgName("value1.jpg")
+                .contentImgTypeMIME("image/jpeg")
+                .contentImg(Base64.getEncoder().encodeToString("imageBytesPlaceholder".getBytes())) 
+                .homePageContent(homePageContent2) // Association avec HomePageContent
+                .build();
+        
+        // 3. ContentBlock pour la deuxième valeur de l'AMAP
+        ContentBlock valueBlock22 = ContentBlock.builder()
+                .isValue(true)  // Ce block représente une valeur de l'AMAP
+                .contentTitle("Transparence et Traçabilité")
+                .contentText("Tous nos produits sont traçables et proviennent de fermes locales.")
+                .contentImgName("value2.jpg")
+                .contentImgTypeMIME("image/jpeg")
+                .contentImg(Base64.getEncoder().encodeToString("imageBytesPlaceholder".getBytes())) 
+                .homePageContent(homePageContent2) // Association avec HomePageContent
+                .build();
+        
+        // 4. ContentBlock pour la troisième valeur de l'AMAP
+        ContentBlock valueBlock23 = ContentBlock.builder()
+                .isValue(true)  // Ce block représente une valeur de l'AMAP
+                .contentTitle("Frais et Local")
+                .contentText("Nos produits sont livrés directement des fermes locales aux consommateurs.")
+                .contentImgName("value3.jpg")
+                .contentImgTypeMIME("image/jpeg")
+                .contentImg(Base64.getEncoder().encodeToString("imageBytesPlaceholder".getBytes())) 
+                .homePageContent(homePageContent2) 
+                .build();
+        
+        // Ajouter les ContentBlock dans HomePageContent
+        homePageContent2.getContents().add(presentationBlock2);
+        homePageContent2.getContents().add(valueBlock21);
+        homePageContent2.getContents().add(valueBlock22);
+        homePageContent2.getContents().add(valueBlock23);
+
+        // Associer le HomePageContent à la Tenancy
+        t2.setHomePageContent(homePageContent2);
+
+        // Sauvegarder la Tenancy avec ses ContentBlock et HomePageContent
+        tenancyRepository.save(t2);
     }
 
 

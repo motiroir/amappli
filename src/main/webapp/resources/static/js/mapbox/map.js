@@ -5,11 +5,13 @@ mapboxgl.accessToken = 'pk.eyJ1IjoidGlyb2lybW9yZ2FuZSIsImEiOiJja2cyOXRqYWkwcDdsM
 let zoom = 14;
 let userLatitude = 42.1880896; // c'est la corse btw
 let userLongitude = 9.0684138;
+const fallbackStyle = 'mapbox://styles/tiroirmorgane/cm4pjeh6h007k01r0fhs20pkd'; //dark theme as fallback (when no tenancy)
+const mapStyle = styleMapbox || fallbackStyle;
 
 // Création de la carte
 const map = new mapboxgl.Map({
     container: 'map', // ID du conteneur
-    style: 'mapbox://styles/tiroirmorgane/cm4pjeh6h007k01r0fhs20pkd', // Style de la carte
+    style: mapStyle, // Style de la carte
     center: [userLongitude, userLatitude], // Coordonnées (longitude, latitude)
     zoom: zoom // Niveau de zoom
 });
