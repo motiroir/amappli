@@ -6,7 +6,8 @@ let zoom = 14;
 let userLatitude = 42.1880896; // c'est la corse btw
 let userLongitude = 9.0684138;
 const fallbackStyle = 'mapbox://styles/tiroirmorgane/cm4pjeh6h007k01r0fhs20pkd'; //dark theme as fallback (when no tenancy)
-const mapStyle = styleMapbox || fallbackStyle;
+//checks if styleMabox is defined, if not shows the fallback style (if we don't define it in the jsp file like in amapplis jsp for eg)
+const mapStyle = typeof styleMapbox !== 'undefined' ? styleMapbox : fallbackStyle;
 
 // Création de la carte
 const map = new mapboxgl.Map({

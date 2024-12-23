@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> header Amap</title>
     <link rel="stylesheet" href="<c:url value='/resources/bootstrap/bootstrap.min.css' />">
-    <link rel="stylesheet" href="<c:url value='/resources/amap/common/header.css' />">
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-light">
@@ -33,22 +32,14 @@
             <a class="nav-link" href="#">Contact</a>
           </li>
           <li class="nav-item">
-            <a class="btn btn-inscrire" href="#">Se connecter</a>
+            <a class="btn rounded-pill btn-500 px-4" href="#">Se connecter</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    const toggler = document.querySelector('.navbar-toggler');
-    toggler.addEventListener('click', function() {
-      const nav = document.querySelector('#navbarNav');
-      const isExpanded = toggler.getAttribute('aria-expanded') === 'true';
-      toggler.setAttribute('aria-expanded', !isExpanded);
-      nav.classList.toggle('show');
-    });
-  </script>
+
 </body>
 </html>
+
