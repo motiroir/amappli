@@ -26,6 +26,9 @@ switcher.addEventListener("click", function(e) {
             zoom: zoom // Niveau de zoom
         });
     }
+	
+	let copyrights = document.getElementsByClassName("mapboxgl-ctrl-bottom-right")[0];
+	let watermark = document.getElementsByClassName("mapboxgl-ctrl-bottom-left")[0];
     copyrights.remove();
     watermark.remove();
 });

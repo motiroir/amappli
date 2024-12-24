@@ -75,6 +75,11 @@
 	<script>
 		const styleMapboxLight = "${mapStyleLight}"
 		const styleMapboxDark = "${mapStyleDark}"
+			
+/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
+ 		const tenancyCity = "${tenancy.getAddress().getCity()}"
+		const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
+			*/
 	</script>
 
 	<script src="<c:url value='/resources/js/mapbox/mapbox-gl.js' />"></script>
