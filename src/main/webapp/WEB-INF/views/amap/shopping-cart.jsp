@@ -16,7 +16,7 @@
 </head>
 
 
-<body class="${cssStyle}">
+<body class="${cssStyle} light">
 
 	<header class="fc-main bg-main">
 		<jsp:include page="common/header-amap.jsp" />
@@ -78,5 +78,6 @@
 
 	<script src="<c:url value='/resources/js/mapbox/mapbox-gl.js' />"></script>
 	<script src="<c:url value='/resources/js/mapbox/map.js' />"></script>
+	<script	src="<c:url value='/resources/js/theme-swap-for-amaps.js' />"></script>
 </body>
 </html>

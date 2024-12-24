@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import isika.p3.amappli.entities.order.ShoppingCart;
+import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.service.GraphismServiceImpl;
 import isika.p3.amappli.service.ShoppingCartServiceImpl;
@@ -33,9 +34,9 @@ public class ShoppingCartController {
         //get map style depending on tenancy
         String mapStyle = graphismService.getMapboxStyleByTenancyId(tenancyId);
         model.addAttribute("mapStyle", mapStyle);
-        //get address for footer
-        Address address = graphismService.getAddressByTenancyId(tenancyId);
-        model.addAttribute("address", address);
+        //get tenancy info for header footer
+        Tenancy tenancy= graphismService.getTenancyById(tenancyId);
+        model.addAttribute("tenancy", tenancy);
         //get color palette
         String cssStyle = graphismService.getColorPaletteByTenancyId(tenancyId);
         model.addAttribute("cssStyle", cssStyle);
@@ -65,7 +66,7 @@ public class ShoppingCartController {
         return "redirect:/{tenancyId}/cart/" + cartId;
     }
     
-    @GetMapping("/init")
+    @GetMapping("/{cartId}/init")
     public String initializeCart(@PathVariable("cartId") Long cartId, @PathVariable("tenancyId") Long tenancyId) {
     	shoppingCartService.initShoppingCart();
     	return "redirect:/{tenancyId}/cart/{cartId}";

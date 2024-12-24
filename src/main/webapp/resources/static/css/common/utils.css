@@ -1,6 +1,16 @@
 @import "fonts.css";
 @import "theme/theme-1-dark.css";
 @import "theme/theme-1-light.css";
+@import "theme/theme-2-light.css";
+@import "theme/theme-2-dark.css";
+@import "theme/theme-3-light.css";
+@import "theme/theme-3-dark.css";
+@import "theme/theme-4-light.css";
+@import "theme/theme-4-dark.css";
+@import "theme/theme-5-light.css";
+@import "theme/theme-5-dark.css";
+@import "theme/theme-6-light.css";
+@import "theme/theme-6-dark.css";
 
 :root {
   --orange-050: #ffcbad;

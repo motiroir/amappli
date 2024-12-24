@@ -37,12 +37,12 @@
 
 		<div class="nav-item col-md-4">
 			<h5 class="fw-bold">Où nous trouver ?</h5>
-			<p class="mb-0">Adresse:</p>
-
-			<p>${address.getLine1()}</p>
-			<p>${address.getLine2()}</p>
-			<p>${address.getPostCode()}${address.getCity()}</p>
-
+			<ul class="list-unstyled">
+			<li>${tenancy.getTenancyName()}</li>
+			<li>${tenancy.getAddress().getLine1()}</li>
+			<li>${tenancy.getAddress().getLine2()}</li>
+			<li>${tenancy.getAddress().getPostCode()} ${tenancy.getAddress().getCity()}</li>
+			</ul>
 		</div>
 		<!-- Copyright -->
 		<div class="text-center mt-4">
