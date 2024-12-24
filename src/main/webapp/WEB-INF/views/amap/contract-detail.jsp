@@ -52,6 +52,8 @@ request.setAttribute("currentPage", currentPage);
 							</a>
 							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Détails
 								du contrat</h2>
+								<a href="/Amappli/amap/contracts/edit/${contract.id}" class="btn btn-primary">Modifier le contrat</a>
+								
 						</div>
 						<form>
 							<div class="row">

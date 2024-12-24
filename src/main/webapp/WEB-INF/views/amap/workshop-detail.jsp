@@ -45,6 +45,7 @@ request.setAttribute("currentPage", currentPage);
                                 <i class="bi bi-arrow-left-circle"></i>
                             </a>
                             <h2 class="mb-4" style="font-weight: bold; text-align: left;">Détails de l'atelier</h2>
+                            <a href="/Amappli/amap/workshops/edit/${workshop.id}" class="btn btn-primary">Modifier l'atelier</a>
                         </div>
                         <form>
                             <div class="row">
@@ -112,20 +113,5 @@ request.setAttribute("currentPage", currentPage);
         </div>
     </div>
     <script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const editButton = document.getElementById("editButton");
-            const saveButton = document.getElementById("saveButton");
-            const inputs = document.querySelectorAll(".form-control");
-
-            editButton.addEventListener("click", function () {
-                inputs.forEach(input => {
-                    input.removeAttribute("readonly");
-                });
-                editButton.classList.add("d-none");
-                saveButton.classList.remove("d-none");
-            });
-        });
-    </script>
 </body>
 </html>

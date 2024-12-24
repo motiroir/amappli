@@ -6,6 +6,7 @@ import java.util.Base64;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import isika.p3.amappli.dto.WorkshopDTO;
 import isika.p3.amappli.entities.workshop.Workshop;
@@ -65,6 +66,41 @@ public class WorkshopServiceImpl implements WorkshopService {
 	public Workshop findById(Long id) {
 		// TODO Auto-generated method stub
 		return workshopRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	public void updateWorkshop(WorkshopDTO updatedWorkshopDTO, MultipartFile image) {
+
+		 Workshop existingWorkshop = workshopRepository.findById(updatedWorkshopDTO.getId()).orElse(null);
+
+		    if (existingWorkshop == null) {
+		        throw new IllegalArgumentException("L'atelier avec l'ID " + updatedWorkshopDTO.getId() + " n'existe pas.");
+		    }
+
+		    // Mise à jour des champs non liés à l'image
+		    existingWorkshop.setWorkshopName(updatedWorkshopDTO.getWorkshopName() != null ? updatedWorkshopDTO.getWorkshopName() : existingWorkshop.getWorkshopName());
+		    existingWorkshop.setWorkshopDescription(updatedWorkshopDTO.getWorkshopDescription() != null ? updatedWorkshopDTO.getWorkshopDescription() : existingWorkshop.getWorkshopDescription());
+		    existingWorkshop.setWorkshopDateTime(updatedWorkshopDTO.getWorkshopDateTime() != null ? updatedWorkshopDTO.getWorkshopDateTime() : existingWorkshop.getWorkshopDateTime());
+		    existingWorkshop.setWorkshopPrice(updatedWorkshopDTO.getWorkshopPrice() != null ? updatedWorkshopDTO.getWorkshopPrice() : existingWorkshop.getWorkshopPrice());
+		    existingWorkshop.setWorkshopDuration(updatedWorkshopDTO.getWorkshopDuration() != null ? updatedWorkshopDTO.getWorkshopDuration() : existingWorkshop.getWorkshopDuration());
+		    existingWorkshop.setLocation(updatedWorkshopDTO.getLocation() != null ? updatedWorkshopDTO.getLocation() : existingWorkshop.getLocation());
+		    existingWorkshop.setMinimumParticipants(updatedWorkshopDTO.getMinimumParticipants() != null ? updatedWorkshopDTO.getMinimumParticipants() : existingWorkshop.getMinimumParticipants());
+		    existingWorkshop.setMaximumParticipants(updatedWorkshopDTO.getMaximumParticipants() != null ? updatedWorkshopDTO.getMaximumParticipants() : existingWorkshop.getMaximumParticipants());
+		    existingWorkshop.setIsBookable(updatedWorkshopDTO.getIsBookable() != null ? updatedWorkshopDTO.getIsBookable() : existingWorkshop.getIsBookable());
+
+		    // Gestion de l'image
+		    if (image != null && !image.isEmpty()) {
+		        try {
+		            existingWorkshop.setImageType(image.getContentType());
+		            byte[] imageBytes = image.getBytes();
+		            existingWorkshop.setImageData(Base64.getEncoder().encodeToString(imageBytes));
+		        } catch (IOException e) {
+		            e.printStackTrace();
+		        }
+		    }
+
+		    // Sauvegarde de l'atelier mis à jour
+		    workshopRepository.save(existingWorkshop);
 	}
 
 }

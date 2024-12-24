@@ -1,9 +1,11 @@
 package isika.p3.amappli.controllers;
 
 import java.beans.PropertyEditorSupport;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Comparator;
 import java.util.List;
 
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import isika.p3.amappli.dto.ContractDTO;
 import isika.p3.amappli.entities.contract.Contract;
@@ -135,14 +139,21 @@ public class ContractController {
 	 */
 	@GetMapping("/edit/{id}")
 	public String editContractForm(@PathVariable("id") Long id, Model model) {
-		Contract contract = contractService.findById(id);
-		model.addAttribute("contract", contract);
-		model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
-		model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
-		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
-		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
-		return "amap/contract-edit";
+	    Contract contract = contractService.findById(id);
+
+	    if (contract == null) {
+	        return "redirect:/amap/contracts/list"; // Redirige si le contrat n'existe pas
+	    }
+
+	    model.addAttribute("contract", contract);
+	    model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
+	    model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
+	    model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
+	    model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
+
+	    return "amap/contract-edit"; // Nom de la vue pour le formulaire d'édition
 	}
+
 
 	/**
 	 * Displays the details of a specific contract.
@@ -154,23 +165,18 @@ public class ContractController {
 		return "amap/contract-detail";
 	}
 
-//	@PostMapping("/update")
-//	public String updateContract(@ModelAttribute("contract") Contract updatedContract) {
-//		Contract existingContract = contractService.findById(updatedContract.getId());
-//
-//		existingContract.setContractName(formatContractName(updatedContract.getContractName()));
-//		existingContract.setContractType(updatedContract.getContractType());
-//		existingContract.setContractDescription(formatContractDescription(updatedContract.getContractDescription()));
-//		existingContract.setContractWeight(updatedContract.getContractWeight());
-//		existingContract.setContractPrice(updatedContract.getContractPrice());
-//		existingContract.setStartDate(updatedContract.getStartDate());
-//		existingContract.setEndDate(updatedContract.getEndDate());
-////		existingContract.setImageUrl(updatedContract.getImageUrl());
-//		existingContract.setDeliveryRecurrence(updatedContract.getDeliveryRecurrence());
-//		existingContract.setDeliveryDay(updatedContract.getDeliveryDay());
-//		existingContract.setQuantity(updatedContract.getQuantity());
-//
-//		contractService.save(existingContract);
-//		return "redirect:/amap/contracts/list";
-//	}
+	@PostMapping("/update")
+	public String updateContract(
+	    @ModelAttribute("contract") ContractDTO updatedContractDTO,
+	    @RequestParam(value = "image", required = false) MultipartFile image) {
+	    
+	    contractService.updateContract(updatedContractDTO, image);
+
+	    return "redirect:/amap/contracts/list";
+	}
+
+
+
+
+
 }

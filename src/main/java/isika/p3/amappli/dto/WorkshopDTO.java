@@ -13,6 +13,7 @@ import lombok.Setter;
 @Setter
 public class WorkshopDTO {
 
+	private Long id;
     private String workshopName;
     private String workshopDescription;
     private LocalDateTime workshopDateTime;

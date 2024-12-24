@@ -3,6 +3,7 @@ package isika.p3.amappli.controllers;
 import java.beans.PropertyEditorSupport;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -14,8 +15,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import isika.p3.amappli.dto.ProductDTO;
 import isika.p3.amappli.dto.WorkshopDTO;
+import isika.p3.amappli.entities.contract.DeliveryDay;
+import isika.p3.amappli.entities.contract.DeliveryRecurrence;
+import isika.p3.amappli.entities.product.Product;
 import isika.p3.amappli.entities.workshop.Workshop;
 import isika.p3.amappli.service.WorkshopService;
 
@@ -58,7 +65,7 @@ public class WorkshopController {
 	}
 
 	/**
-	 * Saves a new product to the database.
+	 * Saves a new workshop to the database.
 	 */
 	@PostMapping("/add")
 	public String addWorkshop(@ModelAttribute("workshopDTO") WorkshopDTO workshopDTO) {
@@ -77,7 +84,7 @@ public class WorkshopController {
 	}
 
 	/**
-	 * Deletes a contract by its ID.
+	 * Deletes a workshop by its ID.
 	 */
 	@PostMapping("/delete/{id}")
 	public String deleteWorkshop(@PathVariable("id") Long id) {
@@ -86,13 +93,39 @@ public class WorkshopController {
 	}
 
 	/**
-	 * Displays the details of a specific product.
+	 * Displays the edit form for a specific workshop.
+	 */
+	@GetMapping("/edit/{id}")
+	public String editWorkshopForm(@PathVariable("id") Long id, Model model) {
+	    Workshop workshop = workshopService.findById(id);
+
+	    if (workshop == null) {
+	        return "redirect:/amap/workshops/list"; // Redirige si le contrat n'existe pas
+	    }
+
+	    model.addAttribute("workshop", workshop);
+
+	    return "amap/workshop-edit"; // Nom de la vue pour le formulaire d'édition
+	}
+	
+	/**
+	 * Displays the details of a specific workshop.
 	 */
 	@GetMapping("/detail/{id}")
 	public String viewWorkshopDetail(@PathVariable("id") Long id, Model model) {
 		Workshop workshop = workshopService.findById(id);
 		model.addAttribute("workshop", workshop);
 		return "amap/workshop-detail";
+	}
+	
+	@PostMapping("/update")
+	public String updateWorkshop(
+	    @ModelAttribute("workshop") WorkshopDTO updatedWorkshopDTO,
+	    @RequestParam(value = "image", required = false) MultipartFile image) {
+	    
+		workshopService.updateWorkshop(updatedWorkshopDTO, image);
+
+	    return "redirect:/amap/workshops/list";
 	}
 
 }

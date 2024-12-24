@@ -51,6 +51,7 @@ request.setAttribute("currentPage", currentPage);
 							</a>
 							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Détails
 								du produit</h2>
+								<a href="/Amappli/amap/products/edit/${product.id}" class="btn btn-primary">Modifier le produit</a>
 						</div>
 						<form>
 							<div class="row">

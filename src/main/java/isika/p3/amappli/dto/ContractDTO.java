@@ -11,6 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ContractDTO {
+	private Long id;
     private String contractName;
     private String contractType;
     private String contractDescription;

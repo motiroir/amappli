@@ -2,6 +2,8 @@ package isika.p3.amappli.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import isika.p3.amappli.dto.ContractDTO;
 import isika.p3.amappli.entities.contract.Contract;
 
@@ -14,4 +16,6 @@ public interface ContractService {
 	void deleteById(Long id);
 
 	Contract findById(Long id);
+
+	void updateContract(ContractDTO updatedContractDTO, MultipartFile image);
 }

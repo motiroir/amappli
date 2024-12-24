@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import isika.p3.amappli.dto.ContractDTO;
 import isika.p3.amappli.dto.ProductDTO;
@@ -95,6 +97,24 @@ public class ProductController {
 	    productService.deleteById(id);
 	    return "redirect:/amap/products/list";
 	}
+	
+	/**
+	 * Displays the edit form for a specific product.
+	 */
+	@GetMapping("/edit/{id}")
+	public String editProductForm(@PathVariable("id") Long id, Model model) {
+	    Product product = productService.findById(id);
+
+	    if (product == null) {
+	        return "redirect:/amap/products/list"; // Redirige si le contrat n'existe pas
+	    }
+
+	    model.addAttribute("product", product);
+	    model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
+	    model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
+
+	    return "amap/product-edit"; // Nom de la vue pour le formulaire d'édition
+	}
 
     
 	/**
@@ -105,5 +125,15 @@ public class ProductController {
 		Product product = productService.findById(id);
 		model.addAttribute("product", product);
 		return "amap/product-detail";
+	}
+	
+	@PostMapping("/update")
+	public String updateProduct(
+	    @ModelAttribute("product") ProductDTO updatedProductDTO,
+	    @RequestParam(value = "image", required = false) MultipartFile image) {
+	    
+		productService.updateProduct(updatedProductDTO, image);
+
+	    return "redirect:/amap/products/list";
 	}
 }
