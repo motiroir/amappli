@@ -32,8 +32,10 @@ public class ShoppingCartController {
         model.addAttribute("total", shoppingCartService.calculateTotal(cartId));
         
         //get map style depending on tenancy
-        String mapStyle = graphismService.getMapboxStyleByTenancyId(tenancyId);
-        model.addAttribute("mapStyle", mapStyle);
+        String mapStyleLight = graphismService.getMapStyleLightByTenancyId(tenancyId);
+        String mapStyleDark = graphismService.getMapStyleDarkByTenancyId(tenancyId);
+        model.addAttribute("mapStyleLight", mapStyleLight);
+        model.addAttribute("mapStyleDark", mapStyleDark);
         //get tenancy info for header footer
         Tenancy tenancy= graphismService.getTenancyById(tenancyId);
         model.addAttribute("tenancy", tenancy);

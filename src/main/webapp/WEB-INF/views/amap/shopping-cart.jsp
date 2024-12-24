@@ -73,7 +73,8 @@
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 
 	<script>
-		const styleMapbox = "${mapStyle}"
+		const styleMapboxLight = "${mapStyleLight}"
+		const styleMapboxDark = "${mapStyleDark}"
 	</script>
 
 	<script src="<c:url value='/resources/js/mapbox/mapbox-gl.js' />"></script>

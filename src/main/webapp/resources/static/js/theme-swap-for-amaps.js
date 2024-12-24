@@ -11,16 +11,17 @@ switcher.addEventListener("click", function(e) {
 
         map = new mapboxgl.Map({
             container: 'map', // ID du conteneur
-            style: 'mapbox://styles/tiroirmorgane/cm4pjeh6h007k01r0fhs20pkd', // Style de la carte
+            style: styleMapboxDark, // Style de la carte
             center: [userLongitude, userLatitude], // Coordonnées (longitude, latitude)
             zoom: zoom // Niveau de zoom
         });
     } else {
         body.classList.remove('dark');
         body.classList.add('light');
+		
         map = new mapboxgl.Map({
             container: 'map', // ID du conteneur
-            style: 'mapbox://styles/tiroirmorgane/cm4pijthd007v01sfhvoad40c', // Style de la carte
+            style: styleMapboxLight, // Style de la carte
             center: [userLongitude, userLatitude], // Coordonnées (longitude, latitude)
             zoom: zoom // Niveau de zoom
         });

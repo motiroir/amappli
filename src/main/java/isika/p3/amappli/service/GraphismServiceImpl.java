@@ -14,7 +14,7 @@ public class GraphismServiceImpl {
 	@Autowired
 	private TenancyRepository tenancyRepo;
 
-	public String getMapboxStyleByTenancyId(Long tenancyId) {
+	public String getMapStyleLightByTenancyId(Long tenancyId) {
 		Tenancy tenancy = tenancyRepo.findById(tenancyId).orElse(null);
 		String colorPalette = tenancy.getGraphism().getColorPalette().toString();
 		if (colorPalette.equals("PALETTE1")) {
@@ -35,6 +35,32 @@ public class GraphismServiceImpl {
 		} else if (colorPalette.equals("PALETTE6")) {
 			// theme6 white
 			return "mapbox://styles/tiroirmorgane/cm52dmxt500c401s9ckayancx";
+		}
+		// them 6 white style by default
+		return "mapbox://styles/tiroirmorgane/cm52dmxt500c401s9ckayancx";
+	}
+	
+	public String getMapStyleDarkByTenancyId(Long tenancyId) {
+		Tenancy tenancy = tenancyRepo.findById(tenancyId).orElse(null);
+		String colorPalette = tenancy.getGraphism().getColorPalette().toString();
+		if (colorPalette.equals("PALETTE1")) {
+			// theme1 dark
+			return "mapbox://styles/tiroirmorgane/cm52cqefg003101sa878udky6";
+		} else if (colorPalette.equals("PALETTE2")) {
+			// theme2 dark
+			return "mapbox://styles/tiroirmorgane/cm52cuoxd00c101sa4gdl1bye";
+		} else if (colorPalette.equals("PALETTE3")) {
+			// theme3 dark
+			return "mapbox://styles/tiroirmorgane/cm52cw61a00cl01qohw2ifo3i";
+		} else if (colorPalette.equals("PALETTE4")) {
+			// theme4 dark
+			return "mapbox://styles/tiroirmorgane/cm52cxc4o00cm01qo3eei2j9x";
+		} else if (colorPalette.equals("PALETTE5")) {
+			// theme5 dark
+			return "mapbox://styles/tiroirmorgane/cm52cyg8t00c301s95paxgbyb";
+		} else if (colorPalette.equals("PALETTE6")) {
+			// theme6 dark
+			return "mapbox://styles/tiroirmorgane/cm52czmoi00ci01r1g3po4h2b";
 		}
 		// them 6 white style by default
 		return "mapbox://styles/tiroirmorgane/cm52dmxt500c401s9ckayancx";

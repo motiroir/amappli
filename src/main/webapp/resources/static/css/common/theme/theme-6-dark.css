@@ -1,18 +1,18 @@
 .theme-6.dark {
 		/*redefinition of colours for current theme*/
-	--orange-050: #D0D4C4;
-	--orange-100: #B1B6A5; 
-	--orange-300: #959D80; 
-	--orange-600: #7F886D; 
-	--orange-700: #6B725A;
-	--orange-900: #5F6454;
+	--orange-050: #D7EAD7;
+	--orange-100: #BBDDBC; 
+	--orange-300: #A1CCAF; 
+	--orange-600: #7CB69A; 
+	--orange-700: #71A58C;
+	--orange-900: #67967F;
 	
-	--green-400: #9E6742;
-	--green-500: #7F5235;
-	--green-600: #663F24;
-	--green-700: #4C2B12; 
-	--green-800: #3F240F;
-	--green-900: #321C0C; 
+	--green-400: #3B7491;
+	--green-500: #336899;
+	--green-600: #285286;
+	--green-700: #214474; 
+	--green-800: #1A3661;
+	--green-900: #0F2039; 
 	
     --main-bg-color  : var(--green-900);
     --main-font-color: var(--orange-100);
