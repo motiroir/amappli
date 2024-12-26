@@ -38,6 +38,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 		// Security Filter
 		FilterRegistration.Dynamic springSecurityFilterChain = servletContext.addFilter("springSecurityFilterChain", new DelegatingFilterProxy());
 		springSecurityFilterChain.addMappingForUrlPatterns(null,false,"/*");
+	
 	}
 
 	

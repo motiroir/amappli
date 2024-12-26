@@ -20,7 +20,9 @@ public class WebSecurityConfig {
 				.anyRequest().permitAll() //all other requests don't need authentication
 			)
 			.formLogin((form) -> form
-				.loginPage("/sectest/login") 
+				.loginPage("/sectest/login")
+				.loginProcessingUrl("/sectest/login")
+				.failureUrl("/sectest/login?error=true") 
 				.permitAll() //everyone has acces to the login page
 			)
 			.logout((logout) -> logout.logoutUrl("/sectest/logout").permitAll());
