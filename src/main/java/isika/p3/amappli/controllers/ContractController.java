@@ -1,11 +1,9 @@
 package isika.p3.amappli.controllers;
 
 import java.beans.PropertyEditorSupport;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.Comparator;
 import java.util.List;
 
@@ -68,7 +66,7 @@ public class ContractController {
 		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
 		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		model.addAttribute("currentDate", currentDate);
-		return "amap/contract-form";
+		return "amap/contracts/contract-form";
 	}
 
 	/**
@@ -122,7 +120,7 @@ public class ContractController {
 		List<Contract> contracts = contractService.findAll();
 		contracts.sort(Comparator.comparing(Contract::getContractName, String.CASE_INSENSITIVE_ORDER));
 		model.addAttribute("contracts", contracts);
-		return "amap/contract-list";
+		return "amap/contracts/contract-list";
 	}
 
 	/**
@@ -151,7 +149,7 @@ public class ContractController {
 	    model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
 	    model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
 
-	    return "amap/contract-edit"; // Nom de la vue pour le formulaire d'édition
+	    return "amap/contracts/contract-edit"; // Nom de la vue pour le formulaire d'édition
 	}
 
 
@@ -162,7 +160,7 @@ public class ContractController {
 	public String viewContractDetail(@PathVariable("id") Long id, Model model) {
 		Contract contract = contractService.findById(id);
 		model.addAttribute("contract", contract);
-		return "amap/contract-detail";
+		return "amap/contracts/contract-detail";
 	}
 
 	@PostMapping("/update")

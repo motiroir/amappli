@@ -67,7 +67,7 @@ public class ProductController {
 		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
 		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		model.addAttribute("currentDate", currentDate);
-		return "amap/product-form";
+		return "amap/products/product-form";
 	}
 	
 	/**
@@ -86,7 +86,7 @@ public class ProductController {
 	public String listProducts(Model model) {
 		List<Product> products = productService.findAll();
 		model.addAttribute("products", products);
-		return "amap/product-list";
+		return "amap/products/product-list";
 	}
 	
 	/**
@@ -113,7 +113,7 @@ public class ProductController {
 	    model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
 	    model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
 
-	    return "amap/product-edit"; // Nom de la vue pour le formulaire d'édition
+	    return "amap/products/product-edit"; // Nom de la vue pour le formulaire d'édition
 	}
 
     
@@ -124,7 +124,7 @@ public class ProductController {
 	public String viewProductDetail(@PathVariable("id") Long id, Model model) {
 		Product product = productService.findById(id);
 		model.addAttribute("product", product);
-		return "amap/product-detail";
+		return "amap/products/product-detail";
 	}
 	
 	@PostMapping("/update")
