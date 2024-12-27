@@ -8,27 +8,12 @@ switcher.addEventListener("click", function(e) {
     if (switcher.checked == true) {
         body.classList.remove('light');
         body.classList.add('dark');
-
-        map = new mapboxgl.Map({
-            container: 'map', // ID du conteneur
-            style: styleMapboxDark, // Style de la carte
-            center: [userLongitude, userLatitude], // Coordonnées (longitude, latitude)
-            zoom: zoom // Niveau de zoom
-        });
+		map.setStyle(styleMapboxDark);
+		
     } else {
         body.classList.remove('dark');
         body.classList.add('light');
-		
-        map = new mapboxgl.Map({
-            container: 'map', // ID du conteneur
-            style: styleMapboxLight, // Style de la carte
-            center: [userLongitude, userLatitude], // Coordonnées (longitude, latitude)
-            zoom: zoom // Niveau de zoom
-        });
+		map.setStyle(styleMapboxLight);
+
     }
-	
-	let copyrights = document.getElementsByClassName("mapboxgl-ctrl-bottom-right")[0];
-	let watermark = document.getElementsByClassName("mapboxgl-ctrl-bottom-left")[0];
-    copyrights.remove();
-    watermark.remove();
 });

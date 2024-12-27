@@ -36,16 +36,54 @@
   font-family: 'Nunito'!important;
 }
 
-.nunito-sans {
+.nunito-sans,
+.nunito-sans-title :is(h1,h2,h3,h4,h5,h6),
+.nunito-sans-button .btn,
+.nunito-sans-button button {
   font-family: 'Nunito Sans'!important;
 }
 
-.futura {
+.futura,
+.futura-title :is(h1,h2,h3,h4,h5,h6),
+.futura-button .btn,
+.futura-button button {
   font-family: 'Futura'!important;
 }
 
 .futura-condensed {
   font-family: 'Futura Condensed'!important;
+}
+
+.audiowide, 
+.audiowide-title :is(h1,h2,h3,h4,h5,h6), 
+.audiowide-button .btn,
+.audiowide-button button {
+  font-family: 'Audiowide'!important;
+}
+
+.grenze,
+.grenze-title :is(h1,h2,h3,h4,h5,h6),
+.grenze-button .btn,
+.grenze-button button {
+  font-family: 'Grenze'!important;
+}
+
+.caveat,
+.caveat-title :is(h1,h2,h3,h4,h5,h6),
+.caveat-button .btn,
+.caveat-button button {
+  font-family: 'Caveat'!important;
+}
+
+.limelight,
+.limelight-title :is(h1,h2,h3,h4,h5,h6),
+.limelight-button .btn,
+.limelight-button button {
+  font-family: 'Limelight'!important;
+}
+
+.inter {
+  font-family: 'Inter'!important;
 }
 
 .pointer {

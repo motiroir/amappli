@@ -32,16 +32,14 @@ public class ShoppingCartController {
         model.addAttribute("total", shoppingCartService.calculateTotal(cartId));
         
         //get map style depending on tenancy
-        String mapStyleLight = graphismService.getMapStyleLightByTenancyId(tenancyId);
-        String mapStyleDark = graphismService.getMapStyleDarkByTenancyId(tenancyId);
-        model.addAttribute("mapStyleLight", mapStyleLight);
-        model.addAttribute("mapStyleDark", mapStyleDark);
+        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyId(tenancyId));
+        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyId(tenancyId));
         //get tenancy info for header footer
-        Tenancy tenancy= graphismService.getTenancyById(tenancyId);
-        model.addAttribute("tenancy", tenancy);
+        model.addAttribute("tenancy", graphismService.getTenancyById(tenancyId));
         //get color palette
-        String cssStyle = graphismService.getColorPaletteByTenancyId(tenancyId);
-        model.addAttribute("cssStyle", cssStyle);
+        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyId(tenancyId));
+        //get font choice
+        model.addAttribute("font", graphismService.getFontByTenancyId(tenancyId));
         
         return "amap/shopping-cart";
     }
