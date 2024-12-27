@@ -38,6 +38,9 @@ public class Tenancy {
 
     private String tenancySlogan;
 
+    @Column(nullable=false, unique =true ) // For url mapping
+    private String tenancyAlias;
+
     private BigDecimal membershipFeePrice;
 
     @OneToOne(cascade = CascadeType.ALL)

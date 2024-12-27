@@ -16,6 +16,7 @@ public interface TenancyService {
 	void deleteTenancy(Long id);
 	void addTestTenancies();
 	HomePageContent getHomePageContentByTenancyId(Long id);
+	Tenancy getTenancyByAlias(String alias);
 
 
 }

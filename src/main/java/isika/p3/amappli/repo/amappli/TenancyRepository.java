@@ -1,11 +1,11 @@
 package isika.p3.amappli.repo.amappli;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import isika.p3.amappli.entities.tenancy.Tenancy;
 
 @Repository
-public interface TenancyRepository extends CrudRepository<Tenancy, Long> {
+public interface TenancyRepository extends JpaRepository<Tenancy, Long> {
 
 }

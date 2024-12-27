@@ -660,4 +660,8 @@ public class TenancyServiceImpl implements TenancyService{
         tenancyRepository.save(tenancy);
     }
 
+
+@Override
+public Tenancy getTenancyByAlias(String alias) {
+        return tenancyRepository.findByTenancyAlias(alias).orElse(null);
 }
