@@ -15,8 +15,9 @@ public class GraphismServiceImpl implements GraphismService {
 	@Autowired
 	private TenancyRepository tenancyRepo;
 
-	public String getMapStyleLightByTenancyId(Long tenancyId) {
-		Tenancy tenancy = tenancyRepo.findById(tenancyId).orElse(null);
+	@Override
+	public String getMapStyleLightByTenancyAlias(String alias) {
+		Tenancy tenancy = tenancyRepo.findByTenancyAlias(alias).orElse(null);
 		if (tenancy == null || tenancy.getGraphism() == null) {
 			return "mapbox://styles/tiroirmorgane/cm4sw37wr001301s12frm2l2y"; // theme1 white by default
 		}
@@ -41,8 +42,9 @@ public class GraphismServiceImpl implements GraphismService {
 		}
 	}
 
-	public String getMapStyleDarkByTenancyId(Long tenancyId) {
-		Tenancy tenancy = tenancyRepo.findById(tenancyId).orElse(null);
+	@Override
+	public String getMapStyleDarkByTenancyAlias(String alias) {
+		Tenancy tenancy = tenancyRepo.findByTenancyAlias(alias).orElse(null);
 		if (tenancy == null || tenancy.getGraphism() == null) {
 			return "mapbox://styles/tiroirmorgane/cm52cqefg003101sa878udky6"; // theme1 dark by default
 		}
@@ -67,12 +69,14 @@ public class GraphismServiceImpl implements GraphismService {
 		}
 	}
 
-	public Tenancy getTenancyById(Long tenancyId) {
-		return tenancyRepo.findById(tenancyId).orElse(null);
+	@Override
+	public Tenancy getTenancyByAlias(String alias) {
+		return tenancyRepo.findByTenancyAlias(alias).orElse(null);
 	}
 
-	public String getColorPaletteByTenancyId(Long tenancyId) {
-		Tenancy tenancy = tenancyRepo.findById(tenancyId).orElse(null);
+	@Override
+	public String getColorPaletteByTenancyAlias(String alias) {
+		Tenancy tenancy = tenancyRepo.findByTenancyAlias(alias).orElse(null);
 		if (tenancy == null || tenancy.getGraphism() == null) {
 			return "theme-1";
 		}
@@ -97,8 +101,9 @@ public class GraphismServiceImpl implements GraphismService {
 		}
 	}
 
-	public String getFontByTenancyId(Long tenancyId) {
-		Tenancy tenancy = tenancyRepo.findById(tenancyId).orElse(null);
+	@Override
+	public String getFontByTenancyAlias(String alias) {
+		Tenancy tenancy = tenancyRepo.findByTenancyAlias(alias).orElse(null);
 		if (tenancy == null || tenancy.getGraphism() == null) {
 			return "futura";
 		}
