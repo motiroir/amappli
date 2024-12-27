@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import isika.p3.amappli.service.UserService;
 
 @Controller
-@RequestMapping("/platform")
+@RequestMapping("/plateform")
 public class HomeController {
 
 	private final UserService userService;
@@ -29,4 +29,6 @@ public class HomeController {
 		userService.generateUsers();
 		return "test";
 	}
+
+
 }

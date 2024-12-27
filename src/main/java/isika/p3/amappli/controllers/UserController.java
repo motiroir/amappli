@@ -1,9 +1,13 @@
 package isika.p3.amappli.controllers;
 
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,19 +50,29 @@ public class UserController {
                                BindingResult bindingResult,
                                Model model) {
         if (bindingResult.hasErrors()) {
-           
-            model.addAttribute("userDTO", userDTO);
+            // Collecter les erreurs spécifiques aux champs
+            Map<String, String> fieldErrors = bindingResult.getFieldErrors().stream()
+                .collect(Collectors.toMap(
+                    FieldError::getField,
+                    FieldError::getDefaultMessage
+                ));
+
+            model.addAttribute("errors", fieldErrors);
+            model.addAttribute("userDTO", userDTO); // Conserver les données saisies
             return "amap/amaplogin/signup-form";
         }
-        
+
         try {
             userService.addTenancyUser(userDTO, tenancyId);
             return "redirect:/tenancies/" + tenancyId + "/amap/amaplogin/login-done";
         } catch (RuntimeException e) {
+            // Gérer les erreurs générales
             model.addAttribute("error", e.getMessage());
+            model.addAttribute("userDTO", userDTO);
             return "amap/amaplogin/signup-form";
         }
     }
+
     
     
     // Afficher le formulaire de connexion

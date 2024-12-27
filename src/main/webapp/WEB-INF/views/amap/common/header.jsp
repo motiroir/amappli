@@ -33,7 +33,7 @@
             <a class="nav-link" href="#">Contact</a>
           </li>
           <li class="nav-item">
-            <a class="btn btn-inscrire" href="#">Se connecter</a>
+            <a class="btn btn-inscrire" href="amap/amaplogin/login">Se connecter</a>
           </li>
         </ul>
       </div>
