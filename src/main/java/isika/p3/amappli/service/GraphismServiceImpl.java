@@ -9,7 +9,7 @@ import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.repo.TenancyRepository;
 
 @Service
-public class GraphismServiceImpl {
+public class GraphismServiceImpl implements GraphismService{
 
 	@Autowired
 	private TenancyRepository tenancyRepo;
