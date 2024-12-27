@@ -425,3 +425,180 @@
         url('../../fonts/Montserrat/Montserrat-Italic-VariableFont_wght.ttf') format('truetype');
     font-style: italic;
 }
+
+@font-face {
+    font-family: 'Audiowide';
+    src        :
+        local('Audiowide'),
+        local('audiowide'),
+        url('../../fonts/Audiowide/Audiowide-Regular.woff') format('woff');
+    font-weight : normal;
+    font-style  : normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Limelight';
+    src        :
+        local('Limelight'),
+        local('limelight'),
+        url('../../fonts/Limelight/Limelight-Regular.woff') format('woff');
+    font-weight : normal;
+    font-style  : normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Caveat';
+    src        :
+        local('Caveat'),
+        local('caveat'),
+        url('../../fonts/Caveat/Caveat-Regular.woff') format('woff');
+    font-weight : normal;
+    font-style  : normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Caveat';
+    src        :
+        local('Caveat'),
+        local('caveat'),
+        url('../../fonts/Caveat/Caveat-SemiBold.woff') format('woff');
+    font-weight : 600;
+    font-style  : normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Caveat';
+    src        :
+        local('Caveat'),
+        local('caveat'),
+        url('../../fonts/Caveat/Caveat-Bold.woff') format('woff');
+    font-weight : bold;
+    font-style  : normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Grenze';
+    src        :
+        local('Grenze'),
+        local('grenze'),
+        url('../../fonts/Grenze/Grenze-Regular.woff') format('woff');
+    font-weight : normal;
+    font-style  : normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Grenze';
+    src        :
+        local('Grenze'),
+        local('grenze'),
+        url('../../fonts/Grenze/Grenze-Bold.woff') format('woff');
+    font-weight : bold;
+    font-style  : normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Grenze';
+    src        :
+        local('Grenze'),
+        local('grenze'),
+        url('../../fonts/Grenze/Grenze-Black.woff') format('woff');
+    font-weight : 900;
+    font-style  : normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src        :
+        local('Inter'),
+        local('inter'),
+        url('../../fonts/Inter/Inter-Black.woff') format('woff');
+    font-weight : 900;
+    font-style  : normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Inter';
+    src        :
+        local('Inter'),
+        local('inter'),
+        url('../../fonts/Inter/Inter-Bold.woff') format('woff');
+    font-weight : bold;
+    font-style  : normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Inter';
+    src        :
+        local('Inter'),
+        local('inter'),
+        url('../../fonts/Inter/Inter-ExtraBold.woff') format('woff');
+    font-weight : 800;
+    font-style  : normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Inter';
+    src        :
+        local('Inter'),
+        local('inter'),
+        url('../../fonts/Inter/Inter-ExtraLight.woff') format('woff');
+    font-weight : 200;
+    font-style  : normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Inter';
+    src        :
+        local('Inter'),
+        local('inter'),
+        url('../../fonts/Inter/Inter-Light.woff') format('woff');
+    font-weight : light;
+    font-style  : normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Inter';
+    src        :
+        local('Inter'),
+        local('inter'),
+        url('../../fonts/Inter/Inter-Medium.woff') format('woff');
+    font-weight : 600;
+    font-style  : normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Inter';
+    src        :
+        local('Inter'),
+        local('inter'),
+        url('../../fonts/Inter/Inter-Regular.woff') format('woff');
+    font-weight : normal;
+    font-style  : normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Inter';
+    src        :
+        local('Inter'),
+        local('inter'),
+        url('../../fonts/Inter/Inter-SemiBold.woff') format('woff');
+    font-weight : 700;
+    font-style  : normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Inter';
+    src        :
+        local('Inter'),
+        local('inter'),
+        url('../../fonts/Inter/Inter-Thin.woff') format('woff');
+    font-weight : 100;
+    font-style  : normal;
+    font-display: swap;
+}
+
+

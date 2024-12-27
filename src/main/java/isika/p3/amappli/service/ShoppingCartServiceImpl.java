@@ -32,7 +32,7 @@ public class ShoppingCartServiceImpl {
     public ShoppingCart getShoppingCartById(Long id) {
         ShoppingCart cart = shoppingCartRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Shopping Cart not found"));
-        // force initialization of  items
+        // force initialization of items
         cart.getShoppingCartItems().size();
         return cart;
     }
