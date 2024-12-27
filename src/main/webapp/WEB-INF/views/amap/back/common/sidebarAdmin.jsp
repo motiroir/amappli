@@ -9,10 +9,10 @@
         </div>
         <ul id="users-submenu" class="submenu ${currentMainMenu == 'users' ? 'active' : ''}">
             <li>
-                <a href="<c:url value='/tenancies/${tenancyId}/amap/admin/backoffice/users/list'/>" class="menu-item ${currentPage == 'users' ? 'active' : ''}">Vos adhérents</a>
+                <a href="<c:url value='/${tenancyAlias}/backoffice/users/list'/>" class="menu-item ${currentPage == 'users' ? 'active' : ''}">Vos adhérents</a>
             </li>
             <li>
-                <a href="<c:url value='/tenancies/${tenancyId}/amap/admin/backoffice/suppliers/list'/>" class="menu-item ${currentPage == 'suppliers' ? 'active' : ''}">Vos fournisseurs</a>
+                <a href="<c:url value='/${tenancyAlias}/backoffice/suppliers/list'/>" class="menu-item ${currentPage == 'suppliers' ? 'active' : ''}">Vos fournisseurs</a>
             </li>
             <li>
                 <a class="menu-item disabled">Vos rôles personnalisés<span class="pro-badge">PRO</span></a>

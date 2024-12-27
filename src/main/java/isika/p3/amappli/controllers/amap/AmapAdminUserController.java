@@ -37,7 +37,7 @@ public class AmapAdminUserController {
 		List<User> users = adminUserService.findAll(tenancyAlias);
 		model.addAttribute("users", users);
 		model.addAttribute("tenancyAlias", tenancyAlias);
-		return "amap/admin/users/users-list";
+		return "amap/back/users/users-list";
 	}
 	
 	
@@ -47,7 +47,7 @@ public class AmapAdminUserController {
 		model.addAttribute("user", supplier);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAllRoles());
-		return "amap/admin/users/users-details";
+		return "amap/back/users/users-details";
 	}
 	
 	@GetMapping("/users/form")
@@ -55,7 +55,7 @@ public class AmapAdminUserController {
 		model.addAttribute("supplier", new User());
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAllRoles());
-		return "amap/admin/users/users-form";
+		return "amap/back/users/users-form";
 	}
 	
 	@PostMapping("/users/delete/{userId}")
@@ -67,7 +67,7 @@ public class AmapAdminUserController {
 	@GetMapping("/users/generateFakes")
 	public String usersAddFake(@PathVariable("tenancyAlias") String tenancyAlias) {
 		adminUserService.generateUsers(tenancyAlias);
-		return "redirect:/users/users-list";
+		return "redirect:/users-list";
 	}
 	
 	@GetMapping("/suppliers/list")
@@ -75,7 +75,7 @@ public class AmapAdminUserController {
 		List<User> suppliers = adminUserService.findSuppliers(tenancyAlias);
 		model.addAttribute("suppliers", suppliers);
 		model.addAttribute("tenancyAlias", tenancyAlias);
-		return "amap/admin/users/suppliers-list";
+		return "amap/back/users/suppliers-list";
 	}
 	
 
@@ -84,14 +84,14 @@ public class AmapAdminUserController {
 		model.addAttribute("supplier", new User());
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAllRoles());
-		return "amap/admin/users/suppliers-form";
+		return "amap/back/users/suppliers-form";
 	}
 	
 
 	@PostMapping("/suppliers/add")
 	public String SuppliersAdd(@ModelAttribute("supplierDTO") SupplierDTO supplierDTO, @PathVariable("tenancyAlias") String tenancyAlias) {
 	    adminUserService.addTenancySupplier(supplierDTO, tenancyAlias);
-	    return "redirect:/suppliers/list";
+	    return "redirect:list";
 	}
 	
 
@@ -107,7 +107,7 @@ public class AmapAdminUserController {
 		User supplier = adminUserService.findById(userId);
 		model.addAttribute("supplier", supplier);
 		model.addAttribute("tenancyAlias", tenancyAlias);
-		return "amap/admin/users/suppliers-edit";
+		return "amap/back/users/suppliers-edit";
 	}
 	
 	@GetMapping("/suppliers/details/{userId}")
@@ -116,7 +116,7 @@ public class AmapAdminUserController {
 	    model.addAttribute("user", supplier);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAllRoles());
-	    return "amap/admin/users/suppliers-details";
+	    return "amap/back/users/suppliers-details";
 	}
 	
 }

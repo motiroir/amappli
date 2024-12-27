@@ -43,14 +43,14 @@ request.setAttribute("currentPage", currentPage);
 					<div class="form-container">
 						<div class="header-container">
 							<a
-								href="<c:url value='/tenancies/${tenancyId}/amap/admin/backoffice/suppliers/list' />"
+								href="<c:url value='/${tenancyAlias}/backoffice/suppliers/list' />"
 								class="btn-back"> <i class="bi bi-arrow-left-circle"></i>
 							</a>
 							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Ajouter
 								un adhérent</h2>
 						</div>
 						<form:form method="POST"
-							action="/Amappli/tenancies/${tenancyId}/amap/admin/backoffice/suppliers/add"
+							action="/Amappli/${tenancyAlias}/backoffice/suppliers/add"
 							enctype="multipart/form-data">
 							<div class="row">
 								<!-- Première colonne -->

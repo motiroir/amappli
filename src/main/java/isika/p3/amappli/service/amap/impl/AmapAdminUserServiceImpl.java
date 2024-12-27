@@ -227,14 +227,14 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 	@Override
 	public List<User> findAll(String tenancyAlias) {
 		return ((List<User>) userService.findAll()).stream()
-				.filter(u -> u.getTenancy().getTenancyAlias() == tenancyAlias
-				&& u.isActive()).toList();
+				.filter(u -> u.getTenancy().getTenancyAlias().equals(tenancyAlias)
+						&& u.isActive()).toList();
 	}
 
 	@Override
 	public List<User> findSuppliers(String tenancyAlias) {
 		return ((List<User>) userService.findAll()).stream()
-				.filter(u -> u.getTenancy().getTenancyAlias() == tenancyAlias 
+				.filter(u -> u.getTenancy().getTenancyAlias().equals(tenancyAlias) 
 						&& u.getRoles().contains(roleService.findByName("SUPPLIER"))
 						&& u.isActive()).toList();
 	}

@@ -35,7 +35,7 @@
 						<!-- Nombre total d'adhérents -->
 						<div class="me-4" style="font-size: 22px; font-weight: 400;">
 							<span>${users.size()} éléments</span><br/>
-							<a href="<c:url value='/tenancies/${tenancyId}/amap/admin/backoffice/users/generateFakes' />">ajouter 20 users</a>
+							<a href="<c:url value='/${tenancyAlias}/backoffice/users/generateFakes' />">ajouter 20 users</a>
 						</div>
 						<!-- Dropdown pour trier -->
 						<div class="d-flex align-items-center me-4">
@@ -53,7 +53,7 @@
 					</div>
 					<div class="table-container d-flex justify-content-between align-items-center">
 						<h2 style="font-weight: bold;">Liste des adhérents</h2>
-						<a href="<c:url value='/tenancies/${tenancyId}/amap/admin/backoffice/users/form'/>" class="btn-create">
+						<a href="<c:url value='/${tenancyAlias}/backoffice/users/form'/>" class="btn-create">
 							<span class="icon">+ </span>Créer un adhérent
 						</a>
 					</div>
@@ -95,7 +95,7 @@
 									</td>
 									<td>
 										<div class='d-flex justify-content-start align-items-center'>
-											<a href="<c:url value='/tenancies/${tenancyId}/amap/admin/backoffice/users/details/${user.userId}' />"
+											<a href="<c:url value='/${tenancyAlias}/backoffice/users/details/${user.userId}' />"
 												class="btn-view"> <i class="bi bi-eye"></i>
 											</a>
 											<form:form action="delete/${user.userId}" style="display: inline;" onsubmit="return confirm('Voulez-vous vraiment supprimer l'adhérent ${user.contactInfo.firstName} ${user.contactInfo.name} ?');">
