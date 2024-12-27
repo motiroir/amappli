@@ -74,6 +74,7 @@ public class TenancyServiceImpl implements TenancyService {
                 // Création d'une Tenancy
                 Tenancy t1 = Tenancy.builder()
                                 .tenancyName("BioColi")
+                                .tenancyAlias("biocoli")
                                 .tenancySlogan("Manger bio, c'est facile avec BioColi!")
                                 .address(new Address("A12", "12 avenue de la localité", "75000", "Paris"))
                                 .dateCreated(LocalDateTime.now())
@@ -159,6 +160,7 @@ public class TenancyServiceImpl implements TenancyService {
                 // Création d'une Tenancy
                 Tenancy t2 = Tenancy.builder()
                                 .tenancyName("Agrinov")
+                                .tenancyAlias("agrinov")
                                 .tenancySlogan("L'innovation au service de l'agriculture de proximité")
                                 .address(new Address("", "Cave voutée de la Garenne Valentin", "44190", "Clisson"))
                                 .dateCreated(LocalDateTime.now())
@@ -244,6 +246,7 @@ public class TenancyServiceImpl implements TenancyService {
                 // Création d'une Tenancy
                 Tenancy t3 = Tenancy.builder()
                                 .tenancyName("Groots")
+                                .tenancyAlias("groots")
                                 .tenancySlogan("Avec vous jusqu'au bout des racines")
                                 .address(new Address("", "16 rue D'Astorg", "31000", "Toulouse"))
                                 .dateCreated(LocalDateTime.now())
@@ -328,6 +331,7 @@ public class TenancyServiceImpl implements TenancyService {
                 // FOURTH TENANCY
                 Tenancy t4 = Tenancy.builder()
                                 .tenancyName("GreenHaven")
+                                .tenancyAlias("greenmaven")
                                 .tenancySlogan("Un havre de fraîcheur pour vos produits locaux")
                                 .address(new Address("", "24 rue des Lilas", "69000", "Lyon"))
                                 .dateCreated(LocalDateTime.now())
@@ -401,6 +405,7 @@ public class TenancyServiceImpl implements TenancyService {
                 // CINQUIÈME TENANCY
                 Tenancy t5 = Tenancy.builder()
                                 .tenancyName("GreenFields")
+                                .tenancyAlias("greenfields")
                                 .tenancySlogan("Des champs verts pour des générations durables")
                                 .address(new Address("", "25 avenue des Champs Verts", "69000", "Lyon"))
                                 .dateCreated(LocalDateTime.now())
@@ -478,6 +483,7 @@ public class TenancyServiceImpl implements TenancyService {
                 // SIXIÈME TENANCY
                 Tenancy t6 = Tenancy.builder()
                                 .tenancyName("TerraLocal")
+                                .tenancyAlias("terralocal")
                                 .tenancySlogan("Des produits de la Terre pour les gens d'ici")
                                 .address(new Address("", "10 rue des Cultures", "33000", "Bordeaux"))
                                 .dateCreated(LocalDateTime.now())

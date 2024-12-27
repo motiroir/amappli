@@ -31,7 +31,7 @@ public class TenancyController {
 		// Appeler la méthode pour ajouter les tenancies de test
 		tenancyService.addTestTenancies();
 		model.addAttribute("message", "Test tenancies added successfully!");
-		return "amappli/tenancy/tenancy-list";
+		return "amappli/back/tenancy/tenancy-list";
 	}
 
 	@GetMapping
