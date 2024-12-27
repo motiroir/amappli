@@ -9,7 +9,6 @@ import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.entities.user.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -41,7 +40,8 @@ public class Tenancy {
 
     private BigDecimal membershipFeePrice;
 
-    @Embedded
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "addressId")
     private Address address;
     
     private LocalDateTime dateCreated;

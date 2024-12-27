@@ -16,7 +16,7 @@ public class WebSecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 			.authorizeHttpRequests((requests) -> requests
-				.requestMatchers("/sectest/**").authenticated() //all requests that match this need to be authenticated unless stated otherwise
+//				.requestMatchers("/sectest/**").authenticated() //all requests that match this need to be authenticated unless stated otherwise
 				.anyRequest().permitAll() //all other requests don't need authentication
 			)
 			.formLogin((form) -> form

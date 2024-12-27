@@ -27,6 +27,9 @@
 		<li>
 			<a href="roles">Roles List</a>
 		</li>
+		<li>
+			<a href="tenancies/1/amap/admin/backoffice/users/list">Admin backoffice tenancy 1</a>
+		</li>
 	</ul>
 </body>
 </html>

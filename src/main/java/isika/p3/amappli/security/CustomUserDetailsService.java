@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import isika.p3.amappli.entities.auth.Permission;
 import isika.p3.amappli.entities.user.User;
-import isika.p3.amappli.repo.UserRepository;
+import isika.p3.amappli.repo.amap.UserRepository;
 
 @Service
 @Primary

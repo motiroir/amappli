@@ -2,7 +2,7 @@ package isika.p3.amappli.validation.validator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import isika.p3.amappli.dto.UserDTO;
+import isika.p3.amappli.dto.amap.UserDTO;
 import isika.p3.amappli.validation.annotation.PasswordMatches;
 
 public class PasswordMatchesValidator implements ConstraintValidator<PasswordMatches, UserDTO> {
