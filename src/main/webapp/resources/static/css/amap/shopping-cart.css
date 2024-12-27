@@ -3,4 +3,34 @@
 @import "common/header-amap.css"; 
 @import "common/footer-amap.css";
 
+.table-container {
+	width:80%;
+	align-items: center; 
+	justify-content: space-between;
+    padding: 20px;
+}
 
+.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table th {
+    font-weight: bold;
+    font-size: 16px;
+    border-bottom: 2px solid var(--orange-600);
+    text-align: left;
+    padding: 20px;
+}
+
+.table td {
+    font-size: 16px;
+    padding: 20px;
+    border-bottom: 2px solid var(--orange-300);
+}
+
+.table button {
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}

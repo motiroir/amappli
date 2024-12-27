@@ -23,38 +23,43 @@
 	</header>
 	<div id="map"></div>
 	<div class="fc-main">
-		<h1>Shopping Cart</h1>
+		<div class="main-div">
+			<h1>Shopping Cart</h1>
 
-		<table border="1">
-			<thead>
-				<tr>
-					<th>Product Name</th>
-					<th>Price</th>
-					<th>Quantity</th>
-					<th>Total</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="item" items="${cart.shoppingCartItems}">
-					<tr>
-						<td>${item.shoppable.getInfo()}</td>
-						<td>${item.shoppable.getPrice()}</td>
+			<div class="table-container">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Produits</th>
+							<th></th>
+							<th>Prix à l'unité</th>
+							<th>Quantité</th>
+							<th>Prix</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="item" items="${cart.shoppingCartItems}">
+							<tr>
+								<td>${item.shoppable.getImage()}</td>
+								<td>${item.shoppable.getInfo()}</td>
+								<td>${item.shoppable.getPrice()}</td>
 
-						<td><form:form method="post"
-								action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cart.shoppingCartId}/updateQuantity/${item.shoppingItemId}">
-								<button type="submit" name="action" value="decrease">-</button>
-								<span>${item.getQuantity()}</span>
-								<button type="submit" name="action" value="increase">+</button>
-							</form:form></td>
+								<td><form:form method="post"
+										action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cart.shoppingCartId}/updateQuantity/${item.shoppingItemId}">
+										<button class="btn btn-100" type="submit" name="action" value="decrease">-</button>
+										<span>${item.getQuantity()}</span>
+										<button class="btn btn-100" type="submit" name="action" value="increase">+</button>
+									</form:form></td>
 
-						<td>${item.totalPrice}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+								<td>${item.totalPrice}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+			<h2>Total: ${total}</h2>
 
-		<h2>Total: ${total}</h2>
-
+		</div>
 		<!-- Formulaire de test pour ajouter un article -> A SUPPRIMER -->
 		<form:form method="post"
 			action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cart.shoppingCartId}/add">
@@ -83,8 +88,10 @@
 		 */
 	</script>
 
-	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
-	<script src="<c:url value='/resources/js/amap/theme-swap-for-amaps.js' />"></script>
+<%-- 	<script
+		src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script> --%>
+	<script
+		src="<c:url value='/resources/js/amap/theme-swap-for-amaps.js' />"></script>
 </body>
 </html>
