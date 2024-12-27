@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import isika.p3.amappli.entities.order.ShoppingCart;
-import isika.p3.amappli.entities.tenancy.Tenancy;
-import isika.p3.amappli.entities.user.Address;
-import isika.p3.amappli.service.amap.impl.GraphismServiceImpl;
+import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.impl.ShoppingCartServiceImpl;
 
 @Controller
@@ -23,7 +21,7 @@ public class ShoppingCartController {
 	@Autowired
 	private ShoppingCartServiceImpl shoppingCartService;
 	@Autowired
-	private GraphismServiceImpl graphismService;
+	private GraphismService graphismService;
 	
     @GetMapping("/{cartId}")
     public String viewCart(@PathVariable("cartId") Long cartId, @PathVariable("tenancyId") Long tenancyId, Model model) {
