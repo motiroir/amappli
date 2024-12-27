@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <div class="sidebar">
     <!-- Vos utilisateurs -->
     <div>
@@ -8,10 +9,10 @@
         </div>
         <ul id="users-submenu" class="submenu ${currentMainMenu == 'users' ? 'active' : ''}">
             <li>
-                <a href="" class="menu-item ${currentPage == 'users' ? 'active' : ''}">Vos adhérents</a>
+                <a href="<c:url value='/tenancies/${tenancyId}/amap/admin/backoffice/users/list'/>" class="menu-item ${currentPage == 'users' ? 'active' : ''}">Vos adhérents</a>
             </li>
             <li>
-                <a href="" class="menu-item ${currentPage == 'providers' ? 'active' : ''}">Vos fournisseurs</a>
+                <a href="<c:url value='/tenancies/${tenancyId}/amap/admin/backoffice/suppliers/list'/>" class="menu-item ${currentPage == 'suppliers' ? 'active' : ''}">Vos fournisseurs</a>
             </li>
             <li>
                 <a class="menu-item disabled">Vos rôles personnalisés<span class="pro-badge">PRO</span></a>

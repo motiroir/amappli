@@ -7,12 +7,22 @@ let userLatitude = 42.1880896; // c'est la corse btw
 let userLongitude = 9.0684138;
 
 // Création de la carte
-const map = new mapboxgl.Map({
+const map1 = new mapboxgl.Map({
     container: 'map', // ID du conteneur
     style: 'mapbox://styles/tiroirmorgane/cm4pjeh6h007k01r0fhs20pkd', // Style de la carte
     center: [userLongitude, userLatitude], // Coordonnées (longitude, latitude)
     zoom: zoom // Niveau de zoom
 });
+
+// Création de la carte
+const map2 = new mapboxgl.Map({
+    container: 'map', // ID du conteneur
+    style: 'mapbox://styles/tiroirmorgane/cm4pijthd007v01sfhvoad40c', // Style de la carte
+    center: [userLongitude, userLatitude], // Coordonnées (longitude, latitude)
+    zoom: zoom // Niveau de zoom
+});
+
+var map = map1;
 
 // Mettre à jour la carte avec les nouvelles coordonnées
 function updateMap(coordinates) {

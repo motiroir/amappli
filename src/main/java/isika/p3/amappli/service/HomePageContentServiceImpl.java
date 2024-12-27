@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import isika.p3.amappli.entities.tenancy.HomePageContent;
 import isika.p3.amappli.repo.HomePageContentRepository;
+
 @Service
 public class HomePageContentServiceImpl implements HomePageContentService {
 	

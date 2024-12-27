@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
 	String currentMainMenu="users" ; // Détermine la rubrique active
 	String currentPage="users" ; // Détermine la sous-rubrique active
@@ -12,17 +13,18 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Liste des Contrats</title>
+	<title>Liste des adhérents</title>
 	<link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />" rel="stylesheet">
 	<link href="<c:url value='/resources/css/amap/common/sidebarAdmin.css' />" rel="stylesheet">
 	<link href="<c:url value='/resources/bootstrap/bootstrap-icons.css' />" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
 <body>
 	<!-- Inclusion de la sidebar -->
-	<navbar>
+	<nav>
 		<%@ include file="/WEB-INF/views/amap/common/sidebarAdmin.jsp" %>
-	</navbar>
+	</nav>
 
 	<!-- Contenu principal -->
 	<div class="content" style="margin-left: 240px;">
@@ -30,9 +32,10 @@
 			<div class="row justify-content-center">
 				<div class="col-12">
 					<div class="search-bar d-flex align-items-center mb-3">
-						<!-- Nombre total de contrats -->
+						<!-- Nombre total d'adhérents -->
 						<div class="me-4" style="font-size: 22px; font-weight: 400;">
-							<span>${contracts.size()} éléments</span>
+							<span>${users.size()} éléments</span><br/>
+							<a href="<c:url value='/tenancies/${tenancyId}/amap/admin/backoffice/users/generateFakes' />">ajouter 20 users</a>
 						</div>
 						<!-- Dropdown pour trier -->
 						<div class="d-flex align-items-center me-4">
@@ -40,8 +43,6 @@
 							<select id="sortBy" class="form-select custom-select" style="width: auto;">
 								<option value="name">Nom du domaine</option>
 								<option value="producer">Nom du producteur</option>
-								<option value="DateDesc">Date d'inscription (plus récente d'abord)</option>
-								<option value="DateAsc">Date d'inscription (plus lointaine d'abord)</option>
 							</select>
 						</div>
 						<!-- Barre de recherche -->
@@ -51,42 +52,57 @@
 						</div>
 					</div>
 					<div class="table-container d-flex justify-content-between align-items-center">
-						<h2 style="font-weight: bold;">Liste des utilisateurs</h2>
-						<a href="<c:url value='/amap/contracts/form' />" class="btn-create">
-							<span class="icon">+</span>Créer un utilisateur
+						<h2 style="font-weight: bold;">Liste des adhérents</h2>
+						<a href="<c:url value='/tenancies/${tenancyId}/amap/admin/backoffice/users/form'/>" class="btn-create">
+							<span class="icon">+ </span>Créer un adhérent
 						</a>
 					</div>
 					<!-- Mode tableau -->
 					<table class="table">
 						<thead>
 							<tr>
-								<th>Domaine</th>
 								<th>Nom</th>
+								<th>Email</th>
+								<th>Credit Balance</th>
 								<th>Rôle</th>
-								<th>Date d'inscritpion</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="contract" items="${contracts}">
+							<c:forEach var="user" items="${users}">
 								<tr>
-									<td>${contract.contractName}</td>
-									<td>${contract.contractType.displayName}</td>
-									<td class="d-none d-lg-table-cell">Producteur exemple</td>
-									<td>${contract.contractPrice}€</td>
+									<td>${user.contactInfo.firstName}
+										${user.contactInfo.name}</td>
+									<td>${user.email}</td>
+									<td>${user.creditBalance == null ? 0 : user.creditBalance}</td>
+									<td>
+										<c:forEach var="role" items="${user.roles}">
+											<c:choose>
+	                                            <c:when test="${role.roleId == 1}">
+	                                            	<span>Admin</span>
+	                                            </c:when>
+	                                            <c:when test="${role.roleId == 2}">
+	                                            	<span>Adhérent</span>
+	                                            </c:when>
+	                                            <c:when test="${role.roleId == 3}">
+	                                            	<span>Producteur</span>
+	                                            </c:when>
+	                                            <c:otherwise>
+	                                            	<span>${role.name.toLowerCase()}</span>
+	                                            </c:otherwise>
+                                            </c:choose>
+										</c:forEach>
+									</td>
 									<td>
 										<div class='d-flex justify-content-start align-items-center'>
-											<a href="<c:url value='/amap/contracts/detail/${contract.id}' />"
+											<a href="<c:url value='/tenancies/${tenancyId}/amap/admin/backoffice/users/details/${user.userId}' />"
 												class="btn-view"> <i class="bi bi-eye"></i>
 											</a>
-											<form method="POST"
-												action="<c:url value='/amap/contracts/delete/${contract.id}' />"
-												style="display: inline;">
-												<button type="submit" class="btn-delete"
-													onclick="return confirm('Voulez-vous vraiment supprimer le contrat ${contract.contractName} ?');">
+											<form:form action="delete/${user.userId}" style="display: inline;" onsubmit="return confirm('Voulez-vous vraiment supprimer l'adhérent ${user.contactInfo.firstName} ${user.contactInfo.name} ?');">
+												<button type="submit" class="btn btn-delete">
 													<i class="bi bi-trash"></i>
 												</button>
-											</form>
+											</form:form>
 										</div>
 									</td>
 								</tr>

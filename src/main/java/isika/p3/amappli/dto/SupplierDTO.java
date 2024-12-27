@@ -1,42 +1,49 @@
 package isika.p3.amappli.dto;
 
-import java.math.BigDecimal;
-
-import isika.p3.amappli.entities.user.Address;
-import isika.p3.amappli.entities.user.CompanyDetails;
-import isika.p3.amappli.entities.user.ContactInfo;
-import isika.p3.amappli.validation.annotation.PasswordMatches;
-import jakarta.validation.Valid;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@PasswordMatches
 public class SupplierDTO {
 
-    @NotBlank(message = "L'email est obligatoire.")
     @Size(max = 70, message = "L'email doit faire 70 caractères maximum.")
     @Email(message = "L'email est invalide.")
     private String email;
 
-    @NotBlank(message = "Champ obligatoire")
-    private String password;
+    @Size(max=70, message = "Le complément d'adresse doit faire 70 caractères maximum.")
+    private String line1;
 
-    @NotBlank(message = "Champ obligatoire.")
-    private String confirmPassword;
+    @NotBlank( message = "L'adresse est obligatoire.")
+	@Size(max=100, message = "L'adresse doit faire 100 caractères maximum.")
+    private String line2;
 
-    private BigDecimal creditBalance;
+    @Pattern( regexp = "^((0[1-9])|([1-9][0-9]))[0-9]{3}$", message = "Veuillez saisir un code postal français valide.")
+    private String postCode;
 
-    @Valid
-    private Address address;
+    @NotBlank( message = "La ville est obligatoire.")
+	@Size(max=70, message = "La ville doit faire 70 caractères maximum.")
+    private String city;
 
-    @Valid
-    private ContactInfo contactInfo;
+    @NotBlank( message = "Le nom est obligatoire.")
+	@Size(max=70, message = "Le nom doit faire 70 caractères maximum.")
+    private String name;
+
+    @NotBlank( message = "Le prénom est obligatoire.")
+	@Size(max=70, message = "Le prénom doit faire 70 caractères maximum.")
+    private String firstName;
+
+    @Pattern(regexp = "^(0[1-9])([ .-]?[0-9]{2}){4}$|^\\+33([ .-]?[0-9]{2}){4}$", message = "Numéro de téléphone français invalide.")
+    private String phoneNumber;
     
-    @Valid
-    private CompanyDetails companyDetails;
+	@Column(nullable = true)
+    private String companyName;
+	
+	@Column(nullable = true)
+    private String siretNumber;
 }

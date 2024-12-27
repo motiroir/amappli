@@ -1,6 +1,7 @@
 package isika.p3.amappli.service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.BeanUtils;
@@ -46,7 +47,7 @@ public class UserServiceImpl implements UserService {
             throw new TenancyNotFoundException("Tenancy introuvable avec l'ID : " + tenancyId);
         }
         // Vérifiez si l'email existe déjà pour cette tenancy
-        if (userRepository.existsByEmailAndTenancy(userDTO.getEmail(), tenancy)) {
+        if (this.existsByEmailAndTenancy(userDTO.getEmail(), tenancy)) {
             throw new EmailAlreadyExistsException("Un utilisateur avec cet email existe déjà pour cette AMAP.");
         }
 
@@ -135,9 +136,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+    public boolean existsByEmailAndTenancy(String email, Tenancy tenancy) {
+    	return this.userRepository.existsByEmailAndTenancy(email, tenancy);
     }
+    
+    @Override
+    public User saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
+    
+    @Override
+    public List<User> findAll() {
+    	return (List<User>) userRepository.findAll();
+    }
+
+	@Override
+	public User findById(Long userId) {
+		return userRepository.findById(userId).orElse(null);
+	}
 
 }

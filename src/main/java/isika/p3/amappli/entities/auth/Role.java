@@ -5,6 +5,7 @@ import java.util.Set;
 
 import isika.p3.amappli.entities.user.User;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,7 +29,7 @@ public class Role {
     private Long roleId;
     private String name;
 
-    @ManyToMany
+    @ManyToMany(fetch= FetchType.EAGER)
     @JoinTable (
         name = "Role_Permission_Association",
         joinColumns = @JoinColumn(name = "roleId"),
@@ -37,7 +38,7 @@ public class Role {
     @Builder.Default
     private Set<Permission> permissions = new HashSet<Permission>();
 
-    @ManyToMany
+    @ManyToMany(fetch= FetchType.EAGER)
     @JoinTable (
         name = "User_Role_Association",
         joinColumns = @JoinColumn(name = "userId"),
