@@ -23,11 +23,6 @@ import isika.p3.amappli.dto.amap.SupplierDTO;
 import isika.p3.amappli.dto.amap.UserDTO;
 import isika.p3.amappli.entities.auth.Role;
 import isika.p3.amappli.entities.tenancy.Tenancy;
-import isika.p3.amappli.repo.amap.AddressRepository;
-import isika.p3.amappli.repo.amap.CompanyDetailsRepository;
-import isika.p3.amappli.repo.amap.ContactInfoRepository;
-import isika.p3.amappli.repo.amap.UserRepository;
-import isika.p3.amappli.repo.amappli.TenancyRepository;
 import isika.p3.amappli.service.amap.AddressService;
 import isika.p3.amappli.service.amap.AmapAdminUserService;
 import isika.p3.amappli.service.amap.CompanyDetailsService;
@@ -74,11 +69,11 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
     
     
 	@Override
-	public User addTenancyUser(UserDTO userDTO, Long tenancyId) {
+	public User addTenancyUser(UserDTO userDTO, String tenancyAlias) {
         // Vérifiez si la tenancy existe
-        Tenancy tenancy = tenancyService.getTenancyById(tenancyId);
+        Tenancy tenancy = tenancyService.getTenancyByAlias(tenancyAlias);
         if (tenancy == null) {
-            throw new TenancyNotFoundException("Tenancy introuvable avec l'ID : " + tenancyId);
+            throw new TenancyNotFoundException("Tenancy introuvable avec l'Alias : " + tenancyAlias);
         }
         // Vérifiez si l'email existe déjà pour cette tenancy
         if (userService.existsByEmailAndTenancy(userDTO.getEmail(), tenancy)) {
@@ -104,11 +99,11 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
     }
 	
 	@Override
-	public User addTenancySupplier(SupplierDTO supplierDTO, Long tenancyId) {
+	public User addTenancySupplier(SupplierDTO supplierDTO, String tenancyAlias) {
 		// Vérifiez si la tenancy existe
-		Tenancy tenancy = tenancyService.getTenancyById(tenancyId);
+		Tenancy tenancy = tenancyService.getTenancyByAlias(tenancyAlias);
 		if (tenancy == null) {
-			throw new TenancyNotFoundException("Tenancy introuvable avec l'ID : " + tenancyId);
+			throw new TenancyNotFoundException("Tenancy introuvable avec l'Alias : " + tenancyAlias);
 		}
 		// Vérifiez si l'email existe déjà pour cette tenancy
 		if (userService.existsByEmailAndTenancy(supplierDTO.getEmail(), tenancy)) {
@@ -153,10 +148,10 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 
 	@Override
 	@Transactional
-	public void generateUsers(Long tenancyId) {
+	public void generateUsers(String tenancyAlias) {
 		
 		roleService.addtestRoles();
-		Tenancy tenancy = tenancyService.getTenancyById(tenancyId);
+		Tenancy tenancy = tenancyService.getTenancyByAlias(tenancyAlias);
 
         Faker faker = new Faker(new Locale("fr-FR"));
         for(int i=0;i < 20 ;i++){
@@ -227,6 +222,21 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 		return ((List<User>) userService.findAll()).stream()
 				.filter(u -> u.getTenancy().getTenancyId() == tenancyId
 				&& u.isActive()).toList();
+	}
+
+	@Override
+	public List<User> findAll(String tenancyAlias) {
+		return ((List<User>) userService.findAll()).stream()
+				.filter(u -> u.getTenancy().getTenancyAlias() == tenancyAlias
+				&& u.isActive()).toList();
+	}
+
+	@Override
+	public List<User> findSuppliers(String tenancyAlias) {
+		return ((List<User>) userService.findAll()).stream()
+				.filter(u -> u.getTenancy().getTenancyAlias() == tenancyAlias 
+						&& u.getRoles().contains(roleService.findByName("SUPPLIER"))
+						&& u.isActive()).toList();
 	}
 
 	@Override

@@ -13,10 +13,11 @@ public interface TenancyService {
 	Tenancy createTenancy(Tenancy tenancy);
 	List<Tenancy> getAllTenancies();
 	Tenancy getTenancyById(Long id);
+	Tenancy getTenancyByAlias(String alias);
 	void deleteTenancy(Long id);
 	void addTestTenancies();
 	HomePageContent getHomePageContentByTenancyId(Long id);
-	Tenancy getTenancyByAlias(String alias);
+	HomePageContent getHomePageContentByTenancyAlias(String alias);
 
 
 }
