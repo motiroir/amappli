@@ -7,9 +7,10 @@ import isika.p3.amappli.entities.tenancy.ColorPalette;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
+import isika.p3.amappli.service.amap.GraphismService;
 
 @Service
-public class GraphismServiceImpl implements GraphismService{
+public class GraphismServiceImpl implements GraphismService {
 
 	@Autowired
 	private TenancyRepository tenancyRepo;
