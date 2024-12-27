@@ -39,7 +39,7 @@ public class TenancyController {
 		List<Tenancy> tenancies = tenancyService.getAllTenancies();
 		model.addAttribute("tenancies", tenancies);
 		System.out.println(tenancies.size());
-		return "amappli/tenancy/tenancy-list";
+		return "amappli/back/tenancy/tenancy-list";
 	}
 	
 	@GetMapping("/{id}/home")
@@ -85,7 +85,7 @@ public class TenancyController {
             model.addAttribute("message", "Page d'accueil non trouvée.");
         }
         
-        return "amap/homePage"; 
+        return "amap/front/homePage"; 
     }
 	
 	

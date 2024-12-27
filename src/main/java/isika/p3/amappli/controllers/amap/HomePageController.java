@@ -23,7 +23,7 @@ public class HomePageController {
 	public String getHomePage(Model model) {
 		HomePageContent homePageContent = homePageContentService.getCurrentHomePageContent();
 		model.addAttribute("homePageContent", homePageContent);
-		return "amap/homePage";
+		return "amap/front/homePage";
 	}
 
 	// Formulaire pour mettre à jour le sous-titre de la page d'accueil
@@ -39,6 +39,6 @@ public class HomePageController {
 		} else {
 			model.addAttribute("message", "Erreur lors de la mise à jour du titre.");
 		}
-		return "amap/homePage"; // Retourne à la vue homePage.jsp
+		return "amap/front/homePage"; // Retourne à la vue homePage.jsp
 	}
 }
