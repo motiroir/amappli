@@ -49,69 +49,73 @@ request.setAttribute("currentPage", currentPage);
 							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Ajouter
 								un producteur</h2>
 						</div>
-						<form:form method="POST"
+						<form:form
 							action="/Amappli/${tenancyAlias}/backoffice/suppliers/add"
 							enctype="multipart/form-data">
 							<div class="row">
 								<!-- Première colonne -->
 								<div class="col-md-4">
 									<div class="mb-3">
-										<label class="form-label" for="name">Nom de famille</label> <input
-											type="text" class="form-control" name="name"
-											placeholder="Dupont">
+										<label class="form-label" for="name">Nom de famille</label>
+										<form:input	path="name" type="text" class="form-control" name="name"
+											placeholder="Dupont"/>
 									</div>
 									<div class="mb-3">
-										<label class="form-label" for="firstName">Prénom</label> <input
-											type="text" class="form-control" name="firstName"
-											placeholder="Anaïs">
+										<label class="form-label" for="firstName">Prénom</label>
+										<form:input path="firstName" type="text" class="form-control" name="firstName"
+											placeholder="Anaïs"/>
 									</div>
 									<div class="mb-3">
-										<label class="form-label" for="email">E-mail</label> <input
-											type="text" class="form-control" name="email"
-											placeholder="anais.dupont@gmail.com">
+										<label class="form-label" for="email">E-mail</label>
+										<form:input path="email" type="text" class="form-control" name="email"
+											placeholder="anais.dupont@gmail.com"/>
 									</div>
 									<div class="mb-3">
 										<label class="form-label" for="password">Mot de passe</label>
-										<input type="password" class="form-control" name="password">
+										<form:input path="password" type="password" class="form-control" name="password"/>
 									</div>
 									<div class="mb-3">
 										<label class="form-label" for="confirmPassword">Confirmer
-											le mot de passe</label> <input type="password" class="form-control"
-											name="confirmPassword">
+											le mot de passe</label>
+											<form:input path="" type="password" class="form-control"
+											name="confirmPassword"/>
 									</div>
 									<div class="mb-3">
 										<label class="form-label" for="creditBalance">Balance
-											crédit</label> <input type="number" class="form-control"
-											name="creditBalance" value=0>
+											crédit</label>
+											<form:input path="creditBalance" type="number" class="form-control"
+											name="creditBalance" value=0/>
 									</div>
 								</div>
 
 								<!-- Deuxième colonne -->
 								<div class="col-md-4">
 									<div class="mb-3">
-										<label class="form-label" for="line2">Adresse</label> <input
-											type="text" class="form-control" name="line2"
+										<label class="form-label" for="line2">Adresse</label>
+										<form:input path="line2" type="text" class="form-control" name="line2"
 											placeholder="151" />
 									</div>
 									<div class="mb-3">
 										<label class="form-label" for="line1">Complément
-											d'adresse</label> <input type="text" class="form-control"
-											name="line1" placeholder="avenue de la République">
+											d'adresse</label>
+											<form:input path="line1" type="text" class="form-control"
+											name="line1" placeholder="avenue de la République"/>
 									</div>
 									<div class="mb-3">
-										<label class="form-label" for="postCode">Code Postal</label> <input
-											type="text" class="form-control" name="postCode"
-											placeholder="44190">
+										<label class="form-label" for="postCode">Code Postal</label>
+										<form:input path="postCode" type="text" class="form-control" name="postCode"
+											placeholder="44190"/>
 									</div>
 									<div class="mb-3">
-										<label class="form-label" for="city">Ville</label> <input
-											type="text" class="form-control" name="city"
-											placeholder="Clisson">
+										<label class="form-label" for="city">Ville</label>
+										<form:input path="city" type="text" class="form-control" name="city"
+											placeholder="Clisson"/>
 									</div>
 									<div class="mb-3">
 										<label class="form-label" for="phoneNumber">Numéro de
-											téléphone</label> <input type="text" class="form-control"
-											name="phoneNumber" placeholder="0605040302">
+											téléphone</label>
+											<form:input path="phoneNumber" type="text" class="form-control"
+											name="phoneNumber" placeholder="0605040302"/>
 									</div>
 								</div>
 
@@ -160,8 +164,9 @@ request.setAttribute("currentPage", currentPage);
 							</div>
 							<div class="d-flex justify-content-evenly my-5">
 								<div class="col text-center">
-									<button id="submit-button" type="submit" class="btn btn-success rounded-pill" 
-									<c:if test="${isAdmin }">onclick="return confirm('Vous êtes sur le point d'enregistrer un nouvel utilisateur avec les droits d'administrateur, êtes vous sûr ?');"</c:if> >Valider
+									<button id="submit-button" type="submit"
+										class="btn btn-success rounded-pill"
+										<c:if test="${isAdmin }">onclick="return confirm('Vous êtes sur le point d'enregistrer un nouvel utilisateur avec les droits d'administrateur, êtes vous sûr ?');"</c:if>>Valider
 										la création</button>
 								</div>
 								<div class="col text-center">
@@ -176,7 +181,8 @@ request.setAttribute("currentPage", currentPage);
 	</div>
 	<script
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
-	<script src="<c:url value='/resources/js/amap/admin/user-details.js' />"></script>
+	<script
+		src="<c:url value='/resources/js/amap/admin/user-details.js' />"></script>
 	<script src="<c:url value='/resources/js/amap/admin/user-form.js' />"></script>
 </body>
 </html>

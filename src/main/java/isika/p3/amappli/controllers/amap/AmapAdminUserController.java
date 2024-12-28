@@ -52,7 +52,7 @@ public class AmapAdminUserController {
 	
 	@GetMapping("/users/form")
 	public String usersForm(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
-		model.addAttribute("supplier", new User());
+		model.addAttribute("user", new User());
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAllRoles());
 		return "amap/back/users/users-form";

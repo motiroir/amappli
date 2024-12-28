@@ -12,9 +12,10 @@
 @import "theme/theme-6-light.css";
 @import "theme/theme-6-dark.css";
 
+
 :root {
   --orange-050: #ffcbad;
-  --orange-100: #ffbe98;    /* peach */
+  --orange-100: rgb(255, 190, 152);    /* peach */
   --orange-300: #FFB185;    /* light tangerine */
   --orange-600: #ffa570;    /* tangerine */
   --orange-700: #d07946;

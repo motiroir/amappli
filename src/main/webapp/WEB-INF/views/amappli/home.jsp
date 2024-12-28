@@ -20,14 +20,14 @@
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
 </head>
 
-<body class="theme-1 dark">
+<body class="theme-1 dark bg-main">
 
 	<header class="fc-main bg-main">
 		<jsp:include page="common/header.jsp" />
 	</header>
 
     <!-- Conteneur pour la carte -->
-    <div id="map"></div>
+    <%-- <div id="map"></div> --%>
 
 	<section>
 		<img id="main-picture" class="container-fluid p-0"
@@ -212,10 +212,10 @@
 	</footer>
 
 	<script	src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
-	<script	src="<c:url value='/resources/js/loading-when-visible.js' />"></script>
-	<script	src="<c:url value='/resources/js/theme-swap.js' />"></script>
-	<script	src="<c:url value='/resources/js/mapbox/mapbox-gl.js' />"></script>
-	<script	src="<c:url value='/resources/js/mapbox/map.js' />"></script>
+	<script	src="<c:url value='/resources/js/amappli/loading-when-visible.js' />"></script>
+	<script	src="<c:url value='/resources/js/amappli/theme-swap.js' />"></script>
+	<%-- <script	src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />"></script> --%>
 </body>
 
 </html>
