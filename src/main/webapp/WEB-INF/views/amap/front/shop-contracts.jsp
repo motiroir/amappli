@@ -1,81 +1,164 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boutique des Contrats</title>
-    <link rel="stylesheet"
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boutique des Paniers</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+<link rel="stylesheet"
 	href="<c:url value='/resources/css/amap/homePage.css' />">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <style>
-        .contract-card {
-            background-color: #FFF;
-            border: 1px solid #FFA570;
-            border-radius: 24px;
-            padding: 16px;
-            text-align: center;
-            transition: transform 0.2s;
-        }
+<style>
+body {
+	background-color: #FAF8F6;
+}
 
-        .contract-card:hover {
-            transform: scale(1.05);
-        }
+.sidebar {
+	background-color: #FFFFFF;
+	padding: 20px;
+	border: 1px solid #E6E6E6;
+	border-radius: 12px;
+}
 
-        .contract-card img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 16px;
-        }
+.sidebar .section-title {
+	font-weight: bold;
+	font-size: 18px;
+	margin-bottom: 15px;
+}
 
-        .contract-card .btn {
-            background-color: #FFA570;
-            color: #FFF;
-            border: none;
-            margin-top: 12px;
-        }
+.sidebar a {
+	text-decoration: none;
+	color: black;
+}
 
-        .contract-card .btn:hover {
-            background-color: #FF8A50;
-        }
-    </style>
+.sidebar a.active {
+	color: #FFBE98;
+}
+
+.contract-card {
+	background-color: #FFF;
+	border: 1px solid #FFA570;
+	border-radius: 24px;
+	padding: 16px;
+	text-align: center;
+	transition: transform 0.2s;
+	height: 100%;
+	/* S'assure que toutes les cartes aient la même hauteur */
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.contract-card:hover {
+	transform: scale(1.05);
+}
+
+.contract-card img {
+	width: 100%;
+	height: 200px; /* Uniformise la hauteur des images */
+	object-fit: cover;
+	/* Conserve les proportions tout en remplissant l'espace */
+	border-radius: 16px;
+}
+
+.contract-card .btn {
+	background-color: #FFA570;
+	color: #FFF;
+	border: none;
+	margin-top: 12px;
+}
+
+.contract-card .btn:hover {
+	background-color: #FF8A50;
+}
+</style>
 </head>
 <body>
-	<header class="fc-main bg-main">
+	<!-- Inclure le header -->
+	<header>
 		<jsp:include page="common/header.jsp" />
 	</header>
 
-<div class="container my-5">
-    <h1 class="text-center mb-5">Boutique des paniers</h1>
-    <div class="row">
-        <%-- Itération sur la liste des contrats passée depuis le contrôleur --%>
-        <c:forEach var="contract" items="${contracts}">
-            <div class="col-md-4 mb-4">
-                <div class="contract-card">
-                    <c:if test="${not empty contract.imageData}">
-											<img
-												src="data:${contract.imageType};base64,${contract.imageData}"
-												alt="Image du contrat"
-												style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover;">
-										</c:if>
-                    <h3 class="mt-3">${contract.contractName}</h3>
-                    <p>${contract.contractType.displayName}</p>
-                    <p>Taille du panier : ${contract.contractWeight.displayName}</p>
-                    <p>Prix : ${contract.contractPrice} €</p>
-                    <button class="btn">Voir les détails</button>
-                </div>
-            </div>
-        </c:forEach>
-    </div>
-</div>
+	<div class="container-fluid mt-4">
+		<div class="row">
+			<!-- Sidebar -->
+			<div class="col-12 col-md-3">
+				<div class="sidebar">
+					<div class="section-title">Paniers</div>
+					<ul class="list-unstyled">
+						<li><a href="#"
+							class="${currentPage == 'all' ? 'active' : ''}">Tous les
+								paniers <span class="badge bg-secondary">${counts.all}</span>
+						</a></li>
+						<li><a href="#"
+							class="${currentPage == 'vegetables' ? 'active' : ''}">Paniers
+								légumes <span class="badge bg-secondary">${counts.vegetables}</span>
+						</a></li>
+						<li><a href="#"
+							class="${currentPage == 'fruits' ? 'active' : ''}">Paniers
+								fruits <span class="badge bg-secondary">${counts.fruits}</span>
+						</a></li>
+						<li><a href="#"
+							class="${currentPage == 'mixed' ? 'active' : ''}">Paniers
+								mixtes <span class="badge bg-secondary">${counts.mixed}</span>
+						</a></li>
+					</ul>
+					<div class="section-title mt-4">Epicerie</div>
+					<ul class="list-unstyled">
+						<li><a href="#">Produits</a></li>
+					</ul>
+					<div class="section-title mt-4">Ateliers</div>
+					<ul class="list-unstyled">
+						<li><a href="#">Workshops</a></li>
+					</ul>
+				</div>
+			</div>
 
-	<footer class="container-fluid fc-main bg-main">
-		<jsp:include page="common/footer.jsp" />
+			<!-- Main Content -->
+			<div class="col-12 col-md-9">
+				<div class="d-flex justify-content-between align-items-center mb-4">
+					<span>${contracts.size()} Items</span>
+					<div class="d-flex align-items-center">
+						<label for="sortBy" class="me-2">Sort By</label> <select
+							id="sortBy" class="form-select me-3" style="width: auto;">
+							<option value="name">Name</option>
+							<option value="priceAsc">Prix croissant</option>
+							<option value="priceDesc">Prix décroissant</option>
+						</select> <input type="text" id="searchBar" class="form-control"
+							placeholder="Rechercher..." style="width: 200px;">
+					</div>
+				</div>
+
+				<div class="row">
+					<c:forEach var="contract" items="${contracts}">
+						<div class="col-12 col-sm-6 col-lg-4 mb-4">
+							<div class="contract-card">
+								<c:if test="${not empty contract.imageData}">
+									<img
+										src="data:${contract.imageType};base64,${contract.imageData}"
+										alt="Image du contrat">
+								</c:if>
+								<h3 class="mt-3">${contract.contractName}</h3>
+								<p>${contract.contractType.displayName}</p>
+								<p>${contract.contractWeight.displayName}</p>
+								<p>${contract.contractPrice}&euro;</p>
+								<button class="btn">Voir les détails</button>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Inclure le footer -->
+	<footer></footer>
+	<jsp:include page="common/footer.jsp" />
 	</footer>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

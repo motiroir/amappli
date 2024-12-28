@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
 String currentMainMenu = "products"; // Détermine la rubrique active
 String currentPage = "contracts"; // Détermine la sous-rubrique active
@@ -39,28 +39,32 @@ request.setAttribute("currentPage", currentPage);
 		<div class="container mt-5">
 			<div class="row justify-content-center">
 				<div class="col-12">
-<div class="search-bar d-flex align-items-center mb-3">
-    <!-- Nombre total de contrats -->
-    <div class="me-4" style="font-size: 22px; font-weight: 400;">
-        <span>${contracts.size()} éléments</span>
-    </div>
+					<div class="search-bar d-flex align-items-center mb-3">
+						<!-- Nombre total de contrats -->
+						<div class="me-4" style="font-size: 22px; font-weight: 400;">
+							<span>${contracts.size()} éléments</span>
+						</div>
 
-    <!-- Dropdown pour trier -->
-    <div class="d-flex align-items-center me-4">
-        <label for="sortBy" class="me-2" style="font-size: 22px; font-weight: 400;">Trié par</label>
-        <select id="sortBy" class="form-select custom-select" style="width: auto;">
-            <option value="name">Nom</option>
-            <option value="producer">Producteur</option>
-            <option value="priceAsc">Prix croissant</option>
-            <option value="priceDesc">Prix décroissant</option>
-        </select>
-    </div>
+						<!-- Dropdown pour trier -->
+						<div class="d-flex align-items-center me-4">
+							<label for="sortBy" class="me-2"
+								style="font-size: 22px; font-weight: 400;">Trié par</label> <select
+								id="sortBy" class="form-select custom-select"
+								style="width: auto;">
+								<option value="name">Nom</option>
+								<option value="producer">Producteur</option>
+								<option value="priceAsc">Prix croissant</option>
+								<option value="priceDesc">Prix décroissant</option>
+							</select>
+						</div>
 
-    <!-- Barre de recherche -->
-    <div>
-        <input type="text" id="searchBar" class="form-control custom-input" placeholder="Rechercher..." style="width: 200px;">
-    </div>
-</div>
+						<!-- Barre de recherche -->
+						<div>
+							<input type="text" id="searchBar"
+								class="form-control custom-input" placeholder="Rechercher..."
+								style="width: 200px;">
+						</div>
+					</div>
 					<div
 						class="table-container d-flex justify-content-between align-items-center">
 						<h2 style="font-weight: bold;">Liste des contrats</h2>
@@ -92,7 +96,7 @@ request.setAttribute("currentPage", currentPage);
 										</c:if></td>
 									<td>${contract.contractName}</td>
 									<td>${contract.contractType.displayName}</td>
-									<td class="d-none d-lg-table-cell">Producteur exemple</td>
+									<td class="d-none d-lg-table-cell">${contract.user.email}</td>
 									<td>${contract.contractPrice}€</td>
 									<td>
 										<div class='d-flex justify-content-start align-items-center'>
@@ -100,7 +104,9 @@ request.setAttribute("currentPage", currentPage);
 												href="<c:url value='/amap/contracts/detail/${contract.id}' />"
 												class="btn-view"> <i class="bi bi-eye"></i>
 											</a>
-											<form:form method="POST" action="${pageContext.request.contextPath}/amap/contracts/delete/${contract.id}" style="display: inline;">
+											<form:form method="POST"
+												action="${pageContext.request.contextPath}/amap/contracts/delete/${contract.id}"
+												style="display: inline;">
 												<button type="submit" class="btn-delete"
 													onclick="return confirm('Voulez-vous vraiment supprimer le contrat ${contract.contractName} ?');">
 													<i class="bi bi-trash"></i>
@@ -118,7 +124,7 @@ request.setAttribute("currentPage", currentPage);
 	</div>
 	<script
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
-		<script>
+	<script>
     document.addEventListener("DOMContentLoaded", () => {
         const searchBar = document.getElementById("searchBar");
         const sortBy = document.getElementById("sortBy");

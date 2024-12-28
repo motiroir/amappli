@@ -14,16 +14,28 @@ import isika.p3.amappli.entities.contract.ContractType;
 import isika.p3.amappli.entities.contract.ContractWeight;
 import isika.p3.amappli.entities.contract.DeliveryDay;
 import isika.p3.amappli.entities.contract.DeliveryRecurrence;
+import isika.p3.amappli.entities.tenancy.Tenancy;
+import isika.p3.amappli.entities.user.Address;
+import isika.p3.amappli.entities.user.User;
+import isika.p3.amappli.repo.amap.AddressRepository;
 import isika.p3.amappli.repo.amap.ContractRepository;
+import isika.p3.amappli.repo.amap.UserRepository;
+import isika.p3.amappli.repo.amappli.TenancyRepository;
 import isika.p3.amappli.service.amap.ContractService;
 
 @Service
 public class ContractServiceImpl implements ContractService {
 
 	private final ContractRepository contractRepository;
+	private final UserRepository userRepository;
+	private final AddressRepository addressRepository;
+	private final TenancyRepository tenancyRepository;	
 
-	public ContractServiceImpl(ContractRepository contractRepository) {
+	public ContractServiceImpl(ContractRepository contractRepository, UserRepository userRepository, AddressRepository addressRepository, TenancyRepository tenancyRepository) {
 		this.contractRepository = contractRepository;
+		this.userRepository = userRepository;
+		this.addressRepository = addressRepository;
+		this.tenancyRepository = tenancyRepository;
 	}
 
 	@Override
@@ -55,7 +67,13 @@ public class ContractServiceImpl implements ContractService {
 		contract.setDeliveryRecurrence(DeliveryRecurrence.valueOf(contractDTO.getDeliveryRecurrence()));
 		contract.setDeliveryDay(DeliveryDay.valueOf(contractDTO.getDeliveryDay()));
 		contract.setQuantity(contractDTO.getQuantity());
+		contract.setShoppable(true);
 		contract.setDateCreation(LocalDate.now());
+		
+	    // Associez l'utilisateur
+	    User user = userRepository.findById(contractDTO.getUserId())
+	                 .orElseThrow(() -> new IllegalArgumentException("Utilisateur non trouvé"));
+	    contract.setUser(user);
 
 		//Image treatment
 		if (!contractDTO.getImage().isEmpty()) {

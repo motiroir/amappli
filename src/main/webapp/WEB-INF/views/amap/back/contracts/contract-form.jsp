@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
 String currentMainMenu = "products"; // Détermine la rubrique active
 String currentPage = "contracts"; // Détermine la sous-rubrique active
@@ -81,14 +81,16 @@ request.setAttribute("currentPage", currentPage);
 										</select>
 									</div>
 									<div class="mb-3">
-										<label for="producer" class="form-label">Producteur</label> <select
-											class="form-select form-control" id="producer"
-											name="producer">
-											<option selected disabled></option>
+										<label for="userId">Producteur :</label> <select id="userId"
+											name="userId" class="form-select">
+											<c:forEach var="user" items="${users}">
+												<option value="${user.userId}">${user.email}</option>
+											</c:forEach>
 										</select>
 									</div>
 									<div class="mb-3">
-										<label for="startDate" class="form-label">Date de début du contrat</label> <input type="date" class="form-control"
+										<label for="startDate" class="form-label">Date de
+											début du contrat</label> <input type="date" class="form-control"
 											id="startDate" name="startDate" min="${currentDate}">
 									</div>
 									<div class="mb-3">
@@ -182,24 +184,26 @@ request.setAttribute("currentPage", currentPage);
 	<script
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 	<script src="<c:url value='/resources/js/contract-form.js' />"></script>
-		<script>document.addEventListener("DOMContentLoaded", function () {
-    const fileInput = document.getElementById("image");
-    const previewImage = document.querySelector(".image-preview");
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			const fileInput = document.getElementById("image");
+			const previewImage = document.querySelector(".image-preview");
 
-    if (fileInput && previewImage) {
-        fileInput.addEventListener("change", function (event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
+			if (fileInput && previewImage) {
+				fileInput.addEventListener("change", function(event) {
+					const file = event.target.files[0];
+					if (file) {
+						const reader = new FileReader();
 
-                reader.onload = function (e) {
-                    previewImage.src = e.target.result; // Met à jour l'URL de l'image
-                };
+						reader.onload = function(e) {
+							previewImage.src = e.target.result; // Met à jour l'URL de l'image
+						};
 
-                reader.readAsDataURL(file); // Lit le fichier comme une URL de données
-            }
-        });
-    }
-});</script>
+						reader.readAsDataURL(file); // Lit le fichier comme une URL de données
+					}
+				});
+			}
+		});
+	</script>
 </body>
 </html>

@@ -25,16 +25,21 @@ import isika.p3.amappli.entities.contract.ContractType;
 import isika.p3.amappli.entities.contract.ContractWeight;
 import isika.p3.amappli.entities.contract.DeliveryDay;
 import isika.p3.amappli.entities.contract.DeliveryRecurrence;
+import isika.p3.amappli.service.amap.AddressService;
 import isika.p3.amappli.service.amap.ContractService;
+import isika.p3.amappli.service.amap.UserService;
+import isika.p3.amappli.service.amappli.TenancyService;
 
 @Controller
 @RequestMapping("/amap/contracts")
 public class ContractController {
 
 	private final ContractService contractService;
+	private final UserService userService;
 
-	public ContractController(ContractService contractService) {
+	public ContractController(ContractService contractService, UserService userService) {
 		this.contractService = contractService;
+		this.userService = userService;
 	}
 
 	/**
@@ -64,6 +69,7 @@ public class ContractController {
 		model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
 		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
 		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
+	    model.addAttribute("users", userService.findAll()); // Chargez tous les utilisateurs
 		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		model.addAttribute("currentDate", currentDate);
 		return "amap/back/contracts/contract-form";
@@ -173,12 +179,6 @@ public class ContractController {
 	    return "redirect:/amap/contracts/list";
 	}
 
-	@GetMapping("/shop/contracts")
-	public String showAllContractsForShop(Model model) {
-	    List<Contract> contracts = contractService.findAll(); // Récupère tous les contrats depuis le service
-	    model.addAttribute("contracts", contracts); // Ajoute la liste des contrats au modèle
-	    return "amap/front/shop-contracts"; // Retourne la vue shop-contracts.jsp
-	}
 
 
 
