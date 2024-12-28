@@ -18,4 +18,5 @@ public interface ContractService {
 	Contract findById(Long id);
 
 	void updateContract(ContractDTO updatedContractDTO, MultipartFile image);
+
 }

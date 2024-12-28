@@ -16,12 +16,9 @@ request.setAttribute("currentPage", currentPage);
 <title>Détails du Contrat</title>
 <link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />"
 	rel="stylesheet">
-<link
-	href="<c:url value='/resources/css/amap/common/sidebarAdmin.css' />"
+<link href="<c:url value='/resources/css/amap/common/sidebarAdmin.css' />"
 	rel="stylesheet">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
-	rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 <style>
 .header-container {
 	display: flex;
@@ -48,46 +45,38 @@ request.setAttribute("currentPage", currentPage);
 					<div class="form-container">
 						<div class="header-container">
 							<a href="<c:url value='/amap/contracts/list' />" class="btn-back">
-								<i class="bi bi-arrow-left-circle"></i>
-							</a>
+								<i class="bi bi-arrow-left-circle"></i></a>
 							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Détails
 								du contrat</h2>
 								<a href="/Amappli/amap/contracts/edit/${contract.id}" class="btn btn-primary">Modifier le contrat</a>
-								
 						</div>
 						<form>
 							<div class="row">
 								<!-- Première colonne -->
 								<div class="col-md-4">
 									<div class="mb-3">
-										<label class="form-label">Nom du panier</label> <input
-											type="text" class="form-control"
-											value="${contract.contractName}" readonly>
+										<label class="form-label">Nom du panier</label> 
+										<input type="text" class="form-control" value="${contract.contractName}" readonly>
 									</div>
 									<div class="mb-3">
-										<label class="form-label">Type de panier</label> <input
-											type="text" class="form-control"
-											value="${contract.contractType.displayName}" readonly>
+										<label class="form-label">Type de panier</label> 
+										<input type="text" class="form-control" value="${contract.contractType.displayName}" readonly>
 									</div>
 									<div class="mb-3">
-										<label class="form-label">Taille du panier</label> <input
-											type="text" class="form-control"
-											value="${contract.contractWeight.displayName}" readonly>
+										<label class="form-label">Taille du panier</label> 
+										<input type="text" class="form-control"	value="${contract.contractWeight.displayName}" readonly>
 									</div>
 									<div class="mb-3">
-										<label class="form-label">Producteur</label> <input
-											type="text" class="form-control" value="Producteur exemple"
-											readonly>
+										<label class="form-label">Producteur</label> 
+										<input type="text" class="form-control" value="Producteur exemple" readonly>
 									</div>
 									<div class="mb-3">
-										<label class="form-label">Date de début du contrat</label> <input
-											type="date" class="form-control"
-											value="${contract.startDate}" readonly>
+										<label class="form-label">Date de début du contrat</label> 
+										<input type="date" class="form-control"	value="${contract.startDate}" readonly>
 									</div>
 									<div class="mb-3">
-										<label class="form-label">Date de fin du contrat</label> <input
-											type="date" class="form-control" value="${contract.endDate}"
-											readonly>
+										<label class="form-label">Date de fin du contrat</label> 
+										<input type="date" class="form-control" value="${contract.endDate}"	readonly>
 									</div>
 								</div>
 
@@ -98,41 +87,31 @@ request.setAttribute("currentPage", currentPage);
 										<textarea class="form-control" rows="3" readonly>${contract.contractDescription}</textarea>
 									</div>
 									<div class="mb-3">
-										<label class="form-label">Prix de vente</label> <input
-											type="text" class="form-control"
-											value="${contract.contractPrice}€" readonly>
+										<label class="form-label">Prix de vente</label> 
+										<input type="text" class="form-control"	value="${contract.contractPrice}€" readonly>
 									</div>
 									<div class="mb-3">
-										<label class="form-label">Fréquence de livraison</label> <input
-											type="text" class="form-control"
-											value="${contract.deliveryRecurrence.displayName}" readonly>
+										<label class="form-label">Fréquence de livraison</label> 
+										<input type="text" class="form-control"	value="${contract.deliveryRecurrence.displayName}" readonly>
 									</div>
 									<div class="mb-3">
-										<label class="form-label">Jour de livraison</label> <input
-											type="text" class="form-control"
-											value="${contract.deliveryDay.displayName}" readonly>
+										<label class="form-label">Jour de livraison</label> 
+										<input type="text" class="form-control" value="${contract.deliveryDay.displayName}" readonly>
 									</div>
 									<div class="mb-3">
-										<label class="form-label">Quantité disponible</label> <input
-											type="text" class="form-control"
-											value="${contract.quantity} paniers" readonly>
+										<label class="form-label">Quantité disponible</label> 
+										<input type="text" class="form-control"	value="${contract.quantity} paniers" readonly>
 									</div>
 								</div>
-
 								<!-- Troisième colonne -->
 								<div class="col-md-4">
 									<div class="mb-3 text-center">
 										<c:if test="${not empty contract.imageData}">
-											<img
-												src="data:${contract.imageType};base64,${contract.imageData}"
-												alt="Image du contrat"
-												style="max-width: 100%; border-radius: 8px; object-fit: cover;">
+											<img src="data:${contract.imageType};base64,${contract.imageData}" alt="Image du contrat" style="max-width: 100%; border-radius: 8px; object-fit: cover;">
 										</c:if>
 										<div class="mb-3">
-											<label class="form-label">Date de création le
-												${contract.dateCreation}</label>
+											<label class="form-label">Date de création le ${contract.dateCreation}</label>
 										</div>
-
 									</div>
 								</div>
 							</div>

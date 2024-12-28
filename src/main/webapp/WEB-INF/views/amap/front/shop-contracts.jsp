@@ -14,29 +14,6 @@
 <style>
 body {
 	background-color: #FAF8F6;
-}
-
-.sidebar {
-	background-color: #FFFFFF;
-	padding: 20px;
-	border: 1px solid #E6E6E6;
-	border-radius: 12px;
-}
-
-.sidebar .section-title {
-	font-weight: bold;
-	font-size: 18px;
-	margin-bottom: 15px;
-}
-
-.sidebar a {
-	text-decoration: none;
-	color: black;
-}
-
-.sidebar a.active {
-	color: #FFBE98;
-}
 
 .contract-card {
 	background-color: #FFF;
@@ -86,35 +63,7 @@ body {
 		<div class="row">
 			<!-- Sidebar -->
 			<div class="col-12 col-md-3">
-				<div class="sidebar">
-					<div class="section-title">Paniers</div>
-					<ul class="list-unstyled">
-						<li><a href="#"
-							class="${currentPage == 'all' ? 'active' : ''}">Tous les
-								paniers <span class="badge bg-secondary">${counts.all}</span>
-						</a></li>
-						<li><a href="#"
-							class="${currentPage == 'vegetables' ? 'active' : ''}">Paniers
-								légumes <span class="badge bg-secondary">${counts.vegetables}</span>
-						</a></li>
-						<li><a href="#"
-							class="${currentPage == 'fruits' ? 'active' : ''}">Paniers
-								fruits <span class="badge bg-secondary">${counts.fruits}</span>
-						</a></li>
-						<li><a href="#"
-							class="${currentPage == 'mixed' ? 'active' : ''}">Paniers
-								mixtes <span class="badge bg-secondary">${counts.mixed}</span>
-						</a></li>
-					</ul>
-					<div class="section-title mt-4">Epicerie</div>
-					<ul class="list-unstyled">
-						<li><a href="#">Produits</a></li>
-					</ul>
-					<div class="section-title mt-4">Ateliers</div>
-					<ul class="list-unstyled">
-						<li><a href="#">Workshops</a></li>
-					</ul>
-				</div>
+				<jsp:include page="/WEB-INF/views/amap/front/common/sidebarUser.jsp" />
 			</div>
 
 			<!-- Main Content -->
@@ -145,7 +94,9 @@ body {
 								<p>${contract.contractType.displayName}</p>
 								<p>${contract.contractWeight.displayName}</p>
 								<p>${contract.contractPrice}&euro;</p>
-								<button class="btn">Voir les détails</button>
+								<a
+									href="<c:url value='/shop/contracts/${contract.contractName}' />"
+									class="btn"> Voir les détails </a>
 							</div>
 						</div>
 					</c:forEach>
@@ -155,8 +106,8 @@ body {
 	</div>
 
 	<!-- Inclure le footer -->
-	<footer></footer>
-	<jsp:include page="common/footer.jsp" />
+	<footer>
+		<jsp:include page="common/footer.jsp" />
 	</footer>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
