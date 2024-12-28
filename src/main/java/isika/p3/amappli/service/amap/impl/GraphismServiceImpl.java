@@ -3,10 +3,9 @@ package isika.p3.amappli.service.amap.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import isika.p3.amappli.entities.tenancy.ColorPalette;
 import isika.p3.amappli.entities.tenancy.Tenancy;
-import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
+import isika.p3.amappli.service.amap.GraphismService;
 
 @Service
 public class GraphismServiceImpl implements GraphismService{

@@ -66,7 +66,7 @@ public class ContractController {
 		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
 		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		model.addAttribute("currentDate", currentDate);
-		return "amap/contracts/contract-form";
+		return "amap/back/contracts/contract-form";
 	}
 
 	/**
@@ -120,7 +120,7 @@ public class ContractController {
 		List<Contract> contracts = contractService.findAll();
 		contracts.sort(Comparator.comparing(Contract::getContractName, String.CASE_INSENSITIVE_ORDER));
 		model.addAttribute("contracts", contracts);
-		return "amap/contracts/contract-list";
+		return "amap/back/contracts/contract-list";
 	}
 
 	/**
@@ -149,7 +149,7 @@ public class ContractController {
 	    model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
 	    model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
 
-	    return "amap/contracts/contract-edit"; // Nom de la vue pour le formulaire d'édition
+	    return "amap/back/contracts/contract-edit"; // Nom de la vue pour le formulaire d'édition
 	}
 
 
@@ -160,7 +160,7 @@ public class ContractController {
 	public String viewContractDetail(@PathVariable("id") Long id, Model model) {
 		Contract contract = contractService.findById(id);
 		model.addAttribute("contract", contract);
-		return "amap/contracts/contract-detail";
+		return "amap/back/contracts/contract-detail";
 	}
 
 	@PostMapping("/update")
@@ -173,6 +173,12 @@ public class ContractController {
 	    return "redirect:/amap/contracts/list";
 	}
 
+	@GetMapping("/shop/contracts")
+	public String showAllContractsForShop(Model model) {
+	    List<Contract> contracts = contractService.findAll(); // Récupère tous les contrats depuis le service
+	    model.addAttribute("contracts", contracts); // Ajoute la liste des contrats au modèle
+	    return "amap/front/shop-contracts"; // Retourne la vue shop-contracts.jsp
+	}
 
 
 

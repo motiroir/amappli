@@ -2,6 +2,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
+<%
+String currentMainMenu = "products"; // Détermine la rubrique active
+String currentPage = "contracts"; // Détermine la sous-rubrique active
+request.setAttribute("currentMainMenu", currentMainMenu);
+request.setAttribute("currentPage", currentPage);
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,6 +16,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Modifier un Contrat</title>
 <link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />"
+	rel="stylesheet">
+	<link
+	href="<c:url value='/resources/css/amap/common/sidebarAdmin.css' />"
 	rel="stylesheet">
 <style>
 .form-container {
@@ -52,6 +61,9 @@
 </style>
 </head>
 <body>
+	<div>
+		<%@ include file="/WEB-INF/views/amap/back/common/sidebarAdmin.jsp"%>
+	</div>
 	<div class="container mt-5">
 		<div class="row justify-content-center">
 			<div class="col-lg-10">
