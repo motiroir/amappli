@@ -74,8 +74,8 @@
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 
 	<script>
-		const styleMapboxLight = "${mapStyleLight}"
-		const styleMapboxDark = "${mapStyleDark}"
+		var styleMapboxLight = "${mapStyleLight}"
+		var styleMapboxDark = "${mapStyleDark}"
 
 		/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
 		 const tenancyCity = "${tenancy.getAddress().getCity()}"

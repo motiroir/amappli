@@ -15,7 +15,7 @@
 
 :root {
   --orange-050: #ffcbad;
-  --orange-100: rgb(255, 190, 152);    /* peach */
+  --orange-100: #ffbe98;    /* peach */
   --orange-300: #FFB185;    /* light tangerine */
   --orange-600: #ffa570;    /* tangerine */
   --orange-700: #d07946;
@@ -31,6 +31,46 @@
   --black-700 : #292929;
   --black-400 : #A1A1A1;
   --black-200 : #C4C4C4;
+}
+
+.accordion {
+  --bs-accordion-btn-icon: none;
+  --bs-accordion-btn-active-icon: none;
+  --bs-accordion-color: var(--alt-font-color);
+  --bs-accordion-bg: transparent;
+  --bs-accordion-transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,border-radius 0.15s ease;
+  --bs-accordion-border-color: var(--bs-border-color);
+  --bs-accordion-border-width: var(--bs-border-width);
+  --bs-accordion-border-radius: var(--bs-border-radius);
+  --bs-accordion-inner-border-radius: calc(var(--bs-border-radius) - (var(--bs-border-width)));
+  --bs-accordion-btn-color: var(--alt-font-color);
+  --bs-accordion-btn-bg: transparent;
+  --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  --bs-accordion-active-color: inherit;
+  --bs-accordion-active-bg: color-mix(in srgb, var(--orange-900), transparent 25%);
+}
+
+.accordion-item {
+  border:0;
+  border-bottom: 2px solid var(--bs-accordion-border-color);
+}
+
+.accordion-button:hover {
+	background-color: color-mix(in srgb, var(--green-600), transparent 25%);
+}
+
+
+.accordion .active {
+	color: var(--main-font-color);
+	font-weight: bold;
+}
+
+.accordion a {
+	color: var(--bs-accordion-color);
+}
+
+.accordion .disabled {
+	color: var(--bs-secondary);
 }
 
 .nunito {
