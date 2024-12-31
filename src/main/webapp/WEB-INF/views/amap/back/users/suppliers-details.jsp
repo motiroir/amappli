@@ -42,12 +42,12 @@ request.setAttribute("currentPage", currentPage);
                 <div class="col-lg-10">
                     <div class="form-container">
                         <div class="header-container">
-                            <a href="<c:url value='/tenancies/${tenancyId}/amap/admin/backoffice/suppliers/list' />" class="btn-back">
+                            <a href="<c:url value='/${tenancyAlias}/backoffice/suppliers/list' />" class="btn-back">
                                 <i class="bi bi-arrow-left-circle"></i>
                             </a>
                             <h2 class="mb-4" style="font-weight: bold; text-align: left;">Détails du producteur</h2>
                         </div>
-                        <form:form  method="POST" action="<c:url value='/tenancies/${tenancyId}/amap/admin/backoffice/suppliers/${user.userId }/update' />" enctype="multipart/form-data">
+                        <form:form  method="POST" action="<c:url value='/${tenancyAlias}/backoffice/suppliers/${user.userId }/update' />" enctype="multipart/form-data">
                             <div class="row">
                                 <!-- Première colonne -->
                                 <div class="col-md-4">

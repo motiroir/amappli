@@ -6,13 +6,12 @@ switcher.addEventListener("click", function(e) {
     if (switcher.checked == true) {
         body.classList.remove('light');
         body.classList.add('dark');
-
-        map = map1;
+		map.setStyle(styleMapboxDark);
+		
     } else {
         body.classList.remove('dark');
         body.classList.add('light');
-        map = map2;
+		map.setStyle(styleMapboxLight);
+
     }
-    copyrights.remove();
-    watermark.remove();
 });

@@ -6,7 +6,7 @@
 	class="container-fluid d-flex flex-row-reverse flex-md-row justify-content-between justify-content-md-evenly align-items-center">
 
 	<img src="<c:url value='/resources/img/logo_amappli_peach_2.png'/>"
-		height="50" class="d-block d-md-none" />
+		height="50" class="navbar-brand d-block d-md-none" />
 
 	<svg id="logo-header" height="50" min-height="50" viewBox="0 0 697 726" xmlns="http://www.w3.org/2000/svg" class="my-2 my-sm-0 d-none d-md-block">
         <path class="fill-300"
@@ -102,7 +102,7 @@
 			aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="collapse navbar-collapse" id="nav-content">
+		<div id="nav-content" class="collapse navbar-collapse">
 			<ul class="navbar-nav w-100 justify-content-md-evenly">
 				<li class="nav-item"><a href="#"
 					class="nav-link nunito text-decoration-none fc-300 fch-500"

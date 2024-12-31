@@ -12,48 +12,47 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import isika.p3.amappli.entities.order.ShoppingCart;
 import isika.p3.amappli.service.amap.GraphismService;
-import isika.p3.amappli.service.amap.impl.ShoppingCartServiceImpl;
+import isika.p3.amappli.service.amap.ShoppingCartService;
 
 @Controller
-@RequestMapping("/{tenancyId}/cart")
+@RequestMapping("/{tenancyAlias}/cart")
 public class ShoppingCartController {
 
 	@Autowired
-	private ShoppingCartServiceImpl shoppingCartService;
+	private ShoppingCartService shoppingCartService;
 	@Autowired
 	private GraphismService graphismService;
 	
     @GetMapping("/{cartId}")
-    public String viewCart(@PathVariable("cartId") Long cartId, @PathVariable("tenancyId") Long tenancyId, Model model) {
+    public String viewCart(@PathVariable("cartId") Long cartId, @PathVariable("tenancyAlias") String alias, Model model) {
         ShoppingCart cart = shoppingCartService.getShoppingCartById(cartId);
         model.addAttribute("cart", cart);
         model.addAttribute("total", shoppingCartService.calculateTotal(cartId));
         
         //get map style depending on tenancy
-        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyId(tenancyId));
-        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyId(tenancyId));
+        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
+        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
         //get tenancy info for header footer
-        model.addAttribute("tenancy", graphismService.getTenancyById(tenancyId));
+        model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
         //get color palette
-        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyId(tenancyId));
+        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
         //get font choice
-        model.addAttribute("font", graphismService.getFontByTenancyId(tenancyId));
+        model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
         
-        return "amap/shopping-cart";
+        return "amap/front/shopping-cart";
     }
 
     @PostMapping("/{cartId}/add")
-    public String addItem(@PathVariable("cartId") Long cartId, @PathVariable("tenancyId") Long tenancyId,
+    public String addItem(@PathVariable("cartId") Long cartId, @PathVariable("tenancyAlias") String alias,
                           @RequestParam("shoppableId") Long shoppableId,
                           @RequestParam("quantity") int quantity) {
-    	System.out.println("Received cartId: " + cartId + ", shoppableId: " + shoppableId + ", quantity: " + quantity);
         shoppingCartService.addItemToCart(cartId, shoppableId, quantity);
-        return "redirect:/{tenancyId}/cart/" + cartId;
+        return "redirect:/{tenancyAlias}/cart/" + cartId;
     }
 
     @PostMapping("/{cartId}/updateQuantity/{itemId}")
     public String updateItemQuantity(
-            @PathVariable("cartId") Long cartId,  @PathVariable("tenancyId") Long tenancyId,
+            @PathVariable("cartId") Long cartId,  @PathVariable("tenancyAlias") String alias,
             @PathVariable("itemId") Long itemId, 
             @ModelAttribute("action") String action) {
         if ("increase".equals(action)) {
@@ -61,13 +60,13 @@ public class ShoppingCartController {
         } else if ("decrease".equals(action)) {
             shoppingCartService.decreaseItemQuantity(cartId, itemId);
         }
-        return "redirect:/{tenancyId}/cart/" + cartId;
+        return "redirect:/{tenancyAlias}/cart/" + cartId;
     }
     
     @GetMapping("/{cartId}/init")
-    public String initializeCart(@PathVariable("cartId") Long cartId, @PathVariable("tenancyId") Long tenancyId) {
+    public String initializeCart(@PathVariable("cartId") Long cartId, @PathVariable("tenancyAlias") String alias) {
     	shoppingCartService.initShoppingCart();
-    	return "redirect:/{tenancyId}/cart/{cartId}";
+    	return "redirect:/{tenancyAlias}/cart/{cartId}";
     }
     
     

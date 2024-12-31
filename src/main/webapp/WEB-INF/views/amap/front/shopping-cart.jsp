@@ -41,7 +41,7 @@
 						<td>${item.shoppable.getPrice()}</td>
 
 						<td><form:form method="post"
-								action="${pageContext.request.contextPath}/${tenancyId}/cart/${cart.shoppingCartId}/updateQuantity/${item.shoppingItemId}">
+								action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cart.shoppingCartId}/updateQuantity/${item.shoppingItemId}">
 								<button type="submit" name="action" value="decrease">-</button>
 								<span>${item.getQuantity()}</span>
 								<button type="submit" name="action" value="increase">+</button>
@@ -57,7 +57,7 @@
 
 		<!-- Formulaire de test pour ajouter un article -> A SUPPRIMER -->
 		<form:form method="post"
-			action="${pageContext.request.contextPath}/${tenancyId}/cart/${cart.shoppingCartId}/add">
+			action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cart.shoppingCartId}/add">
 			<label for="shoppableId">Product ID:</label>
 			<input type="text" name="shoppableId" id="shoppableId" required>
 			<input type="hidden" name="shoppableType" value="ProductMock">
@@ -74,8 +74,8 @@
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 
 	<script>
-		const styleMapboxLight = "${mapStyleLight}"
-		const styleMapboxDark = "${mapStyleDark}"
+		var styleMapboxLight = "${mapStyleLight}"
+		var styleMapboxDark = "${mapStyleDark}"
 
 		/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
 		 const tenancyCity = "${tenancy.getAddress().getCity()}"
@@ -83,8 +83,8 @@
 		 */
 	</script>
 
-	<script src="<c:url value='/resources/js/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/mapbox/map.js' />"></script>
-	<script src="<c:url value='/resources/js/theme-swap-for-amaps.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
+	<script src="<c:url value='/resources/js/amap/theme-swap-for-amaps.js' />"></script>
 </body>
 </html>

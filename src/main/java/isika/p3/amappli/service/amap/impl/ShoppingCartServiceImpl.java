@@ -9,11 +9,12 @@ import isika.p3.amappli.entities.order.ShoppingCartItem;
 import isika.p3.amappli.repo.amap.ProductMockRepository;
 import isika.p3.amappli.repo.amap.ShoppingCartItemRepository;
 import isika.p3.amappli.repo.amap.ShoppingCartRepository;
+import isika.p3.amappli.service.amap.ShoppingCartService;
 import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
-public class ShoppingCartServiceImpl {
+public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 	@Autowired
 	private ShoppingCartRepository shoppingCartRepo;
