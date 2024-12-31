@@ -32,12 +32,14 @@ request.setAttribute("currentPage", currentPage);
 }
 </style>
 </head>
-<body>
-	<div>
-		<%@ include file="/WEB-INF/views/amap/back/common/sidebarAdmin.jsp"%>
-	</div>
-	<div class="content" style="margin-left: 150px;">
-		<div class="container mt-5">
+<body class="row theme-1 light">
+	<header class="fc-main bg-main">
+		<!-- Inclusion du header -->
+		<jsp:include page="../common/headerAdmin.jsp" />
+	</header>
+	<jsp:include page="../common/sidebarAdmin.jsp" />
+	<div class="content col">
+		<div class="container-fluid mt-2">
 			<div class="row justify-content-center">
 				<div class="col-lg-10">
 					<div class="form-container">
@@ -48,8 +50,12 @@ request.setAttribute("currentPage", currentPage);
 							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Ajouter
 								un contrat</h2>
 						</div>
-						<form:form method="POST" action="/Amappli/amap/contracts/add"
+						<form:form method="POST"
+							action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/contracts/add"
 							enctype="multipart/form-data">
+
+							<input type="hidden" id="tenancyAlias" name="tenancyAlias"
+								value="${tenancyAlias}">
 							<div class="row">
 								<!-- Première colonne -->
 								<div class="col-md-4">
@@ -83,6 +89,7 @@ request.setAttribute("currentPage", currentPage);
 									<div class="mb-3">
 										<label for="userId">Producteur :</label> <select id="userId"
 											name="userId" class="form-select">
+											<option value="" selected>Aucun utilisateur</option>
 											<c:forEach var="user" items="${users}">
 												<option value="${user.userId}">${user.email}</option>
 											</c:forEach>
@@ -169,7 +176,7 @@ request.setAttribute("currentPage", currentPage);
 									<div class="text-center">
 										<button type="submit" class="btn btn-custom btn-lg me-2"
 											style="width: 50%; height: 60px;">Ajouter</button>
-										<a href="/Amappli/amap/contracts/list"
+										<a href="/Amappli/${tenancyAlias}/backoffice/contracts/list"
 											class="btn btn-secondary btn-lg"
 											style="width: 40%; height: 60px; color: black; background-color: white;">Annuler</a>
 									</div>
@@ -205,5 +212,14 @@ request.setAttribute("currentPage", currentPage);
 			}
 		});
 	</script>
+	<script
+		src="<d:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"
+		type="text/javascript"></script>
+	<script src="<d:url value='/resources/js/amap/admin/user-list.js' />"
+		type="text/javascript"></script>
+	<script src="<d:url value='/resources/js/common/theme-swap.js' />"
+		type="text/javascript"></script>
+	<script src="<d:url value='/resources/js/common/palette-swap.js' />"
+		type="text/javascript"></script>
 </body>
 </html>

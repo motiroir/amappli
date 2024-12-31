@@ -17,11 +17,13 @@ import isika.p3.amappli.entities.contract.DeliveryRecurrence;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.entities.user.User;
+import isika.p3.amappli.exceptions.TenancyNotFoundException;
 import isika.p3.amappli.repo.amap.AddressRepository;
 import isika.p3.amappli.repo.amap.ContractRepository;
 import isika.p3.amappli.repo.amap.UserRepository;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
 import isika.p3.amappli.service.amap.ContractService;
+import isika.p3.amappli.service.amappli.TenancyService;
 
 @Service
 public class ContractServiceImpl implements ContractService {
@@ -29,9 +31,9 @@ public class ContractServiceImpl implements ContractService {
 	private final ContractRepository contractRepository;
 	private final UserRepository userRepository;
 	private final AddressRepository addressRepository;
-	private final TenancyRepository tenancyRepository;	
+	private final TenancyRepository tenancyRepository;
 
-	public ContractServiceImpl(ContractRepository contractRepository, UserRepository userRepository, AddressRepository addressRepository, TenancyRepository tenancyRepository) {
+	public ContractServiceImpl(TenancyRepository tenancyRepository, ContractRepository contractRepository, UserRepository userRepository, AddressRepository addressRepository) {
 		this.contractRepository = contractRepository;
 		this.userRepository = userRepository;
 		this.addressRepository = addressRepository;
@@ -54,8 +56,12 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
-	public void save(ContractDTO contractDTO) {
+	public void save(ContractDTO contractDTO, String tenancyAlias) {
 		Contract contract = new Contract();
+
+        Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
+                .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+	 
 
 		contract.setContractName(contractDTO.getContractName());
 		contract.setContractType(ContractType.valueOf(contractDTO.getContractType()));
@@ -69,12 +75,17 @@ public class ContractServiceImpl implements ContractService {
 		contract.setQuantity(contractDTO.getQuantity());
 		contract.setShoppable(true);
 		contract.setDateCreation(LocalDate.now());
-		
+//		contract.setTenancy(tenancyService.getTenancyByAlias(contractDTO.getTenancyAlias()));
+		contract.setTenancy(tenancy);
 	    // Associez l'utilisateur
-	    User user = userRepository.findById(contractDTO.getUserId())
-	                 .orElseThrow(() -> new IllegalArgumentException("Utilisateur non trouvé"));
-	    contract.setUser(user);
-
+	    if (contractDTO.getUserId() != null) {
+	        User user = userRepository.findById(contractDTO.getUserId())
+	                .orElseThrow(() -> new IllegalArgumentException("Utilisateur non trouvé"));
+	        contract.setUser(user);
+	    } else {
+	        // Vous pouvez laisser le champ `user` de Contract vide (null)
+	        System.out.println("Aucun utilisateur associé au contrat.");
+	    }
 		//Image treatment
 		if (!contractDTO.getImage().isEmpty()) {
 			if (contractDTO.getImage().getSize() > 20971520) {
@@ -125,6 +136,19 @@ public class ContractServiceImpl implements ContractService {
 
 	    // Sauvegarde du contrat mis à jour
 	    contractRepository.save(existingContract);
+	}
+	
+	@Override
+	public List<Contract> findAll(Long tenancyId) {
+		return ((List<Contract>) contractRepository.findAll()).stream()
+				.filter(u -> u.getTenancy().getTenancyId() == tenancyId).toList();
+				
+	}
+
+	@Override
+	public List<Contract> findAll(String tenancyAlias) {
+		return ((List<Contract>) contractRepository.findAll()).stream()
+				.filter(u -> u.getTenancy().getTenancyAlias().equals(tenancyAlias)).toList();
 	}
 
 

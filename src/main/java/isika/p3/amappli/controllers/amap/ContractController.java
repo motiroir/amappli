@@ -25,22 +25,29 @@ import isika.p3.amappli.entities.contract.ContractType;
 import isika.p3.amappli.entities.contract.ContractWeight;
 import isika.p3.amappli.entities.contract.DeliveryDay;
 import isika.p3.amappli.entities.contract.DeliveryRecurrence;
+import isika.p3.amappli.entities.tenancy.Tenancy;
+import isika.p3.amappli.repo.amappli.TenancyRepository;
 import isika.p3.amappli.service.amap.AddressService;
 import isika.p3.amappli.service.amap.ContractService;
 import isika.p3.amappli.service.amap.UserService;
 import isika.p3.amappli.service.amappli.TenancyService;
 
 @Controller
-@RequestMapping("/amap/contracts")
+@RequestMapping("/{tenancyAlias}/backoffice/contracts")
 public class ContractController {
 
 	private final ContractService contractService;
 	private final UserService userService;
+	private final TenancyService tenancyService;
+	private final TenancyRepository tenancyRepository;
 
-	public ContractController(ContractService contractService, UserService userService) {
+	public ContractController(ContractService contractService, TenancyService tenancyService, UserService userService, TenancyRepository tenancyrepository) {
 		this.contractService = contractService;
 		this.userService = userService;
+		this.tenancyService = tenancyService;
+		this.tenancyRepository = tenancyrepository;
 	}
+	
 
 	/**
 	 * Initializes custom data binding for LocalDate.
@@ -63,8 +70,10 @@ public class ContractController {
 	 * Displays the form for adding a new contract.
 	 */
 	@GetMapping("/form")
-	public String showForm(Model model) {
+	public String showForm(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
+		System.out.println("Tenancy alias: " + tenancyAlias);
 		model.addAttribute("contract", new Contract());
+		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
 		model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
 		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
@@ -113,19 +122,21 @@ public class ContractController {
 	 * Saves a new contract to the database.
 	 */
 	@PostMapping("/add")
-	public String addContract(@ModelAttribute("contractDTO") ContractDTO newContractDTO) {
-		contractService.save(newContractDTO);
-		return "redirect:/amap/contracts/list";
+	public String addContract(@ModelAttribute("contractDTO") ContractDTO newContractDTO, @PathVariable("tenancyAlias") String tenancyAlias) {
+		contractService.save(newContractDTO, tenancyAlias);
+		return "redirect:/" + tenancyAlias + "/backoffice/contracts/list";
+
 	}
 
 	/**
 	 * Displays a list of all contracts.
 	 */
 	@GetMapping("/list")
-	public String listContracts(Model model) {
-		List<Contract> contracts = contractService.findAll();
-		contracts.sort(Comparator.comparing(Contract::getContractName, String.CASE_INSENSITIVE_ORDER));
+	public String listContracts(Model model, @PathVariable String tenancyAlias) {
+		Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias) .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+		List<Contract> contracts = contractService.findAll(tenancyAlias);
 		model.addAttribute("contracts", contracts);
+		model.addAttribute("tenancyAlias", tenancyAlias);
 		return "amap/back/contracts/contract-list";
 	}
 
@@ -163,9 +174,10 @@ public class ContractController {
 	 * Displays the details of a specific contract.
 	 */
 	@GetMapping("/detail/{id}")
-	public String viewContractDetail(@PathVariable("id") Long id, Model model) {
+	public String viewContractDetail(@PathVariable("id") Long id, Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 		Contract contract = contractService.findById(id);
 		model.addAttribute("contract", contract);
+		model.addAttribute("tenancyAlias", tenancyAlias);
 		return "amap/back/contracts/contract-detail";
 	}
 

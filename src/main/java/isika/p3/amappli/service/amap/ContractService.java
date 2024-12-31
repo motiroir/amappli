@@ -6,10 +6,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import isika.p3.amappli.dto.amap.ContractDTO;
 import isika.p3.amappli.entities.contract.Contract;
+import isika.p3.amappli.entities.user.User;
 
 public interface ContractService {
 
-	void save(ContractDTO contractDTO);
+	void save(ContractDTO contractDTO, String tenancyAlias);
 
 	List<Contract> findAll();
 
@@ -18,5 +19,9 @@ public interface ContractService {
 	Contract findById(Long id);
 
 	void updateContract(ContractDTO updatedContractDTO, MultipartFile image);
+
+	List<Contract> findAll(Long tenancyId);
+	
+	List<Contract> findAll(String tenancyAlias);
 
 }

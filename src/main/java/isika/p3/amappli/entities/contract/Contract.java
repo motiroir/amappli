@@ -82,15 +82,16 @@ public class Contract {
     private Address address;
 
     @ManyToOne
-    @JoinColumn(name = "tenancy_id")
+    @JoinColumn(name = "tenancy_id", nullable = false)
     private Tenancy tenancy;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "user_id", nullable = true)
     private User user;
 
     @Column(nullable = false)
     private boolean shoppable = true;
+    
 	
 
 }
