@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import isika.p3.amappli.entities.user.Address;
+import isika.p3.amappli.entities.user.ContactInfo;
 import isika.p3.amappli.entities.user.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -37,6 +38,8 @@ public class Tenancy {
     private String tenancyName;
 
     private String tenancySlogan;
+    
+    private String email;
 
     @Column(nullable=false, unique =true ) // For url mapping
     private String tenancyAlias;
@@ -46,6 +49,10 @@ public class Tenancy {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "addressId")
     private Address address;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "contactInfoId")
+    private ContactInfo contactInfo;
     
     private LocalDateTime dateCreated;
 

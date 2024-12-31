@@ -18,7 +18,7 @@
 <body>
 
 	<!-- Inclure le header -->
-	<jsp:include page="common/header.jsp" />
+	<jsp:include page="common/header-amap.jsp" />
 
 
 	<div class="hero">
@@ -36,6 +36,18 @@
 			<img src="<c:url value='/resources/img/imageHomePage.png' />"
 				alt="Légumes frais" class="image-box">
 		</div>
+
+
+		<%-- 	<div class="hero-image">
+    <c:if test="${not empty heroImage}">
+        <img src="data:${heroImageTypeMIME};base64,${heroImage}" 
+             alt="Image principale" 
+             class="image-box" />
+    </c:if>
+</div> --%>
+
+
+
 	</div>
 
 	<!-- Affichage du block de présentation -->
@@ -48,15 +60,16 @@
 					<p>${presentationBlock.contentText}</p>
 				</div>
 				<div class="presentation-image-container">
-					<img src="/images/${presentationBlock.contentImgName}"
-						alt="Image de présentation" class="presentation-image" />
+					<c:if test="${not empty presentationBlock.contentImg}">
+						<img
+							src="data:${presentationBlock.contentImgTypeMIME};base64,${presentationBlock.contentImg}"
+							alt="${presentationBlock.contentTitle}"
+							class="presentation-image" />
+					</c:if>
 				</div>
 			</div>
 		</div>
 	</c:if>
-
-
-
 
 	<!-- Affichage des ContentBlock avec isValue == true -->
 	<c:if test="${not empty valueBlocks}">
@@ -65,8 +78,13 @@
 			<div class="value-blocks">
 				<c:forEach items="${valueBlocks}" var="block">
 					<div class="value-block">
-						<img src="/images/${block.contentImgName}" alt="Image de valeur"
-							class="value-image" />
+						<c:if test="${not empty block.contentImg}">
+							<!-- Affichage de l'image encodée en Base64 pour chaque ContentBlock -->
+							<img
+								src="data:${block.contentImgTypeMIME};base64,${block.contentImg}"
+								alt="${block.contentTitle}" class="value-image" />
+
+						</c:if>
 						<h3>${block.contentTitle}</h3>
 						<p>${block.contentText}</p>
 					</div>
@@ -77,6 +95,6 @@
 
 
 	<!-- Inclure le footer -->
-	<jsp:include page="common/footer.jsp" />
+	<jsp:include page="common/footer-amap.jsp" />
 </body>
 </html>

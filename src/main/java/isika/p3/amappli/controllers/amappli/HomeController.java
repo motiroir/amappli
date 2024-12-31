@@ -30,5 +30,11 @@ public class HomeController {
 		return "test";
 	}
 
+	@GetMapping("contactAmappli")
+	public String contact() {
+	    return "amappli/front/contactAmappli"; 
+	}
+	
+	
 
 }

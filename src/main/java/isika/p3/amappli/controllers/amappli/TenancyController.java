@@ -53,7 +53,9 @@ public class TenancyController {
             model.addAttribute("tenancyName", tenancy.getTenancyName());
             model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
             Graphism graphism = tenancy.getGraphism();
-            model.addAttribute("logoImg", graphism != null ? graphism.getLogoImg() : null);
+            String logoBase64 = graphism != null ? graphism.getLogoImg() : null;  // Base64 du logo
+            model.addAttribute("logoBase64", logoBase64);
+            
             
             Address address = tenancy.getAddress(); 
             model.addAttribute("addressLine1", address != null ? address.getLine1() : null);
@@ -77,7 +79,7 @@ public class TenancyController {
             ContentBlock presentationBlock = contentBlocks.stream()
                 .filter(block -> !block.isValue()) // Block de présentation (isValue == false)
                 .findFirst()
-                .orElse(null); // Si aucun block n'est trouvé, mettre null
+                .orElse(null); 
 
             model.addAttribute("presentationBlock", presentationBlock); // Ajouter le block de présentation
             
@@ -117,5 +119,32 @@ public class TenancyController {
 	}
 	
 	
+	@GetMapping("/{id}/amapPage")
+	public String amapPage() {
+	    return "amap/front/amapPage"; 
+	}
+	
+	
+	@GetMapping("/{id}/contact")
+	public String contactPage(@PathVariable ("id") Long id, Model model) {
+	    // Récupérer les informations de la Tenancy via le service
+	    Tenancy tenancy = tenancyService.getTenancyById(id);
+
+	    if (tenancy != null) {
+	        // Ajouter les informations au modèle pour qu'elles soient accessibles dans la JSP
+	        model.addAttribute("addressLine1", tenancy.getAddress() != null ? tenancy.getAddress().getLine1() : null);
+	        model.addAttribute("addressLine2", tenancy.getAddress() != null ? tenancy.getAddress().getLine2() : null);
+	        model.addAttribute("addressPostCode", tenancy.getAddress() != null ? tenancy.getAddress().getPostCode() : null);
+	        model.addAttribute("addressCity", tenancy.getAddress() != null ? tenancy.getAddress().getCity() : null);
+	        model.addAttribute("email", tenancy.getEmail());
+	        model.addAttribute("phoneNumber", tenancy.getContactInfo() != null ? tenancy.getContactInfo().getPhoneNumber() : null);
+	    } else {
+	       
+	        model.addAttribute("message", "Informations de contact introuvables.");
+	    }
+
+	    return "amap/front/contactPage"; // Vue JSP correspondante
+	}
+
 
 }

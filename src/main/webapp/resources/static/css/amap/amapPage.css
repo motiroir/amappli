@@ -1,0 +1,62 @@
+@charset "UTF-8";
+@import "../common/utils.css";
+@import "common/header-amap.css";
+@import "common/footer-amap.css";
+
+
+ .circle-diagram {
+            max-width: 100%;
+            height: auto;
+          
+        }
+        .amap-text {
+            text-align: justify;
+        }
+        .green-text {
+            color: #007F00;
+            font-weight: bold;
+        }
+        .ab-logo {
+            width: 100px;
+        }
+        
+        
+        
+
+/* Conteneur principal */
+.container {
+    margin-top: 30px;
+}
+
+/* Titre centré et espacé */
+.container h2 {
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+
+/* Texte explicatif (texte avant l'image) */
+p {
+    font-size: 1rem;
+    line-height: 1.6; /* Facilite la lecture */
+    color: #333; /* Couleur du texte lisible */
+}
+
+/* Lien vers le site */
+a {
+    color: #4CAF50;
+    font-weight: bold;
+    text-decoration: none; /* Supprime le soulignement */
+}
+
+a:hover {
+    text-decoration: underline; /* Ajout du soulignement au survol */
+}
+
+/* Centrage sur écran plus petit */
+.text-center img {
+    margin: 20px auto;
+    display: block;
+    max-width: 90%; /* Limite la taille de l'image sur les petits écrans */
+}
+        

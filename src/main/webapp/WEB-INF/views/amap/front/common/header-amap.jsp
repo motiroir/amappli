@@ -5,8 +5,8 @@
 <div
 	class="container-fluid d-flex flex-row-reverse flex-md-row justify-content-between justify-content-md-evenly align-items-center">
 
-	<img src="<c:url value='/resources/img/logo_amappli_peach_2.png'/>"
-		height="50" class="d-block d-md-none" />
+	<img src="data:image/png;base64,${logoBase64}" height="50" class="d-block d-md-none" />
+
 <!-- To be replaced by tenancy logo -->
 	<img id="logo-header" height="50" min-height="50" viewBox="0 0 697 726" class="my-2 my-sm-0 d-none d-md-block" src="<c:url value='/resources/img/${graphism.logo}' />" alt="Logo"  />
 	<h1 id="text-head" class="d-none d-md-block fw-bold fs-2">${tenancy.getTenancyName()}</h1>
@@ -39,17 +39,16 @@
 					class="nav-link nunito text-decoration-none fc-300 fch-500"
 					data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">La boutique</a>
 				</li>
-				<li class="nav-item"><a href="#"
+				<li class="nav-item"><a href="amapPage"
 					class="nav-link nunito text-decoration-none fc-300 fch-500"
-					data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Qui
-						sommes-nous ?</a></li>
-				<li class="nav-item"><a href="#"
+					data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">C'est quoi une Amap ?</a></li>
+				<li class="nav-item"><a href="contact"
 					class="nav-link nunito text-decoration-none fc-300 fch-500"
 					data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Contact</a>
 				</li>
 				<!--   <li class="nav-item col-1">
                 </li> -->
-				<li class="nav-item"><a href="#"
+				<li class="nav-item"><a href="amap/amaplogin/login"
 					class="btn rounded-pill btn-500 px-4" data-bs-toggle="collapse"
 					data-bs-target=".navbar-collapse.show">Se connecter</a></li>
 			</ul>

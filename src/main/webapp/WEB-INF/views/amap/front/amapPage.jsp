@@ -10,30 +10,14 @@
 	href="<c:url value='/resources/bootstrap/bootstrap.min.css' />">
 <link rel="stylesheet"
 	href="<c:url value='/resources/css/amap/amapPage.css' />">
+	
 <title>C'est quoi une Amap ?</title>
 </head>
- <style>
-        .circle-diagram {
-            max-width: 100%;
-            height: auto;
-            margin: 0 auto;
-        }
-        .amap-text {
-            text-align: justify;
-        }
-        .green-text {
-            color: #007F00;
-            font-weight: bold;
-        }
-        .ab-logo {
-            width: 100px;
-        }
-    </style>
 
 <body>
 
 	<!-- Inclure le header -->
-	<jsp:include page="common/header.jsp" />
+	<jsp:include page="common/header-amap.jsp" />
 
  <div class="container my-5">
         <div class="row">
@@ -41,7 +25,7 @@
                 <img src="<c:url value='/resources/img/schemaAmap.png' />" alt="Schéma explicatif AMAP" class="img-fluid circle-diagram">
             </div>
             <div class="col-lg-6 col-md-12">
-                <h1 class="text-center green-text">AMAP ?</h1>
+                <h1 class=" mt-3 ">AMAP ?</h1>
                 <div class="amap-text">
                     <p><strong>A</strong> comme <strong>Association</strong><br>
                         En AMAP, pas d'intermédiaire commercial. C'est le seul système qui reverse 100% du montant du panier à l'agriculteur·rice.</p>
@@ -55,8 +39,56 @@
             </div>
         </div>
     </div>
+   <div class="container my-5">
+    <h2 class="text-center mt-5 ">Histoire des AMAP</h2> 
+    <div class="row g-4">
+        <!-- Texte principal -->
+        <div class="col-lg-6 col-md-12 d-flex align-items-center ps-lg-5"> <!-- Ajout de 'ps-lg-5' pour un décalage -->
+            <div>
+                <p>
+                    L'historique des AMAP est très bien raconté sur le 
+                    <a href="https://www.reseau-amap.org/historique.php" target="_blank">site National du réseau AMAP France</a>.
+                </p>
+                <p>
+                    C'est donc du Japon que vient cette démarche collaborative entre un ou plusieurs producteurs et des consommateurs 
+                    qui établissent un partenariat sous forme de contrat. Ensemble, ils définissent la diversité et la quantité de denrées à produire pour la saison. 
+                    Ces denrées peuvent être aussi bien des fruits, des légumes, des œufs, du fromage, de la viande...
+                </p>
+                <p>
+                    La diversité est très importante car elle permet aux partenaires de l'AMAP de consommer une grande variété d'aliments,
+                    d'étendre la durée de la saison, et de limiter les risques dus aux aléas climatiques et aux éventuels problèmes sanitaires.
+                </p>
+            </div>
+        </div>
+
+        <!-- Image explicative avec le texte intégré -->
+        <div class="col-lg-6 col-md-12 d-flex align-items-center justify-content-center">
+            <img src="<c:url value='/resources/img/carotte.png' />" alt="Ceci n'est pas une carotte" class="img-fluid rounded">
+        </div>
+    </div>
+</div>
+
+
+
     
-    
+      <div class="container my-5">
+        <div class="row">
+            <!-- Carte des AMAP -->
+            <div class="col-12 text-center">
+                
+                <img src="<c:url value='/resources/img/amap-carte.png' />" alt="Carte des réseaux AMAP en France" class="img-fluid rounded">
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            
+            <div class="col-12 text-center">
+                <a href="https://amap-idf.org/medias/files/2charte_des_amap/charte_des_amap_mars_20142.pdf" class="btn btn-success btn-lg">
+                    Découvrir la charte des AMAP
+                </a>
+            </div>
+        </div>
+    </div>
     
     
 
@@ -64,6 +96,6 @@
 
 
 	<!-- Inclure le footer -->
-	<jsp:include page="common/footer.jsp" />
+	<jsp:include page="common/footer-amap.jsp" />
 </body>
 </html>
