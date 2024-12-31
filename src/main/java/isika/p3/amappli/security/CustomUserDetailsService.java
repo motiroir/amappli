@@ -51,6 +51,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         for(Permission p: permissions){
             authorities.add(new SimpleGrantedAuthority(p.getName()));
         }
+        authorities.add(new SimpleGrantedAuthority("sampleauthority"));
         return authorities;
     }
 

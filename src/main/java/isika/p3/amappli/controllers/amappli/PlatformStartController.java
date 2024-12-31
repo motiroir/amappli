@@ -25,13 +25,13 @@ import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/start/")
-public class LoginController {
+public class PlatformStartController {
 
     private final UserService userService;
     private final TenancyService tenancyService;
     private final ContentBlockService contentBlockService;
 
-    public LoginController(UserService userService, TenancyService tenancyService, ContentBlockService contentBlockService) {
+    public PlatformStartController(UserService userService, TenancyService tenancyService, ContentBlockService contentBlockService) {
         this.userService = userService;
         this.tenancyService = tenancyService;
         this.contentBlockService = contentBlockService;
@@ -42,13 +42,13 @@ public class LoginController {
     public String plateformUserSignUpForm(Model model){
         NewUserDTO newUserDTO = new NewUserDTO();
         model.addAttribute("newUserDTO",newUserDTO);
-        return "amappli/platformlogin/signup";
+        return "amappli/front/platformstart/signup";
     }
 
     @PostMapping("/signup")
     public String plateformUserSignup(@Valid @ModelAttribute NewUserDTO newUserDTO, BindingResult result, Model model){
         if(result.hasErrors()){
-            return "amappli/platformlogin/signup";
+            return "amappli/front/platformstart/signup";
         }
         
         // Write user in DB
@@ -60,7 +60,7 @@ public class LoginController {
             model.addAttribute("emailError", e.getMessage());
             return "amappli/platformlogin/signup";
         }
-        return "amappli/platformlogin/signupdone";
+        return "amappli/front/platformstart/signupdone";
     }
 
     @GetMapping("/creation")
@@ -83,7 +83,7 @@ public class LoginController {
     public String tenancyCreation(@ModelAttribute("newTenancyDTO") NewTenancyDTO newTenancyDTO) {
 
         tenancyService.createTenancyFromWelcomeForm(newTenancyDTO);
-        return "amappli/platformlogin/signupdone";
+        return "amappli/front/platformstart/signupdone";
     }
 
     @GetMapping("/showimg")
@@ -91,7 +91,7 @@ public class LoginController {
         ContentBlock cb = contentBlockService.findById(1L);
         String base64Image = "data:"+cb.getContentImgTypeMIME()+";base64," + cb.getContentImg();
         model.addAttribute("image", base64Image);
-        return "amappli/platformlogin/showimg";
+        return "amappli/front/platformstart/showimg";
     }
     
 }
