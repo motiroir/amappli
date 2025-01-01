@@ -76,7 +76,7 @@ public class PlatformStartController {
         // Give the color palettes options for the form
         model.addAttribute("colorPalettes",ColorPalette.values());
         model.addAttribute("fontChoices", FontChoice.values());
-        return "amappli/platformlogin/createtenancy";
+        return "amappli/front/platformstart/createtenancy";
     }
 
     @PostMapping("/creation")

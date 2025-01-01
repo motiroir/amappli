@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+import isika.p3.amappli.entities.auth.Permission;
 import isika.p3.amappli.entities.auth.Role;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import jakarta.persistence.CascadeType;
@@ -63,7 +64,7 @@ public class User {
     private Tenancy tenancy;
 
     @Builder.Default
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable (
         name = "User_Role_Association",
         joinColumns = @JoinColumn(name = "userId"),
@@ -72,5 +73,16 @@ public class User {
     private Set<Role> roles = new HashSet<Role>();
     
     @OneToOne(cascade = CascadeType.ALL)
+    
     private CompanyDetails companyDetails;
+
+    public Set<Permission> getPermissions(){
+        Set<Permission> permissions = new HashSet<Permission>();
+        for(Role r: roles){
+            for(Permission p: r.getPermissions()){
+                permissions.add(p);
+            }
+        }
+        return permissions;
+    }
 }
