@@ -41,13 +41,13 @@ public class ContractController {
 	private final TenancyService tenancyService;
 	private final TenancyRepository tenancyRepository;
 
-	public ContractController(ContractService contractService, TenancyService tenancyService, UserService userService, TenancyRepository tenancyrepository) {
+	public ContractController(ContractService contractService, TenancyService tenancyService, UserService userService,
+			TenancyRepository tenancyrepository) {
 		this.contractService = contractService;
 		this.userService = userService;
 		this.tenancyService = tenancyService;
 		this.tenancyRepository = tenancyrepository;
 	}
-	
 
 	/**
 	 * Initializes custom data binding for LocalDate.
@@ -78,7 +78,7 @@ public class ContractController {
 		model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
 		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
 		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
-	    model.addAttribute("users", userService.findAll()); // Chargez tous les utilisateurs
+//		model.addAttribute("users", userService.findAll()); // Chargez tous les utilisateurs
 		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		model.addAttribute("currentDate", currentDate);
 		return "amap/back/contracts/contract-form";
@@ -122,7 +122,8 @@ public class ContractController {
 	 * Saves a new contract to the database.
 	 */
 	@PostMapping("/add")
-	public String addContract(@ModelAttribute("contractDTO") ContractDTO newContractDTO, @PathVariable("tenancyAlias") String tenancyAlias) {
+	public String addContract(@ModelAttribute("contractDTO") ContractDTO newContractDTO,
+			@PathVariable("tenancyAlias") String tenancyAlias) {
 		contractService.save(newContractDTO, tenancyAlias);
 		return "redirect:/" + tenancyAlias + "/backoffice/contracts/list";
 
@@ -133,7 +134,8 @@ public class ContractController {
 	 */
 	@GetMapping("/list")
 	public String listContracts(Model model, @PathVariable String tenancyAlias) {
-		Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias) .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+		Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
+				.orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
 		List<Contract> contracts = contractService.findAll(tenancyAlias);
 		model.addAttribute("contracts", contracts);
 		model.addAttribute("tenancyAlias", tenancyAlias);
@@ -144,38 +146,43 @@ public class ContractController {
 	 * Deletes a contract by its ID.
 	 */
 	@PostMapping("/delete/{id}")
-	public String deleteContract(@PathVariable("id") Long id) {
+	public String deleteContract(@PathVariable("id") Long id, @PathVariable("tenancyAlias") String tenancyAlias) {
 		contractService.deleteById(id);
-		return "redirect:/amap/contracts/list";
+		return "redirect:/" + tenancyAlias + "/backoffice/contracts/list";
 	}
 
 	/**
 	 * Displays the edit form for a specific contract.
 	 */
 	@GetMapping("/edit/{id}")
-	public String editContractForm(@PathVariable("id") Long id, Model model) {
-	    Contract contract = contractService.findById(id);
+	public String editContractForm(@PathVariable("tenancyAlias") String tenancyAlias, @PathVariable("id") Long id,
+			Model model) {
+		Contract contract = contractService.findById(id);
 
-	    if (contract == null) {
-	        return "redirect:/amap/contracts/list"; // Redirige si le contrat n'existe pas
-	    }
+		if (contract == null) {
+			return "redirect:/" + tenancyAlias + "/backoffice/contracts/list"; // Redirige si le contrat n'existe pas
+		}
 
-	    model.addAttribute("contract", contract);
-	    model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
-	    model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
-	    model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
-	    model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
+		model.addAttribute("contract", contract);
+		model.addAttribute("tenancyAlias", tenancyAlias);
+		model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
+		model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
+		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
+		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
 
-	    return "amap/back/contracts/contract-edit"; // Nom de la vue pour le formulaire d'édition
+		return "amap/back/contracts/contract-edit"; // Nom de la vue pour le formulaire d'édition
 	}
-
 
 	/**
 	 * Displays the details of a specific contract.
 	 */
 	@GetMapping("/detail/{id}")
-	public String viewContractDetail(@PathVariable("id") Long id, Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
+	public String viewContractDetail(@PathVariable("id") Long id, Model model,
+			@PathVariable("tenancyAlias") String tenancyAlias) {
 		Contract contract = contractService.findById(id);
+		if (contract == null) {
+			throw new IllegalArgumentException("Contrat introuvable pour l'ID : " + id);
+		}
 		model.addAttribute("contract", contract);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		return "amap/back/contracts/contract-detail";
@@ -183,16 +190,13 @@ public class ContractController {
 
 	@PostMapping("/update")
 	public String updateContract(
-	    @ModelAttribute("contract") ContractDTO updatedContractDTO,
-	    @RequestParam(value = "image", required = false) MultipartFile image) {
-	    
-	    contractService.updateContract(updatedContractDTO, image);
+		    @ModelAttribute("contract") ContractDTO updatedContractDTO,
+		    @RequestParam(value = "image", required = false) MultipartFile image,
+		    @PathVariable("tenancyAlias") String tenancyAlias) {
 
-	    return "redirect:/amap/contracts/list";
+		contractService.updateContract(updatedContractDTO, image, tenancyAlias);
+
+		return "redirect:/" + tenancyAlias + "/backoffice/contracts/list";
 	}
-
-
-
-
 
 }

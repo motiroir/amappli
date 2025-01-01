@@ -104,39 +104,45 @@ public class ContractServiceImpl implements ContractService {
 	}
 	
 	@Override
-	public void updateContract(ContractDTO updatedContractDTO, MultipartFile image) {
-	    Contract existingContract = contractRepository.findById(updatedContractDTO.getId()).orElse(null);
+	public void updateContract(ContractDTO updatedContractDTO, MultipartFile image, String tenancyAlias) {
+	    Contract existingContract = contractRepository.findById(updatedContractDTO.getId())
+	            .orElseThrow(() -> new IllegalArgumentException("Le contrat avec l'ID " + updatedContractDTO.getId() + " n'existe pas."));
 
-	    if (existingContract == null) {
-	        throw new IllegalArgumentException("Le contrat avec l'ID " + updatedContractDTO.getId() + " n'existe pas.");
-	    }
+	    // Mettez à jour uniquement les champs pertinents
+	    existingContract.setContractName(updatedContractDTO.getContractName());
+	    existingContract.setContractType(ContractType.valueOf(updatedContractDTO.getContractType()));
+	    existingContract.setContractDescription(updatedContractDTO.getContractDescription());
+	    existingContract.setContractWeight(ContractWeight.valueOf(updatedContractDTO.getContractWeight()));
+	    existingContract.setContractPrice(updatedContractDTO.getContractPrice());
+	    existingContract.setStartDate(updatedContractDTO.getStartDate());
+	    existingContract.setEndDate(updatedContractDTO.getEndDate());
+	    existingContract.setDeliveryRecurrence(DeliveryRecurrence.valueOf(updatedContractDTO.getDeliveryRecurrence()));
+	    existingContract.setDeliveryDay(DeliveryDay.valueOf(updatedContractDTO.getDeliveryDay()));
+	    existingContract.setQuantity(updatedContractDTO.getQuantity());
 
-	    // Mise à jour des champs non liés à l'image
-	    existingContract.setContractName(updatedContractDTO.getContractName() != null ? updatedContractDTO.getContractName() : existingContract.getContractName());
-	    existingContract.setContractType(updatedContractDTO.getContractType() != null ? ContractType.valueOf(updatedContractDTO.getContractType()) : existingContract.getContractType());
-	    existingContract.setContractDescription(updatedContractDTO.getContractDescription() != null ? updatedContractDTO.getContractDescription() : existingContract.getContractDescription());
-	    existingContract.setContractWeight(updatedContractDTO.getContractWeight() != null ? ContractWeight.valueOf(updatedContractDTO.getContractWeight()) : existingContract.getContractWeight());
-	    existingContract.setContractPrice(updatedContractDTO.getContractPrice() != null ? updatedContractDTO.getContractPrice() : existingContract.getContractPrice());
-	    existingContract.setStartDate(updatedContractDTO.getStartDate() != null ? updatedContractDTO.getStartDate() : existingContract.getStartDate());
-	    existingContract.setEndDate(updatedContractDTO.getEndDate() != null ? updatedContractDTO.getEndDate() : existingContract.getEndDate());
-	    existingContract.setDeliveryRecurrence(updatedContractDTO.getDeliveryRecurrence() != null ? DeliveryRecurrence.valueOf(updatedContractDTO.getDeliveryRecurrence()) : existingContract.getDeliveryRecurrence());
-	    existingContract.setDeliveryDay(updatedContractDTO.getDeliveryDay() != null ? DeliveryDay.valueOf(updatedContractDTO.getDeliveryDay()) : existingContract.getDeliveryDay());
-	    existingContract.setQuantity(updatedContractDTO.getQuantity() != null ? updatedContractDTO.getQuantity() : existingContract.getQuantity());
+	    // Ignorez l'utilisateur s'il n'est pas pertinent
+	    existingContract.setUser(existingContract.getUser());
 
 	    // Gestion de l'image
 	    if (image != null && !image.isEmpty()) {
 	        try {
 	            existingContract.setImageType(image.getContentType());
-	            byte[] imageBytes = image.getBytes();
-	            existingContract.setImageData(Base64.getEncoder().encodeToString(imageBytes));
+	            existingContract.setImageData(Base64.getEncoder().encodeToString(image.getBytes()));
 	        } catch (IOException e) {
-	            e.printStackTrace();
+	            throw new RuntimeException("Erreur lors du traitement de l'image", e);
 	        }
 	    }
 
-	    // Sauvegarde du contrat mis à jour
+	    // Conservez tenancy et date de création
+	    existingContract.setTenancy(existingContract.getTenancy());
+	    existingContract.setDateCreation(existingContract.getDateCreation());
+
 	    contractRepository.save(existingContract);
 	}
+
+
+
+
 	
 	@Override
 	public List<Contract> findAll(Long tenancyId) {

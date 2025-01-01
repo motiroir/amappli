@@ -30,15 +30,12 @@ request.setAttribute("currentPage", currentPage);
 </head>
 
 <body class="row theme-1 light">
-	<!-- Inclusion de la sidebar -->
-<%-- 	<div> --%>
-<%-- 		<%@ include file="/WEB-INF/views/amap/back/common/sidebarAdmin.jsp"%> --%>
-<%-- 	</div> --%>
 
 	<header class="fc-main bg-main">
-	<!-- Inclusion du header -->
-			<jsp:include page="../common/headerAdmin.jsp" />
+		<!-- Inclusion du header -->
+		<jsp:include page="../common/headerAdmin.jsp" />
 	</header>
+	<!-- Inclusion de la sidebar -->
 	<jsp:include page="../common/sidebarAdmin.jsp" />
 
 	<!-- Contenu principal -->
@@ -75,7 +72,8 @@ request.setAttribute("currentPage", currentPage);
 					<div
 						class="table-container d-flex justify-content-between align-items-center">
 						<h2 style="font-weight: bold;">Liste des contrats</h2>
-						<a href="<d:url value='/${tenancyAlias}/backoffice/contracts/form' />"
+						<a
+							href="<d:url value='/${tenancyAlias}/backoffice/contracts/form' />"
 							class="btn-create"> <span class="icon">+</span>Créer un
 							contrat
 						</a>
@@ -108,11 +106,12 @@ request.setAttribute("currentPage", currentPage);
 									<td>
 										<div class='d-flex justify-content-start align-items-center'>
 											<a
-												href="<d:url value='/amap/contracts/detail/${contract.id}' />"
+												href="<d:url value='/${tenancyAlias}/backoffice/contracts/detail/${contract.id}' />"
 												class="btn-view"> <i class="bi bi-eye"></i>
 											</a>
+
 											<form:form method="POST"
-												action="${pageContext.request.contextPath}/amap/contracts/delete/${contract.id}"
+												action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/contracts/delete/${contract.id}"
 												style="display: inline;">
 												<button type="submit" class="btn-delete"
 													onclick="return confirm('Voulez-vous vraiment supprimer le contrat ${contract.contractName} ?');">
@@ -129,9 +128,14 @@ request.setAttribute("currentPage", currentPage);
 			</div>
 		</div>
 	</div>
-	<script src="<d:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
-	<script src="<d:url value='/resources/js/amap/admin/user-list.js' />" type="text/javascript"></script>
-	<script src="<d:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
-	<script src="<d:url value='/resources/js/common/palette-swap.js' />" type="text/javascript"></script>
+	<script
+		src="<d:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"
+		type="text/javascript"></script>
+	<script src="<d:url value='/resources/js/amap/admin/user-list.js' />"
+		type="text/javascript"></script>
+	<script src="<d:url value='/resources/js/common/theme-swap.js' />"
+		type="text/javascript"></script>
+	<script src="<d:url value='/resources/js/common/palette-swap.js' />"
+		type="text/javascript"></script>
 </body>
 </html>

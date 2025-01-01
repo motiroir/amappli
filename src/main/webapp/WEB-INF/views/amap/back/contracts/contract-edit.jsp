@@ -17,8 +17,11 @@ request.setAttribute("currentPage", currentPage);
 <title>Modifier un Contrat</title>
 <link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />"
 	rel="stylesheet">
-	<link
+<link
 	href="<c:url value='/resources/css/amap/common/sidebarAdmin.css' />"
+	rel="stylesheet">
+	<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
 	rel="stylesheet">
 <style>
 .form-container {
@@ -60,19 +63,28 @@ request.setAttribute("currentPage", currentPage);
 }
 </style>
 </head>
-<body>
-	<div>
-		<%@ include file="/WEB-INF/views/amap/back/common/sidebarAdmin.jsp"%>
-	</div>
+<body class="row theme-1 light">
+	<header class="fc-main bg-main">
+		<!-- Inclusion du header -->
+		<jsp:include page="../common/headerAdmin.jsp" />
+	</header>
+	<jsp:include page="../common/sidebarAdmin.jsp" />
+
 	<div class="container mt-5">
 		<div class="row justify-content-center">
 			<div class="col-lg-10">
 				<div class="form-container">
+				<div class="header-container">
+					<a href="<c:url value='/${tenancyAlias}/backoffice/contracts/detail/{id}' />"
+						class="btn-back"> <i class="bi bi-arrow-left-circle"></i>
+					</a>
 					<h2 class="mb-4" style="font-weight: bold; text-align: left;">Modifier
 						un contrat</h2>
+						</div>
 					<form:form name="contractForm" method="POST"
-						action="/Amappli/amap/contracts/update" modelAttribute="contract"
-						enctype="multipart/form-data">
+						action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/contracts/update"
+						modelAttribute="contract" enctype="multipart/form-data">
+
 						<form:hidden path="id" />
 						<div class="row">
 							<!-- Première colonne -->
@@ -186,8 +198,6 @@ request.setAttribute("currentPage", currentPage);
 									<button type="submit" class="btn btn-custom btn-lg"
 										style="width: 250px; height: 60px; margin-bottom: 15px;">Valider
 										les modifications</button>
-									<a href="/Amappli/amap/contracts/list"
-										style="width: 150px; height: 40px; margin-left: 10px;">Annuler</a>
 								</div>
 							</div>
 						</div>
@@ -199,5 +209,11 @@ request.setAttribute("currentPage", currentPage);
 	<script
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 	<script src="<c:url value='/resources/js/contract-edit.js' />"></script>
+	<script src="<d:url value='/resources/js/amap/admin/user-list.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
+		type="text/javascript"></script>
 </body>
 </html>

@@ -18,7 +18,7 @@ public interface ContractService {
 
 	Contract findById(Long id);
 
-	void updateContract(ContractDTO updatedContractDTO, MultipartFile image);
+	void updateContract(ContractDTO updatedContractDTO, MultipartFile image, String tenancyAlias);
 
 	List<Contract> findAll(Long tenancyId);
 	

@@ -44,7 +44,7 @@ request.setAttribute("currentPage", currentPage);
 				<div class="col-lg-10">
 					<div class="form-container">
 						<div class="header-container">
-							<a href="<c:url value='/amap/contracts/list' />" class="btn-back">
+							<a href="<c:url value='/${tenancyAlias}/backoffice/contracts/list' />" class="btn-back">
 								<i class="bi bi-arrow-left-circle"></i>
 							</a>
 							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Ajouter
@@ -176,9 +176,6 @@ request.setAttribute("currentPage", currentPage);
 									<div class="text-center">
 										<button type="submit" class="btn btn-custom btn-lg me-2"
 											style="width: 50%; height: 60px;">Ajouter</button>
-										<a href="/Amappli/${tenancyAlias}/backoffice/contracts/list"
-											class="btn btn-secondary btn-lg"
-											style="width: 40%; height: 60px; color: black; background-color: white;">Annuler</a>
 									</div>
 								</div>
 							</div>
