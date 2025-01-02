@@ -3,6 +3,7 @@ package isika.p3.amappli.controllers;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -49,5 +50,17 @@ public class SecurityController {
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         model.addAttribute("authorities", authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
        return "secexamples/showloggeduserpermissions"; 
+    }
+
+    @PreAuthorize("hasAuthority('Permission 1')")
+    @GetMapping("/needpermission1")
+    public String needPermissionA(){
+        return "secexamples/needpermission1";
+    }
+
+    @PreAuthorize("hasAuthority('Permission 2')")
+    @GetMapping("/needpermission2")
+    public String needPermissionB(){
+        return "secexamples/needpermission2";
     }
 }

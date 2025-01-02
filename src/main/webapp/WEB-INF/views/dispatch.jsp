@@ -22,13 +22,31 @@
 			<a href="plateform">Plateform Homepage</a>
 		</li>
 		<li>
-			<a href="start/signup">Plateform Login Sign-up</a>
+			<a href="start/signup">Plateform Account Sign-up</a>
+		</li>
+		<li>
+			<a href="start/creation">Tenancy Creation</a>
 		</li>
 		<li>
 			<a href="roles">Roles List</a>
 		</li>
 		<li>
 			<a href="biocoli/backoffice/users/list">Admin backoffice tenancy 1 biocoli</a>
+		</li>
+		<li>
+			<a href="sectest/login"> Page de connexion </a>
+		</li>
+		<li>
+			<a href="sectest/needanyauth"> Besoin d'être identifié pour voir cette page</a>
+		</li>
+		<li>
+			<a href="sectest/login"> Page de déconnexion </a>
+		</li>
+		<li>
+			<a href="sectest/needpermission1"> Besoin d'avoir la permission "Permission 1" pour voir cette page</a>
+		</li>
+		<li>
+			<a href="sectest/needpermission2"> Besoin d'avoir la permission "Permission 2" pour voir cette page</a>
 		</li>
 	</ul>
 </body>
