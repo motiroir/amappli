@@ -85,7 +85,7 @@ public class ContractController {
 		model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
 		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
 		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
-		List<User> users = AmapAdminUserService.findAll(tenancyAlias);
+		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
 		model.addAttribute("users", users);
 		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		model.addAttribute("currentDate", currentDate);
@@ -112,6 +112,8 @@ public class ContractController {
 		Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
 				.orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
 		List<Contract> contracts = contractService.findAll(tenancyAlias);
+		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
+		model.addAttribute("users", users);
 		model.addAttribute("contracts", contracts);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		return "amap/back/contracts/contract-list";

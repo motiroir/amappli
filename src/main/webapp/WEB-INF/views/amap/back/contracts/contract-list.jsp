@@ -101,7 +101,7 @@ request.setAttribute("currentPage", currentPage);
 										</d:if></td>
 									<td>${contract.contractName}</td>
 									<td>${contract.contractType.displayName}</td>
-									<td class="d-none d-lg-table-cell">${contract.user.email}</td>
+									<td class="d-none d-lg-table-cell">${contract.user.companyDetails.companyName}</td>
 									<td>${contract.contractPrice}€</td>
 									<td>
 										<div class='d-flex justify-content-start align-items-center'>

@@ -89,11 +89,12 @@ request.setAttribute("currentPage", currentPage);
 
 									<div class="mb-3">
 										<label for="userId" class="form-label">Sélectionnez un
-											utilisateur :</label> <select id="userId" name="userId"
+											fournisseur :</label> <select id="userId" name="userId"
 											class="form-select">
-											<option value="" selected>Choisir un utilisateur</option>
+											<option value="" selected>Choisir un fournisseur</option>
 											<c:forEach var="user" items="${users}">
-												<option value="${user.userId}">${user.email}</option>
+												<option value="${user.userId}">
+													${user.companyDetails.companyName}</option>
 											</c:forEach>
 										</select>
 									</div>
