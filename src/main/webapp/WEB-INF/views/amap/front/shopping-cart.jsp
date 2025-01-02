@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
@@ -25,40 +25,71 @@
 	<div class="fc-main">
 		<div class="main-div">
 			<h1>Shopping Cart</h1>
-
-			<div class="table-container">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Produits</th>
-							<th></th>
-							<th>Prix à l'unité</th>
-							<th>Quantité</th>
-							<th>Prix</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="item" items="${cart.shoppingCartItems}">
+			<div class="row">
+				<div class="col-md-8 table-container">
+					<table class="table">
+						<thead>
 							<tr>
-								<td>${item.shoppable.getImage()}</td>
-								<td>${item.shoppable.getInfo()}</td>
-								<td>${item.shoppable.getPrice()}</td>
-
-								<td><form:form method="post"
-										action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cart.shoppingCartId}/updateQuantity/${item.shoppingItemId}">
-										<button class="btn btn-100" type="submit" name="action" value="decrease">-</button>
-										<span>${item.getQuantity()}</span>
-										<button class="btn btn-100" type="submit" name="action" value="increase">+</button>
-									</form:form></td>
-
-								<td>${item.totalPrice}</td>
+								<th>Produits</th>
+								<th></th>
+								<th>Prix à l'unité</th>
+								<th>Quantité</th>
+								<th>Prix</th>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
-			<h2>Total: ${total}</h2>
+						</thead>
+						<tbody>
+							<c:forEach var="item" items="${cart.shoppingCartItems}">
+								<tr>
+									<td>${item.shoppable.getImage()}</td>
+									<td>${item.shoppable.getInfo()}</td>
+									<td>${item.shoppable.getPrice()}</td>
 
+									<td><div class="btn btn-100">
+											<form:form method="post"
+												action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cart.shoppingCartId}/updateQuantity/${item.shoppingItemId}">
+												<button type="submit" name="action" value="decrease">-</button>
+												<span>${item.getQuantity()}</span>
+												<button type="submit" name="action" value="increase">+</button>
+											</form:form>
+										</div></td>
+
+									<td>${item.totalPrice}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-md-4 totals">
+					<table>
+						<tr>
+							<td>Panier</td>
+							<td>totalPanier</td>
+						</tr>
+						<tr>
+							<td>Autres</td>
+							<td>totalProduitsEtAteliers</td>
+						</tr>
+						<tr>
+							<td>Cotisation</td>
+							<td>totalCotisation</td>
+						</tr>
+						<tr>
+							<td><h2 class="fw-bold">TOTAL</h2></td>
+							<td><h2 class="fw-bold">${total}</h2></td>
+						</tr>
+
+						<form:form method="post">
+							<tr>
+								<td colspan="2"><button class="btn btn-900 btn-order" type="submit">Passer au paiement</button></td>
+							</tr>
+							<tr>
+								<td colspan="2"><button class="btn btn-100 btn-order" type="submit">Payer sur place</button></td>
+							</tr>
+						</form:form>
+
+					</table>
+				</div>
+			</div>
 		</div>
 		<!-- Formulaire de test pour ajouter un article -> A SUPPRIMER -->
 		<form:form method="post"
@@ -88,10 +119,9 @@
 		 */
 	</script>
 
-<%-- 	<script
+	<%-- 	<script
 		src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script> --%>
-	<script
-		src="<c:url value='/resources/js/amap/theme-swap-for-amaps.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  --%>
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script>
 </body>
 </html>

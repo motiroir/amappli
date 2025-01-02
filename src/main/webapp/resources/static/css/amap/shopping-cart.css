@@ -3,16 +3,16 @@
 @import "common/header-amap.css"; 
 @import "common/footer-amap.css";
 
+/* *{
+	outline: 1px solid red;
+} */
+
 .table-container {
-	width:80%;
-	align-items: center; 
-	justify-content: space-between;
     padding: 20px;
 }
 
 .table {
     border-collapse: collapse;
-    width: 100%;
 }
 
 .table th {
@@ -29,10 +29,35 @@
     padding: 20px;
     border-bottom: 1px solid;
     border-color: inherit;
+    vertical-align:middle;
 }
 
 .table button {
     border: none;
+    background-color: rgba(0,0,0,0);
     padding: 0.5rem 1rem;
     cursor: pointer;
+}
+
+.totals{
+	padding:20px;
+}
+
+.totals td{
+	padding: 10px;
+}
+
+.totals td:first-child {
+    text-align: left; 
+    width: 70%; 
+}
+
+.totals td:last-child {
+    text-align: right; 
+    width: 30%; 
+}
+
+.btn-order{
+	width:100%;
+	display:block;
 }
