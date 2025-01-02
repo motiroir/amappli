@@ -2,6 +2,7 @@ package isika.p3.amappli.service.amap;
 
 import java.util.List;
 
+import isika.p3.amappli.dto.amappli.RoleDTO;
 import isika.p3.amappli.entities.auth.Role;
 
 public interface RoleService {
@@ -13,7 +14,8 @@ public interface RoleService {
 	Role createRole(Role role);
 
 	void deleteRole(Long roleId);
-
 	
     void addtestRoles(); 
+
+	void manageRoleFromRoleManagmentPage(RoleDTO roleDTO);
 }

@@ -6,7 +6,6 @@ import java.util.Locale;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Primary;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +13,17 @@ import com.github.javafaker.Faker;
 
 import isika.p3.amappli.dto.amap.NewUserDTO;
 import isika.p3.amappli.dto.amap.UserDTO;
+import isika.p3.amappli.entities.auth.Permission;
+import isika.p3.amappli.entities.auth.Role;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.entities.user.ContactInfo;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.exceptions.EmailAlreadyExistsException;
 import isika.p3.amappli.exceptions.TenancyNotFoundException;
+import isika.p3.amappli.repo.amap.RoleRepository;
 import isika.p3.amappli.repo.amap.UserRepository;
+import isika.p3.amappli.repo.amappli.PermissionRepository;
 import isika.p3.amappli.service.amap.UserService;
 import isika.p3.amappli.service.amappli.TenancyService;
 import jakarta.transaction.Transactional;
@@ -35,11 +38,19 @@ public class UserServiceImpl implements UserService {
 
     private final TenancyService tenancyService;
 
-    public UserServiceImpl(UserRepository userRepository, TenancyService tenancyService) {
+    private final PermissionRepository permissionRepository;
+
+    private final RoleRepository roleRepository;
+
+
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, TenancyService tenancyService, PermissionRepository permissionRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        this.passwordEncoder = passwordEncoder;
         this.tenancyService = tenancyService;
+        this.permissionRepository = permissionRepository;
+        this.roleRepository = roleRepository;
     }
+    
     
     @Transactional
     public User addTenancyUser(UserDTO userDTO, Long tenancyId) {
@@ -110,6 +121,24 @@ public class UserServiceImpl implements UserService {
     public void generateUsers() {
 
         Faker faker = new Faker(new Locale("fr-FR"));
+
+        Permission permission1 = Permission.builder().name("Permission 1").build();
+        Permission permission2 = Permission.builder().name("Permission 2").build();
+
+        permissionRepository.save(permission1);
+        permissionRepository.save(permission2);
+
+        Role roleA = Role.builder().name("Role A").build();
+        Role roleB = Role.builder().name("Role B").build();
+
+        roleA.getPermissions().add(permission1);
+        roleB.getPermissions().add(permission1);
+        roleB.getPermissions().add(permission2);
+
+
+        roleRepository.save(roleA);
+        roleRepository.save(roleB);
+
         for(int i=0;i < 20 ;i++){
             Address a = Address.builder()
                 .line1(faker.address().buildingNumber())
@@ -126,12 +155,20 @@ public class UserServiceImpl implements UserService {
 
             User u = User.builder()
                 .email(faker.internet().emailAddress())
-                .password(faker.internet().password())
+                .password("AMAPamap11@")
                 .address(a)
                 .contactInfo(cI)
                 .isActive(true)
                 .build();
             
+            //saveUser(u);
+            if (i == 0){
+                u.getRoles().add(roleA);
+            }   
+            if (i == 1){
+                u.getRoles().add(roleB);
+            }
+
             saveUser(u);
         }
 

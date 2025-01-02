@@ -35,13 +35,14 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("Utilisateur non trouvé avec l'email: "+ username);
         }
 
+        //userRepository.flush();
         // If the user is found, get his permissions
-        Set<Permission> permissions = userRepository.findPermissionsByEmail(username);
+        //Set<Permission> permissions = userRepository.findPermissionsByEmail(username);
 
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getEmail())
                 .password(user.getPassword())
-                .authorities(getGrantedAuthorities(permissions))
+                .authorities(getGrantedAuthorities(user.getPermissions()))
                 .build();
     }
 
@@ -51,6 +52,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         for(Permission p: permissions){
             authorities.add(new SimpleGrantedAuthority(p.getName()));
         }
+        authorities.add(new SimpleGrantedAuthority("sampleauthority"));
         return authorities;
     }
 

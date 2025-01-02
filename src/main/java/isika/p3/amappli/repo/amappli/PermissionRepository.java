@@ -8,4 +8,5 @@ import isika.p3.amappli.entities.auth.Permission;
 @Repository
 public interface PermissionRepository extends CrudRepository<Permission, Long>{
 
+    Iterable<Permission> findAllById(Iterable<Long> ids);
 }
