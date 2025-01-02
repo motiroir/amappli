@@ -1,6 +1,10 @@
 package isika.p3.amappli.service.amappli.impl;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
@@ -18,6 +22,7 @@ import isika.p3.amappli.entities.tenancy.Graphism;
 import isika.p3.amappli.entities.tenancy.Options;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.Address;
+import isika.p3.amappli.entities.user.ContactInfo;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
 import isika.p3.amappli.service.amappli.TenancyService;
 
@@ -40,12 +45,12 @@ public class TenancyServiceImpl implements TenancyService {
 
         @Override
         public Tenancy createTenancy(Tenancy tenancy) {
-                // Vérifier si un HomePageContent doit être créé
+              
                 if (tenancy.getHomePageContent() == null) {
                         HomePageContent homePageContent = HomePageContent.builder()
                                         .subTitle("Default Subtitle")
                                         .showSuppliers(false)
-                                        .tenancy(tenancy) // Associer au tenancy
+                                        .tenancy(tenancy)
                                         .build();
                         tenancy.setHomePageContent(homePageContent);
                 }
@@ -67,111 +72,147 @@ public class TenancyServiceImpl implements TenancyService {
         public void deleteTenancy(Long id) {
                 tenancyRepository.deleteById(id);
         }
+        
+        
+        
+     // Méthode pour charger une image depuis les ressources internes et la convertir en Base64
+        private String loadImageFromResources(String imageName) throws IOException {
+            InputStream imageStream = getClass().getClassLoader().getResourceAsStream("image/" + imageName);
+            if (imageStream == null) {
+                throw new IOException("Image not found in resources: " + imageName);
+            }
+            byte[] imageBytes = imageStream.readAllBytes();
+            return Base64.getEncoder().encodeToString(imageBytes);
+        }
 
         // Méthode pour ajouter des tenancies de test
-        public void addTestTenancies() {
+        public void addTestTenancies() throws IOException {
+            // Création d'une Tenancy
+            Tenancy t1 = Tenancy.builder()
+                    .tenancyName("BioColi")
+                    .tenancyAlias("biocoli")
+                    .tenancySlogan("Manger bio, c'est facile avec BioColi!")
+                    .email("contact@biocoli.fr")
+                    .address(new Address("A12", "12 avenue de la localité", "75000", "Paris"))
+                    .dateCreated(LocalDateTime.now())
+                    .dateLastModified(LocalDateTime.now())
+                    .build();
 
-                // Création d'une Tenancy
-                Tenancy t1 = Tenancy.builder()
-                                .tenancyName("BioColi")
-                                .tenancyAlias("biocoli")
-                                .tenancySlogan("Manger bio, c'est facile avec BioColi!")
-                                .address(new Address("A12", "12 avenue de la localité", "75000", "Paris"))
-                                .dateCreated(LocalDateTime.now())
-                                .dateLastModified(LocalDateTime.now())
-                                .build();
+            // Création du ContactInfo pour la Tenancy
+            ContactInfo contactInfo1 = ContactInfo.builder()
+                    .name("Jean")
+                    .firstName("Dupont")
+                    .phoneNumber("0612345678")
+                    .build();
+            t1.setContactInfo(contactInfo1);
 
-                // Création du Graphism pour Tenancy
-                Graphism graphism1 = Graphism.builder()
-                                .colorPalette(ColorPalette.PALETTE1)
-                                .fontChoice(FontChoice.FUTURA)
-                                .logoImgType("image/jpeg")
-                                .logoImg(Base64.getEncoder().encodeToString("logoBytesPlaceholder".getBytes()))
-                                .tenancy(t1)
-                                .build();
-                t1.setGraphism(graphism1);
+            // Chargement des images en Base64
+            String imagelogo = loadImageFromResources("logobiocoli.png");
+           
+            // Création du Graphism pour Tenancy
+            Graphism graphism1 = Graphism.builder()
+                    .colorPalette(ColorPalette.PALETTE1)
+                    .fontChoice(FontChoice.FUTURA)
+                    .logoImgType("image/png")
+                    .logoImg(imagelogo) 
+                    .build();
+            t1.setGraphism(graphism1);
 
-                // Création du HomePageContent pour la Tenancy
-                HomePageContent homePageContent1 = HomePageContent.builder()
-                                .subTitle("UN PANIER BIO, LOCAL et de SAISON")
-                                .showSuppliers(true)
-                                .tenancy(t1) // Association de HomePageContent avec Tenancy
-                                .build();
+            // Création du HomePageContent pour la Tenancy
+            HomePageContent homePageContent1 = HomePageContent.builder()
+                    .subTitle("UN PANIER BIO, LOCAL et de SAISON")
+                    .showSuppliers(true)
+                    .tenancy(t1) // Association de HomePageContent avec Tenancy
+                    .build();
 
-                // Création des 4 ContentBlock pour la Tenancy
+            // Création des 4 ContentBlocks pour la Tenancy
+            String imagevalue1 = loadImageFromResources("value1.png");
+            String imagevalue2 = loadImageFromResources("value2.png");
+            String imagevalue3 = loadImageFromResources("value3.png");
+            
+            
+            // 1. Le ContentBlock pour la présentation de l'AMAP
+            ContentBlock presentationBlock = ContentBlock.builder()
+                    .isValue(false)
+                    .contentTitle("Présentation de BioColi")
+                    .contentText("BioColi est une AMAP dédiée à la distribution de paniers bio, locaux et de saison.")
+                    .contentImgName("value1.png")
+                    .contentImgTypeMIME("image/png")
+                    .contentImg(imagelogo) // Chargé depuis les ressources internes
+                    .homePageContent(homePageContent1)
+                    .build();
 
-                // 1. Le ContentBlock pour la présentation de l'AMAP
-                ContentBlock presentationBlock = ContentBlock.builder()
-                                .isValue(false)
-                                .contentTitle("Présentation de BioColi")
-                                .contentText("BioColi est une AMAP dédiée à la distribution de paniers bio, locaux et de saison.")
-                                .contentImgName("biocoli-presentation.jpg")
-                                .contentImgTypeMIME("image/jpeg")
-                                .contentImg(Base64.getEncoder().encodeToString("imageBytesPlaceholder".getBytes()))
-                                .homePageContent(homePageContent1)
-                                .build();
+            // 2. ContentBlock pour la première valeur de l'AMAP
+            ContentBlock valueBlock1 = ContentBlock.builder()
+                    .isValue(true) // Ce block représente une valeur de l'AMAP
+                    .contentTitle("Soutien à l'Agriculture Durable")
+                    .contentText("Nous soutenons les pratiques agricoles respectueuses de l'environnement.")
+                    .contentImgName("value1.png")
+                    .contentImgTypeMIME("image/png")
+                    .contentImg(imagevalue1) // Chargé depuis les ressources internes
+                    .homePageContent(homePageContent1) 
+                    .build();
 
-                // 2. ContentBlock pour la première valeur de l'AMAP
-                ContentBlock valueBlock1 = ContentBlock.builder()
-                                .isValue(true) // Ce block représente une valeur de l'AMAP
-                                .contentTitle("Soutien à l'Agriculture Durable")
-                                .contentText("Nous soutenons les pratiques agricoles respectueuses de l'environnement.")
-                                .contentImgName("value1.jpg")
-                                .contentImgTypeMIME("image/jpeg")
-                                .contentImg(Base64.getEncoder().encodeToString("imageBytesPlaceholder".getBytes()))
-                                .homePageContent(homePageContent1) // Association avec HomePageContent
-                                .build();
+            // 3. ContentBlock pour la deuxième valeur de l'AMAP
+            ContentBlock valueBlock2 = ContentBlock.builder()
+                    .isValue(true) // Ce block représente une valeur de l'AMAP
+                    .contentTitle("Transparence et Traçabilité")
+                    .contentText("Tous nos produits sont traçables et proviennent de fermes locales.")
+                    .contentImgName("value1.png")
+                    .contentImgTypeMIME("image/png")
+                    .contentImg(imagevalue2) // Chargé depuis les ressources internes
+                    .homePageContent(homePageContent1) 
+                    .build();
 
-                // 3. ContentBlock pour la deuxième valeur de l'AMAP
-                ContentBlock valueBlock2 = ContentBlock.builder()
-                                .isValue(true) // Ce block représente une valeur de l'AMAP
-                                .contentTitle("Transparence et Traçabilité")
-                                .contentText("Tous nos produits sont traçables et proviennent de fermes locales.")
-                                .contentImgName("value2.jpg")
-                                .contentImgTypeMIME("image/jpeg")
-                                .contentImg(Base64.getEncoder().encodeToString("imageBytesPlaceholder".getBytes()))
-                                .homePageContent(homePageContent1) // Association avec HomePageContent
-                                .build();
+            // 4. ContentBlock pour la troisième valeur de l'AMAP
+            ContentBlock valueBlock3 = ContentBlock.builder()
+                    .isValue(true) // Ce block représente une valeur de l'AMAP
+                    .contentTitle("Frais et Local")
+                    .contentText("Nos produits sont livrés directement des fermes locales aux consommateurs.")
+                    .contentImgName("value1.png")
+                    .contentImgTypeMIME("image/png")
+                    .contentImg(imagevalue3) 
+                    .homePageContent(homePageContent1)
+                    .build();
 
-                // 4. ContentBlock pour la troisième valeur de l'AMAP
-                ContentBlock valueBlock3 = ContentBlock.builder()
-                                .isValue(true) // Ce block représente une valeur de l'AMAP
-                                .contentTitle("Frais et Local")
-                                .contentText("Nos produits sont livrés directement des fermes locales aux consommateurs.")
-                                .contentImgName("value3.jpg")
-                                .contentImgTypeMIME("image/jpeg")
-                                .contentImg(Base64.getEncoder().encodeToString("imageBytesPlaceholder".getBytes()))
-                                .homePageContent(homePageContent1)
-                                .build();
+            // Ajouter les ContentBlocks dans HomePageContent
+            homePageContent1.getContents().add(presentationBlock);
+            homePageContent1.getContents().add(valueBlock1);
+            homePageContent1.getContents().add(valueBlock2);
+            homePageContent1.getContents().add(valueBlock3);
 
-                // Ajouter les ContentBlock dans HomePageContent
-                homePageContent1.getContents().add(presentationBlock);
-                homePageContent1.getContents().add(valueBlock1);
-                homePageContent1.getContents().add(valueBlock2);
-                homePageContent1.getContents().add(valueBlock3);
+            // Associer le HomePageContent à la Tenancy
+            t1.setHomePageContent(homePageContent1);
 
-                // Associer le HomePageContent à la Tenancy
-                t1.setHomePageContent(homePageContent1);
-
-                // Sauvegarder la Tenancy avec ses ContentBlock et HomePageContent
-                tenancyRepository.save(t1);
-
-                // SECOND TENANCY
+            // Sauvegarder la Tenancy avec ses ContentBlocks et HomePageContent
+            tenancyRepository.save(t1);
+        
+            	// SECOND TENANCY
                 // Création d'une Tenancy
                 Tenancy t2 = Tenancy.builder()
                                 .tenancyName("Agrinov")
                                 .tenancyAlias("agrinov")
                                 .tenancySlogan("L'innovation au service de l'agriculture de proximité")
+                                .email("agrinov@gmail.com")
                                 .address(new Address("", "Cave voutée de la Garenne Valentin", "44190", "Clisson"))
                                 .dateCreated(LocalDateTime.now())
                                 .dateLastModified(LocalDateTime.now())
                                 .build();
+                
+                // Création du ContactInfo pour la Tenancy
+                ContactInfo contactInfo2 = ContactInfo.builder()
+                                .name("Jean")
+                                .firstName("Dupont")
+                                .phoneNumber("0622345678")
+                                .build();
+                t2.setContactInfo(contactInfo2);
+                
 
                 // Création du Graphism pour Tenancy
                 Graphism graphism2 = Graphism.builder()
                                 .colorPalette(ColorPalette.PALETTE2)
                                 .fontChoice(FontChoice.NUNITO)
-                                .logoImgType("image/jpeg")
+                                .logoImgType("image/png")
                                 .logoImg(Base64.getEncoder().encodeToString("logoBytesPlaceholder".getBytes()))
                                 .tenancy(t2)
                                 .build();
@@ -248,17 +289,27 @@ public class TenancyServiceImpl implements TenancyService {
                                 .tenancyName("Groots")
                                 .tenancyAlias("groots")
                                 .tenancySlogan("Avec vous jusqu'au bout des racines")
+                                .email("groots@gmail.com")
                                 .address(new Address("", "16 rue D'Astorg", "31000", "Toulouse"))
                                 .dateCreated(LocalDateTime.now())
                                 .dateLastModified(LocalDateTime.now())
                                 .build();
+                
+                // Création du ContactInfo pour la Tenancy
+                ContactInfo contactInfo3 = ContactInfo.builder()
+                                .name("Jean")
+                                .firstName("Dupont")
+                                .phoneNumber("0612345678")
+                                .build();
+                t3.setContactInfo(contactInfo3);
+                
 
                 // Création du Graphism pour Tenancy
                 Graphism graphism3 = Graphism.builder()
                                 .colorPalette(ColorPalette.PALETTE3)
                                 .fontChoice(FontChoice.AUDIOWIDE)
                                 .logoImgType("image/jpeg")
-                                .logoImg(Base64.getEncoder().encodeToString("logoBytesPlaceholder".getBytes()))
+                                .logoImg(Base64.getEncoder().encodeToString("/resources/img/value2.jpg".getBytes()))
                                 .tenancy(t3)
                                 .build();
                 t3.setGraphism(graphism3);
@@ -275,9 +326,9 @@ public class TenancyServiceImpl implements TenancyService {
                 // 1. Le ContentBlock pour la présentation de l'AMAP
                 ContentBlock presentationBlock3 = ContentBlock.builder()
                                 .isValue(false)
-                                .contentTitle("Présentation de Groots")
+                                .contentTitle("value2")
                                 .contentText("Groots est une amap qui vous connectera avec vos producteurs locaux, pour une meilleure transparence et distribution des richesses")
-                                .contentImgName("groots-presentation.jpg")
+                                .contentImgName("value2.jpg")
                                 .contentImgTypeMIME("image/jpeg")
                                 .contentImg(Base64.getEncoder().encodeToString("imageBytesPlaceholder".getBytes()))
                                 .homePageContent(homePageContent3)
@@ -288,7 +339,7 @@ public class TenancyServiceImpl implements TenancyService {
                                 .isValue(true) // Ce block représente une valeur de l'AMAP
                                 .contentTitle("Soutien à l'Agriculture Durable")
                                 .contentText("Nous soutenons les pratiques agricoles respectueuses de l'environnement.")
-                                .contentImgName("value1.jpg")
+                                .contentImgName("value2.jpg")
                                 .contentImgTypeMIME("image/jpeg")
                                 .contentImg(Base64.getEncoder().encodeToString("imageBytesPlaceholder".getBytes()))
                                 .homePageContent(homePageContent3) // Association avec HomePageContent
@@ -310,7 +361,7 @@ public class TenancyServiceImpl implements TenancyService {
                                 .isValue(true) // Ce block représente une valeur de l'AMAP
                                 .contentTitle("Frais et Local")
                                 .contentText("Nos produits sont livrés directement des fermes locales aux consommateurs.")
-                                .contentImgName("value3.jpg")
+                                .contentImgName("value2.jpg")
                                 .contentImgTypeMIME("image/jpeg")
                                 .contentImg(Base64.getEncoder().encodeToString("imageBytesPlaceholder".getBytes()))
                                 .homePageContent(homePageContent3)
@@ -333,10 +384,20 @@ public class TenancyServiceImpl implements TenancyService {
                                 .tenancyName("GreenHaven")
                                 .tenancyAlias("greenmaven")
                                 .tenancySlogan("Un havre de fraîcheur pour vos produits locaux")
+                                .email("greenHaven@gmail.com")
                                 .address(new Address("", "24 rue des Lilas", "69000", "Lyon"))
                                 .dateCreated(LocalDateTime.now())
                                 .dateLastModified(LocalDateTime.now())
                                 .build();
+                
+                // Création du ContactInfo pour la Tenancy
+                ContactInfo contactInfo4 = ContactInfo.builder()
+                                .name("Jean")
+                                .firstName("Dupont")
+                                .phoneNumber("0612345678")
+                                .build();
+                t4.setContactInfo(contactInfo4);
+                
 
                 Graphism graphism4 = Graphism.builder()
                                 .colorPalette(ColorPalette.PALETTE4)
@@ -407,11 +468,21 @@ public class TenancyServiceImpl implements TenancyService {
                                 .tenancyName("GreenFields")
                                 .tenancyAlias("greenfields")
                                 .tenancySlogan("Des champs verts pour des générations durables")
+                                .email("greenfields@gmail.com")
                                 .address(new Address("", "25 avenue des Champs Verts", "69000", "Lyon"))
                                 .dateCreated(LocalDateTime.now())
                                 .dateLastModified(LocalDateTime.now())
                                 .build();
 
+                
+                // Création du ContactInfo pour la Tenancy
+                ContactInfo contactInfo5 = ContactInfo.builder()
+                                .name("Jean")
+                                .firstName("Dupont")
+                                .phoneNumber("0612345678")
+                                .build();
+                t5.setContactInfo(contactInfo5);
+                
                 // Création du Graphism pour la Tenancy
                 Graphism graphism5 = Graphism.builder()
                                 .colorPalette(ColorPalette.PALETTE5)
@@ -485,11 +556,21 @@ public class TenancyServiceImpl implements TenancyService {
                                 .tenancyName("TerraLocal")
                                 .tenancyAlias("terralocal")
                                 .tenancySlogan("Des produits de la Terre pour les gens d'ici")
+                                .email("terralocal@gmail.com")
                                 .address(new Address("", "10 rue des Cultures", "33000", "Bordeaux"))
                                 .dateCreated(LocalDateTime.now())
                                 .dateLastModified(LocalDateTime.now())
                                 .build();
 
+                // Création du ContactInfo pour la Tenancy
+                ContactInfo contactInfo6 = ContactInfo.builder()
+                                .name("Jean")
+                                .firstName("Dupont")
+                                .phoneNumber("0612345678")
+                                .build();
+                t6.setContactInfo(contactInfo6);
+                
+                
                 // Création du Graphism pour la Tenancy
                 Graphism graphism6 = Graphism.builder()
                                 .colorPalette(ColorPalette.PALETTE6)
@@ -568,7 +649,7 @@ public class TenancyServiceImpl implements TenancyService {
                 tenancy.setTenancyName(newTenancyDTO.getTenancyName());
                 // Address
                 tenancy.setAddress(newTenancyDTO.getAddress());
-
+                
                 // Slogan
                 tenancy.setTenancySlogan(newTenancyDTO.getTenancySlogan());
 

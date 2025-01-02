@@ -30,5 +30,15 @@ public class HomeController {
 		return "test";
 	}
 
+	@GetMapping("contactAmappli")
+	public String contact() {
+	    return "amappli/front/contactAmappli"; 
+	}
+	
+	@GetMapping("aboutAmappli")
+	public String aboutUs() {
+	    return "amappli/front/aboutAmappli"; 
+	}
+	
 
 }

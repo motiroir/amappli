@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import isika.p3.amappli.entities.tenancy.ColorPalette;
 import isika.p3.amappli.entities.tenancy.FontChoice;
 import isika.p3.amappli.entities.user.Address;
+import isika.p3.amappli.entities.user.ContactInfo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +22,7 @@ public class NewTenancyDTO {
     private BigDecimal membershipFeePrice;
 
     private Address address;
+
 
     private List<ValueDTO> values;
 

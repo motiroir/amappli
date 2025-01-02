@@ -1,5 +1,6 @@
 package isika.p3.amappli.service.amappli;
 
+import java.io.IOException;
 import java.util.List;
 
 import isika.p3.amappli.dto.amappli.NewTenancyDTO;
@@ -15,7 +16,7 @@ public interface TenancyService {
 	Tenancy getTenancyById(Long id);
 	Tenancy getTenancyByAlias(String alias);
 	void deleteTenancy(Long id);
-	void addTestTenancies();
+	void addTestTenancies() throws IOException;
 	HomePageContent getHomePageContentByTenancyId(Long id);
 	HomePageContent getHomePageContentByTenancyAlias(String alias);
 

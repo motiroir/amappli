@@ -1,4 +1,6 @@
 @charset "UTF-8";
+@import "../common/utils.css";
+
 
 body {
 	background-color: #ffffff;

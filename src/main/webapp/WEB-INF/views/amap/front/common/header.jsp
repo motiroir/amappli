@@ -15,7 +15,8 @@
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
       <a class="navbar-brand" href="#">
-      <img src="<c:url value='/resources/img/${graphism.logo}' />" alt="Logo" style="max-width: 150px;" />
+      <img src="data:image/png;base64,${graphism.logo}" alt="Logo" style="max-width: 150px;" />
+
         <span>${tenancyName}</span>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
