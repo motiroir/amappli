@@ -15,6 +15,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -45,11 +46,13 @@ public class Address {
 	@OneToOne
 	@JoinColumn(name = "userID", nullable = true)
 	@Nullable
+	@EqualsAndHashCode.Exclude
 	private User user;
 	
 	@OneToOne
 	@JoinColumn(name = "tenancyID", nullable = true)
 	@Nullable
+	@EqualsAndHashCode.Exclude
 	private Tenancy tenancy;
 
 	public Address(@Size(max = 70, message = "Le complément d'adresse doit faire 70 caractères maximum.") String line1,

@@ -12,7 +12,7 @@
 							Vos utilisateurs
 						</button>
 					</h2>
-					<div id="submenu-users" data-bs-parent="#accordion-parent"class="bg-main accordion-collapse collapse ${currentMainMenu.equals('users') ? 'show' : ''}">
+					<div id="submenu-users" data-bs-parent="#accordion-parent" class="bg-main accordion-collapse collapse ${currentMainMenu.equals('users') ? 'show' : ''}">
 						<ul class="accordion-body list-unstyled">
 							<li class="text-decoration-none">
 								<a href="<c:url value='/${tenancyAlias}/backoffice/users/list'/>" class="fch-600 text-decoration-none ${currentPage.equals('users') ? 'active' : ''}">Vos adhérents</a>
@@ -33,7 +33,7 @@
 							Vos produits
 						</button>
 					</h2>
-					<div id="submenu-products" data-bs-parent="#accordion-parent"class="accordion-collapse collapse bg-main ${currentMainMenu.equals('products') ? 'show' : ''}">
+					<div id="submenu-products" data-bs-parent="#accordion-parent" class="accordion-collapse collapse bg-main ${currentMainMenu.equals('products') ? 'show' : ''}">
 						<ul class="accordion-body list-unstyled">
 							<li>
 								<a href="<c:url value='/amap/contracts/list'/>" class="${currentPage.equals('contracts') ? 'active' : ''} text-decoration-none fch-600">Les contrats</a>
@@ -54,7 +54,7 @@
 							Votre site
 						</button>
 					</h2>
-					<div id="submenu-site" data-bs-parent="#accordion-parent"class="accordion-collapse collapse bg-main ${currentMainMenu.equals('site') ? 'show' : ''}">
+					<div id="submenu-site" data-bs-parent="#accordion-parent" class="accordion-collapse collapse bg-main ${currentMainMenu.equals('site') ? 'show' : ''}">
 						<ul class="accordion-body list-unstyled">
 							<!-- Pas de sous-rubrique pour l'instant -->
 							<li class="fc-alt">this is a test </li>
@@ -69,7 +69,7 @@
 							Vos fonctionnalités&emsp;&emsp;&emsp;
 						</button>
 					</h2>
-					<div id="submenu-features" data-bs-parent="#accordion-parent"class="accordion-collapse collapse bg-main ${currentMainMenu.equals('features') ? 'show' : ''}">
+					<div id="submenu-features" data-bs-parent="#accordion-parent" class="accordion-collapse collapse bg-main ${currentMainMenu.equals('features') ? 'show' : ''}">
 						<ul class="accordion-body list-unstyled">
 							<!-- Pas de sous-rubrique pour l'instant -->
 						</ul>
@@ -105,23 +105,5 @@
 			<span class="navbar-toggler-icon fill-main"></span>
 		</button>
 </nav>
-
-<%-- <script>
-    // Script pour gérer l'accordéon
-    function toggleMenu(menuId) {
-        const menu = document.getElementById(menuId);
-        const subMenu = document.getElementById(menuId + "-submenu");
-        console.log(subMenu);
-/*         if (menu.classList.contains('active')) {
-            menu.classList.remove('active');
-            subMenu.classList.remove('active');
-        } else { */
-            document.querySelectorAll('.submenu').forEach(everySubmenu => everySubmenu.classList.remove('active'));
-            document.querySelectorAll('.menu-title').forEach(menuTitle => menuTitle.classList.remove('active'));
-            menu.classList.add('active');
-            subMenu.classList.add('active');
-     /*    } */
-    }
-</script> --%>
 
 

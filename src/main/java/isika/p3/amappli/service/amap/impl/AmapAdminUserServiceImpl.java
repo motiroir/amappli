@@ -155,11 +155,20 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 
         Faker faker = new Faker(new Locale("fr-FR"));
         for(int i=0;i < 20 ;i++){
+        	User u = new User();
+        	u.setEmail(faker.internet().emailAddress());
+        	u.setPassword(faker.internet().password());
+        	u.setCreditBalance(BigDecimal.ZERO);
+        	u.setActive(true);
+        	u.setTenancy(tenancy);
+        	saveUser(u);
+        	
             Address a = Address.builder()
                 .line1(faker.address().buildingNumber())
                 .line2(faker.address().streetName())
                 .postCode("44190")
                 .city(faker.address().cityName())
+				.user(u)
                 .build();
             this.addressService.save(a);
 
@@ -167,12 +176,14 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
                 .name(faker.name().lastName())
                 .firstName(faker.name().firstName())
                 .phoneNumber("0102030405")
+				.user(u)
                 .build();
             this.contactInfoService.save(cI);
             
             CompanyDetails cD = CompanyDetails.builder()
         		.companyName(faker.company().name())
 				.siretNumber(Long.toString(faker.number().randomNumber(14, true)))
+				.user(u)
 				.build();
             this.companyDetailsService.save(cD);
             
@@ -182,17 +193,10 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
             Role supplier = roleService.findByName("SUPPLIER");
             
             roles.add(i%2 == 0 ? member : supplier);
-
-            User u = User.builder()
-                .email(faker.internet().emailAddress())
-                .password(faker.internet().password())
-                .address(a)
-                .contactInfo(cI)
-                .creditBalance(BigDecimal.ZERO)
-                .isActive(true)
-                .companyDetails(cD)
-                .tenancy(tenancy)
-                .build();
+            
+            u.setAddress(a);
+            u.setContactInfo(cI);
+            u.setCompanyDetails(cD);
             
             u.setRoles(roles);
             saveUser(u);
@@ -251,5 +255,9 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 	public User findById(Long userId) {
 		return userService.findById(userId);
 	}
+
+
+	
+	
 
 }

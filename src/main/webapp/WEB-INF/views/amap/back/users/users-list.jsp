@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Liste des adhérents</title>
 	<link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />" rel="stylesheet">
-	<link href="<c:url value='/resources/css/amap/common/sidebarAdmin.css' />" rel="stylesheet">
+	 <link href="<c:url value='/resources/css/amap/common/sidebarAdmin.css' />" rel="stylesheet">
 	<%-- <link href="<c:url value='/resources/bootstrap/bootstrap-icons.css' />" rel="stylesheet"> --%>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
@@ -36,32 +36,32 @@
 				<div class="col-12">
 					<div class="search-bar d-flex align-items-center mb-3">
 						<!-- Nombre total d'adhérents -->
-						<div class="me-4" style="font-size: 22px; font-weight: 400;">
+						<div class="me-4 fs-5">
 							<span>${users.size()} éléments</span><br/>
 							<a href="<c:url value='/${tenancyAlias}/backoffice/users/generateFakes' />">ajouter 20 users</a>
 						</div>
 						<!-- Dropdown pour trier -->
 						<div class="d-flex align-items-center me-4">
-							<label for="sortBy" class="me-2" style="font-size: 22px; font-weight: 400;">Trié par</label>
-							<select id="sortBy" class="form-select custom-select" style="width: auto;">
+							<label for="sortBy" class="me-2 fw-400 fs-3 text-nowrap">Trié par</label>
+							<select id="sortBy" class="form-select custom-select border-main">
 								<option value="name">Nom du domaine</option>
 								<option value="producer">Nom du producteur</option>
 							</select>
 						</div>
 						<!-- Barre de recherche -->
 						<div>
-							<input type="text" id="searchBar" class="form-control custom-input"
-								placeholder="Rechercher..." style="width: 200px;">
+							<input type="text" id="searchBar" class="form-control custom-input border-main"
+								placeholder="Rechercher...">
 						</div>
 					</div>
 					<div class="table-container d-flex justify-content-between align-items-center">
 						<h2 style="font-weight: bold;">Liste des adhérents</h2>
-						<a href="<c:url value='/${tenancyAlias}/backoffice/users/form'/>" class="btn-create">
+						<a href="<c:url value='/${tenancyAlias}/backoffice/users/form'/>" class="btn btn-outline-900 rounded-pill fch-main fw-bold border-2">
 							<span class="icon">+ </span>Créer un adhérent
 						</a>
 					</div>
 					<!-- Mode tableau -->
-					<table class="table table-striped">
+					<table class="table table-hover fc-main">
 						<thead>
 							<tr>
 								<th>Nom</th>
@@ -81,13 +81,13 @@
 									<td>
 										<c:forEach var="role" items="${user.roles}">
 											<c:choose>
-	                                            <c:when test="${role.roleId == 1}">
+	                                            <c:when test="${role.name.equals('ADMIN')}">
 	                                            	<span>Admin</span>
 	                                            </c:when>
-	                                            <c:when test="${role.roleId == 2}">
+	                                            <c:when test="${role.name.equals('MEMBER USER')}">
 	                                            	<span>Adhérent</span>
 	                                            </c:when>
-	                                            <c:when test="${role.roleId == 3}">
+	                                            <c:when test="${role.name.equals('SUPPLIER')}">
 	                                            	<span>Producteur</span>
 	                                            </c:when>
 	                                            <c:otherwise>
@@ -99,10 +99,10 @@
 									<td>
 										<div class='d-flex justify-content-start align-items-center'>
 											<a href="<c:url value='/${tenancyAlias}/backoffice/users/details/${user.userId}' />"
-												class="btn-view"> <i class="bi bi-eye"></i>
+												class="btn rounded-circle border-2 border-main fc-900 px-1 py-0 mx-1"> <i class="bi bi-eye"></i>
 											</a>
 											<form:form action="delete/${user.userId}" style="display: inline;" onsubmit="return confirm('Voulez-vous vraiment supprimer l'adhérent ${user.contactInfo.firstName} ${user.contactInfo.name} ?');">
-												<button type="submit" class="btn btn-delete">
+												<button type="submit" class="btn rounded-circle border-2 border-main fc-900 px-1 py-0 mx-1">
 													<i class="bi bi-trash"></i>
 												</button>
 											</form:form>

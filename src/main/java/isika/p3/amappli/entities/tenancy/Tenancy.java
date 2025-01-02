@@ -18,6 +18,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -45,6 +46,7 @@ public class Tenancy {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "addressId")
+    @EqualsAndHashCode.Exclude
     private Address address;
     
     private LocalDateTime dateCreated;
@@ -53,6 +55,7 @@ public class Tenancy {
 
     @OneToMany(targetEntity = User.class, mappedBy = "tenancy", cascade = CascadeType.ALL)
     @Builder.Default
+    @EqualsAndHashCode.Exclude
     private Set<User> users = new HashSet<User>();
 
     @OneToOne(cascade = CascadeType.ALL)

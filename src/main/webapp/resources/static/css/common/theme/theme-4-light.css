@@ -238,6 +238,42 @@
 	--bs-navbar-toggler-border-radius: var(--bs-border-radius);
 }
 
+.theme-4.light .border-900 {
+    border-color: var(--orange-100) !important;
+}
+
+.theme-4.light .border-700 {
+    border-color: var(--green-700) !important;
+}
+
+.theme-4.light .border-600 {
+    border-color: var(--orange-100) !important;
+}
+
+.theme-4.light .border-500 {
+    border-color: var(--green-600) !important;
+}
+
+.theme-4.light .border-400 {
+    border-color: var(--orange-300) !important;
+}
+
+.theme-4.light .border-300 {
+    border-color: var(--green-900) !important;
+}
+
+.theme-4.light .border-100 {
+    border-color: var(--white-300) !important;
+}
+
+.theme-4.light .border-main {
+    border-color: var(--main-bg-color) !important;
+}
+
+.theme-4.light .border-alt {
+    border-color: var(--main-font-color) !important;
+}
+
 .theme-4.light .fc-900 {
 	color: var(--orange-100) !important;
 }

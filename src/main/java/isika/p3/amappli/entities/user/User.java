@@ -2,6 +2,7 @@ package isika.p3.amappli.entities.user;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import isika.p3.amappli.entities.auth.Role;
@@ -24,6 +25,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -50,16 +52,19 @@ public class User {
 
     private BigDecimal creditBalance;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
     private Address address;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
     private ContactInfo contactInfo;
 
     private boolean isActive;
 
     @ManyToOne
     @JoinColumn( name = "tenancyId")
+    @EqualsAndHashCode.Exclude
     private Tenancy tenancy;
 
     @Builder.Default
@@ -69,8 +74,12 @@ public class User {
         joinColumns = @JoinColumn(name = "userId"),
         inverseJoinColumns = @JoinColumn( name = "roleId")
     )
+    @EqualsAndHashCode.Exclude
     private Set<Role> roles = new HashSet<Role>();
     
     @OneToOne(cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
     private CompanyDetails companyDetails;
+    
+    
 }

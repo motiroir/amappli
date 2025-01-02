@@ -26,15 +26,18 @@ request.setAttribute("currentPage", currentPage);
 	rel="stylesheet">
 </head>
 
-<body>
+	<header class="fc-main bg-main">
+	<!-- Inclusion du header -->
+			<jsp:include page="../common/headerAdmin.jsp" />
+	</header>
 	<!-- Inclusion de la sidebar -->
-	<nav>
-		<%@ include file="/WEB-INF/views/amap/back/common/sidebarAdmin.jsp"%>
-	</nav>
+		<jsp:include page="../common/sidebarAdmin.jsp" />
+
+<div id="map"></div>
 
 	<!-- Contenu principal -->
-	<div class="content" style="margin-left: 240px;">
-		<div class="container mt-5">
+	<div class="content col">
+		<div class="container-fluid mt-2">
 			<div class="row justify-content-center">
 				<div class="col-12">
 					<div class="search-bar d-flex align-items-center mb-3">

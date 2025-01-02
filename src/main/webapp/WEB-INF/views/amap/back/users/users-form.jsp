@@ -32,12 +32,18 @@ request.setAttribute("currentPage", currentPage);
 }
 </style>
 </head>
-<body>
-	<nav>
-		<%@ include file="/WEB-INF/views/amap/back/common/sidebarAdmin.jsp"%>
-	</nav>
-	<div class="content" style="margin-left: 150px;">
-		<div class="container mt-5">
+	<header class="fc-main bg-main">
+	<!-- Inclusion du header -->
+			<jsp:include page="../common/headerAdmin.jsp" />
+	</header>
+	<!-- Inclusion de la sidebar -->
+		<jsp:include page="../common/sidebarAdmin.jsp" />
+
+<div id="map"></div>
+
+	<!-- Contenu principal -->
+	<div class="content col">
+		<div class="container-fluid mt-2">
 			<div class="row justify-content-center">
 				<div class="col-lg-10">
 					<div class="form-container">
