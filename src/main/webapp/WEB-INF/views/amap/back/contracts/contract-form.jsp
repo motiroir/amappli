@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
 String currentMainMenu = "products"; // Détermine la rubrique active
 String currentPage = "contracts"; // Détermine la sous-rubrique active
@@ -32,24 +32,30 @@ request.setAttribute("currentPage", currentPage);
 }
 </style>
 </head>
-<body>
-	<div>
-		<%@ include file="/WEB-INF/views/amap/back/common/sidebarAdmin.jsp"%>
-	</div>
-	<div class="content" style="margin-left: 150px;">
-		<div class="container mt-5">
+<body class="row theme-1 light">
+	<header class="fc-main bg-main">
+		<!-- Inclusion du header -->
+		<jsp:include page="../common/headerAdmin.jsp" />
+	</header>
+	<jsp:include page="../common/sidebarAdmin.jsp" />
+	<div class="content col">
+		<div class="container-fluid mt-5">
 			<div class="row justify-content-center">
 				<div class="col-lg-10">
 					<div class="form-container">
 						<div class="header-container">
-							<a href="<c:url value='/amap/contracts/list' />" class="btn-back">
-								<i class="bi bi-arrow-left-circle"></i>
+							<a
+								href="<c:url value='/${tenancyAlias}/backoffice/contracts/list' />"
+								class="btn-back"> <i class="bi bi-arrow-left-circle"></i>
 							</a>
 							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Ajouter
 								un contrat</h2>
 						</div>
-						<form:form method="POST" action="/Amappli/amap/contracts/add"
+						<form:form method="POST"
+							action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/contracts/add"
 							enctype="multipart/form-data">
+							<input type="hidden" id="tenancyAlias" name="tenancyAlias"
+								value="${tenancyAlias}">
 							<div class="row">
 								<!-- Première colonne -->
 								<div class="col-md-4">
@@ -80,15 +86,22 @@ request.setAttribute("currentPage", currentPage);
 											<option value="BIG">Grand</option>
 										</select>
 									</div>
+
 									<div class="mb-3">
-										<label for="producer" class="form-label">Producteur</label> <select
-											class="form-select form-control" id="producer"
-											name="producer">
-											<option selected disabled></option>
+										<label for="userId" class="form-label">Sélectionnez un
+											fournisseur :</label> <select id="userId" name="userId"
+											class="form-select">
+											<option value="" selected>Choisir un fournisseur</option>
+											<c:forEach var="user" items="${users}">
+												<option value="${user.userId}">
+													${user.companyDetails.companyName}</option>
+											</c:forEach>
 										</select>
 									</div>
+
 									<div class="mb-3">
-										<label for="startDate" class="form-label">Date de début du contrat</label> <input type="date" class="form-control"
+										<label for="startDate" class="form-label">Date de
+											début du contrat</label> <input type="date" class="form-control"
 											id="startDate" name="startDate" min="${currentDate}">
 									</div>
 									<div class="mb-3">
@@ -167,10 +180,17 @@ request.setAttribute("currentPage", currentPage);
 									<div class="text-center">
 										<button type="submit" class="btn btn-custom btn-lg me-2"
 											style="width: 50%; height: 60px;">Ajouter</button>
-										<a href="/Amappli/amap/contracts/list"
-											class="btn btn-secondary btn-lg"
-											style="width: 40%; height: 60px; color: black; background-color: white;">Annuler</a>
 									</div>
+									<div class="mb-3">
+										<p>
+											<strong>La livraison au point de collecte se fera
+												obligatoirement à l'adresse suivante :</strong><br>
+											<c:if test="${not empty address}">
+            ${address.line1} ${address.line2}, ${address.city} (${address.postCode})
+        </c:if>
+										</p>
+									</div>
+
 								</div>
 							</div>
 						</form:form>
@@ -181,25 +201,16 @@ request.setAttribute("currentPage", currentPage);
 	</div>
 	<script
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
-	<script src="<c:url value='/resources/js/contract-form.js' />"></script>
-		<script>document.addEventListener("DOMContentLoaded", function () {
-    const fileInput = document.getElementById("image");
-    const previewImage = document.querySelector(".image-preview");
-
-    if (fileInput && previewImage) {
-        fileInput.addEventListener("change", function (event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-
-                reader.onload = function (e) {
-                    previewImage.src = e.target.result; // Met à jour l'URL de l'image
-                };
-
-                reader.readAsDataURL(file); // Lit le fichier comme une URL de données
-            }
-        });
-    }
-});</script>
+	<script
+		src="<c:url value='/resources/js/amap/admin/contract-form.js' />"></script>
+	<script
+		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
+		type="text/javascript"></script>
 </body>
 </html>

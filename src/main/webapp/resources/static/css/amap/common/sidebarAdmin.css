@@ -99,7 +99,7 @@ Champs de formulaire : Lorsqu'il contient une valeur
 
 Placeholder lorsqu'il y a un focus
 .form-control:focus::placeholder {
-	color: #000000;
+	color: #A1A1A1;
 }
 
 Dropdown par défaut

@@ -4,14 +4,25 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import isika.p3.amappli.entities.tenancy.Tenancy;
+import isika.p3.amappli.entities.user.Address;
+import isika.p3.amappli.entities.user.User;
+
+import isika.p3.amappli.entities.order.Shoppable;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
 import lombok.AllArgsConstructor;
@@ -26,7 +37,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Table(name = "contracts")
-public class Contract {
+public class Contract extends Shoppable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -69,6 +80,45 @@ public class Contract {
 	private DeliveryDay deliveryDay;
 	
 	private Integer quantity;
+	
+    @ManyToOne
+    @JoinColumn(name = "addressId", nullable = true)
+    private Address address;
+
+    @ManyToOne
+    @JoinColumn(name = "tenancy_id", nullable = false)
+    private Tenancy tenancy;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name="userId", nullable = true)
+    private User user;
+
+
+    @Column(nullable = false)
+    private boolean shoppable = true;
+
+
+    // Implémentation des méthodes abstraites de Shoppable
+    @Override
+    public int getStock() {
+        return quantity != null ? quantity : 0;
+    }
+
+    @Override
+    public double getPrice() {
+        return contractPrice != null ? contractPrice.doubleValue() : 0.0;
+    }
+
+    @Override
+    public String getInfo() {
+        return contractName != null ? contractName : "N/A";
+    }
+
+    @Override
+    public String getImage() {
+        return imageType + (imageData != null ? ", data available" : "");
+    }
+    
 	
 
 }

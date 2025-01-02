@@ -152,7 +152,6 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 		
 		roleService.addtestRoles();
 		Tenancy tenancy = tenancyService.getTenancyByAlias(tenancyAlias);
-
         Faker faker = new Faker(new Locale("fr-FR"));
         for(int i=0;i < 20 ;i++){
         	User u = new User();
@@ -171,7 +170,6 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 				.user(u)
                 .build();
             this.addressService.save(a);
-
             ContactInfo cI = ContactInfo.builder()
                 .name(faker.name().lastName())
                 .firstName(faker.name().firstName())
@@ -179,19 +177,15 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 				.user(u)
                 .build();
             this.contactInfoService.save(cI);
-            
             CompanyDetails cD = CompanyDetails.builder()
         		.companyName(faker.company().name())
 				.siretNumber(Long.toString(faker.number().randomNumber(14, true)))
 				.user(u)
 				.build();
             this.companyDetailsService.save(cD);
-            
             Set<Role> roles = new HashSet<>();
-            
             Role member = roleService.findByName("MEMBER USER");
             Role supplier = roleService.findByName("SUPPLIER");
-            
             roles.add(i%2 == 0 ? member : supplier);
             
             u.setAddress(a);
@@ -248,7 +242,10 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 		return ((List<User>) userService.findAll()).stream()
 				.filter(u -> u.getTenancy().getTenancyId() == tenancyId 
 						&& u.getRoles().contains(roleService.findByName("SUPPLIER"))
-						&& u.isActive()).toList();
+						&& u.isActive()
+						&& u.getCompanyDetails() != null &&
+		                u.getCompanyDetails().getCompanyName() != null)
+	            .toList();
 	}
 
 	@Override

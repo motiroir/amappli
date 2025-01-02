@@ -61,7 +61,7 @@ public class WorkshopController {
 		model.addAttribute("workshop", new Workshop());
 		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		model.addAttribute("currentDate", currentDate);
-		return "amap/workshops/workshop-form";
+		return "amap/back/workshops/workshop-form";
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class WorkshopController {
 	public String listWorkshops(Model model) {
 		List<Workshop> workshops = workshopService.findAll();
 		model.addAttribute("workshops", workshops);
-		return "amap/workshops/workshop-list";
+		return "amap/back/workshops/workshop-list";
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class WorkshopController {
 
 	    model.addAttribute("workshop", workshop);
 
-	    return "amap/workshops/workshop-edit"; // Nom de la vue pour le formulaire d'édition
+	    return "amap/back/workshops/workshop-edit"; // Nom de la vue pour le formulaire d'édition
 	}
 	
 	/**
@@ -115,7 +115,7 @@ public class WorkshopController {
 	public String viewWorkshopDetail(@PathVariable("id") Long id, Model model) {
 		Workshop workshop = workshopService.findById(id);
 		model.addAttribute("workshop", workshop);
-		return "amap/workshops/workshop-detail";
+		return "amap/back/workshops/workshop-detail";
 	}
 	
 	@PostMapping("/update")

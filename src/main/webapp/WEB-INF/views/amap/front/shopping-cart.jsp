@@ -23,7 +23,7 @@
 	</header>
 	<div id="map"></div>
 	<div class="fc-main">
-		<h1>Shopping Cart</h1>
+		<h1>Panier</h1>
 
 		<table border="1">
 			<thead>
@@ -56,15 +56,15 @@
 		<h2>Total: ${total}</h2>
 
 		<!-- Formulaire de test pour ajouter un article -> A SUPPRIMER -->
-		<form:form method="post"
-			action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cart.shoppingCartId}/add">
-			<label for="shoppableId">Product ID:</label>
-			<input type="text" name="shoppableId" id="shoppableId" required>
-			<input type="hidden" name="shoppableType" value="ProductMock">
-			<label for="quantity">Quantity:</label>
-			<input type="number" name="quantity" id="quantity" required>
-			<button type="submit">Add to Cart</button>
-		</form:form>
+<%-- 		<form:form method="post" --%>
+<%-- 			action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cart.shoppingCartId}/add"> --%>
+<!-- 			<label for="shoppableId">Product ID:</label> -->
+<!-- 			<input type="text" name="shoppableId" id="shoppableId" required> -->
+<!-- 			<input type="hidden" name="shoppableType" value="ProductMock"> -->
+<!-- 			<label for="quantity">Quantity:</label> -->
+<!-- 			<input type="number" name="quantity" id="quantity" required> -->
+<!-- 			<button type="submit">Add to Cart</button> -->
+<%-- 		</form:form> --%>
 	</div>
 	<footer class="container-fluid fc-main bg-main">
 		<jsp:include page="common/footer-amap.jsp" />

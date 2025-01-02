@@ -16,6 +16,9 @@ request.setAttribute("currentPage", currentPage);
 <title>Modifier un Produit</title>
 <link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />"
 	rel="stylesheet">
+	<link
+	href="<c:url value='/resources/css/amap/common/sidebarAdmin.css' />"
+	rel="stylesheet">
 <style>
 .form-container {
 	background-color: #fff;
@@ -57,6 +60,9 @@ request.setAttribute("currentPage", currentPage);
 </style>
 </head>
 <body>
+	<div>
+		<%@ include file="/WEB-INF/views/amap/back/common/sidebarAdmin.jsp"%>
+	</div>
 	<div class="container mt-5">
 		<div class="row justify-content-center">
 			<div class="col-lg-10">

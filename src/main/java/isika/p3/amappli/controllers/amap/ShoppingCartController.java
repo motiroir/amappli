@@ -26,6 +26,7 @@ public class ShoppingCartController {
     @GetMapping("/{cartId}")
     public String viewCart(@PathVariable("cartId") Long cartId, @PathVariable("tenancyAlias") String alias, Model model) {
         ShoppingCart cart = shoppingCartService.getShoppingCartById(cartId);
+        model.addAttribute("cartId", cartId); // Ajout de cartId au modèle
         model.addAttribute("cart", cart);
         model.addAttribute("total", shoppingCartService.calculateTotal(cartId));
         

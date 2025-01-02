@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="jakarta.tags.core" prefix="c"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <nav class="navbar h-100 position-sticky p-0 top-0 start-0 w-auto">
 	<div class="vh-100 position-sticky bg-900 p-4 border-1 border-end">
-		<div id="sidebar" class="collapse collapse-horizontal text-secondary fch-main">
+		<div id="sidebar" class="collapse collapse-horizontal text-secondary fch-main show">
  			<ul id="accordion-parent" class="nav flex-column accordion">
 			<!-- Vos utilisateurs -->
 				<li class="accordion-item">
@@ -36,7 +36,7 @@
 					<div id="submenu-products" data-bs-parent="#accordion-parent" class="accordion-collapse collapse bg-main ${currentMainMenu.equals('products') ? 'show' : ''}">
 						<ul class="accordion-body list-unstyled">
 							<li>
-								<a href="<c:url value='/amap/contracts/list'/>" class="${currentPage.equals('contracts') ? 'active' : ''} text-decoration-none fch-600">Les contrats</a>
+								<a href="<c:url value='/${tenancyAlias}/backoffice/contracts/list'/>" class="${currentPage.equals('contracts') ? 'active' : ''} text-decoration-none fch-600">Les contrats</a>
 							</li>
 							<li>
 								<a class="disabled text-decoration-none">L'épicerie</a> &emsp;<span class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">PRO</span>
@@ -105,5 +105,24 @@
 			<span class="navbar-toggler-icon fill-main"></span>
 		</button>
 </nav>
+
+
+<%-- <script>
+    // Script pour gérer l'accordéon
+    function toggleMenu(menuId) {
+        const menu = document.getElementById(menuId);
+        const subMenu = document.getElementById(menuId + "-submenu");
+        console.log(subMenu);
+/*         if (menu.classList.contains('active')) {
+            menu.classList.remove('active');
+            subMenu.classList.remove('active');
+        } else { */
+            document.querySelectorAll('.submenu').forEach(everySubmenu => everySubmenu.classList.remove('active'));
+            document.querySelectorAll('.menu-title').forEach(menuTitle => menuTitle.classList.remove('active'));
+            menu.classList.add('active');
+            subMenu.classList.add('active');
+     /*    } */
+    }
+</script> --%>
 
 
