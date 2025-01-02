@@ -88,14 +88,16 @@ request.setAttribute("currentPage", currentPage);
 									</div>
 
 									<div class="mb-3">
-										<label for="userId">Sélectionnez un utilisateur :</label> <select
-											id="userId" name="userId" class="form-select">
+										<label for="userId" class="form-label">Sélectionnez un
+											utilisateur :</label> <select id="userId" name="userId"
+											class="form-select">
 											<option value="" selected>Choisir un utilisateur</option>
 											<c:forEach var="user" items="${users}">
 												<option value="${user.userId}">${user.email}</option>
 											</c:forEach>
 										</select>
 									</div>
+
 									<div class="mb-3">
 										<label for="startDate" class="form-label">Date de
 											début du contrat</label> <input type="date" class="form-control"
@@ -188,7 +190,8 @@ request.setAttribute("currentPage", currentPage);
 	</div>
 	<script
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
-	<script src="<c:url value='/resources/js/amap/admin/contract-form.js' />"></script>
+	<script
+		src="<c:url value='/resources/js/amap/admin/contract-form.js' />"></script>
 	<script
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"
 		type="text/javascript"></script>

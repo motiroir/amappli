@@ -67,7 +67,7 @@ request.setAttribute("currentPage", currentPage);
 	</header>
 	<jsp:include page="../common/sidebarAdmin.jsp" />
 	<div class="content col">
-	<div class="container mt-5">
+	<div class="container-fluid mt-5">
 		<div class="row justify-content-center">
 			<div class="col-lg-10">
 				<div class="form-container">
@@ -201,7 +201,7 @@ request.setAttribute("currentPage", currentPage);
 	</div>
 	<script
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
-	<script src="<c:url value='/resources/js/contract-edit.js' />"></script>
+	<script src="<c:url value='/resources/js/amap/admin/contract-edit.js' />"></script>
 	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />"
 		type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"

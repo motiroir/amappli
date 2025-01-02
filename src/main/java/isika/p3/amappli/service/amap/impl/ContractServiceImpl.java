@@ -63,7 +63,14 @@ public class ContractServiceImpl implements ContractService {
                 .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
         contract.setTenancy(tenancy);
 
-        contract.setUser(null);
+        // Récupération de l'utilisateur sélectionné s'il y a un ID d'utilisateur
+        if (contractDTO.getUserId() != null) {
+            User user = userRepository.findById(contractDTO.getUserId())
+                    .orElseThrow(() -> new IllegalArgumentException("User not found for ID: " + contractDTO.getUserId()));
+            contract.setUser(user);
+        } else {
+            contract.setUser(null); // Si aucun utilisateur n'est sélectionné
+        }
 	 
 
 		contract.setContractName(contractDTO.getContractName());

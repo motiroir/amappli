@@ -18,7 +18,7 @@
 
 /* En-tête de rubrique */
 .rubrique-header {
-    font-size: 40px;
+    font-size: 24px;
     font-weight: bold;
     padding: 15px 20px;
     cursor: pointer;
@@ -41,7 +41,7 @@
 }
 
 .rubrique-content li {
-    font-size: 22px;
+    font-size: 15px;
     font-weight: normal;
     list-style: none;
     margin-bottom: 10px;
@@ -62,23 +62,46 @@
 }
 </style>
     <!-- Rubrique Paniers -->
-    <div class="container-rubrique">
-        <div class="rubrique-header" data-target="paniers-container">
-            Paniers
-        </div>
-        <div id="paniers-container" class="rubrique-content">
-            <ul class="list-unstyled">
-                <li><a href="#" class="${currentPage == 'all' ? 'active' : ''}">Tous les paniers
-                    <span class="badge bg-secondary">${counts.all}</span></a></li>
-                <li><a href="#" class="${currentPage == 'vegetables' ? 'active' : ''}">Paniers légumes
-                    <span class="badge bg-secondary">${counts.vegetables}</span></a></li>
-                <li><a href="#" class="${currentPage == 'fruits' ? 'active' : ''}">Paniers fruits
-                    <span class="badge bg-secondary">${counts.fruits}</span></a></li>
-                <li><a href="#" class="${currentPage == 'mixed' ? 'active' : ''}">Paniers mixtes
-                    <span class="badge bg-secondary">${counts.mixed}</span></a></li>
-            </ul>
-        </div>
-    </div>
+    				<li class="accordion-item"> 
+					<h2 id="contracts" class="accordion-header">
+						<button class="accordion-button fw-bold ${currentMainMenu.equals('contracts') ? 'active' : 'collapsed'}" type="button" data-bs-toggle="collapse" aria-expanded="${currentMainMenu.equals('contracts')}" aria-controls="submenu-contracts" data-bs-target="#submenu-contracts">
+							Paniers
+						</button>
+					</h2>
+					<div id="submenu-contracts" data-bs-parent="#accordion-parent"class="accordion-collapse collapse bg-main ${currentMainMenu.equals('contracts') ? 'show' : ''}">
+						<ul class="accordion-body list-unstyled">
+							<li>
+								<a href="<c:url value='/${tenancyAlias}/shop/contracts'/>" class="${currentPage.equals('contracts') ? 'active' : ''} text-decoration-none fch-600">Tous les paniers</a>
+							</li>
+							<li>
+								<a href="<c:url value='/${tenancyAlias}/shop/contracts'/>" class="${currentPage.equals('contracts') ? 'active' : ''} text-decoration-none fch-600">Paniers de légumes</a>
+							</li>
+							<li>
+								<a href="<c:url value='/${tenancyAlias}/shop/contracts'/>" class="${currentPage.equals('contracts') ? 'active' : ''} text-decoration-none fch-600">Paniers de fruits</a>
+							</li>
+							<li>
+								<a href="<c:url value='/${tenancyAlias}/shop/contracts'/>" class="${currentPage.equals('contracts') ? 'active' : ''} text-decoration-none fch-600">Paniers mixtes</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+<!--     <div class="container-rubrique"> -->
+<!--         <div class="rubrique-header" data-target="paniers-container"> -->
+<!--             Paniers -->
+<!--         </div> -->
+<!--         <div id="paniers-container" class="rubrique-content"> -->
+<!--             <ul class="list-unstyled"> -->
+<%--                 <li><a href="#" class="${currentPage == 'all' ? 'active' : ''}">Tous les paniers --%>
+<%--                     <span class="badge bg-secondary">${counts.all}</span></a></li> --%>
+<%--                 <li><a href="#" class="${currentPage == 'vegetables' ? 'active' : ''}">Paniers légumes --%>
+<%--                     <span class="badge bg-secondary">${counts.vegetables}</span></a></li> --%>
+<%--                 <li><a href="#" class="${currentPage == 'fruits' ? 'active' : ''}">Paniers fruits --%>
+<%--                     <span class="badge bg-secondary">${counts.fruits}</span></a></li> --%>
+<%--                 <li><a href="#" class="${currentPage == 'mixed' ? 'active' : ''}">Paniers mixtes --%>
+<%--                     <span class="badge bg-secondary">${counts.mixed}</span></a></li> --%>
+<!--             </ul> -->
+<!--         </div> -->
+<!--     </div> -->
 
     <!-- Rubrique Epicerie -->
     <div class="container-rubrique">

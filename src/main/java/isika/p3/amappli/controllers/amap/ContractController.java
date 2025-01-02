@@ -32,6 +32,7 @@ import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
 import isika.p3.amappli.service.amap.AddressService;
+import isika.p3.amappli.service.amap.AmapAdminUserService;
 import isika.p3.amappli.service.amap.ContractService;
 import isika.p3.amappli.service.amap.UserService;
 import isika.p3.amappli.service.amappli.TenancyService;
@@ -44,13 +45,15 @@ public class ContractController {
 	private final UserService userService;
 	private final TenancyService tenancyService;
 	private final TenancyRepository tenancyRepository;
+	private final AmapAdminUserService AmapAdminUserService;
 
-	public ContractController(ContractService contractService, TenancyService tenancyService, UserService userService,
+	public ContractController(AmapAdminUserService AmapAdminUserService, ContractService contractService, TenancyService tenancyService, UserService userService,
 			TenancyRepository tenancyrepository) {
 		this.contractService = contractService;
 		this.userService = userService;
 		this.tenancyService = tenancyService;
 		this.tenancyRepository = tenancyrepository;
+		this.AmapAdminUserService = AmapAdminUserService;
 	}
 
 	/**
@@ -82,8 +85,8 @@ public class ContractController {
 		model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
 		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
 		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
-		    List<User> users = userService.findAll();
-//	    model.addAttribute("users", users);
+		List<User> users = AmapAdminUserService.findAll(tenancyAlias);
+		model.addAttribute("users", users);
 		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		model.addAttribute("currentDate", currentDate);
 

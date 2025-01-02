@@ -7,8 +7,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Détails du Contrat</title>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+<link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />"
+	rel="stylesheet">
 <link rel="stylesheet"
 	href="<c:url value='/resources/css/amap/homePage.css' />">
 <style>
@@ -168,5 +168,7 @@
 	<footer>
 		<jsp:include page="common/footer.jsp" />
 	</footer>
+		<script
+		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 </body>
 </html>

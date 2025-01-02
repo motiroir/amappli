@@ -1,14 +1,21 @@
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+String currentMainMenu = "products"; // Détermine la rubrique active
+String currentPage = "contracts"; // Détermine la sous-rubrique active
+request.setAttribute("currentMainMenu", currentMainMenu);
+request.setAttribute("currentPage", currentPage);
+%>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Boutique des Paniers</title>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+<link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />"
+	rel="stylesheet">
 <link rel="stylesheet"
 	href="<c:url value='/resources/css/amap/homePage.css' />">
 <style>
@@ -53,18 +60,19 @@ body {
 }
 </style>
 </head>
-<body>
-	<!-- Inclure le header -->
-	<header>
-		<jsp:include page="common/header.jsp" />
-	</header>
-
-<div class="container-fluid mt-4">
+<body class="row theme-1 light">
+<header class="fc-main bg-main">
+		<!-- Inclusion du header -->
+<jsp:include page="common/header.jsp" />
+</header>
+<jsp:include page="../front/common/sidebarUser.jsp"/>
+<div class="container-fluid mt-5">
+			<div class="row justify-content-center">
+				<div class="col-lg-10">
+										<div class="header-container">
+							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Paniers</h2>
+						</div>
     <div class="row">
-        <!-- Sidebar -->
-        <div class="col-12 col-md-3">
-            <jsp:include page="/WEB-INF/views/amap/front/common/sidebarUser.jsp" />
-        </div>
 
         <!-- Main Content -->
         <div class="col-12 col-md-9">
@@ -110,6 +118,9 @@ body {
         </div>
     </div>
 </div>
+</div>
+</div>
+
 
 
 	<!-- Inclure le footer -->
@@ -117,6 +128,6 @@ body {
 		<jsp:include page="common/footer.jsp" />
 	</footer>
 	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 </body>
 </html>
