@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -174,7 +175,17 @@
 								id="quantity" name="quantity" value="1" min="1" />
 						</div>
 
-						<button class="btn-add-to-cart">Ajouter au panier</button>
+						<form:form method="post"
+							action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cartId}/add">
+							<input type="hidden" name="shoppableId" value="${contract.id}" />
+							<input type="hidden" name="quantity" value="1" />
+							<button type="submit" class="btn-add-to-cart">Ajouter au
+								panier</button>
+						</form:form>
+						<a
+							href="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cartId}"
+							class="btn-view-cart">Voir le panier</a>
+
 					</div>
 				</div>
 			</div>

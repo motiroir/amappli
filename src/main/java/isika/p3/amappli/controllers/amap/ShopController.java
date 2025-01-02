@@ -38,6 +38,9 @@ public class ShopController {
         Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
                 .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
         
+        Long cartId = 1L;
+        model.addAttribute("cartId", cartId);
+        
         List<Contract> contracts = contractService.findShoppableContractsByTenancy(tenancy);
         model.addAttribute("contracts", contracts);
         model.addAttribute("tenancyAlias", tenancyAlias);
@@ -52,6 +55,9 @@ public class ShopController {
     public String showContractDetails(@PathVariable("tenancyAlias") String tenancyAlias,
                                       @PathVariable("contractName") String contractName,
                                       Model model) {
+    	
+        Long cartId = 1L; // Remplacez par une logique qui récupère le cartId de l'utilisateur
+        model.addAttribute("cartId", cartId);
         Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
                 .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
         
@@ -83,7 +89,7 @@ public class ShopController {
         } else {
             model.addAttribute("address", null); // Pas d'adresse trouvée
         }
-
+        
         model.addAttribute("contract", contract);
         model.addAttribute("nextDeliveryDate", nextDeliveryDate);
         return "amap/front/shopping-contract-detail";

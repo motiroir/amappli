@@ -7,6 +7,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.entities.user.User;
+
+import isika.p3.amappli.entities.order.Shoppable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,7 +37,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Table(name = "contracts")
-public class Contract {
+public class Contract extends Shoppable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -94,6 +96,28 @@ public class Contract {
 
     @Column(nullable = false)
     private boolean shoppable = true;
+
+
+    // Implémentation des méthodes abstraites de Shoppable
+    @Override
+    public int getStock() {
+        return quantity != null ? quantity : 0;
+    }
+
+    @Override
+    public double getPrice() {
+        return contractPrice != null ? contractPrice.doubleValue() : 0.0;
+    }
+
+    @Override
+    public String getInfo() {
+        return contractName != null ? contractName : "N/A";
+    }
+
+    @Override
+    public String getImage() {
+        return imageType + (imageData != null ? ", data available" : "");
+    }
     
 	
 

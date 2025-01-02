@@ -3,9 +3,11 @@ package isika.p3.amappli.service.amap.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import isika.p3.amappli.entities.contract.Contract;
 import isika.p3.amappli.entities.order.ProductMock;
 import isika.p3.amappli.entities.order.ShoppingCart;
 import isika.p3.amappli.entities.order.ShoppingCartItem;
+import isika.p3.amappli.repo.amap.ContractRepository;
 import isika.p3.amappli.repo.amap.ProductMockRepository;
 import isika.p3.amappli.repo.amap.ShoppingCartItemRepository;
 import isika.p3.amappli.repo.amap.ShoppingCartRepository;
@@ -20,6 +22,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	private ShoppingCartRepository shoppingCartRepo;
 	@Autowired
 	private ShoppingCartItemRepository itemsRepo;
+	@Autowired
+	private ContractRepository contractRepo;
 	@Autowired
 	private ProductMockRepository productMockRepo;
 	
@@ -41,13 +45,20 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public ShoppingCart addItemToCart(Long cartId, Long shoppableId, int quantity) {
         ShoppingCart cart = getOrCreateCart(cartId);
 
-        ProductMock product = productMockRepo.findById(shoppableId)
-                .orElseThrow(() -> new RuntimeException("Product not found with ID: " + shoppableId));
+        Contract contract = contractRepo.findById(shoppableId)
+                .orElseThrow(() -> new RuntimeException("Contract not found with ID: " + shoppableId));
 
-        // check if stock is enough
-        if (product.getStock() < quantity) {
-            throw new RuntimeException("Insufficient stock for product: " + product.getName());
+        if (contract.getStock() < quantity) {
+            throw new RuntimeException("Insufficient stock for contract: " + contract.getContractName());
         }
+        
+//        ProductMock product = productMockRepo.findById(shoppableId)
+//                .orElseThrow(() -> new RuntimeException("Product not found with ID: " + shoppableId));
+//
+//        // check if stock is enough
+//        if (product.getStock() < quantity) {
+//            throw new RuntimeException("Insufficient stock for product: " + product.getName());
+//        }
 
         // check if item is alreay in shoppingCart
         ShoppingCartItem existingItem = cart.getShoppingCartItems().stream()
@@ -62,7 +73,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             // if not add item
             ShoppingCartItem newItem = ShoppingCartItem.builder()
                     .shoppingCart(cart)
-                    .shoppable(product)
+                    .shoppable(contract)
                     .quantity(quantity)
                     .build();
             cart.getShoppingCartItems().add(newItem);
