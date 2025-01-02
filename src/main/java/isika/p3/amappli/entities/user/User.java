@@ -1,13 +1,17 @@
 package isika.p3.amappli.entities.user;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 import isika.p3.amappli.entities.auth.Permission;
 import isika.p3.amappli.entities.auth.Role;
 import isika.p3.amappli.entities.contract.Contract;
+import isika.p3.amappli.entities.order.Order;
+import isika.p3.amappli.entities.order.ShoppingCart;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -29,7 +33,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Data
@@ -83,6 +89,16 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     private CompanyDetails companyDetails;
+    
+	@Getter @Setter
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "shoppingCartId")
+	private ShoppingCart shoppingCart;
+	
+	@Getter @Setter
+	@Builder.Default
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Order> orders = new ArrayList<Order>();
 
     public Set<Permission> getPermissions(){
         Set<Permission> permissions = new HashSet<Permission>();

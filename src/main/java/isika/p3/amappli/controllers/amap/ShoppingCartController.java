@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import isika.p3.amappli.entities.order.ShoppingCart;
 import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.ShoppingCartService;
+import isika.p3.amappli.service.amap.impl.OrderServiceImpl;
 
 @Controller
 @RequestMapping("/{tenancyAlias}/cart")
@@ -22,6 +23,8 @@ public class ShoppingCartController {
 	private ShoppingCartService shoppingCartService;
 	@Autowired
 	private GraphismService graphismService;
+	@Autowired
+	private OrderServiceImpl orderService;
 	
     @GetMapping("/{cartId}")
     public String viewCart(@PathVariable("cartId") Long cartId, @PathVariable("tenancyAlias") String alias, Model model) {
@@ -63,6 +66,21 @@ public class ShoppingCartController {
         }
         return "redirect:/{tenancyAlias}/cart/" + cartId;
     }
+    
+    @PostMapping("/{cartId}/createOrder")
+    public String createOrder(
+    		@PathVariable("cartId") Long cartId,  @PathVariable("tenancyAlias") String alias, 
+            @ModelAttribute("action") String action) {
+    	if ("OrderWithPayment".equals(action)) {
+    		orderService.createOrderFromCart(cartId);
+    	} else if ("OrderWithoutPayment".equals(action)) {
+    		// to change when ready
+    		orderService.createOrderFromCart(cartId);
+    	}
+    	return "redirect:/{tenancyAlias}/cart/" + cartId;
+    }
+    
+    
     
     @GetMapping("/{cartId}/init")
     public String initializeCart(@PathVariable("cartId") Long cartId, @PathVariable("tenancyAlias") String alias) {
