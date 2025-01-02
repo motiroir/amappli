@@ -3,9 +3,11 @@ package isika.p3.amappli.controllers.amap;
 import java.beans.PropertyEditorSupport;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import isika.p3.amappli.dto.amap.ContractDTO;
@@ -26,6 +29,7 @@ import isika.p3.amappli.entities.contract.ContractWeight;
 import isika.p3.amappli.entities.contract.DeliveryDay;
 import isika.p3.amappli.entities.contract.DeliveryRecurrence;
 import isika.p3.amappli.entities.tenancy.Tenancy;
+import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
 import isika.p3.amappli.service.amap.AddressService;
 import isika.p3.amappli.service.amap.ContractService;
@@ -71,51 +75,19 @@ public class ContractController {
 	 */
 	@GetMapping("/form")
 	public String showForm(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
-		System.out.println("Tenancy alias: " + tenancyAlias);
+		
 		model.addAttribute("contract", new Contract());
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
 		model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
 		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
 		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
-//		model.addAttribute("users", userService.findAll()); // Chargez tous les utilisateurs
+		    List<User> users = userService.findAll();
+//	    model.addAttribute("users", users);
 		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		model.addAttribute("currentDate", currentDate);
+
 		return "amap/back/contracts/contract-form";
-	}
-
-	/**
-	 * Format the contractName from the form
-	 */
-	private String formatContractName(String name) {
-		if (name == null || name.isEmpty()) {
-			return name;
-		}
-		name = name.trim().toLowerCase();
-		return name.substring(0, 1).toUpperCase() + name.substring(1);
-	}
-
-	/**
-	 * Format the contractDescription from the form
-	 */
-	private String formatContractDescription(String description) {
-		if (description == null || description.isEmpty()) {
-			return description;
-		}
-
-		description = description.trim().toLowerCase();
-		String[] sentences = description.split("\\.\\s*");
-
-		StringBuilder formattedDescription = new StringBuilder();
-		for (String sentence : sentences) {
-			if (!sentence.isEmpty()) {
-				formattedDescription.append(sentence.substring(0, 1).toUpperCase()).append(sentence.substring(1))
-						.append(". ");
-			}
-		}
-
-		// Supprimer l'espace supplémentaire à la fin
-		return formattedDescription.toString().trim();
 	}
 
 	/**

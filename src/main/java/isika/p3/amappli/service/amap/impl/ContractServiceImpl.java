@@ -58,9 +58,12 @@ public class ContractServiceImpl implements ContractService {
 	@Override
 	public void save(ContractDTO contractDTO, String tenancyAlias) {
 		Contract contract = new Contract();
-
+		
         Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
                 .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+        contract.setTenancy(tenancy);
+
+        contract.setUser(null);
 	 
 
 		contract.setContractName(contractDTO.getContractName());
@@ -76,16 +79,7 @@ public class ContractServiceImpl implements ContractService {
 		contract.setShoppable(true);
 		contract.setDateCreation(LocalDate.now());
 //		contract.setTenancy(tenancyService.getTenancyByAlias(contractDTO.getTenancyAlias()));
-		contract.setTenancy(tenancy);
-	    // Associez l'utilisateur
-	    if (contractDTO.getUserId() != null) {
-	        User user = userRepository.findById(contractDTO.getUserId())
-	                .orElseThrow(() -> new IllegalArgumentException("Utilisateur non trouvé"));
-	        contract.setUser(user);
-	    } else {
-	        // Vous pouvez laisser le champ `user` de Contract vide (null)
-	        System.out.println("Aucun utilisateur associé au contrat.");
-	    }
+
 		//Image treatment
 		if (!contractDTO.getImage().isEmpty()) {
 			if (contractDTO.getImage().getSize() > 20971520) {
@@ -121,7 +115,7 @@ public class ContractServiceImpl implements ContractService {
 	    existingContract.setQuantity(updatedContractDTO.getQuantity());
 
 	    // Ignorez l'utilisateur s'il n'est pas pertinent
-	    existingContract.setUser(existingContract.getUser());
+	    existingContract.setUser(null);
 
 	    // Gestion de l'image
 	    if (image != null && !image.isEmpty()) {
@@ -153,9 +147,10 @@ public class ContractServiceImpl implements ContractService {
 
 	@Override
 	public List<Contract> findAll(String tenancyAlias) {
-		return ((List<Contract>) contractRepository.findAll()).stream()
-				.filter(u -> u.getTenancy().getTenancyAlias().equals(tenancyAlias)).toList();
+	    return contractRepository.findByTenancyAlias(tenancyAlias);
 	}
+
+
 
 
 }

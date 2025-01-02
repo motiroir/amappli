@@ -26,9 +26,6 @@ request.setAttribute("currentPage", currentPage);
 <style>
 .form-container {
 	background-color: #fff;
-	border-radius: 8px;
-	padding: 30px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .form-control {
@@ -69,13 +66,13 @@ request.setAttribute("currentPage", currentPage);
 		<jsp:include page="../common/headerAdmin.jsp" />
 	</header>
 	<jsp:include page="../common/sidebarAdmin.jsp" />
-
+	<div class="content col">
 	<div class="container mt-5">
 		<div class="row justify-content-center">
 			<div class="col-lg-10">
 				<div class="form-container">
 				<div class="header-container">
-					<a href="<c:url value='/${tenancyAlias}/backoffice/contracts/detail/{id}' />"
+					<a href="<c:url value='/${tenancyAlias}/backoffice/contracts/list' />"
 						class="btn-back"> <i class="bi bi-arrow-left-circle"></i>
 					</a>
 					<h2 class="mb-4" style="font-weight: bold; text-align: left;">Modifier
@@ -189,11 +186,6 @@ request.setAttribute("currentPage", currentPage);
 											style="max-width: 100%; border-radius: 8px;">
 									</c:if>
 								</div>
-
-								<div class="mb-3 text-center">
-									<img src="https://via.placeholder.com/150"
-										alt="Aperçu du produit" class="image-preview">
-								</div>
 								<div class="text-end">
 									<button type="submit" class="btn btn-custom btn-lg"
 										style="width: 250px; height: 60px; margin-bottom: 15px;">Valider
@@ -206,10 +198,11 @@ request.setAttribute("currentPage", currentPage);
 			</div>
 		</div>
 	</div>
+	</div>
 	<script
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 	<script src="<c:url value='/resources/js/contract-edit.js' />"></script>
-	<script src="<d:url value='/resources/js/amap/admin/user-list.js' />"
+	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />"
 		type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
 		type="text/javascript"></script>

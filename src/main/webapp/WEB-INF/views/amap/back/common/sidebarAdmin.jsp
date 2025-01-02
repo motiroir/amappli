@@ -36,7 +36,7 @@
 					<div id="submenu-products" data-bs-parent="#accordion-parent"class="accordion-collapse collapse bg-main ${currentMainMenu.equals('products') ? 'show' : ''}">
 						<ul class="accordion-body list-unstyled">
 							<li>
-								<a href="<c:url value='/amap/contracts/list'/>" class="${currentPage.equals('contracts') ? 'active' : ''} text-decoration-none fch-600">Les contrats</a>
+								<a href="<c:url value='/${tenancyAlias}/backoffice/contracts/list'/>" class="${currentPage.equals('contracts') ? 'active' : ''} text-decoration-none fch-600">Les contrats</a>
 							</li>
 							<li>
 								<a class="disabled text-decoration-none">L'épicerie</a> &emsp;<span class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">PRO</span>

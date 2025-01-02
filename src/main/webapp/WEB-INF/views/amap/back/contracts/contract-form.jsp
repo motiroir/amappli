@@ -39,13 +39,14 @@ request.setAttribute("currentPage", currentPage);
 	</header>
 	<jsp:include page="../common/sidebarAdmin.jsp" />
 	<div class="content col">
-		<div class="container-fluid mt-2">
+		<div class="container-fluid mt-5">
 			<div class="row justify-content-center">
 				<div class="col-lg-10">
 					<div class="form-container">
 						<div class="header-container">
-							<a href="<c:url value='/${tenancyAlias}/backoffice/contracts/list' />" class="btn-back">
-								<i class="bi bi-arrow-left-circle"></i>
+							<a
+								href="<c:url value='/${tenancyAlias}/backoffice/contracts/list' />"
+								class="btn-back"> <i class="bi bi-arrow-left-circle"></i>
 							</a>
 							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Ajouter
 								un contrat</h2>
@@ -53,7 +54,6 @@ request.setAttribute("currentPage", currentPage);
 						<form:form method="POST"
 							action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/contracts/add"
 							enctype="multipart/form-data">
-
 							<input type="hidden" id="tenancyAlias" name="tenancyAlias"
 								value="${tenancyAlias}">
 							<div class="row">
@@ -86,10 +86,11 @@ request.setAttribute("currentPage", currentPage);
 											<option value="BIG">Grand</option>
 										</select>
 									</div>
+
 									<div class="mb-3">
-										<label for="userId">Producteur :</label> <select id="userId"
-											name="userId" class="form-select">
-											<option value="" selected>Aucun utilisateur</option>
+										<label for="userId">Sélectionnez un utilisateur :</label> <select
+											id="userId" name="userId" class="form-select">
+											<option value="" selected>Choisir un utilisateur</option>
 											<c:forEach var="user" items="${users}">
 												<option value="${user.userId}">${user.email}</option>
 											</c:forEach>
@@ -187,36 +188,15 @@ request.setAttribute("currentPage", currentPage);
 	</div>
 	<script
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
-	<script src="<c:url value='/resources/js/contract-form.js' />"></script>
-	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			const fileInput = document.getElementById("image");
-			const previewImage = document.querySelector(".image-preview");
-
-			if (fileInput && previewImage) {
-				fileInput.addEventListener("change", function(event) {
-					const file = event.target.files[0];
-					if (file) {
-						const reader = new FileReader();
-
-						reader.onload = function(e) {
-							previewImage.src = e.target.result; // Met à jour l'URL de l'image
-						};
-
-						reader.readAsDataURL(file); // Lit le fichier comme une URL de données
-					}
-				});
-			}
-		});
-	</script>
+	<script src="<c:url value='/resources/js/amap/admin/contract-form.js' />"></script>
 	<script
-		src="<d:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"
+		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"
 		type="text/javascript"></script>
-	<script src="<d:url value='/resources/js/amap/admin/user-list.js' />"
+	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />"
 		type="text/javascript"></script>
-	<script src="<d:url value='/resources/js/common/theme-swap.js' />"
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
 		type="text/javascript"></script>
-	<script src="<d:url value='/resources/js/common/palette-swap.js' />"
+	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
 		type="text/javascript"></script>
 </body>
 </html>
