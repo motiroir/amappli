@@ -5,11 +5,33 @@
 <div
 	class="container-fluid d-flex flex-row-reverse flex-md-row justify-content-between justify-content-md-evenly align-items-center">
 
-	<img src="data:image/png;base64,${logoBase64}" height="50" class="d-block d-md-none" />
+<div class="logo-container d-flex align-items-center">
+    <c:choose>
+        <c:when test="${not empty logoBase64}">
+            <!-- Utilisation du logo encodé en Base64 -->
+            <img id="logo-header" 
+                 height="50" 
+                 min-height="50" 
+                 viewBox="0 0 697 726" 
+                 class="my-2 my-sm-0 logo-image me-3" 
+                 src="data:${logoImgType};base64,${logoBase64}" 
+                 alt="Logo de ${tenancyName}" />
+        </c:when>
+        <c:otherwise>
+            <!-- Utilisation d'une URL de logo par défaut -->
+            <img id="logo-header" 
+                 height="50" 
+                 min-height="50" 
+                 viewBox="0 0 697 726" 
+                 class="my-2 my-sm-0 logo-image me-3" 
+                 src="<c:url value='/resources/img/${graphism.logo}' />" 
+                 alt="Logo par défaut" />
+        </c:otherwise>
+    </c:choose>
+    <h1 id="text-head" class="fw-bold fs-2 mb-0">${tenancy.getTenancyName()}</h1>
+</div>
 
-<!-- To be replaced by tenancy logo -->
-	<img id="logo-header" height="50" min-height="50" viewBox="0 0 697 726" class="my-2 my-sm-0 d-none d-md-block" src="<c:url value='/resources/img/${graphism.logo}' />" alt="Logo"  />
-	<h1 id="text-head" class="d-none d-md-block fw-bold fs-2">${tenancy.getTenancyName()}</h1>
+
 	
 	<div class="p-0 ms-2 ms-md-0 d-flex justify-content-evenly">
 		<svg class="my-auto mx-1" width="15" height="15" viewBox="0 0 30 30"

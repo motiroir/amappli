@@ -1,5 +1,6 @@
 package isika.p3.amappli.controllers.amappli;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +28,7 @@ public class TenancyController {
 	private TenancyService tenancyService;
 
 	@GetMapping("/test-add")
-	public String addTestTenancies(Model model) {
+	public String addTestTenancies(Model model) throws IOException {
 		// Appeler la méthode pour ajouter les tenancies de test
 		tenancyService.addTestTenancies();
 		model.addAttribute("message", "Test tenancies added successfully!");
@@ -54,8 +55,9 @@ public class TenancyController {
             model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
             Graphism graphism = tenancy.getGraphism();
             String logoBase64 = graphism != null ? graphism.getLogoImg() : null;  // Base64 du logo
+            String logoImgType = graphism != null ? graphism.getLogoImgType() : null;
             model.addAttribute("logoBase64", logoBase64);
-            
+            model.addAttribute("logoImgType", logoImgType);
             
             Address address = tenancy.getAddress(); 
             model.addAttribute("addressLine1", address != null ? address.getLine1() : null);

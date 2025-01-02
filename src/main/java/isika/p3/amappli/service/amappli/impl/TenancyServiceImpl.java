@@ -1,7 +1,9 @@
 package isika.p3.amappli.service.amappli.impl;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Base64;
@@ -72,119 +74,120 @@ public class TenancyServiceImpl implements TenancyService {
         }
         
         
-        // Cette méthode convertit une image en Base64
-        private String encodeImageToBase64(String filePath) {
-            try {
-                byte[] imageBytes = Files.readAllBytes(Paths.get(filePath)); 
-                return Base64.getEncoder().encodeToString(imageBytes); 
-            } catch (Exception e) {
-                e.printStackTrace();
-                return ""; // Retourne une chaîne vide en cas d'erreur
+        
+     // Méthode pour charger une image depuis les ressources internes et la convertir en Base64
+        private String loadImageFromResources(String imageName) throws IOException {
+            InputStream imageStream = getClass().getClassLoader().getResourceAsStream("image/" + imageName);
+            if (imageStream == null) {
+                throw new IOException("Image not found in resources: " + imageName);
             }
+            byte[] imageBytes = imageStream.readAllBytes();
+            return Base64.getEncoder().encodeToString(imageBytes);
         }
-        
-        
 
         // Méthode pour ajouter des tenancies de test
-        public void addTestTenancies() {
+        public void addTestTenancies() throws IOException {
+            // Création d'une Tenancy
+            Tenancy t1 = Tenancy.builder()
+                    .tenancyName("BioColi")
+                    .tenancyAlias("biocoli")
+                    .tenancySlogan("Manger bio, c'est facile avec BioColi!")
+                    .email("contact@biocoli.fr")
+                    .address(new Address("A12", "12 avenue de la localité", "75000", "Paris"))
+                    .dateCreated(LocalDateTime.now())
+                    .dateLastModified(LocalDateTime.now())
+                    .build();
 
-                // Création d'une Tenancy
-                Tenancy t1 = Tenancy.builder()
-                                .tenancyName("BioColi")
-                                .tenancyAlias("biocoli")
-                                .tenancySlogan("Manger bio, c'est facile avec BioColi!")
-                                .email("contact@biocoli.fr")
-                                .address(new Address("A12", "12 avenue de la localité", "75000", "Paris"))
-                                .dateCreated(LocalDateTime.now())
-                                .dateLastModified(LocalDateTime.now())
-                                .build();
-                
-                
-                // Création du ContactInfo pour la Tenancy
-                ContactInfo contactInfo1 = ContactInfo.builder()
-                                .name("Jean")
-                                .firstName("Dupont")
-                                .phoneNumber("0612345678")
-                                .build();
-                t1.setContactInfo(contactInfo1);
-                
+            // Création du ContactInfo pour la Tenancy
+            ContactInfo contactInfo1 = ContactInfo.builder()
+                    .name("Jean")
+                    .firstName("Dupont")
+                    .phoneNumber("0612345678")
+                    .build();
+            t1.setContactInfo(contactInfo1);
 
-                // Création du Graphism pour Tenancy
-                Graphism graphism1 = Graphism.builder()
-                                .colorPalette(ColorPalette.PALETTE1)
-                                .fontChoice(FontChoice.FUTURA)
-                                .logoImgType("image/png")
-                                .logoImg("/resources/img/value1.png")
-                                .tenancy(t1)
-                                .build();
-                t1.setGraphism(graphism1);
+            // Chargement des images en Base64
+            String imagelogo = loadImageFromResources("logobiocoli.png");
+           
+            // Création du Graphism pour Tenancy
+            Graphism graphism1 = Graphism.builder()
+                    .colorPalette(ColorPalette.PALETTE1)
+                    .fontChoice(FontChoice.FUTURA)
+                    .logoImgType("image/png")
+                    .logoImg(imagelogo) 
+                    .build();
+            t1.setGraphism(graphism1);
 
-                // Création du HomePageContent pour la Tenancy
-                HomePageContent homePageContent1 = HomePageContent.builder()
-                                .subTitle("UN PANIER BIO, LOCAL et de SAISON")
-                                .showSuppliers(true)
-                                .tenancy(t1) // Association de HomePageContent avec Tenancy
-                                .build();
+            // Création du HomePageContent pour la Tenancy
+            HomePageContent homePageContent1 = HomePageContent.builder()
+                    .subTitle("UN PANIER BIO, LOCAL et de SAISON")
+                    .showSuppliers(true)
+                    .tenancy(t1) // Association de HomePageContent avec Tenancy
+                    .build();
 
-                // Création des 4 ContentBlock pour la Tenancy
+            // Création des 4 ContentBlocks pour la Tenancy
+            String imagevalue1 = loadImageFromResources("value1.png");
+            String imagevalue2 = loadImageFromResources("value2.png");
+            String imagevalue3 = loadImageFromResources("value3.png");
+            
+            
+            // 1. Le ContentBlock pour la présentation de l'AMAP
+            ContentBlock presentationBlock = ContentBlock.builder()
+                    .isValue(false)
+                    .contentTitle("Présentation de BioColi")
+                    .contentText("BioColi est une AMAP dédiée à la distribution de paniers bio, locaux et de saison.")
+                    .contentImgName("value1.png")
+                    .contentImgTypeMIME("image/png")
+                    .contentImg(imagelogo) // Chargé depuis les ressources internes
+                    .homePageContent(homePageContent1)
+                    .build();
 
-                // 1. Le ContentBlock pour la présentation de l'AMAP
-                ContentBlock presentationBlock = ContentBlock.builder()
-                                .isValue(false)
-                                .contentTitle("Présentation de BioColi")
-                                .contentText("BioColi est une AMAP dédiée à la distribution de paniers bio, locaux et de saison.")
-                                .contentImgName("imageHomePage.jpg")
-                                .contentImgTypeMIME("image/png")
-                                .contentImg(encodeImageToBase64("/resources/img/imageHomePage.png"))
-                                .homePageContent(homePageContent1)
-                                .build();
+            // 2. ContentBlock pour la première valeur de l'AMAP
+            ContentBlock valueBlock1 = ContentBlock.builder()
+                    .isValue(true) // Ce block représente une valeur de l'AMAP
+                    .contentTitle("Soutien à l'Agriculture Durable")
+                    .contentText("Nous soutenons les pratiques agricoles respectueuses de l'environnement.")
+                    .contentImgName("value1.png")
+                    .contentImgTypeMIME("image/png")
+                    .contentImg(imagevalue1) // Chargé depuis les ressources internes
+                    .homePageContent(homePageContent1) 
+                    .build();
 
-                // 2. ContentBlock pour la première valeur de l'AMAP
-                ContentBlock valueBlock1 = ContentBlock.builder()
-                                .isValue(true) // Ce block représente une valeur de l'AMAP
-                                .contentTitle("Soutien à l'Agriculture Durable")
-                                .contentText("Nous soutenons les pratiques agricoles respectueuses de l'environnement.")
-                                .contentImgName("imageHomePage.png")
-                                .contentImgTypeMIME("image/png")
-                                .contentImg(encodeImageToBase64("/resources/img/imageHomePage.png"))
-                                .homePageContent(homePageContent1) 
-                                .build();
+            // 3. ContentBlock pour la deuxième valeur de l'AMAP
+            ContentBlock valueBlock2 = ContentBlock.builder()
+                    .isValue(true) // Ce block représente une valeur de l'AMAP
+                    .contentTitle("Transparence et Traçabilité")
+                    .contentText("Tous nos produits sont traçables et proviennent de fermes locales.")
+                    .contentImgName("value1.png")
+                    .contentImgTypeMIME("image/png")
+                    .contentImg(imagevalue2) // Chargé depuis les ressources internes
+                    .homePageContent(homePageContent1) 
+                    .build();
 
-                // 3. ContentBlock pour la deuxième valeur de l'AMAP
-                ContentBlock valueBlock2 = ContentBlock.builder()
-                                .isValue(true) // Ce block représente une valeur de l'AMAP
-                                .contentTitle("Transparence et Traçabilité")
-                                .contentText("Tous nos produits sont traçables et proviennent de fermes locales.")
-                                .contentImgName("imageHomePage.png")
-                                .contentImgTypeMIME("image/png")
-                                .contentImg(encodeImageToBase64("/resources/img/imageHomePage.png"))
-                                .homePageContent(homePageContent1) // Association avec HomePageContent
-                                .build();
+            // 4. ContentBlock pour la troisième valeur de l'AMAP
+            ContentBlock valueBlock3 = ContentBlock.builder()
+                    .isValue(true) // Ce block représente une valeur de l'AMAP
+                    .contentTitle("Frais et Local")
+                    .contentText("Nos produits sont livrés directement des fermes locales aux consommateurs.")
+                    .contentImgName("value1.png")
+                    .contentImgTypeMIME("image/png")
+                    .contentImg(imagevalue3) 
+                    .homePageContent(homePageContent1)
+                    .build();
 
-                // 4. ContentBlock pour la troisième valeur de l'AMAP
-                ContentBlock valueBlock3 = ContentBlock.builder()
-                                .isValue(true) // Ce block représente une valeur de l'AMAP
-                                .contentTitle("Frais et Local")
-                                .contentText("Nos produits sont livrés directement des fermes locales aux consommateurs.")
-                                .contentImgName("value3.jpg")
-                                .contentImgTypeMIME("image/png")
-                                .contentImg(encodeImageToBase64("/resources/img/value3.jpg"))
-                                .homePageContent(homePageContent1)
-                                .build();
+            // Ajouter les ContentBlocks dans HomePageContent
+            homePageContent1.getContents().add(presentationBlock);
+            homePageContent1.getContents().add(valueBlock1);
+            homePageContent1.getContents().add(valueBlock2);
+            homePageContent1.getContents().add(valueBlock3);
 
-                // Ajouter les ContentBlock dans HomePageContent
-                homePageContent1.getContents().add(presentationBlock);
-                homePageContent1.getContents().add(valueBlock1);
-                homePageContent1.getContents().add(valueBlock2);
-                homePageContent1.getContents().add(valueBlock3);
+            // Associer le HomePageContent à la Tenancy
+            t1.setHomePageContent(homePageContent1);
 
-                // Associer le HomePageContent à la Tenancy
-                t1.setHomePageContent(homePageContent1);
-
-                // Sauvegarder la Tenancy avec ses ContentBlock et HomePageContent
-                tenancyRepository.save(t1);
-
-                // SECOND TENANCY
+            // Sauvegarder la Tenancy avec ses ContentBlocks et HomePageContent
+            tenancyRepository.save(t1);
+        
+            	// SECOND TENANCY
                 // Création d'une Tenancy
                 Tenancy t2 = Tenancy.builder()
                                 .tenancyName("Agrinov")
@@ -209,8 +212,7 @@ public class TenancyServiceImpl implements TenancyService {
                 Graphism graphism2 = Graphism.builder()
                                 .colorPalette(ColorPalette.PALETTE2)
                                 .fontChoice(FontChoice.NUNITO)
-                                .logoImgType("image/png"
-                                		+ "")
+                                .logoImgType("image/png")
                                 .logoImg(Base64.getEncoder().encodeToString("logoBytesPlaceholder".getBytes()))
                                 .tenancy(t2)
                                 .build();
@@ -230,9 +232,9 @@ public class TenancyServiceImpl implements TenancyService {
                                 .isValue(false)
                                 .contentTitle("Présentation d'Agrinov")
                                 .contentText("Agrinov est une AMAP dédiée à la distribution de paniers bio, locaux et de saison.")
-                                .contentImgName("value1.png") 
-                                .contentImgTypeMIME("image/png")
-                                .contentImg("/resources/img/value1.png")
+                                .contentImgName("agrinov-presentation.jpg")
+                                .contentImgTypeMIME("image/jpeg")
+                                .contentImg(Base64.getEncoder().encodeToString("imageBytesPlaceholder".getBytes()))
                                 .homePageContent(homePageContent2)
                                 .build();
 
@@ -241,9 +243,9 @@ public class TenancyServiceImpl implements TenancyService {
                                 .isValue(true) // Ce block représente une valeur de l'AMAP
                                 .contentTitle("Soutien à l'Agriculture Durable")
                                 .contentText("Nous soutenons les pratiques agricoles respectueuses de l'environnement.")
-                                .contentImgName("value1.png") 
-                                .contentImgTypeMIME("image/png")
-                                .contentImg("/resources/img/value1.png")
+                                .contentImgName("value1.jpg")
+                                .contentImgTypeMIME("image/jpeg")
+                                .contentImg(Base64.getEncoder().encodeToString("imageBytesPlaceholder".getBytes()))
                                 .homePageContent(homePageContent2) // Association avec HomePageContent
                                 .build();
 
@@ -252,9 +254,9 @@ public class TenancyServiceImpl implements TenancyService {
                                 .isValue(true) // Ce block représente une valeur de l'AMAP
                                 .contentTitle("Transparence et Traçabilité")
                                 .contentText("Tous nos produits sont traçables et proviennent de fermes locales.")
-                                .contentImgName("value1.png") 
-                                .contentImgTypeMIME("image/png")
-                                .contentImg("/resources/img/value1.png")
+                                .contentImgName("value2.jpg")
+                                .contentImgTypeMIME("image/jpeg")
+                                .contentImg(Base64.getEncoder().encodeToString("imageBytesPlaceholder".getBytes()))
                                 .homePageContent(homePageContent2) // Association avec HomePageContent
                                 .build();
 
@@ -263,9 +265,9 @@ public class TenancyServiceImpl implements TenancyService {
                                 .isValue(true) // Ce block représente une valeur de l'AMAP
                                 .contentTitle("Frais et Local")
                                 .contentText("Nos produits sont livrés directement des fermes locales aux consommateurs.")
-                                .contentImgName("value1.png") 
-                                .contentImgTypeMIME("image/png")
-                                .contentImg("/resources/img/value1.png")
+                                .contentImgName("value3.jpg")
+                                .contentImgTypeMIME("image/jpeg")
+                                .contentImg(Base64.getEncoder().encodeToString("imageBytesPlaceholder".getBytes()))
                                 .homePageContent(homePageContent2)
                                 .build();
 
@@ -307,7 +309,7 @@ public class TenancyServiceImpl implements TenancyService {
                                 .colorPalette(ColorPalette.PALETTE3)
                                 .fontChoice(FontChoice.AUDIOWIDE)
                                 .logoImgType("image/jpeg")
-                                .logoImg(Base64.getEncoder().encodeToString("logoBytesPlaceholder".getBytes()))
+                                .logoImg(Base64.getEncoder().encodeToString("/resources/img/value2.jpg".getBytes()))
                                 .tenancy(t3)
                                 .build();
                 t3.setGraphism(graphism3);
@@ -324,9 +326,9 @@ public class TenancyServiceImpl implements TenancyService {
                 // 1. Le ContentBlock pour la présentation de l'AMAP
                 ContentBlock presentationBlock3 = ContentBlock.builder()
                                 .isValue(false)
-                                .contentTitle("Présentation de Groots")
+                                .contentTitle("value2")
                                 .contentText("Groots est une amap qui vous connectera avec vos producteurs locaux, pour une meilleure transparence et distribution des richesses")
-                                .contentImgName("groots-presentation.jpg")
+                                .contentImgName("value2.jpg")
                                 .contentImgTypeMIME("image/jpeg")
                                 .contentImg(Base64.getEncoder().encodeToString("imageBytesPlaceholder".getBytes()))
                                 .homePageContent(homePageContent3)
@@ -337,7 +339,7 @@ public class TenancyServiceImpl implements TenancyService {
                                 .isValue(true) // Ce block représente une valeur de l'AMAP
                                 .contentTitle("Soutien à l'Agriculture Durable")
                                 .contentText("Nous soutenons les pratiques agricoles respectueuses de l'environnement.")
-                                .contentImgName("value1.jpg")
+                                .contentImgName("value2.jpg")
                                 .contentImgTypeMIME("image/jpeg")
                                 .contentImg(Base64.getEncoder().encodeToString("imageBytesPlaceholder".getBytes()))
                                 .homePageContent(homePageContent3) // Association avec HomePageContent
@@ -359,7 +361,7 @@ public class TenancyServiceImpl implements TenancyService {
                                 .isValue(true) // Ce block représente une valeur de l'AMAP
                                 .contentTitle("Frais et Local")
                                 .contentText("Nos produits sont livrés directement des fermes locales aux consommateurs.")
-                                .contentImgName("value3.jpg")
+                                .contentImgName("value2.jpg")
                                 .contentImgTypeMIME("image/jpeg")
                                 .contentImg(Base64.getEncoder().encodeToString("imageBytesPlaceholder".getBytes()))
                                 .homePageContent(homePageContent3)

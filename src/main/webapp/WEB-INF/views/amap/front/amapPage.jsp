@@ -25,7 +25,7 @@
                 <img src="<c:url value='/resources/img/schemaAmap.png' />" alt="Schéma explicatif AMAP" class="img-fluid circle-diagram">
             </div>
             <div class="col-lg-6 col-md-12">
-                <h1 class=" mt-3 ">AMAP ?</h1>
+                <h1 class=" mt-3 "  style="font-size: 1.5rem;">AMAP ?</h1>
                 <div class="amap-text">
                     <p><strong>A</strong> comme <strong>Association</strong><br>
                         En AMAP, pas d'intermédiaire commercial. C'est le seul système qui reverse 100% du montant du panier à l'agriculteur·rice.</p>
@@ -40,7 +40,7 @@
         </div>
     </div>
    <div class="container my-5">
-    <h2 class="text-center mt-5 ">Histoire des AMAP</h2> 
+    <h2 class="text-center mt-5 " style="font-size: 1.5rem;">Histoire des AMAP</h2> 
     <div class="row g-4">
         <!-- Texte principal -->
         <div class="col-lg-6 col-md-12 d-flex align-items-center ps-lg-5"> <!-- Ajout de 'ps-lg-5' pour un décalage -->

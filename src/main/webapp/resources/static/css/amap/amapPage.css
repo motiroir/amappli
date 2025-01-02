@@ -21,42 +21,39 @@
         }
         
         
-        
-
-/* Conteneur principal */
+ 
 .container {
     margin-top: 30px;
 }
 
-/* Titre centré et espacé */
+
 .container h2 {
-    font-size: 1rem;
-    margin-bottom: 20px;
+    font-size: 2rem !important;
+    margin-bottom: 10px !important;
 }
 
 
-/* Texte explicatif (texte avant l'image) */
+
 p {
     font-size: 1rem;
-    line-height: 1.6; /* Facilite la lecture */
-    color: #333; /* Couleur du texte lisible */
+    line-height: 1.6; 
+    color: #333; 
 }
 
-/* Lien vers le site */
+
 a {
     color: #4CAF50;
     font-weight: bold;
-    text-decoration: none; /* Supprime le soulignement */
+    text-decoration: none; 
 }
 
 a:hover {
-    text-decoration: underline; /* Ajout du soulignement au survol */
+    text-decoration: underline; 
 }
 
-/* Centrage sur écran plus petit */
 .text-center img {
     margin: 20px auto;
     display: block;
-    max-width: 90%; /* Limite la taille de l'image sur les petits écrans */
+    max-width: 90%; 
 }
         
