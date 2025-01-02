@@ -5,29 +5,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let progressBar = document.getElementById("the-progress-bar");
     let progressBarIncrements = 100/allFormParts.length;
 
-    updateVisibility();
-    console.log(allFormParts.length);
-
-    computeOptionChoice();
-
-    function updateVisibility() {
-        progressBar.style.width = progressBarIncrements*currentIndex+"%";
-        progressBar.ariaValueNow = progressBarIncrements*currentIndex;
-        
-        allFormParts.forEach((part, index) => {
-        if (index === currentIndex) {
-            part.style.display = "block"; // Show the current part
-        } else {
-            part.style.display = "none"; // Hide all other parts
-        }
-        });
-    };
-
     let goBackButton = document.getElementById("go-back-button");
     let continueButton = document.getElementById("continue-button");
 
     continueButton.addEventListener("click", function() {
-        console.log("continue clicked");
         if (currentIndex < allFormParts.length - 1) {
                 currentIndex++;
                 updateVisibility();
@@ -38,14 +19,56 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     goBackButton.addEventListener("click", function() {
-        console.log("goback clicked");
         if (currentIndex > 0){
             currentIndex--;
             updateVisibility();
             if(currentIndex == allFormParts.length - 2) {
-                computeOptionChoice();
+                computeOptionChoice(); 
             }
         }
+    });
+
+    updateVisibility();
+
+    computeOptionChoice();
+
+    function updateVisibility() {
+        //update progress bar
+        progressBar.style.width = progressBarIncrements*currentIndex+"%";
+        progressBar.ariaValueNow = progressBarIncrements*currentIndex;
+        
+        // show current form part
+        allFormParts.forEach((part, index) => {
+        if (index === currentIndex) {
+            part.style.display = "block"; // Show the current part
+        } else {
+            part.style.display = "none"; // Hide all other parts
+        }
+        });
+
+        // hide go back or continue button if first or last part of the form
+        if (currentIndex == 0){
+            goBackButton.style.display = "none";
+        }
+        else{
+            goBackButton.style.display = "block";
+        }
+
+        if (currentIndex == allFormParts.length-1){
+            continueButton.style.display = "none";
+        }
+        else{
+            continueButton.style.display = "block";
+        }
+
+    };
+
+    // Showing the sample URL
+    let tenancyAliasInput = document.getElementById('input-tenancy-alias');
+    let tenancyUrlExampleSpan = document.getElementById('amap-url-example');
+
+    tenancyAliasInput.addEventListener('input', function() {
+        tenancyUrlExampleSpan.innerText = tenancyAliasInput.value;
     });
 
     // Choosing options based on quizz
@@ -74,4 +97,5 @@ document.addEventListener("DOMContentLoaded", function () {
             option1button.insertAdjacentElement("beforebegin", recommandation);
         }
     };
+
 });

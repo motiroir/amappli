@@ -8,13 +8,15 @@
 <meta charset="UTF-8">
 <title>Création de votre espace AMAP</title>
 <link href="<c:url value='/resources/bootstrap/bootstrap.min.css'/>" rel="stylesheet">
-<style>
-    body {
-        background-image: url("<c:url value='/resources/img/peach_lines.svg'/>");
-    }
-</style>
+<link href="<c:url value='/resources/css/common/theme/theme-1-light.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/css/amappli/tenancycreation.css'/>" rel="stylesheet">
+<!-- Mapbox CSS -->
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
 </head>
 <body class="d-flex justify-content-center">
+    <!-- Conteneur pour la carte -->
+    <%-- <div id="map"></div> --%>
+
     <div class="container w-75 p-5 h-75">
 
         <div class="title">
@@ -38,6 +40,21 @@
                     <form:label for="input-tenancy-name" class="form-label display-6" path="tenancyName">Quel est le nom de votre AMAP ?</form:label>
                         <form:input type="text" class="form-control" id="input-tenancy-name" aria-describedby="input-tenancy-name" path="tenancyName" required="true" aria-required="true"/>
                     <form:errors path="tenancyName" class="invalid-feedback d-block" />
+                </div>
+            </div>
+
+            <div class="form-part">
+
+                <div class="mb-3">
+                    <form:label for="input-tenancy-alias" class="form-label display-6" path="tenancyAlias">Quelle URL souhaitez-vous pour votre AMAP ?</form:label>
+                        <form:input type="text" class="form-control" id="input-tenancy-alias" aria-describedby="input-tenancy-alias" path="tenancyAlias" required="true" aria-required="true"/>
+                    <form:errors path="tenancyAlias" class="invalid-feedback d-block" />
+                    <c:if test="${not empty aliasError}">
+                            <div class="invalid-feedback d-block">${aliasError}</div>
+                    </c:if>
+                </div>
+                <div class="mb-3">
+                    Votre AMAP sera accessible à l'adresse "www.amappli.fr/<span id="amap-url-example">...</span>
                 </div>
             </div>
 
@@ -115,20 +132,26 @@
             </div>
 
             <div class="form-part">
-                <div id="font-choices" class="d-flex flex-row justify-content-center">
+                <h1 class="display-6">Choississez une police pour vos titres et boutons</h1>
+                <div id="font-choices" class="d-flex flex-row justify-content-around">
                     <c:forEach items="${fontChoices}" var="font">
-                        <img src="<c:url value='/resources/img/logo_amappli_peach.png' />" with="100" height="100"/>
-                        <form:radiobutton path="fontChoice" value="${font}" label="${font}" name="font-selection" />
+                        <label for="font-${font}">
+                            <h1 style="font-family:'${font}'">${font}</p>
+                        </label>
+                        <input type="radio" id="font-${font}" value="${font}" name="font-selection"/>
                     </c:forEach>
                 </div>
                 
             </div>
 
             <div class="form-part">
-                <div id="palette-choices" class="d-flex flex-row justify-content-center">
-                    <c:forEach items="${colorPalettes}" var="palette">
-                        <img src="<c:url value='/resources/img/logo_amappli_peach.png' />" with="100" height="100"/>
-                        <form:radiobutton path="colorPalette" value="${palette}" label="${palette}" name="palette-selection" />
+                <h1 class="display-6">Choississez une palette de couleurs.</h1>
+                <div id="palette-choices" class="d-flex flex-row justify-content-around">
+                    <c:forEach items="${colorPalettes}" var="palette" varStatus="status">
+                        <label for="palette-${status.index+1}">
+                            <img src="<c:url value='/resources/img/palettes_samples/PALETTE${status.index + 1}.svg' />" width="20%" />
+                        </label>
+                        <input type="radio" id="palette-${status.index + 1}" name="palette-selection" value="${palette}" />
                     </c:forEach>
                 </div>
                 
@@ -141,23 +164,23 @@
                     <li class="d-flex flex-row">
                         <span class="float-start">Est-ce que vous vendez des produits à l'unité en plus de vos paniers ?</span>
                         <input type="radio" value="true" name="question-1" class="btn-check float-end" id="question-1-true" checked/>
-                        <label class="btn btn-outline-primary float-end" for="question-1-true">Oui</label>
+                        <label class="btn btn-outline-700 float-end" for="question-1-true">Oui</label>
                         <input type="radio" value="false" name="question-1" class="btn-check float-end" id="question-1-false"/>
-                        <label class="btn btn-outline-primary float-end" for="question-1-false">Non</label>
+                        <label class="btn btn-outline-700 float-end" for="question-1-false">Non</label>
                     </li>
                     <li>
                         <span>Est-ce que vous souhaitez proposer des lots et des promos à vos adhérents ?</span>
                         <input type="radio" value="true" name="question-2" class="btn-check" id="question-2-true" checked/>
-                        <label class="btn btn-outline-primary" for="question-2-true">Oui</label>
+                        <label class="btn btn-outline-700" for="question-2-true">Oui</label>
                         <input type="radio" value="false" name="question-2" class="btn-check" id="question-2-false"/>
-                        <label class="btn btn-outline-primary" for="question-2-false">Non</label> 
+                        <label class="btn btn-outline-700" for="question-2-false">Non</label> 
                     </li>
                     <li>
                         <span>Organisez-vous des ateliers que vous souhaiteriez mettre à disposition de vos adhérents sur ce site ?</span>
                         <input type="radio" value="true" name="question-3" class="btn-check" id="question-3-true" checked/>
-                        <label class="btn btn-outline-primary" for="question-3-true">Oui</label>
+                        <label class="btn btn-outline-700" for="question-3-true">Oui</label>
                         <input type="radio" value="false" name="question-3" class="btn-check" id="question-3-false"/>
-                        <label class="btn btn-outline-primary" for="question-3-false">Non</label> 
+                        <label class="btn btn-outline-700" for="question-3-false">Non</label> 
                     </li>
                 </ul>
             </div>
@@ -169,9 +192,9 @@
                     <li class="d-flex flex-row">
                         <span class="float-start">Voulez-vous activer le paiement en ligne ?</span>
                         <input type="radio" value="true" name="question-4" class="btn-check" id="question-4-true" checked/>
-                        <label class="btn btn-outline-primary float-end" for="question-4-true">Oui</label>
-                        <input type="radio" value="false" name="question-4" class="btn-check" id="question-1-false"/>
-                        <label class="btn btn-outline-primary float-end" for="question-4-false">Non</label>
+                        <label class="btn btn-outline-700 float-end" for="question-4-true">Oui</label>
+                        <input type="radio" value="false" name="question-4" class="btn-check" id="question-4-false"/>
+                        <label class="btn btn-outline-700 float-end" for="question-4-false">Non</label>
                     </li>
                 </ul>
             </div>
@@ -183,16 +206,16 @@
                     <li class="d-flex flex-row">
                         <span class="float-start">Souhaitez-vous que vos producteurs puissent ajouter eux-même leurs produits sur le site ?</span>
                         <input type="radio" value="true" name="question-5" class="btn-check float-end" id="question-5-true" checked/>
-                        <label class="btn btn-outline-primary float-end" for="question-5-true">Oui</label>
+                        <label class="btn btn-outline-700 float-end" for="question-5-true">Oui</label>
                         <input type="radio" value="false" name="question-5" class="btn-check float-end" id="question-5-false"/>
-                        <label class="btn btn-outline-primary float-end" for="question-5-false">Non</label>
+                        <label class="btn btn-outline-700 float-end" for="question-5-false">Non</label>
                     </li>
                     <li>
                         <span>Est-ce que vous souhaitez donner des accès personnalisés à vos bénévoles ? Par exemple leur permettre d’accéder à la liste des commandes de vos adhérents mais sans leur donner accès à leurs informations personnelles.</span>
                         <input type="radio" value="true" name="question-6" class="btn-check" id="question-6-true" checked/>
-                        <label class="btn btn-outline-primary" for="question-6-true">Oui</label>
+                        <label class="btn btn-outline-700" for="question-6-true">Oui</label>
                         <input type="radio" value="false" name="question-6" class="btn-check" id="question-6-false"/>
-                        <label class="btn btn-outline-primary" for="question-6-false">Non</label> 
+                        <label class="btn btn-outline-700" for="question-6-false">Non</label> 
                     </li>
                 </ul>
             </div>
@@ -204,9 +227,9 @@
                     <li>
                         <span>Souhaitez-vous avoir la possibilité d’afficher des statistiques à partir de vos données ?</span>
                         <input type="radio" value="true" name="question-7" class="btn-check" id="question-7-true" checked/>
-                        <label class="btn btn-outline-primary" for="question-7-true">Oui</label>
+                        <label class="btn btn-outline-700" for="question-7-true">Oui</label>
                         <input type="radio" value="false" name="question-7" class="btn-check" id="question-7-false"/>
-                        <label class="btn btn-outline-primary" for="question-7-false">Non</label> 
+                        <label class="btn btn-outline-700" for="question-7-false">Non</label> 
                     </li>
                 </ul>
             </div>
@@ -218,9 +241,9 @@
                     <li>
                         <span>Souhaitez-vous améliorer le quotidien de vos adhérents en leur proposant des options de favoris, et la possibilité de choisir entre un thème dark et un thème light ?</span>
                         <input type="radio" value="true" name="question-8" class="btn-check" id="question-8-true" checked/>
-                        <label class="btn btn-outline-primary" for="question-8-true">Oui</label>
+                        <label class="btn btn-outline-700" for="question-8-true">Oui</label>
                         <input type="radio" value="false" name="question-8" class="btn-check" id="question-8-false"/>
-                        <label class="btn btn-outline-primary" for="question-8-false">Non</label> 
+                        <label class="btn btn-outline-700" for="question-8-false">Non</label> 
                     </li>
                 </ul>
             </div>
@@ -233,14 +256,14 @@
                     <li><form:radiobutton path="option2" value="true" label="Verger" id="option-2" name="option-selection" /></li>
                     <li><form:radiobutton path="option3" value="true" label="Ferme" id="option-3" name="option-selection" /></li>
                 </ul>
-                <button type="submit" class="btn btn-primary">Valider</button>
+                <button type="submit" class="btn btn-400">Valider</button>
             </div>
 
-            <div id="nav-button">
-                <button type="button" class="rounded-pill bg-primary" id="go-back-button">
+            <div id="nav-button d-flex flex-row">
+                <button type="button" class="rounded-pill btn-400 align-self-start" id="go-back-button">
                     Retour
                 </button>
-                <button type="button" class="rounded-pill bg-primary" id="continue-button">
+                <button type="button" class="rounded-pill btn-500 align-self-start" id="continue-button">
                     Continuer
                 </button>
             </div>
@@ -248,6 +271,6 @@
 
     </div>
     <script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js'/>"></script>
-    <script src="<c:url value='/resources/js/tenancycreation.js'/>"></script>
+    <script src="<c:url value='/resources/js/amappli/tenancycreation.js'/>"></script>
 </body>
 </html>

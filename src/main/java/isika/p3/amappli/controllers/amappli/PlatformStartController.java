@@ -17,6 +17,7 @@ import isika.p3.amappli.entities.tenancy.ColorPalette;
 import isika.p3.amappli.entities.tenancy.ContentBlock;
 import isika.p3.amappli.entities.tenancy.FontChoice;
 import isika.p3.amappli.exceptions.EmailAlreadyExistsException;
+import isika.p3.amappli.exceptions.TenancyAliasAlreadyTakenException;
 import isika.p3.amappli.service.amap.ContentBlockService;
 import isika.p3.amappli.service.amap.UserService;
 import isika.p3.amappli.service.amappli.TenancyService;
@@ -80,9 +81,18 @@ public class PlatformStartController {
     }
 
     @PostMapping("/creation")
-    public String tenancyCreation(@ModelAttribute("newTenancyDTO") NewTenancyDTO newTenancyDTO) {
-
-        tenancyService.createTenancyFromWelcomeForm(newTenancyDTO);
+    public String tenancyCreation(@Valid @ModelAttribute("newTenancyDTO") NewTenancyDTO newTenancyDTO, BindingResult result, Model model) {
+        if(result.hasErrors()){
+            return "amappli/front/platformstart/createtenancy";
+        }
+        // Write tenancy to DB
+        try {
+            tenancyService.createTenancyFromWelcomeForm(newTenancyDTO);
+        }
+        catch (TenancyAliasAlreadyTakenException e){
+            model.addAttribute("aliasError", e.getMessage());
+            return "amappli/front/platformstart/createtenancy";
+        }
         return "amappli/front/platformstart/signupdone";
     }
 

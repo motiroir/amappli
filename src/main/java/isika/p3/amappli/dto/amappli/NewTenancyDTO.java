@@ -16,6 +16,8 @@ public class NewTenancyDTO {
     
     private String tenancyName;
 
+    private String tenancyAlias;
+
     private String tenancySlogan;
 
     private BigDecimal membershipFeePrice;

@@ -1,0 +1,22 @@
+@import "../common/utils.css";
+
+.progress {
+    background-color: var(--white-300);
+    height: 0.8em;
+}
+
+.progress-bar {
+    background-color: var(--green-700);
+}
+
+#map {
+	width: 100vw;
+	height: 100vh;
+	/* La carte prend tout l'écran */
+	position: fixed;
+	/* Elle sert de background */
+	top: 0;
+	left: 0;
+	z-index: -1;
+	/* Place la carte derrière le contenu */
+}
