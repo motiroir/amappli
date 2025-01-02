@@ -23,20 +23,17 @@ public class SecurityController {
     //     this.permissionService = permissionService;
     // }
 
-    //@PreAuthorize("hasRole('USER')")
     @GetMapping("/login")
     public String goToLogin(Model model){
         // permissionService.createPermissions();
         return "secexamples/login";
     }
 
-    //@PreAuthorize("hasRole('USER')")
     @GetMapping("/logout")
     public String goToLogout(Model model){
         return "secexamples/logout";
     }
 
-    //@PreAuthorize("hasRole('USER')")
     @GetMapping("/needanyauth")
     public String goToAuthTest(Model model){
         return "secexamples/needanyauth";
