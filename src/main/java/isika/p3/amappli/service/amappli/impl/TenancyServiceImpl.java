@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import isika.p3.amappli.entities.tenancy.HomePageContent;
+import isika.p3.amappli.api.NominatimAPI;
 import isika.p3.amappli.dto.amappli.NewTenancyDTO;
 import isika.p3.amappli.dto.amappli.ValueDTO;
 import isika.p3.amappli.entities.tenancy.ColorPalette;
@@ -23,6 +24,7 @@ import isika.p3.amappli.entities.tenancy.Options;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.entities.user.ContactInfo;
+import isika.p3.amappli.exceptions.TenancyAliasAlreadyTakenException;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
 import isika.p3.amappli.service.amappli.TenancyService;
 
@@ -649,7 +651,17 @@ public class TenancyServiceImpl implements TenancyService {
                 tenancy.setTenancyName(newTenancyDTO.getTenancyName());
                 // Address
                 tenancy.setAddress(newTenancyDTO.getAddress());
-                
+
+                // Compute GPS coordinates from Address
+                String coordinates = NominatimAPI.getGPSFromAddress(newTenancyDTO.getAddress());
+                if(coordinates != null){
+                        String[] coor = coordinates.split(",");
+                        tenancy.setTenancyLatitude(coor[1]);
+                        tenancy.setTenancyLongitude(coor[0]);
+                }
+                // Alias
+                tenancy.setTenancyAlias(newTenancyDTO.getTenancyAlias());
+
                 // Slogan
                 tenancy.setTenancySlogan(newTenancyDTO.getTenancySlogan());
 
@@ -738,7 +750,13 @@ public class TenancyServiceImpl implements TenancyService {
                 }
                 tenancy.setHomePageContent(homePageContent);
 
-                tenancyRepository.save(tenancy);
+                // Will cause error if tenancyAlias already taken
+                try {
+                        tenancyRepository.save(tenancy);
+                }
+                catch (RuntimeException e){
+                        throw new TenancyAliasAlreadyTakenException("Cette url d'AMAP est déjà utilisée.");
+                }
         }
 
         @Override

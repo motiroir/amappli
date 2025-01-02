@@ -45,6 +45,10 @@ public class Tenancy {
     @Column(nullable=false, unique =true ) // For url mapping
     private String tenancyAlias;
 
+    private String tenancyLatitude;
+
+    private String tenancyLongitude;
+    
     private BigDecimal membershipFeePrice;
 
     @OneToOne(cascade = CascadeType.ALL)

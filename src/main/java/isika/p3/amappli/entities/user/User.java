@@ -71,7 +71,7 @@ public class User {
     private Tenancy tenancy;
 
     @Builder.Default
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable (
         name = "User_Role_Association",
         joinColumns = @JoinColumn(name = "userId"),
