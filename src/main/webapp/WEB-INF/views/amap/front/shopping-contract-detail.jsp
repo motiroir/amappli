@@ -9,7 +9,7 @@
 <title>Détails du Contrat</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-	<link rel="stylesheet"
+<link rel="stylesheet"
 	href="<c:url value='/resources/css/amap/homePage.css' />">
 <style>
 .contract-details-container {
@@ -122,13 +122,14 @@
 					<div class="contract-info">
 						<h2>${contract.contractName}</h2>
 						<p>
+							<strong>Ferme :</strong> ${contract.tenancy.tenancyName}
+						</p>
+						<p>
 							<strong>Type :</strong> ${contract.contractType.displayName}
 						</p>
+
 						<p>
 							<strong>Producteur :</strong> ${contract.user.email}
-						</p>
-						<p>
-							<strong>Ferme :</strong> ${contract.tenancy.tenancyName}
 						</p>
 						<p>
 							<strong>Prix :</strong> ${contract.contractPrice}€
@@ -137,9 +138,21 @@
 							<strong>Description :</strong> ${contract.contractDescription}
 						</p>
 						<p>
-							<strong>Légumes de la saison :</strong> Carottes, Épinards,
-							Tomates, Concombres, Poivrons
+							<strong>Jour de livraison au point de collecte :</strong>
+							${contract.deliveryDay.displayName}
 						</p>
+						<p>
+							<strong>Fréquence de livraison : </strong>
+							${contract.deliveryRecurrence.displayName}
+						</p>
+						<p>
+							<strong>Date de fin de l'abonnement : </strong>
+							${contract.endDate}
+						</p>
+						<p>
+							<strong>Date de première livraison :</strong> ${nextDeliveryDate}
+						</p>
+
 
 						<div class="quantity-selector">
 							<label for="quantity">Quantité :</label> <input type="number"
@@ -150,8 +163,10 @@
 					</div>
 				</div>
 			</div>
-				<footer>
-	<jsp:include page="common/footer.jsp" />
+		</div>
+	</div>
+	<footer>
+		<jsp:include page="common/footer.jsp" />
 	</footer>
 </body>
 </html>

@@ -150,6 +150,13 @@ public class ContractServiceImpl implements ContractService {
 	    return contractRepository.findByTenancyAlias(tenancyAlias);
 	}
 
+	@Override
+	public List<Contract> findShoppableContractsByTenancy(Tenancy tenancy) {
+	    return contractRepository.findByTenancy(tenancy).stream()
+	            .filter(Contract::isShoppable) // Garder uniquement les contrats shoppables
+	            .toList();
+	}
+
 
 
 

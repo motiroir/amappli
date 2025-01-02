@@ -14,5 +14,7 @@ import isika.p3.amappli.entities.tenancy.Tenancy;
 public interface ContractRepository extends JpaRepository<Contract, Long> {
 	@Query("SELECT c FROM Contract c WHERE c.tenancy.tenancyAlias = :tenancyAlias")
 	List<Contract> findByTenancyAlias(@Param("tenancyAlias") String tenancyAlias);
+    List<Contract> findByTenancy(Tenancy tenancy);
+
 
 }

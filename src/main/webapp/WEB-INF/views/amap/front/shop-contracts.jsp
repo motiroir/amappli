@@ -59,51 +59,58 @@ body {
 		<jsp:include page="common/header.jsp" />
 	</header>
 
-	<div class="container-fluid mt-4">
-		<div class="row">
-			<!-- Sidebar -->
-			<div class="col-12 col-md-3">
-				<jsp:include page="/WEB-INF/views/amap/front/common/sidebarUser.jsp" />
-			</div>
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-12 col-md-3">
+            <jsp:include page="/WEB-INF/views/amap/front/common/sidebarUser.jsp" />
+        </div>
 
-			<!-- Main Content -->
-			<div class="col-12 col-md-9">
-				<div class="d-flex justify-content-between align-items-center mb-4">
-					<span>${contracts.size()} Items</span>
-					<div class="d-flex align-items-center">
-						<label for="sortBy" class="me-2">Sort By</label> <select
-							id="sortBy" class="form-select me-3" style="width: auto;">
-							<option value="name">Name</option>
-							<option value="priceAsc">Prix croissant</option>
-							<option value="priceDesc">Prix décroissant</option>
-						</select> <input type="text" id="searchBar" class="form-control"
-							placeholder="Rechercher..." style="width: 200px;">
-					</div>
-				</div>
+        <!-- Main Content -->
+        <div class="col-12 col-md-9">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <span>${contracts.size()} Items</span>
+                <div class="d-flex align-items-center">
+                    <label for="sortBy" class="me-2">Trier par</label>
+                    <select id="sortBy" class="form-select me-3" style="width: auto;">
+                        <option value="name">Nom</option>
+                        <option value="priceAsc">Prix croissant</option>
+                        <option value="priceDesc">Prix décroissant</option>
+                    </select>
+                    <input type="text" id="searchBar" class="form-control" placeholder="Rechercher..."
+                        style="width: 200px;">
+                </div>
+            </div>
 
-				<div class="row">
-					<c:forEach var="contract" items="${contracts}">
-						<div class="col-12 col-sm-6 col-lg-4 mb-4">
-							<div class="contract-card">
-								<c:if test="${not empty contract.imageData}">
-									<img
-										src="data:${contract.imageType};base64,${contract.imageData}"
-										alt="Image du contrat">
-								</c:if>
-								<h3 class="mt-3">${contract.contractName}</h3>
-								<p>${contract.contractType.displayName}</p>
-								<p>${contract.contractWeight.displayName}</p>
-								<p>${contract.contractPrice}&euro;</p>
-								<a
-									href="<c:url value='/shop/contracts/${contract.contractName}' />"
-									class="btn"> Voir les détails </a>
-							</div>
-						</div>
-					</c:forEach>
-				</div>
-			</div>
-		</div>
-	</div>
+            <div class="row">
+                <c:if test="${not empty contracts}">
+                    <c:forEach var="contract" items="${contracts}">
+                        <div class="col-12 col-sm-6 col-lg-4 mb-4">
+                            <div class="contract-card">
+                                <c:if test="${not empty contract.imageData}">
+                                    <img src="data:${contract.imageType};base64,${contract.imageData}"
+                                        alt="Image du contrat">
+                                </c:if>
+                                <h3 class="mt-3">${contract.contractName}</h3>
+                                <p>${contract.contractType.displayName}</p>
+                                <p>${contract.contractWeight.displayName}</p>
+                                <p>${contract.contractPrice}&euro;</p>
+                                <a href="<c:url value='/${tenancyAlias}/shop/contracts/${contract.contractName}' />"
+                                    class="btn">Voir les détails</a>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </c:if>
+                <c:if test="${empty contracts}">
+                    <div class="col-12">
+                        <p class="text-center">Aucun contrat disponible pour cette AMAP.</p>
+                    </div>
+                </c:if>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 	<!-- Inclure le footer -->
 	<footer>
