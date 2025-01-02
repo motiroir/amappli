@@ -145,7 +145,7 @@
     --bs-btn-bg                   : var(--white-300);
     --bs-btn-border-color         : var(--green-900);
     --bs-btn-hover-color          : var(--green-900);
-    --bs-btn-hover-bg             : var(--black-200);
+    --bs-btn-hover-bg             : var(--orange-050);
     --bs-btn-hover-border-color   : var(--green-900);
     --bs-btn-focus-shadow-rgb     : 130, 138, 145;
     --bs-btn-active-color         : var(--green-900);
@@ -172,6 +172,12 @@
     --bs-btn-disabled-bg          : transparent;
     --bs-btn-disabled-border-color: var(--white-300);
     --bs-gradient                 : none;
+}
+
+.theme-1.dark .table{
+	--bs-table-bg: null;
+	--bs-table-color: var(--main-font-color);
+	--bs-table-border-color: var(--white-300);
 }
 
 .theme-1.dark .bg-900 {
