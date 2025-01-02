@@ -48,6 +48,8 @@ public class Tenancy {
     private String tenancyLatitude;
 
     private String tenancyLongitude;
+
+    private LocalDateTime pickupDateTime;
     
     private BigDecimal membershipFeePrice;
 
