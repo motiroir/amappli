@@ -16,6 +16,7 @@
 	
 	--main-bg-color: var(--orange-100);
 	--main-font-color: var(--green-900);
+	--alt-font-color: var(--green-700);
 }
 
 .theme-4.light .btn-900 {
@@ -33,7 +34,6 @@
 	--bs-btn-disabled-color: var(--white-300);
 	--bs-btn-disabled-bg: var(--black-400);
 	--bs-btn-disabled-border-color: var(--orange-100);
-	font-family: 'Nunito Sans';
 }
 
 .theme-4.light .btn-outline-900 {
@@ -51,7 +51,6 @@
 	--bs-btn-disabled-bg: transparent;
 	--bs-btn-disabled-border-color: var(--orange-100);
 	--bs-gradient: none;
-	font-family: 'Nunito Sans';
 }
 
 .theme-4.light .btn-700 {
@@ -69,7 +68,6 @@
 	--bs-btn-disabled-color: var(--white-300);
 	--bs-btn-disabled-bg: var(--black-400);
 	--bs-btn-disabled-border-color: var(--orange-900);
-	font-family: 'Nunito Sans';
 }
 
 .theme-4.light .btn-outline-700 {
@@ -87,7 +85,6 @@
 	--bs-btn-disabled-bg: transparent;
 	--bs-btn-disabled-border-color: var(--orange-100);
 	--bs-gradient: none;
-	font-family: 'Nunito Sans';
 }
 
 .theme-4.light .btn-500 {
@@ -105,7 +102,6 @@
 	--bs-btn-disabled-color: var(--orange-100);
 	--bs-btn-disabled-bg: var(--black-400);
 	--bs-btn-disabled-border-color: var(--green-600);
-	font-family: 'Nunito Sans';
 }
 
 .theme-4.light .btn-outline-500 {
@@ -123,7 +119,6 @@
 	--bs-btn-disabled-bg: transparent;
 	--bs-btn-disabled-border-color: var(--green-600);
 	--bs-gradient: none;
-	font-family: 'Nunito Sans';
 }
 
 .theme-4.light .btn-300 {
@@ -141,7 +136,6 @@
 	--bs-btn-disabled-color: var(--green-900);
 	--bs-btn-disabled-bg: var(--black-400);
 	--bs-btn-disabled-border-color: var(--green-900);
-	font-family: 'Nunito Sans';
 }
 
 .theme-4.light .btn-outline-300 {
@@ -159,7 +153,6 @@
 	--bs-btn-disabled-bg: transparent;
 	--bs-btn-disabled-border-color: var(--green-900);
 	--bs-gradient: none;
-	font-family: 'Nunito Sans';
 }
 
 .theme-4.light .btn-100 {
@@ -177,7 +170,6 @@
 	--bs-btn-disabled-color: var(--black-200);
 	--bs-btn-disabled-bg: var(--black-400);
 	--bs-btn-disabled-border-color: var(--black-200);
-	font-family: 'Nunito Sans';
 }
 
 .theme-4.light .btn-outline-100 {
@@ -195,7 +187,6 @@
 	--bs-btn-disabled-bg: transparent;
 	--bs-btn-disabled-border-color: var(--white-300);
 	--bs-gradient: none;
-	font-family: 'Nunito Sans';
 }
 
 .theme-4.light .bg-900 {
@@ -277,6 +268,10 @@
 
 .theme-4.light .fc-main {
 	color: var(--main-font-color) !important;
+}
+
+.theme-4.light .fc-alt {
+    color: var(--alt-font-color) !important;
 }
 
 .theme-4.light .fch-900:hover {

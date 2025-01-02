@@ -18,7 +18,7 @@ import isika.p3.amappli.service.amap.RoleService;
 
 
 @Controller
-@RequestMapping("tenancies/{tenancyId}/amap/admin/backoffice")
+@RequestMapping("{tenancyAlias}/backoffice")
 public class AmapAdminUserController {
     
 	@Autowired
@@ -33,29 +33,29 @@ public class AmapAdminUserController {
 	}
 
 	@GetMapping("/users/list")
-	public String usersList(Model model, @PathVariable("tenancyId") Long tenancyId) {
-		List<User> users = adminUserService.findAll(tenancyId);
+	public String usersList(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
+		List<User> users = adminUserService.findAll(tenancyAlias);
 		model.addAttribute("users", users);
-		model.addAttribute("tenancyId", tenancyId);
-		return "amap/admin/users/users-list";
+		model.addAttribute("tenancyAlias", tenancyAlias);
+		return "amap/back/users/users-list";
 	}
 	
 	
 	@GetMapping("/users/details/{userId}")
-	public String usersDetails(@PathVariable("userId") Long userId, Model model, @PathVariable("tenancyId") Long tenancyId) {
+	public String usersDetails(@PathVariable("userId") Long userId, Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 		User supplier = adminUserService.findById(userId);
 		model.addAttribute("user", supplier);
-		model.addAttribute("tenancyId", tenancyId);
+		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAllRoles());
-		return "amap/admin/users/users-details";
+		return "amap/back/users/users-details";
 	}
 	
 	@GetMapping("/users/form")
-	public String usersForm(Model model, @PathVariable("tenancyId") Long tenancyId) {
-		model.addAttribute("supplier", new User());
-		model.addAttribute("tenancyId", tenancyId);
+	public String usersForm(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
+		model.addAttribute("user", new User());
+		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAllRoles());
-		return "amap/admin/users/users-form";
+		return "amap/back/users/users-form";
 	}
 	
 	@PostMapping("/users/delete/{userId}")
@@ -65,58 +65,58 @@ public class AmapAdminUserController {
 	}
 	
 	@GetMapping("/users/generateFakes")
-	public String usersAddFake(@PathVariable("tenancyId") Long tenancyId) {
-		adminUserService.generateUsers(tenancyId);
-		return "redirect:/users/users-list";
+	public String usersAddFake(@PathVariable("tenancyAlias") String tenancyAlias) {
+		adminUserService.generateUsers(tenancyAlias);
+		return "redirect:/users-list";
 	}
 	
 	@GetMapping("/suppliers/list")
-	public String suppliersList(Model model, @PathVariable("tenancyId") Long tenancyId) {
-		List<User> suppliers = adminUserService.findSuppliers(tenancyId);
+	public String suppliersList(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
+		List<User> suppliers = adminUserService.findSuppliers(tenancyAlias);
 		model.addAttribute("suppliers", suppliers);
-		model.addAttribute("tenancyId", tenancyId);
-		return "amap/admin/users/suppliers-list";
+		model.addAttribute("tenancyAlias", tenancyAlias);
+		return "amap/back/users/suppliers-list";
 	}
 	
 
 	@GetMapping("/suppliers/form")
-	public String suppliersForm(Model model, @PathVariable("tenancyId") Long tenancyId) {
+	public String suppliersForm(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 		model.addAttribute("supplier", new User());
-		model.addAttribute("tenancyId", tenancyId);
+		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAllRoles());
-		return "amap/admin/users/suppliers-form";
+		return "amap/back/users/suppliers-form";
 	}
 	
 
 	@PostMapping("/suppliers/add")
-	public String SuppliersAdd(@ModelAttribute("supplierDTO") SupplierDTO supplierDTO, @PathVariable("tenancyId") Long tenancyId) {
-	    adminUserService.addTenancySupplier(supplierDTO, tenancyId);
-	    return "redirect:/suppliers/list";
+	public String SuppliersAdd(@ModelAttribute("supplierDTO") SupplierDTO supplierDTO, @PathVariable("tenancyAlias") String tenancyAlias) {
+	    adminUserService.addTenancySupplier(supplierDTO, tenancyAlias);
+	    return "redirect:list";
 	}
 	
 
 	@GetMapping("/suppliers/delete/{userId}")
-	public String suppliersHide(@PathVariable("userId") Long userId, @PathVariable("tenancyId") Long tenancyId) {
+	public String suppliersHide(@PathVariable("userId") Long userId, @PathVariable("tenancyAlias") String tenancyAlias) {
 		adminUserService.hideById(userId);
 		return "redirect:../list";
 	}
 	
 
 	@GetMapping("/suppliers/edit/{userId}")
-	public String suppliersEdit(@PathVariable("userId") Long userId, Model model, @PathVariable("tenancyId") Long tenancyId) {
+	public String suppliersEdit(@PathVariable("userId") Long userId, Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 		User supplier = adminUserService.findById(userId);
 		model.addAttribute("supplier", supplier);
-		model.addAttribute("tenancyId", tenancyId);
-		return "amap/admin/users/suppliers-edit";
+		model.addAttribute("tenancyAlias", tenancyAlias);
+		return "amap/back/users/suppliers-edit";
 	}
 	
 	@GetMapping("/suppliers/details/{userId}")
-	public String suppliersDetails(@PathVariable("userId") Long userId, Model model, @PathVariable("tenancyId") Long tenancyId) {
+	public String suppliersDetails(@PathVariable("userId") Long userId, Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 	    User supplier = adminUserService.findById(userId);
 	    model.addAttribute("user", supplier);
-		model.addAttribute("tenancyId", tenancyId);
+		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAllRoles());
-	    return "amap/admin/users/suppliers-details";
+	    return "amap/back/users/suppliers-details";
 	}
 	
 }

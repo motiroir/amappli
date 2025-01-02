@@ -1,6 +1,7 @@
 .theme-1.dark {
     --main-bg-color  : var(--green-900);
     --main-font-color: var(--orange-100);
+    --alt-font-color: var(--white-300);
 }
 
 .theme-1.dark .btn-900 {
@@ -18,7 +19,6 @@
     --bs-btn-disabled-color       : var(--white-300);
     --bs-btn-disabled-bg          : var(--black-400);
     --bs-btn-disabled-border-color: var(--green-900);
-    font-family                   : 'Nunito Sans';
 }
 
 .theme-1.dark .btn-outline-900 {
@@ -36,7 +36,6 @@
     --bs-btn-disabled-bg          : transparent;
     --bs-btn-disabled-border-color: var(--green-900);
     --bs-gradient                 : none;
-    font-family                   : 'Nunito Sans';
 }
 
 .theme-1.dark .btn-700 {
@@ -54,7 +53,6 @@
     --bs-btn-disabled-color       : var(--white-300);
     --bs-btn-disabled-bg          : var(--black-400);
     --bs-btn-disabled-border-color: var(--green-400);
-    font-family                   : 'Nunito Sans';
 }
 
 .theme-1.dark .btn-outline-700 {
@@ -72,7 +70,6 @@
     --bs-btn-disabled-bg          : transparent;
     --bs-btn-disabled-border-color: var(--green-900);
     --bs-gradient                 : none;
-    font-family                   : 'Nunito Sans';
 }
 
 .theme-1.dark .btn-500 {
@@ -90,7 +87,6 @@
     --bs-btn-disabled-color       : var(--green-900);
     --bs-btn-disabled-bg          : var(--black-400);
     --bs-btn-disabled-border-color: var(--orange-600);
-    font-family                   : 'Nunito Sans';
 }
 
 .theme-1.dark .btn-outline-500 {
@@ -108,7 +104,6 @@
     --bs-btn-disabled-bg          : transparent;
     --bs-btn-disabled-border-color: var(--orange-600);
     --bs-gradient                 : none;
-    font-family                   : 'Nunito Sans';
 }
 
 .theme-1.dark .btn-300 {
@@ -126,7 +121,6 @@
     --bs-btn-disabled-color       : var(--orange-100);
     --bs-btn-disabled-bg          : var(--black-400);
     --bs-btn-disabled-border-color: var(--orange-100);
-    font-family                   : 'Nunito Sans';
 }
 
 .theme-1.dark .btn-outline-300 {
@@ -144,7 +138,6 @@
     --bs-btn-disabled-bg          : transparent;
     --bs-btn-disabled-border-color: var(--orange-100);
     --bs-gradient                 : none;
-    font-family                   : 'Nunito Sans';
 }
 
 .theme-1.dark .btn-100 {
@@ -162,7 +155,6 @@
     --bs-btn-disabled-color       : var(--black-200);
     --bs-btn-disabled-bg          : var(--black-400);
     --bs-btn-disabled-border-color: var(--black-200);
-    font-family                   : 'Nunito Sans';
 }
 
 .theme-1.dark .btn-outline-100 {
@@ -180,7 +172,6 @@
     --bs-btn-disabled-bg          : transparent;
     --bs-btn-disabled-border-color: var(--white-300);
     --bs-gradient                 : none;
-    font-family                   : 'Nunito Sans';
 }
 
 .theme-1.dark .table{
@@ -190,12 +181,12 @@
 
 .theme-1.dark .bg-900 {
     background-color: var(--green-900) !important;
-    color           : var(--white-300) !important;
+    color           : var(--alt-font-color) !important;
 }
 
 .theme-1.dark .bg-700 {
     background-color: var(--green-700) !important;
-    color           : var(--white-300) !important;
+    color           : var(--alt-font-color) !important;
 }
 
 .theme-1.dark .bg-600 {
@@ -263,6 +254,10 @@
 
 .theme-1.dark .fc-main {
     color: var(--main-font-color) !important;
+}
+
+.theme-1.dark .fc-alt {
+    color: var(--alt-font-color) !important;
 }
 
 .theme-1.dark .fch-900:hover {

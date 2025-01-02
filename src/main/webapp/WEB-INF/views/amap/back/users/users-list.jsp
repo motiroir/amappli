@@ -9,33 +9,36 @@
 %>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Liste des adhérents</title>
 	<link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />" rel="stylesheet">
 	<link href="<c:url value='/resources/css/amap/common/sidebarAdmin.css' />" rel="stylesheet">
-	<link href="<c:url value='/resources/bootstrap/bootstrap-icons.css' />" rel="stylesheet">
+	<%-- <link href="<c:url value='/resources/bootstrap/bootstrap-icons.css' />" rel="stylesheet"> --%>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
+<body class="row theme-1 light">
 
-<body>
+	<header class="fc-main bg-main">
+	<!-- Inclusion du header -->
+			<jsp:include page="../common/headerAdmin.jsp" />
+	</header>
 	<!-- Inclusion de la sidebar -->
-	<nav>
-		<%@ include file="/WEB-INF/views/amap/back/common/sidebarAdmin.jsp" %>
-	</nav>
+		<jsp:include page="../common/sidebarAdmin.jsp" />
+
+<div id="map"></div>
 
 	<!-- Contenu principal -->
-	<div class="content" style="margin-left: 240px;">
-		<div class="container mt-5">
+	<div class="content col">
+		<div class="container-fluid mt-2">
 			<div class="row justify-content-center">
 				<div class="col-12">
 					<div class="search-bar d-flex align-items-center mb-3">
 						<!-- Nombre total d'adhérents -->
 						<div class="me-4" style="font-size: 22px; font-weight: 400;">
 							<span>${users.size()} éléments</span><br/>
-							<a href="<c:url value='/tenancies/${tenancyId}/amap/admin/backoffice/users/generateFakes' />">ajouter 20 users</a>
+							<a href="<c:url value='/${tenancyAlias}/backoffice/users/generateFakes' />">ajouter 20 users</a>
 						</div>
 						<!-- Dropdown pour trier -->
 						<div class="d-flex align-items-center me-4">
@@ -53,12 +56,12 @@
 					</div>
 					<div class="table-container d-flex justify-content-between align-items-center">
 						<h2 style="font-weight: bold;">Liste des adhérents</h2>
-						<a href="<c:url value='/tenancies/${tenancyId}/amap/admin/backoffice/users/form'/>" class="btn-create">
+						<a href="<c:url value='/${tenancyAlias}/backoffice/users/form'/>" class="btn-create">
 							<span class="icon">+ </span>Créer un adhérent
 						</a>
 					</div>
 					<!-- Mode tableau -->
-					<table class="table">
+					<table class="table table-striped">
 						<thead>
 							<tr>
 								<th>Nom</th>
@@ -73,7 +76,7 @@
 								<tr>
 									<td>${user.contactInfo.firstName}
 										${user.contactInfo.name}</td>
-									<td>${user.email}</td>
+									<td class="text-break">${user.email}</td>
 									<td>${user.creditBalance == null ? 0 : user.creditBalance}</td>
 									<td>
 										<c:forEach var="role" items="${user.roles}">
@@ -95,7 +98,7 @@
 									</td>
 									<td>
 										<div class='d-flex justify-content-start align-items-center'>
-											<a href="<c:url value='/tenancies/${tenancyId}/amap/admin/backoffice/users/details/${user.userId}' />"
+											<a href="<c:url value='/${tenancyAlias}/backoffice/users/details/${user.userId}' />"
 												class="btn-view"> <i class="bi bi-eye"></i>
 											</a>
 											<form:form action="delete/${user.userId}" style="display: inline;" onsubmit="return confirm('Voulez-vous vraiment supprimer l'adhérent ${user.contactInfo.firstName} ${user.contactInfo.name} ?');">
@@ -114,63 +117,9 @@
 		</div>
 	</div>
 	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
-	<script>
-		document.addEventListener("DOMContentLoaded", () => {
-			const searchBar = document.getElementById("searchBar");
-			const sortBy = document.getElementById("sortBy");
-			const tableBody = document.querySelector("tbody");
-
-			// Fonction pour trier les lignes
-			function sortRows(criteria) {
-				const rows = Array.from(tableBody.querySelectorAll("tr"));
-				rows.sort((a, b) => {
-					const valueA = getValue(a, criteria);
-					const valueB = getValue(b, criteria);
-
-					if (criteria === "priceAsc") {
-						return parseFloat(valueA) - parseFloat(valueB);
-					} else if (criteria === "priceDesc") {
-						return parseFloat(valueB) - parseFloat(valueA);
-					} else {
-						return valueA.localeCompare(valueB);
-					}
-				});
-
-				rows.forEach(row => tableBody.appendChild(row));
-			}
-
-			function getValue(row, criteria) {
-				if (criteria === "name") return row.cells[1].innerText.trim();
-				if (criteria === "producer") return row.cells[3].innerText.trim();
-				if (criteria === "priceAsc" || criteria === "priceDesc") return row.cells[4].innerText.trim().replace("€", "");
-				return "";
-			}
-
-			// Fonction pour filtrer les lignes
-			function filterRows(query) {
-				const rows = tableBody.querySelectorAll("tr");
-				rows.forEach(row => {
-					const name = row.cells[1].innerText.toLowerCase();
-					const producer = row.cells[3].innerText.toLowerCase();
-					if (name.includes(query) || producer.includes(query)) {
-						row.style.display = "";
-					} else {
-						row.style.display = "none";
-					}
-				});
-			}
-
-			// Événements
-			sortBy.addEventListener("change", () => {
-				sortRows(sortBy.value);
-			});
-
-			searchBar.addEventListener("input", () => {
-				const query = searchBar.value.toLowerCase();
-				filterRows(query);
-			});
-		});
-	</script>
+	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />"></script>
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script>
+	<script src="<c:url value='/resources/js/common/palette-swap.js' />"></script>
 </body>
 
 </html>

@@ -662,6 +662,18 @@ public class TenancyServiceImpl implements TenancyService {
 
         @Override
         public Tenancy getTenancyByAlias(String alias) {
+        	System.out.println(tenancyRepository.findByTenancyAlias(alias).get().getTenancyAlias());
                 return tenancyRepository.findByTenancyAlias(alias).get();
+        }
+
+        @Override
+        public HomePageContent getHomePageContentByTenancyAlias(String alias) {
+                Tenancy tenancy = tenancyRepository.findByTenancyAlias(alias).orElse(null);
+
+                if (tenancy != null) {
+                        return tenancy.getHomePageContent();
+                }
+
+                return null;
         }
 }

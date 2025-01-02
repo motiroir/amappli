@@ -41,7 +41,7 @@ request.setAttribute("currentPage", currentPage);
 						<!-- Nombre total de fournisseurs -->
 						<div class="me-4" style="font-size: 22px; font-weight: 400;">
 							<span>${suppliers.size()} éléments</span> <a
-								href="<c:url value='/tenancies/${tenancyId}/amap/admin/backoffice/users/generateFakes' />">ajouter 20 users</a>
+								href="<c:url value='/${tenancyAlias}/backoffice/users/generateFakes' />">ajouter 20 users</a>
 						</div>
 						<!-- Dropdown pour trier -->
 						<div class="d-flex align-items-center me-4">
@@ -63,7 +63,7 @@ request.setAttribute("currentPage", currentPage);
 					<div
 						class="table-container d-flex justify-content-between align-items-center">
 						<h2 style="font-weight: bold;">Liste des fournisseurs</h2>
-						<a href="<c:url value='/tenancies/${tenancyId}/amap/admin/backoffice/suppliers/form'/>"
+						<a href="<c:url value='/${tenancyAlias}/backoffice/suppliers/form'/>"
 							class="btn-create"> <span class="icon">+ </span>Ajouter un
 							fournisseur
 						</a>
@@ -86,10 +86,10 @@ request.setAttribute("currentPage", currentPage);
 									<td>
 										<div class='d-flex justify-content-start align-items-center'>
 											<a
-												href="<c:url value='/tenancies/${tenancyId}/amap/admin/backoffice/suppliers/details/${supplier.userId}' />"
+												href="<c:url value='/${tenancyAlias}/backoffice/suppliers/details/${supplier.userId}' />"
 												class="btn-view"> <i class="bi bi-eye"></i>
 											</a>
-											<a href="<c:url value='/tenancies/${tenancyId}/amap/admin/backoffice/suppliers/delete/${supplier.userId}' />"
+											<a href="<c:url value='/${tenancyAlias}/backoffice/suppliers/delete/${supplier.userId}' />"
 												class="btn btn-delete"	onclick="return confirm('Voulez-vous vraiment supprimer le fournisseur ${supplier.contactInfo.firstName} ${supplier.contactInfo.name} ?');">
 												<i class="bi bi-trash"></i>
 											</a>
