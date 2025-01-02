@@ -18,7 +18,9 @@
 
 <body class="${cssStyle} light ${font}-title ${font}-button">
 
+	<!-- the bootstrap classes on this div are used to have the footer correctly positioned at the bottom when the page is not full -->
 	<div class="d-flex flex-column min-vh-100">
+	
 		<header class="fc-main bg-main">
 			<jsp:include page="common/header-amap.jsp" />
 		</header>
