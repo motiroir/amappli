@@ -30,13 +30,11 @@ public class ContractServiceImpl implements ContractService {
 
 	private final ContractRepository contractRepository;
 	private final UserRepository userRepository;
-	private final AddressRepository addressRepository;
 	private final TenancyRepository tenancyRepository;
 
 	public ContractServiceImpl(TenancyRepository tenancyRepository, ContractRepository contractRepository, UserRepository userRepository, AddressRepository addressRepository) {
 		this.contractRepository = contractRepository;
 		this.userRepository = userRepository;
-		this.addressRepository = addressRepository;
 		this.tenancyRepository = tenancyRepository;
 	}
 
@@ -71,6 +69,13 @@ public class ContractServiceImpl implements ContractService {
         } else {
             contract.setUser(null); // Si aucun utilisateur n'est sélectionné
         }
+        
+        // Récupération de l'adresse associée à la tenancy
+        Address tenancyAddress = tenancy.getAddress();
+        if (tenancyAddress == null) {
+            throw new IllegalArgumentException("No address found for the tenancy.");
+        }
+        contract.setAddress(tenancyAddress);
 	 
 
 		contract.setContractName(contractDTO.getContractName());
@@ -121,8 +126,10 @@ public class ContractServiceImpl implements ContractService {
 	    existingContract.setDeliveryDay(DeliveryDay.valueOf(updatedContractDTO.getDeliveryDay()));
 	    existingContract.setQuantity(updatedContractDTO.getQuantity());
 
-	    // Ignorez l'utilisateur s'il n'est pas pertinent
-	    existingContract.setUser(null);
+
+	        // Conserver l'utilisateur précédent
+	        existingContract.setUser(null);
+	    
 
 	    // Gestion de l'image
 	    if (image != null && !image.isEmpty()) {

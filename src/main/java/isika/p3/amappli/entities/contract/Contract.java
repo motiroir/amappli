@@ -80,7 +80,7 @@ public class Contract {
 	private Integer quantity;
 	
     @ManyToOne
-    @JoinColumn(name = "address_id")
+    @JoinColumn(name = "addressId", nullable = true)
     private Address address;
 
     @ManyToOne

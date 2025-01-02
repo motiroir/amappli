@@ -75,6 +75,14 @@ public class ShopController {
             nextDeliveryDate = today.with(TemporalAdjusters.next(deliveryDayOfWeek));
         }
 
+        // Ajouter l'adresse associée au modèle
+        if (contract.getAddress() != null) {
+            model.addAttribute("address", contract.getAddress());
+        } else if (contract.getTenancy() != null && contract.getTenancy().getAddress() != null) {
+            model.addAttribute("address", contract.getTenancy().getAddress());
+        } else {
+            model.addAttribute("address", null); // Pas d'adresse trouvée
+        }
 
         model.addAttribute("contract", contract);
         model.addAttribute("nextDeliveryDate", nextDeliveryDate);

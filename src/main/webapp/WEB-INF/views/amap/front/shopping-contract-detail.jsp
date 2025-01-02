@@ -129,7 +129,8 @@
 						</p>
 
 						<p>
-							<strong>Producteur :</strong> ${contract.user.email}
+							<strong>Producteur :</strong>
+							${contract.user.companyDetails.companyName}
 						</p>
 						<p>
 							<strong>Prix :</strong> ${contract.contractPrice}€
@@ -152,6 +153,20 @@
 						<p>
 							<strong>Date de première livraison :</strong> ${nextDeliveryDate}
 						</p>
+						<c:if test="${not empty address}">
+							<p>
+								<strong>Adresse de récupération de la commande :</strong><br>
+								${address.line1} ${address.line2}, ${address.city}
+								(${address.postCode})
+							</p>
+						</c:if>
+						<c:if test="${empty address}">
+							<p>
+								<strong>Adresse de récupération de la commande :</strong><br>
+								Adresse indisponible.
+							</p>
+						</c:if>
+
 
 
 						<div class="quantity-selector">
@@ -168,7 +183,7 @@
 	<footer>
 		<jsp:include page="common/footer.jsp" />
 	</footer>
-		<script
+	<script
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 </body>
 </html>

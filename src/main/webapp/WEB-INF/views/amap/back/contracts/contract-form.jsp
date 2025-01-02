@@ -181,6 +181,16 @@ request.setAttribute("currentPage", currentPage);
 										<button type="submit" class="btn btn-custom btn-lg me-2"
 											style="width: 50%; height: 60px;">Ajouter</button>
 									</div>
+									<div class="mb-3">
+										<p>
+											<strong>La livraison au point de collecte se fera
+												obligatoirement à l'adresse suivante :</strong><br>
+											<c:if test="${not empty address}">
+            ${address.line1} ${address.line2}, ${address.city} (${address.postCode})
+        </c:if>
+										</p>
+									</div>
+
 								</div>
 							</div>
 						</form:form>

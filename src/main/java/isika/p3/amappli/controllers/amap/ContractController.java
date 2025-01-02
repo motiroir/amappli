@@ -29,6 +29,7 @@ import isika.p3.amappli.entities.contract.ContractWeight;
 import isika.p3.amappli.entities.contract.DeliveryDay;
 import isika.p3.amappli.entities.contract.DeliveryRecurrence;
 import isika.p3.amappli.entities.tenancy.Tenancy;
+import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
 import isika.p3.amappli.service.amap.AddressService;
@@ -87,6 +88,11 @@ public class ContractController {
 		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
 		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
 		model.addAttribute("users", users);
+	    // Récupérer l'adresse de la tenancy
+	    Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
+	            .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+	    Address address = tenancy.getAddress();
+	    model.addAttribute("address", address);
 		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		model.addAttribute("currentDate", currentDate);
 
