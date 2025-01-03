@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
@@ -21,40 +21,43 @@
 
 	<!-- the bootstrap classes on this div are used to have the footer correctly positioned at the bottom when the page is not full -->
 	<div class="d-flex flex-column min-vh-100">
-	
+
 		<header class="fc-main bg-main">
 			<jsp:include page="../common/header-amap.jsp" />
 		</header>
 		<div class="fc-main content flex-grow-1">
 			<div id="map"></div>
 			<div class="main-div">
-				
+
 				<table class="table">
-							<thead>
-								<tr>
-									<th>Numéro de commande</th>
-									<th>Date</th>
-									<th>Montant</th>
-									<th>Paiement</th>
-									<th>Status</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach var="order" items="${orders}">
-									<tr>
-										<td>${order.getOrderId()}</td>
-										<td>Date du paiement</td>
-										<td>${order.getTotalAmount()} €</td>
-										<td>Type de paiement</td>
-										<td>Status</td>
-										<td><a class="btn btn-100">Détails
-											</a></td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-				
+					<thead>
+						<tr>
+							<th>Numéro de commande</th>
+							<th>Date</th>
+							<th>Montant</th>
+							<th>Paiement</th>
+							<th>Status</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="order" items="${orders}">
+							<tr>
+								<td>${order.orderId}</td>
+								<td>${order.orderDate}</td>
+								<td>${order.totalAmount}€</td>
+								<td><c:if test="${order.orderPaid}">
+										Paiement en ligne
+									</c:if> <c:if test="${!order.orderPaid}">
+										Paiement sur place
+									</c:if></td>
+								<td>${order.orderStatus}</td>
+								<td><a class="btn btn-100">Détails </a></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+
 			</div>
 		</div>
 		<footer class="fc-main bg-main">
@@ -75,7 +78,7 @@
 		 */
 	</script>
 
-<%-- 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<%-- 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  --%>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script>
 </body>

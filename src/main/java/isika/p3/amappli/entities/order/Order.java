@@ -32,26 +32,21 @@ public class Order {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Getter
-	@Setter
+	@Getter @Setter
 	private Long orderId;
 
-	@Getter
-	@Setter
+	@Getter @Setter
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "userId", nullable = false)
 	private User user;
 	
-	@Getter
-	@Setter
+	@Getter @Setter
 	private double totalAmount;
 
-	@Getter
-	@Setter
+	@Getter @Setter
 	private Integer installmentCount;
 
-	@Getter
-	@Setter
+	@Getter @Setter
 	private double installmentAmount;
 	
 	@Getter @Setter
@@ -59,6 +54,10 @@ public class Order {
 	
 	@Getter @Setter
 	private OrderStatus orderStatus;
+	
+	@Getter @Setter
+	@Builder.Default
+	private boolean orderPaid = false;
 	
 	@Getter @Setter
 	@Builder.Default
@@ -81,11 +80,4 @@ public class Order {
 			return false;
 	}
 	
-	public boolean isOrderPaid() {
-		if (this.payments.isEmpty()) {
-			return false;
-		} else return true;
-	}
-	
-
 }

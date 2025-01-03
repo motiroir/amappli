@@ -57,7 +57,6 @@ public class OrderServiceImpl {
 
 	@Transactional
 	public Order createOrderFromCart(Long cartId) {
-		System.out.println("______________________________ METHOD CREATE FROM CART ________________________________");
 		// get cart by id, to change with user id
 		ShoppingCart cart = cartRepo.findById(cartId)
 				.orElseThrow(() -> new RuntimeException("Le panier est introuvable. "));
@@ -88,7 +87,6 @@ public class OrderServiceImpl {
 
 	@Transactional
 	public Order createOrderFromCartWithOnsitePayment(Long cartId) {
-		System.out.println("______________________________ WITH ON SITE PAYMENT METHOD ________________________________");
 		Order order = createOrderFromCart(cartId);
 		// save order and order items by cascade
 		orderRepo.save(order);
@@ -98,20 +96,24 @@ public class OrderServiceImpl {
 
 	@Transactional
 	public Order createOrderFromCartWithOnlinePayment(Long cartId) {
-		System.out.println("______________________________ WITH ONLINE PAYMENT METHOD ________________________________");
 		Order order = createOrderFromCart(cartId);
 		Payment payment = Payment.builder().paymentType(PaymentType.card).paymentDate(LocalDateTime.now())
 				.paymentAmount(BigDecimal.valueOf(order.getTotalAmount())).build();
 
+		order.setOrderPaid(true);
 		order.getPayments().add(payment);
 		payment.setOrder(order);
+		// save order and order items and payment by cascade
 		orderRepo.save(order);
-		System.out.println("____________________________PAYMENTS______________________________" + order.getPayments());
 		return order;
 	}
 
 	public List<Order> getListOrdersByUser(Long userId) {
 		User user = userRepo.findUserWithOrders(userId);
+		for (Order order : user.getOrders()) {
+			orderRepo.findOrderWithItems(order.getOrderId());
+			orderRepo.findOrderWithPayments(order.getOrderId());
+		}
 		return user.getOrders();
 	}
 
