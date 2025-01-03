@@ -45,7 +45,7 @@
 									<tr>
 										<td>${order.getOrderId()}</td>
 										<td>Date du paiement</td>
-										<td>${order.getTotalAmount()}</td>
+										<td>${order.getTotalAmount()} €</td>
 										<td>Type de paiement</td>
 										<td>Status</td>
 										<td><a class="btn btn-100">Détails

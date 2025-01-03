@@ -66,21 +66,7 @@ public class ShoppingCartController {
         }
         return "redirect:/{tenancyAlias}/cart/" + cartId;
     }
-    
-    @PostMapping("/{cartId}/createOrder")
-    public String createOrder(
-    		@PathVariable("cartId") Long cartId,  @PathVariable("tenancyAlias") String alias, 
-            @ModelAttribute("action") String action) {
-    	if ("OrderWithPayment".equals(action)) {
-    		orderService.createOrderFromCart(cartId);
-    	} else if ("OrderWithoutPayment".equals(action)) {
-    		// to change when ready
-    		orderService.createOrderFromCart(cartId);
-    	}
-    	return "redirect:/{tenancyAlias}/cart/" + cartId;
-    }
-    
-    
+
     
     @GetMapping("/{cartId}/init")
     public String initializeCart(@PathVariable("cartId") Long cartId, @PathVariable("tenancyAlias") String alias) {

@@ -79,7 +79,7 @@
 								<td><h2 class="fw-bold">${total}</h2></td>
 							</tr>
 
-							<form:form method="post" action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cart.shoppingCartId}/createOrder">
+							<form:form method="post" action="${pageContext.request.contextPath}/${tenancyAlias}/order/${cart.shoppingCartId}/createOrder">
 								<tr>
 									<td colspan="2"><button class="btn btn-500 btn-order"
 											type="submit" name="action" value="OrderWithPayment">Passer au paiement</button></td>

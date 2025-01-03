@@ -1,15 +1,23 @@
 package isika.p3.amappli.service.amap.impl;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.hibernate.type.descriptor.java.LocalDateTimeJavaType;
 import org.springframework.stereotype.Service;
 
 import isika.p3.amappli.entities.order.Order;
 import isika.p3.amappli.entities.order.OrderItem;
+import isika.p3.amappli.entities.order.OrderStatus;
 import isika.p3.amappli.entities.order.Shoppable;
 import isika.p3.amappli.entities.order.ShoppingCart;
+import isika.p3.amappli.entities.order.ShoppingCartItem;
+import isika.p3.amappli.entities.payment.Payment;
+import isika.p3.amappli.entities.payment.PaymentType;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.repo.amap.OrderRepository;
 import isika.p3.amappli.repo.amap.ShoppingCartRepository;
@@ -23,7 +31,7 @@ public class OrderServiceImpl {
 
 	@PersistenceContext
 	private EntityManager entityManager;
-	
+
 	private final OrderRepository orderRepo;
 	private final ShoppingCartRepository cartRepo;
 	private final UserRepository userRepo;
@@ -36,8 +44,20 @@ public class OrderServiceImpl {
 		this.userRepo = userRepo;
 	}
 
+	public List<OrderItem> copyCartItemsListToOrderItemsList(List<ShoppingCartItem> cartItems) {
+		return cartItems.stream().map(cartItem -> {
+			// deals with issue on copying the shoppable attached to cartItem to get to
+			// attach to the orderItem
+			Shoppable attachedShoppable = entityManager.merge(cartItem.getShoppable());
+			// builds all orderItems form cartItems
+			return OrderItem.builder().quantity(cartItem.getQuantity()).unitPrice(attachedShoppable.getPrice())
+					.total(cartItem.getQuantity() * attachedShoppable.getPrice()).shoppable(attachedShoppable).build();
+		}).collect(Collectors.toList());
+	}
+
 	@Transactional
 	public Order createOrderFromCart(Long cartId) {
+		System.out.println("______________________________ METHOD CREATE FROM CART ________________________________");
 		// get cart by id, to change with user id
 		ShoppingCart cart = cartRepo.findById(cartId)
 				.orElseThrow(() -> new RuntimeException("Le panier est introuvable. "));
@@ -46,48 +66,51 @@ public class OrderServiceImpl {
 		}
 
 		// change cartItems into orderItems
-		List<OrderItem> orderItems = cart.getShoppingCartItems().stream()
-			    .map(cartItem -> {
-			        // deals with issue on copying the shoppable attached to cartItem to get to attach to the orderItem
-			        Shoppable attachedShoppable = entityManager.merge(cartItem.getShoppable());
-			        // builds all orderItems form cartItems
-			        return OrderItem.builder()
-			            .quantity(cartItem.getQuantity())
-			            .unitPrice(attachedShoppable.getPrice())
-			            .total(cartItem.getQuantity() * attachedShoppable.getPrice())
-			            .shoppable(attachedShoppable)
-			            .build();
-			    })
-				.collect(Collectors.toList());
+		List<OrderItem> orderItems = copyCartItemsListToOrderItemsList(cart.getShoppingCartItems());
 
-		
 		Double totalAmountFromItems = orderItems.stream().mapToDouble(OrderItem::getTotal).sum();
 		// create order
-		Order order = Order.builder()
-				.orderItems(new ArrayList<OrderItem>())
-				.user(cart.getUser())
-				.totalAmount(totalAmountFromItems)
-				.installmentCount(1)
-				.installmentAmount(totalAmountFromItems/1)
-				.build();
+		Order order = Order.builder().orderItems(new ArrayList<OrderItem>()).user(cart.getUser())
+				.totalAmount(totalAmountFromItems).installmentCount(1).installmentAmount(totalAmountFromItems / 1)
+				.orderDate(LocalDate.now()).orderStatus(OrderStatus.PENDING).build();
 
 		// attache order to items and vice-versa
 		for (OrderItem item : orderItems) {
-	        item.setOrder(order);
-	        order.getOrderItems().add(item);
-	    }
+			item.setOrder(order);
+			order.getOrderItems().add(item);
+		}
 
-		// save order and order items by cascade
-		orderRepo.save(order);
-		
 		// empty shoppingCart and save
 		cart.getShoppingCartItems().clear();
 		cartRepo.save(cart);
+		return order;
+	}
+
+	@Transactional
+	public Order createOrderFromCartWithOnsitePayment(Long cartId) {
+		System.out.println("______________________________ WITH ON SITE PAYMENT METHOD ________________________________");
+		Order order = createOrderFromCart(cartId);
+		// save order and order items by cascade
+		orderRepo.save(order);
 
 		return order;
 	}
-	
-	public List<Order> getListOrdersByUser(Long userId){
+
+	@Transactional
+	public Order createOrderFromCartWithOnlinePayment(Long cartId) {
+		System.out.println("______________________________ WITH ONLINE PAYMENT METHOD ________________________________");
+		Order order = createOrderFromCart(cartId);
+		Payment payment = Payment.builder().paymentType(PaymentType.card).paymentDate(LocalDateTime.now())
+				.paymentAmount(BigDecimal.valueOf(order.getTotalAmount())).build();
+
+		order.getPayments().add(payment);
+		payment.setOrder(order);
+		orderRepo.save(order);
+		System.out.println("____________________________PAYMENTS______________________________" + order.getPayments());
+		return order;
+	}
+
+	public List<Order> getListOrdersByUser(Long userId) {
 		User user = userRepo.findUserWithOrders(userId);
 		return user.getOrders();
 	}

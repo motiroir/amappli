@@ -1,8 +1,11 @@
 package isika.p3.amappli.entities.order;
 
 import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import isika.p3.amappli.entities.payment.Payment;
 import isika.p3.amappli.entities.user.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -13,7 +16,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -51,6 +53,17 @@ public class Order {
 	@Getter
 	@Setter
 	private double installmentAmount;
+	
+	@Getter @Setter
+	private LocalDate orderDate;
+	
+	@Getter @Setter
+	private OrderStatus orderStatus;
+	
+	@Getter @Setter
+	@Builder.Default
+	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Payment> payments = new ArrayList<Payment>();
 
 	@Getter @Setter
 	@Builder.Default
@@ -67,5 +80,12 @@ public class Order {
 		} else
 			return false;
 	}
+	
+	public boolean isOrderPaid() {
+		if (this.payments.isEmpty()) {
+			return false;
+		} else return true;
+	}
+	
 
 }
