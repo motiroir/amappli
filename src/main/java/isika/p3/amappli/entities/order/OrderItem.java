@@ -36,7 +36,7 @@ public class OrderItem {
 
 	@Getter
 	@Setter
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "shoppableId", nullable = false)
 	private Shoppable shoppable;
 

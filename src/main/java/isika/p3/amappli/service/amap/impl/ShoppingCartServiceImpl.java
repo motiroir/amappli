@@ -148,7 +148,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         productMockRepo.save(product2);
         productMockRepo.save(product3);
 
-        User user = userRepo.findById(3L).orElse(null);
+        User user = userRepo.findById(5L).orElse(null);
         ShoppingCart cart = ShoppingCart.builder()
         		.user(user)
         		.build();
