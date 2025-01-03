@@ -7,14 +7,21 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import isika.p3.amappli.entities.contract.DeliveryDay;
 import isika.p3.amappli.entities.contract.DeliveryRecurrence;
+import isika.p3.amappli.entities.order.Shoppable;
+import isika.p3.amappli.entities.tenancy.Tenancy;
+import isika.p3.amappli.entities.user.Address;
+import isika.p3.amappli.entities.user.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
 import lombok.AllArgsConstructor;
@@ -29,7 +36,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Table(name = "products")
-public class Product {
+public class Product extends Shoppable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,4 +72,44 @@ public class Product {
 	
 	@Enumerated(EnumType.STRING)
 	private DeliveryRecurrence deliveryRecurrence;
+	
+    @ManyToOne
+    @JoinColumn(name = "addressId", nullable = true)
+    private Address address;
+
+    @ManyToOne
+    @JoinColumn(name = "tenancyId", nullable = false)
+    private Tenancy tenancy;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name="userId", nullable = true)
+    private User user;
+
+
+    @Column(nullable = false)
+    private boolean shoppable = true;
+
+
+	@Override
+	public int getStock() {
+		return productStock != null ? productStock : 0;
+	}
+
+
+	@Override
+	public double getPrice() {
+		return productPrice != null ? productPrice.doubleValue() : 0.0;
+	}
+
+
+	@Override
+	public String getInfo() {
+		return productName != null ? productName : "N/A";
+	}
+
+
+	@Override
+	public String getImage() {
+		return imageType + (imageData != null ? ", data available" : "");
+	}
 }

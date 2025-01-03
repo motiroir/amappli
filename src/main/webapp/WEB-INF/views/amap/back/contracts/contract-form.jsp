@@ -190,7 +190,6 @@ request.setAttribute("currentPage", currentPage);
         </c:if>
 										</p>
 									</div>
-
 								</div>
 							</div>
 						</form:form>

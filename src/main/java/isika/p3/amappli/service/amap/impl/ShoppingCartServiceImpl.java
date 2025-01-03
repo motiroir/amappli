@@ -29,9 +29,17 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	
 	
 	// get shopping cart by id or create new 
-    public ShoppingCart getOrCreateCart(Long cartId) {
-        return shoppingCartRepo.findById(cartId).orElse(new ShoppingCart());
-    }
+//    public ShoppingCart getOrCreateCart(Long cartId) {
+//        return shoppingCartRepo.findById(cartId).orElse(new ShoppingCart());
+//    }
+	public ShoppingCart getOrCreateCart(Long cartId) {
+	    return shoppingCartRepo.findById(cartId).orElseGet(() -> {
+	        ShoppingCart newCart = new ShoppingCart();
+	        shoppingCartRepo.save(newCart);
+	        return newCart;
+	    });
+	}
+
     
     @Transactional
     public ShoppingCart getShoppingCartById(Long id) {

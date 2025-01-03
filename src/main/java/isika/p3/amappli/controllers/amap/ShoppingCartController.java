@@ -43,6 +43,7 @@ public class ShoppingCartController {
         return "amap/front/shopping-cart";
     }
 
+
     @PostMapping("/{cartId}/add")
     public String addItem(@PathVariable("cartId") Long cartId, @PathVariable("tenancyAlias") String alias,
                           @RequestParam("shoppableId") Long shoppableId,

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
 String currentMainMenu = "products"; // Détermine la rubrique active
 String currentPage = "products"; // Détermine la sous-rubrique active
@@ -14,9 +14,15 @@ request.setAttribute("currentPage", currentPage);
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ajouter un Produit</title>
-<link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />" rel="stylesheet">
-<link href="<c:url value='/resources/css/amap/common/sidebarAdmin.css' />" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />"
+	rel="stylesheet">
+<link
+	href="<c:url value='/resources/css/amap/common/sidebarAdmin.css' />"
+	rel="stylesheet">
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+	rel="stylesheet">
 <style>
 .header-container {
 	display: flex;
@@ -25,39 +31,63 @@ request.setAttribute("currentPage", currentPage);
 }
 </style>
 </head>
-<body>
-	<div>
-		<%@ include file="/WEB-INF/views/amap/back/common/sidebarAdmin.jsp"%>
-	</div>
-	<div class="content" style="margin-left: 150px;">
-		<div class="container mt-5">
+<body class="row theme-1 light">
+	<header class="fc-main bg-main">
+		<!-- Inclusion du header -->
+		<jsp:include page="../common/headerAdmin.jsp" />
+	</header>
+	<jsp:include page="../common/sidebarAdmin.jsp" />
+	<div class="content col">
+		<div class="container-fluid mt-5">
 			<div class="row justify-content-center">
 				<div class="col-lg-10">
 					<div class="form-container">
 						<div class="header-container">
-							<a href="<c:url value='/amap/products/list' />" class="btn-back">
-								<i class="bi bi-arrow-left-circle"></i>
+							<a
+								href="<c:url value='/${tenancyAlias}/backoffice/products/list' />"
+								class="btn-back"> <i class="bi bi-arrow-left-circle"></i>
 							</a>
-							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Ajouter un produit</h2>
+							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Ajouter
+								un produit</h2>
 						</div>
-						<form:form method="POST" action="/Amappli/amap/products/add" enctype="multipart/form-data">
+						<form:form method="POST"
+							action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/products/add"
+							enctype="multipart/form-data">
+							<input type="hidden" id="tenancyAlias" name="tenancyAlias"
+								value="${tenancyAlias}">
 							<div class="row">
 								<!-- Première colonne -->
 								<div class="col-md-4">
 									<div class="mb-3">
-										<label for="productName" class="form-label">Nom du produit</label>
-										<input type="text" class="form-control" id="productName" name="productName" placeholder="Exemple : Miel d'acacia">
+										<label for="productName" class="form-label">Nom du
+											produit</label> <input type="text" class="form-control"
+											id="productName" name="productName"
+											placeholder="Exemple : Miel d'acacia">
 									</div>
-																		<div class="mb-3">
-										<label for="productDescription" class="form-label">Description du produit</label>
+									<div class="mb-3">
+										<label for="userId" class="form-label">Sélectionnez un
+											fournisseur :</label> <select id="userId" name="userId"
+											class="form-select">
+											<option value="" selected>Choisir un fournisseur</option>
+											<c:forEach var="user" items="${users}">
+												<option value="${user.userId}">
+													${user.companyDetails.companyName}</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="mb-3">
+										<label for="productDescription" class="form-label">Description
+											du produit</label>
 										<textarea class="form-control" id="productDescription"
 											name="productDescription" rows="8"
 											placeholder="Pour donner envie aux adhérents, indiquez les ingrédients, la recette, la méthode de préparation etc..."></textarea>
 									</div>
 									<div class="mb-3">
-										<label for="productPrice" class="form-label">Prix de vente</label>
+										<label for="productPrice" class="form-label">Prix de
+											vente</label>
 										<div class="input-group">
-											<input type="number" class="form-control" id="productPrice" name="productPrice" step="0.01" placeholder="Prix">
+											<input type="number" class="form-control" id="productPrice"
+												name="productPrice" step="0.01" placeholder="Prix">
 											<span class="input-group-text">€</span>
 										</div>
 									</div>
@@ -65,19 +95,23 @@ request.setAttribute("currentPage", currentPage);
 
 								<!-- Deuxième colonne -->
 								<div class="col-md-4">
-																	<div class="mb-3">
-										<label for="productStock" class="form-label">Quantité en stock</label>
-										<input type="number" class="form-control" id="productStock" name="productStock" placeholder="Stock disponible">
+									<div class="mb-3">
+										<label for="productStock" class="form-label">Quantité
+											en stock</label> <input type="number" class="form-control"
+											id="productStock" name="productStock"
+											placeholder="Stock disponible">
 									</div>
 									<div class="mb-3">
-										<label for="fabricationDate" class="form-label">Date de fabrication</label>
-										<input type="date" class="form-control" id="fabricationDate" name="fabricationDate">
+										<label for="fabricationDate" class="form-label">Date
+											de fabrication</label> <input type="date" class="form-control"
+											id="fabricationDate" name="fabricationDate">
 									</div>
 									<div class="mb-3">
-										<label for="expirationDate" class="form-label">Date d'expiration</label>
-										<input type="date" class="form-control" id="expirationDate" name="expirationDate">
+										<label for="expirationDate" class="form-label">Date
+											d'expiration</label> <input type="date" class="form-control"
+											id="expirationDate" name="expirationDate">
 									</div>
-																		<div class="mb-3">
+									<div class="mb-3">
 										<label for="deliveryRecurrence" class="form-label">Fréquence
 											de livraison au point de collecte</label> <select
 											class="form-select form-control" id="deliveryRecurrence"
@@ -109,14 +143,25 @@ request.setAttribute("currentPage", currentPage);
 								<div class="col-md-4">
 									<div class="mb-3">
 										<label for="image" class="form-label">Photo du produit</label>
-										<input type="file" class="form-control" id="image" name="image" accept="image/png,image/jpeg,image/svg">
+										<input type="file" class="form-control" id="image"
+											name="image" accept="image/png,image/jpeg,image/svg">
 									</div>
 									<div class="mb-3 text-center">
-										<img src="https://via.placeholder.com/150" alt="Aperçu du produit" class="image-preview">
+										<img src="https://via.placeholder.com/150"
+											alt="Aperçu du produit" class="image-preview">
 									</div>
 									<div class="text-center">
-										<button type="submit" class="btn btn-custom btn-lg me-2" style="width: 50%; height: 60px;">Ajouter</button>
-										<a href="/Amappli/amap/products/list" class="btn btn-secondary btn-lg" style="width: 40%; height: 60px; color: black; background-color: white;">Annuler</a>
+										<button type="submit" class="btn btn-custom btn-lg me-2"
+											style="width: 50%; height: 60px;">Ajouter</button>
+									</div>
+									<div class="mb-3">
+										<p>
+											<strong>La livraison au point de collecte se fera
+												obligatoirement à l'adresse suivante :</strong><br>
+											<c:if test="${not empty address}">
+            ${address.line1} ${address.line2}, ${address.city} (${address.postCode})
+        </c:if>
+										</p>
 									</div>
 								</div>
 							</div>
@@ -126,27 +171,38 @@ request.setAttribute("currentPage", currentPage);
 			</div>
 		</div>
 	</div>
-	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
-	<script src="<c:url value='/resources/js/product-form.js' />"></script>
-	<script>document.addEventListener("DOMContentLoaded", function () {
-    const fileInput = document.getElementById("image");
-    const previewImage = document.querySelector(".image-preview");
+	<script
+		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
+	<script
+		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
+		type="text/javascript"></script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			const fileInput = document.getElementById("image");
+			const previewImage = document.querySelector(".image-preview");
 
-    if (fileInput && previewImage) {
-        fileInput.addEventListener("change", function (event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
+			if (fileInput && previewImage) {
+				fileInput.addEventListener("change", function(event) {
+					const file = event.target.files[0];
+					if (file) {
+						const reader = new FileReader();
 
-                reader.onload = function (e) {
-                    previewImage.src = e.target.result; // Met à jour l'URL de l'image
-                };
+						reader.onload = function(e) {
+							previewImage.src = e.target.result; // Met à jour l'URL de l'image
+						};
 
-                reader.readAsDataURL(file); // Lit le fichier comme une URL de données
-            }
-        });
-    }
-});</script>
-	
+						reader.readAsDataURL(file); // Lit le fichier comme une URL de données
+					}
+				});
+			}
+		});
+	</script>
+
 </body>
 </html>

@@ -44,7 +44,7 @@
 									<tr>
 										<td>${item.shoppable.getImage()}</td>
 										<td>${item.shoppable.getInfo()}</td>
-										<td>${item.shoppable.getPrice()}</td>
+										<td>${item.shoppable.getPrice()} €</td>
 										<td><div class="btn btn-100">
 												<form:form method="post"
 													action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cart.shoppingCartId}/updateQuantity/${item.shoppingItemId}">
@@ -54,7 +54,7 @@
 												</form:form>
 											</div></td>
 
-										<td>${item.totalPrice}</td>
+										<td>${item.totalPrice} €</td>
 									</tr>
 								</c:forEach>
 							</tbody>

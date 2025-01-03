@@ -28,14 +28,17 @@ request.setAttribute("currentPage", currentPage);
 }
 </style>
 </head>
-<body>
+<body class="row theme-1 light">
+	<header class="fc-main bg-main">
+		<!-- Inclusion du header -->
+		<jsp:include page="../common/headerAdmin.jsp" />
+	</header>
 	<!-- Inclusion de la sidebar -->
-	<div>
-		<%@ include file="/WEB-INF/views/amap/back/common/sidebarAdmin.jsp"%>
-	</div>
+	<jsp:include page="../common/sidebarAdmin.jsp" />
+
 
 	<!-- Contenu principal -->
-	<div class="content" style="margin-left: 240px;">
+	<div class="content col">
 		<div class="container mt-5">
 			<div class="row justify-content-center">
 				<div class="col-12">
@@ -63,7 +66,7 @@ request.setAttribute("currentPage", currentPage);
 					<div
 						class="table-container d-flex justify-content-between align-items-center">
 						<h2 style="font-weight: bold;">Liste des produits</h2>
-						<a href="<c:url value='/amap/products/form' />"
+						<a href="<c:url value='/${tenancyAlias}/backoffice/products/form' />"
 							class="btn-create"> <span class="icon">+</span>Créer un
 							produit
 						</a>
@@ -89,15 +92,15 @@ request.setAttribute("currentPage", currentPage);
 												style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover;">
 											</c:if></td>
 									<td>${product.productName}</td>
-									<td class="d-none d-lg-table-cell">Non défini</td>
+									<td class="d-none d-lg-table-cell">${product.user.companyDetails.companyName}</td>
 									<td>${product.productPrice}€</td>
 									<td>
 										<div class='d-flex justify-content-start align-items-center'>
 											<a
-												href="<c:url value='/amap/products/detail/${product.id}' />"
+												href="<c:url value='${tenancyAlias}/backoffice/products/detail/${product.id}' />"
 												class="btn-view"> <i class="bi bi-eye"></i>
 											</a>
-											<form:form method="POST" action="${pageContext.request.contextPath}/amap/products/delete/${product.id}" style="display: inline;">
+											<form:form method="POST" action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/products/delete/${product.id}" style="display: inline;">
 												<button type="submit" class="btn-delete"
 													onclick="return confirm('Voulez-vous vraiment supprimer le produit ${product.productName} ?');">
 													<i class="bi bi-trash"></i>
@@ -114,8 +117,14 @@ request.setAttribute("currentPage", currentPage);
 		</div>
 	</div>
 	<script
-		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
-		<script>
+		src="<d:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"
+		type="text/javascript"></script>
+	<script src="<d:url value='/resources/js/amap/admin/user-list.js' />"
+		type="text/javascript"></script>
+	<script src="<d:url value='/resources/js/common/theme-swap.js' />"
+		type="text/javascript"></script>
+	<script src="<d:url value='/resources/js/common/palette-swap.js' />"
+		type="text/javascript"></script>
     document.addEventListener("DOMContentLoaded", () => {
         const searchBar = document.getElementById("searchBar");
         const sortBy = document.getElementById("sortBy");

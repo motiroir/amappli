@@ -12,16 +12,26 @@ import isika.p3.amappli.dto.amap.ProductDTO;
 import isika.p3.amappli.entities.contract.DeliveryDay;
 import isika.p3.amappli.entities.contract.DeliveryRecurrence;
 import isika.p3.amappli.entities.product.Product;
+import isika.p3.amappli.entities.tenancy.Tenancy;
+import isika.p3.amappli.entities.user.Address;
+import isika.p3.amappli.entities.user.User;
+import isika.p3.amappli.repo.amap.AddressRepository;
 import isika.p3.amappli.repo.amap.ProductRepository;
+import isika.p3.amappli.repo.amap.UserRepository;
+import isika.p3.amappli.repo.amappli.TenancyRepository;
 import isika.p3.amappli.service.amap.ProductService;
 
 @Service
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+	private final UserRepository userRepository;
+	private final TenancyRepository tenancyRepository;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, UserRepository userRepository, AddressRepository addressRepository, TenancyRepository tenancyRepository) {
         this.productRepository = productRepository;
+		this.userRepository = userRepository;
+		this.tenancyRepository = tenancyRepository;
     }
 
     @Override
@@ -40,8 +50,28 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void save(ProductDTO productDTO) {
+    public void save(ProductDTO productDTO, String tenancyAlias) {
         Product product = new Product();
+        
+        Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
+                .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+        product.setTenancy(tenancy);
+        
+        // Récupération de l'utilisateur sélectionné s'il y a un ID d'utilisateur
+        if (productDTO.getUserId() != null) {
+            User user = userRepository.findById(productDTO.getUserId())
+                    .orElseThrow(() -> new IllegalArgumentException("User not found for ID: " + productDTO.getUserId()));
+            product.setUser(user);
+        } else {
+            product.setUser(null); // Si aucun utilisateur n'est sélectionné
+        }
+        
+        // Récupération de l'adresse associée à la tenancy
+        Address tenancyAddress = tenancy.getAddress();
+        if (tenancyAddress == null) {
+            throw new IllegalArgumentException("No address found for the tenancy.");
+        }
+        product.setAddress(tenancyAddress);
 
         product.setProductName(productDTO.getProductName());
         product.setProductPrice(productDTO.getProductPrice());
@@ -64,7 +94,7 @@ public class ProductServiceImpl implements ProductService {
                 byte[] imageBytes = productDTO.getImage().getBytes();
                 product.setImageData(Base64.getEncoder().encodeToString(imageBytes));
             } catch (IOException e) {
-                throw new RuntimeException("Erreur lors du traitement de l'image", e);
+            	e.printStackTrace();
             }
         }
 
@@ -73,7 +103,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
 	@Override
-	public void updateProduct(ProductDTO updatedProductDTO, MultipartFile image) {
+	public void updateProduct(ProductDTO updatedProductDTO, MultipartFile image, String tenancyAlias) {
 
 		Product existingProduct = productRepository.findById(updatedProductDTO.getId()).orElse(null);
 	
@@ -105,5 +135,23 @@ public class ProductServiceImpl implements ProductService {
 	    // Sauvegarde du produit mis à jour
 	    productRepository.save(existingProduct);
 	
+	}
+
+	@Override
+	public List<Product> findAll(Long tenancyId) {
+		return ((List<Product>) productRepository.findAll()).stream()
+				.filter(u -> u.getTenancy().getTenancyId() == tenancyId).toList();
+	}
+
+	@Override
+	public List<Product> findAll(String tenancyAlias) {
+		return productRepository.findByTenancyAlias(tenancyAlias);
+	}
+
+	@Override
+	public List<Product> findShoppableProductsByTenancy(Tenancy tenancy) {
+	    return productRepository.findByTenancy(tenancy).stream()
+	            .filter(Product::isShoppable) // Garder uniquement les contrats shoppables
+	            .toList();
 	}
 }
