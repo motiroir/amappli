@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import isika.p3.amappli.dto.amap.SupplierDTO;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.service.amap.AmapAdminUserService;
+import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.RoleService;
 
 
@@ -26,10 +27,14 @@ public class AmapAdminUserController {
 	
     @Autowired
     private final RoleService roleService;
+    
+    @Autowired
+    private final GraphismService graphismService;
 	
-	public AmapAdminUserController(AmapAdminUserService adminUserService, RoleService roleService) {
+	public AmapAdminUserController(AmapAdminUserService adminUserService, RoleService roleService, GraphismService graphismService) {
 		this.adminUserService = adminUserService;
 		this.roleService = roleService;
+		this.graphismService = graphismService;
 	}
 
 	@GetMapping("/users/list")
@@ -37,6 +42,11 @@ public class AmapAdminUserController {
 		List<User> users = adminUserService.findAll(tenancyAlias);
 		model.addAttribute("users", users);
 		model.addAttribute("tenancyAlias", tenancyAlias);
+        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
+        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
+        model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
+        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
+        model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
 		return "amap/back/users/users-list";
 	}
 	
@@ -47,6 +57,11 @@ public class AmapAdminUserController {
 		model.addAttribute("user", supplier);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAllRoles());
+        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
+        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
+        model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
+        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
+        model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
 		return "amap/back/users/users-details";
 	}
 	
@@ -55,6 +70,11 @@ public class AmapAdminUserController {
 		model.addAttribute("user", new User());
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAllRoles());
+        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
+        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
+        model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
+        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
+        model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
 		return "amap/back/users/users-form";
 	}
 	
@@ -67,7 +87,7 @@ public class AmapAdminUserController {
 	@GetMapping("/users/generateFakes")
 	public String usersAddFake(@PathVariable("tenancyAlias") String tenancyAlias) {
 		adminUserService.generateUsers(tenancyAlias);
-		return "redirect:/users-list";
+		return "redirect:/list";
 	}
 	
 	@GetMapping("/suppliers/list")
@@ -75,6 +95,11 @@ public class AmapAdminUserController {
 		List<User> suppliers = adminUserService.findSuppliers(tenancyAlias);
 		model.addAttribute("suppliers", suppliers);
 		model.addAttribute("tenancyAlias", tenancyAlias);
+        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
+        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
+        model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
+        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
+        model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
 		return "amap/back/users/suppliers-list";
 	}
 	
@@ -84,6 +109,11 @@ public class AmapAdminUserController {
 		model.addAttribute("supplier", new User());
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAllRoles());
+        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
+        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
+        model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
+        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
+        model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
 		return "amap/back/users/suppliers-form";
 	}
 	
@@ -107,6 +137,11 @@ public class AmapAdminUserController {
 		User supplier = adminUserService.findById(userId);
 		model.addAttribute("supplier", supplier);
 		model.addAttribute("tenancyAlias", tenancyAlias);
+        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
+        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
+        model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
+        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
+        model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
 		return "amap/back/users/suppliers-edit";
 	}
 	
@@ -116,6 +151,11 @@ public class AmapAdminUserController {
 	    model.addAttribute("user", supplier);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAllRoles());
+        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
+        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
+        model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
+        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
+        model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
 	    return "amap/back/users/suppliers-details";
 	}
 	

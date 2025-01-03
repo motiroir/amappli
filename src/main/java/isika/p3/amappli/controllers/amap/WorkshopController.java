@@ -3,7 +3,6 @@ package isika.p3.amappli.controllers.amap;
 import java.beans.PropertyEditorSupport;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -18,11 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import isika.p3.amappli.dto.amap.ProductDTO;
 import isika.p3.amappli.dto.amap.WorkshopDTO;
-import isika.p3.amappli.entities.contract.DeliveryDay;
-import isika.p3.amappli.entities.contract.DeliveryRecurrence;
-import isika.p3.amappli.entities.product.Product;
 import isika.p3.amappli.entities.workshop.Workshop;
 import isika.p3.amappli.service.amap.WorkshopService;
 

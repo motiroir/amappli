@@ -211,11 +211,12 @@
 		<jsp:include page="common/footer.jsp" />
 	</footer>
 
-	<script	src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
-	<script	src="<c:url value='/resources/js/amappli/loading-when-visible.js' />"></script>
-	<script	src="<c:url value='/resources/js/amappli/theme-swap.js' />"></script>
-	<%-- <script	src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />"></script> --%>
+	<script	src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
+	<script	src="<c:url value='/resources/js/amappli/loading-when-visible.js' />" type="text/javascript"></script>
+	<script	src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
+	<script	src="<c:url value='/resources/js/common/palette-swap.js' />" type="text/javascript"></script>
+	<%-- <script	src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
+	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script> --%>
 </body>
 
 </html>

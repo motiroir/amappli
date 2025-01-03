@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import isika.p3.amappli.service.amap.UserService;
 
 @Controller
-@RequestMapping("/plateform")
+@RequestMapping("/platform")
 public class HomeController {
 
 	private final UserService userService;

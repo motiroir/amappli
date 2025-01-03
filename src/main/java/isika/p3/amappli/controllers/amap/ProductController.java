@@ -4,7 +4,6 @@ import java.beans.PropertyEditorSupport;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -19,11 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import isika.p3.amappli.dto.amap.ContractDTO;
 import isika.p3.amappli.dto.amap.ProductDTO;
-import isika.p3.amappli.entities.contract.Contract;
-import isika.p3.amappli.entities.contract.ContractType;
-import isika.p3.amappli.entities.contract.ContractWeight;
 import isika.p3.amappli.entities.contract.DeliveryDay;
 import isika.p3.amappli.entities.contract.DeliveryRecurrence;
 import isika.p3.amappli.entities.product.Product;

@@ -3,7 +3,6 @@ package isika.p3.amappli.controllers.amap;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import isika.p3.amappli.entities.contract.Contract;
-import isika.p3.amappli.entities.contract.ContractType;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
 import isika.p3.amappli.service.amap.ContractService;

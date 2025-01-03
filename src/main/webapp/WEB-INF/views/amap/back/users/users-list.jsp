@@ -14,13 +14,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Liste des adhérents</title>
 	<link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />" rel="stylesheet">
-	 <link href="<c:url value='/resources/css/amap/common/sidebarAdmin.css' />" rel="stylesheet">
-	<%-- <link href="<c:url value='/resources/bootstrap/bootstrap-icons.css' />" rel="stylesheet"> --%>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+	<link href="<c:url value='/resources/css/common/utils.css' />" rel="stylesheet">
+	<link href="<c:url value='/resources/bootstrap/bootstrap-icons.min.css' />" rel="stylesheet">
 </head>
-<body class="row theme-1 light">
+<body class="row ${cssStyle} light ${font}-title ${font}-button">
 
-	<header class="fc-main bg-main">
+	<header class="fc-main bg-main border-1 border-alt">
 	<!-- Inclusion du header -->
 			<jsp:include page="../common/headerAdmin.jsp" />
 	</header>
@@ -36,16 +35,16 @@
 				<div class="col-12">
 					<div class="search-bar d-flex align-items-center mb-3">
 						<!-- Nombre total d'adhérents -->
-						<div class="me-4 fs-5">
+						<div class="me-4 fs-5 fc-main">
 							<span>${users.size()} éléments</span><br/>
 							<a href="<c:url value='/${tenancyAlias}/backoffice/users/generateFakes' />">ajouter 20 users</a>
 						</div>
 						<!-- Dropdown pour trier -->
 						<div class="d-flex align-items-center me-4">
-							<label for="sortBy" class="me-2 fw-400 fs-3 text-nowrap">Trié par</label>
+							<label for="sortBy" class="me-2 fw-400 fs-3 text-nowrap fc-main">Trié par</label>
 							<select id="sortBy" class="form-select custom-select border-main">
-								<option value="name">Nom du domaine</option>
-								<option value="producer">Nom du producteur</option>
+								<option value="name">Nom</option>
+								<option value="role">Role</option>
 							</select>
 						</div>
 						<!-- Barre de recherche -->
@@ -53,15 +52,19 @@
 							<input type="text" id="searchBar" class="form-control custom-input border-main"
 								placeholder="Rechercher...">
 						</div>
+						<div class="mx-3">
+							<label class="fc-main">Opacité du tableau</label>
+    						<input type="range" class="form-range" min="0" max="100" value="100" id="bg-range">
+						</div>
 					</div>
 					<div class="table-container d-flex justify-content-between align-items-center">
-						<h2 style="font-weight: bold;">Liste des adhérents</h2>
-						<a href="<c:url value='/${tenancyAlias}/backoffice/users/form'/>" class="btn btn-outline-900 rounded-pill fch-main fw-bold border-2">
+						<h2 class="fw-bold fc-main">Liste des adhérents</h2>
+						<a href="<c:url value='/${tenancyAlias}/backoffice/users/form'/>" class="btn btn-outline-300 rounded-pill fch-main fw-bold border-2">
 							<span class="icon">+ </span>Créer un adhérent
 						</a>
 					</div>
 					<!-- Mode tableau -->
-					<table class="table table-hover fc-main">
+					<table class="table table-hover fc-main" style="--bs-table-bg: color-mix(in srgb, #ffffff, transparent 100%);">
 						<thead>
 							<tr>
 								<th>Nom</th>
@@ -99,10 +102,10 @@
 									<td>
 										<div class='d-flex justify-content-start align-items-center'>
 											<a href="<c:url value='/${tenancyAlias}/backoffice/users/details/${user.userId}' />"
-												class="btn rounded-circle border-2 border-main fc-900 px-1 py-0 mx-1"> <i class="bi bi-eye"></i>
+												class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1"> <i class="bi bi-eye"></i>
 											</a>
-											<form:form action="delete/${user.userId}" style="display: inline;" onsubmit="return confirm('Voulez-vous vraiment supprimer l'adhérent ${user.contactInfo.firstName} ${user.contactInfo.name} ?');">
-												<button type="submit" class="btn rounded-circle border-2 border-main fc-900 px-1 py-0 mx-1">
+											<form:form action="delete/${user.userId}" class="d-inline" onsubmit="return confirm('Voulez-vous vraiment supprimer l'adhérent ${user.contactInfo.firstName} ${user.contactInfo.name} ?');">
+												<button type="submit" class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1">
 													<i class="bi bi-trash"></i>
 												</button>
 											</form:form>
@@ -116,10 +119,22 @@
 			</div>
 		</div>
 	</div>
-	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
-	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />"></script>
-	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script>
-	<script src="<c:url value='/resources/js/common/palette-swap.js' />"></script>
+		<script>
+		var styleMapboxLight = "${mapStyleLight}"
+		var styleMapboxDark = "${mapStyleDark}"
+
+		/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
+		 const tenancyCity = "${tenancy.getAddress().getCity()}"
+		 const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
+		 */
+	</script>
+	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/palette-swap.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />" type="text/javascript"></script>
 </body>
 
 </html>

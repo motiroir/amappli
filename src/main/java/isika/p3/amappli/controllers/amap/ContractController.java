@@ -3,12 +3,8 @@ package isika.p3.amappli.controllers.amap;
 import java.beans.PropertyEditorSupport;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -19,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import isika.p3.amappli.dto.amap.ContractDTO;
@@ -32,7 +27,6 @@ import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
-import isika.p3.amappli.service.amap.AddressService;
 import isika.p3.amappli.service.amap.AmapAdminUserService;
 import isika.p3.amappli.service.amap.ContractService;
 import isika.p3.amappli.service.amap.UserService;

@@ -19,10 +19,10 @@
 			<a href="amap/amapHomePage">Amap Homepage</a>
 		</li>
 		<li>
-			<a href="plateform">Plateform Homepage</a>
+			<a href="platform">Platform Homepage</a>
 		</li>
 		<li>
-			<a href="start/signup">Plateform Account Sign-up</a>
+			<a href="start/signup">Platform Account Sign-up</a>
 		</li>
 		<li>
 			<a href="start/creation">Tenancy Creation</a>
@@ -47,6 +47,9 @@
 		</li>
 		<li>
 			<a href="sectest/needpermission2"> Besoin d'avoir la permission "Permission 2" pour voir cette page</a>
+		</li>
+		<li>
+			<a href="platform/writeusers"> Création d'utilisateurs plateform</a>
 		</li>
 	</ul>
 </body>
