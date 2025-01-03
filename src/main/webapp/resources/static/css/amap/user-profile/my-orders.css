@@ -1,0 +1,36 @@
+@charset "UTF-8";
+@import "../../common/utils.css";
+@import "../common/header-amap.css"; 
+@import "../common/footer-amap.css";
+
+.table-container {
+    padding: 20px;
+}
+
+.table {
+    border-collapse: collapse;
+}
+
+.table th {
+    font-weight: bold;
+    font-size: 16px;
+    border-bottom: 2px solid;
+    border-color: inherit;
+    text-align: left;
+    padding: 20px;
+}
+
+.table td {
+    font-size: 16px;
+    padding: 20px;
+    border-bottom: 1px solid;
+    border-color: inherit;
+    vertical-align:middle;
+}
+
+.table button {
+    border: none;
+    background-color: rgba(0,0,0,0);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}

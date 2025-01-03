@@ -60,22 +60,18 @@
 		<div class="collapse navbar-collapse" id="nav-content">
 			<ul class="navbar-nav w-100 justify-content-md-evenly">
 				<li class="nav-item"><a href="<c:url value='/${tenancyAlias}/shop/contracts'/>" 
-					class="nav-link ${font} text-decoration-none fc-300 fch-500"
-					data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">La boutique</a>
+					class="nav-link ${font} text-decoration-none fc-300 fch-500">La boutique</a>
 				</li>
 				<li class="nav-item"><a href="amapPage"
-					class="nav-link ${font} text-decoration-none fc-300 fch-500"
-					data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">C'est quoi une Amap ?</a></li>
+					class="nav-link ${font} text-decoration-none fc-300 fch-500">C'est quoi une Amap ?</a></li>
 				<li class="nav-item"><a href="contact"
-					class="nav-link ${font} text-decoration-none fc-300 fch-500"
-					data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Contact</a>
+					class="nav-link ${font} text-decoration-none fc-300 fch-500">Contact</a>
 				</li>
 				<li class="nav-item"> <a href="<c:url value='/${tenancyAlias}/cart/${cart.shoppingCartId}'/>"><i class="bi bi-bag-fill fs-4 fc-300 fch-500"></i></a>
 				
                 </li> 
 				<li class="nav-item"><a href="amap/amaplogin/login"
-					class="btn rounded-pill btn-500 px-4" data-bs-toggle="collapse"
-					data-bs-target=".navbar-collapse.show">Se connecter</a></li>
+					class="btn rounded-pill btn-500 px-4" >Se connecter</a></li>
 			</ul>
 		</div>
 	</nav>

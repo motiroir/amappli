@@ -10,8 +10,10 @@ import isika.p3.amappli.entities.order.Order;
 import isika.p3.amappli.entities.order.OrderItem;
 import isika.p3.amappli.entities.order.Shoppable;
 import isika.p3.amappli.entities.order.ShoppingCart;
+import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.repo.amap.OrderRepository;
 import isika.p3.amappli.repo.amap.ShoppingCartRepository;
+import isika.p3.amappli.repo.amap.UserRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -24,11 +26,14 @@ public class OrderServiceImpl {
 	
 	private final OrderRepository orderRepo;
 	private final ShoppingCartRepository cartRepo;
+	private final UserRepository userRepo;
 
-	public OrderServiceImpl(EntityManager entityManager, OrderRepository orderRepo, ShoppingCartRepository cartRepo) {
+	public OrderServiceImpl(EntityManager entityManager, OrderRepository orderRepo, ShoppingCartRepository cartRepo,
+			UserRepository userRepo) {
 		this.entityManager = entityManager;
 		this.orderRepo = orderRepo;
 		this.cartRepo = cartRepo;
+		this.userRepo = userRepo;
 	}
 
 	@Transactional
@@ -80,6 +85,11 @@ public class OrderServiceImpl {
 		cartRepo.save(cart);
 
 		return order;
+	}
+	
+	public List<Order> getListOrdersByUser(Long userId){
+		User user = userRepo.findUserWithOrders(userId);
+		return user.getOrders();
 	}
 
 }
