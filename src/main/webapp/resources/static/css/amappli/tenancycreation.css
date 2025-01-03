@@ -1,5 +1,26 @@
 @import "../common/utils.css";
 
+/* Radio buttons */
+input[type="radio"] {
+    visibility: hidden;
+}
+
+.enum-choices {
+    border: 2px solid transparent; /* Default transparent border */
+	border-radius: 5%;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+input[type="radio"]:checked + .enum-choices {
+    border: 2px solid var(--main-font-color); /* Border when selected */
+	border-radius: 5%;
+}
+
+.enum-choices:hover {
+    border-color: var(--main-bg-color);
+}
+
+/* Progress Bar */
 .progress {
     background-color: var(--white-300);
     height: 0.8em;
@@ -8,6 +29,8 @@
 .progress-bar {
     background-color: var(--green-700);
 }
+
+/* Background */
 
 #map {
 	width: 100vw;
@@ -19,4 +42,74 @@
 	left: 0;
 	z-index: -1;
 	/* Place la carte derrière le contenu */
+}
+
+/* Buttons */
+
+.btn-orange {
+    --bs-btn-color                : var(--green-900);
+    --bs-btn-bg                   : red;/*var(--orange-600);*/
+    --bs-btn-border-color         : var(--orange-600);
+    --bs-btn-hover-color          : var(--green-900);
+    --bs-btn-hover-bg             : #fdc2a0;
+    --bs-btn-hover-border-color   : var(--orange-600);
+    --bs-btn-focus-shadow-rgb     : 130, 138, 145;
+    --bs-btn-active-color         : var(--green-900);
+    --bs-btn-active-bg            : #ffc3a0;
+    --bs-btn-active-border-color  : #f59157;
+    --bs-btn-active-shadow        : inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color       : var(--green-900);
+    --bs-btn-disabled-bg          : var(--black-400);
+    --bs-btn-disabled-border-color: var(--orange-600);
+}
+
+.btn-outline-orange {
+	--bs-btn-color                : var(--orange-600);
+    --bs-btn-border-color         : var(--orange-600);
+    --bs-btn-hover-color          : var(--green-900);
+    --bs-btn-hover-bg             : var(--orange-600);
+    --bs-btn-hover-border-color   : var(--orange-600);
+    --bs-btn-focus-shadow-rgb     : 108, 117, 125;
+    --bs-btn-active-color         : var(--green-900);
+    --bs-btn-active-bg            : var(--orange-600);
+    --bs-btn-active-border-color  : var(--orange-600);
+    --bs-btn-active-shadow        : inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color       : var(--orange-600);
+    --bs-btn-disabled-bg          : transparent;
+    --bs-btn-disabled-border-color: var(--orange-600);
+    --bs-gradient                 : none;
+}
+
+.btn-green {
+	--bs-btn-color                : var(--orange-100);
+    --bs-btn-bg                   : var(--green-900);
+    --bs-btn-border-color         : var(--green-900);
+    --bs-btn-hover-color          : var(--orange-100);
+    --bs-btn-hover-bg             : var(--green-500);
+    --bs-btn-hover-border-color   : var(--green-600);
+    --bs-btn-focus-shadow-rgb     : 130, 138, 145;
+    --bs-btn-active-color         : var(--white-300);
+    --bs-btn-active-bg            : var(--green-500);
+    --bs-btn-active-border-color  : var(--green-600);
+    --bs-btn-active-shadow        : inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color       : var(--white-300);
+    --bs-btn-disabled-bg          : var(--black-400);
+    --bs-btn-disabled-border-color: var(--green-900);
+}
+
+.btn-outline-green {
+	--bs-btn-color                : var(--green-900);
+    --bs-btn-border-color         : var(--green-900);
+    --bs-btn-hover-color          : var(--white-300);
+    --bs-btn-hover-bg             : var(--green-900);
+    --bs-btn-hover-border-color   : var(--green-900);
+    --bs-btn-focus-shadow-rgb     : 108, 117, 125;
+    --bs-btn-active-color         : var(--white-300);
+    --bs-btn-active-bg            : var(--green-900);
+    --bs-btn-active-border-color  : var(--green-900);
+    --bs-btn-active-shadow        : inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color       : var(--green-900);
+    --bs-btn-disabled-bg          : transparent;
+    --bs-btn-disabled-border-color: var(--green-900);
+    --bs-gradient                 : none;
 }

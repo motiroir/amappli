@@ -2,12 +2,10 @@ package isika.p3.amappli.entities.user;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 import isika.p3.amappli.entities.auth.Permission;
 import isika.p3.amappli.entities.auth.Role;
-import isika.p3.amappli.entities.contract.Contract;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -20,7 +18,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

@@ -10,6 +10,7 @@ import isika.p3.amappli.entities.user.ContactInfo;
 import isika.p3.amappli.entities.user.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -49,7 +50,8 @@ public class Tenancy {
 
     private String tenancyLongitude;
 
-    private LocalDateTime pickupDateTime;
+    @Embedded
+    private PickUpSchedule pickUpSchedule;
     
     private BigDecimal membershipFeePrice;
 

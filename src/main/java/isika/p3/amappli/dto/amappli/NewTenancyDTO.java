@@ -7,8 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import isika.p3.amappli.entities.tenancy.ColorPalette;
 import isika.p3.amappli.entities.tenancy.FontChoice;
+import isika.p3.amappli.entities.tenancy.PickUpSchedule;
 import isika.p3.amappli.entities.user.Address;
-import isika.p3.amappli.entities.user.ContactInfo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,6 +25,7 @@ public class NewTenancyDTO {
 
     private Address address;
 
+    private PickUpSchedule pickUpSchedule;
 
     private List<ValueDTO> values;
 
