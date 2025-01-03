@@ -5,10 +5,12 @@ import org.springframework.stereotype.Service;
 
 import isika.p3.amappli.entities.contract.Contract;
 import isika.p3.amappli.entities.order.ProductMock;
+import isika.p3.amappli.entities.order.Shoppable;
 import isika.p3.amappli.entities.order.ShoppingCart;
 import isika.p3.amappli.entities.order.ShoppingCartItem;
 import isika.p3.amappli.repo.amap.ContractRepository;
 import isika.p3.amappli.repo.amap.ProductMockRepository;
+import isika.p3.amappli.repo.amap.ProductRepository;
 import isika.p3.amappli.repo.amap.ShoppingCartItemRepository;
 import isika.p3.amappli.repo.amap.ShoppingCartRepository;
 import isika.p3.amappli.service.amap.ShoppingCartService;
@@ -26,6 +28,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	private ContractRepository contractRepo;
 	@Autowired
 	private ProductMockRepository productMockRepo;
+	@Autowired
+	private ProductRepository productRepository;
 	
 	
 	// get shopping cart by id or create new 
@@ -50,16 +54,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return cart;
     }
     
-    public ShoppingCart addItemToCart(Long cartId, Long shoppableId, int quantity) {
-        ShoppingCart cart = getOrCreateCart(cartId);
-
-        Contract contract = contractRepo.findById(shoppableId)
-                .orElseThrow(() -> new RuntimeException("Contract not found with ID: " + shoppableId));
-
-        if (contract.getStock() < quantity) {
-            throw new RuntimeException("Insufficient stock for contract: " + contract.getContractName());
-        }
-        
 //        ProductMock product = productMockRepo.findById(shoppableId)
 //                .orElseThrow(() -> new RuntimeException("Product not found with ID: " + shoppableId));
 //
@@ -67,21 +61,39 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 //        if (product.getStock() < quantity) {
 //            throw new RuntimeException("Insufficient stock for product: " + product.getName());
 //        }
+    public ShoppingCart addItemToCart(Long cartId, Long shoppableId, String shoppableType, int quantity) {
+        ShoppingCart cart = getOrCreateCart(cartId);
 
-        // check if item is alreay in shoppingCart
+        Shoppable shoppable;
+        if ("CONTRACT".equalsIgnoreCase(shoppableType)) {
+            shoppable = contractRepo.findById(shoppableId)
+                    .orElseThrow(() -> new RuntimeException("Contract not found with ID: " + shoppableId));
+        } else if ("PRODUCT".equalsIgnoreCase(shoppableType)) {
+            shoppable = productRepository.findById(shoppableId)
+                    .orElseThrow(() -> new RuntimeException("Product not found with ID: " + shoppableId));
+        } else {
+            throw new IllegalArgumentException("Invalid shoppable type: " + shoppableType);
+        }
+
+        // Vérifiez si le stock est suffisant
+        if (shoppable.getStock() < quantity) {
+            throw new RuntimeException("Insufficient stock for " + shoppable.getInfo());
+        }
+
+        // Vérifiez si l'article est déjà dans le panier
         ShoppingCartItem existingItem = cart.getShoppingCartItems().stream()
                 .filter(item -> item.getShoppable().getId().equals(shoppableId))
                 .findFirst()
                 .orElse(null);
 
         if (existingItem != null) {
-            // if item is in shopping cart change quantity
+            // Si l'article est déjà dans le panier, mettez à jour la quantité
             existingItem.setQuantity(existingItem.getQuantity() + quantity);
         } else {
-            // if not add item
+            // Sinon, ajoutez un nouvel article
             ShoppingCartItem newItem = ShoppingCartItem.builder()
                     .shoppingCart(cart)
-                    .shoppable(contract)
+                    .shoppable(shoppable)
                     .quantity(quantity)
                     .build();
             cart.getShoppingCartItems().add(newItem);
@@ -89,7 +101,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         }
 
         return shoppingCartRepo.save(cart);
-    }  
+    }
+
     
     public void increaseItemQuantity(Long cartId, Long itemId) {
         ShoppingCart cart = getShoppingCartById(cartId);

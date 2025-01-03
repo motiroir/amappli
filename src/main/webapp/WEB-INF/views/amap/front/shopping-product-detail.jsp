@@ -7,40 +7,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Détails du Contrat</title>
+<title>Détails du Produit</title>
 <link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />"
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="<c:url value='/resources/css/amap/homePage.css' />">
 <style>
-.contract-details-container {
+.product-details-container {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 20px;
 }
 
-.contract-image {
+.product-image {
 	flex: 1;
 	max-width: 50%;
 }
 
-.contract-image img {
+.product-image img {
 	width: 100%;
 	height: auto;
 	border-radius: 16px;
 }
 
-.contract-info {
+.product-info {
 	flex: 1;
 	max-width: 50%;
 }
 
-.contract-info h2 {
+.product-info h2 {
 	font-size: 28px;
 	margin-bottom: 10px;
 }
 
-.contract-info p {
+.product-info p {
 	margin-bottom: 10px;
 }
 
@@ -109,44 +109,36 @@
 				</div>
 			</div>
 			<div class="container mt-5">
-				<div class="contract-details-container">
+				<div class="product-details-container">
 					<!-- Image du contrat -->
-					<div class="contract-image">
-						<c:if test="${not empty contract.imageData}">
+					<div class="product-image">
+						<c:if test="${not empty product.imageData}">
 							<img
-								src="data:${contract.imageType};base64,${contract.imageData}"
-								alt="Image du contrat" />
+								src="data:${product.imageType};base64,${product.imageData}"
+								alt="Image du produit" />
 						</c:if>
 					</div>
 
 					<!-- Informations du contrat -->
-					<div class="contract-info">
-						<h2>${contract.contractName}</h2>
-						<p>
-							<strong>Type :</strong> ${contract.contractType.displayName}
-						</p>
-
+					<div class="product-info">
+						<h2>${product.productName}</h2>
 						<p>
 							<strong>Producteur :</strong>
-							${contract.user.companyDetails.companyName}
+							${product.user.companyDetails.companyName}
 						</p>
 						<p>
-							<strong>Prix :</strong> ${contract.contractPrice}€
+							<strong>Prix :</strong> ${product.productPrice}€
 						</p>
 						<p>
-							<strong>Description :</strong> ${contract.contractDescription}
+							<strong>Description :</strong> ${product.productDescription}
 						</p>
 						<p>
 							<strong>Jour de livraison au point de collecte :</strong>
-							${contract.deliveryDay.displayName}
+							${product.deliveryDay.displayName}
 						</p>
 						<p>
 							<strong>Fréquence de livraison : </strong>
-							${contract.deliveryRecurrence.displayName}
-						</p>
-						<p>
-							<strong>Date de fin de l'abonnement : </strong>
-							${contract.endDate}
+							${product.deliveryRecurrence.displayName}
 						</p>
 						<p>
 							<strong>Date de première livraison :</strong> ${nextDeliveryDate}
@@ -174,8 +166,8 @@
 
 						<form:form method="post"
 							action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cartId}/add">
-							<input type="hidden" name="shoppableId" value="${contract.id}" />
-							<input type="hidden" name="shoppableType" value="CONTRACT" />
+							<input type="hidden" name="shoppableId" value="${product.id}" />
+							<input type="hidden" name="shoppableType" value="PRODUCT" />
 							<input type="hidden" name="quantity" value="1" />
 							<button type="submit" class="btn-add-to-cart">Ajouter au
 								panier</button>

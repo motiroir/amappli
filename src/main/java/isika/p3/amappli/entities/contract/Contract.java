@@ -116,7 +116,10 @@ public class Contract extends Shoppable {
 
     @Override
     public String getImage() {
-        return imageType + (imageData != null ? ", data available" : "");
+        if (imageData != null && imageType != null) {
+            return "data:" + imageType + ";base64," + imageData;
+        }
+        return "/resources/images/default-image.png"; // Chemin de l'image par défaut si aucune donnée n'est disponible
     }
     
 	
