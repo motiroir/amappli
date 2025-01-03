@@ -46,7 +46,7 @@ public class Product extends Shoppable {
     
     private String productDescription;
 
-    @DecimalMin(value = "0.01", message = "Le prix doit être supérieur à 0.")
+    @DecimalMin(value = "0.10", message = "Le prix doit être supérieur à 0.")
     private BigDecimal productPrice;
 
     private Integer productStock;

@@ -22,7 +22,9 @@ public class WorkshopDTO {
     private String location;
     private Integer minimumParticipants;
     private Integer maximumParticipants;
-    private Boolean isBookable;
     private MultipartFile image;
     private LocalDate dateCreation;
+    private Long userId; // ID du producteur
+    private boolean shoppable; // Indique si le contrat est disponible ou non
+    private String tenancyAlias;
 }

@@ -125,6 +125,7 @@ request.setAttribute("currentPage", currentPage);
 		type="text/javascript"></script>
 	<script src="<d:url value='/resources/js/common/palette-swap.js' />"
 		type="text/javascript"></script>
+		<script>
     document.addEventListener("DOMContentLoaded", () => {
         const searchBar = document.getElementById("searchBar");
         const sortBy = document.getElementById("sortBy");

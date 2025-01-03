@@ -9,22 +9,52 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import isika.p3.amappli.dto.amap.WorkshopDTO;
+import isika.p3.amappli.entities.product.Product;
+import isika.p3.amappli.entities.tenancy.Tenancy;
+import isika.p3.amappli.entities.user.Address;
+import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.entities.workshop.Workshop;
+import isika.p3.amappli.repo.amap.UserRepository;
 import isika.p3.amappli.repo.amap.WorkshopRepository;
+import isika.p3.amappli.repo.amappli.TenancyRepository;
 import isika.p3.amappli.service.amap.WorkshopService;
 
 @Service
 public class WorkshopServiceImpl implements WorkshopService {
 
     private final WorkshopRepository workshopRepository;
+	private final UserRepository userRepository;
+	private final TenancyRepository tenancyRepository;
 
-    public WorkshopServiceImpl(WorkshopRepository workshopRepository) {
+    public WorkshopServiceImpl(WorkshopRepository workshopRepository, UserRepository userRepository, TenancyRepository tenancyRepository) {
         this.workshopRepository = workshopRepository;
+        this.userRepository = userRepository;
+        this.tenancyRepository = tenancyRepository;
     }
     
 	@Override
-	public void save(WorkshopDTO workshopDTO) {
+	public void save(WorkshopDTO workshopDTO, String tenancyAlias) {
         Workshop workshop = new Workshop();
+        
+        Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
+                .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+        workshop.setTenancy(tenancy);
+        
+        // Récupération de l'utilisateur sélectionné
+        if (workshopDTO.getUserId() != null) {
+            User user = userRepository.findById(workshopDTO.getUserId())
+                    .orElseThrow(() -> new IllegalArgumentException("User not found for ID: " + workshopDTO.getUserId()));
+            workshop.setUser(user);
+
+            // Assigner l'adresse de l'utilisateur au workshop
+            if (user.getAddress() != null) {
+                workshop.setAddress(user.getAddress());
+            } else {
+                throw new IllegalArgumentException("No address found for the user.");
+            }
+        } else {
+            workshop.setUser(null); // Si aucun utilisateur n'est sélectionné
+        }
 
         workshop.setWorkshopName(workshopDTO.getWorkshopName());
         workshop.setWorkshopDescription(workshopDTO.getWorkshopDescription());
@@ -34,7 +64,6 @@ public class WorkshopServiceImpl implements WorkshopService {
         workshop.setLocation(workshopDTO.getLocation());
         workshop.setMinimumParticipants(workshopDTO.getMinimumParticipants());
         workshop.setMaximumParticipants(workshopDTO.getMaximumParticipants());
-        workshop.setIsBookable(workshopDTO.getIsBookable());
         workshop.setDateCreation(LocalDate.now());
 
 		if (!workshopDTO.getImage().isEmpty()) {
@@ -70,7 +99,7 @@ public class WorkshopServiceImpl implements WorkshopService {
 	}
 
 	@Override
-	public void updateWorkshop(WorkshopDTO updatedWorkshopDTO, MultipartFile image) {
+	public void updateWorkshop(WorkshopDTO updatedWorkshopDTO, MultipartFile image, String tenancyAlias) {
 
 		 Workshop existingWorkshop = workshopRepository.findById(updatedWorkshopDTO.getId()).orElse(null);
 
@@ -87,7 +116,6 @@ public class WorkshopServiceImpl implements WorkshopService {
 		    existingWorkshop.setLocation(updatedWorkshopDTO.getLocation() != null ? updatedWorkshopDTO.getLocation() : existingWorkshop.getLocation());
 		    existingWorkshop.setMinimumParticipants(updatedWorkshopDTO.getMinimumParticipants() != null ? updatedWorkshopDTO.getMinimumParticipants() : existingWorkshop.getMinimumParticipants());
 		    existingWorkshop.setMaximumParticipants(updatedWorkshopDTO.getMaximumParticipants() != null ? updatedWorkshopDTO.getMaximumParticipants() : existingWorkshop.getMaximumParticipants());
-		    existingWorkshop.setIsBookable(updatedWorkshopDTO.getIsBookable() != null ? updatedWorkshopDTO.getIsBookable() : existingWorkshop.getIsBookable());
 
 		    // Gestion de l'image
 		    if (image != null && !image.isEmpty()) {
@@ -102,6 +130,24 @@ public class WorkshopServiceImpl implements WorkshopService {
 
 		    // Sauvegarde de l'atelier mis à jour
 		    workshopRepository.save(existingWorkshop);
+	}
+
+	@Override
+	public List<Workshop> findAll(Long tenancyId) {
+		return ((List<Workshop>) workshopRepository.findAll()).stream()
+				.filter(u -> u.getTenancy().getTenancyId() == tenancyId).toList();
+	}
+
+	@Override
+	public List<Workshop> findAll(String tenancyAlias) {
+		return workshopRepository.findByTenancyAlias(tenancyAlias);
+	}
+
+	@Override
+	public List<Workshop> findShoppableWorkshopsByTenancy(Tenancy tenancy) {
+	    return workshopRepository.findByTenancy(tenancy).stream()
+	            .filter(Workshop::isShoppable) // Garder uniquement les contrats shoppables
+	            .toList();
 	}
 
 }

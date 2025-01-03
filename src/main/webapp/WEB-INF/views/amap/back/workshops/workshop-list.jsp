@@ -28,14 +28,17 @@ request.setAttribute("currentPage", currentPage);
 }
 </style>
 </head>
-<body>
+<body class="row theme-1 light">
+	<header class="fc-main bg-main">
+		<!-- Inclusion du header -->
+		<jsp:include page="../common/headerAdmin.jsp" />
+	</header>
 	<!-- Inclusion de la sidebar -->
-	<div>
-		<%@ include file="/WEB-INF/views/amap/back/common/sidebarAdmin.jsp"%>
-	</div>
+	<jsp:include page="../common/sidebarAdmin.jsp" />
+
 
 	<!-- Contenu principal -->
-	<div class="content" style="margin-left: 240px;">
+	<div class="content col">
 		<div class="container mt-5">
 			<div class="row justify-content-center">
 				<div class="col-12">
@@ -64,7 +67,7 @@ request.setAttribute("currentPage", currentPage);
 					<div
 						class="table-container d-flex justify-content-between align-items-center">
 						<h2 style="font-weight: bold;">Liste des ateliers</h2>
-						<a href="<c:url value='/amap/workshops/form' />"
+						<a href="<c:url value='/${tenancyAlias}/backoffice/workshops/form' />"
 							class="btn-create"> <span class="icon">+</span>Créer un
 							atelier
 						</a>
@@ -75,8 +78,8 @@ request.setAttribute("currentPage", currentPage);
 							<tr>
 								<th>Image</th>
 								<th>Nom</th>
+								<th>Intervenant</th>
 								<th>Date et Heure</th>
-								<th>Prix</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -90,16 +93,16 @@ request.setAttribute("currentPage", currentPage);
 												style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover;">
 											</c:if></td>
 									<td>${workshop.workshopName}</td>
+									<td class="d-none d-lg-table-cell">${workshop.user.companyDetails.companyName}</td>
 									<td>${workshop.workshopDateTime}</td>
-									<td>${workshop.workshopPrice}€</td>
 									<td>
 										<div class='d-flex justify-content-start align-items-center'>
 											<a
-												href="<c:url value='/amap/workshops/detail/${workshop.id}' />"
+												href="<c:url value='${tenancyAlias}/backoffice/workshops/detail/${workshop.id}' />"
 												class="btn-view"> <i class="bi bi-eye"></i>
 											</a>
 											<form:form method="POST"
-												action="${pageContext.request.contextPath}/amap/workshops/delete/${workshop.id}"
+												action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/workshops/delete/${workshop.id}"
 												style="display: inline;">
 												<button type="submit" class="btn-delete"
 													onclick="return confirm('Voulez-vous vraiment supprimer l\'atelier ${workshop.workshopName} ?');">
@@ -117,7 +120,14 @@ request.setAttribute("currentPage", currentPage);
 		</div>
 	</div>
 	<script
-		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
+		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
+		type="text/javascript"></script>
 		<script>
     document.addEventListener("DOMContentLoaded", () => {
         const searchBar = document.getElementById("searchBar");
