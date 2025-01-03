@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
@@ -13,9 +14,9 @@
 <!-- Mapbox CSS -->
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
 </head>
-<body class="d-flex justify-content-center">
+<body class="d-flex justify-content-center theme-1 light">
     <!-- Conteneur pour la carte -->
-    <%-- <div id="map"></div> --%>
+    <div id="map"></div>
 
     <div class="container w-75 p-5 h-75">
 
@@ -78,6 +79,32 @@
             </div>
 
             <div class="form-part">
+                <h1 class="display-6">Quel est le créneau de collecte de votre AMAP?</h1>
+                <div class="mb-3">
+                    <label for="dayOfWeek">Jour de la Semaine:</label>
+                    <form:select path="pickUpSchedule.dayOfWeek" id="dayOfWeek">
+                        <form:option value="">Sélectionnez un Jour</form:option>
+                        <form:option value="MONDAY">Lundi</form:option>
+                        <form:option value="TUESDAY">Mardi</form:option>
+                        <form:option value="WEDNESDAY">Mercredi</form:option>
+                        <form:option value="THURSDAY">Jeudi</form:option>
+                        <form:option value="FRIDAY">Vendredi</form:option>
+                        <form:option value="SATURDAY">Samedi</form:option>
+                        <form:option value="SUNDAY">Dimanche</form:option>
+                    </form:select>
+                    <form:errors path="pickUpSchedule.dayOfWeek" class="invalid-feedback d-block"/>
+
+                    <label for="startHour">Heure de Début:</label>
+                    <form:input path="pickUpSchedule.startHour" type="time" id="startHour" required="true" />
+                    <form:errors path="pickUpSchedule.startHour" class="invalid-feedback d-block"/>
+
+                    <label for="endHour">Heure de Fin:</label>
+                    <form:input path="pickUpSchedule.endHour" type="time" id="endHour" required="true" />
+                    <form:errors path="pickUpSchedule.endHour" class="invalid-feedback d-block"/>
+                </div>
+            </div>
+
+            <div class="form-part">
                 <h1 class="display-6">Où se situe votre AMAP?</h1>
                 <div class="mb-3">
                     <form:label for="address-line1" class="form-label" path="address.line1">Ligne 1</form:label>
@@ -135,10 +162,10 @@
                 <h1 class="display-6">Choississez une police pour vos titres et boutons</h1>
                 <div id="font-choices" class="d-flex flex-row justify-content-around">
                     <c:forEach items="${fontChoices}" var="font">
-                        <label for="font-${font}">
-                            <h1 style="font-family:'${font}'">${font}</p>
-                        </label>
                         <input type="radio" id="font-${font}" value="${font}" name="font-selection"/>
+                        <label for="font-${font}" class="enum-choices">
+                            <h2 class="${fn:toLowerCase(font)}">${font}</h2>
+                        </label>
                     </c:forEach>
                 </div>
                 
@@ -146,12 +173,12 @@
 
             <div class="form-part">
                 <h1 class="display-6">Choississez une palette de couleurs.</h1>
-                <div id="palette-choices" class="d-flex flex-row justify-content-around">
+                <div id="palette-choices" class="container w-100 d-flex flex-row justify-content-around">
                     <c:forEach items="${colorPalettes}" var="palette" varStatus="status">
-                        <label for="palette-${status.index+1}">
-                            <img src="<c:url value='/resources/img/palettes_samples/PALETTE${status.index + 1}.svg' />" width="20%" />
-                        </label>
                         <input type="radio" id="palette-${status.index + 1}" name="palette-selection" value="${palette}" />
+                        <label for="palette-${status.index+1}" class="enum-choices">
+                            <img src="<c:url value='/resources/img/palettes_samples/PALETTE${status.index + 1}.svg' />"/>
+                        </label>
                     </c:forEach>
                 </div>
                 
@@ -238,12 +265,14 @@
                 <h1 class="display-6">Des paniers oui, mais quoi d'autre ?</h1>
 
                 <ul>
-                    <li>
+                    <li class="d-flex align-items-center justify-content-between">
                         <span>Souhaitez-vous améliorer le quotidien de vos adhérents en leur proposant des options de favoris, et la possibilité de choisir entre un thème dark et un thème light ?</span>
-                        <input type="radio" value="true" name="question-8" class="btn-check" id="question-8-true" checked/>
-                        <label class="btn btn-outline-700" for="question-8-true">Oui</label>
-                        <input type="radio" value="false" name="question-8" class="btn-check" id="question-8-false"/>
-                        <label class="btn btn-outline-700" for="question-8-false">Non</label> 
+                        <div class="d-flex">
+                            <input type="radio" value="true" name="question-8" id="question-8-true" checked/>
+                            <label class="btn btn-700" for="question-8-true">Oui</label>
+                            <input type="radio" value="false" name="question-8" id="question-8-false"/>
+                            <label class="btn btn-700" for="question-8-false">Non</label> 
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -259,11 +288,11 @@
                 <button type="submit" class="btn btn-400">Valider</button>
             </div>
 
-            <div id="nav-button d-flex flex-row">
-                <button type="button" class="rounded-pill btn-400 align-self-start" id="go-back-button">
+            <div id="nav-button" class="container w-75 d-flex justify-content-between">
+                <button type="button" class="rounded-pill btn-green" id="go-back-button">
                     Retour
                 </button>
-                <button type="button" class="rounded-pill btn-500 align-self-start" id="continue-button">
+                <button type="button" class="rounded-pill btn-orange" id="continue-button">
                     Continuer
                 </button>
             </div>
@@ -272,5 +301,7 @@
     </div>
     <script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js'/>"></script>
     <script src="<c:url value='/resources/js/amappli/tenancycreation.js'/>"></script>
+    <!-- <script	src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />"></script> -->
 </body>
 </html>

@@ -2,9 +2,6 @@ package isika.p3.amappli.service.amappli.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
@@ -668,6 +665,9 @@ public class TenancyServiceImpl implements TenancyService {
                 // MembershipFee Price
                 tenancy.setMembershipFeePrice(newTenancyDTO.getMembershipFeePrice());
 
+                // PickUpSchedule
+                tenancy.setPickUpSchedule(newTenancyDTO.getPickUpSchedule());
+                
                 // Date created and last modified
                 tenancy.setDateCreated(LocalDateTime.now());
                 tenancy.setDateLastModified(LocalDateTime.now());
