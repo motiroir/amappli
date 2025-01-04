@@ -1,4 +1,193 @@
+@charset "UTF-8";
 @import "../common/utils.css";
+
+/* Form styling */
+:root {
+    --bs-form-control-bg: var(--white-300);
+    --bs-form-control-color: var(--black-700);
+    --bs-form-control-border-color: var(--green-700);
+    --bs-form-control-focus-border-color: var(--green-500);
+    --bs-form-control-focus-box-shadow: 0 0 0 0.25rem rgba(51, 97, 64, 0.25);
+    --bs-form-control-placeholder-color: var(--black-400);
+    --bs-form-control-hover-border-color: var(--green-400);
+    --bs-form-control-disabled-bg: var(--white-300);
+    --bs-form-control-disabled-color: var(--black-400);
+    --bs-form-control-valid-border-color: var(--green-500);
+    --bs-form-control-valid-focus-box-shadow: 0 0 0 0.25rem rgba(51, 97, 64, 0.25);
+    --bs-form-control-invalid-border-color: var(--orange-900)
+    --bs-form-control-invalid-focus-box-shadow: 0 0 0 0.25rem rgba(185, 83, 23, 0.25);
+}
+
+/* Form inputs */
+
+.form-control {
+    background-color: var(--bs-form-control-bg);
+    color: var(--bs-form-control-color);
+    border-color: var(--bs-form-control-border-color);
+}
+
+.form-control::placeholder {
+    color: var(--bs-form-control-placeholder-color);
+}
+
+.form-control:hover {
+    border-color: var(--bs-form-control-hover-border-color);
+}
+
+.form-control:focus {
+    border-color: var(--bs-form-control-focus-border-color);
+    box-shadow: var(--bs-form-control-focus-box-shadow);
+}
+
+.form-control:disabled, 
+.form-control[disabled] {
+    background-color: var(--bs-form-control-disabled-bg);
+    color: var(--bs-form-control-disabled-color);
+}
+
+.form-control.is-valid {
+    border-color: var(--bs-form-control-valid-border-color);
+}
+
+.form-control.is-valid:focus {
+    box-shadow: var(--bs-form-control-valid-focus-box-shadow);
+}
+
+.form-control.is-invalid {
+    border-color: var(--bs-form-control-invalid-border-color);
+}
+
+.form-control.is-invalid:focus {
+    box-shadow: var(--bs-form-control-invalid-focus-box-shadow);
+}
+
+/* Time Picker */
+
+/* Base styling for time input */
+input[type="time"] {
+    background-color: var(--bs-form-control-bg);
+    color: var(--bs-form-control-color);
+    border: 1px solid var(--bs-form-control-border-color);
+    border-radius: 0.375rem; /* Bootstrap's default border-radius */
+    padding: 0.375rem 0.75rem; /* Adjust padding */
+    font-size: 1rem; /* Match Bootstrap's font size */
+}
+
+/* Hover state */
+input[type="time"]:hover {
+    border-color: var(--bs-form-control-hover-border-color);
+}
+
+/* Focus state */
+input[type="time"]:focus {
+    border-color: var(--bs-form-control-focus-border-color);
+    box-shadow: var(--bs-form-control-focus-box-shadow);
+    outline: none;
+}
+
+/* Disabled state */
+input[type="time"]:disabled {
+    background-color: var(--bs-form-control-disabled-bg);
+    color: var(--bs-form-control-disabled-color);
+    border-color: var(--bs-form-control-border-color);
+    cursor: not-allowed;
+}
+
+/* Valid state */
+input[type="time"].is-valid {
+    border-color: var(--bs-form-control-valid-border-color);
+}
+
+input[type="time"].is-valid:focus {
+    box-shadow: var(--bs-form-control-valid-focus-box-shadow);
+}
+
+/* Invalid state */
+input[type="time"].is-invalid {
+    border-color: var(--bs-form-control-invalid-border-color);
+}
+
+input[type="time"].is-invalid:focus {
+    box-shadow: var(--bs-form-control-invalid-focus-box-shadow);
+}
+
+/* Placeholder (if applicable) */
+input[type="time"]::placeholder {
+    color: var(--bs-form-control-placeholder-color);
+}
+
+/* Custom styling for time picker parts (like up/down arrows, spinners) */
+input[type="time"]::-webkit-calendar-picker-indicator {
+    color: var(--bs-form-control-color);
+    background-color: var(--bs-form-control-bg);
+    opacity: 0.5;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator:hover {
+    color: var(--bs-form-control-hover-border-color);
+    background-color: var(--bs-form-control-bg);
+    opacity: 1;
+}
+
+/* Select List */
+/* Style the form-select (select list) */
+.form-select {
+    background-color: var(--bs-form-control-bg); /* Custom background color */
+    color: var(--bs-form-control-color); /* Custom text color */
+    border: 1px solid var(--bs-form-control-border-color); /* Custom border color */
+    padding: 0.5rem; /* Padding for the select element */
+    border-radius: 0.375rem; /* Border radius (optional, but recommended for rounded corners) */
+}
+
+/* Focus styles when the select element is focused */
+.form-select:focus {
+    background-color: var(--bs-form-control-bg); /* Custom background color on focus */
+    color: var(--bs-form-control-color); /* Custom text color on focus */
+    border-color: var(--bs-form-control-focus-border-color); /* Custom border color on focus */
+    box-shadow: var(--bs-form-control-focus-box-shadow); /* Focus box shadow with custom color */
+}
+
+/* Hover styles when hovering over the select element */
+.form-select:hover {
+    background-color: var(--bs-form-control-bg); /* Background color on hover */
+    border-color: var(--bs-form-control-hover-border-color); /* Border color on hover */
+}
+
+/* Option styling */
+.form-select option {
+    background-color: var(--bs-form-control-bg); /* Background color for each option */
+    color: var(--bs-form-control-color); /* Text color for each option */
+}
+
+/* Disable styles */
+.form-select:disabled {
+    background-color: var(--bs-form-control-disabled-bg); /* Background color when disabled */
+    color: var(--bs-form-control-disabled-color); /* Text color when disabled */
+    border-color: var(--bs-form-control-border-color); /* Border color when disabled */
+}
+
+/* Page layout */
+/* body {
+    height: 100vh;
+} */
+
+/* .page-container {
+    display: grid;
+    grid-template-rows: auto 1fr auto; /* Top, middle (flexible), bottom */
+    /* height: 100%;
+}  */ */
+
+/* .form-part {
+    flex-grow: 1;
+    overflow-y: auto;
+} */
+
+/* Lists */
+ul {
+    list-style: none; 
+    margin-left: 0;
+    padding-left: 0;
+}
 
 /* Radio buttons */
 input[type="radio"] {
@@ -6,9 +195,21 @@ input[type="radio"] {
 }
 
 .enum-choices {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: 2px solid transparent; /* Default transparent border */
 	border-radius: 5%;
     transition: border-color 0.3s ease, background-color 0.3s ease;
+    flex: 1 1 auto;
+    height: 100%;
+}
+
+.palette-img {
+    max-width: 100%; /* Prevents overflow */
+    height: auto; /* Maintains aspect ratio */
+    display: block; /* Ensures consistent rendering */
+    margin: 0 auto; /* Centers the image within its container */
 }
 
 input[type="radio"]:checked + .enum-choices {
@@ -30,86 +231,58 @@ input[type="radio"]:checked + .enum-choices {
     background-color: var(--green-700);
 }
 
-/* Background */
-
-#map {
-	width: 100vw;
-	height: 100vh;
-	/* La carte prend tout l'écran */
-	position: fixed;
-	/* Elle sert de background */
-	top: 0;
-	left: 0;
-	z-index: -1;
-	/* Place la carte derrière le contenu */
-}
-
 /* Buttons */
 
 .btn-orange {
     --bs-btn-color                : var(--green-900);
-    --bs-btn-bg                   : red;/*var(--orange-600);*/
+    --bs-btn-bg                   : var(--orange-600);
     --bs-btn-border-color         : var(--orange-600);
     --bs-btn-hover-color          : var(--green-900);
-    --bs-btn-hover-bg             : #fdc2a0;
-    --bs-btn-hover-border-color   : var(--orange-600);
+    --bs-btn-hover-bg             : var(--orange-700);
+    --bs-btn-hover-border-color   : var(--orange-700);
     --bs-btn-focus-shadow-rgb     : 130, 138, 145;
-    --bs-btn-active-color         : var(--green-900);
-    --bs-btn-active-bg            : #ffc3a0;
-    --bs-btn-active-border-color  : #f59157;
-    --bs-btn-active-shadow        : inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    --bs-btn-disabled-color       : var(--green-900);
-    --bs-btn-disabled-bg          : var(--black-400);
-    --bs-btn-disabled-border-color: var(--orange-600);
-}
-
-.btn-outline-orange {
-	--bs-btn-color                : var(--orange-600);
-    --bs-btn-border-color         : var(--orange-600);
-    --bs-btn-hover-color          : var(--green-900);
-    --bs-btn-hover-bg             : var(--orange-600);
-    --bs-btn-hover-border-color   : var(--orange-600);
-    --bs-btn-focus-shadow-rgb     : 108, 117, 125;
     --bs-btn-active-color         : var(--green-900);
     --bs-btn-active-bg            : var(--orange-600);
     --bs-btn-active-border-color  : var(--orange-600);
     --bs-btn-active-shadow        : inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    --bs-btn-disabled-color       : var(--orange-600);
-    --bs-btn-disabled-bg          : transparent;
-    --bs-btn-disabled-border-color: var(--orange-600);
-    --bs-gradient                 : none;
+    --bs-btn-disabled-color       : var(--green-900);
+    --bs-btn-disabled-bg          : var(--orange-100);
+    --bs-btn-disabled-border-color: var(--orange-100);
 }
 
 .btn-green {
-	--bs-btn-color                : var(--orange-100);
-    --bs-btn-bg                   : var(--green-900);
-    --bs-btn-border-color         : var(--green-900);
-    --bs-btn-hover-color          : var(--orange-100);
+	--bs-btn-color                : var(--green-900);
+    --bs-btn-bg                   : var(--green-400);
+    --bs-btn-border-color         : var(--green-400);
+    --bs-btn-hover-color          : var(--green-900);
     --bs-btn-hover-bg             : var(--green-500);
-    --bs-btn-hover-border-color   : var(--green-600);
+    --bs-btn-hover-border-color   : var(--green-500);
+    --bs-btn-focus-shadow-rgb     : 130, 138, 145;
+    --bs-btn-active-color         : var(--green-900);
+    --bs-btn-active-bg            : var(--green-400);
+    --bs-btn-active-border-color  : var(--green-400);
+    --bs-btn-active-shadow        : inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color       : var(--green-900);
+    --bs-btn-disabled-bg          : var(--green-400);
+    --bs-btn-disabled-border-color: var(--green-400);
+}
+
+.btn-quizz {
+    --bs-btn-color                : var(--green-700);
+    --bs-btn-bg                   : var(--white-300);
+    --bs-btn-border-color         : var(--green-700);
+    --bs-btn-hover-color          : var(--white-300);
+    --bs-btn-hover-bg             : var(--green-700);
+    --bs-btn-hover-border-color   : var(--green-700);
     --bs-btn-focus-shadow-rgb     : 130, 138, 145;
     --bs-btn-active-color         : var(--white-300);
-    --bs-btn-active-bg            : var(--green-500);
-    --bs-btn-active-border-color  : var(--green-600);
+    --bs-btn-active-bg            : var(--green-700);
+    --bs-btn-active-border-color  : var(--green-700);
     --bs-btn-active-shadow        : inset 0 3px 5px rgba(0, 0, 0, 0.125);
     --bs-btn-disabled-color       : var(--white-300);
     --bs-btn-disabled-bg          : var(--black-400);
-    --bs-btn-disabled-border-color: var(--green-900);
+    --bs-btn-disabled-border-color: var(--white-300);
+
+    border-radius: 0;
 }
 
-.btn-outline-green {
-	--bs-btn-color                : var(--green-900);
-    --bs-btn-border-color         : var(--green-900);
-    --bs-btn-hover-color          : var(--white-300);
-    --bs-btn-hover-bg             : var(--green-900);
-    --bs-btn-hover-border-color   : var(--green-900);
-    --bs-btn-focus-shadow-rgb     : 108, 117, 125;
-    --bs-btn-active-color         : var(--white-300);
-    --bs-btn-active-bg            : var(--green-900);
-    --bs-btn-active-border-color  : var(--green-900);
-    --bs-btn-active-shadow        : inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    --bs-btn-disabled-color       : var(--green-900);
-    --bs-btn-disabled-bg          : transparent;
-    --bs-btn-disabled-border-color: var(--green-900);
-    --bs-gradient                 : none;
-}
