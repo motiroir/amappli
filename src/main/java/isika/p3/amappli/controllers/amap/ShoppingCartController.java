@@ -30,12 +30,12 @@ public class ShoppingCartController {
     @GetMapping("/{cartId}")
     public String viewCart(@PathVariable("cartId") Long cartId, @PathVariable("tenancyAlias") String alias, Model model) {
     	//get user info from context (connected user)
-    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    	if (authentication != null) {
-    		CustomUserDetails loggedUserInfo = (CustomUserDetails) authentication.getPrincipal();
-    		Long userId = (Long) loggedUserInfo.getAdditionalInfoByKey("userId");
-    		System.out.println(userId);
-    	}
+//    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//    	if (authentication != null) {
+//    		CustomUserDetails loggedUserInfo = (CustomUserDetails) authentication.getPrincipal();
+//    		Long userId = (Long) loggedUserInfo.getAdditionalInfoByKey("userId");
+//    		System.out.println(userId);
+//    	}
         
         ShoppingCart cart = shoppingCartService.getShoppingCartById(cartId);
         model.addAttribute("cartId", cartId); // Ajout de cartId au modèle
