@@ -92,9 +92,11 @@ public class TenancyServiceImpl implements TenancyService {
                     .tenancyAlias("biocoli")
                     .tenancySlogan("Manger bio, c'est facile avec BioColi!")
                     .email("contact@biocoli.fr")
-                    .address(new Address("A12", "12 avenue de la localité", "75000", "Paris"))
+                    .address(new Address("A12", "12 avenue de la localité", "69000", "Lyon"))
                     .dateCreated(LocalDateTime.now())
                     .dateLastModified(LocalDateTime.now())
+                    .tenancyLatitude("45.7400000") //lyon
+                    .tenancyLongitude("4.6370000")
                     .build();
 
             // Création du ContactInfo pour la Tenancy
@@ -193,9 +195,11 @@ public class TenancyServiceImpl implements TenancyService {
                                 .tenancyAlias("agrinov")
                                 .tenancySlogan("L'innovation au service de l'agriculture de proximité")
                                 .email("agrinov@gmail.com")
-                                .address(new Address("", "Cave voutée de la Garenne Valentin", "44190", "Clisson"))
+                                .address(new Address("", "Cave voutée de la Garenne Valentin", "63000", "Clermont-Ferrand"))
                                 .dateCreated(LocalDateTime.now())
                                 .dateLastModified(LocalDateTime.now())
+                                .tenancyLatitude("45.6150000") //clermont-ferrand
+                                .tenancyLongitude("3.2680000")
                                 .build();
                 
                 // Création du ContactInfo pour la Tenancy
@@ -289,9 +293,11 @@ public class TenancyServiceImpl implements TenancyService {
                                 .tenancyAlias("groots")
                                 .tenancySlogan("Avec vous jusqu'au bout des racines")
                                 .email("groots@gmail.com")
-                                .address(new Address("", "16 rue D'Astorg", "31000", "Toulouse"))
+                                .address(new Address("", "16 rue D'Astorg", "44100", "Nantes"))
                                 .dateCreated(LocalDateTime.now())
                                 .dateLastModified(LocalDateTime.now())
+                                .tenancyLatitude("46.5050000") //nantes -> exemple peu de dénivelés
+                                .tenancyLongitude("-0.5140000")
                                 .build();
                 
                 // Création du ContactInfo pour la Tenancy
@@ -384,9 +390,11 @@ public class TenancyServiceImpl implements TenancyService {
                                 .tenancyAlias("greenmaven")
                                 .tenancySlogan("Un havre de fraîcheur pour vos produits locaux")
                                 .email("greenHaven@gmail.com")
-                                .address(new Address("", "24 rue des Lilas", "69000", "Lyon"))
+                                .address(new Address("", "24 rue des Lilas", "65240", "Aulon"))
                                 .dateCreated(LocalDateTime.now())
                                 .dateLastModified(LocalDateTime.now())
+                                .tenancyLatitude("46.0170000") //aulon, creuse
+                                .tenancyLongitude("1.6550000")
                                 .build();
                 
                 // Création du ContactInfo pour la Tenancy
@@ -468,9 +476,11 @@ public class TenancyServiceImpl implements TenancyService {
                                 .tenancyAlias("greenfields")
                                 .tenancySlogan("Des champs verts pour des générations durables")
                                 .email("greenfields@gmail.com")
-                                .address(new Address("", "25 avenue des Champs Verts", "69000", "Lyon"))
+                                .address(new Address("", "25 avenue des Champs Verts", "74000", "Annecy"))
                                 .dateCreated(LocalDateTime.now())
                                 .dateLastModified(LocalDateTime.now())
+                                .tenancyLatitude("45.8440000") //annecy, avec son lac en plein milieu
+                                .tenancyLongitude("6.1940000")
                                 .build();
 
                 
@@ -556,9 +566,11 @@ public class TenancyServiceImpl implements TenancyService {
                                 .tenancyAlias("terralocal")
                                 .tenancySlogan("Des produits de la Terre pour les gens d'ici")
                                 .email("terralocal@gmail.com")
-                                .address(new Address("", "10 rue des Cultures", "33000", "Bordeaux"))
+                                .address(new Address("", "10 rue des Cultures", "13260", "Cassis"))
                                 .dateCreated(LocalDateTime.now())
                                 .dateLastModified(LocalDateTime.now())
+                                .tenancyLatitude("43.2140000") //cassis, bord de mer
+                                .tenancyLongitude("5.5370000")
                                 .build();
 
                 // Création du ContactInfo pour la Tenancy

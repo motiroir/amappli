@@ -36,6 +36,8 @@ public class ShoppingCartController {
         //get map style depending on tenancy
         model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
         model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+        model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
+        model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
         //get tenancy info for header footer
         model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
         //get color palette
