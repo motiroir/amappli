@@ -9,22 +9,33 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import isika.p3.amappli.security.CustomAuthenticationEntryPoint;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class WebSecurityConfig {
 
+	private final CustomAuthenticationEntryPoint entryPoint;
+
+
+	public WebSecurityConfig(CustomAuthenticationEntryPoint entryPoint) {
+		this.entryPoint = entryPoint;
+	}
+
     @Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 			.authorizeHttpRequests((requests) -> requests
+				.requestMatchers("/sectest/*/login").permitAll()
 				.requestMatchers("/sectest/**").authenticated() //all requests that match this need to be authenticated unless stated otherwise
 				.anyRequest().permitAll() //all other requests don't need authentication
 			)
+			.exceptionHandling(exception -> exception.authenticationEntryPoint(entryPoint)) //send user to the appropriate login page
 			.formLogin((form) -> form
-				.loginPage("/sectest/login")
-				.loginProcessingUrl("/sectest/login")
-				.failureUrl("/sectest/login?error=true") 
+				//.loginPage("/sectest/login") 
+				.loginProcessingUrl("/sectest/login") //this is the post request endpoint for spring to process the login attempt
+				//.failureUrl("/sectest/login?error=true") 
 				.permitAll() //everyone has acces to the login page
 			)
 			.logout((logout) -> logout.logoutUrl("/sectest/logout").permitAll());

@@ -39,11 +39,18 @@ public class CustomUserDetailsService implements UserDetailsService {
         // If the user is found, get his permissions
         //Set<Permission> permissions = userRepository.findPermissionsByEmail(username);
 
-        return org.springframework.security.core.userdetails.User.builder()
+        CustomUserDetails securityUser = new CustomUserDetails.Builder()
                 .username(user.getEmail())
                 .password(user.getPassword())
                 .authorities(getGrantedAuthorities(user.getPermissions()))
                 .build();
+        
+        securityUser.addAdditionalInfo("userId",user.getUserId());
+        if(user.getContactInfo().getFirstName() != null){
+            securityUser.addAdditionalInfo("firstName",user.getContactInfo().getFirstName());
+        }
+        return securityUser;
+
     }
 
     // Transform our permissions into spring security authorities
