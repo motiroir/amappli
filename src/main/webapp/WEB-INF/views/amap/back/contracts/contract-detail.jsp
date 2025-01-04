@@ -80,9 +80,9 @@ request.setAttribute("currentPage", currentPage);
 											value="${contract.contractWeight.displayName}" readonly>
 									</div>
 									<div class="mb-3">
-										<label class="form-label">Producteur</label> <input
-											type="text" class="form-control" value="Producteur exemple"
-											readonly>
+										<label class="form-label">Fournisseur</label> <input
+											type="text" class="form-control"
+											value="${contract.user.companyDetails.companyName}" readonly>
 									</div>
 									<div class="mb-3">
 										<label class="form-label">Date de début du contrat</label> <input
@@ -118,8 +118,8 @@ request.setAttribute("currentPage", currentPage);
 											value="${contract.deliveryDay.displayName}" readonly>
 									</div>
 									<div class="mb-3">
-										<label class="form-label">Quantité disponible</label> <input
-											type="text" class="form-control"
+										<label class="form-label">Quantité disponible entre
+											chaque livraison</label> <input type="text" class="form-control"
 											value="${contract.quantity} paniers" readonly>
 									</div>
 								</div>
@@ -130,15 +130,15 @@ request.setAttribute("currentPage", currentPage);
 											<img
 												src="data:${contract.imageType};base64,${contract.imageData}"
 												alt="Image du contrat"
-												style="max-width: 100%; border-radius: 8px; object-fit: cover;">
+												style="width: 150px; height: 150px; border-radius: 8px; object-fit: cover;">
 										</c:if>
 										<div class="mb-3">
 											<label class="form-label">Date de création le
 												${formattedDate}</label>
 										</div>
-
 									</div>
 								</div>
+
 							</div>
 						</form>
 					</div>

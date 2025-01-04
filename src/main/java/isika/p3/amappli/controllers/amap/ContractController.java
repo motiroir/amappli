@@ -144,7 +144,12 @@ public class ContractController {
 		if (contract == null) {
 			return "redirect:/" + tenancyAlias + "/backoffice/contracts/list"; // Redirige si le contrat n'existe pas
 		}
-
+	    Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
+	            .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+	    Address address = tenancy.getAddress();
+	    model.addAttribute("address", address);
+		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
+		model.addAttribute("users", users);
 		model.addAttribute("contract", contract);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));

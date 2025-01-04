@@ -17,5 +17,6 @@ public interface ShoppingCartItemRepository extends CrudRepository<ShoppingCartI
 	@Transactional
 	@Query("DELETE FROM ShoppingCartItem i WHERE i.shoppable = :shoppable")
 	void deleteByShoppable(@Param("shoppable") Shoppable shoppable);
+	void deleteByShoppableId(Long shoppableId);
 
 }

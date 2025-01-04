@@ -90,7 +90,8 @@ request.setAttribute("currentPage", currentPage);
 									</div>
 									<div class="mb-3">
 										<label for="contractWeight" class="form-label">Taille
-											du panier</label> <select class="form-select form-control"
+											du panier</label> 
+											<select class="form-select form-control"
 											id="contractWeight" name="contractWeight" required>
 											<option selected disabled>Petit, moyen, grand ?</option>
 											<option value="SMALL">Petit panier (2-4kg)</option>

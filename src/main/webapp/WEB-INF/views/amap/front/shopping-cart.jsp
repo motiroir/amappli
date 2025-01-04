@@ -69,17 +69,17 @@
 							<tr>
 							<tr>
 								<td>Panier</td>
-								<td>${totalContracts}</td>
+								<td>${totalContracts} €</td>
 								<!-- Affiche le nombre de contrats dans le panier -->
 							</tr>
 							<tr>
 								<td>Produits artisanaux</td>
-								<td>${totalProducts}</td>
+								<td>${totalProducts} €</td>
 								<!-- Affiche le nombre de produits dans le panier -->
 							</tr>
 							<tr>
 								<td>Ateliers</td>
-								<td>${totalWorkshops}</td>
+								<td>${totalWorkshops} €</td>
 								<!-- Affiche le nombre de produits dans le panier -->
 							</tr>
 							<tr>

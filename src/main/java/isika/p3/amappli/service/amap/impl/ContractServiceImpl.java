@@ -14,6 +14,7 @@ import isika.p3.amappli.entities.contract.ContractType;
 import isika.p3.amappli.entities.contract.ContractWeight;
 import isika.p3.amappli.entities.contract.DeliveryDay;
 import isika.p3.amappli.entities.contract.DeliveryRecurrence;
+import isika.p3.amappli.entities.order.ShoppingCartItem;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.entities.user.User;
@@ -47,24 +48,11 @@ public class ContractServiceImpl implements ContractService {
 		return contractRepository.findAll();
 	}
 
-	@Transactional
 	@Override
+	@Transactional
 	public void deleteById(Long id) {
-	    Contract contract = contractRepository.findById(id)
-	            .orElseThrow(() -> new IllegalArgumentException("Contract not found with ID: " + id));
-
-	    // Supprimer les ShoppingCartItem associés
-	    shoppingCartItemRepository.deleteByShoppable(contract);
-
-	    // Dissocier les relations
-	    contract.setAddress(null);
-	    contract.setTenancy(null);
-	    contract.setUser(null);
-
-	    // Supprimer le contrat
-	    contractRepository.delete(contract);
+	    contractRepository.deleteById(id);
 	}
-
 
 	@Override
 	public Contract findById(Long id) {
@@ -108,7 +96,6 @@ public class ContractServiceImpl implements ContractService {
 		contract.setQuantity(contractDTO.getQuantity());
 		contract.setShoppable(true);
 		contract.setDateCreation(LocalDate.now());
-//		contract.setTenancy(tenancyService.getTenancyByAlias(contractDTO.getTenancyAlias()));
 
 		//Image treatment
 		if (!contractDTO.getImage().isEmpty()) {
@@ -145,9 +132,11 @@ public class ContractServiceImpl implements ContractService {
 	    existingContract.setQuantity(updatedContractDTO.getQuantity());
 
 
-	        // Conserver l'utilisateur précédent
-	        existingContract.setUser(null);
-	    
+	    if (updatedContractDTO.getUserId() != null) {
+	        User newUser = userRepository.findById(updatedContractDTO.getUserId())
+	                .orElseThrow(() -> new IllegalArgumentException("Utilisateur avec l'ID " + updatedContractDTO.getUserId() + " n'existe pas."));
+	        existingContract.setUser(newUser);
+	    }
 
 	    // Gestion de l'image
 	    if (image != null && !image.isEmpty()) {
