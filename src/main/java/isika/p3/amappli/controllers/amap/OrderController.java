@@ -24,7 +24,7 @@ public class OrderController {
 	@Autowired
 	private GraphismService graphismService;
 	
-	@GetMapping("/my-profile/my-orders/{userId}")
+	@GetMapping("/account/my-orders/{userId}")
 	public String viewOrderByUser(@PathVariable("userId") Long userId, @PathVariable("tenancyAlias") String alias, Model model) {
 		List<Order> orderByUser = orderService.getListOrdersByUser(userId);
 		model.addAttribute("orders", orderByUser);
@@ -51,7 +51,7 @@ public class OrderController {
     	} else if ("OrderWithoutPayment".equals(action)) {
     		orderService.createOrderFromCartWithOnsitePayment(cartId);
     	}
-    	return "redirect:/{tenancyAlias}/my-profile/my-orders/" + 6;
+    	return "redirect:/{tenancyAlias}/account/my-orders/" + 6;
     }
 
 }

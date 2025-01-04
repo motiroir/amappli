@@ -2,6 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%
+	String currentMainMenu="orders" ; // Détermine la rubrique active
+	String currentPage="orders" ; // Détermine la sous-rubrique active
+	request.setAttribute("currentMainMenu", currentMainMenu);
+	request.setAttribute("currentPage", currentPage);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,53 +23,63 @@
 </head>
 
 
-<body class="${cssStyle} light ${font}-title ${font}-button">
+<body class="row ${cssStyle} light ${font}-title ${font}-button">
 
-	<!-- the bootstrap classes on this div are used to have the footer correctly positioned at the bottom when the page is not full -->
-	<div class="d-flex flex-column min-vh-100">
 
-		<header class="fc-main bg-main">
-			<jsp:include page="../common/header-amap.jsp" />
-		</header>
-		<div class="fc-main content flex-grow-1">
-			<div id="map"></div>
-			<div class="main-div">
+	<header class="fc-main bg-main">
+		<jsp:include page="common/header-user-account.jsp" />
+	</header>
+	<jsp:include page="common/sidebar-user-account.jsp" />
 
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Numéro de commande</th>
-							<th>Date</th>
-							<th>Montant</th>
-							<th>Paiement</th>
-							<th>Status</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="order" items="${orders}">
+	<div id="map"></div>
+	<div class="content col">
+		<div class="container-fluid mt-2">
+			<div class="row justify-content-center">
+				<div class="col-12">
+					<div class="search-bar d-flex align-items-center mb-3">
+						<div class="mx-3">
+							<label class="fc-main">Opacité du tableau</label> <input
+								type="range" class="form-range" min="0" max="100" value="100"
+								id="bg-range">
+						</div>
+					</div>
+					<table class="table">
+						<thead>
 							<tr>
-								<td>${order.orderId}</td>
-								<td>${order.orderDate}</td>
-								<td>${order.totalAmount}€</td>
-								<td><c:if test="${order.orderPaid}">
+								<th>Numéro de commande</th>
+								<th>Date</th>
+								<th>Montant</th>
+								<th>Paiement</th>
+								<th>Status</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="order" items="${orders}">
+								<tr>
+									<td>${order.orderId}</td>
+									<td>${order.orderDate}</td>
+									<td>${order.totalAmount}€</td>
+									<td><c:if test="${order.orderPaid}">
 										Paiement en ligne
 									</c:if> <c:if test="${!order.orderPaid}">
 										Paiement sur place
 									</c:if></td>
-								<td>${order.orderStatus}</td>
-								<td><a class="btn btn-100">Détails </a></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+									<td>${order.orderStatus.displayName}</td>
+									<td><a class="btn btn-100">Détails </a></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 
+				</div>
 			</div>
 		</div>
-		<footer class="fc-main bg-main">
-			<jsp:include page="../common/footer-amap.jsp" />
-		</footer>
 	</div>
+
+
+
+
 
 	<script
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
@@ -78,8 +94,13 @@
 		 */
 	</script>
 
-	<%-- 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  --%>
+	<script
+		src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script>
+	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />"
+		type="text/javascript"></script>
 </body>
 </html>

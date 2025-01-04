@@ -2,7 +2,7 @@ package isika.p3.amappli.entities.order;
 
 public enum OrderStatus {
 	
-	PENDING("En attante"),
+	PENDING("En attente"),
 	IN_PROGRESS("En cours"),
 	DONE("Terminée");
 	
