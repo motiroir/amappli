@@ -143,14 +143,14 @@ public class UserServiceImpl implements UserService {
             Address a = Address.builder()
                 .line1(faker.address().buildingNumber())
                 .line2(faker.address().streetName())
-                .postCode(faker.address().zipCode())
+                .postCode("44100")
                 .city(faker.address().cityName())
                 .build();
 
             ContactInfo cI = ContactInfo.builder()
                 .name(faker.name().lastName())
                 .firstName(faker.name().firstName())
-                .phoneNumber(faker.phoneNumber().phoneNumber())
+                .phoneNumber("0612121212")
                 .build();
 
             User u = User.builder()

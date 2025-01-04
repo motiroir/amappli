@@ -1,6 +1,8 @@
 package isika.p3.amappli.controllers.amap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import isika.p3.amappli.entities.order.ShoppingCart;
+import isika.p3.amappli.security.CustomUserDetails;
 import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.ShoppingCartService;
 import isika.p3.amappli.service.amap.impl.OrderServiceImpl;
@@ -23,11 +26,17 @@ public class ShoppingCartController {
 	private ShoppingCartService shoppingCartService;
 	@Autowired
 	private GraphismService graphismService;
-	@Autowired
-	private OrderServiceImpl orderService;
 	
     @GetMapping("/{cartId}")
     public String viewCart(@PathVariable("cartId") Long cartId, @PathVariable("tenancyAlias") String alias, Model model) {
+    	//get user info from context (connected user)
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	if (authentication != null) {
+    		CustomUserDetails loggedUserInfo = (CustomUserDetails) authentication.getPrincipal();
+    		Long userId = (Long) loggedUserInfo.getAdditionalInfoByKey("userId");
+    		System.out.println(userId);
+    	}
+        
         ShoppingCart cart = shoppingCartService.getShoppingCartById(cartId);
         model.addAttribute("cartId", cartId); // Ajout de cartId au modèle
         model.addAttribute("cart", cart);
