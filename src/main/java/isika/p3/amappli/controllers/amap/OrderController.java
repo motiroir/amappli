@@ -16,7 +16,7 @@ import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.impl.OrderServiceImpl;
 
 @Controller
-@RequestMapping("/{tenancyAlias}/order")
+@RequestMapping("/{tenancyAlias}")
 public class OrderController {
 	
 	@Autowired
@@ -24,7 +24,7 @@ public class OrderController {
 	@Autowired
 	private GraphismService graphismService;
 	
-	@GetMapping("/{userId}")
+	@GetMapping("/my-profile/my-orders/{userId}")
 	public String viewOrderByUser(@PathVariable("userId") Long userId, @PathVariable("tenancyAlias") String alias, Model model) {
 		List<Order> orderByUser = orderService.getListOrdersByUser(userId);
 		model.addAttribute("orders", orderByUser);
@@ -42,7 +42,7 @@ public class OrderController {
 	}
 	
     
-    @PostMapping("/{cartId}/createOrder")
+    @PostMapping("order/{cartId}/createOrder")
     public String createOrder(
     		@PathVariable("cartId") Long cartId,  @PathVariable("tenancyAlias") String alias, 
             @ModelAttribute("action") String action) {
@@ -51,7 +51,7 @@ public class OrderController {
     	} else if ("OrderWithoutPayment".equals(action)) {
     		orderService.createOrderFromCartWithOnsitePayment(cartId);
     	}
-    	return "redirect:/{tenancyAlias}/order/" + 6;
+    	return "redirect:/{tenancyAlias}/my-profile/my-orders/" + 6;
     }
 
 }
