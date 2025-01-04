@@ -11,11 +11,11 @@ import isika.p3.amappli.entities.user.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
 
-	@Query("SELECT u FROM User u JOIN FETCH u.roles WHERE u.email=:email")
+	@Query("SELECT u FROM User u LEFT JOIN FETCH u.roles LEFT JOIN FETCH u.tenancy WHERE u.email=:email")
 	User findByEmail(@Param("email")String email);
 
 	boolean existsByEmailAndTenancy(String email, Tenancy tenancy);
-	
+
 	@Query("SELECT u FROM User u LEFT JOIN FETCH u.orders WHERE u.id = :userId")
     User findUserWithOrders(@Param("userId") Long userId);
 

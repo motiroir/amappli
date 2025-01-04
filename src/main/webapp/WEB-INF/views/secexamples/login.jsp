@@ -10,12 +10,13 @@
 </head>
 <body>
 <h1>This is the login page</h1>
-<c:if test="${param.error == 'true'}">
+<c:if test="${error}">
     <p style="color:red;">Invalid username or password. Please try again.</p>
 </c:if>
-
-<form action="<c:url value='/sectest/login'/>" method="post">
+<p>${error}</p>
+<form action="<c:url value='/login'/>" method="post">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <input type="hidden" name="origin" value="amappli">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username"/><br><br>
         <label for="password">Password:</label>
