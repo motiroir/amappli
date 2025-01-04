@@ -20,10 +20,12 @@ import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.exceptions.TenancyNotFoundException;
 import isika.p3.amappli.repo.amap.AddressRepository;
 import isika.p3.amappli.repo.amap.ContractRepository;
+import isika.p3.amappli.repo.amap.ShoppingCartItemRepository;
 import isika.p3.amappli.repo.amap.UserRepository;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
 import isika.p3.amappli.service.amap.ContractService;
 import isika.p3.amappli.service.amappli.TenancyService;
+import jakarta.transaction.Transactional;
 
 @Service
 public class ContractServiceImpl implements ContractService {
@@ -31,11 +33,13 @@ public class ContractServiceImpl implements ContractService {
 	private final ContractRepository contractRepository;
 	private final UserRepository userRepository;
 	private final TenancyRepository tenancyRepository;
+	private final ShoppingCartItemRepository shoppingCartItemRepository;
 
-	public ContractServiceImpl(TenancyRepository tenancyRepository, ContractRepository contractRepository, UserRepository userRepository, AddressRepository addressRepository) {
+	public ContractServiceImpl(TenancyRepository tenancyRepository, ContractRepository contractRepository, UserRepository userRepository, AddressRepository addressRepository, ShoppingCartItemRepository shoppingCartItemRepository) {
 		this.contractRepository = contractRepository;
 		this.userRepository = userRepository;
 		this.tenancyRepository = tenancyRepository;
+		this.shoppingCartItemRepository = shoppingCartItemRepository;
 	}
 
 	@Override
@@ -43,10 +47,24 @@ public class ContractServiceImpl implements ContractService {
 		return contractRepository.findAll();
 	}
 
+	@Transactional
 	@Override
 	public void deleteById(Long id) {
-		contractRepository.deleteById(id);
+	    Contract contract = contractRepository.findById(id)
+	            .orElseThrow(() -> new IllegalArgumentException("Contract not found with ID: " + id));
+
+	    // Supprimer les ShoppingCartItem associés
+	    shoppingCartItemRepository.deleteByShoppable(contract);
+
+	    // Dissocier les relations
+	    contract.setAddress(null);
+	    contract.setTenancy(null);
+	    contract.setUser(null);
+
+	    // Supprimer le contrat
+	    contractRepository.delete(contract);
 	}
+
 
 	@Override
 	public Contract findById(Long id) {

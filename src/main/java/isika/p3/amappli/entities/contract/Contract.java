@@ -121,7 +121,5 @@ public class Contract extends Shoppable {
         }
         return "/resources/images/default-image.png"; // Chemin de l'image par défaut si aucune donnée n'est disponible
     }
-    
-	
-
+   
 }

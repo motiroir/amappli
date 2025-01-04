@@ -117,13 +117,13 @@ request.setAttribute("currentPage", currentPage);
 		</div>
 	</div>
 	<script
-		src="<d:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"
+		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"
 		type="text/javascript"></script>
-	<script src="<d:url value='/resources/js/amap/admin/user-list.js' />"
+	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />"
 		type="text/javascript"></script>
-	<script src="<d:url value='/resources/js/common/theme-swap.js' />"
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
 		type="text/javascript"></script>
-	<script src="<d:url value='/resources/js/common/palette-swap.js' />"
+	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
 		type="text/javascript"></script>
 		<script>
     document.addEventListener("DOMContentLoaded", () => {

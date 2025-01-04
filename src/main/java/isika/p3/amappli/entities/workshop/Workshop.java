@@ -51,8 +51,6 @@ public class Workshop extends Shoppable {
 
 	private Integer workshopDuration;
 
-	private String location;
-
 	private Integer minimumParticipants;
 
 	private Integer maximumParticipants;

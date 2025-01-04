@@ -159,16 +159,15 @@
 
 
 
+
+						<form:form method="post"
+							action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cartId}/add">
 						<div class="quantity-selector">
 							<label for="quantity">Quantité :</label> <input type="number"
 								id="quantity" name="quantity" value="1" min="1" />
 						</div>
-
-						<form:form method="post"
-							action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cartId}/add">
 							<input type="hidden" name="shoppableId" value="${product.id}" />
 							<input type="hidden" name="shoppableType" value="PRODUCT" />
-							<input type="hidden" name="quantity" value="1" />
 							<button type="submit" class="btn-add-to-cart">Ajouter au
 								panier</button>
 						</form:form>

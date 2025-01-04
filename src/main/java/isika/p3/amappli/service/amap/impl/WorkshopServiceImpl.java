@@ -61,7 +61,6 @@ public class WorkshopServiceImpl implements WorkshopService {
         workshop.setWorkshopDateTime(workshopDTO.getWorkshopDateTime());
         workshop.setWorkshopPrice(workshopDTO.getWorkshopPrice());
         workshop.setWorkshopDuration(workshopDTO.getWorkshopDuration());
-        workshop.setLocation(workshopDTO.getLocation());
         workshop.setMinimumParticipants(workshopDTO.getMinimumParticipants());
         workshop.setMaximumParticipants(workshopDTO.getMaximumParticipants());
         workshop.setDateCreation(LocalDate.now());
@@ -113,7 +112,6 @@ public class WorkshopServiceImpl implements WorkshopService {
 		    existingWorkshop.setWorkshopDateTime(updatedWorkshopDTO.getWorkshopDateTime() != null ? updatedWorkshopDTO.getWorkshopDateTime() : existingWorkshop.getWorkshopDateTime());
 		    existingWorkshop.setWorkshopPrice(updatedWorkshopDTO.getWorkshopPrice() != null ? updatedWorkshopDTO.getWorkshopPrice() : existingWorkshop.getWorkshopPrice());
 		    existingWorkshop.setWorkshopDuration(updatedWorkshopDTO.getWorkshopDuration() != null ? updatedWorkshopDTO.getWorkshopDuration() : existingWorkshop.getWorkshopDuration());
-		    existingWorkshop.setLocation(updatedWorkshopDTO.getLocation() != null ? updatedWorkshopDTO.getLocation() : existingWorkshop.getLocation());
 		    existingWorkshop.setMinimumParticipants(updatedWorkshopDTO.getMinimumParticipants() != null ? updatedWorkshopDTO.getMinimumParticipants() : existingWorkshop.getMinimumParticipants());
 		    existingWorkshop.setMaximumParticipants(updatedWorkshopDTO.getMaximumParticipants() != null ? updatedWorkshopDTO.getMaximumParticipants() : existingWorkshop.getMaximumParticipants());
 

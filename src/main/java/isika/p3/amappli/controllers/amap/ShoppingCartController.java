@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import isika.p3.amappli.entities.contract.Contract;
 import isika.p3.amappli.entities.order.ShoppingCart;
 import isika.p3.amappli.entities.product.Product;
+import isika.p3.amappli.entities.workshop.Workshop;
 import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.ShoppingCartService;
 
@@ -54,9 +55,15 @@ public class ShoppingCartController {
             .filter(item -> item.getShoppable() instanceof Product)
             .mapToDouble(item -> item.getShoppable().getPrice() * item.getQuantity())
             .sum();
+        
+        double totalWorkshops = cart.getShoppingCartItems().stream()
+        		.filter(item -> item.getShoppable() instanceof Workshop)
+        		.mapToDouble(item -> item.getShoppable().getPrice() * item.getQuantity())
+        		.sum();
 
         model.addAttribute("totalContracts", totalContracts);
         model.addAttribute("totalProducts", totalProducts);
+        model.addAttribute("totalWorkshops", totalWorkshops);
         
         return "amap/front/shopping-cart";
     }
@@ -67,9 +74,6 @@ public class ShoppingCartController {
                           @RequestParam("shoppableId") Long shoppableId,
                           @RequestParam("shoppableType") String shoppableType,
                           @RequestParam("quantity") int quantity) {
-        System.out.println("shoppableId: " + shoppableId);
-        System.out.println("shoppableType: " + shoppableType);
-        System.out.println("quantity: " + quantity);
         shoppingCartService.addItemToCart(cartId, shoppableId, shoppableType, quantity);
         return "redirect:/{tenancyAlias}/cart/" + cartId;
     }

@@ -30,6 +30,16 @@ request.setAttribute("currentPage", currentPage);
 	align-items: center;
 	gap: 10px;
 }
+.image-preview {
+    width: 150px; /* Taille fixe */
+    height: 150px; /* Taille fixe */
+    object-fit: cover; /* Recadre l'image pour remplir la zone tout en respectant le ratio d'aspect */
+    border-radius: 8px; /* Facultatif : pour un effet arrondi */
+    border: 1px solid #ddd; /* Facultatif : pour une bordure légère */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Facultatif : pour un effet ombré */
+}
+
+
 </style>
 </head>
 <body class="row theme-1 light">
@@ -62,52 +72,55 @@ request.setAttribute("currentPage", currentPage);
 									<div class="mb-3">
 										<label for="contractName" class="form-label">Nom du
 											panier</label> <input type="text" class="form-control"
-											id="contractName" name="contractName"
+											id="contractName" name="contractName" required
 											placeholder="Exemple : Panier d'hiver">
+											<div class="invalid-feedback"></div>
 									</div>
 									<div class="mb-3">
 										<label for="contractType" class="form-label">Type de
 											panier</label> <select class="form-select form-control"
-											id="contractType" name="contractType">
+											id="contractType" name="contractType" required>
 											<option selected disabled>Fruits, légumes, mixte ?</option>
 											<option value="FRUITS_CONTRACT">Panier de fruits</option>
 											<option value="VEGETABLES_CONTRACT">Panier de
 												légumes</option>
 											<option value="MIX_CONTRACT">Panier mixte</option>
 										</select>
+										<div class="invalid-feedback"></div>
 									</div>
 									<div class="mb-3">
 										<label for="contractWeight" class="form-label">Taille
 											du panier</label> <select class="form-select form-control"
-											id="contractWeight" name="contractWeight">
+											id="contractWeight" name="contractWeight" required>
 											<option selected disabled>Petit, moyen, grand ?</option>
-											<option value="SMALL">Petit</option>
-											<option value="AVERAGE">Moyen</option>
-											<option value="BIG">Grand</option>
+											<option value="SMALL">Petit panier (2-4kg)</option>
+											<option value="AVERAGE">Moyen panier (5-8kg)</option>
+											<option value="BIG">Grand panier (9kg et +)</option>
 										</select>
+										<div class="invalid-feedback"></div>
 									</div>
 
 									<div class="mb-3">
-										<label for="userId" class="form-label">Sélectionnez un
-											fournisseur :</label> <select id="userId" name="userId"
-											class="form-select">
+										<label for="userId" class="form-label">Fournisseur :</label> <select id="userId" name="userId"
+											class="form-select" required>
 											<option value="" selected>Choisir un fournisseur</option>
 											<c:forEach var="user" items="${users}">
 												<option value="${user.userId}">
 													${user.companyDetails.companyName}</option>
 											</c:forEach>
 										</select>
+										<div class="invalid-feedback"></div>
 									</div>
 
 									<div class="mb-3">
 										<label for="startDate" class="form-label">Date de
 											début du contrat</label> <input type="date" class="form-control"
-											id="startDate" name="startDate" min="${currentDate}">
+											id="startDate" name="startDate" min="${currentDate}" required>
 									</div>
 									<div class="mb-3">
 										<label for="endDate" class="form-label">Date de fin du
 											contrat</label> <input type="date" class="form-control" id="endDate"
-											name="endDate">
+											name="endDate" required>
 									</div>
 								</div>
 
@@ -117,34 +130,37 @@ request.setAttribute("currentPage", currentPage);
 										<label for="contractDescription" class="form-label">Produits
 											composant le panier</label>
 										<textarea class="form-control" id="contractDescription"
-											name="contractDescription" rows="5"
+											name="contractDescription" rows="5" required
 											placeholder="Pommes, carottes, oignons..."></textarea>
+											<div class="invalid-feedback"></div>
 									</div>
 									<div class="mb-3">
 										<label for="contractPrice" class="form-label">Prix de
 											vente</label>
 										<div class="input-group">
 											<input type="number" class="form-control" id="contractPrice"
-												name="contractPrice" step="0.01" placeholder="Prix">
+												name="contractPrice" step="0.10" placeholder="0.00" min="1" required>
 											<span class="input-group-text">€</span>
 										</div>
+										<div class="invalid-feedback"></div>
 									</div>
 									<div class="mb-3">
 										<label for="deliveryRecurrence" class="form-label">Fréquence
 											de livraison au point de collecte</label> <select
 											class="form-select form-control" id="deliveryRecurrence"
-											name="deliveryRecurrence">
+											name="deliveryRecurrence" required>
 											<option selected disabled></option>
 											<option value="WEEKLY">Hebdomadaire</option>
 											<option value="BIMONTHLY">Bimensuel</option>
 											<option value="MONTHLY">Mensuel</option>
 										</select>
+										<div class="invalid-feedback"></div>
 									</div>
 									<div class="mb-3">
 										<label for="deliveryDay" class="form-label">Jour de
 											livraison au point de collecte</label> <select
 											class="form-select form-control" id="deliveryDay"
-											name="deliveryDay">
+											name="deliveryDay" required>
 											<option selected disabled></option>
 											<option value="MONDAY">Lundi</option>
 											<option value="TUESDAY">Mardi</option>
@@ -154,15 +170,17 @@ request.setAttribute("currentPage", currentPage);
 											<option value="SATURDAY">Samedi</option>
 											<option value="SUNDAY">Dimanche</option>
 										</select>
+										<div class="invalid-feedback"></div>
 									</div>
 									<div class="mb-3">
 										<label for="quantity" class="form-label">Quantité
 											disponible entre chaque livraison</label>
 										<div class="input-group">
 											<input type="number" class="form-control" id="quantity"
-												name="quantity" step="1.00" placeholder="0"> <span
+												name="quantity" step="1.00" required placeholder="0" min="1"> <span
 												class="input-group-text">paniers</span>
 										</div>
+										<div class="invalid-feedback"></div>
 									</div>
 								</div>
 
@@ -171,7 +189,8 @@ request.setAttribute("currentPage", currentPage);
 									<div class="mb-3">
 										<label for="image" class="form-label">Photo du panier</label>
 										<input type="file" class="form-control" id="image"
-											name="image" accept="image/png,image/jpeg,image/svg">
+											name="image" accept="image/png,image/jpeg,image/svg" required>
+											<div class="invalid-feedback"></div>
 									</div>
 									<div class="mb-3 text-center">
 										<img src="https://via.placeholder.com/150"
@@ -211,5 +230,6 @@ request.setAttribute("currentPage", currentPage);
 		type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
 		type="text/javascript"></script>
+		
 </body>
 </html>

@@ -7,40 +7,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Détails du Contrat</title>
+<title>Détails de l'atelier</title>
 <link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />"
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="<c:url value='/resources/css/amap/homePage.css' />">
 <style>
-.contract-details-container {
+.workshop-details-container {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 20px;
 }
 
-.contract-image {
+.workshop-image {
 	flex: 1;
 	max-width: 50%;
 }
 
-.contract-image img {
+.workshop-image img {
 	width: 100%;
 	height: auto;
 	border-radius: 16px;
 }
 
-.contract-info {
+.workshop-info {
 	flex: 1;
 	max-width: 50%;
 }
 
-.contract-info h2 {
+.workshop-info h2 {
 	font-size: 28px;
 	margin-bottom: 10px;
 }
 
-.contract-info p {
+.workshop-info p {
 	margin-bottom: 10px;
 }
 
@@ -79,7 +79,7 @@
 			<!-- Sidebar -->
 			<div class="col-12 col-md-3">
 				<div class="sidebar">
-					<div class="section-title">Paniers</div>
+					<div class="section-title">Ateliers</div>
 					<ul class="list-unstyled">
 						<li><a href="#"
 							class="${currentPage == 'all' ? 'active' : ''}">Tous les
@@ -109,75 +109,49 @@
 				</div>
 			</div>
 			<div class="container mt-5">
-				<div class="contract-details-container">
+				<div class="workshop-details-container">
 					<!-- Image du contrat -->
-					<div class="contract-image">
-						<c:if test="${not empty contract.imageData}">
+					<div class="workshop-image">
+						<c:if test="${not empty workshop.imageData}">
 							<img
-								src="data:${contract.imageType};base64,${contract.imageData}"
-								alt="Image du contrat" />
+								src="data:${workshop.imageType};base64,${workshop.imageData}"
+								alt="Image de l'atelier" />
 						</c:if>
 					</div>
 
 					<!-- Informations du contrat -->
-					<div class="contract-info">
-						<h2>${contract.contractName}</h2>
-						<p>
-							<strong>Type :</strong> ${contract.contractType.displayName}
-						</p>
-
+					<div class="workshop-info">
+						<h2>${workshop.workshopName}</h2>
 						<p>
 							<strong>Producteur :</strong>
-							${contract.user.companyDetails.companyName}
+							${workshop.user.companyDetails.companyName}
 						</p>
 						<p>
-							<strong>Prix :</strong> ${contract.contractPrice}€
+							<strong>Prix :</strong> ${workshop.workshopPrice}€
 						</p>
 						<p>
-							<strong>Description :</strong> ${contract.contractDescription}
-						</p>
-						<p>
-							<strong>Jour de livraison au point de collecte :</strong>
-							${contract.deliveryDay.displayName}
-						</p>
-						<p>
-							<strong>Fréquence de livraison : </strong>
-							${contract.deliveryRecurrence.displayName}
-						</p>
-						<p>
-							<strong>Date de fin de l'abonnement : </strong>
-							${contract.endDate}
-						</p>
-						<p>
-							<strong>Date de première livraison :</strong> ${nextDeliveryDate}
+							<strong>Description :</strong> ${workshop.workshopDescription}
 						</p>
 						<c:if test="${not empty address}">
 							<p>
-								<strong>Adresse de récupération de la commande :</strong><br>
+								<strong>Lieu de l'atelier :</strong><br>
 								${address.line1} ${address.line2}, ${address.city}
 								(${address.postCode})
 							</p>
 						</c:if>
 						<c:if test="${empty address}">
 							<p>
-								<strong>Adresse de récupération de la commande :</strong><br>
+								<strong>Lieu de l'atelier :</strong><br>
 								Adresse indisponible.
 							</p>
 						</c:if>
 
-
-
-
 						<form:form method="post"
 							action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cartId}/add">
-						<div class="quantity-selector">
-							<label for="quantity">Quantité :</label> <input type="number"
-								id="quantity" name="quantity" value="1" min="1" />
-						</div>
-							<input type="hidden" name="shoppableId" value="${contract.id}" />
-							<input type="hidden" name="shoppableType" value="CONTRACT" />
-							<button type="submit" class="btn-add-to-cart">Ajouter au
-								panier</button>
+							<input type="hidden" name="shoppableId" value="${workshop.id}" />
+							<input type="hidden" name="shoppableType" value="WORKSHOP" />
+							<input type="hidden" name="quantity" value="1" />
+							<button type="submit" class="btn-add-to-cart">Je m'inscris à cet atelier</button>
 						</form:form>
 						<a
 							href="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cartId}"

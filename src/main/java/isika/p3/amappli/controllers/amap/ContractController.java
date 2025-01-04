@@ -43,18 +43,14 @@ import isika.p3.amappli.service.amappli.TenancyService;
 public class ContractController {
 
 	private final ContractService contractService;
-	private final UserService userService;
-	private final TenancyService tenancyService;
 	private final TenancyRepository tenancyRepository;
 	private final AmapAdminUserService AmapAdminUserService;
 
-	public ContractController(AmapAdminUserService AmapAdminUserService, ContractService contractService, TenancyService tenancyService, UserService userService,
+	public ContractController(AmapAdminUserService AmapAdminUserService, ContractService contractService,
 			TenancyRepository tenancyrepository) {
 		this.contractService = contractService;
-		this.userService = userService;
-		this.tenancyService = tenancyService;
-		this.tenancyRepository = tenancyrepository;
 		this.AmapAdminUserService = AmapAdminUserService;
+		this.tenancyRepository = tenancyrepository;
 	}
 
 	/**
@@ -105,6 +101,9 @@ public class ContractController {
 	@PostMapping("/add")
 	public String addContract(@ModelAttribute("contractDTO") ContractDTO newContractDTO,
 			@PathVariable("tenancyAlias") String tenancyAlias) {
+	    System.out.println("Nom du contrat : " + newContractDTO.getContractName());
+	    System.out.println("Type du contrat : " + newContractDTO.getContractType());
+	    System.out.println("Description du contrat : " + newContractDTO.getContractDescription());
 		contractService.save(newContractDTO, tenancyAlias);
 		return "redirect:/" + tenancyAlias + "/backoffice/contracts/list";
 
@@ -166,6 +165,8 @@ public class ContractController {
 		if (contract == null) {
 			throw new IllegalArgumentException("Contrat introuvable pour l'ID : " + id);
 		}
+		String formattedDate = contract.getDateCreation().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+		model.addAttribute("formattedDate", formattedDate);
 		model.addAttribute("contract", contract);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		return "amap/back/contracts/contract-detail";

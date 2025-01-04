@@ -79,7 +79,7 @@
 							</tr>
 							<tr>
 								<td>Ateliers</td>
-								<td></td>
+								<td>${totalWorkshops}</td>
 								<!-- Affiche le nombre de produits dans le panier -->
 							</tr>
 							<tr>

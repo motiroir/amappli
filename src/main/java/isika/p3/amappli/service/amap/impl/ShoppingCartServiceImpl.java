@@ -13,6 +13,7 @@ import isika.p3.amappli.repo.amap.ProductMockRepository;
 import isika.p3.amappli.repo.amap.ProductRepository;
 import isika.p3.amappli.repo.amap.ShoppingCartItemRepository;
 import isika.p3.amappli.repo.amap.ShoppingCartRepository;
+import isika.p3.amappli.repo.amap.WorkshopRepository;
 import isika.p3.amappli.service.amap.ShoppingCartService;
 import jakarta.transaction.Transactional;
 
@@ -30,6 +31,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	private ProductMockRepository productMockRepo;
 	@Autowired
 	private ProductRepository productRepository;
+	@Autowired
+	private WorkshopRepository workshopRepository;
 	
 	
 	// get shopping cart by id or create new 
@@ -71,10 +74,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         } else if ("PRODUCT".equalsIgnoreCase(shoppableType)) {
             shoppable = productRepository.findById(shoppableId)
                     .orElseThrow(() -> new RuntimeException("Product not found with ID: " + shoppableId));
+        } else  if ("WORKSHOP".equalsIgnoreCase(shoppableType)) {
+        	shoppable = workshopRepository.findById(shoppableId)
+        			.orElseThrow(() -> new RuntimeException("Workshop not found with ID: " + shoppableId));
         } else {
-            throw new IllegalArgumentException("Invalid shoppable type: " + shoppableType);
+        	throw new IllegalArgumentException("Invalid shoppable type: " + shoppableType);
         }
-
         // Vérifiez si le stock est suffisant
         if (shoppable.getStock() < quantity) {
             throw new RuntimeException("Insufficient stock for " + shoppable.getInfo());
