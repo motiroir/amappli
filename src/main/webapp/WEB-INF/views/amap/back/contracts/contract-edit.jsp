@@ -209,7 +209,7 @@ request.setAttribute("currentPage", currentPage);
 										<c:if test="${not empty contract.imageData}">
 											<img id="imagePreview"
 												src="data:${contract.imageType};base64,${contract.imageData}"
-												alt="Aperçu du produit" class="image-preview">
+												alt="Aperçu du contrat" class="image-preview">
 										</c:if>
 									</div>
 									<div>Adresse du point de collecte : ${address.line1}

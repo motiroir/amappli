@@ -36,22 +36,27 @@ request.setAttribute("currentPage", currentPage);
 }
 </style>
 </head>
-<body>
-	<div>
-		<%@ include file="/WEB-INF/views/amap/back/common/sidebarAdmin.jsp"%>
-	</div>
-	<div class="content" style="margin-left: 150px;">
+<body class="row theme-1 light">
+	<header class="fc-main bg-main">
+		<!-- Inclusion du header -->
+		<jsp:include page="../common/headerAdmin.jsp" />
+	</header>
+	<jsp:include page="../common/sidebarAdmin.jsp" />
+	<div class="content col">
 		<div class="container mt-5">
 			<div class="row justify-content-center">
 				<div class="col-lg-10">
 					<div class="form-container">
 						<div class="header-container">
-							<a href="<c:url value='/amap/products/list' />" class="btn-back">
-								<i class="bi bi-arrow-left-circle"></i>
+							<a
+								href="<c:url value='/${tenancyAlias}/backoffice/products/list' />"
+								class="btn-back"> <i class="bi bi-arrow-left-circle"></i>
 							</a>
 							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Détails
 								du produit</h2>
-								<a href="/Amappli/amap/products/edit/${product.id}" class="btn btn-primary">Modifier le produit</a>
+							<a
+								href="<c:url value='/${tenancyAlias}/backoffice/products/edit/${product.id}'/>"
+								class="btn btn-primary"> Modifier le contrat </a>
 						</div>
 						<form>
 							<div class="row">
@@ -63,11 +68,16 @@ request.setAttribute("currentPage", currentPage);
 											value="${product.productName}" readonly>
 									</div>
 									<div class="mb-3">
+										<label class="form-label">Fournisseur</label> <input
+											type="text" class="form-control"
+											value="${product.user.companyDetails.companyName}" readonly>
+									</div>
+									<div class="mb-3">
 										<label class="form-label">Description</label>
 										<textarea class="form-control" rows="3" readonly>${product.productDescription}</textarea>
 									</div>
 									<div class="mb-3">
-										<label class="form-label">Prix</label> <input type="text"
+										<label class="form-label">Prix de vente</label> <input type="text"
 											class="form-control" value="${product.productPrice}€"
 											readonly>
 									</div>
@@ -90,6 +100,16 @@ request.setAttribute("currentPage", currentPage);
 											type="date" class="form-control"
 											value="${product.expirationDate}" readonly>
 									</div>
+																		<div class="mb-3">
+										<label class="form-label">Fréquence de livraison</label> <input
+											type="text" class="form-control"
+											value="${product.deliveryRecurrence.displayName}" readonly>
+									</div>
+																		<div class="mb-3">
+										<label class="form-label">Jour de livraison</label> <input
+											type="text" class="form-control"
+											value="${product.deliveryDay.displayName}" readonly>
+									</div>
 								</div>
 
 								<!-- Troisième colonne -->
@@ -99,12 +119,12 @@ request.setAttribute("currentPage", currentPage);
 											<img
 												src="data:${product.imageType};base64,${product.imageData}"
 												alt="Image du produit"
-												style="max-width: 100%; border-radius: 8px; object-fit: cover;">
+												style="width: 150px; height: 150px; border-radius: 8px; object-fit: cover;">
 										</c:if>
 									</div>
 									<div class="mb-3">
 										<label class="form-label">Date de création le
-											${product.dateCreation}</label>
+											${formattedDate}</label>
 									</div>
 								</div>
 							</div>
@@ -116,5 +136,11 @@ request.setAttribute("currentPage", currentPage);
 	</div>
 	<script
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
+	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
+		type="text/javascript"></script>
 </body>
 </html>

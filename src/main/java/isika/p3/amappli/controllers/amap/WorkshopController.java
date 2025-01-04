@@ -128,7 +128,23 @@ public class WorkshopController {
 	    if (workshop == null) {
 	        return "redirect:/amap/workshops/list"; // Redirige si le contrat n'existe pas
 	    }
-
+	    
+	    // Formater la date et l'heure pour le champ datetime-local
+	    if (workshop.getWorkshopDateTime() != null) {
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+	        String formattedDateTime = workshop.getWorkshopDateTime().format(formatter);
+	        model.addAttribute("workshopDateTime", formattedDateTime);
+	    }
+	    
+	    // Récupérer l'utilisateur associé
+	    User user = workshop.getUser();
+	    Address address = null;
+	    if (user != null) {
+	        address = user.getAddress(); // Récupérer l'adresse associée à l'utilisateur
+	    }
+		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
+		model.addAttribute("users", users);
+	    model.addAttribute("address", address);
 	    model.addAttribute("workshop", workshop);
 	    model.addAttribute("tenancyAlias", tenancyAlias);
 
@@ -141,6 +157,11 @@ public class WorkshopController {
 	@GetMapping("/detail/{id}")
 	public String viewWorkshopDetail(@PathVariable("id") Long id, Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 		Workshop workshop = workshopService.findById(id);
+		if (workshop == null) {
+			throw new IllegalArgumentException("Contrat introuvable pour l'ID : " + id);
+		}
+		String formattedDate = workshop.getDateCreation().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+		model.addAttribute("formattedDate", formattedDate);
 		model.addAttribute("workshop", workshop);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		return "amap/back/workshops/workshop-detail";

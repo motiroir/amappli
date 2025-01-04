@@ -2,6 +2,8 @@ package isika.p3.amappli.service.amap.impl;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.List;
 
@@ -109,12 +111,28 @@ public class WorkshopServiceImpl implements WorkshopService {
 		    // Mise à jour des champs non liés à l'image
 		    existingWorkshop.setWorkshopName(updatedWorkshopDTO.getWorkshopName() != null ? updatedWorkshopDTO.getWorkshopName() : existingWorkshop.getWorkshopName());
 		    existingWorkshop.setWorkshopDescription(updatedWorkshopDTO.getWorkshopDescription() != null ? updatedWorkshopDTO.getWorkshopDescription() : existingWorkshop.getWorkshopDescription());
-		    existingWorkshop.setWorkshopDateTime(updatedWorkshopDTO.getWorkshopDateTime() != null ? updatedWorkshopDTO.getWorkshopDateTime() : existingWorkshop.getWorkshopDateTime());
 		    existingWorkshop.setWorkshopPrice(updatedWorkshopDTO.getWorkshopPrice() != null ? updatedWorkshopDTO.getWorkshopPrice() : existingWorkshop.getWorkshopPrice());
 		    existingWorkshop.setWorkshopDuration(updatedWorkshopDTO.getWorkshopDuration() != null ? updatedWorkshopDTO.getWorkshopDuration() : existingWorkshop.getWorkshopDuration());
 		    existingWorkshop.setMinimumParticipants(updatedWorkshopDTO.getMinimumParticipants() != null ? updatedWorkshopDTO.getMinimumParticipants() : existingWorkshop.getMinimumParticipants());
 		    existingWorkshop.setMaximumParticipants(updatedWorkshopDTO.getMaximumParticipants() != null ? updatedWorkshopDTO.getMaximumParticipants() : existingWorkshop.getMaximumParticipants());
 
+		    // Vérification si l'utilisateur a changé
+		    if (updatedWorkshopDTO.getUserId() != null) {
+		        User newUser = userRepository.findById(updatedWorkshopDTO.getUserId())
+		                .orElseThrow(() -> new IllegalArgumentException("Utilisateur avec l'ID " + updatedWorkshopDTO.getUserId() + " n'existe pas."));
+
+		        // Si l'utilisateur change, mettez à jour l'adresse
+		        if (!newUser.equals(existingWorkshop.getUser())) {
+		            existingWorkshop.setUser(newUser);
+		            existingWorkshop.setAddress(newUser.getAddress());
+		        }
+		    }
+		    
+		    if (updatedWorkshopDTO.getWorkshopDateTime() != null) {
+		        existingWorkshop.setWorkshopDateTime(updatedWorkshopDTO.getWorkshopDateTime());
+		    }
+
+		    
 		    // Gestion de l'image
 		    if (image != null && !image.isEmpty()) {
 		        try {

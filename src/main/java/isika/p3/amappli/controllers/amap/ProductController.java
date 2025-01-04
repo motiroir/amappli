@@ -138,7 +138,13 @@ public class ProductController {
 	    if (product == null) {
 	        return "redirect:/amap/products/list"; // Redirige si le contrat n'existe pas
 	    }
-
+	    
+	    Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
+	            .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+	    Address address = tenancy.getAddress();
+	    model.addAttribute("address", address);
+		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
+		model.addAttribute("users", users);
 	    model.addAttribute("product", product);
 	    model.addAttribute("tenancyAlias", tenancyAlias);
 	    model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
@@ -157,6 +163,8 @@ public class ProductController {
 		if (product == null) {
 			throw new IllegalArgumentException("Contrat introuvable pour l'ID : " + id);
 		}
+		String formattedDate = product.getDateCreation().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+		model.addAttribute("formattedDate", formattedDate);
 		model.addAttribute("product", product);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		return "amap/back/products/product-detail";

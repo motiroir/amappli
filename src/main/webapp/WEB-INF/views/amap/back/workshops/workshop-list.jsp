@@ -98,7 +98,7 @@ request.setAttribute("currentPage", currentPage);
 									<td>
 										<div class='d-flex justify-content-start align-items-center'>
 											<a
-												href="<c:url value='${tenancyAlias}/backoffice/workshops/detail/${workshop.id}' />"
+												href="<c:url value='/${tenancyAlias}/backoffice/workshops/detail/${workshop.id}' />"
 												class="btn-view"> <i class="bi bi-eye"></i>
 											</a>
 											<form:form method="POST"

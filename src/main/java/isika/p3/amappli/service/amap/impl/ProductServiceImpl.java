@@ -121,6 +121,12 @@ public class ProductServiceImpl implements ProductService {
 	    existingProduct.setDeliveryDay(updatedProductDTO.getDeliveryDay() != null ? DeliveryDay.valueOf(updatedProductDTO.getDeliveryDay()) : existingProduct.getDeliveryDay());
 	    existingProduct.setDeliveryRecurrence(updatedProductDTO.getDeliveryRecurrence() != null ? DeliveryRecurrence.valueOf(updatedProductDTO.getDeliveryRecurrence()) : existingProduct.getDeliveryRecurrence());
 
+	    if (updatedProductDTO.getUserId() != null) {
+	        User newUser = userRepository.findById(updatedProductDTO.getUserId())
+	                .orElseThrow(() -> new IllegalArgumentException("Utilisateur avec l'ID " + updatedProductDTO.getUserId() + " n'existe pas."));
+	        existingProduct.setUser(newUser);
+	    }
+	    
 	    // Gestion de l'image
 	    if (image != null && !image.isEmpty()) {
 	        try {

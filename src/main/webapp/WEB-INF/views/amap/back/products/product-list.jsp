@@ -97,7 +97,7 @@ request.setAttribute("currentPage", currentPage);
 									<td>
 										<div class='d-flex justify-content-start align-items-center'>
 											<a
-												href="<c:url value='${tenancyAlias}/backoffice/products/detail/${product.id}' />"
+												href="<c:url value='/${tenancyAlias}/backoffice/products/detail/${product.id}' />"
 												class="btn-view"> <i class="bi bi-eye"></i>
 											</a>
 											<form:form method="POST" action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/products/delete/${product.id}" style="display: inline;">

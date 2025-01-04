@@ -101,9 +101,6 @@ public class ContractController {
 	@PostMapping("/add")
 	public String addContract(@ModelAttribute("contractDTO") ContractDTO newContractDTO,
 			@PathVariable("tenancyAlias") String tenancyAlias) {
-	    System.out.println("Nom du contrat : " + newContractDTO.getContractName());
-	    System.out.println("Type du contrat : " + newContractDTO.getContractType());
-	    System.out.println("Description du contrat : " + newContractDTO.getContractDescription());
 		contractService.save(newContractDTO, tenancyAlias);
 		return "redirect:/" + tenancyAlias + "/backoffice/contracts/list";
 
