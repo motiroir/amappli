@@ -7,10 +7,12 @@ import isika.p3.amappli.entities.contract.Contract;
 import isika.p3.amappli.entities.order.ProductMock;
 import isika.p3.amappli.entities.order.ShoppingCart;
 import isika.p3.amappli.entities.order.ShoppingCartItem;
+import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.repo.amap.ContractRepository;
 import isika.p3.amappli.repo.amap.ProductMockRepository;
 import isika.p3.amappli.repo.amap.ShoppingCartItemRepository;
 import isika.p3.amappli.repo.amap.ShoppingCartRepository;
+import isika.p3.amappli.repo.amap.UserRepository;
 import isika.p3.amappli.service.amap.ShoppingCartService;
 import jakarta.transaction.Transactional;
 
@@ -26,6 +28,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	private ContractRepository contractRepo;
 	@Autowired
 	private ProductMockRepository productMockRepo;
+	@Autowired
+	private UserRepository userRepo;
 	
 	
 	// get shopping cart by id or create new 
@@ -41,6 +45,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         cart.getShoppingCartItems().size();
         return cart;
     }
+    
+//		To do    
+//    public ShoppingCart getShoppingCartByUserId(Long userId) {
+//    	return new ShoppingCart();
+//    }
     
     public ShoppingCart addItemToCart(Long cartId, Long shoppableId, int quantity) {
         ShoppingCart cart = getOrCreateCart(cartId);
@@ -139,8 +148,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         productMockRepo.save(product2);
         productMockRepo.save(product3);
 
-        ShoppingCart cart = ShoppingCart.builder().build();
+        User user = userRepo.findById(5L).orElse(null);
+        ShoppingCart cart = ShoppingCart.builder()
+        		.user(user)
+        		.build();
         shoppingCartRepo.save(cart);
+        user.setShoppingCart(cart);
+        userRepo.save(user);
 
         ShoppingCartItem item1 = ShoppingCartItem.builder()
                 .shoppingCart(cart)

@@ -1,5 +1,7 @@
 package isika.p3.amappli.entities.order;
 
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -18,28 +20,36 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ShoppingCartItem {
+public class OrderItem {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter @Setter
-	private Long shoppingItemId;
-	
-	@Getter @Setter
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shoppingCartId", nullable = false)
-	private ShoppingCart shoppingCart;
-	
-	@Getter @Setter
-	@ManyToOne
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Getter
+	@Setter
+	private Long orderItemId;
+
+	@Getter
+	@Setter
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "orderId", nullable = false)
+	private Order order;
+
+	@Getter
+	@Setter
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "shoppableId", nullable = false)
 	private Shoppable shoppable;
-	
-	@Getter @Setter
+
+	@Getter
+	@Setter
 	private int quantity;
 
-	public double getTotalPrice() {
-		return shoppable.getPrice() * quantity;
-	}
+	@Getter
+	@Setter
+	private double unitPrice;
+
+	@Getter
+	@Setter
+	private double total;
 
 }
