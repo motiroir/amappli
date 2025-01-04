@@ -17,38 +17,51 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import isika.p3.amappli.dto.amap.UserDTO;
 import isika.p3.amappli.dto.amappli.LoginDTO;
+import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.UserService;
+import isika.p3.amappli.service.amappli.TenancyService;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/tenancies/{tenancyId}/amap/amaplogin")
+@RequestMapping("/tenancies/{tenancyAlias}/amap/amaplogin")
 public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private TenancyService tenancyService;
+    @Autowired
+    private GraphismService graphismService;
 
     // Afficher le formulaire d'inscription
     @GetMapping("/signup")
-    public String showRegistrationForm(@PathVariable("tenancyId") Long tenancyId, Model model) {
+    public String showRegistrationForm(@PathVariable("tenancyAlias") String alias, Model model) {
         UserDTO userDTO = new UserDTO();
         model.addAttribute("userDTO", userDTO);
-        model.addAttribute("tenancyId", tenancyId);
+        model.addAttribute("tenancyAlias", alias);
+        
+        // Récupérer et ajouter les styles dynamiques via GraphismService
+        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
+        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
+        model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+        
         return "amap/amaplogin/signup-form";
     }
 
     // Page de confirmation après l'inscription réussie
     @GetMapping("/login-done")
-    public String showLoginDone(@PathVariable("tenancyId") Long tenancyId, Model model) {
-        model.addAttribute("tenancyId", tenancyId);
+    public String showLoginDone(@PathVariable("tenancyAlias") String alias, Model model) {
+        model.addAttribute("tenancyAlias", alias);
         return "amap/amaplogin/login-done";
     }
 
-    // Enregistrer l'utilisateur
+ // Enregistrer l'utilisateur
     @PostMapping("/signup")
-    public String registerUser( @PathVariable("tenancyId") Long tenancyId,
-                                @ModelAttribute @Valid UserDTO userDTO, 
-                                BindingResult bindingResult,
-                                Model model) {
+    public String registerUser(@PathVariable("tenancyAlias") String alias,
+                               @ModelAttribute @Valid UserDTO userDTO, 
+                               BindingResult bindingResult,
+                               Model model) {
         if (bindingResult.hasErrors()) {
             // Collecter les erreurs spécifiques aux champs
             Map<String, String> fieldErrors = bindingResult.getFieldErrors().stream()
@@ -60,33 +73,55 @@ public class UserController {
             model.addAttribute("errors", fieldErrors);
             model.addAttribute("userDTO", userDTO); // Conserver les données saisies
 
+            // Récupérer et ajouter les styles dynamiques via GraphismService
+            model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
+            model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+            model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
+            model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+
             return "amap/amaplogin/signup-form";
         }
 
         try {
+            Long tenancyId = tenancyService.getTenancyByAlias(alias).getTenancyId();
             userService.addTenancyUser(userDTO, tenancyId);
-            return "redirect:/tenancies/" + tenancyId + "/amap/amaplogin/login-done";
+            return "redirect:/tenancies/" + alias + "/amap/amaplogin/login-done";
         } catch (RuntimeException e) {
             // Gérer les erreurs générales
             model.addAttribute("error", e.getMessage());
             model.addAttribute("userDTO", userDTO);
+
+            // Récupérer et ajouter les styles dynamiques via GraphismService
+            model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
+            model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+            model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
+            model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+
             return "amap/amaplogin/signup-form";
         }
     }
+
 
     
     
     // Afficher le formulaire de connexion
     @GetMapping("/login")
-    public String showLoginForm(@RequestParam(value = "error", required = false) String error, 
-                                @PathVariable("tenancyId") Long tenancyId, 
+    public String showLoginForm(@RequestParam(value = "error", required = false) String error,
+                                @PathVariable("tenancyAlias") String alias,
                                 Model model) {
         LoginDTO loginDTO = new LoginDTO();
         model.addAttribute("loginDTO", loginDTO);
-        model.addAttribute("tenancyId", tenancyId);
+        model.addAttribute("tenancyAlias", alias);
         if (error != null) {
             model.addAttribute("error", "Email ou mot de passe incorrect.");
         }
+        
+        // Récupérer et ajouter les styles dynamiques via GraphismService
+        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
+        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
+        model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+        
         return "amap/amaplogin/login";
     }
 

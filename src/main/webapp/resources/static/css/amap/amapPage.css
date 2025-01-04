@@ -11,6 +11,7 @@
         }
         .amap-text {
             text-align: justify;
+           
         }
         .green-text {
             color: #007F00;
@@ -54,6 +55,6 @@ a:hover {
 .text-center img {
     margin: 20px auto;
     display: block;
-    max-width: 90%; 
+    max-width: 100%; 
 }
-        
+  

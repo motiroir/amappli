@@ -27,7 +27,7 @@
 	</header>
 
     <!-- Conteneur pour la carte -->
-    <%-- <div id="map"></div> --%>
+     <div id="map"></div>
 
 	<section>
 		<img id="main-picture" class="container-fluid p-0"
@@ -214,8 +214,8 @@
 	<script	src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 	<script	src="<c:url value='/resources/js/amappli/loading-when-visible.js' />"></script>
 	<script	src="<c:url value='/resources/js/amappli/theme-swap.js' />"></script>
-	<%-- <script	src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />"></script> --%>
+	 <script	src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />"></script> 
 </body>
 
 </html>

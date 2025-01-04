@@ -1,5 +1,7 @@
 @charset "UTF-8";
 @import "../common/utils.css";
+@import "common/header-amap.css";
+@import "common/footer-amap.css";
 
 
 
@@ -17,7 +19,7 @@
 
       
         .container {
-            text-align: center;
+        
             background-color: #ffffff; 
             padding: 30px;
             border-radius: 10px;

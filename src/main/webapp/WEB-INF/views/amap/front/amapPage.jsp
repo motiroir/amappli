@@ -14,17 +14,21 @@
 <title>C'est quoi une Amap ?</title>
 </head>
 
-<body>
+<body class="${cssStyle} light ${font}-title ${font}-button">
 
-	<!-- Inclure le header -->
-	<jsp:include page="common/header-amap.jsp" />
+<header class="fc-main bg-main">
+			<jsp:include page="common/header-amap.jsp" />
+		</header>
+ 
+	<div id="map"></div>  
+	
 
- <div class="container my-5">
+ <div class="container my-5 bg-100">
         <div class="row">
             <div class="col-lg-6 col-md-12 text-center">
                 <img src="<c:url value='/resources/img/schemaAmap.png' />" alt="Schéma explicatif AMAP" class="img-fluid circle-diagram">
             </div>
-            <div class="col-lg-6 col-md-12">
+            <div class="col-lg-6 col-md-12 ">
                 <h1 class=" mt-3 "  style="font-size: 1.5rem;">AMAP ?</h1>
                 <div class="amap-text">
                     <p><strong>A</strong> comme <strong>Association</strong><br>
@@ -39,11 +43,11 @@
             </div>
         </div>
     </div>
-   <div class="container my-5">
+   <div class="container my-5 bg-100 ">
     <h2 class="text-center mt-5 " style="font-size: 1.5rem;">Histoire des AMAP</h2> 
     <div class="row g-4">
         <!-- Texte principal -->
-        <div class="col-lg-6 col-md-12 d-flex align-items-center ps-lg-5"> <!-- Ajout de 'ps-lg-5' pour un décalage -->
+        <div class="col-lg-6 col-md-12 d-flex align-items-center ps-lg-5 secondtext"> <!-- Ajout de 'ps-lg-5' pour un décalage -->
             <div>
                 <p>
                     L'historique des AMAP est très bien raconté sur le 
@@ -93,9 +97,27 @@
     
 
 
+	<footer class="fc-main bg-main">
+			<jsp:include page="common/footer-amap.jsp" />
+		</footer>
+		
+		
+		
+			<script
+		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 
+	<script>
+		var styleMapboxLight = "${mapStyleLight}"
+		var styleMapboxDark = "${mapStyleDark}"
 
-	<!-- Inclure le footer -->
-	<jsp:include page="common/footer-amap.jsp" />
+		/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
+		 const tenancyCity = "${tenancy.getAddress().getCity()}"
+		 const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
+		 */
+	</script>
+
+	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	 <script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script> 
 </body>
 </html>

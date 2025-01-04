@@ -4,7 +4,6 @@
 @import "common/footer-amap.css";
 
 
-
 body {
   margin: 0;
   padding: 0;
@@ -15,7 +14,7 @@ body {
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  background-color: #f9f9f9;
+ 
 }
 
 .hero-content {

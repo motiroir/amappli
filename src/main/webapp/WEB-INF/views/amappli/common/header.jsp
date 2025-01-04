@@ -108,7 +108,7 @@
 					class="nav-link nunito text-decoration-none fc-300 fch-500"
 					data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Fonctionnalités</a>
 				</li>
-				<li class="nav-item"><a href="#"
+				<li class="nav-item"><a href="plateform/aboutAmappli"
 					class="nav-link nunito text-decoration-none fc-300 fch-500"
 					data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Qui
 						sommes-nous ?</a></li>
