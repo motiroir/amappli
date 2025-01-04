@@ -8,7 +8,7 @@
 	request.setAttribute("currentPage", currentPage);
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,7 +26,7 @@
 	<!-- Inclusion de la sidebar -->
 		<jsp:include page="../common/sidebarAdmin.jsp" />
 
-<div id="map"></div>
+<div id="map" class="p-0"></div>
 
 	<!-- Contenu principal -->
 	<div class="content col">
@@ -35,16 +35,18 @@
 				<div class="col-12">
 					<div class="search-bar d-flex align-items-center mb-3">
 						<!-- Nombre total d'adhérents -->
-						<div class="me-4 fs-5 fc-main">
+						<div class="me-4 fs-5 fc-main d-none d-md-block">
 							<span>${users.size()} éléments</span><br/>
 							<a href="<c:url value='/${tenancyAlias}/backoffice/users/generateFakes' />">ajouter 20 users</a>
 						</div>
 						<!-- Dropdown pour trier -->
 						<div class="d-flex align-items-center me-4">
-							<label for="sortBy" class="me-2 fw-400 fs-3 text-nowrap fc-main">Trié par</label>
+							<label for="sortBy" class="me-2 fw-400 fs-3 text-nowrap fc-main">Trier par</label>
 							<select id="sortBy" class="form-select custom-select border-main">
 								<option value="name">Nom</option>
 								<option value="role">Role</option>
+								<option value="creditAsc" class="d-none d-md-block">Credit croissant</option>
+								<option value="creditDesc" class="d-none d-md-block">Crédit décroissant</option>
 							</select>
 						</div>
 						<!-- Barre de recherche -->
@@ -52,26 +54,28 @@
 							<input type="text" id="searchBar" class="form-control custom-input border-main"
 								placeholder="Rechercher...">
 						</div>
-						<div class="mx-3">
+						<div class="mx-3 d-none d-md-block">
 							<label class="fc-main">Opacité du tableau</label>
     						<input type="range" class="form-range" min="0" max="100" value="100" id="bg-range">
 						</div>
 					</div>
-					<div class="table-container d-flex justify-content-between align-items-center">
-						<h2 class="fw-bold fc-main">Liste des adhérents</h2>
+					<div class="table-container d-flex justify-content-between align-items-center my-2">
+						<h2 class="fw-bold fc-main my-auto">Liste des adhérents</h2>
 						<a href="<c:url value='/${tenancyAlias}/backoffice/users/form'/>" class="btn btn-outline-300 rounded-pill fch-main fw-bold border-2">
-							<span class="icon">+ </span>Créer un adhérent
+							<span class="icon">+ </span><span class=" d-none d-md-inline">Créer un adhérent</span>
 						</a>
 					</div>
 					<!-- Mode tableau -->
-					<table class="table table-hover fc-main" style="--bs-table-bg: color-mix(in srgb, #ffffff, transparent 100%);">
+					<table class="table table-hover table-responsive fc-main" style="--bs-table-bg: color-mix(in srgb, #ffffff, transparent 100%);">
 						<thead>
 							<tr>
-								<th>Nom</th>
-								<th>Email</th>
-								<th>Credit Balance</th>
-								<th>Rôle</th>
-								<th>Actions</th>
+								<th class="bg-700">Nom</th>
+								<th class="d-none d-md-table-cell bg-700">Email</th>
+								<th class="d-table-cell d-md-none bg-700"></th>
+								<th class="d-none d-md-table-cell bg-700">Credit Balance</th>
+								<th class="d-table-cell d-md-none bg-700"></th>
+								<th class="bg-700">Rôle</th>
+								<th class="bg-700">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -79,8 +83,10 @@
 								<tr>
 									<td>${user.contactInfo.firstName}
 										${user.contactInfo.name}</td>
-									<td class="text-break">${user.email}</td>
-									<td>${user.creditBalance == null ? 0 : user.creditBalance}</td>
+									<td class="text-break d-none d-md-table-cell">${user.email}</td>
+									<td class="d-table-cell d-md-none"></td>
+									<td class="d-none d-md-table-cell">${user.creditBalance == null ? 0 : user.creditBalance}</td>
+									<td class="d-table-cell d-md-none"></td>
 									<td>
 										<c:forEach var="role" items="${user.roles}">
 											<c:choose>
@@ -104,7 +110,7 @@
 											<a href="<c:url value='/${tenancyAlias}/backoffice/users/details/${user.userId}' />"
 												class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1"> <i class="bi bi-eye"></i>
 											</a>
-											<form:form action="delete/${user.userId}" class="d-inline" onsubmit="return confirm('Voulez-vous vraiment supprimer l'adhérent ${user.contactInfo.firstName} ${user.contactInfo.name} ?');">
+											<form:form action="delete/${user.userId}" class="d-inline" onsubmit="return confirm('Voulez-vous vraiment supprimer l\'adhérent ${user.contactInfo.firstName} ${user.contactInfo.name} ?');">
 												<button type="submit" class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1">
 													<i class="bi bi-trash"></i>
 												</button>
@@ -119,22 +125,23 @@
 			</div>
 		</div>
 	</div>
-		<script>
+	<script>
 		var styleMapboxLight = "${mapStyleLight}"
 		var styleMapboxDark = "${mapStyleDark}"
 
 		/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
-		 const tenancyCity = "${tenancy.getAddress().getCity()}"
-		 const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
+		const tenancyCity = "${tenancy.getAddress().getCity()}"
+		const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
 		 */
 	</script>
 	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
+	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/palette-swap.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />" type="text/javascript"></script>
 </body>
 
 </html>

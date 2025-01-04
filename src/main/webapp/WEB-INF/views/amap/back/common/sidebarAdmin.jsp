@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <nav class="navbar h-100 position-sticky p-0 top-0 start-0 w-auto">
-	<div class="vh-100 position-sticky bg-main p-4 border-1 border-end">
+	<div id="padded-div" class="vh-100 position-sticky bg-main p-4 border-1 border-end">
 		<div id="sidebar" class="collapse collapse-horizontal text-secondary fch-main show">
  			<ul id="accordion-parent" class="nav flex-column accordion">
 			<!-- Vos utilisateurs -->
@@ -101,28 +101,8 @@
 			</ul>
 		</div>
 	</div>
-		<button class="navbar-toggler align-self-start m-2" type="button" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebar" data-bs-target="#sidebar">
-			<span class="navbar-toggler-icon fill-main"></span>
-		</button>
+	<button id="button-collapse" class="navbar-toggler align-self-start m-2 d-none d-md-block" type="button" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebar" data-bs-target="#sidebar">
+		<span class="navbar-toggler-icon fill-main"></span>
+	</button>
 </nav>
-
-
-<%-- <script>
-    // Script pour gérer l'accordéon
-    function toggleMenu(menuId) {
-        const menu = document.getElementById(menuId);
-        const subMenu = document.getElementById(menuId + "-submenu");
-        console.log(subMenu);
-/*         if (menu.classList.contains('active')) {
-            menu.classList.remove('active');
-            subMenu.classList.remove('active');
-        } else { */
-            document.querySelectorAll('.submenu').forEach(everySubmenu => everySubmenu.classList.remove('active'));
-            document.querySelectorAll('.menu-title').forEach(menuTitle => menuTitle.classList.remove('active'));
-            menu.classList.add('active');
-            subMenu.classList.add('active');
-     /*    } */
-    }
-</script> --%>
-
 

@@ -26,14 +26,14 @@
 	
 	<nav class="navbar navbar-expand col-offset-1 col-8 align-content-center">
 		<div class="collapse navbar-collapse" id="nav-content">
-			<ul class="navbar-nav w-100 justify-content-md-evenly">
+			<ul class="navbar-nav w-100 justify-content-between align-items-center">
 				<li class="nav-item">
-					<a href="#" class="nav-link nunito text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900"><i class="bi bi-arrow-left"></i> Retour vers le site</a>
+					<a href="#" class="nav-link ${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900"><i class="bi bi-arrow-left"></i><span class="d-none d-md-inline"> Retour vers le site</span></a>
 				</li>
 				<li class="nav-item">
-					<h1 class="nunito fc-300 fw-bold">Espace administrateur</h1>
+					<h1 class="${font} fc-300 fw-bold text-center">Espace admin<span class="d-none d-md-inline">istrateur</span></h1>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item d-none d-md-block">
 					<a href="#" class="swap-palette">1</a>
 					<a href="#" class="swap-palette">2</a>
 					<a href="#" class="swap-palette">3</a>
@@ -41,8 +41,10 @@
 					<a href="#" class="swap-palette">5</a>
 					<a href="#" class="swap-palette">6</a>
                 </li>
-				<li class="nav-item">
-					<h3 class="btn rounded-pill btn-500 px-4">PP</h3>
+				<li class="nav-item d-block d-md-none">
+					<button id="button-collapse-2" class="navbar-toggler align-self-start m-2 d-block d-md-none" type="button" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebar" data-bs-target="#sidebar">
+						<span class="navbar-toggler-icon fill-main"></span>
+					</button>
 				</li>
 			</ul>
 		</div>
