@@ -9,6 +9,7 @@
 </head>
 <body>
     <p>Principal: ${principal}</p>
+    <p>The Logged User id: ${userId}</p>
     <c:choose>
         <c:when test="${not empty principal}">
             <h1>Welcome, ${principal.username}!</h1>
