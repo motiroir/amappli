@@ -1,17 +1,10 @@
 @charset "UTF-8";
 @import "../common/utils.css";
+@import "common/header-amap.css";
+@import "common/footer-amap.css";
 
 
 
-body {
-	background-color: #ffffff;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100vw;
-	height: 100vh;
-	margin: 0;
-}
 
 .container {
 	max-width: 600px;
@@ -33,9 +26,26 @@ h1 {
 	background-color: transparent;
 	border: none;
 	font-size: 1.25rem;
-	color: #333;
 	cursor: pointer;
 }
+
+.d-flex {
+    gap: 10px; /* Ajoute un espace minimal entre les éléments du conteneur */
+}
+
+h1.h3 {
+    margin-bottom: 0; 
+}
+
+hr.bg-300 {
+    margin-top: 0; 
+    margin-bottom: 1rem; 
+    border: 0;
+    border-top: 2px solid #f59157;
+    width: 100%; 
+   
+}
+
 
 input[type="text"], input[type="email"], input[type="password"] {
 	border-radius: 25px;
@@ -70,7 +80,7 @@ button[type="submit"]:hover {
 }
 
 .text-center p {
-    font-family: 'Futura', sans-serif;
+   
     font-size: 1rem;
     font-weight: bold;
     color: #333;
@@ -80,9 +90,9 @@ button[type="submit"]:hover {
 
 .text-center hr {
     border: 0;
-    border-top: 2px solid #ccc;
+    border-top: 2px solid #f59157;
     width: 100%; 
-    margin: 10px 0; 
+     
 }
 
 .text-center a.btn-dark {
@@ -94,6 +104,7 @@ button[type="submit"]:hover {
     text-decoration: none; 
     display: inline-block;
     transition: background-color 0.3s, box-shadow 0.3s;
+    
 }
 
 

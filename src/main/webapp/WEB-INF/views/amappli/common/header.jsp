@@ -104,13 +104,14 @@
 		</button>
 		<div id="nav-content" class="collapse navbar-collapse">
 			<ul class="navbar-nav w-100 justify-content-md-evenly">
-				<li class="nav-item"><a href="#"
+				<li class="nav-item"><a href="features"
 					class="nav-link nunito text-decoration-none fc-300 fch-500">Fonctionnalités</a>
 				</li>
-				<li class="nav-item"><a href="#"
-					class="nav-link nunito text-decoration-none fc-300 fch-500">Qui
-						sommes-nous ?</a></li>
-				<li class="nav-item"><a href="plateform/contactAmappli"
+
+				<li class="nav-item"><a href="aboutAmappli"
+					class="nav-link nunito text-decoration-none fc-300 fch-500"
+					>Qui sommes-nous ?</a></li>
+				<li class="nav-item"><a href="contactAmappli"
 					class="nav-link nunito text-decoration-none fc-300 fch-500">Contact</a>
 				</li>
 				<!--   <li class="nav-item col-1">

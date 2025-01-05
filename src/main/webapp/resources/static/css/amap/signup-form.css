@@ -1,24 +1,16 @@
-@charset "UTF-8";
+ @charset "UTF-8";
 @import "../common/utils.css";
+@import "common/header-amap.css";
+@import "common/footer-amap.css";
 
 
-body {
-	background-color: #ffffff;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100vw;
-	height: 100vh;
-	margin: 0;
+.form-container {
+    max-width: 600px; /* Largeur maximale du formulaire */
+    margin: 0 auto; /* Centre horizontalement */
+    padding: 30px;
+   
 }
 
-.container {
-	max-width: 600px;
-	padding: 30px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-}
 
 h1 {
 	font-size: 1.25rem;
@@ -36,6 +28,22 @@ h1 {
 	cursor: pointer;
 }
 
+hr.bg-300 {
+    margin-top: 0; 
+    margin-bottom: 1rem; 
+    border: 0;
+    border-top: 2px solid #f59157;
+    width: 100%; 
+   
+}
+.text-center p {
+   
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: left
+}
 input[type="text"], input[type="email"], input[type="tel"], input[type="password"]
 	{
 	border-radius: 25px;
@@ -64,4 +72,4 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
 	background-color: #455449;
-}
+} 
