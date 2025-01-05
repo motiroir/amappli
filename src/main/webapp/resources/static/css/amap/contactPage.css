@@ -1,14 +1,9 @@
 @charset "UTF-8";
-
 @import "../common/utils.css";
 @import "common/header-amap.css"; 
 @import "common/footer-amap.css";
 
 
-body {
-          
-            background-color: #f9f4ef;
-        }
         .contact-container {
             margin: 40px auto;
             display: flex;
@@ -23,7 +18,7 @@ body {
              max-height: 600px;
         }
         .contact-info {
-            background-color: #fdbf92;
+            background-color:  #fffaf4;
             padding: 20px;
             border-radius: 20px;
         }
@@ -70,14 +65,11 @@ body {
             outline: none;
             box-shadow: none;
         }
-        .contact-form button.btn-submit {
+        .contact-form button.btn {
             display: block; 
             margin: 10px auto;
-            background-color: #fdbf92;
             border: none;
             border-radius: 30px;
-            color: white;
-            font-size: 16px;
             padding: 10px 20px;
             margin-top: 20px;
             width: 30% ;
@@ -103,6 +95,7 @@ body {
                 align-items: center;
             }
         }
+        
         textarea.form-control {
     border: 2px solid #fdbf92; 
     border-radius: 5px; 

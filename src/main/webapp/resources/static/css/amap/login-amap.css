@@ -1,17 +1,10 @@
 @charset "UTF-8";
 @import "../common/utils.css";
+@import "common/header-amap.css";
+@import "common/footer-amap.css";
 
 
 
-body {
-	background-color: #ffffff;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100vw;
-	height: 100vh;
-	margin: 0;
-}
 
 .container {
 	max-width: 600px;
@@ -33,7 +26,7 @@ h1 {
 	background-color: transparent;
 	border: none;
 	font-size: 1.25rem;
-	color: #333;
+	color:#ffc7a2;
 	cursor: pointer;
 }
 
@@ -94,6 +87,7 @@ button[type="submit"]:hover {
     text-decoration: none; 
     display: inline-block;
     transition: background-color 0.3s, box-shadow 0.3s;
+    
 }
 
 

@@ -9,22 +9,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet"
 	href="<c:url value='/resources/bootstrap/bootstrap.min.css' />">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
  <link rel="stylesheet"
 	href="<c:url value='/resources/css/amap/contactPage.css' />">
 
 <title>Contact Amappli</title>
 
 </head>
-<body>
+<body class="theme-1 dark bg-main">
 
-	<%-- <header class="fc-main bg-main">
-		<jsp:include page="common/header.jsp" />
-	</header> --%>
+
+   <header class="fc-main bg-main">
+		<jsp:include page="../common/header.jsp" />
+	</header>
+
+ <div id="map"></div>  
 
 	<div class="container mt-5">
 		<div class="contact-container">
 			<!-- Contact Information -->
-			<div class="contact-info">
+			<div class="contact-info fc-100 bg-700">
 				<h2>Comment nous contacter ?</h2>
 				<div class="row">
 					<div class="col-6">
@@ -55,8 +59,8 @@
 							<strong>Réseaux sociaux :</strong>
 						</p>
 						<p>
-							<a href="#" class="text-dark me-2"><i class="bi bi-facebook"></i></a>
-							<a href="#" class="text-dark me-2"><i class="bi bi-instagram"></i></a>
+							<a href="#" class="text-white me-2"><i class="bi bi-facebook"></i></a>
+							<a href="#" class="text-white me-2"><i class="bi bi-instagram"></i></a>
 						</p>
 					</div>
 				</div>
@@ -67,10 +71,10 @@
 			</div>
 
 			<!-- Contact Form -->
-			<div class="contact-form">
+			<div class="contact-form fc-100 bg-100">
 				<h2>Contactez-nous</h2>
 				<form action="/submit" method="POST">
-					<div class="row mb-3">
+					<div class="row mb-3 fc-main">
 						<div class="col-6">
 							<label for="nom" class="form-label">Votre nom</label> <input
 								type="text" class="form-control" id="nom" name="nom"
@@ -82,24 +86,31 @@
 								placeholder="Marie" required>
 						</div>
 					</div>
-					<div class="mb-3">
+					<div class="mb-3 fc-main">
 						<label for="email" class="form-label">Votre email</label> <input
 							type="email" class="form-control" id="email" name="email"
 							placeholder="exemple@mail.fr" required>
 					</div>
-					<div class="mb-3">
+					<div class="mb-3 fc-main">
 						<label for="message" class="form-label">Votre message</label>
 						<textarea class="form-control" id="message" name="message"
 							rows="4" required></textarea>
 					</div>
-					<button type="submit" class="btn btn-submit">Envoyer</button>
+					<button type="submit" class="btn rounded-pill btn-500 ">Envoyer</button>
 				</form>
 			</div>
 		</div>
 	</div>
 
-<%-- 	<!-- Inclure le footer -->
-	<jsp:include page="common/footer.jsp" /> --%>
+	<footer class="container-fluid fc-main bg-main">
+		<jsp:include page="../common/footer.jsp" />
+	</footer>
+
+	<script	src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
+  <script	src="<c:url value='/resources/js/amappli/loading-when-visible.js' />"></script>
+	<script	src="<c:url value='/resources/js/amappli/theme-swap.js' />"></script>
+	 <script	src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  
 
 </body>
 </html>
