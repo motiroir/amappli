@@ -28,6 +28,22 @@ h1 {
 	cursor: pointer;
 }
 
+hr.bg-300 {
+    margin-top: 0; 
+    margin-bottom: 1rem; 
+    border: 0;
+    border-top: 2px solid #f59157;
+    width: 100%; 
+   
+}
+.text-center p {
+   
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: left
+}
 input[type="text"], input[type="email"], input[type="tel"], input[type="password"]
 	{
 	border-radius: 25px;

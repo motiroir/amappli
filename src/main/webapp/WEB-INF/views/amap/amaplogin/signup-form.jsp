@@ -22,12 +22,13 @@
 <div id="map"></div> 
  
  
-    <div class="container py-5 ">
+    <div class="container py-5 flex-grow-1">
     <div class="form-container py-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="h3 fw-bold fc-300">Formulaire d'inscription</h1>
-            <a href="login" class="btn-close" aria-label="Retour"></a>
+        <div class="d-flex justify-content-between align-items-center ">
+            <h1 class="h3 fw-bold fc-300">S'inscrire</h1>
+            <a href="/Amappli/tenancies/${tenancyAlias}/home"class="btn-close fc-main" aria-label="Retour"></a>
         </div>
+        <hr class="bg-300 mb-4">
 
         <form:form 
             modelAttribute="userDTO" 
@@ -97,9 +98,20 @@
             </div>
 
             <div class="text-center">
-                <a type="submit" class="btn btn-500 px-4 rounded-pill">S'inscrire</a>
+            
+                <a href="${pageContext.request.contextPath}/tenancies/${tenancyAlias}/amap/amaplogin/login-done" 
+                type="submit" class="btn btn-500 px-4 rounded-pill">S'inscrire</a>
             </div>
         </form:form>
+        
+        <br>
+		<div class="text-center mt-4">
+			<p class="fc-300" >Déja inscrit.e ?</p>
+			<hr class="bg-300">
+			<a
+				href="${pageContext.request.contextPath}/tenancies/${tenancyAlias}/amap/amaplogin/login"
+				class="btn btn-500  rounded-pill">Se connecter</a>
+		</div>
         </div>
     </div>
    <footer class="fc-main bg-main">

@@ -50,8 +50,7 @@ footer {
         .btn {
             display: inline-block;
             text-decoration: none;
-            color: #fff;
-            background-color:  #FFBE98; 
+           
             padding: 10px 20px;
             border: none;
             border-radius: 25px; 
@@ -61,6 +60,3 @@ footer {
         }
 
        
-        .btn:hover {
-            background-color: #f08070; 
-        }

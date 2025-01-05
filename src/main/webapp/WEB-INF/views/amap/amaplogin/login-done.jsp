@@ -13,7 +13,6 @@
   
 </head>
 <body  class="${cssStyle} light ${font}-title ${font}-button">
-
 <div class="d-flex flex-column min-vh-100">
 
        <header class="fc-main bg-main">
@@ -22,7 +21,7 @@
 		
 <div id="map"></div>  
 		 
-    <div class="container">
+    <div class="container flex-grow-1">
     <div class="success">
         <h2 class="h2 fw-bold fc-300">Inscription réussie !</h2>
         <p class="fc-main">Votre compte a été créé avec succès. Vous pouvez maintenant vous connecter.</p>
