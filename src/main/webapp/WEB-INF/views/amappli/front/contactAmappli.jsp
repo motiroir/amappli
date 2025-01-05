@@ -23,7 +23,7 @@
 		<jsp:include page="../common/header.jsp" />
 	</header>
 
-  <div id="map"></div>  
+ <!--  <div id="map"></div>  --> 
 
 	<div class="container mt-5">
 		<div class="contact-container">
@@ -107,10 +107,10 @@
 	</footer>
 
 	<script	src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
-	<script	src="<c:url value='/resources/js/amappli/loading-when-visible.js' />"></script>
+<%-- 	<script	src="<c:url value='/resources/js/amappli/loading-when-visible.js' />"></script>
 	<script	src="<c:url value='/resources/js/amappli/theme-swap.js' />"></script>
 	 <script	src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />"></script> 
+	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  --%>
 
 </body>
 </html>

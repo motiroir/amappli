@@ -164,40 +164,71 @@ public class TenancyController {
 	
 	@GetMapping("/{tenancyAlias}/amapPage")
 	public String amapPage(@PathVariable("tenancyAlias") String alias, Model model) {
-	    // Récupérer les informations de style de la carte et autres données liées à la "tenancy"
-	    model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
-	    model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+	    // Récupérer la tenancy
+	    Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
 
-	    // Récupérer les informations de la Tenancy (nom, slogan, etc.)
-	    model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
+	    if (tenancy != null) {
+	        // Ajouter les informations générales de la tenancy
+	        model.addAttribute("tenancy", tenancy);
+	        model.addAttribute("tenancyName", tenancy.getTenancyName());
+	        model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
 
-	    // Récupérer la palette de couleurs de la Tenancy
-	    model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
+	        // Ajouter les informations graphiques
+	        Graphism graphism = tenancy.getGraphism();
+	        String logoBase64 = graphism != null ? graphism.getLogoImg() : null;
+	        String logoImgType = graphism != null ? graphism.getLogoImgType() : null;
+	        model.addAttribute("logoBase64", logoBase64);
+	        model.addAttribute("logoImgType", logoImgType);
 
-	    // Récupérer le choix de police de la Tenancy
-	    model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+	        // Ajouter les styles et polices
+	        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
+	        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+	        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
+	        model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+	    } else {
+	        model.addAttribute("message", "Tenancy non trouvée.");
+	    }
 
-	    return "amap/front/amapPage"; // Nom de la vue JSP correspondante
+	    return "amap/front/amapPage"; // Vue JSP correspondante
 	}
+
 
 	
 	@GetMapping("/{tenancyAlias}/contact")
 	public String contactPage(@PathVariable("tenancyAlias") String alias, Model model) {
-	    // Récupérer les informations de style et de police
-	    model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
-	    model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
-	    model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
-	    model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+	    // Récupérer la tenancy
+	    Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
 
-	    // Récupérer les informations de la Tenancy (adresse, contact, etc.)
-	    Tenancy tenancy = graphismService.getTenancyByAlias(alias);
-	    model.addAttribute("tenancy", tenancy);
-	    model.addAttribute("addressLine1", tenancy.getAddress() != null ? tenancy.getAddress().getLine1() : null);
-	    model.addAttribute("addressLine2", tenancy.getAddress() != null ? tenancy.getAddress().getLine2() : null);
-	    model.addAttribute("addressPostCode", tenancy.getAddress() != null ? tenancy.getAddress().getPostCode() : null);
-	    model.addAttribute("addressCity", tenancy.getAddress() != null ? tenancy.getAddress().getCity() : null);
-	    model.addAttribute("email", tenancy.getEmail());
-	    model.addAttribute("phoneNumber", tenancy.getContactInfo() != null ? tenancy.getContactInfo().getPhoneNumber() : null);
+	    if (tenancy != null) {
+	        // Ajouter les informations générales de la tenancy
+	        model.addAttribute("tenancy", tenancy);
+	        model.addAttribute("tenancyName", tenancy.getTenancyName());
+	        model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
+
+	        // Ajouter les informations graphiques
+	        Graphism graphism = tenancy.getGraphism();
+	        String logoBase64 = graphism != null ? graphism.getLogoImg() : null;
+	        String logoImgType = graphism != null ? graphism.getLogoImgType() : null;
+	        model.addAttribute("logoBase64", logoBase64);
+	        model.addAttribute("logoImgType", logoImgType);
+
+	        // Ajouter les informations de contact et d'adresse
+	        Address address = tenancy.getAddress();
+	        model.addAttribute("addressLine1", address != null ? address.getLine1() : null);
+	        model.addAttribute("addressLine2", address != null ? address.getLine2() : null);
+	        model.addAttribute("addressPostCode", address != null ? address.getPostCode() : null);
+	        model.addAttribute("addressCity", address != null ? address.getCity() : null);
+	        model.addAttribute("email", tenancy.getEmail());
+	        model.addAttribute("phoneNumber", tenancy.getContactInfo() != null ? tenancy.getContactInfo().getPhoneNumber() : null);
+
+	        // Ajouter les styles et polices
+	        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
+	        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+	        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
+	        model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+	    } else {
+	        model.addAttribute("message", "Tenancy non trouvée.");
+	    }
 
 	    return "amap/front/contactPage"; // Vue JSP correspondante
 	}

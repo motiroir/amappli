@@ -44,7 +44,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 80%;
+	height: 88%;
 	max-width: 100%;
 	object-fit: contain;
 	display: block;
@@ -81,8 +81,6 @@
 	max-height: 80%;
 	object-fit: contain;
 	display: block;
-	
-	
 }
 
 .title {
@@ -128,9 +126,17 @@
 	padding: 20px;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 	border: 1.5px solid #FFBE98;
+	width: 100%;
 	
 }
 
+ hr {
+  width: 70%; 
+  height: 2px; 
+  margin: 10px auto; 
+  
+  border: none; 
+}
 
 
 

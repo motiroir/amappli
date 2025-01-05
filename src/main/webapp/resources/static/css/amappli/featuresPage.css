@@ -15,7 +15,7 @@
    font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 10px;
-  color: #FFB185;
+ 
 }
 
 @media (min-width: 768px) {
@@ -28,20 +28,20 @@
   width: 70%; 
   height: 2px; 
   margin: 10px auto; 
-  background-color: #FFB185; 
+  
   border: none; 
 }
 
 .features-section p {
   font-size: 1.2rem;
-  color: #FFB185; 
+   
   margin-top: 0;
 }
 
 .card {
     border-radius: 25px; 
     overflow: hidden;
-    height: 650px; 
+    height: 750px; 
     width: 100%; 
     max-width: 450px; 
     margin: auto;
@@ -52,7 +52,7 @@
 
 .card-body {
     text-align: center;
-    color: #000;
+  
     display: flex;
     flex-direction: column;
 }
@@ -87,16 +87,20 @@
     display: block; 
 }
 
-.card-potager {
-    background-color: #FFCBAD;
+
+    .card-body ul li {
+    margin-bottom: 5px;
+    display: flex; /* Définit un conteneur flexible */
+    align-items: flex-start; /* Aligne les éléments au début */
 }
 
-.card-verger {
-    background-color: #FFBE98;
+.card-body ul li i {
+    flex-shrink: 0; /* Empêche l'icône de se réduire */
+    margin-right: 8px; 
 }
 
-.card-ferme {
-    background-color: #FFB185;
+.card-body ul li span {
+    flex-grow: 1 ; 
+    display: block ; /
 }
-    
 

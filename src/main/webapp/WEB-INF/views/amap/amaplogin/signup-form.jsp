@@ -14,16 +14,18 @@
 <body  class="${cssStyle} light ${font}-title ${font}-button">
 
 <div class="d-flex flex-column min-vh-100">
+
        <header class="fc-main bg-main">
 			<jsp:include page="../front/common/header-amap.jsp" />
 		</header>
 		
- <!-- <div id="map"></div>  -->
+	<!-- 	<div id="map"></div> --> 
  
  
-    <div class="container py-5">
+    <div class="container py-5 ">
+    <div class="form-container py-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>Formulaire d'inscription</h1>
+            <h1 class="h3 fw-bold fc-300">Formulaire d'inscription</h1>
             <a href="login" class="btn-close" aria-label="Retour"></a>
         </div>
 
@@ -95,9 +97,10 @@
             </div>
 
             <div class="text-center">
-                <button type="submit" class="btn btn-dark">S'inscrire</button>
+                <a type="submit" class="btn btn-500 px-4 rounded-pill">S'inscrire</a>
             </div>
         </form:form>
+        </div>
     </div>
    <footer class="fc-main bg-main">
 			<jsp:include page="../front/common/footer-amap.jsp" />
@@ -115,7 +118,7 @@
 	</script>
 
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-<%-- 	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  
-	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script> --%>
+	<%-- <script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script>   --%>
 </body>
 </html>

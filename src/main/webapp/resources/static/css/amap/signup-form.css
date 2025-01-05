@@ -1,27 +1,16 @@
-@charset "UTF-8";
+ @charset "UTF-8";
 @import "../common/utils.css";
 @import "common/header-amap.css";
 @import "common/footer-amap.css";
 
 
-
-body {
-	background-color: #ffffff;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100vw;
-	height: 100vh;
-	margin: 0;
+.form-container {
+    max-width: 600px; /* Largeur maximale du formulaire */
+    margin: 0 auto; /* Centre horizontalement */
+    padding: 30px;
+   
 }
 
-.container {
-	max-width: 600px;
-	padding: 30px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-}
 
 h1 {
 	font-size: 1.25rem;
@@ -67,4 +56,4 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
 	background-color: #455449;
-}
+} 

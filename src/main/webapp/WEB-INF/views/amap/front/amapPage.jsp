@@ -16,26 +16,26 @@
 
 <body class="${cssStyle} light ${font}-title ${font}-button">
 
-<header class="fc-main bg-main">
+		<header class="fc-main bg-main">
 			<jsp:include page="common/header-amap.jsp" />
 		</header>
  
-	<div id="map"></div>  
+	<!-- <div id="map"></div>  --> 
 	
 
- <div class="container my-5 bg-100">
-        <div class="row">
+ <div class="container my-5 ">
+        <div class="row ">
             <div class="col-lg-6 col-md-12 text-center">
-                <img src="<c:url value='/resources/img/schemaAmap.png' />" alt="Schéma explicatif AMAP" class="img-fluid circle-diagram">
+                <img src="<c:url value='/resources/img/amapien.png' />" alt="Schéma explicatif AMAP" class="img-fluid circle-diagram">
             </div>
             <div class="col-lg-6 col-md-12 ">
-                <h1 class=" mt-3 "  style="font-size: 1.5rem;">AMAP ?</h1>
-                <div class="amap-text">
-                    <p><strong>A</strong> comme <strong>Association</strong><br>
+                <h1 class=" mt-3 h2 fc-500" >AMAP ? </h1>
+                <div class="amap-text ">
+                    <p class="fc-alt"><strong>A</strong> comme <strong>Association</strong><br>
                         En AMAP, pas d'intermédiaire commercial. C'est le seul système qui reverse 100% du montant du panier à l'agriculteur·rice.</p>
-                    <p><strong>M</strong> comme <strong>Maintien</strong></p>
-                    <p><strong>AP</strong> comme <strong>Agriculture Paysanne</strong></p>
-                    <p>L'AMAP soutient une agriculture de proximité qui concilie protection de la nature et emploi local agricole.</p>
+                    <p class="fc-alt"><strong>M</strong> comme <strong>Maintien</strong></p>
+                    <p class="fc-alt"><strong>AP</strong> comme <strong>Agriculture Paysanne</strong></p>
+                    <p class="fc-alt">L'AMAP soutient une agriculture de proximité qui concilie protection de la nature et emploi local agricole.</p>
                 </div>
                 <div class="text-end mt-4">
                     <img src="<c:url value='/resources/img/logoAB.png' />"  alt="LogoAB" class="ab-logo">
@@ -43,17 +43,17 @@
             </div>
         </div>
     </div>
-   <div class="container my-5 bg-100 ">
-    <h2 class="text-center mt-5 " style="font-size: 1.5rem;">Histoire des AMAP</h2> 
+   <div class="container my-0 ">
+    <h2 class="text-center mt-1 h2 fc-500">Histoire des AMAP</h2> 
     <div class="row g-4">
         <!-- Texte principal -->
-        <div class="col-lg-6 col-md-12 d-flex align-items-center ps-lg-5 secondtext"> <!-- Ajout de 'ps-lg-5' pour un décalage -->
+        <div class="col-lg-6 col-md-12 d-flex align-items-center secondtext"> 
             <div>
-                <p>
+                <p class="fc-alt">
                     L'historique des AMAP est très bien raconté sur le 
                     <a href="https://www.reseau-amap.org/historique.php" target="_blank">site National du réseau AMAP France</a>.
                 </p>
-                <p>
+                <p class="fc-alt">
                     C'est donc du Japon que vient cette démarche collaborative entre un ou plusieurs producteurs et des consommateurs 
                     qui établissent un partenariat sous forme de contrat. Ensemble, ils définissent la diversité et la quantité de denrées à produire pour la saison. 
                     Ces denrées peuvent être aussi bien des fruits, des légumes, des œufs, du fromage, de la viande...
@@ -87,7 +87,7 @@
         <div class="row mt-4">
             
             <div class="col-12 text-center">
-                <a href="https://amap-idf.org/medias/files/2charte_des_amap/charte_des_amap_mars_20142.pdf" class="btn btn-success btn-lg">
+                <a href="https://amap-idf.org/medias/files/2charte_des_amap/charte_des_amap_mars_20142.pdf" class="btn btn-100 rounded-pill btn-lg">
                     Découvrir la charte des AMAP
                 </a>
             </div>
@@ -117,7 +117,7 @@
 	</script>
 
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	 <script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  
-	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script> 
+	<%--  <script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script>  --%>
 </body>
 </html>

@@ -93,7 +93,7 @@ public class TenancyServiceImpl implements TenancyService {
             Tenancy t1 = Tenancy.builder()
                     .tenancyName("BioColi")
                     .tenancyAlias("biocoli")
-                    .tenancySlogan("Manger bio, c'est facile avec BioColi!")
+                    .tenancySlogan("Des paniers bio et locaux, pour une vie plus saine!")
                     .email("contact@biocoli.fr")
                     .address(new Address("A12", "12 avenue de la localité", "75000", "Paris"))
                     .dateCreated(LocalDateTime.now())
@@ -128,6 +128,7 @@ public class TenancyServiceImpl implements TenancyService {
                     .build();
 
             // Création des 4 ContentBlocks pour la Tenancy
+            String imagevalue0 = loadImageFromResources("presentationbiocoli.png");
             String imagevalue1 = loadImageFromResources("value1.png");
             String imagevalue2 = loadImageFromResources("value2.png");
             String imagevalue3 = loadImageFromResources("value3.png");
@@ -137,10 +138,10 @@ public class TenancyServiceImpl implements TenancyService {
             ContentBlock presentationBlock = ContentBlock.builder()
                     .isValue(false)
                     .contentTitle("Présentation de BioColi")
-                    .contentText("BioColi est une AMAP dédiée à la distribution de paniers bio, locaux et de saison.")
+                    .contentText("BioColi rassemble producteurs et consommateurs pour offrir des produits bio, locaux, et de saison. Nous privilégions les circuits courts pour une alimentation responsable. Rejoignez-nous et soutenez l'agriculture durable.")
                     .contentImgName("value1.png")
                     .contentImgTypeMIME("image/png")
-                    .contentImg(imagelogo) // Chargé depuis les ressources internes
+                    .contentImg(imagevalue0) // Chargé depuis les ressources internes
                     .homePageContent(homePageContent1)
                     .build();
 
@@ -148,7 +149,7 @@ public class TenancyServiceImpl implements TenancyService {
             ContentBlock valueBlock1 = ContentBlock.builder()
                     .isValue(true) // Ce block représente une valeur de l'AMAP
                     .contentTitle("Soutien à l'Agriculture Durable")
-                    .contentText("Nous soutenons les pratiques agricoles respectueuses de l'environnement.")
+                    .contentText("Chaque panier soutient directement les agriculteurs de notre région, favorisant une économie locale dynamique.")
                     .contentImgName("value1.png")
                     .contentImgTypeMIME("image/png")
                     .contentImg(imagevalue1) // Chargé depuis les ressources internes

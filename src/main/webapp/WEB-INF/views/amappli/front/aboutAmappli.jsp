@@ -22,11 +22,11 @@
    <header class="fc-main bg-main">
 		<jsp:include page="../common/header.jsp" />
 	</header>
-<!-- 
-    <div id="map"></div>
-	 -->
 
-  <h2 class="title text-center">Qui sommes-nous ?</h2><hr>
+   <!--  <div id="map"></div> -->
+	 
+
+  <h2 class="title text-center fc-300">Qui sommes-nous ?</h2><hr class="bg-300">
 
 	<div class="container py-2">
 		<div class="row align-items">
@@ -70,7 +70,7 @@
             <div class="value-card">
                 <h2 class="value-title">Nos Valeurs</h2>
                 <p class="value-text">
-                    Chez Amappli, nos valeurs reflètent notre engagement envers une agriculture locale, responsable et durable.
+                 Chez Amappli, nos valeurs reflètent notre engagement envers une agriculture locale, responsable et durable.
                 </p>
                 <ul class="value-text">
                     <li><strong>Soutien aux producteurs locaux :</strong> Nous aidons les agriculteurs à valoriser leur travail en favorisant les circuits courts et les produits biologiques.</li>
@@ -87,7 +87,7 @@
     <div class="col-lg-12 col-md-12 text-column">
         <div class="value">
             <p class="value-text">
-                <strong>Amappli</strong>, c’est bien plus qu’une application, c’est une vision : celle d’un avenir où technologie
+                <strong> Amappli </strong>,  c’est bien plus qu’une application, c’est une vision : celle d’un avenir où technologie
                 et agriculture locale s’unissent pour un impact positif sur nos communautés et notre environnement.
             </p>
         </div>
@@ -137,8 +137,8 @@
 	<script	src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 	<script	src="<c:url value='/resources/js/amappli/loading-when-visible.js' />"></script>
 	<script	src="<c:url value='/resources/js/amappli/theme-swap.js' />"></script>
-	<%-- <script	src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />"></script> --%>
+	<%--  <script	src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  --%>
 
 </body>
 </html>

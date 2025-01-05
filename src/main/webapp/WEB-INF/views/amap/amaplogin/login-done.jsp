@@ -12,24 +12,29 @@
 	href="<c:url value='/resources/css/amap/login-done.css' />">
   
 </head>
-<body class="${cssStyle} light ${font}-title ${font}-button">
+<body  class="${cssStyle} light ${font}-title ${font}-button">
+
 <div class="d-flex flex-column min-vh-100">
-        <header class="fc-main bg-main">
+
+       <header class="fc-main bg-main">
 			<jsp:include page="../front/common/header-amap.jsp" />
-		</header> 
-		 <!-- <div id="map"></div>  -->
+		</header>
+		
+<!-- 	<div id="map"></div>  -->
 		 
     <div class="container">
-        <h2>Inscription réussie !</h2>
-        <p>Votre compte a été créé avec succès. Vous pouvez maintenant vous connecter.</p>
+    <div class="success">
+        <h2 class="h2 fw-bold fc-300">Inscription réussie !</h2>
+        <p class="fc-main">Votre compte a été créé avec succès. Vous pouvez maintenant vous connecter.</p>
         <div>
-            <a href="login" class="btn">Se connecter</a>
+            <a href="login" class="btn btn-500 rounded-pill">Se connecter</a>
+        </div>
         </div>
     </div>
-   <footer class="fc-main bg-main">
+     <footer class="fc-main bg-main">
 			<jsp:include page="../front/common/footer-amap.jsp" />
 		</footer> 
-    <script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
+    	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 
 	<script>
 		var styleMapboxLight = "${mapStyleLight}"
@@ -42,7 +47,7 @@
 	</script>
 
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<%-- <script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  
-	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script> --%>
+	<%--  <script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script> --%>   
 </body>
 </html>

@@ -17,14 +17,14 @@
 
 </head>
 
-<body class="${cssStyle} light ${font}-title ${font}-button">
+<body class="theme-1 dark bg-main fc-main">
 <div class="d-flex flex-column min-vh-100">
 
    <header class="fc-main bg-main">
 		<jsp:include page="../common/header.jsp" />
 	</header>
 
-   <div id="map"></div>  
+   <!-- <div id="map"></div> -->  
     
     
      <section class="features-section container">
@@ -42,15 +42,15 @@
     <!-- Carte Potager -->
     <div class="col-lg-4 col-md-6 mb-4 ">
       <div class="card shadow-sm border-0 card-potager bg-300">
-        <div class="card-body fc-100">
-          <h5 class="card-title fw-bold">Potager</h5>
+        <div class="card-body fc-900">
+          <h5 class="h4 fw-bold">Potager</h5>
           <hr>
           <p class="card-text">Un site opérationnel avec peu de fonctionnalités</p><br>
-          <h2 class="fw-bold">0€/an</h2>
-          <p class="text-muted">Ou 0€/mois</p>
+          <h2 class="h3 fw-bold">0€/an</h2>
+          <p class="fc-600">Ou 0€/mois</p>
           <ul class="list-unstyled text-start">
-            <li><i class="bi bi-check-circle-fill text-dark me-2"></i>  Un site vitrine avec les informations de votre amap</li>
-            <li><i class="bi bi-check-circle-fill text-dark me-2"></i>  La possibilité d’ajouter votre logo, et le choix entre deux thèmes de couleurs et deux typographies</li>
+            <li><i class="bi bi-check-circle-fill text-dark me-2"></i> <span>Un site vitrine avec les informations de votre amap</span></li>
+            <li><i class="bi bi-check-circle-fill text-dark me-2"></i> <span> La possibilité d’ajouter votre logo, et le choix entre deux thèmes de couleurs et deux typographies</span></li>
             <li><i class="bi bi-check-circle-fill text-dark me-2"></i> Une boutique pour que vos adhérents s’abonnent aux paniers</li>
             <li><i class="bi bi-check-circle-fill text-dark me-2"></i>  La gestion des contrats et des stocks avec un paiement hors-ligne</li>
             <li><i class="bi bi-check-circle-fill text-dark me-2"></i>  La gestion des commandes avec factures pour vos fournisseurs</li>
@@ -63,12 +63,12 @@
     <!-- Carte Verger -->
     <div class="col-lg-4 col-md-6 mb-4 ">
       <div class="card shadow-sm border-0 card-verger bg-400">
-        <div class="card-body fc-100">
-          <h5 class="card-title fw-bold">Verger</h5>
+        <div class="card-body fc-900">
+          <h5 class="h4 fw-bold fc-900">Verger</h5>
           <hr>
-          <p class="card-text">Plus d’outils avancés pour personnaliser et enrichir votre site.</p>
-          <h2 class="fw-bold">50€/an</h2>
-          <p class="text-muted">Ou 5€/mois</p>
+          <p class="card-text fc-900">Plus d’outils avancés pour personnaliser et enrichir votre site.</p>
+          <h2 class="h3 fw-bold fc-900">50€/an</h2>
+          <p class="fc-600">Ou 5€/mois</p>
           <ul class="list-unstyled text-start">
             <li><i class="bi bi-check-circle-fill text-dark me-2"></i>  Tout ce qu’il y a dans le potager plus :</li>
             <li><i class="bi bi-check-circle-fill text-dark me-2"></i> Le paiement en ligne</li>
@@ -86,12 +86,12 @@
     <!-- Carte Ferme -->
     <div class="col-lg-4 col-md-6 mb-4  ">
       <div class="card shadow-sm border-0 card-ferme bg-500">
-        <div class="card-body fc-100">
-          <h5 class="card-title fw-bold">Ferme</h5>
+        <div class="card-body fc-900">
+          <h5 class="h4 fw-bold">Ferme</h5>
           <hr>
           <p class="card-text">Toutes les fonctionnalités pour une gestion complète et professionnelle de votre AMAP</p>
-          <h2 class="fw-bold">100€/an</h2>
-          <p class="text-muted">Ou 10€/mois</p>
+          <h2 class="h3 fw-bold">100€/an</h2>
+          <p class="fc-600">Ou 10€/mois</p>
           <ul class="list-unstyled text-start">
             <li><i class="bi bi-check-circle-fill text-dark me-2"></i>  Tout ce qu’il y a dans le verger plus :</li>
             <li><i class="bi bi-check-circle-fill text-dark me-2"></i>  Une visibilité sur vos statistiques</li>
@@ -116,10 +116,7 @@
 	<script	src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 	<script	src="<c:url value='/resources/js/amappli/loading-when-visible.js' />"></script>
 	<script	src="<c:url value='/resources/js/amappli/theme-swap.js' />"></script>
-	<script	src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />"></script> 
-	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  
-	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script> 
+<%-- 	 <script	src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  --%>
 </body>
 </html>

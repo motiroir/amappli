@@ -17,39 +17,36 @@
 
 <body class="${cssStyle} light ${font}-title ${font}-button">
 <div class="d-flex flex-column min-vh-100">
-<header class="fc-main bg-main">
+		<header class="fc-main bg-main">
 			<jsp:include page="common/header-amap.jsp" />
 		</header>
 
-<!-- 	 <div id="map"></div>  -->
+<!-- <div id="map"></div>   -->
 	
 	
-	<div class="hero fc-main">
-		<div class="hero-content">
-			<h1 class="hero-text">Bienvenue sur le site de ${tenancyName}</h1>
-			<h2 class="hero-text">${tenancySlogan}</h2>
-
-			<div class="buttons">
-				<button class="btn btn-info">Qui Sommes-nous ?</button>
-				<a class="btn btn-info" href="amap/amaplogin/signup">Adhérer à
-					l'AMAP</a>
+   <main class="hero">
+		<div class="row g-0">
+			<div class="col-12 col-lg-6 order-lg-2">
+				<img src="<c:url value='/resources/img/imageHomePage.png' />" alt="Légumes frais" class="image-box">
+			</div>
+			<div class="col-12 col-lg-6 order-lg-1 hero-content min-vh-100 py-4 py-md-5">
+				<h1 class="hero-text h1 fc-main">Bienvenue sur le site de ${tenancyName}</h1>
+				<h2 class="hero-text h2 fc-main">${tenancySlogan}</h2>
+				<div class="buttons mt-5 mt-md-4">
+					<a href="#qui-sommes-nous" class="btn rounded-pill btn-500 px-4 mb-2 me-2">Qui Sommes-nous?</a>
+					<a href="amap/amaplogin/signup" class="btn rounded-pill btn-500 px-4 mb-2 me-2">Adhérer à l' AMAP</a>
+				</div>
 			</div>
 		</div>
-		<div class="hero-image fc-main">
-			<img src="<c:url value='/resources/img/imageHomePage.png' />"
-				alt="Légumes frais" class="image-box">
-		</div>
-		
-		
-	</div>
+	</main>
 
 	<!-- Affichage du block de présentation -->
 <c:if test="${not empty presentationBlock}">
     <div class="presentation-section">
-        <h2>Qui sommes-nous ?</h2>
-        <div class="presentation-block">
+        <h2 class="h3 fw-bold fc-300">Qui sommes-nous ?</h2>
+        <div class="presentation-block fc-main">
             <div class="presentation-text">
-                <h3>${presentationBlock.contentTitle}</h3>
+                <h3 class="h4 fw-bold fc-300">${presentationBlock.contentTitle}</h3>
                 <p>${presentationBlock.contentText}</p>
             </div>
             <div class="presentation-image-container">
@@ -66,7 +63,7 @@
 <!-- Affichage des ContentBlock avec isValue == true -->
 <c:if test="${not empty valueBlocks}">
     <div class="values-section ">
-        <h2>Nos Valeurs</h2>
+        <h2 class="h3 fw-bold fc-300">Nos Valeurs</h2>
         <div class="value-blocks">
             <c:forEach items="${valueBlocks}" var="block">
                 <div class="value-block">
@@ -77,7 +74,7 @@
      class="value-image" />
 
                     </c:if>
-                    <h3>${block.contentTitle}</h3>
+                    <h3 class="h4 fw-bold fc-300">${block.contentTitle}</h3>
                     <p>${block.contentText}</p>
                 </div>
             </c:forEach>
@@ -104,8 +101,8 @@
 	</script>
 
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<%-- <script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  
-	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script> --%>
+    <%-- <script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script>  --%> 
 		
 </body>
 </html>

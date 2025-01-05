@@ -18,11 +18,11 @@
  <header class="fc-main bg-main">
 			<jsp:include page="../front/common/header-amap.jsp" />
 		</header> 
-		<!--  <div id="map"></div> --> 
+		<!--  <div id="map"></div>  -->
 
 	<div class="container py-5">
 		<div class="d-flex justify-content-between align-items-center mb-4">
-			<h1>Se connecter</h1>
+			<h1 class="h3 fw-bold fc-300">Se connecter</h1>
 			<a href="/Amappli/tenancies/${tenancyAlias}/home" class="btn-close" aria-label="Retour"></a>
 		</div>
 
@@ -49,16 +49,16 @@
 			</div>
 
 			<div class="text-center">
-				<button type="submit" class="btn btn-dark">Se connecter</button>
+				<a type="submit" class="btn btn-500 rounded-pill">Se connecter</a>
 			</div>
 		</form>
 		<br>
 		<div class="text-center mt-4">
-			<p>Pas encore inscrit.e ?</p>
-			<hr>
+			<p class="fc-300" >Pas encore inscrit.e ?</p>
+			<hr class="bg-300">
 			<a
 				href="${pageContext.request.contextPath}/tenancies/${tenancyAlias}/amap/amaplogin/signup"
-				class="btn btn-dark">S'inscrire</a>
+				class="btn btn-500 px-4 rounded-pill">S'inscrire</a>
 		</div>
 
 	</div>
@@ -79,6 +79,6 @@
 
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
 	<%-- <script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  
-	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script> --%>
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script>  --%>
 </body>
 </html>
