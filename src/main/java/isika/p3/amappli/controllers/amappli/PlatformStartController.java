@@ -14,7 +14,7 @@ import isika.p3.amappli.dto.amap.NewUserDTO;
 import isika.p3.amappli.dto.amappli.NewTenancyDTO;
 import isika.p3.amappli.dto.amappli.ValueDTO;
 import isika.p3.amappli.entities.tenancy.ColorPalette;
-import isika.p3.amappli.entities.tenancy.ContentBlock;
+//import isika.p3.amappli.entities.tenancy.ContentBlock;
 import isika.p3.amappli.entities.tenancy.FontChoice;
 import isika.p3.amappli.exceptions.EmailAlreadyExistsException;
 import isika.p3.amappli.exceptions.TenancyAliasAlreadyTakenException;
@@ -30,12 +30,12 @@ public class PlatformStartController {
 
     private final UserService userService;
     private final TenancyService tenancyService;
-    private final ContentBlockService contentBlockService;
+   // private final ContentBlockService contentBlockService;
 
     public PlatformStartController(UserService userService, TenancyService tenancyService, ContentBlockService contentBlockService) {
         this.userService = userService;
         this.tenancyService = tenancyService;
-        this.contentBlockService = contentBlockService;
+       // this.contentBlockService = contentBlockService;
     }
     
 
@@ -96,12 +96,12 @@ public class PlatformStartController {
         return "amappli/front/platformstart/signupdone";
     }
 
-    @GetMapping("/showimg")
-    public String tryToShowImg(Model model){
-        ContentBlock cb = contentBlockService.findById(1L);
-        String base64Image = "data:"+cb.getContentImgTypeMIME()+";base64," + cb.getContentImg();
-        model.addAttribute("image", base64Image);
-        return "amappli/front/platformstart/showimg";
-    }
+    // @GetMapping("/showimg")
+    // public String tryToShowImg(Model model){
+    //     ContentBlock cb = contentBlockService.findById(1L);
+    //     String base64Image = "data:"+cb.getContentImgTypeMIME()+";base64," + cb.getContentImg();
+    //     model.addAttribute("image", base64Image);
+    //     return "amappli/front/platformstart/showimg";
+    // }
     
 }

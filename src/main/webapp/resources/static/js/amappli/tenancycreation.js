@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     updateVisibility();
 
-    computeOptionChoice();
 
     function updateVisibility() {
         //update progress bar
@@ -91,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let statisticsResponse =  document.querySelector('input[name="question-7"]:checked').value;
 
         let recommandation = document.createElement("div");
-        recommandation.innerHTML = "<div class='alert alert-primary' role='alert'>Cette option vous permettra d'avoir toutes les fonctionnalités souhaitées!</div>";
+        recommandation.innerHTML = "<div class='info-bubble'>Cette option vous permettra d'avoir toutes les fonctionnalités souhaitées!</div>";
         if(statisticsResponse||  customRolesResponse || discountsResponse ){
             let option3button = document.getElementById("option-3");
             option3button.insertAdjacentElement("beforebegin", recommandation);
