@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -11,19 +11,23 @@
 	
 	<link rel="stylesheet"
 	href="<c:url value='/resources/css/amap/login-amap.css' />">
+	<title>Connexion</title>
 </head>
-<style>
+<body class="${cssStyle} light ${font}-title ${font}-button">
+<div class="d-flex flex-column min-vh-100">
+ <header class="fc-main bg-main">
+			<jsp:include page="../front/common/header-amap.jsp" />
+		</header> 
+		 <div id="map"></div>  
 
-</style>
-<body>
 	<div class="container py-5">
 		<div class="d-flex justify-content-between align-items-center mb-4">
-			<h1>Se connecter</h1>
-			<a href="/Amappli/tenancies/${tenancyId}/home" class="btn-close" aria-label="Retour"></a>
+			<h1 class="h3 fw-bold fc-300">Se connecter</h1>
+			<a href="/Amappli/tenancies/${tenancyAlias}/home" class="btn-close" aria-label="Retour"></a>
 		</div>
 
 		<form
-			action="${pageContext.request.contextPath}/tenancies/${tenancyId}/amap/amaplogin/login"
+			action="${pageContext.request.contextPath}/tenancies/${tenancyAlias}/amap/amaplogin/login"
 			method="post">
 
 			<!-- Affichage des erreurs générales -->
@@ -45,18 +49,36 @@
 			</div>
 
 			<div class="text-center">
-				<button type="submit" class="btn btn-dark">Se connecter</button>
+				<a type="submit" class="btn btn-500 rounded-pill">Se connecter</a>
 			</div>
 		</form>
 		<br>
 		<div class="text-center mt-4">
-			<p>Pas encore inscrit.e ?</p>
-			<hr>
+			<p class="fc-300" >Pas encore inscrit.e ?</p>
+			<hr class="bg-300">
 			<a
-				href="${pageContext.request.contextPath}/tenancies/${tenancyId}/amap/amaplogin/signup"
-				class="btn btn-dark">S'inscrire</a>
+				href="${pageContext.request.contextPath}/tenancies/${tenancyAlias}/amap/amaplogin/signup"
+				class="btn btn-500 px-4 rounded-pill">S'inscrire</a>
 		</div>
 
 	</div>
+	 <footer class="fc-main bg-main">
+			<jsp:include page="../front/common/footer-amap.jsp" />
+		</footer> 
+	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
+
+	<script>
+		var styleMapboxLight = "${mapStyleLight}"
+		var styleMapboxDark = "${mapStyleDark}"
+
+		/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
+		 const tenancyCity = "${tenancy.getAddress().getCity()}"
+		 const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
+		 */
+	</script>
+
+	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script>  
 </body>
 </html>
