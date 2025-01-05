@@ -103,7 +103,7 @@ body {
                                 <p>${contract.contractType.displayName}</p>
                                 <p>${contract.contractWeight.displayName}</p>
                                 <p>${contract.contractPrice}&euro;</p>
-                                <a href="<c:url value='/${tenancyAlias}/shop/contracts/${contract.contractName}' />"
+                                <a href="<c:url value='/${tenancyAlias}/shop/contracts/${contract.id}' />"
                                     class="btn">Voir les détails</a>
                             </div>
                         </div>

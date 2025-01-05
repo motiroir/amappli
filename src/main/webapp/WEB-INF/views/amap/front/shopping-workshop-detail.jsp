@@ -1,0 +1,171 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Détails de l'atelier</title>
+<link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="<c:url value='/resources/css/amap/homePage.css' />">
+<style>
+.workshop-details-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+
+.workshop-image {
+	flex: 1;
+	max-width: 50%;
+}
+
+.workshop-image img {
+	width: 100%;
+	height: auto;
+	border-radius: 16px;
+}
+
+.workshop-info {
+	flex: 1;
+	max-width: 50%;
+}
+
+.workshop-info h2 {
+	font-size: 28px;
+	margin-bottom: 10px;
+}
+
+.workshop-info p {
+	margin-bottom: 10px;
+}
+
+.quantity-selector {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.quantity-selector input {
+	width: 50px;
+	text-align: center;
+}
+
+.btn-add-to-cart {
+	background-color: #FFA570;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 8px;
+}
+
+.btn-add-to-cart:hover {
+	background-color: #FF8A50;
+}
+</style>
+</head>
+<body>
+	<!-- Inclure le header -->
+	<header>
+		<jsp:include page="common/header.jsp" />
+	</header>
+
+	<div class="container-fluid mt-4">
+		<div class="row">
+			<!-- Sidebar -->
+			<div class="col-12 col-md-3">
+				<div class="sidebar">
+					<div class="section-title">Ateliers</div>
+					<ul class="list-unstyled">
+						<li><a href="#"
+							class="${currentPage == 'all' ? 'active' : ''}">Tous les
+								paniers <span class="badge bg-secondary">${counts.all}</span>
+						</a></li>
+						<li><a href="#"
+							class="${currentPage == 'vegetables' ? 'active' : ''}">Paniers
+								légumes <span class="badge bg-secondary">${counts.vegetables}</span>
+						</a></li>
+						<li><a href="#"
+							class="${currentPage == 'fruits' ? 'active' : ''}">Paniers
+								fruits <span class="badge bg-secondary">${counts.fruits}</span>
+						</a></li>
+						<li><a href="#"
+							class="${currentPage == 'mixed' ? 'active' : ''}">Paniers
+								mixtes <span class="badge bg-secondary">${counts.mixed}</span>
+						</a></li>
+					</ul>
+					<div class="section-title mt-4">Epicerie</div>
+					<ul class="list-unstyled">
+						<li><a href="#">Produits</a></li>
+					</ul>
+					<div class="section-title mt-4">Ateliers</div>
+					<ul class="list-unstyled">
+						<li><a href="#">Workshops</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="container mt-5">
+				<div class="workshop-details-container">
+					<!-- Image du contrat -->
+					<div class="workshop-image">
+						<c:if test="${not empty workshop.imageData}">
+							<img
+								src="data:${workshop.imageType};base64,${workshop.imageData}"
+								alt="Image de l'atelier" />
+						</c:if>
+					</div>
+
+					<!-- Informations du contrat -->
+					<div class="workshop-info">
+						<h2>${workshop.workshopName}</h2>
+						<p>
+							<strong>Producteur :</strong>
+							${workshop.user.companyDetails.companyName}
+						</p>
+						<p>
+							<strong>Prix :</strong> ${workshop.workshopPrice}€
+						</p>
+						<p>
+							<strong>Description :</strong> ${workshop.workshopDescription}
+						</p>
+						<c:if test="${not empty address}">
+							<p>
+								<strong>Lieu de l'atelier :</strong><br>
+								${address.line1} ${address.line2}, ${address.city}
+								(${address.postCode})
+							</p>
+						</c:if>
+						<c:if test="${empty address}">
+							<p>
+								<strong>Lieu de l'atelier :</strong><br>
+								Adresse indisponible.
+							</p>
+						</c:if>
+
+						<form:form method="post"
+							action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cartId}/add">
+							<input type="hidden" name="shoppableId" value="${workshop.id}" />
+							<input type="hidden" name="shoppableType" value="WORKSHOP" />
+							<input type="hidden" name="quantity" value="1" />
+							<button type="submit" class="btn-add-to-cart">Je m'inscris à cet atelier</button>
+						</form:form>
+						<a
+							href="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cartId}"
+							class="btn-view-cart">Voir le panier</a>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<jsp:include page="common/footer.jsp" />
+	</footer>
+	<script
+		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
+</body>
+</html>

@@ -1,14 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
-<!DOCTYPE html>
-<div
-	class="container-fluid d-flex flex-row-reverse flex-md-row justify-content-between justify-content-md-evenly align-items-center">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
-<div class="logo-container d-flex align-items-center">
-    <c:choose>
-        <c:when test="${not empty logoBase64}">
-            <!-- Utilisation du logo encodé en Base64 -->
+<!DOCTYPE html>
+<div class="container-fluid d-flex flex-row-reverse flex-md-row justify-content-between justify-content-md-evenly align-items-center">
+
+    <div class="logo-container d-flex align-items-center">
+        <c:if test="${not empty logoBase64}">
+            <!-- Affichage du logo encodé en Base64 -->
             <img id="logo-header" 
                  height="50" 
                  min-height="50" 
@@ -16,19 +15,8 @@
                  class="my-2 my-sm-0 logo-image me-3" 
                  src="data:${logoImgType};base64,${logoBase64}" 
                  alt="Logo de ${tenancyName}" />
-        </c:when>
-        <c:otherwise>
-            <!-- Utilisation d'une URL de logo par défaut -->
-            <img id="logo-header" 
-                 height="50" 
-                 min-height="50" 
-                 viewBox="0 0 697 726" 
-                 class="my-2 my-sm-0 logo-image me-3" 
-                 src="<c:url value='/resources/img/${graphism.logo}' />" 
-                 alt="Logo par défaut" />
-        </c:otherwise>
-    </c:choose>
-    <h1 id="text-head" class="fw-bold fs-2 mb-0">${tenancy.getTenancyName()}</h1>
+                  </c:if>
+    <a href="<c:url value='/${tenancyAlias}/cart/${cart.shoppingCartId}'/>" class="nav-link"><h1 class="fw-bold fs-2 mb-0 fc-300 fch-500">${tenancy.getTenancyName()}</h1></a>
 </div>
 
 
@@ -57,22 +45,19 @@
 		</button>
 		<div class="collapse navbar-collapse" id="nav-content">
 			<ul class="navbar-nav w-100 justify-content-md-evenly">
-				<li class="nav-item"><a href="#"
-					class="nav-link nunito text-decoration-none fc-300 fch-500"
-					data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">La boutique</a>
+				<li class="nav-item"><a href="<c:url value='/${tenancyAlias}/shop/contracts'/>" 
+					class="nav-link ${font} text-decoration-none fc-300 fch-500">La boutique</a>
 				</li>
 				<li class="nav-item"><a href="amapPage"
-					class="nav-link nunito text-decoration-none fc-300 fch-500"
-					data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">C'est quoi une Amap ?</a></li>
+					class="nav-link ${font} text-decoration-none fc-300 fch-500">C'est quoi une Amap ?</a></li>
 				<li class="nav-item"><a href="contact"
-					class="nav-link nunito text-decoration-none fc-300 fch-500"
-					data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Contact</a>
+					class="nav-link ${font} text-decoration-none fc-300 fch-500">Contact</a>
 				</li>
-				<!--   <li class="nav-item col-1">
-                </li> -->
+				<li class="nav-item"> <a href="<c:url value='/${tenancyAlias}/cart/${cart.shoppingCartId}'/>"><i class="bi bi-bag-fill fs-4 fc-300 fch-500"></i></a>
+				
+                </li> 
 				<li class="nav-item"><a href="amap/amaplogin/login"
-					class="btn rounded-pill btn-500 px-4" data-bs-toggle="collapse"
-					data-bs-target=".navbar-collapse.show">Se connecter</a></li>
+					class="btn rounded-pill btn-500 px-4" >Se connecter</a></li>
 			</ul>
 		</div>
 	</nav>

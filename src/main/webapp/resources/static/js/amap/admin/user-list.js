@@ -10,9 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
 			const valueA = getValue(a, criteria);
 			const valueB = getValue(b, criteria);
 
-			if (criteria === "priceAsc") {
+			if (criteria === "creditAsc") {
 				return parseFloat(valueA) - parseFloat(valueB);
-			} else if (criteria === "priceDesc") {
+			} else if (criteria === "creditDesc") {
 				return parseFloat(valueB) - parseFloat(valueA);
 			} else {
 				return valueA.localeCompare(valueB);
@@ -23,9 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	function getValue(row, criteria) {
-		if (criteria === "name") return row.cells[1].innerText.trim();
-		if (criteria === "producer") return row.cells[3].innerText.trim();
-		if (criteria === "priceAsc" || criteria === "priceDesc") return row.cells[4].innerText.trim().replace("€", "");
+		if (criteria === "name") return row.cells[0].innerText.trim();
+		if (criteria === "role") return row.cells[2].innerText.trim();
+		if (criteria === "creditAsc" || criteria === "creditDesc") return row.cells[3].innerText.trim().replace("€", "");
 		return "";
 	}
 

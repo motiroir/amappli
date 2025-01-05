@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import isika.p3.amappli.entities.auth.Permission;
+import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.repo.amap.UserRepository;
 
@@ -28,31 +29,55 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-       
+        System.out.println("trying to authenticate");
         User user = userRepository.findByEmail(username);
-
+        System.out.println("trying to authenticate 2");
         if(user == null){
             throw new UsernameNotFoundException("Utilisateur non trouvé avec l'email: "+ username);
         }
+        System.out.println(user.getEmail());
 
         //userRepository.flush();
         // If the user is found, get his permissions
         //Set<Permission> permissions = userRepository.findPermissionsByEmail(username);
+        CustomUserDetails securityUser = null;
+        if(user.getTenancy() != null){
+            securityUser = new CustomUserDetails.Builder()
+                    .username(user.getEmail())
+                    .password(user.getPassword())
+                    .authorities(getGrantedAuthorities(user.getPermissions(), user.getTenancy()))
+                    .build();
+        }
+        else{
+            securityUser = new CustomUserDetails.Builder()
+                    .username(user.getEmail())
+                    .password(user.getPassword())
+                    .authorities(getGrantedAuthorities(user.getPermissions(), null))
+                    .build();
+        }
+        System.out.println("trying to authenticate 3");
 
-        return org.springframework.security.core.userdetails.User.builder()
-                .username(user.getEmail())
-                .password(user.getPassword())
-                .authorities(getGrantedAuthorities(user.getPermissions()))
-                .build();
+        securityUser.addAdditionalInfo("userId",user.getUserId());
+        if(user.getContactInfo() != null){
+            securityUser.addAdditionalInfo("firstName",user.getContactInfo().getFirstName());
+        }
+        if(user.getTenancy() != null){
+            securityUser.addAdditionalInfo("tenancyAlias",user.getTenancy().getTenancyAlias());
+        }
+        System.out.println(securityUser);
+        return securityUser;
+
     }
 
-    // Transform our permissions into spring security authorities
-    private List<GrantedAuthority> getGrantedAuthorities(Set<Permission> permissions){
+    // Transform our permissions and tenancy membership into spring security authorities
+    private List<GrantedAuthority> getGrantedAuthorities(Set<Permission> permissions, Tenancy tenancy){
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         for(Permission p: permissions){
             authorities.add(new SimpleGrantedAuthority(p.getName()));
         }
-        authorities.add(new SimpleGrantedAuthority("sampleauthority"));
+        if(tenancy != null){
+            authorities.add(new SimpleGrantedAuthority(tenancy.getTenancyAlias()));
+        }
         return authorities;
     }
 

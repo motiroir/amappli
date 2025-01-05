@@ -23,8 +23,12 @@ public abstract class Shoppable {
     @Getter @Setter
     private Long id;
 	@Getter @Setter
-	@OneToMany(mappedBy = "shoppable", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "shoppable", cascade = CascadeType.ALL)
 	private List<ShoppingCartItem> shoppingCartItems = new ArrayList<ShoppingCartItem>();
+	@Getter @Setter
+	@OneToMany(mappedBy = "shoppable", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<OrderItem> orderItems = new ArrayList<OrderItem>();
+	
 	
 	public abstract int getStock();
 	public abstract double getPrice();

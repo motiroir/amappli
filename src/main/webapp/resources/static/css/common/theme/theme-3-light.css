@@ -189,6 +189,11 @@
 	--bs-gradient: none;
 }
 
+.theme-3.light .table{
+	--bs-table-color: var(--main-font-color);
+	--bs-table-border-color: var(--orange-600);
+}
+
 .theme-3.light .bg-900 {
 	background-color: var(--orange-100) !important;
 	color: var(--black-700) !important;

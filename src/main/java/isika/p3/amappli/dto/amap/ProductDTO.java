@@ -23,4 +23,7 @@ public class ProductDTO {
     private MultipartFile image;
     private String deliveryDay;
     private String deliveryRecurrence; 
+    private Long userId; // ID du producteur
+    private boolean shoppable; // Indique si le contrat est disponible ou non
+    private String tenancyAlias;
 }

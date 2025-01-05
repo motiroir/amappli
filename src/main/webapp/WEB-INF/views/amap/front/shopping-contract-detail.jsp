@@ -115,16 +115,13 @@
 						<c:if test="${not empty contract.imageData}">
 							<img
 								src="data:${contract.imageType};base64,${contract.imageData}"
-								alt="${contract.contractName}" />
+								alt="Image du contrat" />
 						</c:if>
 					</div>
 
 					<!-- Informations du contrat -->
 					<div class="contract-info">
 						<h2>${contract.contractName}</h2>
-						<p>
-							<strong>Ferme :</strong> ${contract.tenancy.tenancyName}
-						</p>
 						<p>
 							<strong>Type :</strong> ${contract.contractType.displayName}
 						</p>
@@ -170,15 +167,15 @@
 
 
 
+
+						<form:form method="post"
+							action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cartId}/add">
 						<div class="quantity-selector">
 							<label for="quantity">Quantité :</label> <input type="number"
 								id="quantity" name="quantity" value="1" min="1" />
 						</div>
-
-						<form:form method="post"
-							action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cartId}/add">
 							<input type="hidden" name="shoppableId" value="${contract.id}" />
-							<input type="hidden" name="quantity" value="1" />
+							<input type="hidden" name="shoppableType" value="CONTRACT" />
 							<button type="submit" class="btn-add-to-cart">Ajouter au
 								panier</button>
 						</form:form>

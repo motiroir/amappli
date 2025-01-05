@@ -2,6 +2,7 @@
     --main-bg-color  : var(--orange-100);
     --main-font-color: var(--green-900);
 	--alt-font-color: var(--green-500);
+	--main-bg-color-white : var(--white-300)
 }
 
 .theme-1.light .btn-900 {
@@ -174,11 +175,10 @@
     --bs-gradient                 : none;
 }
 
-/* .theme-1.light .table{
-	--bs-table-bg: null;
+.theme-1.light .table{
 	--bs-table-color: var(--main-font-color);
 	--bs-table-border-color: var(--orange-600);
-} */
+}
 
 .theme-1.light .bg-900 {
     background-color: var(--orange-100) !important;

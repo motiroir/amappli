@@ -40,7 +40,7 @@ request.setAttribute("currentPage", currentPage);
 
 	<!-- Contenu principal -->
 	<div class="content col">
-		<div class="container-fluid mt-2">
+		<div class="container-fluid mt-5">
 			<div class="row justify-content-center">
 				<div class="col-12">
 					<div class="search-bar d-flex align-items-center mb-3">

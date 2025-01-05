@@ -33,6 +33,10 @@
   --black-200 : #C4C4C4;
 }
 
+body {
+	overflow-x:hidden;
+}
+
 .accordion {
   --bs-accordion-btn-icon: none;
   --bs-accordion-btn-active-icon: none;
@@ -59,7 +63,6 @@
 	background-color: color-mix(in srgb, var(--green-600), transparent 25%);
 }
 
-
 .accordion .active {
 	color: var(--main-font-color);
 	font-weight: bold;
@@ -71,6 +74,42 @@
 
 .accordion .disabled {
 	color: var(--bs-secondary);
+}
+
+.form-range::-moz-range-thumb {
+  background-color: var(--main-bg-color);
+  border: 1px solid var(--main-font-color);
+}
+
+input[type=range]{
+	appearance:none;
+    -webkit-appearance: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 300px;
+    height: 5px;
+    background: #ddd;
+    border: none;
+    border-radius: 3px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: 1px solid var(--main-font-color);
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: var(--main-bg-color);
+    margin-top: -4px;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #ccc;
 }
 
 .nunito {

@@ -8,19 +8,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="<c:url value='/resources/bootstrap/bootstrap.min.css' />">
 <link rel="stylesheet" href="<c:url value='/resources/css/amap/signup-form.css' />">
+<title>Formulaire d'inscription</title>
 </head>
 
-<body>
-    <div class="container py-5">
+<body  class="${cssStyle} light ${font}-title ${font}-button">
+
+<div class="d-flex flex-column min-vh-100">
+
+       <header class="fc-main bg-main">
+			<jsp:include page="../front/common/header-amap.jsp" />
+		</header>
+		
+<div id="map"></div> 
+ 
+ 
+    <div class="container py-5 ">
+    <div class="form-container py-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>Formulaire d'inscription</h1>
+            <h1 class="h3 fw-bold fc-300">Formulaire d'inscription</h1>
             <a href="login" class="btn-close" aria-label="Retour"></a>
         </div>
 
         <form:form 
             modelAttribute="userDTO" 
             method="post" 
-            action="${pageContext.request.contextPath}/tenancies/${tenancyId}/amap/amaplogin/signup">
+            action="${pageContext.request.contextPath}/tenancies/${tenancyAlias}/amap/amaplogin/signup">
 
             <!-- Ajout du token CSRF -->
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -85,9 +97,28 @@
             </div>
 
             <div class="text-center">
-                <button type="submit" class="btn btn-dark">S'inscrire</button>
+                <a type="submit" class="btn btn-500 px-4 rounded-pill">S'inscrire</a>
             </div>
         </form:form>
+        </div>
     </div>
+   <footer class="fc-main bg-main">
+			<jsp:include page="../front/common/footer-amap.jsp" />
+		</footer> 
+    	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
+
+	<script>
+		var styleMapboxLight = "${mapStyleLight}"
+		var styleMapboxDark = "${mapStyleDark}"
+
+		/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
+		 const tenancyCity = "${tenancy.getAddress().getCity()}"
+		 const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
+		 */
+	</script>
+
+	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script>  
 </body>
 </html>

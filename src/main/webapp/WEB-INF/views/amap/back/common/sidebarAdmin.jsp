@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <nav class="navbar h-100 position-sticky p-0 top-0 start-0 w-auto">
-	<div class="vh-100 position-sticky bg-900 p-4 border-1 border-end">
+	<div class="vh-100 position-sticky bg-main p-4 border-1 border-end">
 		<div id="sidebar" class="collapse collapse-horizontal text-secondary fch-main show">
  			<ul id="accordion-parent" class="nav flex-column accordion">
 			<!-- Vos utilisateurs -->

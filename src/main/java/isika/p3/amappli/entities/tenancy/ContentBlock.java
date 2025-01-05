@@ -1,5 +1,6 @@
 package isika.p3.amappli.entities.tenancy;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,6 +28,7 @@ public class ContentBlock {
 
     private String contentTitle;
 
+    @Column(length = 1000)
     private String contentText;
 
     private String contentImgName;

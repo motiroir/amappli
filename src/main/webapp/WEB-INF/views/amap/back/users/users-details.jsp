@@ -32,6 +32,7 @@ request.setAttribute("currentPage", currentPage);
     }
 </style>
 </head>
+<body class="row ${cssStyle} light ${font}-title ${font}-button">
 	<header class="fc-main bg-main">
 	<!-- Inclusion du header -->
 			<jsp:include page="../common/headerAdmin.jsp" />
@@ -158,7 +159,20 @@ request.setAttribute("currentPage", currentPage);
             </div>
         </div>
     </div>
-    <script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
-    <script src="<c:url value='/resources/js/user-details.js' />"></script>
+    	<script>
+		var styleMapboxLight = "${mapStyleLight}"
+		var styleMapboxDark = "${mapStyleDark}"
+
+		/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
+		 const tenancyCity = "${tenancy.getAddress().getCity()}"
+		 const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
+		 */
+	</script>
+    <script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
+    <script src="<c:url value='/resources/js/user-details.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/palette-swap.js' />" type="text/javascript"></script>
 </body>
 </html>

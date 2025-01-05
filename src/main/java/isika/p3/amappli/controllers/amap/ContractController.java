@@ -3,12 +3,8 @@ package isika.p3.amappli.controllers.amap;
 import java.beans.PropertyEditorSupport;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -19,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import isika.p3.amappli.dto.amap.ContractDTO;
@@ -32,7 +27,6 @@ import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
-import isika.p3.amappli.service.amap.AddressService;
 import isika.p3.amappli.service.amap.AmapAdminUserService;
 import isika.p3.amappli.service.amap.ContractService;
 import isika.p3.amappli.service.amap.UserService;
@@ -43,18 +37,14 @@ import isika.p3.amappli.service.amappli.TenancyService;
 public class ContractController {
 
 	private final ContractService contractService;
-	private final UserService userService;
-	private final TenancyService tenancyService;
 	private final TenancyRepository tenancyRepository;
 	private final AmapAdminUserService AmapAdminUserService;
 
-	public ContractController(AmapAdminUserService AmapAdminUserService, ContractService contractService, TenancyService tenancyService, UserService userService,
+	public ContractController(AmapAdminUserService AmapAdminUserService, ContractService contractService,
 			TenancyRepository tenancyrepository) {
 		this.contractService = contractService;
-		this.userService = userService;
-		this.tenancyService = tenancyService;
-		this.tenancyRepository = tenancyrepository;
 		this.AmapAdminUserService = AmapAdminUserService;
+		this.tenancyRepository = tenancyrepository;
 	}
 
 	/**
@@ -145,7 +135,12 @@ public class ContractController {
 		if (contract == null) {
 			return "redirect:/" + tenancyAlias + "/backoffice/contracts/list"; // Redirige si le contrat n'existe pas
 		}
-
+	    Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
+	            .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+	    Address address = tenancy.getAddress();
+	    model.addAttribute("address", address);
+		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
+		model.addAttribute("users", users);
 		model.addAttribute("contract", contract);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
@@ -166,6 +161,8 @@ public class ContractController {
 		if (contract == null) {
 			throw new IllegalArgumentException("Contrat introuvable pour l'ID : " + id);
 		}
+		String formattedDate = contract.getDateCreation().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+		model.addAttribute("formattedDate", formattedDate);
 		model.addAttribute("contract", contract);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		return "amap/back/contracts/contract-detail";
