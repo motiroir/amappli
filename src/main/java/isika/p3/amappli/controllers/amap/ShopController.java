@@ -17,6 +17,7 @@ import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.workshop.Workshop;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
 import isika.p3.amappli.service.amap.ContractService;
+import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.ProductService;
 import isika.p3.amappli.service.amap.WorkshopService;
 
@@ -28,13 +29,15 @@ public class ShopController {
 	private final TenancyRepository tenancyRepository;
 	private final ProductService productService;
 	private final WorkshopService workshopService;
+	private final GraphismService graphismService;
 
-	public ShopController(ContractService contractService, TenancyRepository tenancyRepository,
+	public ShopController(GraphismService graphismService, ContractService contractService, TenancyRepository tenancyRepository,
 			ProductService productService, WorkshopService workshopService) {
 		this.contractService = contractService;
 		this.tenancyRepository = tenancyRepository;
 		this.productService = productService;
 		this.workshopService = workshopService;
+		this.graphismService = graphismService;
 	}
 
 	/**
@@ -42,18 +45,46 @@ public class ShopController {
 	 */
 	@GetMapping("/contracts")
 	public String showAllShoppableContracts(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
-		Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
-				.orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+	    // Récupération de la tenancy
+	    Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
+	            .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
 
-		Long cartId = 1L;
-		model.addAttribute("cartId", cartId);
+	    Long cartId = 1L;
+	    model.addAttribute("cartId", cartId);
 
-		List<Contract> contracts = contractService.findShoppableContractsByTenancy(tenancy);
-		model.addAttribute("contracts", contracts);
-		model.addAttribute("tenancyAlias", tenancyAlias);
+	    // Récupération des contrats "shoppable"
+	    List<Contract> contracts = contractService.findShoppableContractsByTenancy(tenancy);
 
-		return "amap/front/shop-contracts";
+	    // Comptage des contrats par type
+	    long vegetableCount = contracts.stream()
+	            .filter(contract -> "VEGETABLES_CONTRACT".equals(contract.getContractType().name()))
+	            .count();
+
+	    long fruitCount = contracts.stream()
+	            .filter(contract -> "FRUITS_CONTRACT".equals(contract.getContractType().name()))
+	            .count();
+
+	    long mixedCount = contracts.stream()
+	            .filter(contract -> "MIX_CONTRACT".equals(contract.getContractType().name()))
+	            .count();
+
+	    // Ajout des comptages au modèle
+	    model.addAttribute("vegetableCount", vegetableCount);
+	    model.addAttribute("fruitCount", fruitCount);
+	    model.addAttribute("mixedCount", mixedCount);
+
+	    // Ajout des contrats et autres attributs au modèle
+	    model.addAttribute("contracts", contracts);
+	    model.addAttribute("tenancyAlias", tenancyAlias);
+	    model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
+	    model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
+	    model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
+	    model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
+	    model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
+
+	    return "amap/front/shop-contracts";
 	}
+
 
 	/**
 	 * Displays all shoppable products in the shop view.

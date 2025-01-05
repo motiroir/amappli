@@ -149,6 +149,7 @@ request.setAttribute("currentPage", currentPage);
 											alt="Aperçu du produit" class="image-preview">
 									</c:if>
 								</div>
+								<br>
 								<div>
 									Adresse du point de collecte :<br> ${address.line1}
 									${address.line2}, ${address.city} (${address.postCode})

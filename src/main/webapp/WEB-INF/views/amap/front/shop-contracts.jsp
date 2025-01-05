@@ -94,7 +94,7 @@ body {
                 <c:if test="${not empty contracts}">
                     <c:forEach var="contract" items="${contracts}">
                         <div class="col-12 col-sm-6 col-lg-4 mb-4">
-                            <div class="contract-card">
+                            <div class="contract-card" data-contract-type="${contract.contractType.name()}">
                                 <c:if test="${not empty contract.imageData}">
                                     <img src="data:${contract.imageType};base64,${contract.imageData}"
                                         alt="Image du contrat">
