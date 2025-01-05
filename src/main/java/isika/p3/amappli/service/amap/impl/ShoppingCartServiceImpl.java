@@ -38,10 +38,17 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	private WorkshopRepository workshopRepository;
 	
 	
-	// get shopping cart by id or create new 
-//    public ShoppingCart getOrCreateCart(Long cartId) {
-//        return shoppingCartRepo.findById(cartId).orElse(new ShoppingCart());
-//    }
+	
+    public ShoppingCart getCartByUserId(Long userId) {
+        ShoppingCart cart = shoppingCartRepo.findByUserId(userId);
+        if (cart == null) {
+        	ShoppingCart newCart =new ShoppingCart();
+        	newCart.setUser(userRepo.findById(userId).orElse(null));
+        	shoppingCartRepo.save(newCart);
+        	return newCart;
+        } return cart;
+    }
+    
 	public ShoppingCart getOrCreateCart(Long cartId) {
 	    return shoppingCartRepo.findById(cartId).orElseGet(() -> {
 	        ShoppingCart newCart = new ShoppingCart();

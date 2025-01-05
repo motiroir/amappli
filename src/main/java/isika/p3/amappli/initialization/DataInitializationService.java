@@ -41,13 +41,13 @@ public class DataInitializationService {
 	private PasswordEncoder passwordEncoder;
 
 	public void dataInit() {
-		userInit();
 		try {
 			tenancyInit();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		userInit();
 	}
 	
 	@Transactional

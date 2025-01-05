@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/data")
+@RequestMapping("/data-init")
 public class DataInitializationController {
 	
 	@Autowired
 	private DataInitializationService initService;
 
-	@GetMapping("/init")
+	@GetMapping("")
 	public String initializeData() {
 		initService.dataInit();
 		return "";
