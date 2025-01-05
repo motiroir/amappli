@@ -2,8 +2,12 @@ package isika.p3.amappli.initialization;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,6 +24,7 @@ import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.entities.user.ContactInfo;
 import isika.p3.amappli.entities.user.User;
+import isika.p3.amappli.repo.amap.ContractRepository;
 import isika.p3.amappli.repo.amap.RoleRepository;
 import isika.p3.amappli.repo.amap.UserRepository;
 import isika.p3.amappli.repo.amappli.PermissionRepository;
@@ -39,6 +44,8 @@ public class DataInitializationService {
 	private RoleRepository roleRepository;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private ContractRepository contractRepository;
 
 	public void dataInit() {
 		userInit();
@@ -666,6 +673,8 @@ public class DataInitializationService {
 		tenancyRepository.save(t6);
 
 	}
+
+
 
 	private String loadImageFromResources(String imageName) throws IOException {
 		InputStream imageStream = getClass().getClassLoader().getResourceAsStream("image/" + imageName);

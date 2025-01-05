@@ -37,7 +37,7 @@ public class WebSecurityConfig {
 			.authorizeHttpRequests((requests) -> requests
 				.requestMatchers("/login*","/*/login*").permitAll()
 				.requestMatchers("/amap/amapHomePage","/platform").permitAll()
-				.requestMatchers("/**").authenticated() //all requests that match this need to be authenticated unless stated otherwise
+//				.requestMatchers("/**").authenticated() //all requests that match this need to be authenticated unless stated otherwise
 				.anyRequest().permitAll() //all other requests don't need authentication
 			)
 			.exceptionHandling(exception -> exception.authenticationEntryPoint(entryPoint)) //send user to the appropriate login page
