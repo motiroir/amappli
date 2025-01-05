@@ -1,6 +1,8 @@
 package isika.p3.amappli.controllers.amap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +16,9 @@ import isika.p3.amappli.entities.contract.Contract;
 import isika.p3.amappli.entities.order.ShoppingCart;
 import isika.p3.amappli.entities.product.Product;
 import isika.p3.amappli.entities.workshop.Workshop;
+import isika.p3.amappli.security.CustomUserDetails;
 import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.ShoppingCartService;
-import isika.p3.amappli.service.amap.impl.OrderServiceImpl;
 
 @Controller
 @RequestMapping("/{tenancyAlias}/cart")
@@ -26,13 +28,18 @@ public class ShoppingCartController {
 	private ShoppingCartService shoppingCartService;
 	@Autowired
 	private GraphismService graphismService;
-	@Autowired
-	private OrderServiceImpl orderService;
 	
     @GetMapping("/{cartId}")
     public String viewCart(@PathVariable("cartId") Long cartId, @PathVariable("tenancyAlias") String alias, Model model) {
-        
     	ShoppingCart cart = shoppingCartService.getShoppingCartById(cartId);
+        
+    	//get user info from context (connected user)
+//    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//    	if (authentication != null) {
+//    		CustomUserDetails loggedUserInfo = (CustomUserDetails) authentication.getPrincipal();
+//    		Long userId = (Long) loggedUserInfo.getAdditionalInfoByKey("userId");
+//    		System.out.println(userId);
+//    	}
         
         model.addAttribute("cartId", cartId); // Ajout de cartId au modèle
         model.addAttribute("cart", cart);
@@ -41,6 +48,8 @@ public class ShoppingCartController {
         //get map style depending on tenancy
         model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
         model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+        model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
+        model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
         //get tenancy info for header footer
         model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
         //get color palette

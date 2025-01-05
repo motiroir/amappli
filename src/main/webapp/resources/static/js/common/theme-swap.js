@@ -11,30 +11,30 @@ switcher.addEventListener("click", function() {
     if (switcher.checked == true) {
         body.classList.remove('light');
         body.classList.add('dark');
-		map.setStyle(styleMapboxDark);
         document.cookie = "amappliTheme=dark; path=/; SameSite=Strict; expires=" + expiry.toUTCString();
 		ctheme = getCookie("amappliTheme");
+		map.setStyle(styleMapboxDark);
     } else {
         body.classList.remove('dark');
         body.classList.add('light');
-		map.setStyle(styleMapboxLight);
         document.cookie = "amappliTheme=light; path=/; SameSite=Strict; expires=" + expiry.toUTCString();
 		ctheme = getCookie("amappliTheme");
+		map.setStyle(styleMapboxLight);
     }
 });
 
 if (ctheme != null) {
-    if (ctheme == "dark") {
+    if (ctheme === "dark") {
         body.classList.remove('light');
         body.classList.add('dark');
 		switcher.setAttribute("checked",true);
-        map.setStyle(styleMapboxDark);
 		document.cookie = "amappliTheme=dark; path=/; SameSite=Strict; expires=" + expiry.toUTCString();
+        map.setStyle(styleMapboxDark);
     } else {
         body.classList.remove('dark');
         body.classList.add('light');
-        map.setStyle(styleMapboxLight);
         document.cookie = "amappliTheme=light; path=/; SameSite=Strict; expires=" + expiry.toUTCString();
+        map.setStyle(styleMapboxLight);
     }
 } else {
 	    document.cookie = "amappliTheme=dark; path=/; SameSite=Strict; expires=" + expiry.toUTCString();

@@ -24,14 +24,16 @@ public class OrderController {
 	@Autowired
 	private GraphismService graphismService;
 	
-	@GetMapping("/my-profile/my-orders/{userId}")
+	@GetMapping("/account/my-orders/{userId}")
 	public String viewOrderByUser(@PathVariable("userId") Long userId, @PathVariable("tenancyAlias") String alias, Model model) {
 		List<Order> orderByUser = orderService.getListOrdersByUser(userId);
 		model.addAttribute("orders", orderByUser);
 		
-		 //get map style depending on tenancy
+		//get map style depending on tenancy
         model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
         model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+        model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
+        model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
         //get tenancy info for header footer
         model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
         //get color palette
@@ -39,6 +41,25 @@ public class OrderController {
         //get font choice
         model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
         return "amap/front/user-profile/my-orders";
+	}
+	
+	@GetMapping("/account/my-orders/order-details/{orderId}")
+	public String viewOrderDetails(@PathVariable("tenancyAlias") String alias, @PathVariable("orderId") Long orderId, Model model) {
+		Order order = orderService.getOrderById(orderId);
+		model.addAttribute("order", order);
+		
+		//get map style depending on tenancy
+        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
+        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+        model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
+        model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
+        //get tenancy info for header footer
+        model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
+        //get color palette
+        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
+        //get font choice
+        model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+		return "amap/front/user-profile/order-details";
 	}
 	
     
@@ -51,7 +72,7 @@ public class OrderController {
     	} else if ("OrderWithoutPayment".equals(action)) {
     		orderService.createOrderFromCartWithOnsitePayment(cartId);
     	}
-    	return "redirect:/{tenancyAlias}/my-profile/my-orders/" + 6;
+    	return "redirect:/{tenancyAlias}/account/my-orders/" + 6;
     }
 
 }
