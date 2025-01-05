@@ -2,14 +2,14 @@ package isika.p3.amappli.service.amap;
 
 import java.util.List;
 
-import isika.p3.amappli.dto.amap.SupplierDTO;
+import isika.p3.amappli.dto.amap.UpdateUserDTO;
 import isika.p3.amappli.dto.amap.UserDTO;
 import isika.p3.amappli.entities.user.User;
 
 public interface AmapAdminUserService {
 
 	User addTenancyUser(UserDTO userDTO, String tenancyAlias);
-	User addTenancySupplier(SupplierDTO supplierDTO, String tenancyAlias);
+	User addTenancySupplier(UpdateUserDTO supplierDTO, String tenancyAlias);
 	void generateUsers(String tenancyAlias);
 	User findById(Long userId);
 	User saveUser(User user);
@@ -19,5 +19,5 @@ public interface AmapAdminUserService {
 	List<User> findAll(String tenancyAlias);
 	List<User> findSuppliers(Long tenancyId);
 	List<User> findSuppliers(String tenancyAlias);
-	User updateUser(SupplierDTO supplierDTO);
+	User updateUser(UpdateUserDTO supplierDTO);
 }

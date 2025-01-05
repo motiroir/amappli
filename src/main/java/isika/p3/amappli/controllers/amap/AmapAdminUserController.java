@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import isika.p3.amappli.dto.amap.ContractDTO;
-import isika.p3.amappli.dto.amap.SupplierDTO;
+import isika.p3.amappli.dto.amap.UpdateUserDTO;
 import isika.p3.amappli.dto.amap.UserDTO;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.service.amap.AmapAdminUserService;
@@ -72,15 +73,18 @@ public class AmapAdminUserController {
 	}
 	
 	@PostMapping("/users/update")
-	public String usersUpdate(@Valid @ModelAttribute("user") SupplierDTO updatedUserDTO, BindingResult result, Model model, RedirectAttributes ra) {
+	public String usersUpdate(@Valid @ModelAttribute("user") UpdateUserDTO updatedUserDTO, BindingResult result, Model model, RedirectAttributes ra) {
 		if (result.hasErrors()) {
 			ra.addFlashAttribute("message", "Il y a eu une erreur");
-			System.out.println(result.getErrorCount());
+			for (ObjectError error : result.getAllErrors()) {
+				System.out.println(error);
+				System.out.println(error.toString());
+			}
 			System.out.println("==============================================================");
 			return "redirect:details/" + updatedUserDTO.getUserId();
 		}
 		adminUserService.updateUser(updatedUserDTO);
-		return "redirect:../list";
+		return "redirect:list";
 	}
 	
 	@GetMapping("/users/form")
@@ -105,7 +109,7 @@ public class AmapAdminUserController {
 	@GetMapping("/users/generateFakes")
 	public String usersAddFake(@PathVariable("tenancyAlias") String tenancyAlias) {
 		adminUserService.generateUsers(tenancyAlias);
-		return "redirect:/list";
+		return "redirect:list";
 	}
 	
 	@GetMapping("/suppliers/list")
@@ -137,7 +141,7 @@ public class AmapAdminUserController {
 	
 
 	@PostMapping("/suppliers/add")
-	public String SuppliersAdd(@ModelAttribute("supplierDTO") SupplierDTO supplierDTO, @PathVariable("tenancyAlias") String tenancyAlias) {
+	public String SuppliersAdd(@ModelAttribute("supplierDTO") UpdateUserDTO supplierDTO, @PathVariable("tenancyAlias") String tenancyAlias) {
 	    adminUserService.addTenancySupplier(supplierDTO, tenancyAlias);
 	    return "redirect:list";
 	}

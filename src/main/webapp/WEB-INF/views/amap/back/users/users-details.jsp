@@ -120,7 +120,14 @@ request.setAttribute("currentPage", currentPage);
 														<label class="form-label" for="role-box-${role.name }">${role.name.toLowerCase()}</label>
 													</c:otherwise>
 												</c:choose>
-                                                <form:checkbox id="role-box-${role.name }" class="me-3" path="roles" value="${role}" />
+												<c:choose>
+													<c:when test="${user.roles.contains(role)}">
+                                                		<form:checkbox id="role-box-${role.name }" class="me-3" path="roles" value="${role.roleId}" checked="true" />
+                                                	</c:when>
+                                                	<c:otherwise>
+                                                		<form:checkbox id="role-box-${role.name }" class="me-3" path="roles" value="${role.roleId}" />
+                                                	</c:otherwise>
+                                                </c:choose>
                                             </c:forEach>
                                         </div>
                                         <section id="supplier-section" class="d-none">

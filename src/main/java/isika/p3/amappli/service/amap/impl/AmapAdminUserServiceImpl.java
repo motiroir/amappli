@@ -19,7 +19,7 @@ import isika.p3.amappli.entities.user.ContactInfo;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.exceptions.EmailAlreadyExistsException;
 import isika.p3.amappli.exceptions.TenancyNotFoundException;
-import isika.p3.amappli.dto.amap.SupplierDTO;
+import isika.p3.amappli.dto.amap.UpdateUserDTO;
 import isika.p3.amappli.dto.amap.UserDTO;
 import isika.p3.amappli.entities.auth.Role;
 import isika.p3.amappli.entities.tenancy.Tenancy;
@@ -99,37 +99,37 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
     }
 	
 	@Override
-	public User addTenancySupplier(SupplierDTO supplierDTO, String tenancyAlias) {
+	public User addTenancySupplier(UpdateUserDTO updateUserDTO, String tenancyAlias) {
 		// Vérifiez si la tenancy existe
 		Tenancy tenancy = tenancyService.getTenancyByAlias(tenancyAlias);
 		if (tenancy == null) {
 			throw new TenancyNotFoundException("Tenancy introuvable avec l'Alias : " + tenancyAlias);
 		}
 		// Vérifiez si l'email existe déjà pour cette tenancy
-		if (userService.existsByEmailAndTenancy(supplierDTO.getEmail(), tenancy)) {
+		if (userService.existsByEmailAndTenancy(updateUserDTO.getEmail(), tenancy)) {
 			throw new EmailAlreadyExistsException("Un utilisateur avec cet email existe déjà pour cette AMAP.");
 		}
 		Address address = new Address();
-		address.setLine1(supplierDTO.getLine1());
-		address.setLine2(supplierDTO.getLine2());
-		address.setPostCode(supplierDTO.getPostCode());
-		address.setCity(supplierDTO.getCity());
+		address.setLine1(updateUserDTO.getAddress().getLine1());
+		address.setLine2(updateUserDTO.getAddress().getLine2());
+		address.setPostCode(updateUserDTO.getAddress().getPostCode());
+		address.setCity(updateUserDTO.getAddress().getCity());
 		address = this.addressService.save(address);
 		
 		CompanyDetails cd = new CompanyDetails();
-		cd.setCompanyName(supplierDTO.getCompanyName());
-		cd.setSiretNumber(supplierDTO.getSiretNumber());
+		cd.setCompanyName(updateUserDTO.getCompanyDetails().getCompanyName());
+		cd.setSiretNumber(updateUserDTO.getCompanyDetails().getSiretNumber());
 		cd = this.companyDetailsService.save(cd);
 		
 		ContactInfo ci = new ContactInfo();
-		ci.setFirstName(supplierDTO.getFirstName());
-		ci.setName(supplierDTO.getName());
-		ci.setPhoneNumber(supplierDTO.getPhoneNumber());
+		ci.setFirstName(updateUserDTO.getContactInfo().getFirstName());
+		ci.setName(updateUserDTO.getContactInfo().getName());
+		ci.setPhoneNumber(updateUserDTO.getContactInfo().getPhoneNumber());
 		ci = this.contactInfoService.save(ci);
 		
 		// Convertir UserDTO en entité User
 		User user = new User();
-		user.setEmail(supplierDTO.getEmail());
+		user.setEmail(updateUserDTO.getEmail());
 		user.setCreditBalance(BigDecimal.ZERO);
 		user.setAddress(address);
 		user.setContactInfo(ci);
@@ -187,6 +187,7 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
             Role member = roleService.findByName("MEMBER USER");
             Role supplier = roleService.findByName("SUPPLIER");
             roles.add(i%2 == 0 ? member : supplier);
+            roles.add(i%4 == 0 ? supplier : null);
             
             u.setAddress(a);
             u.setContactInfo(cI);
@@ -227,7 +228,7 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 	@Override
 	public List<User> findAll(String tenancyAlias) {
 		return ((List<User>) userService.findAll()).stream()
-				.filter(u -> u.getTenancy().getTenancyAlias().equals(tenancyAlias)
+				.filter(u -> tenancyAlias.equals(u.getTenancy().getTenancyAlias())
 						&& u.isActive())
 				.sorted((u1,u2)->u2.getUserId().compareTo(u1.getUserId()))
 				.toList();
@@ -236,7 +237,7 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 	@Override
 	public List<User> findSuppliers(String tenancyAlias) {
 		return ((List<User>) userService.findAll()).stream()
-				.filter(u -> u.getTenancy().getTenancyAlias().equals(tenancyAlias) 
+				.filter(u -> tenancyAlias.equals(u.getTenancy().getTenancyAlias()) 
 						&& u.getRoles().contains(roleService.findByName("SUPPLIER"))
 						&& u.isActive())
 				.sorted((u1,u2)->u2.getUserId().compareTo(u1.getUserId()))
@@ -262,23 +263,32 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 
 
 	@Override
-	public User updateUser(SupplierDTO updatedUserDTO) {
+	public User updateUser(UpdateUserDTO updatedUserDTO) {
 		User oldUser = this.findById(updatedUserDTO.getUserId());
 		if (oldUser == null) {
 			throw new IllegalArgumentException("Le user avec l'ID " + updatedUserDTO.getUserId() + " n'existe pas.");
 		}
 		
-		oldUser.getAddress().setLine1((updatedUserDTO.getLine1()));
-		oldUser.getAddress().setLine2((updatedUserDTO.getLine2()));
-		oldUser.getAddress().setPostCode((updatedUserDTO.getPostCode()));
-		oldUser.getAddress().setCity((updatedUserDTO.getCity()));
-		oldUser.getContactInfo().setName((updatedUserDTO.getName()));
-		oldUser.getContactInfo().setFirstName((updatedUserDTO.getFirstName()));
-		oldUser.getContactInfo().setPhoneNumber((updatedUserDTO.getPhoneNumber()));
+		oldUser.getAddress().setLine1((updatedUserDTO.getAddress().getLine1()));
+		oldUser.getAddress().setLine2((updatedUserDTO.getAddress().getLine2()));
+		oldUser.getAddress().setPostCode((updatedUserDTO.getAddress().getPostCode()));
+		oldUser.getAddress().setCity((updatedUserDTO.getAddress().getCity()));
+		oldUser.getContactInfo().setName((updatedUserDTO.getContactInfo().getName()));
+		oldUser.getContactInfo().setFirstName((updatedUserDTO.getContactInfo().getFirstName()));
+		oldUser.getContactInfo().setPhoneNumber((updatedUserDTO.getContactInfo().getPhoneNumber()));
+		oldUser.getCompanyDetails().setCompanyName((updatedUserDTO.getCompanyDetails().getCompanyName()));
+		oldUser.getCompanyDetails().setSiretNumber((updatedUserDTO.getCompanyDetails().getSiretNumber()));
 		oldUser.setCreditBalance(updatedUserDTO.getCreditBalance());
 		oldUser.setEmail(updatedUserDTO.getEmail());
 		oldUser.setCreditBalance(updatedUserDTO.getCreditBalance());
-		oldUser.setRoles(new HashSet<Role>(updatedUserDTO.getRoles()));
+
+		if (updatedUserDTO.getRoles() != null) {
+			Set<Role> newRoles = new HashSet<>();
+			for (Long roleID : updatedUserDTO.getRoles()) {
+				newRoles.add(roleService.findById(roleID));
+			}
+			oldUser.setRoles(newRoles);
+		}
 		
 		this.saveUser(oldUser);
 		

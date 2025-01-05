@@ -66,14 +66,14 @@ public class User {
     @JoinColumn( name = "tenancyId")
     @EqualsAndHashCode.Exclude
     private Tenancy tenancy;
-
+    
     @Builder.Default
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable (
-        name = "User_Role_Association",
-        joinColumns = @JoinColumn(name = "userId"),
-        inverseJoinColumns = @JoinColumn( name = "roleId")
-    )
+    		name = "User_Role_Association",
+    		joinColumns = @JoinColumn(name = "userId"),
+    		inverseJoinColumns = @JoinColumn( name = "roleId")
+    		)
     @EqualsAndHashCode.Exclude
     private Set<Role> roles = new HashSet<Role>();
     
