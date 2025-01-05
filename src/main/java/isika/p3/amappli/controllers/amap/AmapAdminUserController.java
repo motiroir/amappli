@@ -1,6 +1,8 @@
 package isika.p3.amappli.controllers.amap;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -23,7 +25,11 @@ import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.service.amap.AmapAdminUserService;
 import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.RoleService;
+import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Valid;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 
 
 @Controller
@@ -73,17 +79,26 @@ public class AmapAdminUserController {
 	}
 	
 	@PostMapping("/users/update")
-	public String usersUpdate(@Valid @ModelAttribute("user") UpdateUserDTO updatedUserDTO, BindingResult result, Model model, RedirectAttributes ra) {
-		if (result.hasErrors()) {
-			ra.addFlashAttribute("message", "Il y a eu une erreur");
-			for (ObjectError error : result.getAllErrors()) {
-				System.out.println(error);
-				System.out.println(error.toString());
+	public String usersUpdate(@Valid @ModelAttribute("user") UpdateUserDTO user, BindingResult result, Model model, RedirectAttributes ra) {
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();
+		Set<ConstraintViolation<UpdateUserDTO>> violations = validator.validate(user);
+		for (ConstraintViolation<UpdateUserDTO> violation : violations) 
+        {
+			String path = violation.getPropertyPath() + "";
+            if (path.contains(".")) {
+            	ra.addFlashAttribute(path.substring(path.indexOf('.') +1), violation.getMessage());
+			} else {
+				ra.addFlashAttribute(path, violation.getMessage());
 			}
-			System.out.println("==============================================================");
-			return "redirect:details/" + updatedUserDTO.getUserId();
+        } 
+			
+		if (result.hasErrors()) {
+			ra.addFlashAttribute("message", "Le formulaire n'a pas été correctement rempli");
+			return "redirect:details/" + user.getUserId();
 		}
-		adminUserService.updateUser(updatedUserDTO);
+		
+		adminUserService.updateUser(user);
 		return "redirect:list";
 	}
 	

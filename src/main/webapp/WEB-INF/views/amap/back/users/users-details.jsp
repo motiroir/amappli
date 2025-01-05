@@ -35,32 +35,34 @@ request.setAttribute("currentPage", currentPage);
                     <div class="form-container">
                         <div class="header-container">
                             <a href="<c:url value='/${tenancyAlias}/backoffice/users/list'/>" class="${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900">
-								<i class="bi bi-arrow-left"></i><span class="d-none d-md-inline"> Liste des adhérents</span>
+								<i class="bi bi-arrow-left"></i> Liste<span class="d-none d-md-inline"> des adhérents</span>
 							</a>
 						
-							<div>
-								<h1>${message}</h1>
+							<div class="col-4 mx-auto text-center mt-3" data-bs-theme="dark">
+								<h1 class="alert alert-danger opacity-75">${message}</h1>
 							</div>
 							
 							<h2 class="my-4 fw-bold">Détails de l'adhérent</h2>
                         </div>
                         <form:form  method="POST" action="/Amappli/${tenancyAlias}/backoffice/users/update" enctype="multipart/form-data" modelAttribute="user">
-                        <form:errors path="*" cssClass="errorBox"/>
                         <form:hidden path="userId" value="${user.userId }"/>
                             <div class="row">
                                 <!-- Première colonne -->
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="form-label">Nom de famille</label>
-                                        <form:input path="contactInfo.name" class="form-control" value="${user.contactInfo.name}"/>
+                                        <form:input path="contactInfo.name" class="form-control ${name != null ? 'is-invalid' : ''}" value="${user.contactInfo.name}"/>
+                                        <div class="invalid-feedback"> ${name} </div>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Prénom</label>
-                                        <form:input path="contactInfo.firstName" class="form-control" value="${user.contactInfo.firstName}"/>
+                                        <form:input path="contactInfo.firstName" class="form-control ${firstName != null ? 'is-invalid' : ''}" value="${user.contactInfo.firstName}" required="true" />
+                                        <div class="invalid-feedback"> ${firstName} </div>
                                     </div>
-                                    <div class="mb-3">
+                                    <div class="mb-3 has-validation">
                                         <label class="form-label">E-mail</label>
-                                        <form:input path="email" class="form-control" value="${user.email}"/>
+                                        <form:input path="email" class="form-control ${email != null ? 'is-invalid' : ''}" value="${user.email}" required="true" />
+                                        <div class="invalid-feedback"> ${email} </div>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Envoyer un mail de réinitialisation du mot de passe</label>
@@ -68,7 +70,8 @@ request.setAttribute("currentPage", currentPage);
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Balance crédit</label>
-                                        <form:input path="creditBalance" type="number" class="form-control" value="${user.creditBalance}"/>
+                                        <form:input path="creditBalance" type="number" class="form-control ${creditBalance != null ? 'is-invalid' : ''}" value="${user.creditBalance}"/>
+                                        <div class="invalid-feedback"> ${creditBalance} </div>
                                     </div>
                                     <%-- <div class="mb-3">
                                         <label class="form-label">Date de fin de cotisation</label>
@@ -80,23 +83,28 @@ request.setAttribute("currentPage", currentPage);
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="form-label">Adresse</label>
-                                        <form:input path="address.line2" class="form-control" value="${user.address.line2}" />
+                                        <form:input path="address.line2" class="form-control ${line2 != null ? 'is-invalid' : ''}" value="${user.address.line2}" />
+                                        <div class="invalid-feedback"> ${line2} </div>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Complément d'adresse</label>
-                                        <form:input path="address.line1" class="form-control" value="${user.address.line1}"/>
+                                        <form:input path="address.line1" class="form-control ${line1 != null ? 'is-invalid' : ''}" value="${user.address.line1}"/>
+                                        <div class="invalid-feedback"> ${line1} </div>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Code Postal</label>
-                                        <form:input path="address.postCode" class="form-control" value="${user.address.postCode}"/>
+                                        <form:input path="address.postCode" class="form-control ${postCode != null ? 'is-invalid' : ''}" value="${user.address.postCode}"/>
+                                        <div class="invalid-feedback"> ${postCode} </div>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Ville</label>
-                                        <form:input path="address.city" class="form-control" value="${user.address.city}"/>
+                                        <form:input path="address.city" class="form-control ${city != null ? 'is-invalid' : ''}" value="${user.address.city}"/>
+                                        <div class="invalid-feedback"> ${city} </div>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Numéro de téléphone</label>
-                                        <form:input path="contactInfo.phoneNumber" class="form-control" value="${user.contactInfo.phoneNumber}"/>
+                                        <form:input path="contactInfo.phoneNumber" class="form-control ${phoneNumber != null ? 'is-invalid' : ''}" value="${user.contactInfo.phoneNumber}"/>
+                                        <div class="invalid-feedback"> ${phoneNumber} </div>
                                     </div>
                                 </div>
 
@@ -122,22 +130,25 @@ request.setAttribute("currentPage", currentPage);
 												</c:choose>
 												<c:choose>
 													<c:when test="${user.roles.contains(role)}">
-                                                		<form:checkbox id="role-box-${role.name }" class="me-3" path="roles" value="${role.roleId}" checked="true" />
+                                                		<form:checkbox id="role-box-${role.name }" class="me-3 ${roles != null ? 'is-invalid' : ''}" path="roles" value="${role.roleId}" checked="true" />
                                                 	</c:when>
                                                 	<c:otherwise>
-                                                		<form:checkbox id="role-box-${role.name }" class="me-3" path="roles" value="${role.roleId}" />
+                                                		<form:checkbox id="role-box-${role.name }" class="me-3 ${roles != null ? 'is-invalid' : ''}" path="roles" value="${role.roleId}" />
                                                 	</c:otherwise>
                                                 </c:choose>
                                             </c:forEach>
+                                            <div class="invalid-feedback"> ${roles} </div>
                                         </div>
                                         <section id="supplier-section" class="d-none">
                                             <div class="mb-3">
                                                 <label class="form-label">Exploitation</label>
-                                                <form:input path="companyDetails.companyName" class="form-control" value="${user.companyDetails.companyName}"/>
+                                                <form:input path="companyDetails.companyName" class="form-control ${companyName != null ? 'is-invalid' : ''}" value="${user.companyDetails.companyName}"/>
+                                                <div class="invalid-feedback"> ${companyName} </div>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label">N° Siret</label>
-                                                <form:input path="companyDetails.siretNumber" class="form-control" value="${user.companyDetails.siretNumber}"/>
+                                                <form:input path="companyDetails.siretNumber" class="form-control ${siretNumber != null ? 'is-invalid' : ''}" value="${user.companyDetails.siretNumber}"/>
+                                                <div class="invalid-feedback"> ${siretNumber} </div>
                                             </div>
                                             <%-- <div class="mb-3">
                                                 <label class="form-label">Contrat en cours</label>
