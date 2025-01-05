@@ -9,66 +9,58 @@ request.setAttribute("currentMainMenu", currentMainMenu);
 request.setAttribute("currentPage", currentPage);
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Détails du Contrat</title>
-<link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />" rel="stylesheet">
-<link href="<c:url value='/resources/css/amap/common/sidebarAdmin.css' />" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-<style>
-    .header-container {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .form-control:read-only {
-        background-color: #f8f9fa;
-        color: #6c757d;
-        border: none;
-        cursor: not-allowed;
-    }
-</style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Détails de adhérent</title>
+	<link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />" rel="stylesheet">
+	<link href="<c:url value='/resources/css/common/utils.css' />" rel="stylesheet">
+	<link href="<c:url value='/resources/bootstrap/bootstrap-icons.min.css' />" rel="stylesheet">
 </head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
-	<header class="fc-main bg-main">
+	<header class="fc-main bg-main border-1 border-alt">
 	<!-- Inclusion du header -->
 			<jsp:include page="../common/headerAdmin.jsp" />
 	</header>
 	<!-- Inclusion de la sidebar -->
 		<jsp:include page="../common/sidebarAdmin.jsp" />
 
-<div id="map"></div>
+<div id="map" class="p-0"></div>
 
 	<!-- Contenu principal -->
-	<div class="content col">
+	<div class="content col fc-main">
 		<div class="container-fluid mt-2">
             <div class="row justify-content-center">
-                <div class="col-lg-10">
                     <div class="form-container">
                         <div class="header-container">
-                            <a href="<c:url value='/${tenancyAlias}/backoffice/users/list' />" class="btn-back">
-                                <i class="bi bi-arrow-left-circle"></i>
-                            </a>
-                            <h2 class="mb-4" style="font-weight: bold; text-align: left;">Détails de l'adhérent</h2>
+                            <a href="<c:url value='/${tenancyAlias}/backoffice/users/list'/>" class="${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900">
+								<i class="bi bi-arrow-left"></i><span class="d-none d-md-inline"> Liste des adhérents</span>
+							</a>
+						
+							<div>
+								<h1>${message}</h1>
+							</div>
+							
+							<h2 class="my-4 fw-bold">Détails de l'adhérent</h2>
                         </div>
-                        <form:form  method="POST" action="<c:url value='/${tenancyAlias}/backoffice/users/${user.userId }/update' />" enctype="multipart/form-data">
+                        <form:form  method="POST" action="/Amappli/${tenancyAlias}/backoffice/users/update" enctype="multipart/form-data" modelAttribute="user">
+                        <form:errors path="*" cssClass="errorBox"/>
+                        <form:hidden path="userId" value="${user.userId }"/>
                             <div class="row">
                                 <!-- Première colonne -->
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="form-label">Nom de famille</label>
-                                        <input type="text" class="form-control" value="${user.contactInfo.name}">
+                                        <form:input path="contactInfo.name" class="form-control" value="${user.contactInfo.name}"/>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Prénom</label>
-                                        <input type="text" class="form-control" value="${user.contactInfo.firstName}">
+                                        <form:input path="contactInfo.firstName" class="form-control" value="${user.contactInfo.firstName}"/>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">E-mail</label>
-                                        <input type="text" class="form-control" value="${user.email}">
+                                        <form:input path="email" class="form-control" value="${user.email}"/>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Envoyer un mail de réinitialisation du mot de passe</label>
@@ -76,89 +68,92 @@ request.setAttribute("currentPage", currentPage);
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Balance crédit</label>
-                                        <input type="number" class="form-control" value="${user.creditBalance}" readonly>
+                                        <form:input path="creditBalance" type="number" class="form-control" value="${user.creditBalance}"/>
                                     </div>
-                                    <div class="mb-3">
+                                    <%-- <div class="mb-3">
                                         <label class="form-label">Date de fin de cotisation</label>
-                                        <input type="text" class="form-control" value="PAS ENCORE IMPLÉMENTÉ" readonly>
-                                    </div>
+                                        <form:input path="test" class="form-control" value="PAS ENCORE IMPLÉMENTÉ"/>
+                                    </div> --%>
                                 </div>
 
                                 <!-- Deuxième colonne -->
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="form-label">Adresse</label>
-                                        <input type="text" class="form-control" value="${user.address.line2}" />
+                                        <form:input path="address.line2" class="form-control" value="${user.address.line2}" />
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Complément d'adresse</label>
-                                        <input type="text" class="form-control" value="${user.address.line1}">
+                                        <form:input path="address.line1" class="form-control" value="${user.address.line1}"/>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Code Postal</label>
-                                        <input type="text" class="form-control" value="${user.address.postCode}">
+                                        <form:input path="address.postCode" class="form-control" value="${user.address.postCode}"/>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Ville</label>
-                                        <input type="text" class="form-control" value="${user.address.city}">
+                                        <form:input path="address.city" class="form-control" value="${user.address.city}"/>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Numéro de téléphone</label>
-                                        <input type="text" class="form-control" value="${user.contactInfo.phoneNumber}">
+                                        <form:input path="contactInfo.phoneNumber" class="form-control" value="${user.contactInfo.phoneNumber}"/>
                                     </div>
                                 </div>
 
                                 <!-- Troisième colonne -->
                                 <div class="col-md-4">
                                     <div class="mb-3 text-center">
-                                <%--         <c:if test="${not empty user.imageData}">
-                                            <img src="data:${user.imageType};base64,${user.imageData}" alt="Image du contrat" style="max-width: 100%; border-radius: 8px; object-fit: cover;">
-                                        </c:if> --%>
                                         <div class="mb-3">
                                             <label class="form-label">Roles :</label><br/>
                                             <c:forEach var="role" items="${allRoles }" >
-                                            <c:choose>
-	                                            <c:when test="${role.roleId == 1}">
-	                                            	<label class="form-label" for="userRole${role.roleId }">Admin</label>
-	                                            </c:when>
-	                                            <c:when test="${role.roleId == 2}">
-	                                            	<label class="form-label" for="userRole${role.roleId }">Adhérent</label>
-	                                            </c:when>
-	                                            <c:when test="${role.roleId == 3}">
-	                                            	<label class="form-label" for="userRole${role.roleId }">Producteur</label>
-	                                            </c:when>
-	                                            <c:otherwise>
-	                                            	<label class="form-label" for="userRole${role.roleId }">${role.name.toLowerCase()}</label>
-	                                            </c:otherwise>
-                                            </c:choose>
-                                                <input id="role-box-${role.roleId }" type="checkbox" class="me-3" name="userRole${role.roleId }" <c:if test="${user.roles.contains(role)}"> checked </c:if> />
+	                                            <c:choose>
+													<c:when test="${role.name.equals('ADMIN')}">
+														<label class="form-label" for="role-box-${role.name }">Admin</label>
+													</c:when>
+													<c:when test="${role.name.equals('MEMBER USER')}">
+														<label class="form-label" for="role-box-${role.name }">Adhérent</label>
+													</c:when>
+													<c:when test="${role.name.equals('SUPPLIER')}">
+														<label class="form-label" for="role-box-${role.name }">Producteur</label>
+													</c:when>
+													<c:otherwise>
+														<label class="form-label" for="role-box-${role.name }">${role.name.toLowerCase()}</label>
+													</c:otherwise>
+												</c:choose>
+                                                <form:checkbox id="role-box-${role.name }" class="me-3" path="roles" value="${role}" />
                                             </c:forEach>
                                         </div>
                                         <section id="supplier-section" class="d-none">
                                             <div class="mb-3">
                                                 <label class="form-label">Exploitation</label>
-                                                <input type="text" class="form-control" value="${user.companyDetails.companyName}">
+                                                <form:input path="companyDetails.companyName" class="form-control" value="${user.companyDetails.companyName}"/>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label">N° Siret</label>
-                                                <input type="text" class="form-control" value="${user.companyDetails.siretNumber}">
+                                                <form:input path="companyDetails.siretNumber" class="form-control" value="${user.companyDetails.siretNumber}"/>
                                             </div>
-                                            <div class="mb-3">
+                                            <%-- <div class="mb-3">
                                                 <label class="form-label">Contrat en cours</label>
-                                                <input type="text" class="form-control" value="PAS ENCORE IMPLÉMENTÉ" readonly>
-                                            </div>
+                                                <form:input path="test2" class="form-control" value="PAS ENCORE IMPLÉMENTÉ" readonly="true"/>
+                                            </div> --%>
                                         </section>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn rounded-pill">Valider les changements</button>
-                            <button type="reset" class="btn rounded-pill">Annuler</button>
+                            <div class="d-flex justify-content-evenly my-5">
+								<div class="col text-center">
+									<button id="submit-button" type="submit" class="btn btn-success rounded-pill" 
+									<c:if test="${isAdmin }">onclick="return confirm('Vous êtes sur le point d'enregistrer un utilisateur avec les droits d'administrateur, êtes vous sûr ?');"</c:if> >Valider la modification</button>
+								</div>
+								<div class="col text-center">
+									<button type="reset" class="btn btn-danger rounded-pill">Annuler</button>
+								</div>
+							</div>
                         </form:form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     	<script>
 		var styleMapboxLight = "${mapStyleLight}"
 		var styleMapboxDark = "${mapStyleDark}"
@@ -168,11 +163,13 @@ request.setAttribute("currentPage", currentPage);
 		 const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
 		 */
 	</script>
-    <script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
-    <script src="<c:url value='/resources/js/user-details.js' />" type="text/javascript"></script>
+	<script	src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/palette-swap.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/user-details.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/user-form.js' />" type="text/javascript"></script>
 </body>
 </html>

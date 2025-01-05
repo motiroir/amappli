@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
 String currentMainMenu = "users"; // Détermine la rubrique active
 String currentPage = "suppliers"; // Détermine la sous-rubrique active
@@ -15,7 +16,7 @@ request.setAttribute("currentPage", currentPage);
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Liste des Producteurs</title>
 	<link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />" rel="stylesheet">
-	<link href="<c:url value='/resources/css/amap/common/sidebarAdmin.css' />" rel="stylesheet">
+	<link href="<c:url value='/resources/css/common/utils.css' />" rel="stylesheet">
 	<link href="<c:url value='/resources/bootstrap/bootstrap-icons.min.css' />" rel="stylesheet">
 </head>
 
@@ -27,7 +28,7 @@ request.setAttribute("currentPage", currentPage);
 	<!-- Inclusion de la sidebar -->
 		<jsp:include page="../common/sidebarAdmin.jsp" />
 
-<div id="map" class="p-0"></div>
+	<div id="map" class="p-0"></div>
 
 	<!-- Contenu principal -->
 	<div class="content col">

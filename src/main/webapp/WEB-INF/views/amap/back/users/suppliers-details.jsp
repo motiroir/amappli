@@ -13,7 +13,7 @@ request.setAttribute("currentPage", currentPage);
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Détails du Contrat</title>
+<title>Détails du Producteur</title>
 <link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />" rel="stylesheet">
 <link href="<c:url value='/resources/css/amap/common/sidebarAdmin.css' />" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -55,6 +55,7 @@ request.setAttribute("currentPage", currentPage);
                             <h2 class="mb-4" style="font-weight: bold; text-align: left;">Détails du producteur</h2>
                         </div>
                         <form:form  method="POST" action="<c:url value='/${tenancyAlias}/backoffice/suppliers/${user.userId }/update' />" enctype="multipart/form-data">
+                            <input type="hidden" name="userId" value="${user.userId}">
                             <div class="row">
                                 <!-- Première colonne -->
                                 <div class="col-md-4">
@@ -119,19 +120,19 @@ request.setAttribute("currentPage", currentPage);
                                             <c:forEach var="role" items="${allRoles }" >
                                             <c:choose>
 	                                            <c:when test="${role.roleId == 1}">
-	                                            	<label class="form-label" for="userRole${role.roleId }">Admin</label>
+	                                            	<label class="form-label" for="role-box-${role.roleId }">Admin</label>
 	                                            </c:when>
 	                                            <c:when test="${role.roleId == 2}">
-	                                            	<label class="form-label" for="userRole${role.roleId }">Adhérent</label>
+	                                            	<label class="form-label" for="role-box-${role.roleId }">Adhérent</label>
 	                                            </c:when>
 	                                            <c:when test="${role.roleId == 3}">
-	                                            	<label class="form-label" for="userRole${role.roleId }">Producteur</label>
+	                                            	<label class="form-label" for="role-box-${role.roleId }">Producteur</label>
 	                                            </c:when>
 	                                            <c:otherwise>
-	                                            	<label class="form-label" for="userRole${role.roleId }">${role.name.toLowerCase()}</label>
+	                                            	<label class="form-label" for="role-box-${role.roleId }">${role.name.toLowerCase()}</label>
 	                                            </c:otherwise>
                                             </c:choose>
-                                                <input id="role-box-${role.roleId }" type="checkbox" class="me-3" name="userRole${role.roleId }" <c:if test="${user.roles.contains(role)}"> checked </c:if> />
+                                                <input id="role-box-${role.roleId }" type="checkbox" class="me-3" name="roles" <c:if test="${user.roles.contains(role)}"> checked </c:if> />
                                             </c:forEach>
                                         </div>
                                         <section id="supplier-section" class="d-none">

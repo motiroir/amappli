@@ -62,7 +62,7 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 		this.addressService = addressService;
 		this.contactInfoService = contactInfoService;
 		this.companyDetailsService = companyDetailsService;
-		this.passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();;
+		this.passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 		this.tenancyService = tenancyService;
 		this.roleService = roleService;
 	}
@@ -219,14 +219,18 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 	public List<User> findAll(Long tenancyId) {
 		return ((List<User>) userService.findAll()).stream()
 				.filter(u -> u.getTenancy().getTenancyId() == tenancyId
-				&& u.isActive()).toList();
+				&& u.isActive())
+				.sorted((u1,u2)->u2.getUserId().compareTo(u1.getUserId()))
+				.toList();
 	}
 
 	@Override
 	public List<User> findAll(String tenancyAlias) {
 		return ((List<User>) userService.findAll()).stream()
 				.filter(u -> u.getTenancy().getTenancyAlias().equals(tenancyAlias)
-						&& u.isActive()).toList();
+						&& u.isActive())
+				.sorted((u1,u2)->u2.getUserId().compareTo(u1.getUserId()))
+				.toList();
 	}
 
 	@Override
@@ -234,7 +238,9 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 		return ((List<User>) userService.findAll()).stream()
 				.filter(u -> u.getTenancy().getTenancyAlias().equals(tenancyAlias) 
 						&& u.getRoles().contains(roleService.findByName("SUPPLIER"))
-						&& u.isActive()).toList();
+						&& u.isActive())
+				.sorted((u1,u2)->u2.getUserId().compareTo(u1.getUserId()))
+				.toList();
 	}
 
 	@Override
@@ -243,9 +249,10 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 				.filter(u -> u.getTenancy().getTenancyId() == tenancyId 
 						&& u.getRoles().contains(roleService.findByName("SUPPLIER"))
 						&& u.isActive()
-						&& u.getCompanyDetails() != null &&
-		                u.getCompanyDetails().getCompanyName() != null)
-	            .toList();
+						&& u.getCompanyDetails() != null
+						&& u.getCompanyDetails().getCompanyName() != null)
+				.sorted((u1,u2)->u2.getUserId().compareTo(u1.getUserId()))
+				.toList();
 	}
 
 	@Override
@@ -254,7 +261,28 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 	}
 
 
-	
-	
+	@Override
+	public User updateUser(SupplierDTO updatedUserDTO) {
+		User oldUser = this.findById(updatedUserDTO.getUserId());
+		if (oldUser == null) {
+			throw new IllegalArgumentException("Le user avec l'ID " + updatedUserDTO.getUserId() + " n'existe pas.");
+		}
+		
+		oldUser.getAddress().setLine1((updatedUserDTO.getLine1()));
+		oldUser.getAddress().setLine2((updatedUserDTO.getLine2()));
+		oldUser.getAddress().setPostCode((updatedUserDTO.getPostCode()));
+		oldUser.getAddress().setCity((updatedUserDTO.getCity()));
+		oldUser.getContactInfo().setName((updatedUserDTO.getName()));
+		oldUser.getContactInfo().setFirstName((updatedUserDTO.getFirstName()));
+		oldUser.getContactInfo().setPhoneNumber((updatedUserDTO.getPhoneNumber()));
+		oldUser.setCreditBalance(updatedUserDTO.getCreditBalance());
+		oldUser.setEmail(updatedUserDTO.getEmail());
+		oldUser.setCreditBalance(updatedUserDTO.getCreditBalance());
+		oldUser.setRoles(new HashSet<Role>(updatedUserDTO.getRoles()));
+		
+		this.saveUser(oldUser);
+		
+		return oldUser;
+	}
 
 }

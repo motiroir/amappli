@@ -9,149 +9,124 @@ request.setAttribute("currentMainMenu", currentMainMenu);
 request.setAttribute("currentPage", currentPage);
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ajouter un producteur</title>
-<link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />"
-	rel="stylesheet" />
-<link
-	href="<c:url value='/resources/css/amap/common/sidebarAdmin.css' />"
-	rel="stylesheet" />
-<link href="<c:url value='/resources/bootstrap/bootstrap-icons.css' />"
-	rel="stylesheet" />
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
-	rel="stylesheet">
-<style>
-.header-container {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-}
-</style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Ajouter un adhérent</title>
+	<link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />" rel="stylesheet" />
+	<link href="<c:url value='/resources/css/common/utils.css' />" rel="stylesheet">
+	<link href="<c:url value='/resources/bootstrap/bootstrap-icons.min.css' />" rel="stylesheet" />
 </head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
-	<header class="fc-main bg-main">
+	<header class="fc-main bg-main border-1 border-alt">
 	<!-- Inclusion du header -->
 			<jsp:include page="../common/headerAdmin.jsp" />
 	</header>
 	<!-- Inclusion de la sidebar -->
 		<jsp:include page="../common/sidebarAdmin.jsp" />
 
-<div id="map"></div>
+<div id="map" class="p-0"></div>
 
 	<!-- Contenu principal -->
-	<div class="content col">
+	<div class="content col fc-main">
 		<div class="container-fluid mt-2">
 			<div class="row justify-content-center">
-				<div class="col-lg-10">
 					<div class="form-container">
 						<div class="header-container">
-							<a
-								href="<c:url value='/${tenancyAlias}/backoffice/suppliers/list' />"
-								class="btn-back"> <i class="bi bi-arrow-left-circle"></i>
+							<a href="<c:url value='/${tenancyAlias}/backoffice/suppliers/list' />" class="${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900">
+								<i class="bi bi-arrow-left"></i><span class="d-none d-md-inline"> Liste des producteurs</span>
 							</a>
-							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Ajouter
-								un producteur</h2>
+							<h2 class="my-4 fw-bold">Ajouter un producteur</h2>
 						</div>
-						<form:form
+						<form:form method="POST"
 							action="/Amappli/${tenancyAlias}/backoffice/suppliers/add"
 							enctype="multipart/form-data">
 							<div class="row">
 								<!-- Première colonne -->
 								<div class="col-md-4">
 									<div class="mb-3">
-										<label class="form-label" for="name">Nom de famille</label>
-										<form:input	path="name" type="text" class="form-control" name="name"
-											placeholder="Dupont"/>
+										<label class="form-label" for="name">Nom de famille</label> <input
+											type="text" class="form-control" name="name"
+											placeholder="Dupont">
 									</div>
 									<div class="mb-3">
-										<label class="form-label" for="firstName">Prénom</label>
-										<form:input path="firstName" type="text" class="form-control" name="firstName"
-											placeholder="Anaïs"/>
+										<label class="form-label" for="firstName">Prénom</label> <input
+											type="text" class="form-control" name="firstName"
+											placeholder="Anaïs">
 									</div>
 									<div class="mb-3">
 										<label class="form-label" for="email">E-mail</label>
-										<form:input path="email" type="text" class="form-control" name="email"
-											placeholder="anais.dupont@gmail.com"/>
+										<input type="text" class="form-control" name="email" placeholder="anais.dupont@gmail.com">
 									</div>
 									<div class="mb-3">
 										<label class="form-label" for="password">Mot de passe</label>
-										<form:input path="password" type="password" class="form-control" name="password"/>
+										<input type="password" class="form-control" name="password">
 									</div>
 									<div class="mb-3">
 										<label class="form-label" for="confirmPassword">Confirmer
-											le mot de passe</label>
-											<form:input path="" type="password" class="form-control"
-											name="confirmPassword"/>
+											le mot de passe</label> <input type="password" class="form-control"
+											name="confirmPassword">
 									</div>
 									<div class="mb-3">
 										<label class="form-label" for="creditBalance">Balance
-											crédit</label>
-											<form:input path="creditBalance" type="number" class="form-control"
-											name="creditBalance" value=0/>
+											crédit</label> <input type="number" class="form-control"
+											name="creditBalance" value=0>
 									</div>
 								</div>
 
 								<!-- Deuxième colonne -->
 								<div class="col-md-4">
 									<div class="mb-3">
-										<label class="form-label" for="line2">Adresse</label>
-										<form:input path="line2" type="text" class="form-control" name="line2"
+										<label class="form-label" for="line2">Adresse</label> <input
+											type="text" class="form-control" name="line2"
 											placeholder="151" />
 									</div>
 									<div class="mb-3">
 										<label class="form-label" for="line1">Complément
-											d'adresse</label>
-											<form:input path="line1" type="text" class="form-control"
-											name="line1" placeholder="avenue de la République"/>
+											d'adresse</label> <input type="text" class="form-control"
+											name="line1" placeholder="avenue de la République">
 									</div>
 									<div class="mb-3">
-										<label class="form-label" for="postCode">Code Postal</label>
-										<form:input path="postCode" type="text" class="form-control" name="postCode"
-											placeholder="44190"/>
+										<label class="form-label" for="postCode">Code Postal</label> <input
+											type="text" class="form-control" name="postCode"
+											placeholder="44190">
 									</div>
 									<div class="mb-3">
-										<label class="form-label" for="city">Ville</label>
-										<form:input path="city" type="text" class="form-control" name="city"
-											placeholder="Clisson"/>
+										<label class="form-label" for="city">Ville</label> <input
+											type="text" class="form-control" name="city"
+											placeholder="Clisson">
 									</div>
 									<div class="mb-3">
 										<label class="form-label" for="phoneNumber">Numéro de
-											téléphone</label>
-											<form:input path="phoneNumber" type="text" class="form-control"
-											name="phoneNumber" placeholder="0605040302"/>
+											téléphone</label> <input type="text" class="form-control"
+											name="phoneNumber" placeholder="0605040302">
 									</div>
 								</div>
 
 								<!-- Troisième colonne -->
 								<div class="col-md-4">
 									<div class="mb-3 text-center">
-										<%--         <c:if test="${not empty user.imageData}">
-                                            <img src="data:${user.imageType};base64,${user.imageData}" alt="Image du contrat" style="max-width: 100%; border-radius: 8px; object-fit: cover;">
-                                        </c:if> --%>
 										<div class="mb-3">
 											<label class="form-label" for="">Roles :</label><br />
 											<c:forEach var="role" items="${allRoles }">
 												<c:choose>
-													<c:when test="${role.roleId == 1}">
-														<label class="form-label" for="role-box-${role.roleId }">Admin</label>
+													<c:when test="${role.name.equals('ADMIN')}">
+														<label class="form-label" for="role-box-${role.name }">Admin</label>
 													</c:when>
-													<c:when test="${role.roleId == 2}">
-														<label class="form-label" for="role-box-${role.roleId }">Adhérent</label>
+													<c:when test="${role.name.equals('MEMBER USER')}">
+														<label class="form-label" for="role-box-${role.name }">Adhérent</label>
 													</c:when>
-													<c:when test="${role.roleId == 3}">
-														<label class="form-label" for="role-box-${role.roleId }">Producteur</label>
+													<c:when test="${role.name.equals('SUPPLIER')}">
+														<label class="form-label" for="role-box-${role.name }">Producteur</label>
 													</c:when>
 													<c:otherwise>
-														<label class="form-label" for="role-box-${role.roleId }">${role.name.toLowerCase()}</label>
+														<label class="form-label" for="role-box-${role.name }">${role.name.toLowerCase()}</label>
 													</c:otherwise>
 												</c:choose>
-												<input id="role-box-${role.roleId }" type="checkbox"
-													class="me-3" name="userRole"
-													<c:if test="${role.roleId == 3}"> checked </c:if> />
+												<input id="role-box-${role.name }" type="checkbox"
+													class="me-3" name="roles"
+													<c:if test="${role.name.equals('SUPPLIER')}"> checked </c:if> />
 											</c:forEach>
 										</div>
 										<section id="supplier-section" class="d-none">
@@ -185,16 +160,6 @@ request.setAttribute("currentPage", currentPage);
 				</div>
 			</div>
 		</div>
-	</div>
-	<script
-		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/amap/admin/user-details.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/amap/admin/user-form.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
-		<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/palette-swap.js' />" type="text/javascript"></script>
 		<script>
 		var styleMapboxLight = "${mapStyleLight}"
 		var styleMapboxDark = "${mapStyleDark}"
@@ -204,5 +169,13 @@ request.setAttribute("currentPage", currentPage);
 		 const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
 		 */
 	</script>
+	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/palette-swap.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/user-details.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/user-form.js' />" type="text/javascript"></script>
 </body>
 </html>

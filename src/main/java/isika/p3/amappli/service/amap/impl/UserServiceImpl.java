@@ -150,7 +150,7 @@ public class UserServiceImpl implements UserService {
             ContactInfo cI = ContactInfo.builder()
                 .name(faker.name().lastName())
                 .firstName(faker.name().firstName())
-                .phoneNumber(faker.phoneNumber().phoneNumber())
+                .phoneNumber("0102030405")
                 .build();
 
             User u = User.builder()

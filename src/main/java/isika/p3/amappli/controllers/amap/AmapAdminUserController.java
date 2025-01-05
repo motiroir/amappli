@@ -3,19 +3,26 @@ package isika.p3.amappli.controllers.amap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import isika.p3.amappli.dto.amap.ContractDTO;
 import isika.p3.amappli.dto.amap.SupplierDTO;
+import isika.p3.amappli.dto.amap.UserDTO;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.service.amap.AmapAdminUserService;
 import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.RoleService;
+import jakarta.validation.Valid;
 
 
 @Controller
@@ -50,11 +57,10 @@ public class AmapAdminUserController {
 		return "amap/back/users/users-list";
 	}
 	
-	
 	@GetMapping("/users/details/{userId}")
-	public String usersDetails(@PathVariable("userId") Long userId, Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
-		User supplier = adminUserService.findById(userId);
-		model.addAttribute("user", supplier);
+	public String usersDetails(@PathVariable("userId") Long userId, Model model, @PathVariable("tenancyAlias") String tenancyAlias, @ModelAttribute("message") String message) {
+		User user = adminUserService.findById(userId);
+		model.addAttribute("user", user);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAllRoles());
         model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
@@ -63,6 +69,18 @@ public class AmapAdminUserController {
         model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
         model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
 		return "amap/back/users/users-details";
+	}
+	
+	@PostMapping("/users/update")
+	public String usersUpdate(@Valid @ModelAttribute("user") SupplierDTO updatedUserDTO, BindingResult result, Model model, RedirectAttributes ra) {
+		if (result.hasErrors()) {
+			ra.addFlashAttribute("message", "Il y a eu une erreur");
+			System.out.println(result.getErrorCount());
+			System.out.println("==============================================================");
+			return "redirect:details/" + updatedUserDTO.getUserId();
+		}
+		adminUserService.updateUser(updatedUserDTO);
+		return "redirect:../list";
 	}
 	
 	@GetMapping("/users/form")

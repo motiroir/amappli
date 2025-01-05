@@ -19,9 +19,9 @@ import isika.p3.amappli.validation.annotation.FieldMatch;
 @FieldMatch(first = "password", second="confirmPassword", message="Les mots de passes doivent être identiques.")
 public class NewUserDTO {
 
-    @NotBlank( message = "L''email est obligatoire.")
-	@Size(max=70, message = "L''email doit faire 70 caractères maximum.")
-    @Email( message = "L''email est invalide.")
+    @NotBlank( message = "L'email est obligatoire.")
+	@Size(max=70, message = "L'email doit faire 70 caractères maximum.")
+    @Email( message = "L'email est invalide.")
     private String email;
 
     @NotBlank( message = "Champ obligatoire")

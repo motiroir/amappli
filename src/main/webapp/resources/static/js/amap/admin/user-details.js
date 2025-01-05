@@ -1,5 +1,11 @@
-const box = document.getElementById("role-box-3");
-const section = document.getElementById("supplier-section")
+let box = document.getElementById("role-box-SUPPLIER");
+let section = document.getElementById("supplier-section");
+
+document.body.addEventListener("load", function() {
+	
+box = document.getElementById("role-box-SUPPLIER");
+section = document.getElementById("supplier-section");
+});
 
 if (box.checked == true) {
     section.classList.remove('d-none');
