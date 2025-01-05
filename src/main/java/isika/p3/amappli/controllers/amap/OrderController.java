@@ -29,9 +29,11 @@ public class OrderController {
 		List<Order> orderByUser = orderService.getListOrdersByUser(userId);
 		model.addAttribute("orders", orderByUser);
 		
-		 //get map style depending on tenancy
+		//get map style depending on tenancy
         model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
         model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+        model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
+        model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
         //get tenancy info for header footer
         model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
         //get color palette
@@ -39,6 +41,25 @@ public class OrderController {
         //get font choice
         model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
         return "amap/front/user-profile/my-orders";
+	}
+	
+	@GetMapping("/account/my-orders/order-details/{orderId}")
+	public String viewOrderDetails(@PathVariable("tenancyAlias") String alias, @PathVariable("orderId") Long orderId, Model model) {
+		Order order = orderService.getOrderById(orderId);
+		model.addAttribute("order", order);
+		
+		//get map style depending on tenancy
+        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
+        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+        model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
+        model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
+        //get tenancy info for header footer
+        model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
+        //get color palette
+        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
+        //get font choice
+        model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+		return "amap/front/user-profile/order-details";
 	}
 	
     

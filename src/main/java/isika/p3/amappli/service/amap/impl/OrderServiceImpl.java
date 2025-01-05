@@ -116,5 +116,9 @@ public class OrderServiceImpl {
 		}
 		return user.getOrders();
 	}
+	
+	public Order getOrderById(Long orderId) {
+		return orderRepo.findOrderWithItemsAndShoppable(orderId);
+	}
 
 }

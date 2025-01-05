@@ -12,7 +12,7 @@ request.setAttribute("currentPage", currentPage);
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Mes commandes</title>
+<title>Détail de ma commande n°${order.orderId}</title>
 
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
 	rel="stylesheet" />
@@ -31,43 +31,56 @@ request.setAttribute("currentPage", currentPage);
 	</header>
 	<jsp:include page="common/sidebar-user-account.jsp" />
 
-
 	<div id="map"></div>
-	<div class="content col">
+	<
+	<div class="content col fc-main">
 		<div class="container-fluid mt-2">
 			<div class="row justify-content-center">
 				<div class="col-12">
-					<div class="search-bar d-flex align-items-center mb-3">
+					<div class="search-bar d-flex align-items-center justify-content-between mb-3">
 						<div class="mx-3">
 							<label class="fc-main">Opacité du tableau</label> <input
 								type="range" class="form-range" min="0" max="100" value="100"
 								id="bg-range">
 						</div>
+						<a class="btn btn-100"
+							href="<c:url value='/${tenancyAlias}/account/my-orders/${userId}' />">Retourner
+							à mes commandes</a>
+					</div>
+					<div id="order-details">
+						<h3>Commande n°${order.orderId}</h3>
+						<p>Montant total : ${order.totalAmount}€</p>
+						<p>Date de la commande : ${order.orderDate}</p>
+						<p>Etat : ${order.orderStatus.displayName}</p>
+						<p>
+							Type de Paiement :
+							<c:if test="${order.orderPaid}">
+										Paiement en ligne
+									</c:if>
+							<c:if test="${!order.orderPaid}">
+										Paiement sur place
+									</c:if>
+						</p>
 					</div>
 					<table class="table">
+					<h3>Détails des produits</h3>
 						<thead>
 							<tr>
-								<th>Numéro de commande</th>
-								<th>Date</th>
-								<th>Montant</th>
-								<th>Paiement</th>
-								<th>Statut</th>
 								<th></th>
+								<th>Nom de l'article</th>
+								<th>Prix à l'unité</th>
+								<th>Quantité</th>
+								<th>Total</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="order" items="${orders}">
+							<c:forEach var="item" items="${order.orderItems}">
 								<tr>
-									<td>${order.orderId}</td>
-									<td>${order.orderDate}</td>
-									<td>${order.totalAmount}€</td>
-									<td><c:if test="${order.orderPaid}">
-										Paiement en ligne
-									</c:if> <c:if test="${!order.orderPaid}">
-										Paiement sur place
-									</c:if></td>
-									<td>${order.orderStatus.displayName}</td>
-									<td><a class="btn btn-100" href="<c:url value='/${tenancyAlias}/account/my-orders/order-details/${order.orderId}' />">Détails </a></td>
+									<td></td>
+									<td>${item.shoppable.getInfo()}</td>
+									<td>${item.unitPrice}€</td>
+									<td>${item.quantity}</td>
+									<td>${item.total}€</td>
 								</tr>
 							</c:forEach>
 						</tbody>
