@@ -44,6 +44,16 @@ public class OrderServiceImpl {
 		this.userRepo = userRepo;
 	}
 
+    public ShoppingCart getCartByUserId(Long userId) {
+        ShoppingCart cart = cartRepo.findByUserId(userId);
+        if (cart == null) {
+        	ShoppingCart newCart =new ShoppingCart();
+        	newCart.setUser(userRepo.findById(userId).orElse(null));
+        	cartRepo.save(newCart);
+        	return newCart;
+        } return cart;
+    }
+	
 	public List<OrderItem> copyCartItemsListToOrderItemsList(List<ShoppingCartItem> cartItems) {
 		return cartItems.stream().map(cartItem -> {
 			// deals with issue on copying the shoppable attached to cartItem to get to

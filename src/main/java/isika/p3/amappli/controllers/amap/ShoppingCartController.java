@@ -29,8 +29,8 @@ public class ShoppingCartController {
 	@Autowired
 	private GraphismService graphismService;
 
-	@GetMapping("/{cartId}")
-	public String viewCart(@PathVariable("cartId") Long userId, @PathVariable("tenancyAlias") String alias,
+	@GetMapping("/{userId}")
+	public String viewCart(@PathVariable("userId") Long userId, @PathVariable("tenancyAlias") String alias,
 			Model model) {
 		// get user info from context (connected user) or userId = 1 when logout
 		userId = getUserIdFromContext();
@@ -38,7 +38,7 @@ public class ShoppingCartController {
 		ShoppingCart cart = shoppingCartService.getCartByUserId(userId);
 
 		addGraphismAttributes(alias, model);
-		model.addAttribute("cartId", userId); 
+		model.addAttribute("userId", userId); 
 		model.addAttribute("cart", cart);
 		model.addAttribute("total", shoppingCartService.calculateTotal(cart.getShoppingCartId()));
 
@@ -62,33 +62,31 @@ public class ShoppingCartController {
 		return "amap/front/shopping-cart";
 	}
 
-	@PostMapping("/{cartId}/add")
-	public String addItem(@PathVariable("cartId") Long cartId, @PathVariable("tenancyAlias") String alias,
+	@PostMapping("/{userId}/add")
+	public String addItem(@PathVariable("userId") Long userId, @PathVariable("tenancyAlias") String alias,
 			@RequestParam("shoppableId") Long shoppableId, @RequestParam("shoppableType") String shoppableType,
 			@RequestParam("quantity") int quantity) {
-		shoppingCartService.addItemToCart(cartId, shoppableId, shoppableType, quantity);
-		return "redirect:/{tenancyAlias}/cart/" + cartId;
+		userId = getUserIdFromContext();
+		ShoppingCart cart = shoppingCartService.getCartByUserId(userId);
+		shoppingCartService.addItemToCart(cart.getShoppingCartId(), shoppableId, shoppableType, quantity);
+		return "redirect:/{tenancyAlias}/cart/" + userId;
 	}
 
-	@PostMapping("/{cartId}/updateQuantity/{itemId}")
-	public String updateItemQuantity(@PathVariable("cartId") Long cartId, @PathVariable("tenancyAlias") String alias,
+	@PostMapping("/{userId}/updateQuantity/{itemId}")
+	public String updateItemQuantity(@PathVariable("userId") Long userId, @PathVariable("tenancyAlias") String alias,
 			@PathVariable("itemId") Long itemId, @ModelAttribute("action") String action) {
+		userId = getUserIdFromContext();
+		ShoppingCart cart = shoppingCartService.getCartByUserId(userId);
 		if ("increase".equals(action)) {
-			shoppingCartService.increaseItemQuantity(cartId, itemId);
+			shoppingCartService.increaseItemQuantity(cart.getShoppingCartId(), itemId);
 		} else if ("decrease".equals(action)) {
-			shoppingCartService.decreaseItemQuantity(cartId, itemId);
+			shoppingCartService.decreaseItemQuantity(cart.getShoppingCartId(), itemId);
 		}
-		return "redirect:/{tenancyAlias}/cart/" + cartId;
-	}
-
-	@GetMapping("/{cartId}/init")
-	public String initializeCart(@PathVariable("cartId") Long cartId, @PathVariable("tenancyAlias") String alias) {
-		shoppingCartService.initShoppingCart();
-		return "redirect:/{tenancyAlias}/cart/{cartId}";
+		return "redirect:/{tenancyAlias}/cart/" + userId;
 	}
 	
 	public void addGraphismAttributes(String alias, Model model) {
-		// get map style depending on tenancy
+		// get map style and coordinates depending on tenancy
 		model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
 		model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
 		model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));

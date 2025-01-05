@@ -51,7 +51,7 @@
 										<td>${item.shoppable.getPrice()}€</td>
 										<td><div class="btn btn-100">
 												<form:form method="post"
-													action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cart.shoppingCartId}/updateQuantity/${item.shoppingItemId}">
+													action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${userId}/updateQuantity/${item.shoppingItemId}">
 													<button type="submit" name="action" value="decrease">-</button>
 													<span>${item.getQuantity()}</span>
 													<button type="submit" name="action" value="increase">+</button>
@@ -91,7 +91,7 @@
 								<td><h2 class="fw-bold">${total}</h2></td>
 							</tr>
 
-							<form:form method="post" action="${pageContext.request.contextPath}/${tenancyAlias}/order/${cart.shoppingCartId}/createOrder">
+							<form:form method="post" action="${pageContext.request.contextPath}/${tenancyAlias}/order/${userId}/createOrder">
 								<tr>
 									<td colspan="2"><button class="btn btn-500 btn-order"
 											type="submit" name="action" value="OrderWithPayment">Passer au paiement</button></td>
