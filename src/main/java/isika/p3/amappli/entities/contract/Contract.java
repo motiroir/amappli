@@ -54,7 +54,7 @@ public class Contract extends Shoppable {
 	@Enumerated(EnumType.STRING)
 	private ContractWeight contractWeight;
 
-	@DecimalMin(value = "0.01", message = "Le prix doit être supérieur à 0.")
+	@DecimalMin(value = "0.10", message = "Le prix doit être supérieur à 0.")
 	private BigDecimal contractPrice;
 
 	@Column(name = "image_type")
@@ -116,9 +116,10 @@ public class Contract extends Shoppable {
 
     @Override
     public String getImage() {
-        return imageType + (imageData != null ? ", data available" : "");
+        if (imageData != null && imageType != null) {
+            return "data:" + imageType + ";base64," + imageData;
+        }
+        return "/resources/images/default-image.png"; // Chemin de l'image par défaut si aucune donnée n'est disponible
     }
-    
-	
-
+   
 }

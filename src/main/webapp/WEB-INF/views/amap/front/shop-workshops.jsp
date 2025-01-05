@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String currentMainMenu = "products"; // Détermine la rubrique active
-String currentPage = "contracts"; // Détermine la sous-rubrique active
+String currentPage = "workshops"; // Détermine la sous-rubrique active
 request.setAttribute("currentMainMenu", currentMainMenu);
 request.setAttribute("currentPage", currentPage);
 %>
@@ -13,7 +13,7 @@ request.setAttribute("currentPage", currentPage);
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Boutique des Paniers</title>
+<title>Boutique des Ateliers</title>
 <link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />"
 	rel="stylesheet">
 <link rel="stylesheet"
@@ -22,7 +22,7 @@ request.setAttribute("currentPage", currentPage);
 body {
 	background-color: #FAF8F6;
 
-.contract-card {
+.product-card {
 	background-color: #FFF;
 	border: 1px solid #FFA570;
 	border-radius: 24px;
@@ -36,11 +36,11 @@ body {
 	justify-content: space-between;
 }
 
-.contract-card:hover {
+.workshop-card:hover {
 	transform: scale(1.05);
 }
 
-.contract-card img {
+.workshop-card img {
 	width: 100%;
 	height: 200px; /* Uniformise la hauteur des images */
 	object-fit: cover;
@@ -48,14 +48,14 @@ body {
 	border-radius: 16px;
 }
 
-.contract-card .btn {
+.workshop-card .btn {
 	background-color: #FFA570;
 	color: #FFF;
 	border: none;
 	margin-top: 12px;
 }
 
-.contract-card .btn:hover {
+.workshop-card .btn:hover {
 	background-color: #FF8A50;
 }
 </style>
@@ -70,14 +70,14 @@ body {
 			<div class="row justify-content-center">
 				<div class="col-lg-10">
 										<div class="header-container">
-							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Paniers</h2>
+							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Ateliers</h2>
 						</div>
     <div class="row">
 
         <!-- Main Content -->
         <div class="col-12 col-md-9">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <span>${contracts.size()} Items</span>
+                <span>${workshops.size()} Items</span>
                 <div class="d-flex align-items-center">
                     <label for="sortBy" class="me-2">Trier par</label>
                     <select id="sortBy" class="form-select me-3" style="width: auto;">
@@ -91,27 +91,26 @@ body {
             </div>
 
             <div class="row">
-                <c:if test="${not empty contracts}">
-                    <c:forEach var="contract" items="${contracts}">
+                <c:if test="${not empty workshops}">
+                    <c:forEach var="workshop" items="${workshops}">
                         <div class="col-12 col-sm-6 col-lg-4 mb-4">
-                            <div class="contract-card">
-                                <c:if test="${not empty contract.imageData}">
-                                    <img src="data:${contract.imageType};base64,${contract.imageData}"
-                                        alt="Image du contrat">
+                            <div class="workshop-card">
+                                <c:if test="${not empty workshop.imageData}">
+                                    <img src="data:${workshop.imageType};base64,${workshop.imageData}"
+                                        alt="Image de l'atelier">
                                 </c:if>
-                                <h3 class="mt-3">${contract.contractName}</h3>
-                                <p>${contract.contractType.displayName}</p>
-                                <p>${contract.contractWeight.displayName}</p>
-                                <p>${contract.contractPrice}&euro;</p>
-                                <a href="<c:url value='/${tenancyAlias}/shop/contracts/${contract.id}' />"
+                                <h3 class="mt-3">${workshop.workshopName}</h3>
+                                <p> Date de l'atelier : ${workshop.workshopDateTime}</p>
+                                <p>${workshop.workshopPrice}&euro; / personne</p>
+                                <a href="<c:url value='/${tenancyAlias}/shop/workshops/${workshop.id}' />"
                                     class="btn">Voir les détails</a>
                             </div>
                         </div>
                     </c:forEach>
                 </c:if>
-                <c:if test="${empty contracts}">
+                <c:if test="${empty workshops}">
                     <div class="col-12">
-                        <p class="text-center">Aucun contrat disponible pour cette AMAP.</p>
+                        <p class="text-center">Aucun atelier disponible pour cette AMAP.</p>
                     </div>
                 </c:if>
             </div>

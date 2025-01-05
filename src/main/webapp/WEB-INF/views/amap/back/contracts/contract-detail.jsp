@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 
+
 <%
 String currentMainMenu = "products"; // Détermine la rubrique active
 String currentPage = "contracts"; // Détermine la sous-rubrique active
@@ -49,8 +50,9 @@ request.setAttribute("currentPage", currentPage);
 				<div class="col-lg-10">
 					<div class="form-container">
 						<div class="header-container">
-							<a href="<c:url value='/${tenancyAlias}/backoffice/contracts/list' />" class="btn-back">
-								<i class="bi bi-arrow-left-circle"></i>
+							<a
+								href="<c:url value='/${tenancyAlias}/backoffice/contracts/list' />"
+								class="btn-back"> <i class="bi bi-arrow-left-circle"></i>
 							</a>
 							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Détails
 								du contrat</h2>
@@ -78,9 +80,9 @@ request.setAttribute("currentPage", currentPage);
 											value="${contract.contractWeight.displayName}" readonly>
 									</div>
 									<div class="mb-3">
-										<label class="form-label">Producteur</label> <input
-											type="text" class="form-control" value="Producteur exemple"
-											readonly>
+										<label class="form-label">Fournisseur</label> <input
+											type="text" class="form-control"
+											value="${contract.user.companyDetails.companyName}" readonly>
 									</div>
 									<div class="mb-3">
 										<label class="form-label">Date de début du contrat</label> <input
@@ -116,8 +118,8 @@ request.setAttribute("currentPage", currentPage);
 											value="${contract.deliveryDay.displayName}" readonly>
 									</div>
 									<div class="mb-3">
-										<label class="form-label">Quantité disponible</label> <input
-											type="text" class="form-control"
+										<label class="form-label">Quantité disponible entre
+											chaque livraison</label> <input type="text" class="form-control"
 											value="${contract.quantity} paniers" readonly>
 									</div>
 								</div>
@@ -128,14 +130,15 @@ request.setAttribute("currentPage", currentPage);
 											<img
 												src="data:${contract.imageType};base64,${contract.imageData}"
 												alt="Image du contrat"
-												style="max-width: 100%; border-radius: 8px; object-fit: cover;">
+												style="width: 150px; height: 150px; border-radius: 8px; object-fit: cover;">
 										</c:if>
 										<div class="mb-3">
 											<label class="form-label">Date de création le
-												${contract.dateCreation}</label>
+												${formattedDate}</label>
 										</div>
 									</div>
 								</div>
+
 							</div>
 						</form>
 					</div>
@@ -151,6 +154,6 @@ request.setAttribute("currentPage", currentPage);
 		type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
 		type="text/javascript"></script>
-		
+
 </body>
 </html>

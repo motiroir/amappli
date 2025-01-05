@@ -37,18 +37,14 @@ import isika.p3.amappli.service.amappli.TenancyService;
 public class ContractController {
 
 	private final ContractService contractService;
-	private final UserService userService;
-	private final TenancyService tenancyService;
 	private final TenancyRepository tenancyRepository;
 	private final AmapAdminUserService AmapAdminUserService;
 
-	public ContractController(AmapAdminUserService AmapAdminUserService, ContractService contractService, TenancyService tenancyService, UserService userService,
+	public ContractController(AmapAdminUserService AmapAdminUserService, ContractService contractService,
 			TenancyRepository tenancyrepository) {
 		this.contractService = contractService;
-		this.userService = userService;
-		this.tenancyService = tenancyService;
-		this.tenancyRepository = tenancyrepository;
 		this.AmapAdminUserService = AmapAdminUserService;
+		this.tenancyRepository = tenancyrepository;
 	}
 
 	/**
@@ -139,7 +135,12 @@ public class ContractController {
 		if (contract == null) {
 			return "redirect:/" + tenancyAlias + "/backoffice/contracts/list"; // Redirige si le contrat n'existe pas
 		}
-
+	    Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
+	            .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+	    Address address = tenancy.getAddress();
+	    model.addAttribute("address", address);
+		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
+		model.addAttribute("users", users);
 		model.addAttribute("contract", contract);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
@@ -160,6 +161,8 @@ public class ContractController {
 		if (contract == null) {
 			throw new IllegalArgumentException("Contrat introuvable pour l'ID : " + id);
 		}
+		String formattedDate = contract.getDateCreation().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+		model.addAttribute("formattedDate", formattedDate);
 		model.addAttribute("contract", contract);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		return "amap/back/contracts/contract-detail";

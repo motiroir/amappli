@@ -22,16 +22,25 @@ import isika.p3.amappli.dto.amap.ProductDTO;
 import isika.p3.amappli.entities.contract.DeliveryDay;
 import isika.p3.amappli.entities.contract.DeliveryRecurrence;
 import isika.p3.amappli.entities.product.Product;
+import isika.p3.amappli.entities.tenancy.Tenancy;
+import isika.p3.amappli.entities.user.Address;
+import isika.p3.amappli.entities.user.User;
+import isika.p3.amappli.repo.amappli.TenancyRepository;
+import isika.p3.amappli.service.amap.AmapAdminUserService;
 import isika.p3.amappli.service.amap.ProductService;
 
 @Controller
-@RequestMapping("/amap/products")
+@RequestMapping("/{tenancyAlias}/backoffice/products")
 public class ProductController {
 
     private final ProductService productService;
+	private final TenancyRepository tenancyRepository;
+	private final AmapAdminUserService AmapAdminUserService;
 
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, TenancyRepository tenancyRepository, AmapAdminUserService AmapAdminUserService) {
         this.productService = productService;
+        this.tenancyRepository = tenancyRepository;
+        this.AmapAdminUserService = AmapAdminUserService;
           
     }
     
@@ -56,11 +65,21 @@ public class ProductController {
 	 * Displays the form for adding a new product.
 	 */
 	@GetMapping("/form")
-	public String showForm(Model model) {
+	public String showForm(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
+		
+		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
+		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		// Récupérer l'adresse de la tenancy
+		Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
+				.orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+		Address address = tenancy.getAddress();
+		
 		model.addAttribute("product", new Product());
+		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
 		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
-		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		model.addAttribute("users", users);
+	    model.addAttribute("address", address);
 		model.addAttribute("currentDate", currentDate);
 		return "amap/back/products/product-form";
 	}
@@ -69,18 +88,29 @@ public class ProductController {
 	 * Saves a new product to the database.
 	 */
 	@PostMapping("/add")
-	public String addProduct(@ModelAttribute("productDTO") ProductDTO productDTO) {
-		productService.save(productDTO);
-		return "redirect:/amap/products/list";
+	public String addProduct(@ModelAttribute("productDTO") ProductDTO productDTO, @PathVariable("tenancyAlias") String tenancyAlias) {
+		productService.save(productDTO, tenancyAlias);
+	    if (productDTO.getProductName() == null || productDTO.getProductName().isEmpty()) {
+	        throw new IllegalArgumentException("Le champ 'Nom du produit' est obligatoire.");
+	    }
+		return "redirect:/" + tenancyAlias + "/backoffice/products/list";
 	}
 	
 	/**
 	 * Displays a list of all products.
 	 */
 	@GetMapping("/list")
-	public String listProducts(Model model) {
+	public String listProducts(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
+		
 		List<Product> products = productService.findAll();
+		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
+		
+		Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
+				.orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+		
+		model.addAttribute("users", users);
 		model.addAttribute("products", products);
+		model.addAttribute("tenancyAlias", tenancyAlias);
 		return "amap/back/products/product-list";
 	}
 	
@@ -88,23 +118,30 @@ public class ProductController {
 	 * Deletes a contract by its ID.
 	 */
 	@PostMapping("/delete/{id}")
-	public String deleteProduct(@PathVariable("id") Long id) {
+	public String deleteProduct(@PathVariable("id") Long id, @PathVariable("tenancyAlias") String tenancyAlias) {
 	    productService.deleteById(id);
-	    return "redirect:/amap/products/list";
+	    return "redirect:/" + tenancyAlias + "/backoffice/products/list";
 	}
 	
 	/**
 	 * Displays the edit form for a specific product.
 	 */
 	@GetMapping("/edit/{id}")
-	public String editProductForm(@PathVariable("id") Long id, Model model) {
+	public String editProductForm(@PathVariable("id") Long id, Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 	    Product product = productService.findById(id);
 
 	    if (product == null) {
 	        return "redirect:/amap/products/list"; // Redirige si le contrat n'existe pas
 	    }
-
+	    
+	    Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
+	            .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+	    Address address = tenancy.getAddress();
+	    model.addAttribute("address", address);
+		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
+		model.addAttribute("users", users);
 	    model.addAttribute("product", product);
+	    model.addAttribute("tenancyAlias", tenancyAlias);
 	    model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
 	    model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
 
@@ -116,19 +153,25 @@ public class ProductController {
 	 * Displays the details of a specific product.
 	 */
 	@GetMapping("/detail/{id}")
-	public String viewProductDetail(@PathVariable("id") Long id, Model model) {
+	public String viewProductDetail(@PathVariable("id") Long id, Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 		Product product = productService.findById(id);
+		if (product == null) {
+			throw new IllegalArgumentException("Contrat introuvable pour l'ID : " + id);
+		}
+		String formattedDate = product.getDateCreation().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+		model.addAttribute("formattedDate", formattedDate);
 		model.addAttribute("product", product);
+		model.addAttribute("tenancyAlias", tenancyAlias);
 		return "amap/back/products/product-detail";
 	}
 	
 	@PostMapping("/update")
 	public String updateProduct(
 	    @ModelAttribute("product") ProductDTO updatedProductDTO,
-	    @RequestParam(value = "image", required = false) MultipartFile image) {
+	    @RequestParam(value = "image", required = false) MultipartFile image, @PathVariable("tenancyAlias") String tenancyAlias) {
 	    
-		productService.updateProduct(updatedProductDTO, image);
+		productService.updateProduct(updatedProductDTO, image, tenancyAlias);
 
-	    return "redirect:/amap/products/list";
+		return "redirect:/" + tenancyAlias + "/backoffice/products/list";
 	}
 }
