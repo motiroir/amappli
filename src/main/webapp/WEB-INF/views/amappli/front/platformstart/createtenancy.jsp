@@ -99,7 +99,7 @@
 
                     <div class="row">
                         <div class="col-12 col-md-6 mb-3">
-                            <label for="dayOfWeek">Jour de la Semaine:</label>
+                            <label for="dayOfWeek" class="form-label">Jour de la Semaine</label>
                             <form:select class="from-control form-select" path="pickUpSchedule.dayOfWeek" id="dayOfWeek">
                                 <form:option value="">Sélectionnez un Jour</form:option>
                                 <form:option value="MONDAY">Lundi</form:option>
@@ -115,12 +115,12 @@
                     </div>
                     <div class="row">
                         <div class="col-12 col-md-6 mb-3">
-                            <label for="startHour">Heure de Début:</label>
-                            <form:input path="pickUpSchedule.startHour" type="time" id="startHour" required="true" />
+                            <label for="startHour" class="form-label">Heure de Début</label>
+                            <form:input path="pickUpSchedule.startHour" type="time" class="form-control" id="startHour" required="true" />
                             <form:errors path="pickUpSchedule.startHour" class="invalid-feedback d-block"/>
 
-                            <label for="endHour">Heure de Fin:</label>
-                            <form:input path="pickUpSchedule.endHour" type="time" id="endHour" required="true" />
+                            <label for="endHour" class="form-label">Heure de Fin</label>
+                            <form:input path="pickUpSchedule.endHour" type="time" class="form-control" id="endHour" required="true" />
                             <form:errors path="pickUpSchedule.endHour" class="invalid-feedback d-block"/>
                         </div>
                     </div>
@@ -171,12 +171,14 @@
                 <h3>Quelles sont vos valeurs?</h3>
                 <p>Elles apparaîtront sur votre page d'accueil.</p>
 
-                <div id="value-form" class="d-flex flex-row justify-content-center">
+                <div id="value-form" class="row g-3 justify-content-center">
                 <c:forEach items="${newTenancyDTO.values}" var="valueDTO" varStatus="status">
-                    <div class="mb-3 d-flex flex-column">
-                        <form:input class="form-control" id="input-value-name-${status.index}" aria-describedby="input-value-name" path="values[${status.index}].name" />
-                        <form:textarea class="form-control" id="input-value-description-${status.index}" aria-describedby="input-value-description" path="values[${status.index}].description" />
-                        <form:input type="file" class="form-control" id="input-value-file-${status.index}" aria-describedby="input-value-file" path="values[${status.index}].file" accept="image/png,image/jpeg,image/svg"/>
+                    <div class="col-12 col-md-4">
+                        <div class="mb-3 d-flex flex-column">
+                            <form:input class="form-control mb-3" id="input-value-name-${status.index}" aria-placeholder="valeur" placeholder="valeur" aria-describedby="input-value-name" path="values[${status.index}].name" />
+                            <form:textarea class="form-control mb-3" id="input-value-description-${status.index}" aria-placeholder="description" placeholder="description" aria-describedby="input-value-description" path="values[${status.index}].description" />
+                            <form:input type="file" class="form-control mb-3" id="input-value-file-${status.index}" aria-placeholder="une image pour illustrer?" placeholder="une image pour illustrer?" aria-describedby="input-value-file" path="values[${status.index}].file" accept="image/png,image/jpeg,image/svg"/>
+                        </div>
                     </div>
                 </c:forEach>
                 </div>               
@@ -187,11 +189,11 @@
                 <h3>Présentez-vous à vos adhérents!</h3>
                 <p>Vous pourrez ajouter plus de contenu sur votre page d'accueil par la suite.</p>
 
-                <div class="mb-3">
+                <div class="mb-3 d-flex flex-column">
 
-                    <form:input class="form-control" id="input-hp-title" aria-describedby="input-hp-title" path="firstHomePageTitle" />
-                    <form:textarea class="form-control" id="input-hp-text" aria-describedby="input-hp-text" path="firstHomePageText" />
-                    <form:input type="file" class="form-control" id="input-hp-image" aria-describedby="input-hp-image" path="firstHomePagePic" accept="image/png,image/jpeg,image/svg"/>
+                    <form:input class="form-control mb-3" id="input-hp-title" aria-placeholder="titre" placeholder="titre" aria-describedby="input-hp-title" path="firstHomePageTitle" />
+                    <form:textarea class="form-control mb-3" id="input-hp-text" aria-placeholder="contenu" placeholder="contenu" aria-describedby="input-hp-text" path="firstHomePageText" />
+                    <form:input type="file" class="form-control mb-3" id="input-hp-image" aria-describedby="input-hp-image" path="firstHomePagePic" accept="image/png,image/jpeg,image/svg"/>
                 
                 </div>
 
@@ -204,10 +206,10 @@
                 <div class="mb-3">
                     <div id="font-choices" class="row g-3">
                         <c:forEach items="${fontChoices}" var="font">
-                            <div class="col-3 text-center">
+                            <div class="col-4 text-center">
                                 <input type="radio" id="font-${font}" value="${font}" name="font-selection"/>
-                                <label for="font-${font}" class="enum-choices">
-                                    <h2 class="${fn:toLowerCase(font)}">${font}</h2>
+                                <label for="font-${font}">
+                                    <h2 class="${fn:toLowerCase(font)} enum-choices">${font}</h2>
                                 </label>
                             </div>
                         </c:forEach>
@@ -240,8 +242,8 @@
                 <h3>Des paniers oui, mais quoi d'autre ?</h3>
 
                 <div class="mb-3">
-                    <ul>
-                        <li class="d-flex align-items-center">
+                    <ul class="list-unstyled">
+                        <li class="d-flex align-items-center mb-3">
                             <span class="me-auto p-2">Est-ce que vous vendez des produits à l'unité en plus de vos paniers?</span>
                             <div class="d-flex">
                                 <input type="radio" value="true" name="question-1" class="btn-check" id="question-1-true" checked/>
@@ -250,7 +252,7 @@
                                 <label class="btn btn-quizz" for="question-1-false">Non</label>
                             </div>
                         </li>
-                        <li class="d-flex align-items-center">
+                        <li class="d-flex align-items-center mb-3">
                             <span class="me-auto p-2">Est-ce que vous souhaitez proposer des lots et des promos à vos adhérents?</span>
                             <div class="d-flex">
                                 <input type="radio" value="true" name="question-2" class="btn-check" id="question-2-true" checked/>
@@ -259,7 +261,7 @@
                                 <label class="btn btn-quizz" for="question-2-false">Non</label> 
                             </div>
                         </li>
-                        <li class="d-flex align-items-center">
+                        <li class="d-flex align-items-center mb-3">
                             <span class="me-auto p-2">Organisez-vous des ateliers que vous souhaiteriez mettre à disposition de vos adhérents sur ce site?</span>
                             <div class="d-flex">
                                 <input type="radio" value="true" name="question-3" class="btn-check" id="question-3-true" checked/>
@@ -277,8 +279,8 @@
                 <h3>Des paniers oui, mais quoi d'autre ?</h3>
 
                 <div class="mb-3">
-                    <ul>
-                        <li class="d-flex align-items-center">
+                    <ul class="list-unstyled">
+                        <li class="d-flex align-items-center mb-3">
                             <span class="me-auto p-2">Voulez-vous activer le paiement en ligne ?</span>
                             <div class="d-flex">
                                 <input type="radio" value="true" name="question-4" class="btn-check" id="question-4-true" checked/>
@@ -297,8 +299,8 @@
                 <h3>Des paniers oui, mais quoi d'autre ?</h3>
 
                 <div class="mb-3">
-                    <ul>
-                        <li class="d-flex align-items-center">
+                    <ul class="list-unstyled">
+                        <li class="d-flex align-items-center mb-3">
                             <span class="me-auto p-2">Souhaitez-vous que vos producteurs puissent ajouter eux-même leurs produits sur le site?</span>
                             <div class="d-flex">
                                 <input type="radio" value="true" name="question-5" class="btn-check" id="question-5-true" checked/>
@@ -307,7 +309,7 @@
                                 <label class="btn btn-quizz" for="question-5-false">Non</label>
                             </div>
                         </li>
-                        <li class="d-flex align-items-center">
+                        <li class="d-flex align-items-center mb-3">
                             <span class="me-auto p-2">Est-ce que vous souhaitez donner des accès personnalisés à vos bénévoles ? Par exemple leur permettre d’accéder à la liste des commandes de vos adhérents mais sans leur donner accès à leurs informations personnelles.</span>
                             <div class="d-flex">
                                 <input type="radio" value="true" name="question-6" class="btn-check" id="question-6-true" checked/>
@@ -325,8 +327,8 @@
                 <h3>Des paniers oui, mais quoi d'autre ?</h3>
 
                 <div class="mb-3">
-                    <ul>
-                        <li class="d-flex align-items-center">
+                    <ul class="list-unstyled">
+                        <li class="d-flex align-items-center mb-3">
                             <span class="me-auto p-2">Souhaitez-vous avoir la possibilité d’afficher des statistiques à partir de vos données?</span>
                             <div class="d-flex">
                                 <input type="radio" value="true" name="question-7" class="btn-check" id="question-7-true" checked/>
@@ -360,13 +362,42 @@
 
             <div class="form-part px-0 my-4">
 
-                <h3>Choississez maintenant votre abonnement à Amappli:</h3>
+                <h3 class="mb-3">Choississez maintenant votre abonnement à Amappli:</h3>
 
                 <div class="mb-3">
-                    <ul>
-                        <li><form:radiobutton path="option1" value="true" label="Petit potager" id="option-1" name="option-selection" /></li>
-                        <li><form:radiobutton path="option2" value="true" label="Verger" id="option-2" name="option-selection" /></li>
-                        <li><form:radiobutton path="option3" value="true" label="Ferme" id="option-3" name="option-selection" /></li>
+                    <ul class="row d-flex list-unstyled justify-content-around align-items-stretch">
+                        <li class="col-12 col-md-4 d-flex">
+                            <form:radiobutton path="option1" value="true" id="option-1" name="option-selection" />
+                            <label for="option-1" class="w-100 flex-fill d-flex flex-column">
+                                <div id="pricing-1" class="pricing flex-fill text-center py-3 px-2 rounded-5 align-content-between bg-300">
+                                    <h2 class="h4 fw-bold">Potager</h2>
+                                    <p classe="my-2">Site opérationnel avec les fonctionnalités de base</p>
+                                    <h3 class="h5 fw-bold">Gratuit</h3>
+                                </div>
+                            </label>
+                        </li>
+                        <li class="col-12 col-md-4 d-flex">
+                            <form:radiobutton path="option2" value="true" id="option-2" name="option-selection" />
+                            <label for="option-2" class="w-100 flex-fill d-flex flex-column">
+                                <div id="pricing-2"	class="pricing flex-fill text-center py-3 px-2 rounded-5 align-content-between bg-400">
+                                <h2 class="h4 fw-bold">Verger</h2>
+                                <p classe="my-2">Plus d'outils avancés pour personnaliser et enrichir votre
+                                    site</p>
+                                <h3 class="h5 fw-bold">50 € /an</h3>
+                                </div>
+                            </label>
+                        </li>
+                        <li class="col-12 col-md-4 d-flex">
+                            <form:radiobutton path="option3" value="true" id="option-3" name="option-selection" />
+                            <label for="option-3" class="w-100 flex-fill d-flex flex-column">
+                                <div id="pricing-3" class="pricing flex-fill text-center py-3 px-2 rounded-5 align-content-between bg-500">
+                                    <h2 class="h4 fw-bold">Ferme</h2>
+                                    <p classe="my-2">Toutes les fonctionnalités pour une gestion complète et
+                                        professionnelle de votre AMAP</p>
+                                    <h3 class="h5 fw-bold">100 € /an</h3>
+                                </div>
+                            </label>
+                        </li>
                     </ul>
                 </div>
             </div>
