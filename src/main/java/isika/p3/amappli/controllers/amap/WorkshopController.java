@@ -24,6 +24,7 @@ import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.entities.workshop.Workshop;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
 import isika.p3.amappli.service.amap.AmapAdminUserService;
+import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.WorkshopService;
 
 @Controller
@@ -33,11 +34,14 @@ public class WorkshopController {
 	private final WorkshopService workshopService;
 	private final TenancyRepository tenancyRepository;
 	private final AmapAdminUserService AmapAdminUserService;
+	private final GraphismService graphismService;
 
-	public WorkshopController(WorkshopService workshopService, TenancyRepository tenancyRepository, AmapAdminUserService AmapAdminUserService) {
+	public WorkshopController(GraphismService graphismService, WorkshopService workshopService, TenancyRepository tenancyRepository,
+			AmapAdminUserService AmapAdminUserService) {
 		this.workshopService = workshopService;
 		this.tenancyRepository = tenancyRepository;
 		this.AmapAdminUserService = AmapAdminUserService;
+		this.graphismService = graphismService;
 	}
 
 	/**
@@ -62,18 +66,18 @@ public class WorkshopController {
 	 */
 	@GetMapping("/form")
 	public String showForm(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
-		
+
 		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
 		Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
 				.orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
 		Address address = tenancy.getAddress();
-		
+
 		model.addAttribute("workshop", new Workshop());
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("users", users);
-	    model.addAttribute("address", address);
+		model.addAttribute("address", address);
 		return "amap/back/workshops/workshop-form";
 	}
 
@@ -81,11 +85,12 @@ public class WorkshopController {
 	 * Saves a new workshop to the database.
 	 */
 	@PostMapping("/add")
-	public String addWorkshop(@ModelAttribute("workshopDTO") WorkshopDTO workshopDTO,  @PathVariable("tenancyAlias") String tenancyAlias) {
+	public String addWorkshop(@ModelAttribute("workshopDTO") WorkshopDTO workshopDTO,
+			@PathVariable("tenancyAlias") String tenancyAlias) {
 		workshopService.save(workshopDTO, tenancyAlias);
-	    if (workshopDTO.getWorkshopName() == null || workshopDTO.getWorkshopName().isEmpty()) {
-	        throw new IllegalArgumentException("Le champ 'Nom du produit' est obligatoire.");
-	    }
+		if (workshopDTO.getWorkshopName() == null || workshopDTO.getWorkshopName().isEmpty()) {
+			throw new IllegalArgumentException("Le champ 'Nom du produit' est obligatoire.");
+		}
 		return "redirect:/" + tenancyAlias + "/backoffice/workshops/list";
 	}
 
@@ -117,56 +122,75 @@ public class WorkshopController {
 	 * Displays the edit form for a specific workshop.
 	 */
 	@GetMapping("/edit/{id}")
-	public String editWorkshopForm(@PathVariable("id") Long id, Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
-	    Workshop workshop = workshopService.findById(id);
+	public String editWorkshopForm(@PathVariable("id") Long id, Model model,
+			@PathVariable("tenancyAlias") String tenancyAlias) {
+		Workshop workshop = workshopService.findById(id);
 
-	    if (workshop == null) {
-	        return "redirect:/amap/workshops/list"; // Redirige si le contrat n'existe pas
-	    }
-	    
-	    // Formater la date et l'heure pour le champ datetime-local
-	    if (workshop.getWorkshopDateTime() != null) {
-	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-	        String formattedDateTime = workshop.getWorkshopDateTime().format(formatter);
-	        model.addAttribute("workshopDateTime", formattedDateTime);
-	    }
-	    
-	    // Récupérer l'utilisateur associé
-	    User user = workshop.getUser();
-	    Address address = null;
-	    if (user != null) {
-	        address = user.getAddress(); // Récupérer l'adresse associée à l'utilisateur
-	    }
+		if (workshop == null) {
+			return "redirect:/amap/workshops/list"; // Redirige si le contrat n'existe pas
+		}
+
+		// Formater la date et l'heure pour le champ datetime-local
+		if (workshop.getWorkshopDateTime() != null) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+			String formattedDateTime = workshop.getWorkshopDateTime().format(formatter);
+			model.addAttribute("workshopDateTime", formattedDateTime);
+		}
+
+		// Récupérer l'utilisateur associé
+		User user = workshop.getUser();
+		Address address = null;
+		if (user != null) {
+			address = user.getAddress(); // Récupérer l'adresse associée à l'utilisateur
+		}
 		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
 		model.addAttribute("users", users);
-	    model.addAttribute("address", address);
-	    model.addAttribute("workshop", workshop);
-	    model.addAttribute("tenancyAlias", tenancyAlias);
+		model.addAttribute("address", address);
+		model.addAttribute("workshop", workshop);
+		model.addAttribute("tenancyAlias", tenancyAlias);
 
-	    return "amap/back/workshops/workshop-edit"; // Nom de la vue pour le formulaire d'édition
+		return "amap/back/workshops/workshop-edit"; // Nom de la vue pour le formulaire d'édition
 	}
-	
+
 	/**
 	 * Displays the details of a specific workshop.
 	 */
 	@GetMapping("/detail/{id}")
-	public String viewWorkshopDetail(@PathVariable("id") Long id, Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
+	public String viewWorkshopDetail(@PathVariable("id") Long id, Model model,
+			@PathVariable("tenancyAlias") String tenancyAlias) {
 		Workshop workshop = workshopService.findById(id);
 		if (workshop == null) {
 			throw new IllegalArgumentException("Contrat introuvable pour l'ID : " + id);
 		}
+		// Formater la date et l'heure pour le champ datetime-local
+		if (workshop.getWorkshopDateTime() != null) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+			String formattedDateTime = workshop.getWorkshopDateTime().format(formatter);
+			model.addAttribute("workshopDateTime", formattedDateTime);
+		}
+		Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
+				.orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+		Address address = tenancy.getAddress();
+		model.addAttribute("address", address);
+		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
+		model.addAttribute("users", users);
 		String formattedDate = workshop.getDateCreation().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 		model.addAttribute("formattedDate", formattedDate);
 		model.addAttribute("workshop", workshop);
 		model.addAttribute("tenancyAlias", tenancyAlias);
+		model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
+		model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
+		model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
+		model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
+		model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
 		return "amap/back/workshops/workshop-detail";
 	}
-	
+
 	@PostMapping("/update")
-	public String updateWorkshop(
-	    @ModelAttribute("workshop") WorkshopDTO updatedWorkshopDTO,
-	    @RequestParam(value = "image", required = false) MultipartFile image, @PathVariable("tenancyAlias") String tenancyAlias) {
-	    
+	public String updateWorkshop(@ModelAttribute("workshop") WorkshopDTO updatedWorkshopDTO,
+			@RequestParam(value = "image", required = false) MultipartFile image,
+			@PathVariable("tenancyAlias") String tenancyAlias) {
+
 		workshopService.updateWorkshop(updatedWorkshopDTO, image, tenancyAlias);
 
 		return "redirect:/" + tenancyAlias + "/backoffice/workshops/list";

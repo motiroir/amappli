@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
-
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
 String currentMainMenu = "products"; // Détermine la rubrique active
 String currentPage = "contracts"; // Détermine la sous-rubrique active
@@ -10,150 +9,205 @@ request.setAttribute("currentMainMenu", currentMainMenu);
 request.setAttribute("currentPage", currentPage);
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Détails du Contrat</title>
+<title>Détails du panier</title>
 <link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />"
 	rel="stylesheet">
-<link
-	href="<c:url value='/resources/css/amap/common/sidebarAdmin.css' />"
+<link href="<c:url value='/resources/css/common/utils.css' />"
+	rel="stylesheet">
+<link href="<c:url value='/resources/css/amap/image-format.css' />"
 	rel="stylesheet">
 <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+	href="<c:url value='/resources/bootstrap/bootstrap-icons.min.css' />"
 	rel="stylesheet">
-<style>
-.header-container {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-}
-
-.form-control:read-only {
-	background-color: #f8f9fa;
-	color: #6c757d;
-	border: none;
-	cursor: not-allowed;
-}
-</style>
 </head>
-<body class="row theme-1 light">
-	<header class="fc-main bg-main">
+<body class="row ${cssStyle} light ${font}-title ${font}-button">
+	<header class="fc-main bg-main border-1 border-alt">
 		<!-- Inclusion du header -->
 		<jsp:include page="../common/headerAdmin.jsp" />
 	</header>
+	<!-- Inclusion de la sidebar -->
 	<jsp:include page="../common/sidebarAdmin.jsp" />
-	<div class="content col">
-		<div class="container mt-5">
+
+	<div id="map" class="p-0"></div>
+
+	<!-- Contenu principal -->
+	<div class="content col fc-main">
+		<div class="container-fluid mt-2">
 			<div class="row justify-content-center">
-				<div class="col-lg-10">
-					<div class="form-container">
-						<div class="header-container">
-							<a
-								href="<c:url value='/${tenancyAlias}/backoffice/contracts/list' />"
-								class="btn-back"> <i class="bi bi-arrow-left-circle"></i>
-							</a>
-							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Détails
-								du contrat</h2>
-							<a
-								href="<c:url value='/${tenancyAlias}/backoffice/contracts/edit/${contract.id}'/>"
-								class="btn btn-primary"> Modifier le contrat </a>
+				<div class="form-container">
+					<div class="header-container">
+						<a
+							href="<c:url value='/${tenancyAlias}/backoffice/contracts/list' />"
+							class="${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900">
+							<i class="bi bi-arrow-left-circle"></i><span
+							class="d-none d-md-inline"> Liste des contracts</span>
+						</a>
+						<div class="d-flex align-items-end gap-3">
+						<h2 class="my-4 fw-bold mb-0">Détails du panier</h2>
+												<label class="form-label mb-0">Créé le ${formattedDate}</label>
 						</div>
-						<form>
-							<div class="row">
-								<!-- Première colonne -->
-								<div class="col-md-4">
-									<div class="mb-3">
-										<label class="form-label">Nom du panier</label> <input
-											type="text" class="form-control"
-											value="${contract.contractName}" readonly>
-									</div>
-									<div class="mb-3">
-										<label class="form-label">Type de panier</label> <input
-											type="text" class="form-control"
-											value="${contract.contractType.displayName}" readonly>
-									</div>
-									<div class="mb-3">
-										<label class="form-label">Taille du panier</label> <input
-											type="text" class="form-control"
-											value="${contract.contractWeight.displayName}" readonly>
-									</div>
-									<div class="mb-3">
-										<label class="form-label">Fournisseur</label> <input
-											type="text" class="form-control"
-											value="${contract.user.companyDetails.companyName}" readonly>
-									</div>
-									<div class="mb-3">
-										<label class="form-label">Date de début du contrat</label> <input
-											type="date" class="form-control"
-											value="${contract.startDate}" readonly>
-									</div>
-									<div class="mb-3">
-										<label class="form-label">Date de fin du contrat</label> <input
-											type="date" class="form-control" value="${contract.endDate}"
-											readonly>
-									</div>
-								</div>
-
-								<!-- Deuxième colonne -->
-								<div class="col-md-4">
-									<div class="mb-3">
-										<label class="form-label">Produits composant le panier</label>
-										<textarea class="form-control" rows="3" readonly>${contract.contractDescription}</textarea>
-									</div>
-									<div class="mb-3">
-										<label class="form-label">Prix de vente</label> <input
-											type="text" class="form-control"
-											value="${contract.contractPrice}€" readonly>
-									</div>
-									<div class="mb-3">
-										<label class="form-label">Fréquence de livraison</label> <input
-											type="text" class="form-control"
-											value="${contract.deliveryRecurrence.displayName}" readonly>
-									</div>
-									<div class="mb-3">
-										<label class="form-label">Jour de livraison</label> <input
-											type="text" class="form-control"
-											value="${contract.deliveryDay.displayName}" readonly>
-									</div>
-									<div class="mb-3">
-										<label class="form-label">Quantité disponible entre
-											chaque livraison</label> <input type="text" class="form-control"
-											value="${contract.quantity} paniers" readonly>
-									</div>
-								</div>
-								<!-- Troisième colonne -->
-								<div class="col-md-4">
-									<div class="mb-3 text-center">
-										<c:if test="${not empty contract.imageData}">
-											<img
-												src="data:${contract.imageType};base64,${contract.imageData}"
-												alt="Image du contrat"
-												style="width: 150px; height: 150px; border-radius: 8px; object-fit: cover;">
-										</c:if>
-										<div class="mb-3">
-											<label class="form-label">Date de création le
-												${formattedDate}</label>
-										</div>
-									</div>
-								</div>
-
-							</div>
-						</form>
+						<br>
 					</div>
+					<form:form method="POST"
+						action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/contracts/update"
+						enctype="multipart/form-data" modelAttribute="contract">
+						<form:errors path="*" cssClass="errorBox" />
+						<form:hidden path="id" value="${contract.id }" />
+						<div class="row">
+							<!-- Première colonne -->
+							<div class="col-md-4">
+								<div class="mb-3">
+									<label class="form-label">Nom du panier</label>
+									<form:input path="contractName" class="form-control"
+										value="${contract.contractName}" />
+								</div>
+								<div class="mb-3">
+									<label for="contractType" class="form-label">Type de
+										panier</label>
+									<form:select path="contractType"
+										class="form-select form-control">
+										<c:forEach var="type" items="${contractTypes}">
+											<form:option value="${type}" label="${type.displayName}" />
+										</c:forEach>
+									</form:select>
+								</div>
+								<div class="mb-3">
+									<label for="contractWeight" class="form-label">Taille
+										du panier</label>
+									<form:select path="contractWeight"
+										class="form-select form-control">
+										<c:forEach var="weight" items="${contractWeights}">
+											<form:option value="${weight}" label="${weight.displayName}" />
+										</c:forEach>
+									</form:select>
+								</div>
+								<div class="mb-3">
+									<label class="form-label">Fournisseur</label> <select
+										id="userId" name="userId" class="form-select" >
+										<option value=""
+											<c:if test="${contract.user == null}">selected</c:if>>Choisir
+											un fournisseur</option>
+										<c:forEach var="user" items="${users}">
+											<option value="${user.userId}"
+												<c:if test="${contract.user != null && contract.user.userId == user.userId}">selected</c:if>>
+												${user.companyDetails.companyName}</option>
+										</c:forEach>
+									</select>
+								</div>
+								<div class="mb-3">
+									<label class="form-label">Date de début du contrat</label>
+									<form:input path="startDate" type="date" class="form-control" />
+								</div>
+								<div class="mb-3">
+									<label class="form-label">Date de fin du contrat</label>
+									<form:input path="endDate" type="date" class="form-control" />
+								</div>
+							</div>
+
+							<!-- Deuxième colonne -->
+							<div class="col-md-4">
+								<div class="mb-3">
+									<label class="form-label">Produits composant le panier</label>
+									<form:textarea path="contractDescription" class="form-control"
+										rows="3"></form:textarea>
+								</div>
+								<div class="mb-3">
+									<label class="form-label">Prix de vente</label>
+									<div class="input-group">
+										<form:input path="contractPrice" type="number" step="0.10"
+											class="form-control" placeholder="Prix" />
+										<span class="input-group-text">€</span>
+									</div>
+								</div>
+								<div class="mb-3">
+									<label class="form-label">Fréquence de livraison</label>
+									<form:select path="deliveryRecurrence"
+										class="form-select form-control">
+										<c:forEach var="recurrence" items="${deliveryRecurrence}">
+											<form:option value="${recurrence}"
+												label="${recurrence.displayName}" />
+										</c:forEach>
+									</form:select>
+								</div>
+								<div class="mb-3">
+									<label class="form-label">Jour de livraison</label>
+									<form:select path="deliveryDay"
+										class="form-select form-control">
+										<c:forEach var="day" items="${deliveryDay}">
+											<form:option value="${day}" label="${day.displayName}" />
+										</c:forEach>
+									</form:select>
+								</div>
+								<div class="mb-3">
+									<label class="form-label">Quantité disponible entre
+										chaque livraison</label>
+									<div class="input-group">
+										<form:input path="quantity" type="number" step="1"
+											class="form-control" placeholder="Quantité" />
+										<span class="input-group-text">paniers</span>
+									</div>
+								</div>
+							</div>
+							<!-- Troisième colonne -->
+							<div class="col-md-4">
+								<div class="mb-3">
+									<label for="image" class="form-label">Photo du panier</label> <input
+										type="file" class="form-control" id="imageInput" name="image"
+										accept="image/png,image/jpeg,image/svg">
+								</div>
+								<div class="mb-3 text-center">
+									<c:if test="${not empty contract.imageData}">
+										<img id="imagePreview"
+											src="data:${contract.imageType};base64,${contract.imageData}"
+											alt="Aperçu du contrat" class="image-preview">
+									</c:if>
+								</div>
+								<div>Adresse du point de collecte :<br>
+								 ${address.line1}
+									${address.line2}, ${address.city} (${address.postCode})</div>
+							</div>
+							<div class="d-flex justify-content-evenly my-5">
+								<div class="col text-center">
+									<button id="submit-button" type="submit" class="btn btn-success rounded-pill">Valider la modification</button>
+								</div>
+								<div class="col text-center">
+									<button type="reset" class="btn btn-danger rounded-pill">Annuler</button>
+								</div>
+							</div>
+						</div>
+					</form:form>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script>
+		var styleMapboxLight = "${mapStyleLight}"
+		var styleMapboxDark = "${mapStyleDark}"
+
+		/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
+		 const tenancyCity = "${tenancy.getAddress().getCity()}"
+		 const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
+		 */
+	</script>
 	<script
-		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
-	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />"
+		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"
 		type="text/javascript"></script>
+	<script
+		src="<c:url value='/resources/js/common/image-format.js' />"
+		type="text/javascript"></script>
+		
+	<script
+		src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
 		type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
 		type="text/javascript"></script>
-
+	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />"
+		type="text/javascript"></script>
 </body>
 </html>

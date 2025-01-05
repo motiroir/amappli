@@ -67,22 +67,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Gérer la prévisualisation de l'image téléchargée
-    function handleFileInputChange() {
-        if (fileInput && previewImage) {
-            fileInput.addEventListener("change", function (event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        previewImage.src = e.target.result; // Met à jour l'URL de l'image
-                    };
-                    reader.readAsDataURL(file); // Lit le fichier comme une URL de données
-                }
-            });
-        }
-    }
-
     // Initialisation des valeurs par défaut
     initializeDates();
 

@@ -109,7 +109,7 @@ request.setAttribute("currentPage", currentPage);
 										<label for="workshopDuration" class="form-label">Durée
 											de l'atelier (en minutes)</label> <input type="number"
 											class="form-control" id="workshopDuration"
-											name="workshopDuration" placeholder="Durée en minutes" required>
+											name="workshopDuration" placeholder="Durée en minutes" step="1" min="1" required>
 											<div class="invalid-feedback"></div>
 									</div>
 									<div class="mb-3">
