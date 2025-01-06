@@ -97,8 +97,9 @@
                 <div class="mb-3">
                     <h3>Quel est le créneau hebdomadaire de collecte de votre AMAP?</h3>
 
-                    <div class="row">
-                        <div class="col-12 col-md-6 mb-3">
+                    <div class="row justify-content-center">
+
+                        <div class="col-12 col-md-6 col-lg-4 mb-3">
                             <label for="dayOfWeek" class="form-label">Jour de la Semaine</label>
                             <form:select class="from-control form-select" path="pickUpSchedule.dayOfWeek" id="dayOfWeek">
                                 <form:option value="">Sélectionnez un Jour</form:option>
@@ -112,13 +113,13 @@
                             </form:select>
                             <form:errors path="pickUpSchedule.dayOfWeek" class="invalid-feedback d-block"/>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-md-6 mb-3">
+                    
+                        <div class="col-12 col-md-6 col-lg-4 mb-3">
                             <label for="startHour" class="form-label">Heure de Début</label>
                             <form:input path="pickUpSchedule.startHour" type="time" class="form-control" id="startHour" required="true" />
                             <form:errors path="pickUpSchedule.startHour" class="invalid-feedback d-block"/>
-
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 mb-3">
                             <label for="endHour" class="form-label">Heure de Fin</label>
                             <form:input path="pickUpSchedule.endHour" type="time" class="form-control" id="endHour" required="true" />
                             <form:errors path="pickUpSchedule.endHour" class="invalid-feedback d-block"/>
@@ -208,8 +209,8 @@
                         <c:forEach items="${fontChoices}" var="font">
                             <div class="col-4 text-center">
                                 <input type="radio" id="font-${font}" value="${font}" name="font-selection"/>
-                                <label for="font-${font}">
-                                    <h2 class="${fn:toLowerCase(font)} enum-choices">${font}</h2>
+                                <label for="font-${font}" class="font-choices d-flex align-items-center justify-content-center">
+                                    <h2 class="${fn:toLowerCase(font)}">${font}</h2>
                                 </label>
                             </div>
                         </c:forEach>
@@ -227,7 +228,7 @@
                     <div id="palette-choices" class="d-flex flex-row justify-content-around">
                         <c:forEach items="${colorPalettes}" var="palette" varStatus="status">
                             <input type="radio" id="palette-${status.index + 1}" name="palette-selection" value="${palette}" />
-                            <label for="palette-${status.index+1}" class="enum-choices">
+                            <label for="palette-${status.index+1}" class="palette-choices">
                                 <img src="<c:url value='/resources/img/palettes_samples/PALETTE${status.index + 1}.svg' />" class="palette-img"/>
                             </label>
                         </c:forEach>
@@ -346,7 +347,7 @@
                 <h3>Des paniers oui, mais quoi d'autre ?</h3>
 
                 <div class="mb-3">
-                    <ul>
+                    <ul class="list-unstyled">
                         <li class="d-flex align-items-center">
                             <span class="me-auto p-2">Souhaitez-vous améliorer le quotidien de vos adhérents en leur proposant des options de favoris, et la possibilité de choisir entre un thème dark et un thème light?</span>
                             <div class="d-flex">
