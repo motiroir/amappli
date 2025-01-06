@@ -14,7 +14,7 @@ import isika.p3.amappli.dto.amap.NewUserDTO;
 import isika.p3.amappli.dto.amappli.NewTenancyDTO;
 import isika.p3.amappli.dto.amappli.ValueDTO;
 import isika.p3.amappli.entities.tenancy.ColorPalette;
-import isika.p3.amappli.entities.tenancy.ContentBlock;
+//import isika.p3.amappli.entities.tenancy.ContentBlock;
 import isika.p3.amappli.entities.tenancy.FontChoice;
 import isika.p3.amappli.exceptions.EmailAlreadyExistsException;
 import isika.p3.amappli.exceptions.TenancyAliasAlreadyTakenException;
@@ -30,12 +30,12 @@ public class PlatformStartController {
 
     private final UserService userService;
     private final TenancyService tenancyService;
-    private final ContentBlockService contentBlockService;
+   // private final ContentBlockService contentBlockService;
 
     public PlatformStartController(UserService userService, TenancyService tenancyService, ContentBlockService contentBlockService) {
         this.userService = userService;
         this.tenancyService = tenancyService;
-        this.contentBlockService = contentBlockService;
+       // this.contentBlockService = contentBlockService;
     }
     
 
@@ -66,6 +66,7 @@ public class PlatformStartController {
 
     @GetMapping("/creation")
     public String createTenancy(Model model) {
+        model.addAttribute("errorspresent", false);
         NewTenancyDTO newTenancyDTO = new NewTenancyDTO();
         // Three possibles values
         List<ValueDTO> values = new ArrayList<ValueDTO>();
@@ -82,7 +83,14 @@ public class PlatformStartController {
 
     @PostMapping("/creation")
     public String tenancyCreation(@Valid @ModelAttribute("newTenancyDTO") NewTenancyDTO newTenancyDTO, BindingResult result, Model model) {
+        
+        model.addAttribute("colorPalettes",ColorPalette.values());
+        model.addAttribute("fontChoices", FontChoice.values());
+        System.out.println(newTenancyDTO.getTenancyAlias());
+        System.out.println("BindingResult has errors: " + result.hasErrors());
         if(result.hasErrors()){
+            result.getAllErrors().forEach(error -> System.out.println(error));
+            model.addAttribute("errorspresent", true);
             return "amappli/front/platformstart/createtenancy";
         }
         // Write tenancy to DB
@@ -91,17 +99,18 @@ public class PlatformStartController {
         }
         catch (TenancyAliasAlreadyTakenException e){
             model.addAttribute("aliasError", e.getMessage());
+            model.addAttribute("errorspresent", true);
             return "amappli/front/platformstart/createtenancy";
         }
         return "amappli/front/platformstart/signupdone";
     }
 
-    @GetMapping("/showimg")
-    public String tryToShowImg(Model model){
-        ContentBlock cb = contentBlockService.findById(1L);
-        String base64Image = "data:"+cb.getContentImgTypeMIME()+";base64," + cb.getContentImg();
-        model.addAttribute("image", base64Image);
-        return "amappli/front/platformstart/showimg";
-    }
+    // @GetMapping("/showimg")
+    // public String tryToShowImg(Model model){
+    //     ContentBlock cb = contentBlockService.findById(1L);
+    //     String base64Image = "data:"+cb.getContentImgTypeMIME()+";base64," + cb.getContentImg();
+    //     model.addAttribute("image", base64Image);
+    //     return "amappli/front/platformstart/showimg";
+    // }
     
 }
