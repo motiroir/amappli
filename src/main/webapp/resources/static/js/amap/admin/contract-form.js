@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const startDateInput = document.getElementById("startDate");
     const endDateInput = document.getElementById("endDate");
-    const fileInput = document.getElementById("image");
-    const previewImage = document.querySelector(".image-preview");
 
     if (!startDateInput || !endDateInput) {
         console.error("Champs startDate ou endDate introuvables !");
@@ -64,22 +62,6 @@ document.addEventListener("DOMContentLoaded", function () {
             if (endDateInput.value < newMinEndDate) {
                 endDateInput.value = newMinEndDate;
             }
-        }
-    }
-
-    // Gérer la prévisualisation de l'image téléchargée
-    function handleFileInputChange() {
-        if (fileInput && previewImage) {
-            fileInput.addEventListener("change", function (event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        previewImage.src = e.target.result; // Met à jour l'URL de l'image
-                    };
-                    reader.readAsDataURL(file); // Lit le fichier comme une URL de données
-                }
-            });
         }
     }
 

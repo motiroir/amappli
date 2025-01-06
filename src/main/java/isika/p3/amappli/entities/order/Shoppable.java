@@ -26,7 +26,7 @@ public abstract class Shoppable {
 	@OneToMany(mappedBy = "shoppable", cascade = CascadeType.ALL)
 	private List<ShoppingCartItem> shoppingCartItems = new ArrayList<ShoppingCartItem>();
 	@Getter @Setter
-	@OneToMany(mappedBy = "shoppable", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "shoppable", cascade = CascadeType.ALL)
 	private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 	
 	

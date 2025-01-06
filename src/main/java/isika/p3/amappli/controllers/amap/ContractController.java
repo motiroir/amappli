@@ -29,6 +29,7 @@ import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
 import isika.p3.amappli.service.amap.AmapAdminUserService;
 import isika.p3.amappli.service.amap.ContractService;
+import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.UserService;
 import isika.p3.amappli.service.amappli.TenancyService;
 
@@ -39,12 +40,14 @@ public class ContractController {
 	private final ContractService contractService;
 	private final TenancyRepository tenancyRepository;
 	private final AmapAdminUserService AmapAdminUserService;
+    private final GraphismService graphismService;
 
-	public ContractController(AmapAdminUserService AmapAdminUserService, ContractService contractService,
+	public ContractController(GraphismService graphismService, AmapAdminUserService AmapAdminUserService, ContractService contractService,
 			TenancyRepository tenancyrepository) {
 		this.contractService = contractService;
 		this.AmapAdminUserService = AmapAdminUserService;
 		this.tenancyRepository = tenancyrepository;
+		this.graphismService = graphismService;
 	}
 
 	/**
@@ -85,6 +88,7 @@ public class ContractController {
 	    model.addAttribute("address", address);
 		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		model.addAttribute("currentDate", currentDate);
+		addGraphismAttributes(tenancyAlias, model);
 
 		return "amap/back/contracts/contract-form";
 	}
@@ -112,6 +116,7 @@ public class ContractController {
 		model.addAttribute("users", users);
 		model.addAttribute("contracts", contracts);
 		model.addAttribute("tenancyAlias", tenancyAlias);
+		addGraphismAttributes(tenancyAlias, model);
 		return "amap/back/contracts/contract-list";
 	}
 
@@ -148,6 +153,7 @@ public class ContractController {
 		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
 		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
 
+
 		return "amap/back/contracts/contract-edit"; // Nom de la vue pour le formulaire d'édition
 	}
 
@@ -161,10 +167,21 @@ public class ContractController {
 		if (contract == null) {
 			throw new IllegalArgumentException("Contrat introuvable pour l'ID : " + id);
 		}
+	    Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
+	            .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+	    Address address = tenancy.getAddress();
+	    model.addAttribute("address", address);
+		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
+		model.addAttribute("users", users);
+		model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
+		model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
+		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
+		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
 		String formattedDate = contract.getDateCreation().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 		model.addAttribute("formattedDate", formattedDate);
 		model.addAttribute("contract", contract);
 		model.addAttribute("tenancyAlias", tenancyAlias);
+		addGraphismAttributes(tenancyAlias, model);
 		return "amap/back/contracts/contract-detail";
 	}
 
@@ -177,6 +194,20 @@ public class ContractController {
 		contractService.updateContract(updatedContractDTO, image, tenancyAlias);
 
 		return "redirect:/" + tenancyAlias + "/backoffice/contracts/list";
+	}
+	
+	public void addGraphismAttributes(String alias, Model model) {
+		// get map style depending on tenancy
+		model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
+		model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+		model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
+		model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
+		// get tenancy info for header footer
+		model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
+		// get color palette
+		model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
+		// get font choice
+		model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
 	}
 
 }

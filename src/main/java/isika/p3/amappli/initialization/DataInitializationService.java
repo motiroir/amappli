@@ -2,8 +2,14 @@ package isika.p3.amappli.initialization;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,10 +22,12 @@ import isika.p3.amappli.entities.tenancy.ContentBlock;
 import isika.p3.amappli.entities.tenancy.FontChoice;
 import isika.p3.amappli.entities.tenancy.Graphism;
 import isika.p3.amappli.entities.tenancy.HomePageContent;
+import isika.p3.amappli.entities.tenancy.PickUpSchedule;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.entities.user.ContactInfo;
 import isika.p3.amappli.entities.user.User;
+import isika.p3.amappli.repo.amap.ContractRepository;
 import isika.p3.amappli.repo.amap.RoleRepository;
 import isika.p3.amappli.repo.amap.UserRepository;
 import isika.p3.amappli.repo.amappli.PermissionRepository;
@@ -39,6 +47,8 @@ public class DataInitializationService {
 	private RoleRepository roleRepository;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private ContractRepository contractRepository;
 
 	public void dataInit() {
 		try {
@@ -246,7 +256,7 @@ public class DataInitializationService {
 				.tenancySlogan("Manger bio, c'est facile avec BioColi!").email("contact@biocoli.fr")
 				.address(new Address("A12", "12 avenue de la localité", "69000", "Lyon"))
 				.dateCreated(LocalDateTime.now()).dateLastModified(LocalDateTime.now()).tenancyLatitude("45.7400000") // lyon
-				.tenancyLongitude("4.6370000").build();
+				.tenancyLongitude("4.6370000").membershipFeePrice(new BigDecimal("10.0")).build();
 
 		// Création du ContactInfo pour la Tenancy
 		ContactInfo contactInfo1 = ContactInfo.builder().name("Jean").firstName("Dupont").phoneNumber("0612345678")
@@ -315,6 +325,14 @@ public class DataInitializationService {
 		homePageContent1.getContents().add(valueBlock1);
 		homePageContent1.getContents().add(valueBlock2);
 		homePageContent1.getContents().add(valueBlock3);
+		
+	    // Création et configuration du PickUpSchedule
+	    PickUpSchedule pickUpSchedule1 = PickUpSchedule.builder()
+	        .dayOfWeek(DayOfWeek.MONDAY) // Jour de ramassage
+	        .startHour(LocalTime.of(12, 0))  // Heure de début
+	        .endHour(LocalTime.of(19, 0))   // Heure de fin
+	        .build();
+	    t1.setPickUpSchedule(pickUpSchedule1);
 
 		// Associer le HomePageContent à la Tenancy
 		t1.setHomePageContent(homePageContent1);
@@ -328,7 +346,7 @@ public class DataInitializationService {
 				.tenancySlogan("L'innovation au service de l'agriculture de proximité").email("agrinov@gmail.com")
 				.address(new Address("", "Cave voutée de la Garenne Valentin", "63000", "Clermont-Ferrand"))
 				.dateCreated(LocalDateTime.now()).dateLastModified(LocalDateTime.now()).tenancyLatitude("45.6150000") // clermont-ferrand
-				.tenancyLongitude("3.2680000").build();
+				.tenancyLongitude("3.2680000").membershipFeePrice(new BigDecimal("15.0")).build();
 
 		// Création du ContactInfo pour la Tenancy
 		ContactInfo contactInfo2 = ContactInfo.builder().name("Jean").firstName("Dupont").phoneNumber("0622345678")
@@ -390,6 +408,14 @@ public class DataInitializationService {
 		homePageContent2.getContents().add(valueBlock21);
 		homePageContent2.getContents().add(valueBlock22);
 		homePageContent2.getContents().add(valueBlock23);
+		
+	    // Création et configuration du PickUpSchedule
+	    PickUpSchedule pickUpSchedule2 = PickUpSchedule.builder()
+	        .dayOfWeek(DayOfWeek.SATURDAY) // Jour de ramassage
+	        .startHour(LocalTime.of(17, 0))  // Heure de début
+	        .endHour(LocalTime.of(20, 0))   // Heure de fin
+	        .build();
+	    t2.setPickUpSchedule(pickUpSchedule2);
 
 		// Associer le HomePageContent à la Tenancy
 		t2.setHomePageContent(homePageContent2);
@@ -404,7 +430,7 @@ public class DataInitializationService {
 				.address(new Address("", "16 rue D'Astorg", "44100", "Nantes")).dateCreated(LocalDateTime.now())
 				.dateLastModified(LocalDateTime.now()).tenancyLatitude("46.5050000") // nantes -> exemple peu de
 																						// dénivelés
-				.tenancyLongitude("-0.5140000").build();
+				.tenancyLongitude("-0.5140000").membershipFeePrice(new BigDecimal("20.0")).build();
 
 		// Création du ContactInfo pour la Tenancy
 		ContactInfo contactInfo3 = ContactInfo.builder().name("Jean").firstName("Dupont").phoneNumber("0612345678")
@@ -468,6 +494,14 @@ public class DataInitializationService {
 		homePageContent3.getContents().add(valueBlock31);
 		homePageContent3.getContents().add(valueBlock32);
 		homePageContent3.getContents().add(valueBlock33);
+		
+	    // Création et configuration du PickUpSchedule
+	    PickUpSchedule pickUpSchedule3 = PickUpSchedule.builder()
+	        .dayOfWeek(DayOfWeek.TUESDAY) // Jour de ramassage
+	        .startHour(LocalTime.of(17, 0))  // Heure de début
+	        .endHour(LocalTime.of(20, 0))   // Heure de fin
+	        .build();
+	    t3.setPickUpSchedule(pickUpSchedule3);
 
 		// Associer le HomePageContent à la Tenancy
 		t3.setHomePageContent(homePageContent3);
@@ -480,7 +514,7 @@ public class DataInitializationService {
 				.tenancySlogan("Un havre de fraîcheur pour vos produits locaux").email("greenHaven@gmail.com")
 				.address(new Address("", "24 rue des Lilas", "65240", "Aulon")).dateCreated(LocalDateTime.now())
 				.dateLastModified(LocalDateTime.now()).tenancyLatitude("46.0170000") // aulon, creuse
-				.tenancyLongitude("1.6550000").build();
+				.tenancyLongitude("1.6550000").membershipFeePrice(new BigDecimal("10.0")).build();
 
 		// Création du ContactInfo pour la Tenancy
 		ContactInfo contactInfo4 = ContactInfo.builder().name("Jean").firstName("Dupont").phoneNumber("0612345678")
@@ -531,6 +565,14 @@ public class DataInitializationService {
 		homePageContent4.getContents().add(valueBlock41);
 		homePageContent4.getContents().add(valueBlock42);
 		homePageContent4.getContents().add(valueBlock43);
+		
+	    // Création et configuration du PickUpSchedule
+	    PickUpSchedule pickUpSchedule4 = PickUpSchedule.builder()
+	        .dayOfWeek(DayOfWeek.FRIDAY) // Jour de ramassage
+	        .startHour(LocalTime.of(14, 0))  // Heure de début
+	        .endHour(LocalTime.of(20, 0))   // Heure de fin
+	        .build();
+	    t4.setPickUpSchedule(pickUpSchedule4);
 
 		t4.setHomePageContent(homePageContent4);
 
@@ -541,7 +583,7 @@ public class DataInitializationService {
 				.tenancySlogan("Des champs verts pour des générations durables").email("lacarottedechantenay@gmail.com")
 				.address(new Address("", "25 avenue des Champs Verts", "74000", "Annecy"))
 				.dateCreated(LocalDateTime.now()).dateLastModified(LocalDateTime.now()).tenancyLatitude("45.8440000") // annecy,
-				.tenancyLongitude("6.1940000").build();
+				.tenancyLongitude("6.1940000").membershipFeePrice(new BigDecimal("15.0")).build();
 
 		// Création du ContactInfo pour la Tenancy
 		ContactInfo contactInfo5 = ContactInfo.builder().name("Jean").firstName("Dupont").phoneNumber("0612345678")
@@ -595,6 +637,14 @@ public class DataInitializationService {
 		homePageContent5.getContents().add(valueBlock51);
 		homePageContent5.getContents().add(valueBlock52);
 		homePageContent5.getContents().add(valueBlock53);
+		
+	    // Création et configuration du PickUpSchedule
+	    PickUpSchedule pickUpSchedule5 = PickUpSchedule.builder()
+	        .dayOfWeek(DayOfWeek.FRIDAY) // Jour de ramassage
+	        .startHour(LocalTime.of(9, 0))  // Heure de début
+	        .endHour(LocalTime.of(19, 0))   // Heure de fin
+	        .build();
+	    t5.setPickUpSchedule(pickUpSchedule5);
 
 		t5.setHomePageContent(homePageContent5);
 
@@ -606,7 +656,7 @@ public class DataInitializationService {
 				.tenancySlogan("Des produits de la Terre pour les gens d'ici").email("terralocal@gmail.com")
 				.address(new Address("", "10 rue des Cultures", "13260", "Cassis")).dateCreated(LocalDateTime.now())
 				.dateLastModified(LocalDateTime.now()).tenancyLatitude("43.2140000") // cassis, bord de mer
-				.tenancyLongitude("5.5370000").build();
+				.tenancyLongitude("5.5370000").membershipFeePrice(new BigDecimal("20.0")).build();
 
 		// Création du ContactInfo pour la Tenancy
 		ContactInfo contactInfo6 = ContactInfo.builder().name("Jean").firstName("Dupont").phoneNumber("0612345678")
@@ -662,10 +712,20 @@ public class DataInitializationService {
 
 		t6.setHomePageContent(homePageContent6);
 
+	    // Création et configuration du PickUpSchedule
+	    PickUpSchedule pickUpSchedule6 = PickUpSchedule.builder()
+	        .dayOfWeek(DayOfWeek.WEDNESDAY) // Jour de ramassage
+	        .startHour(LocalTime.of(8, 0))  // Heure de début
+	        .endHour(LocalTime.of(19, 0))   // Heure de fin
+	        .build();
+	    t6.setPickUpSchedule(pickUpSchedule6);
+	    
 		// Sauvegarder la Tenancy
 		tenancyRepository.save(t6);
 
 	}
+
+
 
 	private String loadImageFromResources(String imageName) throws IOException {
 		InputStream imageStream = getClass().getClassLoader().getResourceAsStream("image/" + imageName);
