@@ -75,7 +75,7 @@ request.setAttribute("currentPage", currentPage);
 					<label for="quantity">Quantité :</label> <input type="number"
 						id="quantity" name="quantity" value="1" min="1">
 				</div>
-				<input type="hidden" name="shoppableId" value="${contract.id}">
+				<input type="hidden" name="shoppableId" value="${product.id}">
 				<input type="hidden" name="shoppableType" value="PRODUCT">
 				<button type="submit" class="btn-add-to-cart">Ajouter au
 					panier</button>

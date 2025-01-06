@@ -59,7 +59,7 @@ request.setAttribute("currentPage", currentPage);
 												<em>En stock</em>
 											</p>
 											<a
-												href="<c:url value='/${tenancyAlias}/shop/products/${product.id}' />"
+												href="<c:url value='/amap/${tenancyAlias}/shop/products/${product.id}' />"
 												class="btn btn-main rounded-pill bg-main">Voir les
 												détails</a>
 										</div>

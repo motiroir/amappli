@@ -54,7 +54,7 @@ request.setAttribute("currentPage", currentPage);
 										<b>${workshop.workshopPrice}&euro;/personne</b>
 									</p>
 									<a
-										href="<c:url value='/${tenancyAlias}/shop/workshops/${workshop.id}' />"
+										href="<c:url value='/amap/${tenancyAlias}/shop/workshops/${workshop.id}' />"
 										class="btn btn-main rounded-pill bg-main">Voir les détails</a>
 								</div>
 							</div>

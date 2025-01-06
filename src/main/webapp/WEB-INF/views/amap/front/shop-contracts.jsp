@@ -55,7 +55,7 @@ request.setAttribute("currentPage", currentPage);
 										€</b> <br> <em>${contract.deliveryRecurrence.displayName}</em>
 									</p>
 									<a
-										href="<c:url value='/${tenancyAlias}/shop/contracts/${contract.id}' />"
+										href="<c:url value='/amap/${tenancyAlias}/shop/contracts/${contract.id}' />"
 										class="btn btn-main rounded-pill bg-main">Voir les détails</a>
 								</div>
 							</div>
