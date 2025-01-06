@@ -62,7 +62,7 @@ request.setAttribute("currentPage", currentPage);
 									<td>${order.orderDate}</td>
 									<td>${order.totalAmount}€</td>
 									<td><c:if test="${order.orderPaid}">
-										Paiement en ligne
+										<c:forEach var="payment" items="${order.payments}">${payment.paymentType.displayName} </c:forEach> 
 									</c:if> <c:if test="${!order.orderPaid}">
 										Paiement sur place
 									</c:if></td>

@@ -59,36 +59,40 @@ request.setAttribute("currentPage", currentPage);
 							<p>
 								Type de Paiement :
 								<c:if test="${order.orderPaid}">
-										Paiement en ligne
-									</c:if>
+									<c:forEach var="payment" items="${order.payments}">${payment.paymentType.displayName} </c:forEach>
+								</c:if>
 								<c:if test="${!order.orderPaid}">
 										Paiement sur place
 									</c:if>
 							</p>
 						</div>
-						<div class="order-details">
-							<h3>Valider la récupération</h3>
-							<p>L'adhérent a récupéré sa commande.</p>
-							<c:if test="${order.orderPaid}">
-								<p>L'adhérent a réglé sa commande en ligne.</p>
-							</c:if>
-							<form method="post"
-								action="${pageContext.request.contextPath}/${tenancyAlias}/order/updateOrder">
-								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-								<c:if test="${!order.orderPaid}">
-									<p>Sélectionnez le type de paiement de l'adhérent</p>
-									<select name="paymentType">
-										<option value="">-- Sélectionnez un mode de paiement
-											--</option>
-										<option value="Carte bleue">Carte bleue</option>
-										<option value="Chèque">Chèque</option>
-										<option value="Espèces">Espèces</option>
-									</select>
-								</c:if>
-								<input type="hidden" name="orderId" value="${order.orderId}" />
-								<button type="submit" class="btn btn-100">Valider</button>
+						<c:if test="${order.orderStatus.displayName != 'Récupérée'}">
+								<form class="order-details" method="post"
+									action="${pageContext.request.contextPath}/${tenancyAlias}/order/updateOrder">
+									<div>
+										<h3>Valider la récupération</h3>
+										<c:if test="${order.orderPaid}">
+											<p>L'adhérent a déjà réglé sa commande en ligne.</p>
+										</c:if>
+										<input type="hidden" name="${_csrf.parameterName}"
+											value="${_csrf.token}" />
+										<c:if test="${!order.orderPaid}">
+											<p>Sélectionnez le type de paiement de l'adhérent</p>
+											<select name="paymentType">
+												<option value="">-- Sélectionnez un mode de
+													paiement --</option>
+												<option value="Carte bleue">Carte bleue</option>
+												<option value="Chèque">Chèque</option>
+												<option value="Espèces">Espèces</option>
+											</select>
+										</c:if>
+										<input type="hidden" name="orderId" value="${order.orderId}" />
+									</div>
+									<div class="order-button">
+										<button type="submit" class="btn btn-100">Valider</button>
+									</div>
 							</form>
-						</div>
+						</c:if>
 					</div>
 					<table class="table">
 						<h3>Détails des produits</h3>

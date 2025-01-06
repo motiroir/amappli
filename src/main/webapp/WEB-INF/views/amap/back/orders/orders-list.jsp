@@ -68,7 +68,7 @@
 								<th>Nom</th>
 								<th>Date</th>
 								<th>Statut</th>
-								<th></th>
+								<th>Type de paiement</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -82,7 +82,7 @@
 									<td>${order.orderDate}</td>
 									<td>${order.orderStatus.displayName}</td>
 									<td><c:if test="${order.orderPaid}">
-										Paiement en ligne
+										<c:forEach var="payment" items="${order.payments}">${payment.paymentType.displayName} </c:forEach> 
 									</c:if> <c:if test="${!order.orderPaid}">
 										Paiement sur place
 									</c:if></td>

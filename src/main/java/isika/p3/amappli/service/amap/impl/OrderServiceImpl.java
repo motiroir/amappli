@@ -59,9 +59,15 @@ public class OrderServiceImpl {
         } return cart;
     }
     
+    @Transactional
     public List<Order> getOrdersByTenancyAlias(String alias){
     	Tenancy tenancy = tenancyRepo.findByTenancyAlias(alias).orElse(null);
-    	return orderRepo.findOrdersByTenancyId(tenancy.getTenancyId());
+    	List<Order> orders = orderRepo.findOrdersByTenancyId(tenancy.getTenancyId());
+    	for (Order order : orders) {
+			orderRepo.findOrderWithPayments(order.getOrderId());
+			orderRepo.findOrderWithItems(order.getOrderId());
+		}
+    	return orders;
     }
 	
 	public List<OrderItem> copyCartItemsListToOrderItemsList(List<ShoppingCartItem> cartItems) {
@@ -163,14 +169,16 @@ public class OrderServiceImpl {
 	public List<Order> getListOrdersByUser(Long userId) {
 		User user = userRepo.findUserWithOrders(userId);
 		for (Order order : user.getOrders()) {
-			orderRepo.findOrderWithItems(order.getOrderId());
 			orderRepo.findOrderWithPayments(order.getOrderId());
+			orderRepo.findOrderWithItems(order.getOrderId());
 		}
 		return user.getOrders();
 	}
 	
+	@Transactional
 	public Order getOrderById(Long orderId) {
+		orderRepo.findOrderWithPayments(orderId);
 		return orderRepo.findOrderWithItemsAndShoppable(orderId);
 	}
-
+	
 }
