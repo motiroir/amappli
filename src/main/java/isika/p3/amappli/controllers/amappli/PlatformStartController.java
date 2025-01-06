@@ -66,6 +66,7 @@ public class PlatformStartController {
 
     @GetMapping("/creation")
     public String createTenancy(Model model) {
+        model.addAttribute("errorspresent", false);
         NewTenancyDTO newTenancyDTO = new NewTenancyDTO();
         // Three possibles values
         List<ValueDTO> values = new ArrayList<ValueDTO>();
@@ -82,7 +83,14 @@ public class PlatformStartController {
 
     @PostMapping("/creation")
     public String tenancyCreation(@Valid @ModelAttribute("newTenancyDTO") NewTenancyDTO newTenancyDTO, BindingResult result, Model model) {
+        
+        model.addAttribute("colorPalettes",ColorPalette.values());
+        model.addAttribute("fontChoices", FontChoice.values());
+        System.out.println(newTenancyDTO.getTenancyAlias());
+        System.out.println("BindingResult has errors: " + result.hasErrors());
         if(result.hasErrors()){
+            result.getAllErrors().forEach(error -> System.out.println(error));
+            model.addAttribute("errorspresent", true);
             return "amappli/front/platformstart/createtenancy";
         }
         // Write tenancy to DB
@@ -91,6 +99,7 @@ public class PlatformStartController {
         }
         catch (TenancyAliasAlreadyTakenException e){
             model.addAttribute("aliasError", e.getMessage());
+            model.addAttribute("errorspresent", true);
             return "amappli/front/platformstart/createtenancy";
         }
         return "amappli/front/platformstart/signupdone";

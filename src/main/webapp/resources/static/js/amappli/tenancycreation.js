@@ -31,8 +31,32 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    submitButton.addEventListener("click", function (event) {
+        // Prevent form submission if invalid
+        if (!checkFormValidity()) {
+            event.preventDefault();
+            // Show all form parts
+            allFormParts.forEach(part => part.style.display = "block");
+            goBackButton.style.display = "none";
+            // Scroll to the first invalid field
+            const firstInvalidField = document.querySelector('.form-part :invalid');
+            if (firstInvalidField) {
+                firstInvalidField.scrollIntoView({ behavior: "smooth", block: "center" });
+                firstInvalidField.focus();
+            }
+        }
+    });
+
     updateVisibility();
 
+    // console.log("errorpresent value in external script:", window.errorpresent);
+    console.log("value of errorpresent");
+    console.log(errorpresent);
+    if(errorpresent == "true"){
+        console.log("errors are present");
+        allFormParts.forEach(part => part.style.display = "block");
+        goBackButton.style.display = "none";
+    }
 
     function updateVisibility() {
         //update progress bar
@@ -149,5 +173,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     inputTenancyName.addEventListener('input', checkTenancyNameLength);
 
+    function checkFormValidity() {
+        const form = document.querySelector('form'); // Adjust selector if your form has a specific ID or class
+        return form.checkValidity(); // This checks the validity of all form fields
+    }
 
 });
