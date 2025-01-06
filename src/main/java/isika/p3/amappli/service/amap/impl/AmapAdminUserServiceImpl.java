@@ -169,8 +169,8 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 				.build();
             this.companyDetailsService.save(cD);
             Set<Role> roles = new HashSet<>();
-            Role member = roleService.findByName("MEMBER USER");
-            Role supplier = roleService.findByName("SUPPLIER");
+            Role member = roleService.findByName("Adherent");
+            Role supplier = roleService.findByName("Producteur");
             roles.add(i%2 == 0 ? member : supplier);
             roles.add(i%4 == 0 ? supplier : null);
             
@@ -222,7 +222,7 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 	public List<User> findSuppliers(String tenancyAlias) {
 		return ((List<User>) userService.findAll()).stream()
 				.filter(u -> tenancyAlias.equals(u.getTenancy().getTenancyAlias()) 
-						&& u.getRoles().contains(roleService.findByName("SUPPLIER"))
+						&& u.getRoles().contains(roleService.findByName("Producteur"))
 						&& u.isActive())
 				.sorted((u1,u2)->u2.getUserId().compareTo(u1.getUserId()))
 				.toList();
@@ -232,7 +232,7 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 	public List<User> findSuppliers(Long tenancyId) {
 		return ((List<User>) userService.findAll()).stream()
 				.filter(u -> u.getTenancy().getTenancyId() == tenancyId 
-						&& u.getRoles().contains(roleService.findByName("SUPPLIER"))
+						&& u.getRoles().contains(roleService.findByName("Producteur"))
 						&& u.isActive()
 						&& u.getCompanyDetails() != null
 						&& u.getCompanyDetails().getCompanyName() != null)

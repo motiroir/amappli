@@ -38,7 +38,7 @@ public class RoleController {
 	public String listRoles(Model model) {
 		List<Role> roles = roleService.findAllRoles();
 		model.addAttribute("roles", roles);
-		return "roles/roleslist";
+		return "/amappli/back/roles/roleslist";
 	}
 
 	@GetMapping("/manage")

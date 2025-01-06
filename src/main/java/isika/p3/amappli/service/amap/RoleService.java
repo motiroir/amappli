@@ -12,6 +12,8 @@ public interface RoleService {
 	Role findById(Long roleId);
 
 	List<Role> findAllRoles();
+	
+	List<Role> findAmapRoles(String TenancyAlias);
 
 	Role createRole(Role role);
 

@@ -89,20 +89,7 @@
 									<td class="d-table-cell d-md-none"></td>
 									<td>
 										<c:forEach var="role" items="${user.roles}">
-											<c:choose>
-	                                            <c:when test="${role.name.equals('ADMIN')}">
-	                                            	<span>Admin</span>
-	                                            </c:when>
-	                                            <c:when test="${role.name.equals('MEMBER USER')}">
-	                                            	<span>Adhérent</span>
-	                                            </c:when>
-	                                            <c:when test="${role.name.equals('SUPPLIER')}">
-	                                            	<span>Producteur</span>
-	                                            </c:when>
-	                                            <c:otherwise>
-	                                            	<span>${role.name.toLowerCase()}</span>
-	                                            </c:otherwise>
-                                            </c:choose>
+	                                        <span>${role.name}</span>
 										</c:forEach>
 									</td>
 									<td>
