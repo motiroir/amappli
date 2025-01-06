@@ -129,20 +129,18 @@ public class TenancyServiceImpl implements TenancyService {
 		// Options
 		Options options = new Options();
 		if (newTenancyDTO.getOption().equals("option-1")) {
-			options.setOption1Active(true);
+			options.setOption1Active(false);
 			options.setOption2Active(false);
-			options.setOption3Active(false);
 		} else if (newTenancyDTO.getOption().equals("option-2")) {
 			options.setOption1Active(true);
-			options.setOption2Active(true);
-			options.setOption3Active(false);
+			options.setOption2Active(false);
 		} else if (newTenancyDTO.getOption().equals("option-3")) {
 			options.setOption1Active(true);
 			options.setOption2Active(true);
-			options.setOption3Active(true);
+
 		}
 
-		options.setTenancy(tenancy);
+		options.addTenancy(tenancy);
 		tenancy.setOptions(options);
 		// HomePageContent
 		HomePageContent homePageContent = new HomePageContent();

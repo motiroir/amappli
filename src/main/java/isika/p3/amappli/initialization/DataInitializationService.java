@@ -18,15 +18,21 @@ import isika.p3.amappli.entities.tenancy.ContentBlock;
 import isika.p3.amappli.entities.tenancy.FontChoice;
 import isika.p3.amappli.entities.tenancy.Graphism;
 import isika.p3.amappli.entities.tenancy.HomePageContent;
+import isika.p3.amappli.entities.tenancy.Options;
 import isika.p3.amappli.entities.tenancy.PickUpSchedule;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.Address;
+import isika.p3.amappli.entities.user.CompanyDetails;
 import isika.p3.amappli.entities.user.ContactInfo;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.repo.amap.ContractRepository;
 import isika.p3.amappli.repo.amap.UserRepository;
+import isika.p3.amappli.repo.amappli.OptionsRepository;
 import isika.p3.amappli.repo.amappli.PermissionRepository;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
+import isika.p3.amappli.service.amap.AddressService;
+import isika.p3.amappli.service.amap.CompanyDetailsService;
+import isika.p3.amappli.service.amap.ContactInfoService;
 import isika.p3.amappli.service.amap.RoleService;
 import jakarta.transaction.Transactional;
 
@@ -42,9 +48,17 @@ public class DataInitializationService {
 	@Autowired
 	private RoleService roleService;
 	@Autowired
+	private AddressService addressService;
+	@Autowired
+	private ContactInfoService contactInfoService;
+	@Autowired
+	private CompanyDetailsService companyDetailsService;
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private ContractRepository contractRepository;
+	@Autowired
+	private OptionsRepository optionsRepository;
 
 	public void dataInit() {
 		try {
@@ -165,206 +179,305 @@ public class DataInitializationService {
 
 		// users creation
 		User user1 = User.builder().email("marie.durand@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
-				.address(Address.builder().line2("5 avenue des Roses").line1("Appartement 12").postCode("44000")
-						.city("Nantes").build())
-				.contactInfo(ContactInfo.builder().name("Durand").firstName("Marie").phoneNumber("0601010101").build())
-				.isActive(true)
-				//.tenancy(tenancy) platform admin are not assigned to a tenancy
-				.build();
+									.isActive(true)
+									.tenancy(tenancy)
+									.build();
 		user1.getRoles().add(AdminPlateforme);
 		saveUser(user1);
-
+		Address a1 = Address.builder().line2("5 avenue des Roses").line1("Appartement 12").postCode("44000").city("Nantes").user(user1).build();
+		addressService.save(a1);
+		ContactInfo ci1 = ContactInfo.builder().name("Durand").firstName("Marie").phoneNumber("0601010101").user(user1).build();
+		contactInfoService.save(ci1);
+		user1.setAddress(a1);
+		user1.setContactInfo(ci1);
+		saveUser(user1);
+		
 		User user2 = User.builder().email("lucas.martin@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
-				.address(Address.builder().line2("12 rue de la Liberté").line1("Bâtiment B").postCode("44100")
-						.city("Nantes").build())
-				.contactInfo(ContactInfo.builder().name("Martin").firstName("Lucas").phoneNumber("0612345678").build())
-				.isActive(true)
-				.tenancy(tenancy)
-				.build();
+									.isActive(true)
+									.tenancy(tenancy)
+									.build();
 		user2.getRoles().add(Admin);
 		saveUser(user2);
-
+		Address a2 = Address.builder().line2("12 rue de la Liberté").line1("Bâtiment B").postCode("44100").city("Nantes").user(user2).build();
+		addressService.save(a2);
+		ContactInfo ci2 = ContactInfo.builder().name("Martin").firstName("Lucas").phoneNumber("0612345678").user(user2).build();
+		contactInfoService.save(ci2);
+		user2.setAddress(a2);
+		user2.setContactInfo(ci2);
+		saveUser(user2);
+		
 		User user3 = User.builder().email("jeanne.lemoine@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
-				.address(Address.builder().line2("15 boulevard des Alpes").line1("").postCode("44120")
-						.city("Vertou").build())
-				.contactInfo(
-						ContactInfo.builder().name("Lemoine").firstName("Jeanne").phoneNumber("0678987654").build())
-				.isActive(true)
-				.tenancy(tenancy)
-				.build();
+									.isActive(true)
+									.tenancy(tenancy)
+									.build();
 		user3.getRoles().add(Member);
 		user3.getRoles().add(Supplier);
 		saveUser(user3);
-
+		
+		Address a3 = Address.builder().line2("15 boulevard des Alpes").line1("").postCode("44120").city("Vertou").user(user3).build();
+		addressService.save(a3);
+		ContactInfo ci3 = ContactInfo.builder().name("Lemoine").firstName("Jeanne").phoneNumber("0678987654").user(user3).build();
+		contactInfoService.save(ci3);
+		CompanyDetails cd3 = CompanyDetails.builder().companyName("L'arbre sur la colline").siretNumber("48151623422025").user(user3).build();
+		companyDetailsService.save(cd3);
+		user3.setAddress(a3);
+		user3.setContactInfo(ci3);
+		user3.setCompanyDetails(cd3);
+		saveUser(user3);
+		
 		User user4 = User.builder().email("thomas.dupuis@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
-				.address(Address.builder().line2("28 rue du Marché").line1("").postCode("44200").city("Nantes").build())
-				.contactInfo(ContactInfo.builder().name("Dupuis").firstName("Thomas").phoneNumber("0611223344").build())
-				.isActive(true)
-				.tenancy(tenancy)
-				.build();
+									.isActive(true)
+									.tenancy(tenancy)
+									.build();
 		user4.getRoles().add(Member);
 		saveUser(user4);
-
+		Address a4 = Address.builder().line2("28 rue du Marché").line1("").postCode("44200").city("Nantes").user(user4).build();
+		addressService.save(a4);
+		ContactInfo ci4 = ContactInfo.builder().name("Dupuis").firstName("Thomas").phoneNumber("0611223344").user(user4).build();
+		contactInfoService.save(ci4);
+		user4.setAddress(a4);
+		user4.setContactInfo(ci4);
+		
 		User user5 = User.builder().email("claire.fournier@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
-				.address(Address.builder().line2("31 rue des Lilas").line1("Appartement 4").postCode("44130")
-						.city("Machecoul").build())
-				.contactInfo(
-						ContactInfo.builder().name("Fournier").firstName("Claire").phoneNumber("0698765432").build())
-				.isActive(true)
-				.tenancy(tenancy)
-				.build();
+									.isActive(true)
+									.tenancy(tenancy)
+									.build();
 		user5.getRoles().add(Supplier);
 		saveUser(user5);
-
+		Address a5 = Address.builder().line2("31 rue des Lilas").line1("Appartement 4").postCode("44130").city("Machecoul").user(user5).build();
+		addressService.save(a5);
+		ContactInfo ci5 = ContactInfo.builder().name("Fournier").firstName("Claire").phoneNumber("0698765432").user(user5).build();
+		contactInfoService.save(ci5);
+		CompanyDetails cd5 = CompanyDetails.builder().companyName("Le verger exotique").siretNumber("16497583162945").user(user5).build();
+		companyDetailsService.save(cd5);
+		user5.setCompanyDetails(cd5);
+		user5.setAddress(a5);
+		user5.setContactInfo(ci5);
+		saveUser(user5);
+		
 		User user6 = User.builder().email("charlotte.petit@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
-				.address(Address.builder().line2("42 rue du Soleil").line1("").postCode("35000").city("Rennes").build())
-				.contactInfo(
-						ContactInfo.builder().name("Petit").firstName("Charlotte").phoneNumber("0612345670").build())
-				.isActive(true)
-				.tenancy(tenancy)
-				.build();
+									.isActive(true)
+									.tenancy(tenancy)
+									.build();
 		user6.getRoles().add(Member);
 		saveUser(user6);
-
+		Address a6 = Address.builder().line2("42 rue du Soleil").line1("").postCode("35000").city("Rennes").user(user6).build();
+		ContactInfo ci6 = ContactInfo.builder().name("Petit").firstName("Charlotte").phoneNumber("0612345670").user(user6).build();
+		addressService.save(a6);
+		contactInfoService.save(ci6);
+		user6.setAddress(a6);
+		user6.setContactInfo(ci6);
+		saveUser(user6);
+		
 		User user7 = User.builder().email("victor.martin@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
-				.address(Address.builder().line2("7 place des Halles").line1("").postCode("13000").city("Marseille")
-						.build())
-				.contactInfo(ContactInfo.builder().name("Martin").firstName("Victor").phoneNumber("0677654321").build())
-				.isActive(true)
-				.tenancy(tenancy)
-				.build();
+									.isActive(true)
+									.tenancy(tenancy)
+									.build();
 		user7.getRoles().add(Supplier);
 		saveUser(user7);
-
+		Address a7 = Address.builder().line2("7 place des Halles").line1("").postCode("13000").city("Marseille").user(user7).build();
+		ContactInfo ci7 = ContactInfo.builder().name("Martin").firstName("Victor").phoneNumber("0677654321").build();
+		CompanyDetails cd7 = CompanyDetails.builder().companyName("Croissance Luxuriante").siretNumber("85496312563415").user(user7).build();
+		companyDetailsService.save(cd7);
+		addressService.save(a7);
+		contactInfoService.save(ci7);
+		user7.setAddress(a7);
+		user7.setContactInfo(ci7);
+		user7.setCompanyDetails(cd7);
+		saveUser(user7);
+		
 		User user8 = User.builder().email("elise.muller@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
-				.address(Address.builder().line2("56 avenue du Général Leclerc").line1("Batiment A").postCode("60000")
-						.city("Beauvais").build())
-				.contactInfo(ContactInfo.builder().name("Muller").firstName("Elise").phoneNumber("0698765430").build())
-				.isActive(true)
-				.tenancy(tenancy)
-				.build();
+									.isActive(true)
+									.tenancy(tenancy)
+									.build();
 		user8.getRoles().add(Member);
 		saveUser(user8);
-
+		Address a8 = Address.builder().line2("56 avenue du Général Leclerc").line1("Batiment A").postCode("60000").city("Beauvais").user(user8).build();
+		ContactInfo ci8 = ContactInfo.builder().name("Muller").firstName("Elise").phoneNumber("0698765430").user(user8).build();
+		addressService.save(a8);
+		contactInfoService.save(ci8);
+		user8.setAddress(a8);
+		user8.setContactInfo(ci8);
+		saveUser(user8);
+		
 		User user9 = User.builder().email("jean.benoit@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
-				.address(Address.builder().line2("23 rue de la République").line1("Appartement 7").postCode("75001")
-						.city("Paris").build())
-				.contactInfo(ContactInfo.builder().name("Benoit").firstName("Jean").phoneNumber("0687654321").build())
-				.isActive(true)
-				.tenancy(tenancy)
-				.build();
+									.isActive(true)
+									.tenancy(tenancy)
+									.build();
 		user9.getRoles().add(Supplier);
 		saveUser(user9);
-
+		Address a9 = Address.builder().line2("23 rue de la République").line1("Appartement 7").postCode("75001").city("Paris").user(user9).build();
+		ContactInfo ci9 = ContactInfo.builder().name("Benoît").firstName("Jean").phoneNumber("0687654321").user(user9).build();
+		CompanyDetails cd9 = CompanyDetails.builder().companyName("Bosquet de Solpétal").siretNumber("34867591342684").user(user9).build();
+		companyDetailsService.save(cd9);
+		user9.setCompanyDetails(cd9);
+		addressService.save(a9);
+		contactInfoService.save(ci9);
+		user9.setAddress(a9);
+		user9.setContactInfo(ci9);
+		saveUser(user9);
+		
 		User user10 = User.builder().email("amelie.rousseau@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
-				.address(
-						Address.builder().line2("1 avenue de la Mer").line1("").postCode("30000").city("Nîmes").build())
-				.contactInfo(
-						ContactInfo.builder().name("Rousseau").firstName("Amélie").phoneNumber("0623456789").build())
-				.isActive(true)
-				.tenancy(tenancy)
-				.build();
+									.isActive(true)
+									.tenancy(tenancy)
+									.build();
 		user10.getRoles().add(Admin);
 		saveUser(user10);
-
+		Address a10 = Address.builder().line2("1 avenue de la Mer").line1("").postCode("30000").city("Nîmes").user(user10).build();
+		ContactInfo ci10 = ContactInfo.builder().name("Rousseau").firstName("Amélie").phoneNumber("0623456789").user(user10).build();
+		addressService.save(a10);
+		contactInfoService.save(ci10);
+		user10.setAddress(a10);
+		user10.setContactInfo(ci10);
+		saveUser(user10);
+		
 		User user11 = User.builder().email("henri.durand@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
-				.address(Address.builder().line2("19 rue des Fleurs").line1("Appartement 5").postCode("33000")
-						.city("Bordeaux").build())
-				.contactInfo(ContactInfo.builder().name("Durand").firstName("Henri").phoneNumber("0645671234").build())
-				.isActive(true)
-				.tenancy(tenancy)
-				.build();
+									.isActive(true)
+									.tenancy(tenancy)
+									.build();
 		user11.getRoles().add(Member);
 		saveUser(user11);
-
+		Address a11 = Address.builder().line2("19 rue des Fleurs").line1("Appartement 5").postCode("33000").city("Bordeaux").user(user11).build();
+		ContactInfo ci11 = ContactInfo.builder().name("Durand").firstName("Henri").phoneNumber("0645671234").user(user11).build();
+		addressService.save(a11);
+		contactInfoService.save(ci11);
+		user11.setAddress(a11);
+		user11.setContactInfo(ci11);
+		saveUser(user11);
+		
 		User user12 = User.builder().email("manon.fabre@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
-				.address(Address.builder().line2("22 rue des Lilas").line1("Rez-de-chaussée").postCode("92000")
-						.city("Nanterre").build())
-				.contactInfo(ContactInfo.builder().name("Fabre").firstName("Manon").phoneNumber("0691234567").build())
-				.isActive(true)
-				.tenancy(tenancy)
-				.build();
+									.isActive(true)
+									.tenancy(tenancy)
+									.build();
 		user12.getRoles().add(Supplier);
 		saveUser(user12);
-
+		Address a12 = Address.builder().line2("22 rue des Lilas").line1("Rez-de-chaussée").postCode("92000").city("Nanterre").user(user12).build();
+		ContactInfo ci12 = ContactInfo.builder().name("Fabre").firstName("Manon").phoneNumber("0691234567").user(user12).build();
+		CompanyDetails cd12 = CompanyDetails.builder().companyName("L'arbre des récits").siretNumber("12458691342748").user(user12).build();
+		companyDetailsService.save(cd12);
+		addressService.save(a12);
+		contactInfoService.save(ci12);
+		user12.setAddress(a12);
+		user12.setContactInfo(ci12);
+		saveUser(user12);
+		
 		User user13 = User.builder().email("paul.brun@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
-				.address(Address.builder().line2("8 avenue de la Gare").line1("2ème étage").postCode("44000")
-						.city("Nantes").build())
-				.contactInfo(ContactInfo.builder().name("Brun").firstName("Paul").phoneNumber("0687987654").build())
-				.isActive(true)
-				.tenancy(tenancy)
-				.build();
+									.isActive(true)
+									.tenancy(tenancy)
+									.build();
 		user13.getRoles().add(Member);
 		saveUser(user13);
-
+		Address a13 = Address.builder().line2("8 avenue de la Gare").line1("2ème étage").postCode("44000").city("Nantes").user(user13).build();
+		ContactInfo ci13 = ContactInfo.builder().name("Brun").firstName("Paul").phoneNumber("0687987654").user(user13).build();
+		addressService.save(a13);
+		contactInfoService.save(ci13);
+		user13.setAddress(a13);
+		user13.setContactInfo(ci13);
+		saveUser(user13);
+		
 		User user14 = User.builder().email("sophie.martin@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
-				.address(Address.builder().line2("13 rue de la Liberté").line1("").postCode("44000").city("Nantes")
-						.build())
-				.contactInfo(ContactInfo.builder().name("Martin").firstName("Sophie").phoneNumber("0678987654").build())
-				.isActive(true)
-				.tenancy(tenancy)
-				.build();
+									.isActive(true)
+									.tenancy(tenancy)
+									.build();
 		user14.getRoles().add(Supplier);
 		saveUser(user14);
-
+		Address a14 = Address.builder().line2("13 rue de la Liberté").line1("").postCode("44000").city("Nantes").user(user14).build();
+		ContactInfo ci14 = ContactInfo.builder().name("Martin").firstName("Sophie").phoneNumber("0678987654").user(user14).build();
+		CompanyDetails cd14 = CompanyDetails.builder().companyName("Le verger de Sophie").siretNumber("15468297316482").user(user14).build();
+		companyDetailsService.save(cd14);
+		addressService.save(a14);
+		contactInfoService.save(ci14);
+		user14.setAddress(a14);
+		user14.setContactInfo(ci14);
+		saveUser(user14);
+		
 		User user15 = User.builder().email("lucie.lafaye@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
-				.address(Address.builder().line2("5 rue du Pont").line1("").postCode("69000").city("Lyon").build())
-				.contactInfo(ContactInfo.builder().name("Lafaye").firstName("Lucie").phoneNumber("0694567890").build())
-				.isActive(true)
-				.tenancy(tenancy)
-				.build();
+									.isActive(true)
+									.tenancy(tenancy)
+									.build();
 		user15.getRoles().add(AdminPlateforme);
 		user15.getRoles().add(Admin);
 		saveUser(user15);
-
+		Address a15 = Address.builder().line2("5 rue du Pont").line1("").postCode("69000").city("Lyon").user(user15).build();
+		ContactInfo ci15 = ContactInfo.builder().name("Lafaye").firstName("Lucie").phoneNumber("0694567890").user(user15).build();
+		addressService.save(a15);
+		contactInfoService.save(ci15);
+		user15.setAddress(a15);
+		user15.setContactInfo(ci15);
+		saveUser(user15);
+		
 		User user16 = User.builder().email("alain.dubois@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
-				.address(Address.builder().line2("20 rue de la Gare").line1("").postCode("75002").city("Paris").build())
-				.contactInfo(ContactInfo.builder().name("Dubois").firstName("Alain").phoneNumber("0685559876").build())
-				.isActive(true)
-				.tenancy(tenancy)
-				.build();
+									.isActive(true)
+									.tenancy(tenancy)
+									.build();
 		user16.getRoles().add(Supplier);
 		saveUser(user16);
-
+		Address a16 = Address.builder().line2("20 rue de la Gare").line1("").postCode("75002").city("Paris").user(user16).build();
+		ContactInfo ci16 = ContactInfo.builder().name("Dubois").firstName("Alain").phoneNumber("0685559876").user(user16).build();
+		CompanyDetails cd16 = CompanyDetails.builder().companyName("Ferme De Sutters").siretNumber("94683716523446").user(user16).build();
+		companyDetailsService.save(cd16);
+		addressService.save(a16);
+		contactInfoService.save(ci16);
+		user16.setAddress(a16);
+		user16.setContactInfo(ci16);
+		saveUser(user16);
+		
 		User user17 = User.builder().email("laura.lemoine@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
-				.address(
-						Address.builder().line2("11 rue de la Paix").line1("").postCode("35000").city("Rennes").build())
-				.contactInfo(ContactInfo.builder().name("Lemoine").firstName("Laura").phoneNumber("0622345678").build())
-				.isActive(true)
-				.tenancy(tenancy)
-				.build();
+									.isActive(true)
+									.tenancy(tenancy)
+									.build();
 		user17.getRoles().add(Member);
 		saveUser(user17);
-
+		Address a17 = Address.builder().line2("11 rue de la Paix").line1("").postCode("35000").city("Rennes").user(user17).build();
+		ContactInfo ci17 = ContactInfo.builder().name("Lemoine").firstName("Laura").phoneNumber("0622345678").user(user17).build();
+		addressService.save(a17);
+		contactInfoService.save(ci17);
+		user17.setAddress(a17);
+		user17.setContactInfo(ci17);
+		saveUser(user17);
+		
 		User user18 = User.builder().email("antoine.morel@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
-				.address(Address.builder().line2("14 rue des Champs").line1("").postCode("54000").city("Nancy").build())
-				.contactInfo(ContactInfo.builder().name("Morel").firstName("Antoine").phoneNumber("0686123456").build())
-				.isActive(true)
-				.tenancy(tenancy)
-				.build();
+									.isActive(true)
+									.tenancy(tenancy)
+									.build();
 		user18.getRoles().add(Member);
 		saveUser(user18);
-
+		Address a18 = Address.builder().line2("14 rue des Champs").line1("").postCode("54000").city("Nancy").user(user18).build();
+		ContactInfo ci18 = ContactInfo.builder().name("Morel").firstName("Antoine").phoneNumber("0686123456").user(user18).build();
+		addressService.save(a18);
+		contactInfoService.save(ci18);
+		user18.setAddress(a18);
+		user18.setContactInfo(ci18);
+		saveUser(user18);
+		
 		User user19 = User.builder().email("laurence.vincent@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
-				.address(Address.builder().line2("5 rue de la Liberté").line1("Appartement 2").postCode("74000")
-						.city("Annecy").build())
-				.contactInfo(
-						ContactInfo.builder().name("Vincent").firstName("Laurence").phoneNumber("0623456789").build())
-				.isActive(true)
-				.tenancy(tenancy)
-				.build();
+									.isActive(true)
+									.tenancy(tenancy)
+									.build();
 		user19.getRoles().add(Supplier);
 		saveUser(user19);
-
+		Address a19 = Address.builder().line2("5 rue de la Liberté").line1("Appartement 2").postCode("74000").city("Annecy").user(user19).build();
+		ContactInfo ci19 = ContactInfo.builder().name("Vincent").firstName("Laurence").phoneNumber("0623456789").user(user19).build();
+		CompanyDetails cd19 = CompanyDetails.builder().companyName("Aux pommiers dorés").siretNumber("16435329487654").user(user19).build();
+		companyDetailsService.save(cd19);
+		addressService.save(a19);
+		contactInfoService.save(ci19);
+		user19.setAddress(a19);
+		user19.setContactInfo(ci19);
+		saveUser(user19);
+		
 		User user20 = User.builder().email("bernard.morvan@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
-				.address(
-						Address.builder().line2("23 rue de la Lune").line1("").postCode("56000").city("Vannes").build())
-				.contactInfo(
-						ContactInfo.builder().name("Morvan").firstName("Bernard").phoneNumber("0612347890").build())
-				.isActive(true)
-				.tenancy(tenancy)
-				.build();
+									.isActive(true)
+									.tenancy(tenancy)
+									.build();
 		user20.getRoles().add(Member);
+		saveUser(user20);
+		Address a20 = Address.builder().line2("23 rue de la Lune").line1("").postCode("56000").city("Vannes").user(user20).build();
+		ContactInfo ci20 = ContactInfo.builder().name("Morvan").firstName("Bernard").phoneNumber("0612347890").user(user20).build();
+		addressService.save(a20);
+		contactInfoService.save(ci20);
+		user20.setAddress(a20);
+		user20.setContactInfo(ci20);
 		saveUser(user20);
 
 	}
@@ -376,11 +489,21 @@ public class DataInitializationService {
 
 	@Transactional
 	public void tenancyInit() throws IOException {
+		// Création des Options
+		Options potager = Options.builder().option1Active(false).option2Active(false).build();
+		Options verger = Options.builder().option1Active(true).option2Active(false).build();
+		Options ferme = Options.builder().option1Active(true).option2Active(true).build();
+		
+		optionsRepository.save(potager);
+		optionsRepository.save(verger);
+		optionsRepository.save(ferme);
+		
 		// Création d'une Tenancy
 		Tenancy t1 = Tenancy.builder().tenancyName("BioColi").tenancyAlias("biocoli")
 				.tenancySlogan("Manger bio, c'est facile avec BioColi!").email("contact@biocoli.fr")
 				.address(new Address("A12", "12 avenue de la localité", "69000", "Lyon"))
 				.dateCreated(LocalDateTime.now()).dateLastModified(LocalDateTime.now()).tenancyLatitude("45.7400000") // lyon
+				.options(potager)
 				.tenancyLongitude("4.6370000").membershipFeePrice(new BigDecimal("10.0")).build();
 
 		// Création du ContactInfo pour la Tenancy
@@ -471,6 +594,7 @@ public class DataInitializationService {
 				.tenancySlogan("L'innovation au service de l'agriculture de proximité").email("agrinov@gmail.com")
 				.address(new Address("", "Cave voutée de la Garenne Valentin", "63000", "Clermont-Ferrand"))
 				.dateCreated(LocalDateTime.now()).dateLastModified(LocalDateTime.now()).tenancyLatitude("45.6150000") // clermont-ferrand
+				.options(verger)
 				.tenancyLongitude("3.2680000").membershipFeePrice(new BigDecimal("15.0")).build();
 
 		// Création du ContactInfo pour la Tenancy
@@ -553,8 +677,8 @@ public class DataInitializationService {
 		Tenancy t3 = Tenancy.builder().tenancyName("Groots").tenancyAlias("groots")
 				.tenancySlogan("Avec vous jusqu'au bout des racines").email("groots@gmail.com")
 				.address(new Address("", "16 rue D'Astorg", "44100", "Nantes")).dateCreated(LocalDateTime.now())
-				.dateLastModified(LocalDateTime.now()).tenancyLatitude("46.5050000") // nantes -> exemple peu de
-																						// dénivelés
+				.dateLastModified(LocalDateTime.now()).tenancyLatitude("46.5050000") // nantes -> exemple peu de dénivelés
+				.options(ferme)
 				.tenancyLongitude("-0.5140000").membershipFeePrice(new BigDecimal("20.0")).build();
 
 		// Création du ContactInfo pour la Tenancy
@@ -639,6 +763,7 @@ public class DataInitializationService {
 				.tenancySlogan("Un havre de fraîcheur pour vos produits locaux").email("greenHaven@gmail.com")
 				.address(new Address("", "24 rue des Lilas", "65240", "Aulon")).dateCreated(LocalDateTime.now())
 				.dateLastModified(LocalDateTime.now()).tenancyLatitude("46.0170000") // aulon, creuse
+				.options(potager)
 				.tenancyLongitude("1.6550000").membershipFeePrice(new BigDecimal("10.0")).build();
 
 		// Création du ContactInfo pour la Tenancy
@@ -657,8 +782,7 @@ public class DataInitializationService {
 		// 1. Le ContentBlock pour la présentation de GreenHaven
 		ContentBlock presentationBlock4 = ContentBlock.builder().isValue(false)
 				.contentTitle("Présentation de GreenHaven")
-				.contentText(
-						"GreenHaven est une AMAP dédiée à la durabilité, à la qualité des produits et à la préservation de notre environnement. Nous proposons des paniers de produits locaux, cultivés dans le respect des cycles naturels et des principes de l'agriculture durable. Chaque panier contient des produits frais, soigneusement sélectionnés, cultivés par nos fermiers partenaires dans une démarche écoresponsable. En rejoignant GreenHaven, vous soutenez des pratiques agricoles qui respectent la biodiversité et l'équilibre écologique tout en bénéficiant de produits de saison, gages de qualité et de fraîcheur.")
+				.contentText("GreenHaven est une AMAP dédiée à la durabilité, à la qualité des produits et à la préservation de notre environnement. Nous proposons des paniers de produits locaux, cultivés dans le respect des cycles naturels et des principes de l'agriculture durable. Chaque panier contient des produits frais, soigneusement sélectionnés, cultivés par nos fermiers partenaires dans une démarche écoresponsable. En rejoignant GreenHaven, vous soutenez des pratiques agricoles qui respectent la biodiversité et l'équilibre écologique tout en bénéficiant de produits de saison, gages de qualité et de fraîcheur.")
 				.contentImgName("greenhaven-presentation.jpg").contentImgTypeMIME("image/png")
 				.contentImg(Base64.getEncoder().encodeToString("imageBytesPlaceholder".getBytes()))
 				.homePageContent(homePageContent4).build();
@@ -708,6 +832,7 @@ public class DataInitializationService {
 				.tenancySlogan("Des champs verts pour des générations durables").email("lacarottedechantenay@gmail.com")
 				.address(new Address("", "25 avenue des Champs Verts", "74000", "Annecy"))
 				.dateCreated(LocalDateTime.now()).dateLastModified(LocalDateTime.now()).tenancyLatitude("45.8440000") // annecy,
+				.options(ferme)
 				.tenancyLongitude("6.1940000").membershipFeePrice(new BigDecimal("15.0")).build();
 
 		// Création du ContactInfo pour la Tenancy
@@ -781,6 +906,7 @@ public class DataInitializationService {
 				.tenancySlogan("Des produits de la Terre pour les gens d'ici").email("terralocal@gmail.com")
 				.address(new Address("", "10 rue des Cultures", "13260", "Cassis")).dateCreated(LocalDateTime.now())
 				.dateLastModified(LocalDateTime.now()).tenancyLatitude("43.2140000") // cassis, bord de mer
+				.options(verger)
 				.tenancyLongitude("5.5370000").membershipFeePrice(new BigDecimal("20.0")).build();
 
 		// Création du ContactInfo pour la Tenancy
