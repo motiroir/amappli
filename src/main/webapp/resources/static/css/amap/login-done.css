@@ -1,28 +1,37 @@
 @charset "UTF-8";
 @import "../common/utils.css";
+@import "common/header-amap.css";
+@import "common/footer-amap.css";
 
 
 
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
 
- body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 80vh;
-            background-color: #ffffff; 
-        
-        }
 
-      
-        .container {
-            text-align: center;
-            background-color: #ffffff; 
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
-        }
+.container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.success {
+    text-align: center;
+    padding: 20px;
+  
+}
+
+
+footer {
+    flex-shrink: 0;
+    width: 100%;
+}
 
       
         h2 {
@@ -41,17 +50,9 @@
         .btn {
             display: inline-block;
             text-decoration: none;
-            color: #fff;
-            background-color:  #FFBE98; 
-            padding: 10px 20px;
             border: none;
-            border-radius: 25px; 
-            font-size: 1rem;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
        
-        .btn:hover {
-            background-color: #f08070; 
-        }

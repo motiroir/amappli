@@ -9,12 +9,15 @@ let userLongitude = 9.0684138;
 const fallbackStyle = 'mapbox://styles/tiroirmorgane/cm4pjeh6h007k01r0fhs20pkd'; //dark theme as fallback (when no tenancy)
 //checks if styleMabox is defined, if not shows the fallback style (if we don't define it in the jsp file like in amapplis jsp for eg)
 var mapStyle = typeof styleMapboxLight !== 'undefined' ? document.body.classList.contains("dark") ? styleMapboxDark : styleMapboxLight : fallbackStyle;
+var mapLatitude = (typeof latitude !== 'undefined' && latitude !== "") ? parseFloat(latitude) : userLatitude;
+var mapLongitude = (typeof longitude !== 'undefined' && longitude !== "") ? parseFloat(longitude) : userLongitude;
+
 
 // create map
 var map = new mapboxgl.Map({
     container: 'map', 
     style: mapStyle, 
-    center: [userLongitude, userLatitude], // coordinates (longitude, latitude)
+    center: [mapLongitude, mapLatitude], // coordinates (longitude, latitude)
     zoom: zoom 
 });
 

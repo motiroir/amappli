@@ -2,6 +2,7 @@
     --main-bg-color  : var(--green-900);
     --main-font-color: var(--orange-100);
     --alt-font-color: var(--white-300);
+    --main-bg-color-white : var(--green-300)
 }
 
 .theme-1.dark .btn-900 {

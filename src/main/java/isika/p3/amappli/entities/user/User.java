@@ -1,11 +1,15 @@
 package isika.p3.amappli.entities.user;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import isika.p3.amappli.entities.auth.Permission;
 import isika.p3.amappli.entities.auth.Role;
+import isika.p3.amappli.entities.order.Order;
+import isika.p3.amappli.entities.order.ShoppingCart;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -18,6 +22,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -70,16 +75,26 @@ public class User {
     @Builder.Default
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable (
-    		name = "User_Role_Association",
-    		joinColumns = @JoinColumn(name = "userId"),
-    		inverseJoinColumns = @JoinColumn( name = "roleId")
-    		)
+        name = "User_Role_Association",
+        joinColumns = @JoinColumn(name = "userId"),
+        inverseJoinColumns = @JoinColumn( name = "roleId")
+    )
+
     @EqualsAndHashCode.Exclude
     private Set<Role> roles = new HashSet<Role>();
     
     @OneToOne(cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     private CompanyDetails companyDetails;
+    
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "shoppingCartId")
+	@EqualsAndHashCode.Exclude
+	private ShoppingCart shoppingCart;
+	
+	@Builder.Default
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Order> orders = new ArrayList<Order>();
 
     public Set<Permission> getPermissions(){
         Set<Permission> permissions = new HashSet<Permission>();
@@ -90,4 +105,5 @@ public class User {
         }
         return permissions;
     }
+    
 }

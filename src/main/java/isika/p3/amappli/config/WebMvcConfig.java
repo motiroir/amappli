@@ -9,6 +9,8 @@ import org.springframework.validation.Validator;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.lang.NonNull;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -46,5 +48,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public StandardServletMultipartResolver multipartResolver() {
         return new StandardServletMultipartResolver();
     }
+
+	@Bean
+	public RequestCache requestCache() {
+    	return new HttpSessionRequestCache();
+	}
 	
 }

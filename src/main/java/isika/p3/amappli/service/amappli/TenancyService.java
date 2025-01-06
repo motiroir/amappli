@@ -16,7 +16,7 @@ public interface TenancyService {
 	Tenancy getTenancyById(Long id);
 	Tenancy getTenancyByAlias(String alias);
 	void deleteTenancy(Long id);
-	void addTestTenancies() throws IOException;
+	
 	HomePageContent getHomePageContentByTenancyId(Long id);
 	HomePageContent getHomePageContentByTenancyAlias(String alias);
 

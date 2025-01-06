@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import isika.p3.amappli.entities.tenancy.HomePageContent;
+import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.HomePageContentService;
 
 @Controller
@@ -17,6 +18,8 @@ public class HomePageController {
 
 	@Autowired
 	private HomePageContentService homePageContentService;
+	@Autowired
+	private GraphismService graphismService;
 
 	// Page d'accueil
 	@GetMapping("/amapHomePage")

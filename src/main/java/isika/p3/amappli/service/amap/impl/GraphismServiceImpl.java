@@ -124,4 +124,20 @@ public class GraphismServiceImpl implements GraphismService {
 			return "futura";
 		}
 	}
+	
+	public String getLatitudeByTenancyAlias(String alias) {
+		Tenancy tenancy = tenancyRepo.findByTenancyAlias(alias).orElse(null);
+		if (tenancy == null || tenancy.getGraphism() == null) {
+			return "42.1880896";
+		} else return tenancy.getTenancyLatitude();
+	}
+	
+	public String getLongitudeByTenancyAlias(String alias) {
+		Tenancy tenancy = tenancyRepo.findByTenancyAlias(alias).orElse(null);
+		if (tenancy == null || tenancy.getGraphism() == null) {
+			return "9.0684138";
+		} else return tenancy.getTenancyLongitude();
+	}
+	
+	
 }

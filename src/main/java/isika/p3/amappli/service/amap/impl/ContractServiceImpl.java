@@ -14,16 +14,19 @@ import isika.p3.amappli.entities.contract.ContractType;
 import isika.p3.amappli.entities.contract.ContractWeight;
 import isika.p3.amappli.entities.contract.DeliveryDay;
 import isika.p3.amappli.entities.contract.DeliveryRecurrence;
+import isika.p3.amappli.entities.order.ShoppingCartItem;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.exceptions.TenancyNotFoundException;
 import isika.p3.amappli.repo.amap.AddressRepository;
 import isika.p3.amappli.repo.amap.ContractRepository;
+import isika.p3.amappli.repo.amap.ShoppingCartItemRepository;
 import isika.p3.amappli.repo.amap.UserRepository;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
 import isika.p3.amappli.service.amap.ContractService;
 import isika.p3.amappli.service.amappli.TenancyService;
+import jakarta.transaction.Transactional;
 
 @Service
 public class ContractServiceImpl implements ContractService {
@@ -31,11 +34,13 @@ public class ContractServiceImpl implements ContractService {
 	private final ContractRepository contractRepository;
 	private final UserRepository userRepository;
 	private final TenancyRepository tenancyRepository;
+	private final ShoppingCartItemRepository shoppingCartItemRepository;
 
-	public ContractServiceImpl(TenancyRepository tenancyRepository, ContractRepository contractRepository, UserRepository userRepository, AddressRepository addressRepository) {
+	public ContractServiceImpl(TenancyRepository tenancyRepository, ContractRepository contractRepository, UserRepository userRepository, AddressRepository addressRepository, ShoppingCartItemRepository shoppingCartItemRepository) {
 		this.contractRepository = contractRepository;
 		this.userRepository = userRepository;
 		this.tenancyRepository = tenancyRepository;
+		this.shoppingCartItemRepository = shoppingCartItemRepository;
 	}
 
 	@Override
@@ -44,8 +49,9 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
+	@Transactional
 	public void deleteById(Long id) {
-		contractRepository.deleteById(id);
+	    contractRepository.deleteById(id);
 	}
 
 	@Override
@@ -90,7 +96,6 @@ public class ContractServiceImpl implements ContractService {
 		contract.setQuantity(contractDTO.getQuantity());
 		contract.setShoppable(true);
 		contract.setDateCreation(LocalDate.now());
-//		contract.setTenancy(tenancyService.getTenancyByAlias(contractDTO.getTenancyAlias()));
 
 		//Image treatment
 		if (!contractDTO.getImage().isEmpty()) {
@@ -127,9 +132,11 @@ public class ContractServiceImpl implements ContractService {
 	    existingContract.setQuantity(updatedContractDTO.getQuantity());
 
 
-	        // Conserver l'utilisateur précédent
-	        existingContract.setUser(null);
-	    
+	    if (updatedContractDTO.getUserId() != null) {
+	        User newUser = userRepository.findById(updatedContractDTO.getUserId())
+	                .orElseThrow(() -> new IllegalArgumentException("Utilisateur avec l'ID " + updatedContractDTO.getUserId() + " n'existe pas."));
+	        existingContract.setUser(newUser);
+	    }
 
 	    // Gestion de l'image
 	    if (image != null && !image.isEmpty()) {

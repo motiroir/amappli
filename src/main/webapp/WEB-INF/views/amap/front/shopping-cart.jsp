@@ -20,7 +20,7 @@
 
 	<!-- the bootstrap classes on this div are used to have the footer correctly positioned at the bottom when the page is not full -->
 	<div class="d-flex flex-column min-vh-100">
-	
+
 		<header class="fc-main bg-main">
 			<jsp:include page="common/header-amap.jsp" />
 		</header>
@@ -42,19 +42,23 @@
 							<tbody>
 								<c:forEach var="item" items="${cart.shoppingCartItems}">
 									<tr>
-										<td>${item.shoppable.getImage()}</td>
+										<td><c:if test="${not empty item.shoppable.getImage()}">
+												<img src="${item.shoppable.getImage()}"
+													alt="Image du produit"
+													style="width: 100px; height: auto; border-radius: 8px;" />
+											</c:if></td>
 										<td>${item.shoppable.getInfo()}</td>
-										<td>${item.shoppable.getPrice()}</td>
+										<td>${item.shoppable.getPrice()}€</td>
 										<td><div class="btn btn-100">
 												<form:form method="post"
-													action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cart.shoppingCartId}/updateQuantity/${item.shoppingItemId}">
+													action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${userId}/updateQuantity/${item.shoppingItemId}">
 													<button type="submit" name="action" value="decrease">-</button>
 													<span>${item.getQuantity()}</span>
 													<button type="submit" name="action" value="increase">+</button>
 												</form:form>
 											</div></td>
 
-										<td>${item.totalPrice}</td>
+										<td>${item.totalPrice}€</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -63,30 +67,38 @@
 					<div class="col-md-4 totals">
 						<table>
 							<tr>
+							<tr>
 								<td>Panier</td>
-								<td>totalPanier</td>
+								<td>${totalContracts} €</td>
+								<!-- Affiche le nombre de contrats dans le panier -->
 							</tr>
 							<tr>
-								<td>Autres</td>
-								<td>totalProduitsEtAteliers</td>
+								<td>Produits artisanaux</td>
+								<td>${totalProducts} €</td>
+								<!-- Affiche le nombre de produits dans le panier -->
+							</tr>
+							<tr>
+								<td>Ateliers</td>
+								<td>${totalWorkshops} €</td>
+								<!-- Affiche le nombre de produits dans le panier -->
 							</tr>
 							<tr>
 								<td>Cotisation</td>
-								<td>totalCotisation</td>
+								<td>${tenancy.membershipFeePrice}</td>
 							</tr>
 							<tr>
 								<td><h2 class="fw-bold">TOTAL</h2></td>
 								<td><h2 class="fw-bold">${total}</h2></td>
 							</tr>
 
-							<form:form method="post">
+							<form:form method="post" action="${pageContext.request.contextPath}/${tenancyAlias}/order/${userId}/createOrder">
 								<tr>
 									<td colspan="2"><button class="btn btn-500 btn-order"
-											type="submit">Passer au paiement</button></td>
+											type="submit" name="action" value="OrderWithPayment">Passer au paiement</button></td>
 								</tr>
 								<tr>
 									<td colspan="2"><button class="btn btn-100 btn-order"
-											type="submit">Payer sur place</button></td>
+											type="submit" name="action" value="OrderWithoutPayment">Payer sur place</button></td>
 								</tr>
 							</form:form>
 						</table>
@@ -105,15 +117,12 @@
 	<script>
 		var styleMapboxLight = "${mapStyleLight}"
 		var styleMapboxDark = "${mapStyleDark}"
-
-		/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
-		 const tenancyCity = "${tenancy.getAddress().getCity()}"
-		 const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
-		 */
+		var latitude = "${latitude}"
+		var longitude = "${longitude}"
 	</script>
 
-<%-- 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  --%>
+	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script> 
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/palette-swap.js' />" type="text/javascript"></script>
 </body>

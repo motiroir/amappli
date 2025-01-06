@@ -6,7 +6,7 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
 	rel="stylesheet">
 
-<div class="container">
+<div class="container mt-4">
 	<div class="row">
 		<!-- Colonne "Notre histoire" -->
 		<div class="nav-item col-md-4">
@@ -32,14 +32,13 @@
 				<a href="#" class="nav-link me-2"><i class="bi bi-instagram"></i></a>
 			</div>
 		</div>
-
+	
 		<div class="nav-item col-md-4">
 			<h5 class="fw-bold">Où nous trouver ?</h5>
 			<ul class="list-unstyled">
-			<li>${tenancy.getTenancyName()}</li>
-			<li>${tenancy.getAddress().getLine1()}</li>
-			<li>${tenancy.getAddress().getLine2()}</li>
-			<li>${tenancy.getAddress().getPostCode()} ${tenancy.getAddress().getCity()}</li>
+			<li>${addressLine1}</li>
+			<li>${addressLine2}</li>
+			<li>${addressPostCode}&nbsp;${addressCity}</li>
 			</ul>
 		</div>
 		<!-- Copyright -->

@@ -1,24 +1,16 @@
-@charset "UTF-8";
+ @charset "UTF-8";
 @import "../common/utils.css";
+@import "common/header-amap.css";
+@import "common/footer-amap.css";
 
 
-body {
-	background-color: #ffffff;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100vw;
-	height: 100vh;
-	margin: 0;
+.form-container {
+    max-width: 600px; /* Largeur maximale du formulaire */
+    margin: 0 auto; /* Centre horizontalement */
+    padding: 30px;
+   
 }
 
-.container {
-	max-width: 600px;
-	padding: 30px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-}
 
 h1 {
 	font-size: 1.25rem;
@@ -36,6 +28,23 @@ h1 {
 	cursor: pointer;
 }
 
+hr.bg-300 {
+    margin-top: 0; 
+    margin-bottom: 1rem; 
+    border: 0;
+    border-top: 2px solid #f59157;
+    width: 100%; 
+   
+}
+.text-center p {
+   
+    font-size: rgb(255, 128, 64);
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: left
+}
+
 input[type="text"], input[type="email"], input[type="tel"], input[type="password"]
 	{
 	border-radius: 25px;
@@ -51,17 +60,5 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus,
 	box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-button[type="submit"] {
-	background-color: #344238;
-	color: #fff;
-	border-radius: 25px;
-	padding: 10px 30px;
-	border: none;
-	font-size: 1rem;
-	cursor: pointer;
-	transition: background-color 0.3s;
-}
 
-button[type="submit"]:hover {
-	background-color: #455449;
-}
+ 
