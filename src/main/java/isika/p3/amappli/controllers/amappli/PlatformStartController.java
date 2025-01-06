@@ -25,7 +25,7 @@ import jakarta.validation.Valid;
 
 
 @Controller
-@RequestMapping("/start/")
+@RequestMapping("/amappli/start/")
 public class PlatformStartController {
 
     private final UserService userService;

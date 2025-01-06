@@ -1,10 +1,8 @@
 package isika.p3.amappli.controllers.amappli;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,17 +20,19 @@ import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amappli.TenancyService;
 
 @Controller
-@RequestMapping("/tenancies")
+@RequestMapping("/amap")
 public class TenancyController {
 
-	@Autowired
-	private TenancyService tenancyService;
-	@Autowired
-	private GraphismService graphismService;
+	private final TenancyService tenancyService;
+	private final GraphismService graphismService;
 	
 
+	public TenancyController(TenancyService tenancyService, GraphismService graphismService) {
+		this.tenancyService = tenancyService;
+		this.graphismService = graphismService;
+	}
 
-	@GetMapping
+	@GetMapping("/getall")
 	public String getAllTenancies(Model model) {
 		List<Tenancy> tenancies = tenancyService.getAllTenancies();
 		model.addAttribute("tenancies", tenancies);
@@ -40,7 +40,7 @@ public class TenancyController {
 		return "amappli/back/tenancy/tenancy-list";
 	}
 	
-	@GetMapping("/{tenancyAlias}/home")
+	@GetMapping("{tenancyAlias}/home")
 	public String getHomePageContentByAlias(@PathVariable("tenancyAlias") String alias, Model model) {
 	    // Récupérer le contenu de la page d'accueil
 	    HomePageContent homePageContent = tenancyService.getHomePageContentByTenancyAlias(alias);
@@ -114,34 +114,34 @@ public class TenancyController {
 		return "tenancy-details";
 	}
 	
-	@GetMapping("/{tenancyAlias}")
-	public String getTenancyByAlias(@PathVariable String alias, Model model) {
-	    // Récupérer la tenancy via son alias
-	    Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
+	// @GetMapping("/{tenancyAlias}")
+	// public String getTenancyByAlias(@PathVariable String alias, Model model) {
+	//     // Récupérer la tenancy via son alias
+	//     Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
 	    
-	    if (tenancy != null) {
-	        // Ajouter la tenancy au modèle
-	        model.addAttribute("tenancy", tenancy);
+	//     if (tenancy != null) {
+	//         // Ajouter la tenancy au modèle
+	//         model.addAttribute("tenancy", tenancy);
 	        
-	        // Ajouter les informations générales de la tenancy
-	        model.addAttribute("tenancy", tenancy);
-	        model.addAttribute("tenancyName", tenancy.getTenancyName());
-	        model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
+	//         // Ajouter les informations générales de la tenancy
+	//         model.addAttribute("tenancy", tenancy);
+	//         model.addAttribute("tenancyName", tenancy.getTenancyName());
+	//         model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
 
-	        // Récupérer les informations dynamiques liées au graphisme
-	        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
-	        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
-	        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
-	        model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+	//         // Récupérer les informations dynamiques liées au graphisme
+	//         model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
+	//         model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+	//         model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
+	//         model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
 	        
-	        // Retourner la vue pour afficher les détails de la tenancy
-	        return "tenancy-details";
-	    } else {
-	        // Si la tenancy n'est pas trouvée, ajouter un message d'erreur
-	        model.addAttribute("message", "Tenancy not found with alias: " + alias);
-	        return "error";
-	    }
-	}
+	//         // Retourner la vue pour afficher les détails de la tenancy
+	//         return "tenancy-details";
+	//     } else {
+	//         // Si la tenancy n'est pas trouvée, ajouter un message d'erreur
+	//         model.addAttribute("message", "Tenancy not found with alias: " + alias);
+	//         return "error";
+	//     }
+	// }
 
 
 

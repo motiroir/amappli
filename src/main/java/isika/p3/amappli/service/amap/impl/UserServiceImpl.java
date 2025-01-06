@@ -102,6 +102,9 @@ public class UserServiceImpl implements UserService {
             user.setAddress(newUserDTO.getAddress());
             user.setContactInfo(newUserDTO.getContactInfo());
 
+            // Get the role for AMAP Admin
+            Role admin = roleRepository.findByName("ADMIN");
+            user.getRoles().add(admin);
             // At first, the platform user has no tenancy space
             user.setTenancy(null);
             // The user is active, he's only deactivated if there's a problem
@@ -116,64 +119,6 @@ public class UserServiceImpl implements UserService {
         
     }
     
-
-    @Transactional
-    public void generateUsers() {
-
-        Faker faker = new Faker(new Locale("fr-FR"));
-
-        Permission permission1 = Permission.builder().name("Permission 1").build();
-        Permission permission2 = Permission.builder().name("Permission 2").build();
-
-        permissionRepository.save(permission1);
-        permissionRepository.save(permission2);
-
-        Role roleA = Role.builder().name("Role A").build();
-        Role roleB = Role.builder().name("Role B").build();
-
-        roleA.getPermissions().add(permission1);
-        roleB.getPermissions().add(permission1);
-        roleB.getPermissions().add(permission2);
-
-
-        roleRepository.save(roleA);
-        roleRepository.save(roleB);
-
-        for(int i=0;i < 20 ;i++){
-            Address a = Address.builder()
-                .line1(faker.address().buildingNumber())
-                .line2(faker.address().streetName())
-                .postCode("44100")
-                .city(faker.address().cityName())
-                .build();
-
-            ContactInfo cI = ContactInfo.builder()
-                .name(faker.name().lastName())
-                .firstName(faker.name().firstName())
-                .phoneNumber("0612121212")
-                .build();
-
-            User u = User.builder()
-                .email(faker.internet().emailAddress())
-                .password("AMAPamap11@")
-                .address(a)
-                .contactInfo(cI)
-                .isActive(true)
-                .build();
-            
-            //saveUser(u);
-            if (i == 0){
-                u.getRoles().add(roleA);
-            }   
-            if (i == 1){
-                u.getRoles().add(roleB);
-            }
-
-            saveUser(u);
-        }
-
-    }
-
     @Override
     public boolean existsByEmailAndTenancy(String email, Tenancy tenancy) {
     	return this.userRepository.existsByEmailAndTenancy(email, tenancy);

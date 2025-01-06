@@ -41,20 +41,20 @@ public class CustomUserDetailsService implements UserDetailsService {
         // If the user is found, get his permissions
         //Set<Permission> permissions = userRepository.findPermissionsByEmail(username);
         CustomUserDetails securityUser = null;
-        if(user.getTenancy() != null){
+      //  if(user.getTenancy() != null){
             securityUser = new CustomUserDetails.Builder()
                     .username(user.getEmail())
                     .password(user.getPassword())
                     .authorities(getGrantedAuthorities(user.getPermissions(), user.getTenancy()))
                     .build();
-        }
-        else{
-            securityUser = new CustomUserDetails.Builder()
-                    .username(user.getEmail())
-                    .password(user.getPassword())
-                    .authorities(getGrantedAuthorities(user.getPermissions(), null))
-                    .build();
-        }
+        // }
+        // else{
+        //     securityUser = new CustomUserDetails.Builder()
+        //             .username(user.getEmail())
+        //             .password(user.getPassword())
+        //             .authorities(getGrantedAuthorities(user.getPermissions(), null))
+        //             .build();
+        // }
         System.out.println("trying to authenticate 3");
 
         securityUser.addAdditionalInfo("userId",user.getUserId());

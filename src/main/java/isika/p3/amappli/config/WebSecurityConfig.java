@@ -8,10 +8,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import isika.p3.amappli.security.CustomAuthenticationEntryPoint;
 import isika.p3.amappli.security.CustomAuthenticationFailureHandler;
 import isika.p3.amappli.security.CustomAuthenticationSuccessHandler;
+import isika.p3.amappli.security.CustomLogoutSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -21,15 +23,15 @@ public class WebSecurityConfig {
 	private final CustomAuthenticationEntryPoint entryPoint;
 	private final CustomAuthenticationFailureHandler failureHandler;
 	private final CustomAuthenticationSuccessHandler successHandler;
+	private final CustomLogoutSuccessHandler logoutSuccessHandler;
 
 
-	public WebSecurityConfig(CustomAuthenticationEntryPoint entryPoint, CustomAuthenticationFailureHandler failureHandler, CustomAuthenticationSuccessHandler successHandler) {
+	public WebSecurityConfig(CustomAuthenticationEntryPoint entryPoint, CustomAuthenticationFailureHandler failureHandler, CustomAuthenticationSuccessHandler successHandler, CustomLogoutSuccessHandler logoutSuccessHandler) {
 		this.entryPoint = entryPoint;
 		this.failureHandler = failureHandler;
 		this.successHandler = successHandler;
+		this.logoutSuccessHandler = logoutSuccessHandler;
 	}
-	
-
 
     @Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -49,7 +51,11 @@ public class WebSecurityConfig {
 				.failureHandler(failureHandler)
 				.permitAll() //everyone has acces to the login page
 			)
-			.logout((logout) -> logout.logoutUrl("/logout").permitAll());
+			.logout((logout) -> logout
+					.logoutUrl("/logout").permitAll()
+					.logoutRequestMatcher(new AntPathRequestMatcher("/logout","GET"))
+					.logoutSuccessHandler(logoutSuccessHandler)
+			);
            // .csrf((csrf)-> csrf.disable()); //everyone can log out lol
 
 		return http.build();

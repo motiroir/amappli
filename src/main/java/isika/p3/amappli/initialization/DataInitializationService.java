@@ -61,7 +61,7 @@ public class DataInitializationService {
 			roleInit();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		 }
 		try {
 			for (Tenancy t : tenancyRepository.findAll()) {
 				userInit(t);
@@ -71,23 +71,33 @@ public class DataInitializationService {
 		}
 	}
 	
+	@Transactional
 	public void permissionInit() {
 		// permissions creation
-		Permission permission1 = Permission.builder().name("Permission 1").build();
-		Permission permission2 = Permission.builder().name("Permission 2").build();
-		Permission permission3 = Permission.builder().name("Permission 3").build();
-		
+		Permission permission1 = Permission.builder().name("gestion plateforme").build();
+		Permission permission2 = Permission.builder().name("gestion utilisateurs amap").build();
+		Permission permission3 = Permission.builder().name("creation contrats amap").build();
+		Permission permission4 = Permission.builder().name("creation atelier amap").build();
+		Permission permission5 = Permission.builder().name("modification page accueil amap").build();
+		Permission permission6 = Permission.builder().name("modification statut commande amap").build();
+
 		permissionRepository.save(permission1);
 		permissionRepository.save(permission2);
-		permissionRepository.save(permission3);		
+		permissionRepository.save(permission3);
+		permissionRepository.save(permission4);
+		permissionRepository.save(permission5);
+		permissionRepository.save(permission6);			
 	}
 	
-	
+	@Transactional
 	public void roleInit() {
 		
 		Permission permission1 = permissionRepository.findById(1l).orElse(null);
 		Permission permission2 = permissionRepository.findById(2l).orElse(null);
 		Permission permission3 = permissionRepository.findById(3l).orElse(null);
+		Permission permission4 = permissionRepository.findById(4l).orElse(null);
+		Permission permission5 = permissionRepository.findById(5l).orElse(null);
+		Permission permission6 = permissionRepository.findById(6l).orElse(null);
 		
 		// roles creation
 		Role AdminPlateforme = Role.builder().name("AdminPlateforme")
@@ -114,12 +124,30 @@ public class DataInitializationService {
 		AdminPlateforme.getPermissions().add(permission1);
 		AdminPlateforme.getPermissions().add(permission2);
 		AdminPlateforme.getPermissions().add(permission3);
+		AdminPlateforme.getPermissions().add(permission4);
+		AdminPlateforme.getPermissions().add(permission5);
+		AdminPlateforme.getPermissions().add(permission6);
+
 		Admin.getPermissions().add(permission2);
 		Admin.getPermissions().add(permission3);
-		Member.getPermissions().add(permission2);
+		Admin.getPermissions().add(permission4);
+		Admin.getPermissions().add(permission5);
+		Admin.getPermissions().add(permission6);
+
+		//Member.getPermissions().add(permission2);
+
 		Supplier.getPermissions().add(permission3);
-		OnlyTenancy2.getPermissions().add(permission2);
+		Supplier.getPermissions().add(permission4);
+		Supplier.getPermissions().add(permission6);
+
+		OnlyTenancy2.getPermissions().add(permission5);
 		
+		// roleRepository.save(AdminPlateforme);
+		// roleRepository.save(Admin);
+		// roleRepository.save(Member);
+		// roleRepository.save(Supplier);
+		// roleRepository.save(OnlyTenancy2);
+
 		roleService.createRole(AdminPlateforme);
 		roleService.createRole(Admin);
 		roleService.createRole(Member);
@@ -141,7 +169,7 @@ public class DataInitializationService {
 						.city("Nantes").build())
 				.contactInfo(ContactInfo.builder().name("Durand").firstName("Marie").phoneNumber("0601010101").build())
 				.isActive(true)
-				.tenancy(tenancy)
+				//.tenancy(tenancy) platform admin are not assigned to a tenancy
 				.build();
 		user1.getRoles().add(AdminPlateforme);
 		saveUser(user1);
@@ -346,6 +374,7 @@ public class DataInitializationService {
 		return userRepository.save(user);
 	}
 
+	@Transactional
 	public void tenancyInit() throws IOException {
 		// Création d'une Tenancy
 		Tenancy t1 = Tenancy.builder().tenancyName("BioColi").tenancyAlias("biocoli")

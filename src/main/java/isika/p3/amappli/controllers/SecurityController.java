@@ -13,61 +13,73 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import isika.p3.amappli.entities.tenancy.ColorPalette;
+import isika.p3.amappli.entities.tenancy.FontChoice;
+import isika.p3.amappli.entities.tenancy.Graphism;
+import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.security.CustomUserDetails;
 import isika.p3.amappli.service.amap.GraphismService;
+import isika.p3.amappli.service.amappli.TenancyService;
 
 @Controller
 public class SecurityController {
     
     private final GraphismService graphismService;
+    private final TenancyService tenancyService;
 
-    public SecurityController(GraphismService graphismService) {
+
+    public SecurityController(GraphismService graphismService, TenancyService tenancyService) {
         this.graphismService = graphismService;
+        this.tenancyService = tenancyService;
     }
+  
 
-
-    @GetMapping("/login")
+    @GetMapping("/amappli/login")
     public String goToLogin(@RequestParam(name = "error", required = false) String error,Model model){
-        // permissionService.createPermissions();
-        // if(error != null){
-            model.addAttribute("error",error);
-        // }
-        // else {
-            // model.addAttribute("error",false);
-        // }
-        System.out.println("the error"+error);
+        
+        if (error != null) {
+            model.addAttribute("error", "Email ou mot de passe incorrect.");
+        }
 
-        return "secexamples/login";
+        model.addAttribute("mapStyleLight", "mapbox://styles/tiroirmorgane/cm4sw37wr001301s12frm2l2y");
+        model.addAttribute("mapStyleDark", "mapbox://styles/tiroirmorgane/cm52cqefg003101sa878udky6");
+        model.addAttribute("cssStyle", ColorPalette.PALETTE1);
+        model.addAttribute("font", FontChoice.FUTURA);
+
+        return "amappli/front/amapplilogin";
     }
 
-    @GetMapping("/{tenancyAlias}/login")
+    @GetMapping("/amap/{tenancyAlias}/login")
     public String goToTenancyLogin(@RequestParam(name = "error", required = false) String error, @PathVariable("tenancyAlias") String alias, Model model) {
 
-        // if(error != null){
-            model.addAttribute("error",error);
-        // }
-        // else {
-        //     model.addAttribute("error",false);
-        // }
-        System.out.println("the error"+error);
+        // LoginDTO loginDTO = new LoginDTO();
+        // model.addAttribute("loginDTO", loginDTO);
         model.addAttribute("tenancyAlias", alias);
-        // Appropriate graphism for the tenant
-        //get map style depending on tenancy
+        if (error != null) {
+            model.addAttribute("error", "Email ou mot de passe incorrect.");
+        }
+        Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
+        
+        // Ajouter les informations générales de la tenancy
+        model.addAttribute("tenancy", tenancy);
+        model.addAttribute("tenancyName", tenancy.getTenancyName());
+        model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
+        
+     // Ajouter les informations graphiques
+        Graphism graphism = tenancy.getGraphism();
+        String logoBase64 = graphism != null ? graphism.getLogoImg() : null;
+        String logoImgType = graphism != null ? graphism.getLogoImgType() : null;
+        model.addAttribute("logoBase64", logoBase64);
+        model.addAttribute("logoImgType", logoImgType);
+        
+        // Récupérer et ajouter les styles dynamiques via GraphismService
         model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
         model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
-        //get tenancy info for header footer
-        model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
-        //get color palette
         model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
-        //get font choice
         model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
 
-        return "secexamples/tenantlogin";
-    }
-
-    @GetMapping("/logout")
-    public String goToLogout(Model model){
-        return "secexamples/logout";
+        return "amap/amaplogin/login";
+        //return "secexamples/tenantlogin";
     }
 
     @GetMapping("/amappli/needanyauth")
@@ -97,9 +109,9 @@ public class SecurityController {
         return "secexamples/showloggeduserpermissions"; 
     }
 
-    @PreAuthorize("hasAuthority('Permission 1')")
-    @GetMapping("/needpermission1")
-    public String needPermissionA(){
+    @PreAuthorize("hasAuthority('gestion utilisateurs amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
+    @GetMapping("/permissioncheck/{tenancyAlias}")
+    public String needPermissionA(@PathVariable("tenancyAlias") String alias){
         return "secexamples/needpermission1";
     }
 

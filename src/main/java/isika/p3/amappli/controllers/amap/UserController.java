@@ -25,7 +25,7 @@ import isika.p3.amappli.service.amappli.TenancyService;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/tenancies/{tenancyAlias}/amap/amaplogin")
+@RequestMapping("{tenancyAlias}/amap/amaplogin")
 public class UserController {
 
     @Autowired
