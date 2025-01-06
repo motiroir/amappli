@@ -34,7 +34,7 @@ import isika.p3.amappli.service.amap.UserService;
 import isika.p3.amappli.service.amappli.TenancyService;
 
 @Controller
-@RequestMapping("/{tenancyAlias}/backoffice/contracts")
+@RequestMapping("/amap/{tenancyAlias}/admin/contracts")
 public class ContractController {
 
 	private final ContractService contractService;
@@ -78,7 +78,6 @@ public class ContractController {
 		model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
 		model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
 		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
-		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
 		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
 		model.addAttribute("users", users);
 	    // Récupérer l'adresse de la tenancy
@@ -88,6 +87,7 @@ public class ContractController {
 	    model.addAttribute("address", address);
 		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		model.addAttribute("currentDate", currentDate);
+		model.addAttribute("pickupSchedule", tenancy.getPickUpSchedule());
 		addGraphismAttributes(tenancyAlias, model);
 
 		return "amap/back/contracts/contract-form";
@@ -100,7 +100,7 @@ public class ContractController {
 	public String addContract(@ModelAttribute("contractDTO") ContractDTO newContractDTO,
 			@PathVariable("tenancyAlias") String tenancyAlias) {
 		contractService.save(newContractDTO, tenancyAlias);
-		return "redirect:/" + tenancyAlias + "/backoffice/contracts/list";
+		return "redirect:/amap/" + tenancyAlias + "/admin/contracts/list";
 
 	}
 
@@ -126,7 +126,7 @@ public class ContractController {
 	@PostMapping("/delete/{id}")
 	public String deleteContract(@PathVariable("id") Long id, @PathVariable("tenancyAlias") String tenancyAlias) {
 		contractService.deleteById(id);
-		return "redirect:/" + tenancyAlias + "/backoffice/contracts/list";
+		return "redirect:/amap/" + tenancyAlias + "/admin/contracts/list";
 	}
 
 	/**
@@ -138,7 +138,7 @@ public class ContractController {
 		Contract contract = contractService.findById(id);
 
 		if (contract == null) {
-			return "redirect:/" + tenancyAlias + "/backoffice/contracts/list"; // Redirige si le contrat n'existe pas
+			return "redirect:/" + tenancyAlias + "/admin/contracts/list"; // Redirige si le contrat n'existe pas
 		}
 	    Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
 	            .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
@@ -152,6 +152,7 @@ public class ContractController {
 		model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
 		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
 		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
+		
 
 
 		return "amap/back/contracts/contract-edit"; // Nom de la vue pour le formulaire d'édition
@@ -182,6 +183,7 @@ public class ContractController {
 		model.addAttribute("contract", contract);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		addGraphismAttributes(tenancyAlias, model);
+		model.addAttribute("pickupSchedule", tenancy.getPickUpSchedule());
 		return "amap/back/contracts/contract-detail";
 	}
 
@@ -193,7 +195,7 @@ public class ContractController {
 
 		contractService.updateContract(updatedContractDTO, image, tenancyAlias);
 
-		return "redirect:/" + tenancyAlias + "/backoffice/contracts/list";
+		return "redirect:/amap/" + tenancyAlias + "/admin/contracts/list";
 	}
 	
 	public void addGraphismAttributes(String alias, Model model) {

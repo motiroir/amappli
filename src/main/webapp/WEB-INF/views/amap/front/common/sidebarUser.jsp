@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <nav class="navbar h-100 position-sticky p-0 top-0 start-0 w-auto">
 	<div class="vh-100 bg-main p-4 border-1 border-end d-flex flex-column">
-		<div id="sidebar" class="text-secondary fch-main show">
+		<div id="sidebar">
 			<ul class="nav flex-column">
 				<!-- Paniers maraîchers -->
 				<li class="mb-4">

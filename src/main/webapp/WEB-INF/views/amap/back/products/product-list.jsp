@@ -65,7 +65,7 @@ request.setAttribute("currentPage", currentPage);
 						class="table-container d-flex justify-content-between align-items-center my-2">
 						<h2 class="fw-bold fc-main my-auto">Liste des produits</h2>
 						<a
-							href="<c:url value='/${tenancyAlias}/backoffice/products/form' />"
+							href="<c:url value='/amap/${tenancyAlias}/admin/products/form' />"
 							class="btn btn-outline-300 rounded-pill fch-main fw-bold border-2">
 							<span class="icon">+ </span><span class=" d-none d-md-inline">Créer
 								un produit</span>
@@ -99,12 +99,12 @@ request.setAttribute("currentPage", currentPage);
 									<td>
 										<div class='d-flex justify-content-start align-items-center'>
 											<a
-												href="<c:url value='/${tenancyAlias}/backoffice/products/detail/${product.id}' />"
+												href="<c:url value='/amap/${tenancyAlias}/admin/products/detail/${product.id}' />"
 												class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1">
 												<i class="bi bi-eye"></i>
 											</a>
 											<form:form method="POST"
-												action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/products/delete/${product.id}"
+												action="${pageContext.request.contextPath}/amap/${tenancyAlias}/admin/products/delete/${product.id}"
 												class="d-inline"
 												onsubmit="return confirm('Voulez-vous vraiment supprimer le produit ${product.productName} ?');">
 												<button type="submit"

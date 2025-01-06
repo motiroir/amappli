@@ -67,7 +67,7 @@ request.setAttribute("currentPage", currentPage);
 						class="table-container d-flex justify-content-between align-items-center my-2">
 						<h2 class="fw-bold fc-main my-auto">Liste des paniers</h2>
 						<a
-							href="<c:url value='/${tenancyAlias}/backoffice/contracts/form'/>"
+							href="<c:url value='/amap/${tenancyAlias}/admin/contracts/form'/>"
 							class="btn btn-outline-300 rounded-pill fch-main fw-bold border-2">
 							<span class="icon">+ </span><span class=" d-none d-md-inline">Créer
 								un panier</span>
@@ -104,13 +104,13 @@ request.setAttribute("currentPage", currentPage);
 									<td>
 										<div class='d-flex justify-content-start align-items-center'>
 											<a
-												href="<c:url value='/${tenancyAlias}/backoffice/contracts/detail/${contract.id}' />"
+												href="<c:url value='/amap/${tenancyAlias}/admin/contracts/detail/${contract.id}' />"
 												class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1">
 												<i class="bi bi-eye"></i>
 											</a>
 
 											<form:form method="POST"
-												action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/contracts/delete/${contract.id}"
+												action="${pageContext.request.contextPath}/amap/${tenancyAlias}/admin/contracts/delete/${contract.id}"
 												class="d-inline"
 												onsubmit="return confirm('Voulez-vous vraiment supprimer le panier ${contract.contractName} ?');">
 												<button type="submit"

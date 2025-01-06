@@ -26,7 +26,7 @@ import isika.p3.amappli.service.amap.ProductService;
 import isika.p3.amappli.service.amap.WorkshopService;
 
 @Controller
-@RequestMapping("/{tenancyAlias}/shop")
+@RequestMapping("/amap/{tenancyAlias}/shop")
 public class ShopController {
 
 	private final ContractService contractService;
@@ -184,20 +184,20 @@ public class ShopController {
 		Contract contract = contractService.findById(id);
 
 		// Calcul de la date de première livraison
-		LocalDate today = LocalDate.now();
-		DayOfWeek deliveryDayOfWeek = DayOfWeek.valueOf(contract.getDeliveryDay().name());
-		LocalDate nextDeliveryDate = today.with(TemporalAdjusters.nextOrSame(deliveryDayOfWeek));
+//		LocalDate today = LocalDate.now();
+//		DayOfWeek deliveryDayOfWeek = DayOfWeek.valueOf(contract.getDeliveryDay().name());
+//		LocalDate nextDeliveryDate = today.with(TemporalAdjusters.nextOrSame(deliveryDayOfWeek));
 		
-	    // Formatter pour les dates
-	    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale.FRENCH);
-	    // Formatage des dates
-	    String formattedEndDate = contract.getEndDate().format(dateFormatter);
-	    String formattedNextDeliveryDate = nextDeliveryDate.format(dateFormatter);
-
-		// Si le jour de livraison correspond à aujourd'hui, passe à la semaine suivante
-		if (today.getDayOfWeek() == deliveryDayOfWeek) {
-			nextDeliveryDate = today.with(TemporalAdjusters.next(deliveryDayOfWeek));
-		}
+//	    // Formatter pour les dates
+//	    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale.FRENCH);
+//	    // Formatage des dates
+//	    String formattedEndDate = contract.getEndDate().format(dateFormatter);
+//	    String formattedNextDeliveryDate = nextDeliveryDate.format(dateFormatter);
+//
+//		// Si le jour de livraison correspond à aujourd'hui, passe à la semaine suivante
+//		if (today.getDayOfWeek() == deliveryDayOfWeek) {
+//			nextDeliveryDate = today.with(TemporalAdjusters.next(deliveryDayOfWeek));
+//		}
 
 		// Ajouter l'adresse associée au modèle
 		if (contract.getAddress() != null) {
@@ -208,10 +208,10 @@ public class ShopController {
 			model.addAttribute("address", null); // Pas d'adresse trouvée
 		}
 		
-	    model.addAttribute("formattedEndDate", formattedEndDate); // Ajout de la date formatée
-	    model.addAttribute("formattedNextDeliveryDate", formattedNextDeliveryDate);
+//	    model.addAttribute("formattedEndDate", formattedEndDate); // Ajout de la date formatée
+//	    model.addAttribute("formattedNextDeliveryDate", formattedNextDeliveryDate);
 		model.addAttribute("contract", contract);
-		model.addAttribute("nextDeliveryDate", nextDeliveryDate);
+//		model.addAttribute("nextDeliveryDate", nextDeliveryDate);
 		addGraphismAttributes(tenancyAlias, model);
 		return "amap/front/shopping-contract-detail";
 	}
@@ -232,21 +232,21 @@ public class ShopController {
 		// Récupérer le contrat par ID
 		Product product = productService.findById(id);
 
-		// Calcul de la date de première livraison
-		LocalDate today = LocalDate.now();
-		DayOfWeek deliveryDayOfWeek = DayOfWeek.valueOf(product.getDeliveryDay().name());
-		LocalDate nextDeliveryDate = today.with(TemporalAdjusters.nextOrSame(deliveryDayOfWeek));
-
-		// Si le jour de livraison correspond à aujourd'hui, passe à la semaine suivante
-		if (today.getDayOfWeek() == deliveryDayOfWeek) {
-			nextDeliveryDate = today.with(TemporalAdjusters.next(deliveryDayOfWeek));
-		}
-		
-	    // Formatter pour les dates
-	    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale.FRENCH);
-	    // Formatage des dates
-	    String formattedFabricationDate = product.getFabricationDate().format(dateFormatter);
-	    String formattedExpirationDate = product.getExpirationDate().format(dateFormatter);
+//		// Calcul de la date de première livraison
+//		LocalDate today = LocalDate.now();
+//		DayOfWeek deliveryDayOfWeek = DayOfWeek.valueOf(product.getDeliveryDay().name());
+//		LocalDate nextDeliveryDate = today.with(TemporalAdjusters.nextOrSame(deliveryDayOfWeek));
+//
+//		// Si le jour de livraison correspond à aujourd'hui, passe à la semaine suivante
+//		if (today.getDayOfWeek() == deliveryDayOfWeek) {
+//			nextDeliveryDate = today.with(TemporalAdjusters.next(deliveryDayOfWeek));
+//		}
+//		
+//	    // Formatter pour les dates
+//	    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale.FRENCH);
+//	    // Formatage des dates
+//	    String formattedFabricationDate = product.getFabricationDate().format(dateFormatter);
+//	    String formattedExpirationDate = product.getExpirationDate().format(dateFormatter);
 
 
 		// Ajouter l'adresse associée au modèle
@@ -258,10 +258,10 @@ public class ShopController {
 			model.addAttribute("address", null); // Pas d'adresse trouvée
 		}
 
-		model.addAttribute("formattedFabricationDate", formattedFabricationDate);
-		model.addAttribute("formattedExpirationDate", formattedExpirationDate);
+//		model.addAttribute("formattedFabricationDate", formattedFabricationDate);
+//		model.addAttribute("formattedExpirationDate", formattedExpirationDate);
 		model.addAttribute("product", product);
-		model.addAttribute("nextDeliveryDate", nextDeliveryDate);
+//		model.addAttribute("nextDeliveryDate", nextDeliveryDate);
 		addGraphismAttributes(tenancyAlias, model);
 		return "amap/front/shopping-product-detail";
 	}

@@ -41,7 +41,7 @@ request.setAttribute("currentPage", currentPage);
 				<div class="form-container">
 					<div class="header-container">
 						<a
-							href="<c:url value='/${tenancyAlias}/backoffice/contracts/list' />"
+							href="<c:url value='/amap/${tenancyAlias}/admin/contracts/list' />"
 							class="${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900">
 							<i class="bi bi-arrow-left"></i><span class="d-none d-md-inline">
 								Liste des paniers</span>
@@ -49,7 +49,7 @@ request.setAttribute("currentPage", currentPage);
 						<h2 class="my-4 fw-bold">Ajouter un panier</h2>
 					</div>
 					<form:form method="POST"
-						action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/contracts/add"
+						action="${pageContext.request.contextPath}/amap/${tenancyAlias}/admin/contracts/add"
 						enctype="multipart/form-data">
 						<input type="hidden" id="tenancyAlias" name="tenancyAlias"
 							value="${tenancyAlias}">
@@ -143,22 +143,6 @@ request.setAttribute("currentPage", currentPage);
 									<div class="invalid-feedback"></div>
 								</div>
 								<div class="mb-3">
-									<label for="deliveryDay" class="form-label">Jour de
-										livraison au point de collecte</label> <select
-										class="form-select form-control" id="deliveryDay"
-										name="deliveryDay" required>
-										<option selected disabled></option>
-										<option value="MONDAY">Lundi</option>
-										<option value="TUESDAY">Mardi</option>
-										<option value="WEDNESDAY">Mercredi</option>
-										<option value="THURSDAY">Jeudi</option>
-										<option value="FRIDAY">Vendredi</option>
-										<option value="SATURDAY">Samedi</option>
-										<option value="SUNDAY">Dimanche</option>
-									</select>
-									<div class="invalid-feedback"></div>
-								</div>
-								<div class="mb-3">
 									<label for="quantity" class="form-label">Quantité
 										disponible entre chaque livraison</label>
 									<div class="input-group">
@@ -189,6 +173,14 @@ request.setAttribute("currentPage", currentPage);
 										<strong>Adresse de livraison du point de collecte :</strong><br>
 										<c:if test="${not empty address}">
             ${address.line1} ${address.line2}, ${address.city} (${address.postCode})
+        </c:if>
+									</p>
+								</div>
+								<div class="mb-3">
+									<p>
+										<strong>Jour et heures de livraison :</strong><br>
+										<c:if test="${not empty address}">
+            ${pickupSchedule.localizedDayOfWeek} de ${pickupSchedule.startHour} à ${pickupSchedule.endHour}
         </c:if>
 									</p>
 								</div>
