@@ -13,14 +13,10 @@ import isika.p3.amappli.entities.tenancy.HomePageContent;
 import isika.p3.amappli.api.NominatimAPI;
 import isika.p3.amappli.dto.amappli.NewTenancyDTO;
 import isika.p3.amappli.dto.amappli.ValueDTO;
-import isika.p3.amappli.entities.tenancy.ColorPalette;
 import isika.p3.amappli.entities.tenancy.ContentBlock;
-import isika.p3.amappli.entities.tenancy.FontChoice;
 import isika.p3.amappli.entities.tenancy.Graphism;
 import isika.p3.amappli.entities.tenancy.Options;
 import isika.p3.amappli.entities.tenancy.Tenancy;
-import isika.p3.amappli.entities.user.Address;
-import isika.p3.amappli.entities.user.ContactInfo;
 import isika.p3.amappli.exceptions.TenancyAliasAlreadyTakenException;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
 import isika.p3.amappli.service.amappli.TenancyService;
@@ -132,15 +128,15 @@ public class TenancyServiceImpl implements TenancyService {
 
 		// Options
 		Options options = new Options();
-		if (newTenancyDTO.isOption1()) {
+		if (newTenancyDTO.getOption().equals("option-1")) {
 			options.setOption1Active(true);
 			options.setOption2Active(false);
 			options.setOption3Active(false);
-		} else if (newTenancyDTO.isOption2()) {
+		} else if (newTenancyDTO.getOption().equals("option-2")) {
 			options.setOption1Active(true);
 			options.setOption2Active(true);
 			options.setOption3Active(false);
-		} else if (newTenancyDTO.isOption3()) {
+		} else if (newTenancyDTO.getOption().equals("option-3")) {
 			options.setOption1Active(true);
 			options.setOption2Active(true);
 			options.setOption3Active(true);
@@ -188,7 +184,7 @@ public class TenancyServiceImpl implements TenancyService {
 			}
 		}
 		tenancy.setHomePageContent(homePageContent);
-
+		homePageContent.setTenancy(tenancy);
 		// Will cause error if tenancyAlias already taken
 		try {
 			tenancyRepository.save(tenancy);
