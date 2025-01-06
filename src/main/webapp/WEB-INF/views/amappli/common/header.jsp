@@ -116,7 +116,7 @@
 				</li>
 				<!--   <li class="nav-item col-1">
                 </li> -->
-				<li class="nav-item"><a href="#"
+				<li class="nav-item"><a href="/start/signup"
 					class="btn rounded-pill btn-500 px-4">S'inscrire</a></li>
 			</ul>
 		</div>

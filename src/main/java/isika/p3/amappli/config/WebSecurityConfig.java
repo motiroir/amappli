@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import isika.p3.amappli.security.CustomAuthenticationEntryPoint;
 import isika.p3.amappli.security.CustomAuthenticationFailureHandler;
@@ -52,6 +53,7 @@ public class WebSecurityConfig {
 			)
 			.logout((logout) -> logout
 					.logoutUrl("/logout").permitAll()
+					.logoutRequestMatcher(new AntPathRequestMatcher("/logout","GET"))
 					.logoutSuccessHandler(logoutSuccessHandler)
 			);
            // .csrf((csrf)-> csrf.disable()); //everyone can log out lol

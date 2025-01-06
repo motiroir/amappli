@@ -56,7 +56,7 @@
 				<li class="nav-item"> <a href="<c:url value='/${tenancyAlias}/cart/${cart.shoppingCartId}'/>"><i class="bi bi-bag-fill fs-4 fc-300 fch-500"></i></a>
 				
                 </li> 
-				<li class="nav-item"><a href="amap/amaplogin/login"
+				<li class="nav-item"><a href="<c:url value='/amap/${tenancyAlias}/login'/>"
 					class="btn rounded-pill btn-500 px-4" >Se connecter</a></li>
 			</ul>
 		</div>

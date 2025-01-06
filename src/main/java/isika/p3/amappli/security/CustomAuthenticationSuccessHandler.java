@@ -49,7 +49,7 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
         CustomUserDetails loggedUserInfo = (CustomUserDetails) authentication.getPrincipal();
         if(loggedUserInfo.getAdditionalInfoByKey("tenancyAlias") != null){
             System.out.println(loggedUserInfo.getAdditionalInfoByKey("tenancyAlias"));
-            return "/" + loggedUserInfo.getAdditionalInfoByKey("tenancyAlias") + "/home";
+            return "/amap/" + loggedUserInfo.getAdditionalInfoByKey("tenancyAlias") + "/home";
         }
         return "/amappli";
     }

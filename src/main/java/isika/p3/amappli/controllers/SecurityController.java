@@ -34,7 +34,7 @@ public class SecurityController {
     }
   
 
-    @GetMapping("/login")
+    @GetMapping("/amappli/login")
     public String goToLogin(@RequestParam(name = "error", required = false) String error,Model model){
         
         if (error != null) {
@@ -49,7 +49,7 @@ public class SecurityController {
         return "amappli/front/amapplilogin";
     }
 
-    @GetMapping("/{tenancyAlias}/login")
+    @GetMapping("/amap/{tenancyAlias}/login")
     public String goToTenancyLogin(@RequestParam(name = "error", required = false) String error, @PathVariable("tenancyAlias") String alias, Model model) {
 
         // LoginDTO loginDTO = new LoginDTO();
@@ -109,9 +109,9 @@ public class SecurityController {
         return "secexamples/showloggeduserpermissions"; 
     }
 
-    @PreAuthorize("hasAuthority('Permission 1')")
-    @GetMapping("/needpermission1")
-    public String needPermissionA(){
+    @PreAuthorize("hasAuthority('gestion utilisateurs amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
+    @GetMapping("/permissioncheck/{tenancyAlias}")
+    public String needPermissionA(@PathVariable("tenancyAlias") String alias){
         return "secexamples/needpermission1";
     }
 

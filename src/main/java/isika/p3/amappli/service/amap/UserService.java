@@ -11,7 +11,6 @@ public interface UserService {
 
 	void addPlatformUser(NewUserDTO newUserDTO);
 	User addTenancyUser(UserDTO userDTO, Long tenancyId);
-	void generateUsers();
 	User saveUser(User user);
 	User findById(Long userId);
 	List<User> findAll();

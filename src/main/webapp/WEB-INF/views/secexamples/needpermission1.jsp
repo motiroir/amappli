@@ -5,10 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Need Permission 1</title>
+<title>Need Permission</title>
 </head>
 <body>
 <h1>This is a test page</h1>
-<p>You need permission 1 to read this.</p>
+<p>If you are here, you have permission "gestion utilisateurs amap" for this AMAP or are a platform admin</p>
 </body>
 </html>

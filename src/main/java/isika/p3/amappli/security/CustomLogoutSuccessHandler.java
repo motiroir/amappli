@@ -16,7 +16,7 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
                                 Authentication authentication) throws IOException {
         if (authentication != null) {
-            String redirectUrl = "/";
+            String redirectUrl = "/Amappli/";
             CustomUserDetails loggedUserInfo = (CustomUserDetails) authentication.getPrincipal();
             String userTenancy = (String) loggedUserInfo.getAdditionalInfoByKey("tenancyAlias");
 
@@ -26,13 +26,13 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
                 redirectUrl += "amappli";
             }
             else {
-                redirectUrl += userTenancy + "/home";
+                redirectUrl += "amap/" + userTenancy + "/home";
             }
 
             response.sendRedirect(redirectUrl);
         } else {
             // If user was not connected, send him back to amappli homepage
-            response.sendRedirect("/amappli");
+            response.sendRedirect("/Amappli/amappli");
         }
     }
 }

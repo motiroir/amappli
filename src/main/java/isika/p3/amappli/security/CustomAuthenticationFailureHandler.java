@@ -29,10 +29,10 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
         } else {
             // Add error parameter to the original login page
             if(originalLoginPage.equals("amappli")){
-                response.sendRedirect("/Amappli/login?error=true");
+                response.sendRedirect("/Amappli/amappli/login?error=true");
             }
             else{
-                response.sendRedirect("/Amappli/"+originalLoginPage+"/login?error=true");
+                response.sendRedirect("/Amappli/amap/"+originalLoginPage+"/login?error=true");
             }
         }
 
