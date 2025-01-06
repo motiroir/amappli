@@ -85,6 +85,11 @@ public class ProductController {
 		model.addAttribute("users", users);
 		model.addAttribute("address", address);
 		model.addAttribute("currentDate", currentDate);
+        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
+        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
+        model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
+        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
+        model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
 		return "amap/back/products/product-form";
 	}
 
@@ -116,6 +121,11 @@ public class ProductController {
 		model.addAttribute("users", users);
 		model.addAttribute("products", products);
 		model.addAttribute("tenancyAlias", tenancyAlias);
+        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
+        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
+        model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
+        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
+        model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
 		return "amap/back/products/product-list";
 	}
 

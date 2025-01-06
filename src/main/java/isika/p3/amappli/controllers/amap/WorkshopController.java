@@ -78,6 +78,11 @@ public class WorkshopController {
 		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("users", users);
 		model.addAttribute("address", address);
+		model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
+		model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
+		model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
+		model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
+		model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
 		return "amap/back/workshops/workshop-form";
 	}
 
@@ -106,6 +111,11 @@ public class WorkshopController {
 		model.addAttribute("workshops", workshops);
 		model.addAttribute("users", users);
 		model.addAttribute("tenancyAlias", tenancyAlias);
+        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
+        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
+        model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
+        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
+        model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
 		return "amap/back/workshops/workshop-list";
 	}
 

@@ -26,8 +26,8 @@ request.setAttribute("currentPage", currentPage);
 	rel="stylesheet">
 </head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
-	<header class="fc-main bg-main border-1 border-alt">
 		<!-- Inclusion du header -->
+	<header class="fc-main bg-main border-1 border-alt">
 		<jsp:include page="../common/headerAdmin.jsp" />
 	</header>
 	<!-- Inclusion de la sidebar -->

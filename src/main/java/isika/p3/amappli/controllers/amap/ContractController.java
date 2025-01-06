@@ -88,6 +88,11 @@ public class ContractController {
 	    model.addAttribute("address", address);
 		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		model.addAttribute("currentDate", currentDate);
+        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
+        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
+        model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
+        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
+        model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
 
 		return "amap/back/contracts/contract-form";
 	}
@@ -115,6 +120,11 @@ public class ContractController {
 		model.addAttribute("users", users);
 		model.addAttribute("contracts", contracts);
 		model.addAttribute("tenancyAlias", tenancyAlias);
+        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
+        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
+        model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
+        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
+        model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
 		return "amap/back/contracts/contract-list";
 	}
 

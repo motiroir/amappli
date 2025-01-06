@@ -16,14 +16,16 @@ request.setAttribute("currentPage", currentPage);
 <title>Boutique des Paniers</title>
 <link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />"
 	rel="stylesheet">
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/amap/homePage.css' />">
+<link href="<c:url value='/resources/css/common/utils.css' />"
+	rel="stylesheet">
+<link href="<c:url value='/resources/css/amap/image-format.css' />"
+	rel="stylesheet">
+<link
+	href="<c:url value='/resources/bootstrap/bootstrap-icons.min.css' />"
+	rel="stylesheet">
 <style>
 body {
-	background-color: #FAF8F6;
-
-.contract-card {
-	background-color: #FFF;
+	background-color: #FAF8F6; . contract-card { background-color : #FFF;
 	border: 1px solid #FFA570;
 	border-radius: 24px;
 	padding: 16px;
@@ -60,66 +62,82 @@ body {
 }
 </style>
 </head>
-<body class="row theme-1 light">
-<header class="fc-main bg-main">
-		<!-- Inclusion du header -->
-<jsp:include page="common/header.jsp" />
-</header>
-<jsp:include page="../front/common/sidebarUser.jsp"/>
-<div class="container-fluid mt-5">
+<body class="row ${cssStyle} light ${font}-title ${font}-button">
+	<!-- Inclusion du header -->
+	<header class="fc-main bg-main border-1 border-alt">
+		<jsp:include page="common/header.jsp" />
+	</header>
+	<jsp:include page="../front/common/sidebarUser.jsp" />
+
+	<div id="map" class="p-0"></div>
+
+	<div class="content col fc-main">
+		<div class="container-fluid mt-2">
 			<div class="row justify-content-center">
-				<div class="col-lg-10">
-										<div class="header-container">
-							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Paniers</h2>
+				<div class="form-container">
+					<div class="container-fluid mt-5">
+						<div class="row justify-content-center">
+							<div class="col-lg-10">
+								<div class="header-container">
+									<h2 class="mb-4" style="font-weight: bold; text-align: left;">Paniers</h2>
+								</div>
+								<div class="row">
+
+									<!-- Main Content -->
+									<div class="col-12 col-md-9">
+										<div
+											class="d-flex justify-content-between align-items-center mb-4">
+											<span>${contracts.size()} Items</span>
+											<div class="d-flex align-items-center">
+												<label for="sortBy" class="me-2">Trier par</label> <select
+													id="sortBy" class="form-select me-3" style="width: auto;">
+													<option value="name">Nom</option>
+													<option value="priceAsc">Prix croissant</option>
+													<option value="priceDesc">Prix décroissant</option>
+												</select> <input type="text" id="searchBar" class="form-control"
+													placeholder="Rechercher..." style="width: 200px;">
+											</div>
+										</div>
+
+										<div class="row">
+											<c:if test="${not empty contracts}">
+												<c:forEach var="contract" items="${contracts}">
+													<div class="col-12 col-sm-6 col-lg-4 mb-4">
+														<div class="contract-card"
+															data-contract-type="${contract.contractType.name()}">
+															<c:if test="${not empty contract.imageData}">
+																<img
+																	src="data:${contract.imageType};base64,${contract.imageData}"
+																	alt="Image du contrat">
+															</c:if>
+															<h3 class="mt-3">${contract.contractName}</h3>
+															<p>${contract.contractType.displayName}</p>
+															<p>${contract.contractWeight.displayName}</p>
+															<p>${contract.contractPrice}&euro;</p>
+															<a
+																href="<c:url value='/${tenancyAlias}/shop/contracts/${contract.id}' />"
+																class="btn">Voir les détails</a>
+														</div>
+													</div>
+												</c:forEach>
+											</c:if>
+											<c:if test="${empty contracts}">
+												<div class="col-12">
+													<p class="text-center">Aucun contrat disponible pour
+														cette AMAP.</p>
+												</div>
+											</c:if>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
-    <div class="row">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-        <!-- Main Content -->
-        <div class="col-12 col-md-9">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <span>${contracts.size()} Items</span>
-                <div class="d-flex align-items-center">
-                    <label for="sortBy" class="me-2">Trier par</label>
-                    <select id="sortBy" class="form-select me-3" style="width: auto;">
-                        <option value="name">Nom</option>
-                        <option value="priceAsc">Prix croissant</option>
-                        <option value="priceDesc">Prix décroissant</option>
-                    </select>
-                    <input type="text" id="searchBar" class="form-control" placeholder="Rechercher..."
-                        style="width: 200px;">
-                </div>
-            </div>
-
-            <div class="row">
-                <c:if test="${not empty contracts}">
-                    <c:forEach var="contract" items="${contracts}">
-                        <div class="col-12 col-sm-6 col-lg-4 mb-4">
-                            <div class="contract-card" data-contract-type="${contract.contractType.name()}">
-                                <c:if test="${not empty contract.imageData}">
-                                    <img src="data:${contract.imageType};base64,${contract.imageData}"
-                                        alt="Image du contrat">
-                                </c:if>
-                                <h3 class="mt-3">${contract.contractName}</h3>
-                                <p>${contract.contractType.displayName}</p>
-                                <p>${contract.contractWeight.displayName}</p>
-                                <p>${contract.contractPrice}&euro;</p>
-                                <a href="<c:url value='/${tenancyAlias}/shop/contracts/${contract.id}' />"
-                                    class="btn">Voir les détails</a>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </c:if>
-                <c:if test="${empty contracts}">
-                    <div class="col-12">
-                        <p class="text-center">Aucun contrat disponible pour cette AMAP.</p>
-                    </div>
-                </c:if>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-</div>
 
 
 
