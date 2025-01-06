@@ -66,84 +66,69 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 		this.tenancyService = tenancyService;
 		this.roleService = roleService;
 	}
-    
-    
-	@Override
-	public User addTenancyUser(UserDTO userDTO, String tenancyAlias) {
-        // Vérifiez si la tenancy existe
-        Tenancy tenancy = tenancyService.getTenancyByAlias(tenancyAlias);
-        if (tenancy == null) {
-            throw new TenancyNotFoundException("Tenancy introuvable avec l'Alias : " + tenancyAlias);
-        }
-        // Vérifiez si l'email existe déjà pour cette tenancy
-        if (userService.existsByEmailAndTenancy(userDTO.getEmail(), tenancy)) {
-            throw new EmailAlreadyExistsException("Un utilisateur avec cet email existe déjà pour cette AMAP.");
-        }
-
-        // Convertir UserDTO en entité User
-        User user = new User();
-        user.setEmail(userDTO.getEmail());
-        user.setCreditBalance(userDTO.getCreditBalance() != null ? userDTO.getCreditBalance() : BigDecimal.ZERO);
-        user.setAddress(userDTO.getAddress()); // Si address est déjà une entité
-        user.setContactInfo(userDTO.getContactInfo()); // Idem pour contactInfo
-
-        // Encoder le mot de passe
-        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-
-        // Associer l'utilisateur à la tenancy
-        user.setTenancy(tenancy);
-        user.setActive(true); // Activation par défaut
-
-        // Sauvegarder l'utilisateur
-        return userService.saveUser(user);
-    }
 	
 	@Override
-	public User addTenancySupplier(UpdateUserDTO updateUserDTO, String tenancyAlias) {
+	public User addTenancyUser(UserDTO userDTO, String tenancyAlias) {
 		// Vérifiez si la tenancy existe
 		Tenancy tenancy = tenancyService.getTenancyByAlias(tenancyAlias);
 		if (tenancy == null) {
 			throw new TenancyNotFoundException("Tenancy introuvable avec l'Alias : " + tenancyAlias);
 		}
 		// Vérifiez si l'email existe déjà pour cette tenancy
-		if (userService.existsByEmailAndTenancy(updateUserDTO.getEmail(), tenancy)) {
+		if (userService.existsByEmailAndTenancy(userDTO.getEmail(), tenancy)) {
 			throw new EmailAlreadyExistsException("Un utilisateur avec cet email existe déjà pour cette AMAP.");
 		}
-		Address address = new Address();
-		address.setLine1(updateUserDTO.getAddress().getLine1());
-		address.setLine2(updateUserDTO.getAddress().getLine2());
-		address.setPostCode(updateUserDTO.getAddress().getPostCode());
-		address.setCity(updateUserDTO.getAddress().getCity());
-		address = this.addressService.save(address);
 		
-		CompanyDetails cd = new CompanyDetails();
-		cd.setCompanyName(updateUserDTO.getCompanyDetails().getCompanyName());
-		cd.setSiretNumber(updateUserDTO.getCompanyDetails().getSiretNumber());
-		cd = this.companyDetailsService.save(cd);
-		
-		ContactInfo ci = new ContactInfo();
-		ci.setFirstName(updateUserDTO.getContactInfo().getFirstName());
-		ci.setName(updateUserDTO.getContactInfo().getName());
-		ci.setPhoneNumber(updateUserDTO.getContactInfo().getPhoneNumber());
-		ci = this.contactInfoService.save(ci);
-		
-		// Convertir UserDTO en entité User
 		User user = new User();
-		user.setEmail(updateUserDTO.getEmail());
+		user.setEmail(userDTO.getEmail());
 		user.setCreditBalance(BigDecimal.ZERO);
-		user.setAddress(address);
-		user.setContactInfo(ci);
-		user.setCompanyDetails(cd);
+		
+		if (userDTO.getRoles() != null) {
+			Set<Role> newRoles = new HashSet<>();
+			for (Long roleID : userDTO.getRoles()) {
+				newRoles.add(roleService.findById(roleID));
+			}
+			user.setRoles(newRoles);
+		}
 		
 		// Encoder le mot de passe
-		user.setPassword(passwordEncoder.encode("Producteur"));
+		user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 		
 		// Associer l'utilisateur à la tenancy
 		user.setTenancy(tenancy);
 		user.setActive(true); // Activation par défaut
 		
+		this.saveUser(user);
+		
+		Address address = new Address();
+		address.setLine1(userDTO.getAddress().getLine1());
+		address.setLine2(userDTO.getAddress().getLine2());
+		address.setPostCode(userDTO.getAddress().getPostCode());
+		address.setCity(userDTO.getAddress().getCity());
+		address.setUser(user);
+		address = this.addressService.save(address);
+		
+		CompanyDetails cd = new CompanyDetails();
+		cd.setCompanyName(userDTO.getCompanyDetails().getCompanyName());
+		cd.setSiretNumber(userDTO.getCompanyDetails().getSiretNumber());
+		cd.setUser(user);
+		cd = this.companyDetailsService.save(cd);
+		
+		ContactInfo ci = new ContactInfo();
+		ci.setFirstName(userDTO.getContactInfo().getFirstName());
+		ci.setName(userDTO.getContactInfo().getName());
+		ci.setPhoneNumber(userDTO.getContactInfo().getPhoneNumber());
+		ci.setUser(user);
+		ci = this.contactInfoService.save(ci);
+		
+		// Convertir UserDTO en entité User
+		user.setAddress(address);
+		user.setContactInfo(ci);
+		user.setCompanyDetails(cd);
+		
+		
 		// Sauvegarder l'utilisateur
-		return userService.saveUser(user);
+		return this.saveUser(user);
 	}
 
 	@Override
@@ -156,7 +141,7 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
         for(int i=0;i < 20 ;i++){
         	User u = new User();
         	u.setEmail(faker.internet().emailAddress());
-        	u.setPassword(faker.internet().password());
+        	u.setPassword(passwordEncoder.encode(faker.internet().password()));
         	u.setCreditBalance(BigDecimal.ZERO);
         	u.setActive(true);
         	u.setTenancy(tenancy);
@@ -200,7 +185,6 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 
     @Override
     public User saveUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.saveUser(user);
         return user;
     }

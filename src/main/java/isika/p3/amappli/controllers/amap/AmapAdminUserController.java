@@ -67,7 +67,8 @@ public class AmapAdminUserController {
 	@GetMapping("/users/details/{userId}")
 	public String usersDetails(@PathVariable("userId") Long userId, Model model, @PathVariable("tenancyAlias") String tenancyAlias, @ModelAttribute("message") String message) {
 		User user = adminUserService.findById(userId);
-		model.addAttribute("user", user);
+
+		model.addAttribute("user", model.containsAttribute("userDTO")? model.getAttribute("userDTO") : user);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAllRoles());
         model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
@@ -76,43 +77,6 @@ public class AmapAdminUserController {
         model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
         model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
 		return "amap/back/users/users-details";
-	}
-	
-	@PostMapping("/users/update")
-	public String usersUpdate(@Valid @ModelAttribute("user") UpdateUserDTO user, BindingResult result, Model model, RedirectAttributes ra) {
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		Validator validator = factory.getValidator();
-		Set<ConstraintViolation<UpdateUserDTO>> violations = validator.validate(user);
-		for (ConstraintViolation<UpdateUserDTO> violation : violations) 
-        {
-			String path = violation.getPropertyPath() + "";
-            if (path.contains(".")) {
-            	ra.addFlashAttribute(path.substring(path.indexOf('.') +1), violation.getMessage());
-			} else {
-				ra.addFlashAttribute(path, violation.getMessage());
-			}
-        } 
-			
-		if (result.hasErrors()) {
-			ra.addFlashAttribute("message", "Le formulaire n'a pas été correctement rempli");
-			return "redirect:details/" + user.getUserId();
-		}
-		
-		adminUserService.updateUser(user);
-		return "redirect:list";
-	}
-	
-	@GetMapping("/users/form")
-	public String usersForm(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
-		model.addAttribute("user", new User());
-		model.addAttribute("tenancyAlias", tenancyAlias);
-		model.addAttribute("allRoles" , this.roleService.findAllRoles());
-        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
-        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
-        model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
-        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
-        model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
-		return "amap/back/users/users-form";
 	}
 	
 	@PostMapping("/users/delete/{userId}")
@@ -140,10 +104,49 @@ public class AmapAdminUserController {
 		return "amap/back/users/suppliers-list";
 	}
 	
+	
+	@PostMapping("/users/update")
+	public String usersUpdate(@Valid @ModelAttribute("user") UpdateUserDTO user, BindingResult result, Model model, RedirectAttributes ra) {
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();
+		Set<ConstraintViolation<UpdateUserDTO>> violations = validator.validate(user);
+		for (ConstraintViolation<UpdateUserDTO> violation : violations) 
+		{
+			String path = violation.getPropertyPath() + "";
+			if (path.contains(".")) {
+				ra.addFlashAttribute(path.substring(path.indexOf('.') +1), violation.getMessage());
+			} else {
+				ra.addFlashAttribute(path, violation.getMessage());
+			}
+		} 
+		
+		if (result.hasErrors()) {
+			ra.addFlashAttribute("message", "Le formulaire n'a pas été correctement rempli");
+			ra.addFlashAttribute("userDTO", user);
+			return "redirect:details/" + user.getUserId();
+		}
+		
+		adminUserService.updateUser(user);
+		return "redirect:list";
+	}
+	
+	@GetMapping("/users/form")
+	public String usersForm(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
+		model.addAttribute("user", model.containsAttribute("userDTO")? model.getAttribute("userDTO") : new UserDTO());
+		model.addAttribute("tenancyAlias", tenancyAlias);
+		model.addAttribute("allRoles" , this.roleService.findAllRoles());
+		model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
+		model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
+		model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
+		model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
+		model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
+		return "amap/back/users/users-form";
+	}
+
 
 	@GetMapping("/suppliers/form")
 	public String suppliersForm(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
-		model.addAttribute("supplier", new User());
+		model.addAttribute("user", model.containsAttribute("userDTO")? model.getAttribute("userDTO") : new UserDTO());
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAllRoles());
         model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
@@ -154,11 +157,52 @@ public class AmapAdminUserController {
 		return "amap/back/users/suppliers-form";
 	}
 	
-
-	@PostMapping("/suppliers/add")
-	public String SuppliersAdd(@ModelAttribute("supplierDTO") UpdateUserDTO supplierDTO, @PathVariable("tenancyAlias") String tenancyAlias) {
-	    adminUserService.addTenancySupplier(supplierDTO, tenancyAlias);
+	@PostMapping("/users/add")
+	public String UsersAdd(@ModelAttribute("user") UserDTO user, @PathVariable("tenancyAlias") String tenancyAlias, BindingResult result, Model model, RedirectAttributes ra) {
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();
+		Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
+		for (ConstraintViolation<UserDTO> violation : violations) 
+        {
+			String path = violation.getPropertyPath() + "";
+            if (path.contains(".")) {
+            	ra.addFlashAttribute(path.substring(path.indexOf('.') +1), violation.getMessage());
+			} else {
+				ra.addFlashAttribute(path, violation.getMessage());
+			}
+        }
+			
+		if (violations.size() > 0) {
+			ra.addFlashAttribute("message", "Le formulaire n'a pas été correctement rempli");
+			ra.addFlashAttribute("userDTO", user);
+			return "redirect:form";
+		}
+	    adminUserService.addTenancyUser(user, tenancyAlias);
 	    return "redirect:list";
+	}
+	
+	@PostMapping("/suppliers/add")
+	public String SuppliersAdd(@ModelAttribute("user") UserDTO user, @PathVariable("tenancyAlias") String tenancyAlias, BindingResult result, Model model, RedirectAttributes ra) {
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();
+		Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
+		for (ConstraintViolation<UserDTO> violation : violations) 
+		{
+			String path = violation.getPropertyPath() + "";
+			if (path.contains(".")) {
+				ra.addFlashAttribute(path.substring(path.indexOf('.') +1), violation.getMessage());
+			} else {
+				ra.addFlashAttribute(path, violation.getMessage());
+			}
+		}
+		
+		if (violations.size() > 0) {
+			ra.addFlashAttribute("message", "Le formulaire n'a pas été correctement rempli");
+			ra.addFlashAttribute("userDTO", user);
+			return "redirect:form";
+		}
+		adminUserService.addTenancyUser(user, tenancyAlias);
+		return "redirect:list";
 	}
 	
 
@@ -166,20 +210,6 @@ public class AmapAdminUserController {
 	public String suppliersHide(@PathVariable("userId") Long userId, @PathVariable("tenancyAlias") String tenancyAlias) {
 		adminUserService.hideById(userId);
 		return "redirect:../list";
-	}
-	
-
-	@GetMapping("/suppliers/edit/{userId}")
-	public String suppliersEdit(@PathVariable("userId") Long userId, Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
-		User supplier = adminUserService.findById(userId);
-		model.addAttribute("supplier", supplier);
-		model.addAttribute("tenancyAlias", tenancyAlias);
-        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
-        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
-        model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
-        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
-        model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
-		return "amap/back/users/suppliers-edit";
 	}
 	
 	@GetMapping("/suppliers/details/{userId}")
@@ -196,4 +226,28 @@ public class AmapAdminUserController {
 	    return "amap/back/users/suppliers-details";
 	}
 	
+	@PostMapping("/suppliers/update")
+	public String suppliersUpdate(@Valid @ModelAttribute("supplier") UpdateUserDTO supplier, BindingResult result, Model model, RedirectAttributes ra) {
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();
+		Set<ConstraintViolation<UpdateUserDTO>> violations = validator.validate(supplier);
+		for (ConstraintViolation<UpdateUserDTO> violation : violations) 
+        {
+			String path = violation.getPropertyPath() + "";
+            if (path.contains(".")) {
+            	ra.addFlashAttribute(path.substring(path.indexOf('.') +1), violation.getMessage());
+			} else {
+				ra.addFlashAttribute(path, violation.getMessage());
+			}
+        } 
+			
+		if (result.hasErrors()) {
+			ra.addFlashAttribute("message", "Le formulaire n'a pas été correctement rempli");
+			ra.addFlashAttribute("userDTO", supplier);
+			return "redirect:details/" + supplier.getUserId();
+		}
+		
+		adminUserService.updateUser(supplier);
+		return "redirect:list";
+	}
 }

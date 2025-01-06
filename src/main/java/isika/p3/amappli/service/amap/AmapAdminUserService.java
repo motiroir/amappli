@@ -9,7 +9,6 @@ import isika.p3.amappli.entities.user.User;
 public interface AmapAdminUserService {
 
 	User addTenancyUser(UserDTO userDTO, String tenancyAlias);
-	User addTenancySupplier(UpdateUserDTO supplierDTO, String tenancyAlias);
 	void generateUsers(String tenancyAlias);
 	User findById(Long userId);
 	User saveUser(User user);

@@ -13,7 +13,7 @@ request.setAttribute("currentPage", currentPage);
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Détails de adhérent</title>
+	<title>Détails de l'Adhérent</title>
 	<link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />" rel="stylesheet">
 	<link href="<c:url value='/resources/css/common/utils.css' />" rel="stylesheet">
 	<link href="<c:url value='/resources/bootstrap/bootstrap-icons.min.css' />" rel="stylesheet">
@@ -37,15 +37,15 @@ request.setAttribute("currentPage", currentPage);
                             <a href="<c:url value='/${tenancyAlias}/backoffice/users/list'/>" class="${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900">
 								<i class="bi bi-arrow-left"></i> Liste<span class="d-none d-md-inline"> des adhérents</span>
 							</a>
-						
-							<div class="col-4 mx-auto text-center mt-3" data-bs-theme="dark">
-								<h1 class="alert alert-danger opacity-75">${message}</h1>
-							</div>
-							
+							<c:if test="${message.length() > 0}">
+								<div class="col-4 mx-auto text-center mt-3" data-bs-theme="dark">
+									<h1 class="alert alert-danger opacity-75">${message}</h1>
+								</div>
+							</c:if>
 							<h2 class="my-4 fw-bold">Détails de l'adhérent</h2>
                         </div>
                         <form:form  method="POST" action="/Amappli/${tenancyAlias}/backoffice/users/update" enctype="multipart/form-data" modelAttribute="user">
-                        <form:hidden path="userId" value="${user.userId }"/>
+                        	<form:hidden path="userId" value="${user.userId }"/>
                             <div class="row">
                                 <!-- Première colonne -->
                                 <div class="col-md-4">

@@ -10,30 +10,16 @@ request.setAttribute("currentPage", currentPage);
 %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Détails du Producteur</title>
-<link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />" rel="stylesheet">
-<link href="<c:url value='/resources/css/amap/common/sidebarAdmin.css' />" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-<style>
-    .header-container {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .form-control:read-only {
-        background-color: #f8f9fa;
-        color: #6c757d;
-        border: none;
-        cursor: not-allowed;
-    }
-</style>
+	<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Détails du Producteur</title>
+	<link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />" rel="stylesheet">
+	<link href="<c:url value='/resources/css/amap/common/utils.css' />" rel="stylesheet">
+	<link href="<c:url value='/resources/bootstrap/bootstrap-icons.min.css' />" rel="stylesheet">
 </head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
-	<header class="fc-main bg-main">
+	<header class="fc-main bg-main border-1 border-alt">
 	<!-- Inclusion du header -->
 			<jsp:include page="../common/headerAdmin.jsp" />
 	</header>
@@ -49,27 +35,33 @@ request.setAttribute("currentPage", currentPage);
                 <div class="col-lg-10">
                     <div class="form-container">
                         <div class="header-container">
-                            <a href="<c:url value='/${tenancyAlias}/backoffice/suppliers/list' />" class="btn-back">
-                                <i class="bi bi-arrow-left-circle"></i>
+                            <a href="<c:url value='/${tenancyAlias}/backoffice/suppliers/list' />" class="${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900">
+								<i class="bi bi-arrow-left"></i> Liste<span class="d-none d-md-inline"> des Producteurs</span>
                             </a>
-                            <h2 class="mb-4" style="font-weight: bold; text-align: left;">Détails du producteur</h2>
+                            <div class="col-4 mx-auto text-center mt-3" data-bs-theme="dark">
+								<h1 class="alert alert-danger opacity-75">${message}</h1>
+							</div>
+                            <h2 class="mb-4 fw-bold">Détails du producteur</h2>
                         </div>
-                        <form:form  method="POST" action="<c:url value='/${tenancyAlias}/backoffice/suppliers/${user.userId }/update' />" enctype="multipart/form-data">
+                        <form:form  method="POST" action="/Amappli/${tenancyAlias}/backoffice/suppliers/update" enctype="multipart/form-data" modelAttribute="user">
                             <input type="hidden" name="userId" value="${user.userId}">
                             <div class="row">
                                 <!-- Première colonne -->
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="form-label">Nom de famille</label>
-                                        <input type="text" class="form-control" value="${user.contactInfo.name}">
+                                        <form:input path="contactInfo.name" class="form-control ${name != null ? 'is-invalid' : ''}" value="${user.contactInfo.name}"/>
+                                        <div class="invalid-feedback"> ${name} </div>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Prénom</label>
-                                        <input type="text" class="form-control" value="${user.contactInfo.firstName}">
+                                        <form:input path="contactInfo.firstName" class="form-control ${firstName != null ? 'is-invalid' : ''}" value="${user.contactInfo.firstName}" required="true" />
+                                        <div class="invalid-feedback"> ${firstName} </div>
                                     </div>
-                                    <div class="mb-3">
+                                    <div class="mb-3 has-validation">
                                         <label class="form-label">E-mail</label>
-                                        <input type="text" class="form-control" value="${user.email}">
+                                        <form:input path="email" class="form-control ${email != null ? 'is-invalid' : ''}" value="${user.email}" required="true" />
+                                        <div class="invalid-feedback"> ${email} </div>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Envoyer un mail de réinitialisation du mot de passe</label>
@@ -77,84 +69,98 @@ request.setAttribute("currentPage", currentPage);
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Balance crédit</label>
-                                        <input type="number" class="form-control" value="${user.creditBalance}" readonly>
+                                        <form:input path="creditBalance" type="number" class="form-control ${creditBalance != null ? 'is-invalid' : ''}" value="${user.creditBalance}"/>
+                                        <div class="invalid-feedback"> ${creditBalance} </div>
                                     </div>
-                                    <div class="mb-3">
+                                    <%-- <div class="mb-3">
                                         <label class="form-label">Date de fin de cotisation</label>
-                                        <input type="text" class="form-control" value="PAS ENCORE IMPLÉMENTÉ" readonly>
-                                    </div>
+                                        <form:input path="test" class="form-control" value="PAS ENCORE IMPLÉMENTÉ"/>
+                                    </div> --%>
                                 </div>
 
                                 <!-- Deuxième colonne -->
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="form-label">Adresse</label>
-                                        <input type="text" class="form-control" value="${user.address.line2}" />
+                                        <form:input path="address.line2" class="form-control ${line2 != null ? 'is-invalid' : ''}" value="${user.address.line2}" />
+                                        <div class="invalid-feedback"> ${line2} </div>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Complément d'adresse</label>
-                                        <input type="text" class="form-control" value="${user.address.line1}">
+                                        <form:input path="address.line1" class="form-control ${line1 != null ? 'is-invalid' : ''}" value="${user.address.line1}"/>
+                                        <div class="invalid-feedback"> ${line1} </div>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Code Postal</label>
-                                        <input type="text" class="form-control" value="${user.address.postCode}">
+                                        <form:input path="address.postCode" class="form-control ${postCode != null ? 'is-invalid' : ''}" value="${user.address.postCode}"/>
+                                        <div class="invalid-feedback"> ${postCode} </div>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Ville</label>
-                                        <input type="text" class="form-control" value="${user.address.city}">
+                                        <form:input path="address.city" class="form-control ${city != null ? 'is-invalid' : ''}" value="${user.address.city}"/>
+                                        <div class="invalid-feedback"> ${city} </div>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Numéro de téléphone</label>
-                                        <input type="text" class="form-control" value="${user.contactInfo.phoneNumber}">
+                                        <form:input path="contactInfo.phoneNumber" class="form-control ${phoneNumber != null ? 'is-invalid' : ''}" value="${user.contactInfo.phoneNumber}"/>
+                                        <div class="invalid-feedback"> ${phoneNumber} </div>
                                     </div>
                                 </div>
 
                                 <!-- Troisième colonne -->
                                 <div class="col-md-4">
                                     <div class="mb-3 text-center">
-                                <%--         <c:if test="${not empty user.imageData}">
-                                            <img src="data:${user.imageType};base64,${user.imageData}" alt="Image du contrat" style="max-width: 100%; border-radius: 8px; object-fit: cover;">
-                                        </c:if> --%>
                                         <div class="mb-3">
                                             <label class="form-label">Roles :</label><br/>
                                             <c:forEach var="role" items="${allRoles }" >
-                                            <c:choose>
-	                                            <c:when test="${role.roleId == 1}">
-	                                            	<label class="form-label" for="role-box-${role.roleId }">Admin</label>
-	                                            </c:when>
-	                                            <c:when test="${role.roleId == 2}">
-	                                            	<label class="form-label" for="role-box-${role.roleId }">Adhérent</label>
-	                                            </c:when>
-	                                            <c:when test="${role.roleId == 3}">
-	                                            	<label class="form-label" for="role-box-${role.roleId }">Producteur</label>
-	                                            </c:when>
-	                                            <c:otherwise>
-	                                            	<label class="form-label" for="role-box-${role.roleId }">${role.name.toLowerCase()}</label>
-	                                            </c:otherwise>
-                                            </c:choose>
-                                                <input id="role-box-${role.roleId }" type="checkbox" class="me-3" name="roles" <c:if test="${user.roles.contains(role)}"> checked </c:if> />
+	                                            <c:choose>
+													<c:when test="${role.name.equals('ADMIN')}">
+														<label class="form-label" for="role-box-${role.name }">Admin</label>
+													</c:when>
+													<c:when test="${role.name.equals('MEMBER USER')}">
+														<label class="form-label" for="role-box-${role.name }">Adhérent</label>
+													</c:when>
+													<c:when test="${role.name.equals('SUPPLIER')}">
+														<label class="form-label" for="role-box-${role.name }">Producteur</label>
+													</c:when>
+													<c:otherwise>
+														<label class="form-label" for="role-box-${role.name }">${role.name.toLowerCase()}</label>
+													</c:otherwise>
+												</c:choose>
+												<c:choose>
+													<c:when test="${user.roles.contains(role)}">
+                                                		<form:checkbox id="role-box-${role.name }" class="me-3 ${roles != null ? 'is-invalid' : ''}" path="roles" value="${role.roleId}" checked="true" />
+                                                	</c:when>
+                                                	<c:otherwise>
+                                                		<form:checkbox id="role-box-${role.name }" class="me-3 ${roles != null ? 'is-invalid' : ''}" path="roles" value="${role.roleId}" />
+                                                	</c:otherwise>
+                                                </c:choose>
                                             </c:forEach>
+                                            <div class="invalid-feedback"> ${roles} </div>
                                         </div>
                                         <section id="supplier-section" class="d-none">
                                             <div class="mb-3">
                                                 <label class="form-label">Exploitation</label>
-                                                <input type="text" class="form-control" value="${user.companyDetails.companyName}">
+                                                <form:input path="companyDetails.companyName" class="form-control ${companyName != null ? 'is-invalid' : ''}" value="${user.companyDetails.companyName}"/>
+                                                <div class="invalid-feedback"> ${companyName} </div>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label">N° Siret</label>
-                                                <input type="text" class="form-control" value="${user.companyDetails.siretNumber}">
+                                                <form:input path="companyDetails.siretNumber" class="form-control ${siretNumber != null ? 'is-invalid' : ''}" value="${user.companyDetails.siretNumber}"/>
+                                                <div class="invalid-feedback"> ${siretNumber} </div>
                                             </div>
-                                            <div class="mb-3">
+                                            <%-- <div class="mb-3">
                                                 <label class="form-label">Contrat en cours</label>
-                                                <input type="text" class="form-control" value="PAS ENCORE IMPLÉMENTÉ" readonly>
-                                            </div>
+                                                <form:input path="test2" class="form-control" value="PAS ENCORE IMPLÉMENTÉ" readonly="true"/>
+                                            </div> --%>
                                         </section>
                                     </div>
                                 </div>
                             </div>
 							<div class="d-flex justify-content-evenly my-5">
 								<div class="col text-center">
-									<button id="submit-button" type="submit" class="btn btn-success rounded-pill" >Valider les changements</button>
+									<button id="submit-button" type="submit" class="btn btn-success rounded-pill" 
+									<c:if test="${isAdmin }">onclick="return confirm('Vous êtes sur le point d'enregistrer un utilisateur avec les droits d'administrateur, êtes vous sûr ?');"</c:if> >Valider la modification</button>
 								</div>
 								<div class="col text-center">
 									<button type="reset" class="btn btn-danger rounded-pill">Annuler</button>
@@ -166,14 +172,7 @@ request.setAttribute("currentPage", currentPage);
             </div>
         </div>
     </div>
-    <script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
-    <script src="<c:url value='/resources/js/amap/admin/user-details.js' />" type="text/javascript"></script>
-    <script src="<c:url value='/resources/js/amap/admin/user-form.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
-    <script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/palette-swap.js' />" type="text/javascript"></script>
-    	<script>
+    <script>
 		var styleMapboxLight = "${mapStyleLight}"
 		var styleMapboxDark = "${mapStyleDark}"
 
@@ -182,5 +181,12 @@ request.setAttribute("currentPage", currentPage);
 		 const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
 		 */
 	</script>
+    <script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
+    <script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/palette-swap.js' />" type="text/javascript"></script>
+    <script src="<c:url value='/resources/js/amap/admin/user-details.js' />" type="text/javascript"></script>
+    <script src="<c:url value='/resources/js/amap/admin/user-form.js' />" type="text/javascript"></script>
 </body>
 </html>

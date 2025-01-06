@@ -87,6 +87,11 @@ body {
   border          : 1px solid var(--main-font-color);
 }
 
+.themed-popover {
+  --bs-popover-header-bg: var(--main-bg-color);
+  --bs-popover-header-color: var(--main-font-color);
+}
+
 .nunito {
   font-family: 'Nunito' !important;
 }
