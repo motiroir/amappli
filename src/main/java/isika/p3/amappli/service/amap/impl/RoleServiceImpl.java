@@ -41,6 +41,15 @@ public class RoleServiceImpl implements RoleService {
 	public List<Role> findAllRoles() {
 		return (List<Role>) roleRepository.findAll();
 	}
+	
+	@Override
+	public List<Role> findAmapRoles(String TenancyAlias) {
+			return ((List<Role>) roleRepository.findAll()).stream()
+					.filter(r -> (TenancyAlias.equals(r.getTenancy() != null ? r.getTenancy().getTenancyAlias() : null)
+							|| r.getTenancy() == null)
+							&& !r.isHidden())
+					.toList();
+	}
 
 	@Override
 	public Role createRole(Role role) {
@@ -59,15 +68,28 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public void addtestRoles() {
 
-		createRoleIfNotExists("ADMIN");
-		createRoleIfNotExists("MEMBER USER");
-		createRoleIfNotExists("SUPPLIER");
+		createRoleIfNotExists("AdminPlateforme", true);
+		createRoleIfNotExists("Admin");
+		createRoleIfNotExists("Adherent");
+		createRoleIfNotExists("Producteur");
 
 	}
 
 	private void createRoleIfNotExists(String roleName) {
 		if (roleRepository.findByName(roleName) == null) {
-			Role role = Role.builder().name(roleName).build();
+			Role role = Role.builder().name(roleName)
+									  .tenancy(null)
+									  .hidden(false)
+									  .build();
+			roleRepository.save(role);
+		}
+	}
+	private void createRoleIfNotExists(String roleName, boolean hidden) {
+		if (roleRepository.findByName(roleName) == null) {
+			Role role = Role.builder().name(roleName)
+									.tenancy(null)
+									.hidden(hidden)
+									.build();
 			roleRepository.save(role);
 		}
 	}

@@ -113,20 +113,7 @@ request.setAttribute("currentPage", currentPage);
                                         <div class="mb-3">
                                             <label class="form-label">Roles :</label><br/>
                                             <c:forEach var="role" items="${allRoles }" >
-	                                            <c:choose>
-													<c:when test="${role.name.equals('ADMIN')}">
-														<label class="form-label" for="role-box-${role.name }">Admin</label>
-													</c:when>
-													<c:when test="${role.name.equals('MEMBER USER')}">
-														<label class="form-label" for="role-box-${role.name }">Adhérent</label>
-													</c:when>
-													<c:when test="${role.name.equals('SUPPLIER')}">
-														<label class="form-label" for="role-box-${role.name }">Producteur</label>
-													</c:when>
-													<c:otherwise>
-														<label class="form-label" for="role-box-${role.name }">${role.name.toLowerCase()}</label>
-													</c:otherwise>
-												</c:choose>
+	                                            <label class="form-label" for="role-box-${role.name }">${role.name}</label>
 												<c:choose>
 													<c:when test="${user.roles.contains(role)}">
                                                 		<form:checkbox id="role-box-${role.name }" class="me-3 ${roles != null ? 'is-invalid' : ''}" path="roles" value="${role.roleId}" checked="true" />

@@ -4,13 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Base64;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,10 +24,10 @@ import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.entities.user.ContactInfo;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.repo.amap.ContractRepository;
-import isika.p3.amappli.repo.amap.RoleRepository;
 import isika.p3.amappli.repo.amap.UserRepository;
 import isika.p3.amappli.repo.amappli.PermissionRepository;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
+import isika.p3.amappli.service.amap.RoleService;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -44,7 +40,7 @@ public class DataInitializationService {
 	@Autowired
 	private PermissionRepository permissionRepository;
 	@Autowired
-	private RoleRepository roleRepository;
+	private RoleService roleService;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	@Autowired
@@ -54,193 +50,293 @@ public class DataInitializationService {
 		try {
 			tenancyInit();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		userInit();
+		try {
+			permissionInit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			roleInit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			for (Tenancy t : tenancyRepository.findAll()) {
+				userInit(t);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
-	@Transactional
-	public void userInit() {
-
+	public void permissionInit() {
 		// permissions creation
 		Permission permission1 = Permission.builder().name("Permission 1").build();
 		Permission permission2 = Permission.builder().name("Permission 2").build();
-
+		Permission permission3 = Permission.builder().name("Permission 3").build();
+		
 		permissionRepository.save(permission1);
 		permissionRepository.save(permission2);
-
+		permissionRepository.save(permission3);		
+	}
+	
+	
+	public void roleInit() {
+		
+		Permission permission1 = permissionRepository.findById(1l).orElse(null);
+		Permission permission2 = permissionRepository.findById(2l).orElse(null);
+		Permission permission3 = permissionRepository.findById(3l).orElse(null);
+		
 		// roles creation
-		Role roleA = Role.builder().name("Role A").build();
-		Role roleB = Role.builder().name("Role B").build();
+		Role AdminPlateforme = Role.builder().name("AdminPlateforme")
+				.tenancy(null)
+				.hidden(true)
+				.build();
+		Role Admin = Role.builder().name("Admin")
+				.tenancy(null)
+				.hidden(false)
+				.build();
+		Role Member = Role.builder().name("Adherent")
+				.tenancy(null)
+				.hidden(false)
+				.build();
+		Role Supplier = Role.builder().name("Producteur")
+				.tenancy(null)
+				.hidden(false)
+				.build();
+		Role OnlyTenancy2 = Role.builder().name("AgriMember")
+				.tenancy(tenancyRepository.findById(2l).orElse(null))
+				.hidden(false)
+				.build();
+		
+		AdminPlateforme.getPermissions().add(permission1);
+		AdminPlateforme.getPermissions().add(permission2);
+		AdminPlateforme.getPermissions().add(permission3);
+		Admin.getPermissions().add(permission2);
+		Admin.getPermissions().add(permission3);
+		Member.getPermissions().add(permission2);
+		Supplier.getPermissions().add(permission3);
+		OnlyTenancy2.getPermissions().add(permission2);
+		
+		roleService.createRole(AdminPlateforme);
+		roleService.createRole(Admin);
+		roleService.createRole(Member);
+		roleService.createRole(Supplier);
+		roleService.createRole(OnlyTenancy2);
+	}
+	
+	@Transactional
+	public void userInit(Tenancy tenancy) {
 
-		roleA.getPermissions().add(permission1);
-		roleB.getPermissions().add(permission1);
-		roleB.getPermissions().add(permission2);
-
-		roleRepository.save(roleA);
-		roleRepository.save(roleB);
+		Role AdminPlateforme = roleService.findByName("AdminPlateforme");
+		Role Admin = roleService.findByName("Admin");
+		Role Member = roleService.findByName("Adhérent");
+		Role Supplier = roleService.findByName("Producteur");
 
 		// users creation
-		User user1 = User.builder().email("marie.durand@example.com").password("AMAPamap11@")
+		User user1 = User.builder().email("marie.durand@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
 				.address(Address.builder().line2("5 avenue des Roses").line1("Appartement 12").postCode("44000")
 						.city("Nantes").build())
 				.contactInfo(ContactInfo.builder().name("Durand").firstName("Marie").phoneNumber("0601010101").build())
-				.isActive(true).build();
-		user1.getRoles().add(roleA);
+				.isActive(true)
+				.tenancy(tenancy)
+				.build();
+		user1.getRoles().add(AdminPlateforme);
 		saveUser(user1);
 
-		User user2 = User.builder().email("lucas.martin@example.com").password("AMAPamap11@")
+		User user2 = User.builder().email("lucas.martin@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
 				.address(Address.builder().line2("12 rue de la Liberté").line1("Bâtiment B").postCode("44100")
 						.city("Nantes").build())
 				.contactInfo(ContactInfo.builder().name("Martin").firstName("Lucas").phoneNumber("0612345678").build())
-				.isActive(true).build();
-		user2.getRoles().add(roleB);
+				.isActive(true)
+				.tenancy(tenancy)
+				.build();
+		user2.getRoles().add(Admin);
 		saveUser(user2);
 
-		User user3 = User.builder().email("jeanne.lemoine@example.com").password("AMAPamap11@")
+		User user3 = User.builder().email("jeanne.lemoine@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
 				.address(Address.builder().line2("15 boulevard des Alpes").line1("").postCode("44120")
 						.city("Vertou").build())
 				.contactInfo(
 						ContactInfo.builder().name("Lemoine").firstName("Jeanne").phoneNumber("0678987654").build())
-				.isActive(true).build();
-		user3.getRoles().add(roleA);
+				.isActive(true)
+				.tenancy(tenancy)
+				.build();
+		user3.getRoles().add(Member);
+		user3.getRoles().add(Supplier);
 		saveUser(user3);
 
-		User user4 = User.builder().email("thomas.dupuis@example.com").password("AMAPamap11@")
+		User user4 = User.builder().email("thomas.dupuis@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
 				.address(Address.builder().line2("28 rue du Marché").line1("").postCode("44200").city("Nantes").build())
 				.contactInfo(ContactInfo.builder().name("Dupuis").firstName("Thomas").phoneNumber("0611223344").build())
-				.isActive(true).build();
-		user4.getRoles().add(roleA);
+				.isActive(true)
+				.tenancy(tenancy)
+				.build();
+		user4.getRoles().add(Member);
 		saveUser(user4);
 
-		User user5 = User.builder().email("claire.fournier@example.com").password("AMAPamap11@")
+		User user5 = User.builder().email("claire.fournier@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
 				.address(Address.builder().line2("31 rue des Lilas").line1("Appartement 4").postCode("44130")
 						.city("Machecoul").build())
 				.contactInfo(
 						ContactInfo.builder().name("Fournier").firstName("Claire").phoneNumber("0698765432").build())
-				.isActive(true).build();
-		user5.getRoles().add(roleB);
+				.isActive(true)
+				.tenancy(tenancy)
+				.build();
+		user5.getRoles().add(Supplier);
 		saveUser(user5);
 
-		User user6 = User.builder().email("charlotte.petit@example.com").password("AMAPamap11@")
+		User user6 = User.builder().email("charlotte.petit@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
 				.address(Address.builder().line2("42 rue du Soleil").line1("").postCode("35000").city("Rennes").build())
 				.contactInfo(
 						ContactInfo.builder().name("Petit").firstName("Charlotte").phoneNumber("0612345670").build())
-				.isActive(true).build();
-		user6.getRoles().add(roleA);
+				.isActive(true)
+				.tenancy(tenancy)
+				.build();
+		user6.getRoles().add(Member);
 		saveUser(user6);
 
-		User user7 = User.builder().email("victor.martin@example.com").password("AMAPamap11@")
+		User user7 = User.builder().email("victor.martin@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
 				.address(Address.builder().line2("7 place des Halles").line1("").postCode("13000").city("Marseille")
 						.build())
 				.contactInfo(ContactInfo.builder().name("Martin").firstName("Victor").phoneNumber("0677654321").build())
-				.isActive(true).build();
-		user7.getRoles().add(roleB);
+				.isActive(true)
+				.tenancy(tenancy)
+				.build();
+		user7.getRoles().add(Supplier);
 		saveUser(user7);
 
-		User user8 = User.builder().email("elise.muller@example.com").password("AMAPamap11@")
+		User user8 = User.builder().email("elise.muller@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
 				.address(Address.builder().line2("56 avenue du Général Leclerc").line1("Batiment A").postCode("60000")
 						.city("Beauvais").build())
 				.contactInfo(ContactInfo.builder().name("Muller").firstName("Elise").phoneNumber("0698765430").build())
-				.isActive(true).build();
-		user8.getRoles().add(roleA);
+				.isActive(true)
+				.tenancy(tenancy)
+				.build();
+		user8.getRoles().add(Member);
 		saveUser(user8);
 
-		User user9 = User.builder().email("jean.benoit@example.com").password("AMAPamap11@")
+		User user9 = User.builder().email("jean.benoit@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
 				.address(Address.builder().line2("23 rue de la République").line1("Appartement 7").postCode("75001")
 						.city("Paris").build())
 				.contactInfo(ContactInfo.builder().name("Benoit").firstName("Jean").phoneNumber("0687654321").build())
-				.isActive(true).build();
-		user9.getRoles().add(roleB);
+				.isActive(true)
+				.tenancy(tenancy)
+				.build();
+		user9.getRoles().add(Supplier);
 		saveUser(user9);
 
-		User user10 = User.builder().email("amelie.rousseau@example.com").password("AMAPamap11@")
+		User user10 = User.builder().email("amelie.rousseau@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
 				.address(
 						Address.builder().line2("1 avenue de la Mer").line1("").postCode("30000").city("Nîmes").build())
 				.contactInfo(
 						ContactInfo.builder().name("Rousseau").firstName("Amélie").phoneNumber("0623456789").build())
-				.isActive(true).build();
-		user10.getRoles().add(roleA);
+				.isActive(true)
+				.tenancy(tenancy)
+				.build();
+		user10.getRoles().add(Admin);
 		saveUser(user10);
 
-		User user11 = User.builder().email("henri.durand@example.com").password("AMAPamap11@")
+		User user11 = User.builder().email("henri.durand@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
 				.address(Address.builder().line2("19 rue des Fleurs").line1("Appartement 5").postCode("33000")
 						.city("Bordeaux").build())
 				.contactInfo(ContactInfo.builder().name("Durand").firstName("Henri").phoneNumber("0645671234").build())
-				.isActive(true).build();
-		user11.getRoles().add(roleA);
+				.isActive(true)
+				.tenancy(tenancy)
+				.build();
+		user11.getRoles().add(Member);
 		saveUser(user11);
 
-		User user12 = User.builder().email("manon.fabre@example.com").password("AMAPamap11@")
+		User user12 = User.builder().email("manon.fabre@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
 				.address(Address.builder().line2("22 rue des Lilas").line1("Rez-de-chaussée").postCode("92000")
 						.city("Nanterre").build())
 				.contactInfo(ContactInfo.builder().name("Fabre").firstName("Manon").phoneNumber("0691234567").build())
-				.isActive(true).build();
-		user12.getRoles().add(roleB);
+				.isActive(true)
+				.tenancy(tenancy)
+				.build();
+		user12.getRoles().add(Supplier);
 		saveUser(user12);
 
-		User user13 = User.builder().email("paul.brun@example.com").password("AMAPamap11@")
+		User user13 = User.builder().email("paul.brun@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
 				.address(Address.builder().line2("8 avenue de la Gare").line1("2ème étage").postCode("44000")
 						.city("Nantes").build())
 				.contactInfo(ContactInfo.builder().name("Brun").firstName("Paul").phoneNumber("0687987654").build())
-				.isActive(true).build();
-		user13.getRoles().add(roleA);
+				.isActive(true)
+				.tenancy(tenancy)
+				.build();
+		user13.getRoles().add(Member);
 		saveUser(user13);
 
-		User user14 = User.builder().email("sophie.martin@example.com").password("AMAPamap11@")
+		User user14 = User.builder().email("sophie.martin@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
 				.address(Address.builder().line2("13 rue de la Liberté").line1("").postCode("44000").city("Nantes")
 						.build())
 				.contactInfo(ContactInfo.builder().name("Martin").firstName("Sophie").phoneNumber("0678987654").build())
-				.isActive(true).build();
-		user14.getRoles().add(roleB);
+				.isActive(true)
+				.tenancy(tenancy)
+				.build();
+		user14.getRoles().add(Supplier);
 		saveUser(user14);
 
-		User user15 = User.builder().email("lucie.lafaye@example.com").password("AMAPamap11@")
+		User user15 = User.builder().email("lucie.lafaye@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
 				.address(Address.builder().line2("5 rue du Pont").line1("").postCode("69000").city("Lyon").build())
 				.contactInfo(ContactInfo.builder().name("Lafaye").firstName("Lucie").phoneNumber("0694567890").build())
-				.isActive(true).build();
-		user15.getRoles().add(roleA);
+				.isActive(true)
+				.tenancy(tenancy)
+				.build();
+		user15.getRoles().add(AdminPlateforme);
+		user15.getRoles().add(Admin);
 		saveUser(user15);
 
-		User user16 = User.builder().email("alain.dubois@example.com").password("AMAPamap11@")
+		User user16 = User.builder().email("alain.dubois@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
 				.address(Address.builder().line2("20 rue de la Gare").line1("").postCode("75002").city("Paris").build())
 				.contactInfo(ContactInfo.builder().name("Dubois").firstName("Alain").phoneNumber("0685559876").build())
-				.isActive(true).build();
-		user16.getRoles().add(roleB);
+				.isActive(true)
+				.tenancy(tenancy)
+				.build();
+		user16.getRoles().add(Supplier);
 		saveUser(user16);
 
-		User user17 = User.builder().email("laura.lemoine@example.com").password("AMAPamap11@")
+		User user17 = User.builder().email("laura.lemoine@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
 				.address(
 						Address.builder().line2("11 rue de la Paix").line1("").postCode("35000").city("Rennes").build())
 				.contactInfo(ContactInfo.builder().name("Lemoine").firstName("Laura").phoneNumber("0622345678").build())
-				.isActive(true).build();
-		user17.getRoles().add(roleA);
+				.isActive(true)
+				.tenancy(tenancy)
+				.build();
+		user17.getRoles().add(Member);
 		saveUser(user17);
 
-		User user18 = User.builder().email("antoine.morel@example.com").password("AMAPamap11@")
+		User user18 = User.builder().email("antoine.morel@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
 				.address(Address.builder().line2("14 rue des Champs").line1("").postCode("54000").city("Nancy").build())
 				.contactInfo(ContactInfo.builder().name("Morel").firstName("Antoine").phoneNumber("0686123456").build())
-				.isActive(true).build();
-		user18.getRoles().add(roleA);
+				.isActive(true)
+				.tenancy(tenancy)
+				.build();
+		user18.getRoles().add(Member);
 		saveUser(user18);
 
-		User user19 = User.builder().email("laurence.vincent@example.com").password("AMAPamap11@")
+		User user19 = User.builder().email("laurence.vincent@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
 				.address(Address.builder().line2("5 rue de la Liberté").line1("Appartement 2").postCode("74000")
 						.city("Annecy").build())
 				.contactInfo(
 						ContactInfo.builder().name("Vincent").firstName("Laurence").phoneNumber("0623456789").build())
-				.isActive(true).build();
-		user19.getRoles().add(roleB);
+				.isActive(true)
+				.tenancy(tenancy)
+				.build();
+		user19.getRoles().add(Supplier);
 		saveUser(user19);
 
-		User user20 = User.builder().email("bernard.morvan@example.com").password("AMAPamap11@")
+		User user20 = User.builder().email("bernard.morvan@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
 				.address(
 						Address.builder().line2("23 rue de la Lune").line1("").postCode("56000").city("Vannes").build())
 				.contactInfo(
 						ContactInfo.builder().name("Morvan").firstName("Bernard").phoneNumber("0612347890").build())
-				.isActive(true).build();
-		user20.getRoles().add(roleA);
+				.isActive(true)
+				.tenancy(tenancy)
+				.build();
+		user20.getRoles().add(Member);
 		saveUser(user20);
 
 	}

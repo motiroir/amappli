@@ -70,7 +70,7 @@ public class AmapAdminUserController {
 
 		model.addAttribute("user", model.containsAttribute("userDTO")? model.getAttribute("userDTO") : user);
 		model.addAttribute("tenancyAlias", tenancyAlias);
-		model.addAttribute("allRoles" , this.roleService.findAllRoles());
+		model.addAttribute("allRoles" , this.roleService.findAmapRoles(tenancyAlias));
         model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
         model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
         model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
@@ -134,7 +134,7 @@ public class AmapAdminUserController {
 	public String usersForm(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 		model.addAttribute("user", model.containsAttribute("userDTO")? model.getAttribute("userDTO") : new UserDTO());
 		model.addAttribute("tenancyAlias", tenancyAlias);
-		model.addAttribute("allRoles" , this.roleService.findAllRoles());
+		model.addAttribute("allRoles" , this.roleService.findAmapRoles(tenancyAlias));
 		model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
 		model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
 		model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
@@ -148,7 +148,7 @@ public class AmapAdminUserController {
 	public String suppliersForm(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 		model.addAttribute("user", model.containsAttribute("userDTO")? model.getAttribute("userDTO") : new UserDTO());
 		model.addAttribute("tenancyAlias", tenancyAlias);
-		model.addAttribute("allRoles" , this.roleService.findAllRoles());
+		model.addAttribute("allRoles" , this.roleService.findAmapRoles(tenancyAlias));
         model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
         model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
         model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
@@ -217,7 +217,7 @@ public class AmapAdminUserController {
 	    User supplier = adminUserService.findById(userId);
 	    model.addAttribute("user", supplier);
 		model.addAttribute("tenancyAlias", tenancyAlias);
-		model.addAttribute("allRoles" , this.roleService.findAllRoles());
+		model.addAttribute("allRoles" , this.roleService.findAmapRoles(tenancyAlias));
         model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
         model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
         model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));

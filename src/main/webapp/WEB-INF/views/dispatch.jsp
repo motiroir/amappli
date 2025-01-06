@@ -10,6 +10,9 @@
 <h1> On va où ?</h1>
 	<ul>
 		<li>
+			<a href="data-init"> INITIALISATION</a>
+		</li>
+		<li>
 			<a href="tenancies">Tenancies</a>
 		</li>
 		<li>

@@ -15,7 +15,7 @@ public class DataInitializationController {
 	@GetMapping("")
 	public String initializeData() {
 		initService.dataInit();
-		return "";
+		return "dispatch";
 	}
 	
 }
