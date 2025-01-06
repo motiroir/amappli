@@ -13,12 +13,12 @@ request.setAttribute("currentPage", currentPage);
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Détails du Contrat</title>
+<title>Détails du contrat</title>
 <link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />"
 	rel="stylesheet">
 <link href="<c:url value='/resources/css/common/utils.css' />"
 	rel="stylesheet">
-	<link
+<link
 	href="<c:url value='/resources/bootstrap/bootstrap-icons.min.css' />"
 	rel="stylesheet">
 </head>
@@ -101,18 +101,22 @@ request.setAttribute("currentPage", currentPage);
 				<p class="text-warning"></p>
 				<p>
 					<strong>Producteur :</strong>
-					${contract.user.companyDetails.companyName} (${contract.user.contactInfo.firstName} ${contract.user.contactInfo.name})
+					${contract.user.companyDetails.companyName}
+					(${contract.user.contactInfo.firstName}
+					${contract.user.contactInfo.name})
 				</p>
 				<p>
 					<strong>Composition du panier :<br></strong>
 					${contract.contractDescription}
 				</p>
 				<p>
-					<i class="bi bi-bag"></i> commandez aujourd'hui et récupèrez votre premier panier le 
-					 ${formattedNextDeliveryDate}
+					<i class="bi bi-bag"></i> commandez aujourd'hui et récupèrez votre
+					premier panier le ${formattedNextDeliveryDate}
 				</p>
-								<p> <i class="bi bi-info-circle"></i>
-				L'abonnement au panier se termine le ${formattedEndDate}</p>
+				<p>
+					<i class="bi bi-info-circle"></i> L'abonnement au panier se termine
+					le ${formattedEndDate}
+				</p>
 				<h2 class="text-end mt-4">
 					<strong>${contract.contractPrice}&euro; / livraison</strong>
 				</h2>

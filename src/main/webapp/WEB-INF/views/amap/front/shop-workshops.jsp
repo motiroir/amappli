@@ -18,7 +18,7 @@ request.setAttribute("currentPage", currentPage);
 	rel="stylesheet">
 <link href="<c:url value='/resources/css/common/utils.css' />"
 	rel="stylesheet">
-<link href="<c:url value='/resources/css/amap/common/shop.css' />"
+<link href="<c:url value='/resources/css/amap/shop.css' />"
 	rel="stylesheet">
 </head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">

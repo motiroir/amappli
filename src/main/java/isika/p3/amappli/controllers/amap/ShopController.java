@@ -149,6 +149,7 @@ public class ShopController {
 	            workshopData.put("imageData", workshop.getImageData());
 	            workshopData.put("workshopDuration",workshop.getWorkshopDuration());
 	            workshopData.put("imageType", workshop.getImageType());
+	            workshopData.put("id",workshop.getId());
 	            // Formatage de la date et heure
 	            if (workshop.getWorkshopDateTime() != null) {
 	                workshopData.put("workshopDateTime", workshop.getWorkshopDateTime().format(dateTimeFormatter));
@@ -240,6 +241,13 @@ public class ShopController {
 		if (today.getDayOfWeek() == deliveryDayOfWeek) {
 			nextDeliveryDate = today.with(TemporalAdjusters.next(deliveryDayOfWeek));
 		}
+		
+	    // Formatter pour les dates
+	    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale.FRENCH);
+	    // Formatage des dates
+	    String formattedFabricationDate = product.getFabricationDate().format(dateFormatter);
+	    String formattedExpirationDate = product.getExpirationDate().format(dateFormatter);
+
 
 		// Ajouter l'adresse associée au modèle
 		if (product.getAddress() != null) {
@@ -250,6 +258,8 @@ public class ShopController {
 			model.addAttribute("address", null); // Pas d'adresse trouvée
 		}
 
+		model.addAttribute("formattedFabricationDate", formattedFabricationDate);
+		model.addAttribute("formattedExpirationDate", formattedExpirationDate);
 		model.addAttribute("product", product);
 		model.addAttribute("nextDeliveryDate", nextDeliveryDate);
 		addGraphismAttributes(tenancyAlias, model);
@@ -278,7 +288,10 @@ public class ShopController {
 		} else {
 			model.addAttribute("address", null); // Pas d'adresse trouvée
 		}
-		
+	    // Formater le champ LocalDateTime
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy 'à' HH:mm", Locale.FRENCH);
+	    String formattedWorkshopDateTime = workshop.getWorkshopDateTime().format(formatter);
+	    model.addAttribute("formattedWorkshopDateTime", formattedWorkshopDateTime);
 		model.addAttribute("workshop", workshop);
 		addGraphismAttributes(tenancyAlias, model);
 		return "amap/front/shopping-workshop-detail";
