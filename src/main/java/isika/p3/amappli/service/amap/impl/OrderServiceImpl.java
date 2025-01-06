@@ -25,6 +25,7 @@ import isika.p3.amappli.repo.amap.ShoppingCartRepository;
 import isika.p3.amappli.repo.amap.UserRepository;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
@@ -58,9 +59,15 @@ public class OrderServiceImpl {
         } return cart;
     }
     
+    @Transactional
     public List<Order> getOrdersByTenancyAlias(String alias){
     	Tenancy tenancy = tenancyRepo.findByTenancyAlias(alias).orElse(null);
-    	return orderRepo.findOrdersByTenancyId(tenancy.getTenancyId());
+    	List<Order> orders = orderRepo.findOrdersByTenancyId(tenancy.getTenancyId());
+    	for (Order order : orders) {
+			orderRepo.findOrderWithPayments(order.getOrderId());
+			orderRepo.findOrderWithItems(order.getOrderId());
+		}
+    	return orders;
     }
 	
 	public List<OrderItem> copyCartItemsListToOrderItemsList(List<ShoppingCartItem> cartItems) {
@@ -126,18 +133,52 @@ public class OrderServiceImpl {
 		orderRepo.save(order);
 		return order;
 	}
+	
+	@Transactional
+	public Order validatePayment(Long orderId, String paymentTypeString) {
+		//transform to PaymentType enum
+	    PaymentType paymentType;
+	    switch (paymentTypeString) {
+	        case "Carte bleue":
+	            paymentType = PaymentType.card;
+	            break;
+	        case "Chèque":
+	            paymentType = PaymentType.check;
+	            break;
+	        case "Espèces":
+	            paymentType = PaymentType.cash;
+	            break;
+	        default:
+	            throw new IllegalArgumentException("Type de paiement invalide : " + paymentTypeString);
+	    }
+
+	    Order order = orderRepo.findById(orderId)
+	        .orElseThrow(() -> new EntityNotFoundException("Commande introuvable pour l'ID : " + orderId));
+
+	    order.setOrderStatus(OrderStatus.DONE);
+		Payment payment = Payment.builder().paymentType(paymentType).paymentDate(LocalDateTime.now())
+				.paymentAmount(BigDecimal.valueOf(order.getTotalAmount())).build();
+
+		order.setOrderPaid(true);
+		order.getPayments().add(payment);
+		payment.setOrder(order);
+		orderRepo.save(order);
+		return order;
+	}
 
 	public List<Order> getListOrdersByUser(Long userId) {
 		User user = userRepo.findUserWithOrders(userId);
 		for (Order order : user.getOrders()) {
-			orderRepo.findOrderWithItems(order.getOrderId());
 			orderRepo.findOrderWithPayments(order.getOrderId());
+			orderRepo.findOrderWithItems(order.getOrderId());
 		}
 		return user.getOrders();
 	}
 	
+	@Transactional
 	public Order getOrderById(Long orderId) {
+		orderRepo.findOrderWithPayments(orderId);
 		return orderRepo.findOrderWithItemsAndShoppable(orderId);
 	}
-
+	
 }

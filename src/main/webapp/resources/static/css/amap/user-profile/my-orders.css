@@ -38,13 +38,22 @@
     cursor: pointer;
 }
 
-#order-details{
-	display: inline-block;
-	background-color: var(--main-bg-color-white);
-	border: 2px solid var(--orange-600);
-	border-radius: 20px;
-	padding: 30px;
-	padding-bottom:20px;
-	margin-top:20px;
-	margin-bottom:50px;
+.order-head {
+    display: flex; /* Disposition des éléments en ligne */
+    justify-content: space-between; /* Espacement égal entre les éléments */
+    gap: 20px; /* Espace entre les deux .order-details */
+    margin-right: 5%;
+}
+
+.order-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--main-bg-color-white);
+    border: 2px solid var(--orange-600);
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 20px;
+    margin-bottom: 50px;
 }
