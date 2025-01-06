@@ -23,7 +23,7 @@
 	 <div id="map"></div>  
 	
 
- <div class="container my-5 ">
+ <div class="container my-5  flex-grow-1">
         <div class="row ">
             <div class="col-lg-6 col-md-12 text-center">
                 <img src="<c:url value='/resources/img/amapien.png' />" alt="Schéma explicatif AMAP" class="img-fluid circle-diagram">
@@ -106,15 +106,12 @@
 			<script
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 
-	<script>
-		var styleMapboxLight = "${mapStyleLight}"
-		var styleMapboxDark = "${mapStyleDark}"
-
-		/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
-		 const tenancyCity = "${tenancy.getAddress().getCity()}"
-		 const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
-		 */
-	</script>
+	    <script>
+		const styleMapboxLight = "${mapStyleLight}"
+		const styleMapboxDark = "${mapStyleDark}"
+		var latitude = "${latitude}"
+		var longitude = "${longitude}"
+	    </script>
 
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
 	 <script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  

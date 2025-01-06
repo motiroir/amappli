@@ -102,3 +102,8 @@
     padding: 10px; 
     outline: none; 
 }
+
+.map-container {
+    width: 100%; /* La carte occupe toute la largeur de son conteneur */
+    height: 400px; /* Ajustez la hauteur selon vos besoins */
+}

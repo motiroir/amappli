@@ -90,6 +90,9 @@ public class TenancyController {
 	        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
 	        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
 	        model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+	    	model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
+	    	model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
+			model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
 
 	    } else {
 	        model.addAttribute("message", "Page d'accueil non trouvée.");
@@ -133,7 +136,9 @@ public class TenancyController {
 	        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
 	        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
 	        model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
-	        
+	    	model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
+	    	model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
+			model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
 	        // Retourner la vue pour afficher les détails de la tenancy
 	        return "tenancy-details";
 	    } else {
@@ -181,12 +186,24 @@ public class TenancyController {
 	        String logoImgType = graphism != null ? graphism.getLogoImgType() : null;
 	        model.addAttribute("logoBase64", logoBase64);
 	        model.addAttribute("logoImgType", logoImgType);
+	        
+	        // Ajouter les informations de contact et d'adresse
+	        Address address = tenancy.getAddress();
+	        model.addAttribute("addressLine1", address != null ? address.getLine1() : null);
+	        model.addAttribute("addressLine2", address != null ? address.getLine2() : null);
+	        model.addAttribute("addressPostCode", address != null ? address.getPostCode() : null);
+	        model.addAttribute("addressCity", address != null ? address.getCity() : null);
+	        model.addAttribute("email", tenancy.getEmail());
+	        model.addAttribute("phoneNumber", tenancy.getContactInfo() != null ? tenancy.getContactInfo().getPhoneNumber() : null);
 
 	        // Ajouter les styles et polices
 	        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
 	        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
 	        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
 	        model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+	    	model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
+	    	model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
+			model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
 	    } else {
 	        model.addAttribute("message", "Tenancy non trouvée.");
 	    }
@@ -228,6 +245,9 @@ public class TenancyController {
 	        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
 	        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
 	        model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+	    	model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
+	    	model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
+			model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
 	    } else {
 	        model.addAttribute("message", "Tenancy non trouvée.");
 	    }
