@@ -76,11 +76,7 @@ public class ShopController {
 	    // Ajout des contrats et autres attributs au modèle
 	    model.addAttribute("contracts", contracts);
 	    model.addAttribute("tenancyAlias", tenancyAlias);
-	    model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
-	    model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
-	    model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
-	    model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
-	    model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
+	    addGraphismAttributes(tenancyAlias, model);
 
 	    return "amap/front/shop-contracts";
 	}
@@ -100,6 +96,7 @@ public class ShopController {
 		List<Product> products = productService.findShoppableProductsByTenancy(tenancy);
 		model.addAttribute("products", products);
 		model.addAttribute("tenancyAlias", tenancyAlias);
+		addGraphismAttributes(tenancyAlias, model);
 
 		return "amap/front/shop-products";
 	}
@@ -118,6 +115,7 @@ public class ShopController {
 		List<Workshop> workshops = workshopService.findShoppableWorkshopsByTenancy(tenancy);
 		model.addAttribute("workshops", workshops);
 		model.addAttribute("tenancyAlias", tenancyAlias);
+		addGraphismAttributes(tenancyAlias, model);
 
 		return "amap/front/shop-workshops";
 	}
@@ -159,6 +157,7 @@ public class ShopController {
 
 		model.addAttribute("contract", contract);
 		model.addAttribute("nextDeliveryDate", nextDeliveryDate);
+		addGraphismAttributes(tenancyAlias, model);
 		return "amap/front/shopping-contract-detail";
 	}
 
@@ -199,6 +198,7 @@ public class ShopController {
 
 		model.addAttribute("product", product);
 		model.addAttribute("nextDeliveryDate", nextDeliveryDate);
+		addGraphismAttributes(tenancyAlias, model);
 		return "amap/front/shopping-product-detail";
 	}
 
@@ -226,6 +226,21 @@ public class ShopController {
 		}
 		
 		model.addAttribute("workshop", workshop);
+		addGraphismAttributes(tenancyAlias, model);
 		return "amap/front/shopping-workshop-detail";
+	}
+	
+	public void addGraphismAttributes(String alias, Model model) {
+		// get map style depending on tenancy
+		model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
+		model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+		model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
+		model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
+		// get tenancy info for header footer
+		model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
+		// get color palette
+		model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
+		// get font choice
+		model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
 	}
 }

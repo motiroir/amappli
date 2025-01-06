@@ -30,6 +30,7 @@
 
 
 				</li>
+				<br>
 
 				<!-- Épicerie -->
 				<li class="mb-4"><a
@@ -37,7 +38,7 @@
 					class="${currentMainMenu.equals('products') ? 'active' : ''} text-decoration-none">
 						<h2 class="fw-bold">Épicerie</h2>
 				</a>
-					<hr class="my-2"></li>
+					<hr class="my-2"></li><br>
 
 				<!-- Ateliers -->
 				<li class="mb-4"><a
