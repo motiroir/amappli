@@ -67,7 +67,7 @@ request.setAttribute("currentPage", currentPage);
 										Paiement sur place
 									</c:if></td>
 									<td>${order.orderStatus.displayName}</td>
-									<td><a class="btn btn-100" href="<c:url value='/${tenancyAlias}/account/my-orders/order-details/${order.orderId}' />">Détails </a></td>
+									<td><a class="btn btn-100" href="<c:url value='/amap/${tenancyAlias}/account/my-orders/order-details/${order.orderId}' />">Détails </a></td>
 								</tr>
 							</c:forEach>
 						</tbody>

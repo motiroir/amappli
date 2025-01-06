@@ -21,7 +21,7 @@ import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.impl.OrderServiceImpl;
 
 @Controller
-@RequestMapping("/{tenancyAlias}")
+@RequestMapping("amap/{tenancyAlias}")
 public class OrderController {
 	
 	@Autowired
@@ -93,7 +93,7 @@ public class OrderController {
     public String updateOrder(@PathVariable("tenancyAlias") String alias, @RequestParam("orderId") Long orderId, 
             @RequestParam("paymentType") String paymentType){
     	orderService.validatePayment(orderId, paymentType);
-    	return "redirect:/{tenancyAlias}/admin/order-details/" + orderId;
+    	return "redirect:/amap/{tenancyAlias}/admin/order-details/" + orderId;
     }
     
 	public void addGraphismAttributes(String alias, Model model) {

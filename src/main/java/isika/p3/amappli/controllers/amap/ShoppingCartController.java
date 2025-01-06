@@ -21,7 +21,7 @@ import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.ShoppingCartService;
 
 @Controller
-@RequestMapping("/{tenancyAlias}/cart")
+@RequestMapping("amap/{tenancyAlias}/cart")
 public class ShoppingCartController {
 
 	@Autowired
@@ -69,7 +69,7 @@ public class ShoppingCartController {
 		userId = getUserIdFromContext();
 		ShoppingCart cart = shoppingCartService.getCartByUserId(userId);
 		shoppingCartService.addItemToCart(cart.getShoppingCartId(), shoppableId, shoppableType, quantity);
-		return "redirect:/{tenancyAlias}/cart/" + userId;
+		return "redirect:/amap/{tenancyAlias}/cart/" + userId;
 	}
 
 	@PostMapping("/{userId}/updateQuantity/{itemId}")
@@ -82,7 +82,7 @@ public class ShoppingCartController {
 		} else if ("decrease".equals(action)) {
 			shoppingCartService.decreaseItemQuantity(cart.getShoppingCartId(), itemId);
 		}
-		return "redirect:/{tenancyAlias}/cart/" + userId;
+		return "redirect:/amap/{tenancyAlias}/cart/" + userId;
 	}
 	
 	public void addGraphismAttributes(String alias, Model model) {

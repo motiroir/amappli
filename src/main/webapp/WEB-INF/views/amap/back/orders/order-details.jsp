@@ -47,7 +47,7 @@ request.setAttribute("currentPage", currentPage);
 								id="bg-range">
 						</div>
 						<a class="btn btn-100"
-							href="<c:url value='/${tenancyAlias}/admin/orders' />">Retourner
+							href="<c:url value='/amap/${tenancyAlias}/admin/orders' />">Retourner
 							à la liste des commandes</a>
 					</div>
 					<div class="order-head">
@@ -68,7 +68,7 @@ request.setAttribute("currentPage", currentPage);
 						</div>
 						<c:if test="${order.orderStatus.displayName != 'Récupérée'}">
 								<form class="order-details" method="post"
-									action="${pageContext.request.contextPath}/${tenancyAlias}/order/updateOrder">
+									action="${pageContext.request.contextPath}/amap/${tenancyAlias}/order/updateOrder">
 									<div>
 										<h3>Valider la récupération</h3>
 										<c:if test="${order.orderPaid}">

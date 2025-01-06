@@ -88,7 +88,7 @@
 									</c:if></td>
 									<td>
 										<div class='d-flex justify-content-start align-items-center'>
-											<a href="<c:url value='/${tenancyAlias}/admin/order-details/${order.orderId}' />"
+											<a href="<c:url value='/amap/${tenancyAlias}/admin/order-details/${order.orderId}' />"
 												class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1"> <i class="bi bi-eye"></i>
 											</a>
 										</div>
