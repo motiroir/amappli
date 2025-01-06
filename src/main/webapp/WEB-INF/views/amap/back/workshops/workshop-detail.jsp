@@ -26,7 +26,7 @@ request.setAttribute("currentPage", currentPage);
 	rel="stylesheet">
 </head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
-		<!-- Inclusion du header -->
+	<!-- Inclusion du header -->
 	<header class="fc-main bg-main border-1 border-alt">
 		<jsp:include page="../common/headerAdmin.jsp" />
 	</header>
@@ -162,11 +162,8 @@ request.setAttribute("currentPage", currentPage);
 	<script>
 		var styleMapboxLight = "${mapStyleLight}"
 		var styleMapboxDark = "${mapStyleDark}"
-
-		/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
-		 const tenancyCity = "${tenancy.getAddress().getCity()}"
-		 const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
-		 */
+		var latitude = "${latitude}"
+		var longitude = "${longitude}"
 	</script>
 	<script
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"

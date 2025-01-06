@@ -78,11 +78,7 @@ public class WorkshopController {
 		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("users", users);
 		model.addAttribute("address", address);
-		model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
-		model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
-		model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
-		model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
-		model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
+		addGraphismAttributes(tenancyAlias, model);
 		return "amap/back/workshops/workshop-form";
 	}
 
@@ -111,11 +107,7 @@ public class WorkshopController {
 		model.addAttribute("workshops", workshops);
 		model.addAttribute("users", users);
 		model.addAttribute("tenancyAlias", tenancyAlias);
-        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
-        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
-        model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
-        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
-        model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
+		addGraphismAttributes(tenancyAlias, model);
 		return "amap/back/workshops/workshop-list";
 	}
 
@@ -188,11 +180,7 @@ public class WorkshopController {
 		model.addAttribute("formattedDate", formattedDate);
 		model.addAttribute("workshop", workshop);
 		model.addAttribute("tenancyAlias", tenancyAlias);
-		model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
-		model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
-		model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
-		model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
-		model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
+		addGraphismAttributes(tenancyAlias, model);
 		return "amap/back/workshops/workshop-detail";
 	}
 
@@ -204,6 +192,20 @@ public class WorkshopController {
 		workshopService.updateWorkshop(updatedWorkshopDTO, image, tenancyAlias);
 
 		return "redirect:/" + tenancyAlias + "/backoffice/workshops/list";
+	}
+	
+	public void addGraphismAttributes(String alias, Model model) {
+		// get map style depending on tenancy
+		model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
+		model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+		model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
+		model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
+		// get tenancy info for header footer
+		model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
+		// get color palette
+		model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
+		// get font choice
+		model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
 	}
 
 }

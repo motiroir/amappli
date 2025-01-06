@@ -84,7 +84,7 @@
 							</tr>
 							<tr>
 								<td>Cotisation</td>
-								<td>totalCotisation</td>
+								<td>${tenancy.membershipFeePrice}</td>
 							</tr>
 							<tr>
 								<td><h2 class="fw-bold">TOTAL</h2></td>

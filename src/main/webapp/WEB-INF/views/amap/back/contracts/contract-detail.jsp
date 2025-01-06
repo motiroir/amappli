@@ -47,8 +47,8 @@ request.setAttribute("currentPage", currentPage);
 							class="d-none d-md-inline"> Liste des contracts</span>
 						</a>
 						<div class="d-flex align-items-end gap-3">
-						<h2 class="my-4 fw-bold mb-0">Détails du panier</h2>
-												<label class="form-label mb-0">Créé le ${formattedDate}</label>
+							<h2 class="my-4 fw-bold mb-0">Détails du panier</h2>
+							<label class="form-label mb-0">Créé le ${formattedDate}</label>
 						</div>
 						<br>
 					</div>
@@ -87,7 +87,7 @@ request.setAttribute("currentPage", currentPage);
 								</div>
 								<div class="mb-3">
 									<label class="form-label">Fournisseur</label> <select
-										id="userId" name="userId" class="form-select" >
+										id="userId" name="userId" class="form-select">
 										<option value=""
 											<c:if test="${contract.user == null}">selected</c:if>>Choisir
 											un fournisseur</option>
@@ -167,13 +167,16 @@ request.setAttribute("currentPage", currentPage);
 									</c:if>
 								</div>
 								<br>
-								<div>Adresse du point de collecte :<br>
-								 ${address.line1}
-									${address.line2}, ${address.city} (${address.postCode})</div>
+								<div>
+									Adresse du point de collecte :<br> ${address.line1}
+									${address.line2}, ${address.city} (${address.postCode})
+								</div>
 							</div>
 							<div class="d-flex justify-content-evenly my-5">
 								<div class="col text-center">
-									<button id="submit-button" type="submit" class="btn btn-success rounded-pill">Valider la modification</button>
+									<button id="submit-button" type="submit"
+										class="btn btn-success rounded-pill">Valider la
+										modification</button>
 								</div>
 								<div class="col text-center">
 									<button type="reset" class="btn btn-danger rounded-pill">Annuler</button>
@@ -188,19 +191,15 @@ request.setAttribute("currentPage", currentPage);
 	<script>
 		var styleMapboxLight = "${mapStyleLight}"
 		var styleMapboxDark = "${mapStyleDark}"
-
-		/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
-		 const tenancyCity = "${tenancy.getAddress().getCity()}"
-		 const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
-		 */
+		var latitude = "${latitude}"
+		var longitude = "${longitude}"
 	</script>
 	<script
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"
 		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/common/image-format.js' />"
+	<script src="<c:url value='/resources/js/common/image-format.js' />"
 		type="text/javascript"></script>
-		
+
 	<script
 		src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>

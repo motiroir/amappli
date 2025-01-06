@@ -103,11 +103,15 @@ request.setAttribute("currentPage", currentPage);
 										<div class='d-flex justify-content-start align-items-center'>
 											<a
 												href="<c:url value='/${tenancyAlias}/backoffice/workshops/detail/${workshop.id}' />"
-												class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1"> <i class="bi bi-eye"></i>
+												class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1">
+												<i class="bi bi-eye"></i>
 											</a>
 											<form:form method="POST"
-												action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/workshops/delete/${workshop.id}" class="d-inline" onsubmit="return confirm('Voulez-vous vraiment supprimer le panier ${contract.contractName} ?');">
-												<button type="submit" class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1">
+												action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/workshops/delete/${workshop.id}"
+												class="d-inline"
+												onsubmit="return confirm('Voulez-vous vraiment supprimer le panier ${contract.contractName} ?');">
+												<button type="submit"
+													class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1">
 													<i class="bi bi-trash"></i>
 												</button>
 											</form:form>
@@ -121,22 +125,27 @@ request.setAttribute("currentPage", currentPage);
 			</div>
 		</div>
 	</div>
-<script>
+	<script>
 		var styleMapboxLight = "${mapStyleLight}"
 		var styleMapboxDark = "${mapStyleDark}"
-
-		/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
-		const tenancyCity = "${tenancy.getAddress().getCity()}"
-		const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
-		 */
+		var latitude = "${latitude}"
+		var longitude = "${longitude}"
 	</script>
-	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script
+		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"
+		type="text/javascript"></script>
+	<script
+		src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
-	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/palette-swap.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />"
+		type="text/javascript"></script>
 </body>
 </html>

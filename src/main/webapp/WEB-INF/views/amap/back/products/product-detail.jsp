@@ -47,8 +47,8 @@ request.setAttribute("currentPage", currentPage);
 							class="d-none d-md-inline"> Liste des produits</span>
 						</a>
 						<div class="d-flex align-items-end gap-3">
-						<h2 class="my-4 fw-bold mb-0">Détails du produit</h2>
-						<label class="form-label mb-0">Créé le ${formattedDate}</label>
+							<h2 class="my-4 fw-bold mb-0">Détails du produit</h2>
+							<label class="form-label mb-0">Créé le ${formattedDate}</label>
 						</div>
 						<br>
 					</div>
@@ -109,9 +109,9 @@ request.setAttribute("currentPage", currentPage);
 										class="form-control" />
 								</div>
 								<div class="mb-3">
-									<label class="form-label">Date d'expiration</label> 
-									<form:input
-										path="expirationDate" type="date" class="form-control" />
+									<label class="form-label">Date d'expiration</label>
+									<form:input path="expirationDate" type="date"
+										class="form-control" />
 
 								</div>
 								<div class="mb-3">
@@ -138,9 +138,9 @@ request.setAttribute("currentPage", currentPage);
 							<!-- Troisième colonne -->
 							<div class="col-md-4">
 								<div class="mb-3">
-									<label for="image" class="form-label">Photo du produit</label> <input
-										type="file" class="form-control" id="imageInput" name="image"
-										accept="image/png,image/jpeg,image/svg">
+									<label for="image" class="form-label">Photo du produit</label>
+									<input type="file" class="form-control" id="imageInput"
+										name="image" accept="image/png,image/jpeg,image/svg">
 								</div>
 								<div class="mb-3 text-center">
 									<c:if test="${not empty product.imageData}">
@@ -174,11 +174,8 @@ request.setAttribute("currentPage", currentPage);
 	<script>
 		var styleMapboxLight = "${mapStyleLight}"
 		var styleMapboxDark = "${mapStyleDark}"
-
-		/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
-		 const tenancyCity = "${tenancy.getAddress().getCity()}"
-		 const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
-		 */
+		var latitude = "${latitude}"
+		var longitude = "${longitude}"
 	</script>
 	<script
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"

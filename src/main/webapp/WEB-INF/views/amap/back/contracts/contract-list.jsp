@@ -41,14 +41,14 @@ request.setAttribute("currentPage", currentPage);
 					<div class="search-bar d-flex align-items-center mb-3">
 						<!-- Nombre total de contrats -->
 						<div class="me-4 fs-5 fc-main d-none d-md-block">
-							<span>${contracts.size()} éléments</span><br /> 
+							<span>${contracts.size()} éléments</span><br />
 						</div>
 
 						<!-- Dropdown pour trier -->
 						<div class="d-flex align-items-center me-4">
-							<label for="sortBy" class="me-2 fw-400 fs-3 text-nowrap fc-main">Trier par</label>
-								<select
-								id="sortBy" class="form-select custom-select border-main">
+							<label for="sortBy" class="me-2 fw-400 fs-3 text-nowrap fc-main">Trier
+								par</label> <select id="sortBy"
+								class="form-select custom-select border-main">
 								<option value="name">Nom</option>
 								<option value="producer">Producteur</option>
 								<option value="priceAsc">Prix croissant</option>
@@ -58,19 +58,26 @@ request.setAttribute("currentPage", currentPage);
 
 						<!-- Barre de recherche -->
 						<div>
-							<input type="text" id="searchBar" class="form-control custom-input border-main"
+							<input type="text" id="searchBar"
+								class="form-control custom-input border-main"
 								placeholder="Rechercher...">
 						</div>
 					</div>
-					<div class="table-container d-flex justify-content-between align-items-center my-2">
+					<div
+						class="table-container d-flex justify-content-between align-items-center my-2">
 						<h2 class="fw-bold fc-main my-auto">Liste des paniers</h2>
-						<a href="<c:url value='/${tenancyAlias}/backoffice/contracts/form'/>" class="btn btn-outline-300 rounded-pill fch-main fw-bold border-2">
-							<span class="icon">+ </span><span class=" d-none d-md-inline">Créer un panier</span>
+						<a
+							href="<c:url value='/${tenancyAlias}/backoffice/contracts/form'/>"
+							class="btn btn-outline-300 rounded-pill fch-main fw-bold border-2">
+							<span class="icon">+ </span><span class=" d-none d-md-inline">Créer
+								un panier</span>
 						</a>
 					</div>
 					<br>
 					<!-- Mode tableau -->
-					<table class="table table-hover table-responsive fc-main align-middle" style="--bs-table-bg: color-mix(in srgb, #ffffff, transparent 100%);">
+					<table
+						class="table table-hover table-responsive fc-main align-middle"
+						style="--bs-table-bg: color-mix(in srgb, #ffffff, transparent 100%);">
 						<thead>
 							<tr>
 								<th class="bg-700">Image</th>
@@ -98,12 +105,16 @@ request.setAttribute("currentPage", currentPage);
 										<div class='d-flex justify-content-start align-items-center'>
 											<a
 												href="<c:url value='/${tenancyAlias}/backoffice/contracts/detail/${contract.id}' />"
-												class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1"> <i class="bi bi-eye"></i>
+												class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1">
+												<i class="bi bi-eye"></i>
 											</a>
 
 											<form:form method="POST"
-												action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/contracts/delete/${contract.id}" class="d-inline" onsubmit="return confirm('Voulez-vous vraiment supprimer le panier ${contract.contractName} ?');">
-												<button type="submit" class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1">
+												action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/contracts/delete/${contract.id}"
+												class="d-inline"
+												onsubmit="return confirm('Voulez-vous vraiment supprimer le panier ${contract.contractName} ?');">
+												<button type="submit"
+													class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1">
 													<i class="bi bi-trash"></i>
 												</button>
 											</form:form>
@@ -117,22 +128,27 @@ request.setAttribute("currentPage", currentPage);
 			</div>
 		</div>
 	</div>
-<script>
+	<script>
 		var styleMapboxLight = "${mapStyleLight}"
 		var styleMapboxDark = "${mapStyleDark}"
-
-		/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
-		const tenancyCity = "${tenancy.getAddress().getCity()}"
-		const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
-		 */
+		var latitude = "${latitude}"
+		var longitude = "${longitude}"
 	</script>
-	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script
+		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"
+		type="text/javascript"></script>
+	<script
+		src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
-	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/palette-swap.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />"
+		type="text/javascript"></script>
 </body>
 </html>

@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const startDateInput = document.getElementById("startDate");
     const endDateInput = document.getElementById("endDate");
-    const fileInput = document.getElementById("image");
-    const previewImage = document.querySelector(".image-preview");
 
     if (!startDateInput || !endDateInput) {
         console.error("Champs startDate ou endDate introuvables !");

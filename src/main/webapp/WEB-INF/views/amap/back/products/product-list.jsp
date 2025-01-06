@@ -66,12 +66,15 @@ request.setAttribute("currentPage", currentPage);
 						<h2 class="fw-bold fc-main my-auto">Liste des produits</h2>
 						<a
 							href="<c:url value='/${tenancyAlias}/backoffice/products/form' />"
-							class="btn btn-outline-300 rounded-pill fch-main fw-bold border-2"> 
-							<span class="icon">+ </span><span class=" d-none d-md-inline">Créer un produit</span>
+							class="btn btn-outline-300 rounded-pill fch-main fw-bold border-2">
+							<span class="icon">+ </span><span class=" d-none d-md-inline">Créer
+								un produit</span>
 						</a>
 					</div>
 					<!-- Mode tableau -->
-					<table class="table table-hover table-responsive fc-main align-middle" style="--bs-table-bg: color-mix(in srgb, #ffffff, transparent 100%);">
+					<table
+						class="table table-hover table-responsive fc-main align-middle"
+						style="--bs-table-bg: color-mix(in srgb, #ffffff, transparent 100%);">
 						<thead>
 							<tr>
 								<th class="bg-700">Image</th>
@@ -97,11 +100,15 @@ request.setAttribute("currentPage", currentPage);
 										<div class='d-flex justify-content-start align-items-center'>
 											<a
 												href="<c:url value='/${tenancyAlias}/backoffice/products/detail/${product.id}' />"
-												class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1"> <i class="bi bi-eye"></i>
+												class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1">
+												<i class="bi bi-eye"></i>
 											</a>
 											<form:form method="POST"
-												action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/products/delete/${product.id}" class="d-inline" onsubmit="return confirm('Voulez-vous vraiment supprimer le produit ${product.productName} ?');">
-												<button type="submit" class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1">
+												action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/products/delete/${product.id}"
+												class="d-inline"
+												onsubmit="return confirm('Voulez-vous vraiment supprimer le produit ${product.productName} ?');">
+												<button type="submit"
+													class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1">
 													<i class="bi bi-trash"></i>
 												</button>
 											</form:form>
@@ -115,22 +122,27 @@ request.setAttribute("currentPage", currentPage);
 			</div>
 		</div>
 	</div>
-<script>
+	<script>
 		var styleMapboxLight = "${mapStyleLight}"
 		var styleMapboxDark = "${mapStyleDark}"
-
-		/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
-		const tenancyCity = "${tenancy.getAddress().getCity()}"
-		const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
-		 */
+		var latitude = "${latitude}"
+		var longitude = "${longitude}"
 	</script>
-	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script
+		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"
+		type="text/javascript"></script>
+	<script
+		src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
-	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/palette-swap.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />"
+		type="text/javascript"></script>
 </body>
 </html>
