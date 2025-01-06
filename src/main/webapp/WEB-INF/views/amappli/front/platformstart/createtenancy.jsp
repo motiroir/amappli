@@ -16,9 +16,9 @@
 </head>
 <body class="d-flex justify-content-center theme-1 light">
     <!-- Conteneur pour la carte -->
-    <!-- <div id="map"></div> -->
+    <div id="map"></div>
 
-    <div class="d-flex flex-column p-5 fc-main w-100 h-100">
+    <div class="d-flex flex-column p-15 fc-main w-100 h-100">
 
         <div class="title">
             <h1 class="pb-3">Faisons connaissance!</h1>
@@ -27,6 +27,12 @@
             </div>
         </div>
         <hr>
+
+        <c:if test="${not empty org.springframework.validation.BindingResult.newTenancyDTO}">
+    <c:forEach var="error" items="${org.springframework.validation.BindingResult.newTenancyDTO.allErrors}">
+        <p class="text-danger">${error.defaultMessage}</p>
+    </c:forEach>
+</c:if>
 
         <div class="form-part px-0 my-4">
             <p class="mb-3">Pour vous aider à créer le site de votre AMAP, nous allons vous poser une série de questions pour mieux vous connaître. Cela devrait prendre moins de 10 minutes. Veuillez préparer les informations concernant votre AMAP.</p>
@@ -86,7 +92,7 @@
                     <form:label for="input-membership-price" class="form-label display-6" path="membershipFeePrice">
                         <h3>Combien coûte la cotisation annuelle dans votre AMAP ?</h3>
                     </form:label>
-                    <form:input type="text" class="form-control" id="input-membership-price" aria-describedby="input-tenancy-name" path="membershipFeePrice" required="true" aria-required="true"/>
+                    <form:input type="number" class="form-control" id="input-membership-price" aria-describedby="input-tenancy-name" path="membershipFeePrice" required="true" aria-required="true"/>
                     <form:errors path="membershipFeePrice" class="invalid-feedback d-block" />
                 </div>
 
@@ -134,13 +140,13 @@
 
                 <div class="row">
                     <div class="col-12 col-md-6 mb-3">
-                        <form:label for="address-line1" class="form-label" path="address.line1">Ligne 1</form:label>
+                        <form:label for="address-line1" class="form-label" path="address.line1">Complément d'adresse</form:label>
                         <form:input type="text" class="form-control" id="address-line1" path="address.line1"/>
                         <form:errors path="address.line1" class="invalid-feedback d-block" />
                     </div>
 
                     <div class="col-12 col-md-6 mb-3">
-                        <form:label for="address-line2" class="form-label" path="address.line2">Ligne 2</form:label>
+                        <form:label for="address-line2" class="form-label" path="address.line2">Numéro et Rue</form:label>
                         <form:input type="text" class="form-control" id="address-line2" path="address.line2" required="true" aria-required="true"/>
                         <form:errors path="address.line2" class="invalid-feedback d-block" />
                     </div>
@@ -207,7 +213,7 @@
                 <div class="mb-3">
                     <div id="font-choices" class="row g-3">
                         <c:forEach items="${fontChoices}" var="font">
-                            <div class="col-4 text-center">
+                            <div class="col-12 col-md-6 col-lg-4 text-center align-self-center">
                                 <input type="radio" id="font-${font}" value="${font}" name="font-selection"/>
                                 <label for="font-${font}" class="font-choices d-flex align-items-center justify-content-center">
                                     <h2 class="${fn:toLowerCase(font)}">${font}</h2>
@@ -225,12 +231,14 @@
 
                 <div class="mb-3">
 
-                    <div id="palette-choices" class="d-flex flex-row justify-content-around">
+                    <div id="palette-choices" class="row g-3">
                         <c:forEach items="${colorPalettes}" var="palette" varStatus="status">
-                            <input type="radio" id="palette-${status.index + 1}" name="palette-selection" value="${palette}" />
-                            <label for="palette-${status.index+1}" class="palette-choices">
-                                <img src="<c:url value='/resources/img/palettes_samples/PALETTE${status.index + 1}.svg' />" class="palette-img"/>
-                            </label>
+                            <div class="col-12 col-md-6 col-lg-4 text-center">
+                                <input type="radio" id="palette-${status.index + 1}" name="palette-selection" value="${palette}" />
+                                <label for="palette-${status.index+1}" class="palette-choices">
+                                    <img src="<c:url value='/resources/img/palettes_samples/PALETTE${status.index + 1}.svg' />" class="palette-img"/>
+                                </label>
+                            </div>
                         </c:forEach>
                     </div>
 
@@ -367,8 +375,8 @@
 
                 <div class="mb-3">
                     <ul class="row d-flex list-unstyled justify-content-around align-items-stretch">
-                        <li class="col-12 col-md-4 d-flex">
-                            <form:radiobutton path="option1" value="true" id="option-1" name="option-selection" />
+                        <li class="col-12 col-md-4 d-flex pricing-list">
+                            <form:radiobutton path="option" value="option-1" id="option-1" />
                             <label for="option-1" class="w-100 flex-fill d-flex flex-column">
                                 <div id="pricing-1" class="pricing flex-fill text-center py-3 px-2 rounded-5 align-content-between bg-300">
                                     <h2 class="h4 fw-bold">Potager</h2>
@@ -377,8 +385,8 @@
                                 </div>
                             </label>
                         </li>
-                        <li class="col-12 col-md-4 d-flex">
-                            <form:radiobutton path="option2" value="true" id="option-2" name="option-selection" />
+                        <li class="col-12 col-md-4 d-flex pricing-list">
+                            <form:radiobutton path="option" value="option-2" id="option-2"  />
                             <label for="option-2" class="w-100 flex-fill d-flex flex-column">
                                 <div id="pricing-2"	class="pricing flex-fill text-center py-3 px-2 rounded-5 align-content-between bg-400">
                                 <h2 class="h4 fw-bold">Verger</h2>
@@ -388,8 +396,8 @@
                                 </div>
                             </label>
                         </li>
-                        <li class="col-12 col-md-4 d-flex">
-                            <form:radiobutton path="option3" value="true" id="option-3" name="option-selection" />
+                        <li class="col-12 col-md-4 d-flex pricing-list">
+                            <form:radiobutton path="option" value="option-3" id="option-3" />
                             <label for="option-3" class="w-100 flex-fill d-flex flex-column">
                                 <div id="pricing-3" class="pricing flex-fill text-center py-3 px-2 rounded-5 align-content-between bg-500">
                                     <h2 class="h4 fw-bold">Ferme</h2>
@@ -420,11 +428,12 @@
     <script>
 		const styleMapboxLight = "mapbox://styles/tiroirmorgane/cm4sw37wr001301s12frm2l2y"
 		const styleMapboxDark = "mapbox://styles/tiroirmorgane/cm52cqefg003101sa878udky6"
+        const errorpresent = "${errorspresent}";
 	</script>
 
     <script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js'/>"></script>
     <script src="<c:url value='/resources/js/amappli/tenancycreation.js'/>"></script>
-    <!-- <script	src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />"></script> -->
+    <script	src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
 </body>
 </html>
