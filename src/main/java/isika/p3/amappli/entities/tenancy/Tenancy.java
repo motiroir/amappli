@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import isika.p3.amappli.entities.auth.Role;
 import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.entities.user.ContactInfo;
 import isika.p3.amappli.entities.user.User;
@@ -71,7 +72,12 @@ public class Tenancy {
     @OneToMany(targetEntity = User.class, mappedBy = "tenancy", cascade = CascadeType.ALL)
     @Builder.Default
     @EqualsAndHashCode.Exclude
-    private Set<User> users = new HashSet<User>();
+    private Set<User> users = new HashSet<>();
+    
+    @OneToMany(targetEntity = Role.class, mappedBy = "tenancy", cascade = CascadeType.ALL)
+    @Builder.Default
+    @EqualsAndHashCode.Exclude
+    private Set<Role> roles = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL)
     private Graphism graphism;

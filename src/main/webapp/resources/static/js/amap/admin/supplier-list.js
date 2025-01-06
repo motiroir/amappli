@@ -9,14 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		rows.sort((a, b) => {
 			const valueA = getValue(a, criteria);
 			const valueB = getValue(b, criteria);
-
-			if (criteria === "creditAsc") {
-				return parseFloat(valueA) - parseFloat(valueB);
-			} else if (criteria === "creditDesc") {
-				return parseFloat(valueB) - parseFloat(valueA);
-			} else {
-				return valueA.localeCompare(valueB, "fr-FR");
-			}
+			return valueA.localeCompare(valueB);
 		});
 
 		rows.forEach(row => tableBody.appendChild(row));
@@ -24,8 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	function getValue(row, criteria) {
 		if (criteria === "name") return row.cells[0].innerText.trim();
-		if (criteria === "role") return row.cells[5].innerText.trim();
-		if (criteria === "creditAsc" || criteria === "creditDesc") return row.cells[3].innerText.replace("€", "").trim();
+		if (criteria === "producer") return row.cells[1].innerText.trim();
 		return "";
 	}
 
@@ -34,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		const rows = tableBody.querySelectorAll("tr");
 		rows.forEach(row => {
 			const name = row.cells[0].innerText.toLowerCase();
-			const producer = row.cells[5].innerText.toLowerCase();
+			const producer = row.cells[1].innerText.toLowerCase();
 			if (name.includes(query) || producer.includes(query)) {
 				row.style.display = "";
 			} else {

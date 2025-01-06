@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import isika.p3.amappli.entities.order.Order;
 import isika.p3.amappli.entities.order.ShoppingCart;
@@ -86,6 +87,13 @@ public class OrderController {
     		orderService.createOrderFromCartWithOnsitePayment(cart.getShoppingCartId());
     	}
     	return "redirect:/{tenancyAlias}/account/my-orders/" + userId;
+    }
+    
+    @PostMapping("order/updateOrder")
+    public String updateOrder(@PathVariable("tenancyAlias") String alias, @RequestParam("orderId") Long orderId, 
+            @RequestParam("paymentType") String paymentType){
+    	orderService.validatePayment(orderId, paymentType);
+    	return "redirect:/{tenancyAlias}/admin/order-details/" + orderId;
     }
     
 	public void addGraphismAttributes(String alias, Model model) {

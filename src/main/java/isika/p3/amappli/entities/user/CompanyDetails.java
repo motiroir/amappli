@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,6 +31,7 @@ public class CompanyDetails {
     private String companyName;
 	
 	@Column(nullable = true)
+	@Pattern(regexp = "^(\\d{14}|\\d{0})$", message = "Numéro de SIRET invalide. (14 chiffres)")
     private String siretNumber;
 	
 	@OneToOne

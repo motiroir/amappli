@@ -8,8 +8,12 @@ import isika.p3.amappli.entities.auth.Role;
 public interface RoleService {
 
 	Role findByName(String name);
+	
+	Role findById(Long roleId);
 
 	List<Role> findAllRoles();
+	
+	List<Role> findAmapRoles(String TenancyAlias);
 
 	Role createRole(Role role);
 

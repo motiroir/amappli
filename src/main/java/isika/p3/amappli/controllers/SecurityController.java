@@ -106,7 +106,7 @@ public class SecurityController {
         
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         model.addAttribute("authorities", authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
-       return "secexamples/showloggeduserpermissions"; 
+        return "secexamples/showloggeduserpermissions"; 
     }
 
     @PreAuthorize("hasAuthority('Permission 1')")

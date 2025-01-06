@@ -209,6 +209,4 @@ public class TenancyServiceImpl implements TenancyService {
 
 		return null;
 	}
-
-        
 }

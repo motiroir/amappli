@@ -27,11 +27,11 @@ request.setAttribute("currentPage", currentPage);
 
 
 	<header class="fc-main bg-main border-1 border-alt">
-	<!-- Inclusion du header -->
-			<jsp:include page="../common/headerAdmin.jsp" />
+		<!-- Inclusion du header -->
+		<jsp:include page="../common/headerAdmin.jsp" />
 	</header>
 	<!-- Inclusion de la sidebar -->
-		<jsp:include page="../common/sidebarAdmin.jsp" />
+	<jsp:include page="../common/sidebarAdmin.jsp" />
 
 	<div id="map"></div>
 	<
@@ -39,7 +39,8 @@ request.setAttribute("currentPage", currentPage);
 		<div class="container-fluid mt-2">
 			<div class="row justify-content-center">
 				<div class="col-12">
-					<div class="search-bar d-flex align-items-center justify-content-between mb-3">
+					<div
+						class="search-bar d-flex align-items-center justify-content-between mb-3">
 						<div class="mx-3">
 							<label class="fc-main">Opacité du tableau</label> <input
 								type="range" class="form-range" min="0" max="100" value="100"
@@ -49,23 +50,52 @@ request.setAttribute("currentPage", currentPage);
 							href="<c:url value='/${tenancyAlias}/admin/orders' />">Retourner
 							à la liste des commandes</a>
 					</div>
-					<div id="order-details">
-						<h3>Commande n°${order.orderId}</h3>
-						<p>Montant total : ${order.totalAmount}€</p>
-						<p>Date de la commande : ${order.orderDate}</p>
-						<p>Etat : ${order.orderStatus.displayName}</p>
-						<p>
-							Type de Paiement :
-							<c:if test="${order.orderPaid}">
-										Paiement en ligne
-									</c:if>
-							<c:if test="${!order.orderPaid}">
+					<div class="order-head">
+						<div class="order-details">
+							<h3>Commande n°${order.orderId}</h3>
+							<p>Montant total : ${order.totalAmount}€</p>
+							<p>Date de la commande : ${order.orderDate}</p>
+							<p>Etat : ${order.orderStatus.displayName}</p>
+							<p>
+								Type de Paiement :
+								<c:if test="${order.orderPaid}">
+									<c:forEach var="payment" items="${order.payments}">${payment.paymentType.displayName} </c:forEach>
+								</c:if>
+								<c:if test="${!order.orderPaid}">
 										Paiement sur place
 									</c:if>
-						</p>
+							</p>
+						</div>
+						<c:if test="${order.orderStatus.displayName != 'Récupérée'}">
+								<form class="order-details" method="post"
+									action="${pageContext.request.contextPath}/${tenancyAlias}/order/updateOrder">
+									<div>
+										<h3>Valider la récupération</h3>
+										<c:if test="${order.orderPaid}">
+											<p>L'adhérent a déjà réglé sa commande en ligne.</p>
+										</c:if>
+										<input type="hidden" name="${_csrf.parameterName}"
+											value="${_csrf.token}" />
+										<c:if test="${!order.orderPaid}">
+											<p>Sélectionnez le type de paiement de l'adhérent</p>
+											<select name="paymentType">
+												<option value="">-- Sélectionnez un mode de
+													paiement --</option>
+												<option value="Carte bleue">Carte bleue</option>
+												<option value="Chèque">Chèque</option>
+												<option value="Espèces">Espèces</option>
+											</select>
+										</c:if>
+										<input type="hidden" name="orderId" value="${order.orderId}" />
+									</div>
+									<div class="order-button">
+										<button type="submit" class="btn btn-100">Valider</button>
+									</div>
+							</form>
+						</c:if>
 					</div>
 					<table class="table">
-					<h3>Détails des produits</h3>
+						<h3>Détails des produits</h3>
 						<thead>
 							<tr>
 								<th></th>

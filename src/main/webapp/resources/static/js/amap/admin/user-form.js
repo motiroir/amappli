@@ -1,5 +1,5 @@
 const submit = document.getElementById("submit-button");
-const admin = document.getElementById("role-box-1")
+const admin = document.getElementById("role-box-ADMIN")
 
 submit.addEventListener("click", function(event) {
     if(admin.checked) {
