@@ -108,10 +108,10 @@
 					class="nav-link nunito text-decoration-none fc-300 fch-500">Fonctionnalités</a>
 				</li>
 
-				<li class="nav-item"><a href="aboutAmappli"
+				<li class="nav-item"><a href="about"
 					class="nav-link nunito text-decoration-none fc-300 fch-500"
 					>Qui sommes-nous ?</a></li>
-				<li class="nav-item"><a href="contactAmappli"
+				<li class="nav-item"><a href="contact"
 					class="nav-link nunito text-decoration-none fc-300 fch-500">Contact</a>
 				</li>
 				<!--   <li class="nav-item col-1">

@@ -22,7 +22,7 @@ import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amappli.TenancyService;
 
 @Controller
-@RequestMapping("/tenancies")
+//@RequestMapping("")
 public class TenancyController {
 
 	@Autowired
@@ -32,7 +32,7 @@ public class TenancyController {
 	
 
 
-	@GetMapping
+	@GetMapping("/getall")
 	public String getAllTenancies(Model model) {
 		List<Tenancy> tenancies = tenancyService.getAllTenancies();
 		model.addAttribute("tenancies", tenancies);

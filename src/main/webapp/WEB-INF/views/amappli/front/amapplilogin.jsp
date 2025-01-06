@@ -16,14 +16,14 @@
 <body class="${cssStyle} light ${font}-title ${font}-button">
 <div class="d-flex flex-column min-vh-100">
  <header class="fc-main bg-main">
-			<jsp:include page="../front/common/header-amap.jsp" />
+			<jsp:include page="../common/header.jsp" />
 		</header> 
 		 <div id="map"></div>  
 
 	<div class="container py-5 flex-grow-1">
 		<div class="d-flex justify-content-between align-items-center">
     <h1 class="h3 fw-bold fc-300">Se connecter</h1>
-    <a href="/Amappli/${tenancyAlias}/home" class="btn-close" aria-label="Retour"></a>
+    <a href="/Amappli/home" class="btn-close" aria-label="Retour"></a>
 </div>
 <hr class="bg-300 mb-4">
 
@@ -35,7 +35,7 @@
 			method="post">
 
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-        	<input type="hidden" name="origin" value="${tenancyAlias}">
+        	<input type="hidden" name="origin" value="amappli">
 			<!-- Affichage des erreurs générales -->
 			<c:if test="${not empty error}">
 				<div class="alert alert-danger">
@@ -69,7 +69,7 @@
 
 	</div>
 	 <footer class="fc-main bg-main">
-			<jsp:include page="../front/common/footer-amap.jsp" />
+			<jsp:include page="../common/footer.jsp" />
 		</footer> 
 	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 

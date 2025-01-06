@@ -27,7 +27,10 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
         
         SavedRequest savedRequest = requestCache.getRequest(request, response);
 
-        System.out.println("Hello from the success handler");
+        // System.out.println("do we still know where we came from?");
+        // System.out.println(request.getParameter("origin"));
+        // System.out.println("Hello from the success handler");
+        // String origin = request.getParameter("origin");
         if (savedRequest == null) {
             // No saved request, this means that the user did not try to access
             // a protected endpoint before attempting to log in
@@ -46,8 +49,8 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
         CustomUserDetails loggedUserInfo = (CustomUserDetails) authentication.getPrincipal();
         if(loggedUserInfo.getAdditionalInfoByKey("tenancyAlias") != null){
             System.out.println(loggedUserInfo.getAdditionalInfoByKey("tenancyAlias"));
-            return "/amap/amapHomePage";
+            return "/" + loggedUserInfo.getAdditionalInfoByKey("tenancyAlias") + "/home";
         }
-        return "/";
+        return "/amappli";
     }
 }
