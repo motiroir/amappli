@@ -16,117 +16,82 @@ request.setAttribute("currentPage", currentPage);
 <title>Boutique des Ateliers</title>
 <link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />"
 	rel="stylesheet">
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/amap/homePage.css' />">
-<style>
-body {
-	background-color: #FAF8F6;
-
-.product-card {
-	background-color: #FFF;
-	border: 1px solid #FFA570;
-	border-radius: 24px;
-	padding: 16px;
-	text-align: center;
-	transition: transform 0.2s;
-	height: 100%;
-	/* S'assure que toutes les cartes aient la même hauteur */
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.workshop-card:hover {
-	transform: scale(1.05);
-}
-
-.workshop-card img {
-	width: 100%;
-	height: 200px; /* Uniformise la hauteur des images */
-	object-fit: cover;
-	/* Conserve les proportions tout en remplissant l'espace */
-	border-radius: 16px;
-}
-
-.workshop-card .btn {
-	background-color: #FFA570;
-	color: #FFF;
-	border: none;
-	margin-top: 12px;
-}
-
-.workshop-card .btn:hover {
-	background-color: #FF8A50;
-}
-</style>
+<link href="<c:url value='/resources/css/common/utils.css' />"
+	rel="stylesheet">
+<link href="<c:url value='/resources/css/amap/shop.css' />"
+	rel="stylesheet">
 </head>
-<body class="row theme-1 light">
-<header class="fc-main bg-main">
-		<!-- Inclusion du header -->
-<jsp:include page="common/header.jsp" />
-</header>
-<jsp:include page="../front/common/sidebarUser.jsp"/>
-<div class="container-fluid mt-5">
-			<div class="row justify-content-center">
-				<div class="col-lg-10">
-										<div class="header-container">
-							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Ateliers</h2>
+<body class="row ${cssStyle} light ${font}-title ${font}-button">
+	<!-- Header -->
+	<header class="fc-main bg-main border-1 border-alt">
+		<jsp:include page="common/header.jsp" />
+	</header>
+	<jsp:include page="../front/common/sidebarUser.jsp" />
+	<div id="map" class="p-0"></div>
+
+	<div class="content col fc-main">
+		<div class="container-fluid mt-4">
+			<div class="header-container mb-4">
+				<h2 class="fw-bold">Ateliers</h2>
+			</div>
+			<div class="container">
+				<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 mx-auto"
+					style="max-width: 95%;">
+					<c:forEach var="workshop" items="${workshops}">
+						<div class="col" style="width: 30%; max-width: 30%;">
+							<div class="card contract-card rounded-4 border-main">
+								<c:if test="${not empty workshop.imageData}">
+									<img class="card-img-top"
+										src="data:${workshop.imageType};base64,${workshop.imageData}"
+										alt="Image de l'atelier">
+								</c:if>
+								<div class="card-body">
+									<h3 class="card-title fw-bold">${workshop.workshopName}</h3>
+									<p class="card-text">
+										${workshop.workshopDateTime}</p>
+									<p class="card-text">${workshop.workshopDescription}</p>
+									<p class="card-text text-end"><em>${workshop.workshopDuration} minutes</em><br>
+										<b>${workshop.workshopPrice}&euro;/personne</b>
+									</p>
+									<a
+										href="<c:url value='/amap/${tenancyAlias}/shop/workshops/${workshop.id}' />"
+										class="btn btn-main rounded-pill bg-main">Voir les détails</a>
+								</div>
+							</div>
 						</div>
-    <div class="row">
-
-        <!-- Main Content -->
-        <div class="col-12 col-md-9">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <span>${workshops.size()} Items</span>
-                <div class="d-flex align-items-center">
-                    <label for="sortBy" class="me-2">Trier par</label>
-                    <select id="sortBy" class="form-select me-3" style="width: auto;">
-                        <option value="name">Nom</option>
-                        <option value="priceAsc">Prix croissant</option>
-                        <option value="priceDesc">Prix décroissant</option>
-                    </select>
-                    <input type="text" id="searchBar" class="form-control" placeholder="Rechercher..."
-                        style="width: 200px;">
-                </div>
-            </div>
-
-            <div class="row">
-                <c:if test="${not empty workshops}">
-                    <c:forEach var="workshop" items="${workshops}">
-                        <div class="col-12 col-sm-6 col-lg-4 mb-4">
-                            <div class="workshop-card">
-                                <c:if test="${not empty workshop.imageData}">
-                                    <img src="data:${workshop.imageType};base64,${workshop.imageData}"
-                                        alt="Image de l'atelier">
-                                </c:if>
-                                <h3 class="mt-3">${workshop.workshopName}</h3>
-                                <p> Date de l'atelier : ${workshop.workshopDateTime}</p>
-                                <p>${workshop.workshopPrice}&euro; / personne</p>
-                                <a href="<c:url value='/${tenancyAlias}/shop/workshops/${workshop.id}' />"
-                                    class="btn">Voir les détails</a>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </c:if>
-                <c:if test="${empty workshops}">
-                    <div class="col-12">
-                        <p class="text-center">Aucun atelier disponible pour cette AMAP.</p>
-                    </div>
-                </c:if>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-</div>
+					</c:forEach>
+					<c:if test="${empty workshops}">
+						<div class="col-12">
+							<p class="text-center">Aucun atelier disponible pour cette
+								AMAP.</p>
+						</div>
+					</c:if>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 
-	<!-- Inclure le footer -->
+	<!-- Footer -->
 	<footer>
 		<jsp:include page="common/footer.jsp" />
 	</footer>
+	<script>
+		var styleMapboxLight = "${mapStyleLight}"
+		var styleMapboxDark = "${mapStyleDark}"
+		var latitude = "${latitude}"
+		var longitude = "${longitude}"
+	</script>
 	<script
-		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
+		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"
+		type="text/javascript"></script>
+	<script
+		src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
+		type="text/javascript"></script>
 </body>
 </html>

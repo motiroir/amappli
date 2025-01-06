@@ -41,7 +41,7 @@ request.setAttribute("currentPage", currentPage);
 				<div class="form-container">
 					<div class="header-container">
 						<a
-							href="<c:url value='/${tenancyAlias}/backoffice/products/list' />"
+							href="<c:url value='/amap/${tenancyAlias}/admin/products/list' />"
 							class="${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900">
 							<i class="bi bi-arrow-left"></i><span class="d-none d-md-inline">
 								Liste des produits</span>
@@ -49,7 +49,7 @@ request.setAttribute("currentPage", currentPage);
 						<h2 class="my-4 fw-bold">Ajouter un produit</h2>
 					</div>
 					<form:form method="POST"
-						action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/products/add"
+						action="${pageContext.request.contextPath}/amap/${tenancyAlias}/admin/products/add"
 						enctype="multipart/form-data">
 						<input type="hidden" id="tenancyAlias" name="tenancyAlias"
 							value="${tenancyAlias}">
@@ -163,6 +163,14 @@ request.setAttribute("currentPage", currentPage);
 										<strong>Adresse de livraison du point de collecte :</strong><br>
 										<c:if test="${not empty address}">
             ${address.line1} ${address.line2}, ${address.city} (${address.postCode})
+        </c:if>
+									</p>
+								</div>
+								<div class="mb-3">
+									<p>
+										<strong>Jour et heures de livraison :</strong><br>
+										<c:if test="${not empty address}">
+            ${pickupSchedule.localizedDayOfWeek} de ${pickupSchedule.startHour} à ${pickupSchedule.endHour}
         </c:if>
 									</p>
 								</div>

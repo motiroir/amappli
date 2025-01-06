@@ -42,7 +42,7 @@ request.setAttribute("currentPage", currentPage);
 				<div class="form-container">
 					<div class="header-container">
 						<a
-							href="<c:url value='/${tenancyAlias}/backoffice/workshops/list' />"
+							href="<c:url value='/amap/${tenancyAlias}/admin/workshops/list' />"
 							class="${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900">
 							<i class="bi bi-arrow-left-circle"></i><span
 							class="d-none d-md-inline"> Liste des ateliers</span>
@@ -54,7 +54,7 @@ request.setAttribute("currentPage", currentPage);
 						<br>
 					</div>
 					<form:form method="POST"
-						action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/workshops/update"
+						action="${pageContext.request.contextPath}/amap/${tenancyAlias}/admin/workshops/update"
 						enctype="multipart/form-data" modelAttribute="workshop">
 						<form:errors path="*" cssClass="errorBox" />
 						<form:hidden path="id" value="${workshop.id }" />

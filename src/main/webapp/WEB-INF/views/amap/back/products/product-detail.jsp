@@ -41,7 +41,7 @@ request.setAttribute("currentPage", currentPage);
 				<div class="form-container">
 					<div class="header-container">
 						<a
-							href="<c:url value='/${tenancyAlias}/backoffice/products/list' />"
+							href="<c:url value='/amap/${tenancyAlias}/admin/products/list' />"
 							class="${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900">
 							<i class="bi bi-arrow-left-circle"></i><span
 							class="d-none d-md-inline"> Liste des produits</span>
@@ -53,7 +53,7 @@ request.setAttribute("currentPage", currentPage);
 						<br>
 					</div>
 					<form:form method="POST"
-						action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/products/update"
+						action="${pageContext.request.contextPath}/amap/${tenancyAlias}/admin/products/update"
 						enctype="multipart/form-data" modelAttribute="product">
 						<form:errors path="*" cssClass="errorBox" />
 						<form:hidden path="id" value="${product.id }" />
@@ -124,15 +124,6 @@ request.setAttribute("currentPage", currentPage);
 										</c:forEach>
 									</form:select>
 								</div>
-								<div class="mb-3">
-									<label class="form-label">Jour de livraison</label>
-									<form:select path="deliveryDay"
-										class="form-select form-control">
-										<c:forEach var="day" items="${deliveryDay}">
-											<form:option value="${day}" label="${day.displayName}" />
-										</c:forEach>
-									</form:select>
-								</div>
 							</div>
 
 							<!-- Troisième colonne -->
@@ -150,9 +141,21 @@ request.setAttribute("currentPage", currentPage);
 									</c:if>
 								</div>
 								<br>
-								<div>
-									Adresse du point de collecte :<br> ${address.line1}
-									${address.line2}, ${address.city} (${address.postCode})
+								<div class="mb-3">
+									<p>
+										<strong>Adresse de livraison du point de collecte :</strong><br>
+										<c:if test="${not empty address}">
+            ${address.line1} ${address.line2}, ${address.city} (${address.postCode})
+        </c:if>
+									</p>
+								</div>
+								<div class="mb-3">
+									<p>
+										<strong>Jour et heures de livraison :</strong><br>
+										<c:if test="${not empty address}">
+            ${pickupSchedule.localizedDayOfWeek} de ${pickupSchedule.startHour} à ${pickupSchedule.endHour}
+        </c:if>
+									</p>
 								</div>
 							</div>
 							<div class="d-flex justify-content-evenly my-5">

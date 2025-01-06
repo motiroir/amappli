@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import isika.p3.amappli.entities.tenancy.PickUpSchedule;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +23,7 @@ public class ContractDTO {
     private LocalDate endDate;
     private MultipartFile image; // Champ pour l'image
     private String deliveryRecurrence; // Attribut ajouté
-    private String deliveryDay;        // Attribut ajouté
+    private PickUpSchedule pickUpSchedule;
     private Integer quantity;
     private Long userId; // ID du producteur
     private boolean shoppable; // Indique si le contrat est disponible ou non

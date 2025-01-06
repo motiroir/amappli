@@ -8,10 +8,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 import isika.p3.amappli.entities.contract.DeliveryDay;
 import isika.p3.amappli.entities.contract.DeliveryRecurrence;
 import isika.p3.amappli.entities.order.Shoppable;
+import isika.p3.amappli.entities.tenancy.PickUpSchedule;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.entities.user.User;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -67,8 +69,8 @@ public class Product extends Shoppable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate expirationDate;
     
-	@Enumerated(EnumType.STRING)
-	private DeliveryDay deliveryDay;
+    @Embedded
+    private PickUpSchedule pickUpSchedule;
 	
 	@Enumerated(EnumType.STRING)
 	private DeliveryRecurrence deliveryRecurrence;

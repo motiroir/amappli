@@ -57,6 +57,13 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
         product.setTenancy(tenancy);
         
+        // Associer le PickupSchedule depuis la tenancy
+        if (tenancy.getPickUpSchedule() != null) {
+            product.setPickUpSchedule(tenancy.getPickUpSchedule());
+        } else {
+            throw new IllegalArgumentException("Pickup Schedule non défini pour la tenancy.");
+        }
+        
         // Récupération de l'utilisateur sélectionné s'il y a un ID d'utilisateur
         if (productDTO.getUserId() != null) {
             User user = userRepository.findById(productDTO.getUserId())
@@ -82,7 +89,6 @@ public class ProductServiceImpl implements ProductService {
         product.setDateCreation(LocalDate.now());
         product.setProductDescription(productDTO.getProductDescription());
         product.setDeliveryRecurrence(DeliveryRecurrence.valueOf(productDTO.getDeliveryRecurrence()));
-        product.setDeliveryDay(DeliveryDay.valueOf(productDTO.getDeliveryDay()));
 
         // Traitement de l'image
         if (!productDTO.getImage().isEmpty()) {
@@ -118,7 +124,7 @@ public class ProductServiceImpl implements ProductService {
 	    existingProduct.setProductStock(updatedProductDTO.getProductStock() != null ? updatedProductDTO.getProductStock() : existingProduct.getProductStock());
 	    existingProduct.setFabricationDate(updatedProductDTO.getFabricationDate() != null ? updatedProductDTO.getFabricationDate() : existingProduct.getFabricationDate());
 	    existingProduct.setExpirationDate(updatedProductDTO.getExpirationDate() != null ? updatedProductDTO.getExpirationDate() : existingProduct.getExpirationDate());
-	    existingProduct.setDeliveryDay(updatedProductDTO.getDeliveryDay() != null ? DeliveryDay.valueOf(updatedProductDTO.getDeliveryDay()) : existingProduct.getDeliveryDay());
+//	    existingProduct.setDeliveryDay(updatedProductDTO.getDeliveryDay() != null ? DeliveryDay.valueOf(updatedProductDTO.getDeliveryDay()) : existingProduct.getDeliveryDay());
 	    existingProduct.setDeliveryRecurrence(updatedProductDTO.getDeliveryRecurrence() != null ? DeliveryRecurrence.valueOf(updatedProductDTO.getDeliveryRecurrence()) : existingProduct.getDeliveryRecurrence());
 
 	    if (updatedProductDTO.getUserId() != null) {

@@ -66,6 +66,13 @@ public class ContractServiceImpl implements ContractService {
         Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
                 .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
         contract.setTenancy(tenancy);
+        
+        // Associer le PickupSchedule depuis la tenancy
+        if (tenancy.getPickUpSchedule() != null) {
+            contract.setPickUpSchedule(tenancy.getPickUpSchedule());
+        } else {
+            throw new IllegalArgumentException("Pickup Schedule non défini pour la tenancy.");
+        }
 
         // Récupération de l'utilisateur sélectionné s'il y a un ID d'utilisateur
         if (contractDTO.getUserId() != null) {
@@ -92,7 +99,6 @@ public class ContractServiceImpl implements ContractService {
 		contract.setStartDate(contractDTO.getStartDate());
 		contract.setEndDate(contractDTO.getEndDate());
 		contract.setDeliveryRecurrence(DeliveryRecurrence.valueOf(contractDTO.getDeliveryRecurrence()));
-		contract.setDeliveryDay(DeliveryDay.valueOf(contractDTO.getDeliveryDay()));
 		contract.setQuantity(contractDTO.getQuantity());
 		contract.setShoppable(true);
 		contract.setDateCreation(LocalDate.now());
@@ -128,7 +134,6 @@ public class ContractServiceImpl implements ContractService {
 	    existingContract.setStartDate(updatedContractDTO.getStartDate());
 	    existingContract.setEndDate(updatedContractDTO.getEndDate());
 	    existingContract.setDeliveryRecurrence(DeliveryRecurrence.valueOf(updatedContractDTO.getDeliveryRecurrence()));
-	    existingContract.setDeliveryDay(DeliveryDay.valueOf(updatedContractDTO.getDeliveryDay()));
 	    existingContract.setQuantity(updatedContractDTO.getQuantity());
 
 

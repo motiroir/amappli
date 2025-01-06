@@ -28,7 +28,7 @@ import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.WorkshopService;
 
 @Controller
-@RequestMapping("/{tenancyAlias}/backoffice/workshops")
+@RequestMapping("/amap/{tenancyAlias}/admin/workshops")
 public class WorkshopController {
 
 	private final WorkshopService workshopService;
@@ -92,7 +92,7 @@ public class WorkshopController {
 		if (workshopDTO.getWorkshopName() == null || workshopDTO.getWorkshopName().isEmpty()) {
 			throw new IllegalArgumentException("Le champ 'Nom du produit' est obligatoire.");
 		}
-		return "redirect:/" + tenancyAlias + "/backoffice/workshops/list";
+		return "redirect:/amap/" + tenancyAlias + "/admin/workshops/list";
 	}
 
 	/**
@@ -117,7 +117,7 @@ public class WorkshopController {
 	@PostMapping("/delete/{id}")
 	public String deleteWorkshop(@PathVariable("id") Long id, @PathVariable("tenancyAlias") String tenancyAlias) {
 		workshopService.deleteById(id);
-		return "redirect:/" + tenancyAlias + "/backoffice/workshops/list";
+		return "redirect:/amap/" + tenancyAlias + "/admin/workshops/list";
 	}
 
 	/**
@@ -191,7 +191,7 @@ public class WorkshopController {
 
 		workshopService.updateWorkshop(updatedWorkshopDTO, image, tenancyAlias);
 
-		return "redirect:/" + tenancyAlias + "/backoffice/workshops/list";
+		return "redirect:/amap/" + tenancyAlias + "/admin/workshops/list";
 	}
 	
 	public void addGraphismAttributes(String alias, Model model) {

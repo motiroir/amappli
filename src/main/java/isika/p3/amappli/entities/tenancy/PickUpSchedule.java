@@ -9,7 +9,9 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.TextStyle;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Locale;
 
 import jakarta.persistence.Embeddable;
 
@@ -46,5 +48,9 @@ public class PickUpSchedule {
         LocalDateTime start = LocalDateTime.of(nextDate, startHour);
         LocalDateTime end = LocalDateTime.of(nextDate, endHour);
         return new LocalDateTime[] {start, end};
+    }
+    
+    public String getLocalizedDayOfWeek() {
+        return dayOfWeek.getDisplayName(TextStyle.FULL, Locale.FRENCH);
     }
 }
