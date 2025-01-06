@@ -53,7 +53,7 @@
 			</div>
 
 			<div class="text-center">
-				<a type="submit" class="btn btn-500 rounded-pill">Se connecter</a>
+				<button type="submit" class="btn bg-500 rounded-pill">Se connecter</button>
 			</div>
 		</form>
 		<br>

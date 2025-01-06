@@ -19,6 +19,7 @@
 <div class="d-flex flex-column min-vh-100">
 		<header class="fc-main bg-main">
 			<jsp:include page="common/header-amap.jsp" />
+			
 		</header>
 
 <div id="map"></div>   
@@ -41,7 +42,7 @@
 	</main>
 
 	<!-- Affichage du block de présentation -->
-<c:if test="${not empty presentationBlock}">
+<div class="presentation-wrapper">
     <div class="presentation-section">
         <h2 class="h3 fw-bold fc-300">Qui sommes-nous ?</h2>
         <div class="presentation-block fc-main">
@@ -51,14 +52,15 @@
             </div>
             <div class="presentation-image-container">
                 <c:if test="${not empty presentationBlock.contentImg}">
-    <img src="data:${presentationBlock.contentImgTypeMIME};base64,${presentationBlock.contentImg}" 
-         alt="${presentationBlock.contentTitle}" 
-         class="presentation-image" />
-</c:if>
+                    <img src="data:${presentationBlock.contentImgTypeMIME};base64,${presentationBlock.contentImg}" 
+                         alt="${presentationBlock.contentTitle}" 
+                         class="presentation-image" />
+                </c:if>
             </div>
         </div>
     </div>
-</c:if>
+</div>
+
 
 <!-- Affichage des ContentBlock avec isValue == true -->
 <c:if test="${not empty valueBlocks}">

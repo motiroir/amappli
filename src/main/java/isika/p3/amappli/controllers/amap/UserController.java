@@ -43,6 +43,11 @@ public class UserController {
         model.addAttribute("userDTO", userDTO);
         model.addAttribute("tenancyAlias", alias);
         
+        // Ajouter les informations générales de la tenancy
+        model.addAttribute("tenancy", tenancy);
+        model.addAttribute("tenancyName", tenancy.getTenancyName());
+        model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
+        
         // Ajouter les informations graphiques
         Graphism graphism = tenancy.getGraphism();
         String logoBase64 = graphism != null ? graphism.getLogoImg() : null;
@@ -73,6 +78,11 @@ public class UserController {
         model.addAttribute("logoBase64", logoBase64);
         model.addAttribute("logoImgType", logoImgType);
         
+        // Ajouter les informations générales de la tenancy
+        model.addAttribute("tenancy", tenancy);
+        model.addAttribute("tenancyName", tenancy.getTenancyName());
+        model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
+        
         // Récupérer et ajouter les styles dynamiques via GraphismService
         model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
         model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
@@ -99,6 +109,11 @@ public class UserController {
             model.addAttribute("userDTO", userDTO); // Conserver les données saisies
             
          	Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
+         	
+         	  // Ajouter les informations générales de la tenancy
+	        model.addAttribute("tenancy", tenancy);
+	        model.addAttribute("tenancyName", tenancy.getTenancyName());
+	        model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
             
             // Ajouter les informations graphiques
             Graphism graphism = tenancy.getGraphism();
@@ -161,6 +176,12 @@ public class UserController {
             model.addAttribute("error", "Email ou mot de passe incorrect.");
         }
         Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
+        
+        // Ajouter les informations générales de la tenancy
+        model.addAttribute("tenancy", tenancy);
+        model.addAttribute("tenancyName", tenancy.getTenancyName());
+        model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
+        
      // Ajouter les informations graphiques
         Graphism graphism = tenancy.getGraphism();
         String logoBase64 = graphism != null ? graphism.getLogoImg() : null;

@@ -99,8 +99,8 @@
 
             <div class="text-center">
             
-                <a href="${pageContext.request.contextPath}/tenancies/${tenancyAlias}/amap/amaplogin/login-done" 
-                type="submit" class="btn btn-500 px-4 rounded-pill">S'inscrire</a>
+                <button href="${pageContext.request.contextPath}/tenancies/${tenancyAlias}/amap/amaplogin/login-done" 
+                type="submit" class="btn btn-500 px-4 rounded-pill">S'inscrire</button>
             </div>
         </form:form>
         
@@ -110,7 +110,7 @@
 			<hr class="bg-300">
 			<a
 				href="${pageContext.request.contextPath}/tenancies/${tenancyAlias}/amap/amaplogin/login"
-				class="btn btn-500  rounded-pill">Se connecter</a>
+				class="btn bg-500  rounded-pill">Se connecter</a>
 		</div>
         </div>
     </div>
