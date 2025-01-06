@@ -29,8 +29,9 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         System.out.println("the uri :"+uri);
         // Check if  URI starts with /amap/{tenancyAlias}/something (meaning we need to go the the appropriate tenancy login)
         int slashIndex = uri.indexOf("/",14); // check if there's a slash after the tomcat /Amappli/amap/
+
         System.out.println("the slash index :"+slashIndex);
-        if(slashIndex > 9){ // there is a /part/ at the start of the url
+        if(uri.startsWith("/Amappli/amap") && slashIndex > 14){ // there is a /part/ after amap
             String potentialTenancyAlias = uri.substring(14, slashIndex);
             System.out.println("the potential tenancy alias :"+potentialTenancyAlias);
             if(!potentialTenancyAlias.equals("amappli")){ //if the potentialTenancyAlias is Amappli, that means that the uri is in fact a platform URI
@@ -38,7 +39,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
             }
         }
 
-        return "/Amappli/login";
+        return "/Amappli/amappli/login";
     }
     
 }
