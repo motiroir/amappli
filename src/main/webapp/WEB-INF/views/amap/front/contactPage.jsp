@@ -48,7 +48,7 @@
                         <p><strong>Emplacement :</strong></p>
                        	<p>${addressLine1}</p>
 						<p>${addressLine2}</p>
-						<p>${addressPostCode}${addressCity}</p>
+						<p>${addressPostCode}&nbsp;${addressCity}</p>
                     </div>
                     <div class="col-6">
                         <p><strong>Réseaux sociaux :</strong></p>

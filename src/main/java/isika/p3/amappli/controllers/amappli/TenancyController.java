@@ -48,8 +48,8 @@ public class TenancyController {
 
 	    // Vérifier si les données existent
 	    if (homePageContent != null) {
-	        // Ajouter le contenu de la page d'accueil au modèle
-	        model.addAttribute("homePageContent", homePageContent);
+	    	  // Ajouter les informations générales de la tenancy
+	        model.addAttribute("tenancy", tenancy);
 	        model.addAttribute("tenancyName", tenancy.getTenancyName());
 	        model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
 
@@ -107,6 +107,10 @@ public class TenancyController {
 	public String getTenancyById(@PathVariable Long id, Model model) {
 		Tenancy tenancy = tenancyService.getTenancyById(id);
 		model.addAttribute("tenancy", tenancy);
+		  // Ajouter les informations générales de la tenancy
+        model.addAttribute("tenancy", tenancy);
+        model.addAttribute("tenancyName", tenancy.getTenancyName());
+        model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
 		return "tenancy-details";
 	}
 	
@@ -118,6 +122,11 @@ public class TenancyController {
 	    if (tenancy != null) {
 	        // Ajouter la tenancy au modèle
 	        model.addAttribute("tenancy", tenancy);
+	        
+	        // Ajouter les informations générales de la tenancy
+	        model.addAttribute("tenancy", tenancy);
+	        model.addAttribute("tenancyName", tenancy.getTenancyName());
+	        model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
 
 	        // Récupérer les informations dynamiques liées au graphisme
 	        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));

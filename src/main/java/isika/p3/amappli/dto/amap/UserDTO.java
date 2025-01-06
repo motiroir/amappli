@@ -8,6 +8,7 @@ import isika.p3.amappli.validation.annotation.PasswordMatches;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,15 +18,23 @@ import lombok.Setter;
 @PasswordMatches
 public class UserDTO {
 
-    @NotBlank(message = "L'email est obligatoire.")
-    @Size(max = 70, message = "L'email doit faire 70 caractères maximum.")
-    @Email(message = "L'email est invalide.")
+	 @NotBlank( message = "L''email est obligatoire.")
+		@Size(max=70, message = "L''email doit faire 70 caractères maximum.")
+	    @Email( message = "L''email est invalide.")
     private String email;
 
-    @NotBlank(message = "Champ obligatoire")
+	 @NotBlank( message = "Champ obligatoire")
+	    @Pattern(
+	    regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",
+	    message = "Le mot de passe doit avoir au moins un chiffre, une minuscule, une majuscule, un caractère spécial, pas d'espaces et au moins huit caractères de long."
+	    )
     private String password;
 
-    @NotBlank(message = "Champ obligatoire.")
+	 @NotBlank(message = "Champ obligatoire.")
+	    @Pattern(
+	    regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",
+	    message = "Le mot de passe doit avoir au moins un chiffre, une minuscule, une majuscule, un caractère spécial, pas d'espaces et au moins huit caractères de long."
+	    )
     private String confirmPassword;
 
     private BigDecimal creditBalance;

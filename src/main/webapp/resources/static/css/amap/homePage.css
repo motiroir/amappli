@@ -87,15 +87,24 @@ body {
     line-height: 1.4;
 }
 
-/* Section Présentation */
+/* Wrapper to center the section */
+.presentation-wrapper {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 20px; 
+}
+
 .presentation-section {
     text-align: center;
-    margin: 40px 20px;
     background-color: #f9f9f9; 
     border-radius: 10px; 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
+    max-width: 81%; /* Définit une largeur maximale pour limiter la taille */
+    margin: 0 auto; /* Assure un centrage si la largeur max est plus petite que l'écran */
 }
+
 
 .presentation-section h2 {
     font-size: 2rem;
