@@ -38,6 +38,15 @@ public class OrderController {
 		addGraphismAttributes(alias, model);
         return "amap/front/user-profile/my-orders";
 	}
+
+	@GetMapping("/admin/orders")
+	public String viewOrdersForAdmin(@PathVariable("tenancyAlias") String alias, Model model) {
+		List<Order> orders = orderService.getOrdersByTenancyAlias(alias);
+		model.addAttribute("orders", orders);
+		
+		addGraphismAttributes(alias, model);
+		return "amap/back/orders/orders-list";
+	}
 	
 	@GetMapping("/account/my-orders/order-details/{orderId}")
 	public String viewOrderDetails(@PathVariable("tenancyAlias") String alias, @PathVariable("orderId") Long orderId, Model model) {
@@ -49,6 +58,18 @@ public class OrderController {
 		
 		addGraphismAttributes(alias, model);
 		return "amap/front/user-profile/order-details";
+	}
+	
+	@GetMapping("/admin/order-details/{orderId}")
+	public String viewOrderDetailsForAdmin(@PathVariable("tenancyAlias") String alias, @PathVariable("orderId") Long orderId, Model model) {
+		Long userId = getUserIdFromContext();
+		model.addAttribute("userId", userId);
+		
+		Order order = orderService.getOrderById(orderId);
+		model.addAttribute("order", order);
+		
+		addGraphismAttributes(alias, model);
+		return "amap/back/orders/order-details";
 	}
 	
     

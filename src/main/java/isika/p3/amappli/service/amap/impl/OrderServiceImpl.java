@@ -18,10 +18,12 @@ import isika.p3.amappli.entities.order.ShoppingCart;
 import isika.p3.amappli.entities.order.ShoppingCartItem;
 import isika.p3.amappli.entities.payment.Payment;
 import isika.p3.amappli.entities.payment.PaymentType;
+import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.repo.amap.OrderRepository;
 import isika.p3.amappli.repo.amap.ShoppingCartRepository;
 import isika.p3.amappli.repo.amap.UserRepository;
+import isika.p3.amappli.repo.amappli.TenancyRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -35,13 +37,15 @@ public class OrderServiceImpl {
 	private final OrderRepository orderRepo;
 	private final ShoppingCartRepository cartRepo;
 	private final UserRepository userRepo;
+	private final TenancyRepository tenancyRepo;
 
 	public OrderServiceImpl(EntityManager entityManager, OrderRepository orderRepo, ShoppingCartRepository cartRepo,
-			UserRepository userRepo) {
+			UserRepository userRepo, TenancyRepository tenancyRepo) {
 		this.entityManager = entityManager;
 		this.orderRepo = orderRepo;
 		this.cartRepo = cartRepo;
 		this.userRepo = userRepo;
+		this.tenancyRepo = tenancyRepo;
 	}
 
     public ShoppingCart getCartByUserId(Long userId) {
@@ -52,6 +56,11 @@ public class OrderServiceImpl {
         	cartRepo.save(newCart);
         	return newCart;
         } return cart;
+    }
+    
+    public List<Order> getOrdersByTenancyAlias(String alias){
+    	Tenancy tenancy = tenancyRepo.findByTenancyAlias(alias).orElse(null);
+    	return orderRepo.findOrdersByTenancyId(tenancy.getTenancyId());
     }
 	
 	public List<OrderItem> copyCartItemsListToOrderItemsList(List<ShoppingCartItem> cartItems) {
