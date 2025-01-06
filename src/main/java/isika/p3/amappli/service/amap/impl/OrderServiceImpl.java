@@ -25,6 +25,7 @@ import isika.p3.amappli.repo.amap.ShoppingCartRepository;
 import isika.p3.amappli.repo.amap.UserRepository;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
@@ -123,6 +124,38 @@ public class OrderServiceImpl {
 		order.getPayments().add(payment);
 		payment.setOrder(order);
 		// save order and order items and payment by cascade
+		orderRepo.save(order);
+		return order;
+	}
+	
+	@Transactional
+	public Order validatePayment(Long orderId, String paymentTypeString) {
+		//transform to PaymentType enum
+	    PaymentType paymentType;
+	    switch (paymentTypeString) {
+	        case "Carte bleue":
+	            paymentType = PaymentType.card;
+	            break;
+	        case "Chèque":
+	            paymentType = PaymentType.check;
+	            break;
+	        case "Espèces":
+	            paymentType = PaymentType.cash;
+	            break;
+	        default:
+	            throw new IllegalArgumentException("Type de paiement invalide : " + paymentTypeString);
+	    }
+
+	    Order order = orderRepo.findById(orderId)
+	        .orElseThrow(() -> new EntityNotFoundException("Commande introuvable pour l'ID : " + orderId));
+
+	    order.setOrderStatus(OrderStatus.DONE);
+		Payment payment = Payment.builder().paymentType(paymentType).paymentDate(LocalDateTime.now())
+				.paymentAmount(BigDecimal.valueOf(order.getTotalAmount())).build();
+
+		order.setOrderPaid(true);
+		order.getPayments().add(payment);
+		payment.setOrder(order);
 		orderRepo.save(order);
 		return order;
 	}

@@ -91,11 +91,6 @@
 											<a href="<c:url value='/${tenancyAlias}/admin/order-details/${order.orderId}' />"
 												class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1"> <i class="bi bi-eye"></i>
 											</a>
-											<form:form action="delete/${user.userId}" class="d-inline" onsubmit="return confirm('Voulez-vous vraiment supprimer l'adhérent ${user.contactInfo.firstName} ${user.contactInfo.name} ?');">
-												<button type="submit" class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1">
-													<i class="bi bi-trash"></i>
-												</button>
-											</form:form>
 										</div>
 									</td>
 								</tr>
