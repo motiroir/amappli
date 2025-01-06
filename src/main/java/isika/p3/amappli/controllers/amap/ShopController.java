@@ -2,8 +2,12 @@ package isika.p3.amappli.controllers.amap;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -92,9 +96,28 @@ public class ShopController {
 
 		Long cartId = 1L;
 		model.addAttribute("cartId", cartId);
-
-		List<Product> products = productService.findShoppableProductsByTenancy(tenancy);
-		model.addAttribute("products", products);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale.FRENCH);
+	    // Conversion des produits
+	    List<Map<String, Object>> formattedProducts = productService.findShoppableProductsByTenancy(tenancy)
+	        .stream()
+	        .map(product -> {
+	            Map<String, Object> productData = new HashMap<>();
+	            productData.put("productName", product.getProductName());
+	            productData.put("productDescription", product.getProductDescription());
+	            productData.put("productPrice", product.getProductPrice());
+	            productData.put("imageData", product.getImageData());
+	            productData.put("imageType", product.getImageType());
+	            productData.put("id", product.getId());
+	            // Formatage de la date
+	            if (product.getExpirationDate() != null) {
+	                productData.put("expirationDate", product.getExpirationDate().format(formatter));
+	            }
+	            return productData;
+	        })
+	        .toList();
+//		List<Product> products = productService.findShoppableProductsByTenancy(tenancy);
+		model.addAttribute("products", formattedProducts);
+//		model.addAttribute("products", products);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		addGraphismAttributes(tenancyAlias, model);
 
@@ -111,9 +134,32 @@ public class ShopController {
 
 		Long cartId = 1L;
 		model.addAttribute("cartId", cartId);
+		
+	    // Formatter pour LocalDateTime
+	    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("'Le' dd MMMM yyyy 'à' HH:mm", Locale.FRENCH);
 
-		List<Workshop> workshops = workshopService.findShoppableWorkshopsByTenancy(tenancy);
-		model.addAttribute("workshops", workshops);
+	    // Transformation des workshops
+	    List<Map<String, Object>> formattedWorkshops = workshopService.findShoppableWorkshopsByTenancy(tenancy)
+	        .stream()
+	        .map(workshop -> {
+	            Map<String, Object> workshopData = new HashMap<>();
+	            workshopData.put("workshopName", workshop.getWorkshopName());
+	            workshopData.put("workshopDescription", workshop.getWorkshopDescription());
+	            workshopData.put("workshopPrice", workshop.getWorkshopPrice());
+	            workshopData.put("imageData", workshop.getImageData());
+	            workshopData.put("workshopDuration",workshop.getWorkshopDuration());
+	            workshopData.put("imageType", workshop.getImageType());
+	            // Formatage de la date et heure
+	            if (workshop.getWorkshopDateTime() != null) {
+	                workshopData.put("workshopDateTime", workshop.getWorkshopDateTime().format(dateTimeFormatter));
+	            }
+	            return workshopData;
+	        })
+	        .toList();
+
+//		List<Workshop> workshops = workshopService.findShoppableWorkshopsByTenancy(tenancy);
+//		model.addAttribute("workshops", workshops);
+	    model.addAttribute("workshops", formattedWorkshops);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		addGraphismAttributes(tenancyAlias, model);
 
@@ -140,6 +186,12 @@ public class ShopController {
 		LocalDate today = LocalDate.now();
 		DayOfWeek deliveryDayOfWeek = DayOfWeek.valueOf(contract.getDeliveryDay().name());
 		LocalDate nextDeliveryDate = today.with(TemporalAdjusters.nextOrSame(deliveryDayOfWeek));
+		
+	    // Formatter pour les dates
+	    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale.FRENCH);
+	    // Formatage des dates
+	    String formattedEndDate = contract.getEndDate().format(dateFormatter);
+	    String formattedNextDeliveryDate = nextDeliveryDate.format(dateFormatter);
 
 		// Si le jour de livraison correspond à aujourd'hui, passe à la semaine suivante
 		if (today.getDayOfWeek() == deliveryDayOfWeek) {
@@ -154,7 +206,9 @@ public class ShopController {
 		} else {
 			model.addAttribute("address", null); // Pas d'adresse trouvée
 		}
-
+		
+	    model.addAttribute("formattedEndDate", formattedEndDate); // Ajout de la date formatée
+	    model.addAttribute("formattedNextDeliveryDate", formattedNextDeliveryDate);
 		model.addAttribute("contract", contract);
 		model.addAttribute("nextDeliveryDate", nextDeliveryDate);
 		addGraphismAttributes(tenancyAlias, model);
