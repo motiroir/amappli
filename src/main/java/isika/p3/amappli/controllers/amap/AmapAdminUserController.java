@@ -28,7 +28,7 @@ import jakarta.validation.ValidatorFactory;
 
 
 @Controller
-@RequestMapping("{tenancyAlias}/backoffice")
+@RequestMapping("amap/{tenancyAlias}/admin")
 public class AmapAdminUserController {
     
 	@Autowired
