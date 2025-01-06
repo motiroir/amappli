@@ -1,6 +1,5 @@
 package isika.p3.amappli.service.amappli;
 
-import java.io.IOException;
 import java.util.List;
 
 import isika.p3.amappli.dto.amappli.NewTenancyDTO;
