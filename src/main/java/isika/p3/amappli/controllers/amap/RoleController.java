@@ -24,6 +24,7 @@ import isika.p3.amappli.entities.tenancy.FontChoice;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.repo.amappli.PermissionRepository;
 import isika.p3.amappli.security.CustomUserDetails;
+import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.RoleService;
 import isika.p3.amappli.service.amap.UserService;
 
@@ -36,13 +37,15 @@ public class RoleController {
 
 	private final UserService userService;
 
+	private final GraphismService graphismService;
 
-	public RoleController(RoleService roleService, PermissionRepository permissionRepository, UserService userService) {
+
+	public RoleController(RoleService roleService, PermissionRepository permissionRepository, UserService userService, GraphismService graphismService) {
 		this.roleService = roleService;
 		this.permissionRepository = permissionRepository;
 		this.userService = userService;
+		this.graphismService = graphismService;
 	}
-
 	
 
 	@PreAuthorize("hasAuthority('gestion plateforme')")
@@ -96,7 +99,7 @@ public class RoleController {
 		return "redirect:/amappli/roles/manage";
 	}
 
-	@PreAuthorize("hasAuthority('gestion utilisateurs amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
+	//@PreAuthorize("hasAuthority('gestion utilisateurs amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
 	@GetMapping("/amap/{tenancyAlias}/roles/manage")
 	public String showRolesWithPermissions(@PathVariable("tenancyAlias") String alias, Model model) {
 
@@ -124,19 +127,31 @@ public class RoleController {
         }
 		model.addAttribute("rolePermissionsMap", rolePermissionsMap);
 
+		// Graphisme
+		model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
+		model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+		model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
+		model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
+		// get tenancy info for header footer
+		model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
+		// get color palette
+		model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
+		// get font choice
+		model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
 		// Adding an empty DTO for the form
 		model.addAttribute("roleDTO", new RoleDTO());
 		model.addAttribute("amappli", false);
+		model.addAttribute("tenancyAlias",alias);
 		return "/amappli/back/roles/rolesmanagement";
 
 	}
 
-	@PreAuthorize("hasAuthority('gestion utilisateurs amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
-	@PostMapping("/amap/roles/manage")
-	public String editRolesWithPermissions(RoleDTO roleDTO) {
+	//@PreAuthorize("hasAuthority('gestion utilisateurs amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
+	@PostMapping("/amap/{tenancyAlias}/roles/manage")
+	public String editRolesWithPermissions(@PathVariable("tenancyAlias") String alias, RoleDTO roleDTO) {
 		
 		//Role r = Role.builder().name(name).permissions().build();
 		roleService.manageRoleFromRoleManagmentPage(roleDTO);
-		return "redirect:/amap/roles/manage";
+		return "redirect:/amap/"+alias+"/roles/manage";
 	}
 }

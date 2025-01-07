@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
         <!DOCTYPE html>
         <html>
@@ -19,78 +20,94 @@
                         <jsp:include page="../../common/header.jsp" />
                     </c:when>
                     <c:otherwise>
-                        <jsp:include page="../../../amap/front/common/header-amap.jsp" />
+                        <jsp:include page="../../../amap/back/common/headerAdmin.jsp" />
                     </c:otherwise>
                 </c:choose>
             </header> 
 
-            <div id="map"></div>
+            <!-- <div id="map"></div> -->
 
-            <div class="fc-main">
-                <h2>Rôles et Permissions</h2>
+            <div class="fc-main content col d-flex">
+                <jsp:include page="../../../amap/back/common/sidebarAdmin.jsp" />
 
-                <table id="rolesTable">
-                    <thead>
-                        <tr>
-                            <th>Rôle</th>
-                            <c:forEach var="permission" items="${permissions}">
-                                <th>${permission.name}</th>
-                            </c:forEach>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="role" items="${roles}">
-                            <tr data-role-id="${role.roleId}" data-role-name="${role.name}">
-                                <td>${role.name}</td>
-                                <c:forEach var="permission" items="${permissions}">
-                                    <td data-permission-id="${permission.permissionId}">
-                                        <c:choose>
-                                            <c:when
-                                                test="${rolePermissionsMap[role.roleId] != null && rolePermissionsMap[role.roleId].contains(permission.permissionId)}">&#x2713;</c:when>
-                                            <c:otherwise></c:otherwise>
-                                        </c:choose>
-                                    </td>
+                <div class="container-fluid row mt-2">
+                    <div class="col-8 mx-auto justify-content-start">
+                        <h2 class="mb-3">Rôles et Permissions</h2>
+
+                        <table id="rolesTable" class="table table-striped table-hover table-header-rotated">
+                            <thead>
+                                <tr>
+                                    <th class="col-2">Rôle</th>
+                                    <c:forEach var="permission" items="${permissions}">
+                                        <th class="rotate-45">
+                                            <div>
+                                                <span class="rotate-45__label m-3">
+                                                    ${fn:toUpperCase(fn:substring(permission.name, 0, 1))}${fn:substring(permission.name, 1, fn:length(permission.name))}
+                                                </span>
+                                            </div>
+                                        </th>
+                                    </c:forEach>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="role" items="${roles}">
+                                    <tr data-role-id="${role.roleId}" data-role-name="${role.name}">
+                                        <th class="row-header">${role.name}</th>
+                                        <c:forEach var="permission" items="${permissions}">
+                                            <td data-permission-id="${permission.permissionId}">
+                                                <c:choose>
+                                                    <c:when
+                                                        test="${rolePermissionsMap[role.roleId] != null && rolePermissionsMap[role.roleId].contains(permission.permissionId)}">&#x2713;</c:when>
+                                                    <c:otherwise></c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                        </c:forEach>
+                                    </tr>
                                 </c:forEach>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-
-                <h2>Créer ou Modifier un Rôle</h2>
-
-                <c:choose>
-                    <c:when test="${amappli == true}">
-                        <form action="${pageContext.request.contextPath}/amappli/roles/manage" method="post">
-                    </c:when>
-                    <c:otherwise>
-                        <form action="${pageContext.request.contextPath}/amap/roles/manage" method="post">
-                    </c:otherwise>
-                </c:choose>
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                    <input type="hidden" id="roleId" name="roleId">
-                    <div>
-                        <label for="roleName">Role Name</label>
-                        <input type="text" class="form-control" id="roleName" name="roleName"
-                            placeholder="Enter role name" required>
+                            </tbody>
+                        </table>
                     </div>
 
-                    <div>
-                        <label for="permissions">Available Permissions</label>
-                        <div id="permissions">
-                            <c:forEach var="permission" items="${permissions}">
-                                <div>
-                                    <input type="checkbox" id="perm-${permission.permissionId}" name="permissions"
-                                        value="${permission.permissionId}">
-                                    <label for="perm-${permission.permissionId}">
-                                        ${permission.name}
-                                    </label>
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <h2 class="text-center mb-4">Créer ou Modifier un Rôle</h2>
+
+                            <c:choose>
+                                <c:when test="${amappli == true}">
+                                    <form action="${pageContext.request.contextPath}/amappli/roles/manage" method="post">
+                                </c:when>
+                                <c:otherwise>
+                                    <form action="${pageContext.request.contextPath}/amap/{tenancyAlias}/roles/manage" method="post">
+                                </c:otherwise>
+                            </c:choose>
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                <input type="hidden" id="roleId" name="roleId">
+                                <div class="mb-3">
+                                    <label class="form-label" for="roleName">Nom du rôle</label>
+                                    <input class="form-control" type="text" class="form-control" id="roleName" name="roleName"
+                                        placeholder="Enter role name" required>
                                 </div>
-                            </c:forEach>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="permissions">Permissions disponibles</label>
+                                    <div id="permissions" class="row">
+                                        <c:forEach var="permission" items="${permissions}">
+                                            <div class="col-12 col-md-4 mb-2 form-check">
+                                                <input class="form-check-input" type="checkbox" id="perm-${permission.permissionId}" name="permissions"
+                                                    value="${permission.permissionId}">
+                                                <label for="perm-${permission.permissionId}" class="form-check-label">
+                                                    ${fn:toUpperCase(fn:substring(permission.name, 0, 1))}${fn:substring(permission.name, 1, fn:length(permission.name))}
+                                                </label>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-900">Sauvegarder</button>
+                            </form>
                         </div>
                     </div>
-
-                    <button type="submit">Save Role</button>
-                </form>
+                </div>
             </div>
 
             <footer class="container-fluid fc-main bg-main">
@@ -112,11 +129,12 @@
             var latitude = "${latitude}"
             var longitude = "${longitude}"
         </script>
-
+<!-- 
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script> 
-	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/palette-swap.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  -->
+    <script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
+    <script src="<c:url value='/resources/js/amap/admin/bg-table.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />" type="text/javascript"></script>
     <script src="<c:url value='/resources/js/amap/admin/rolesmanagement.js' />" type="text/javascript"></script>
 
         </body>

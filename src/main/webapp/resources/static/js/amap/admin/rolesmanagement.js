@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     rows.forEach(row => {
         row.addEventListener('click', function () {
             let roleId = this.getAttribute('data-role-id');
-            let roleName = this.querySelector('td:first-child').textContent.trim();
+            let roleName = this.querySelector('th:first-child').textContent.trim();
 
             // Set the form values
             document.getElementById('roleId').value = roleId;
