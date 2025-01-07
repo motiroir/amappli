@@ -22,6 +22,7 @@ import isika.p3.amappli.entities.auth.Role;
 import isika.p3.amappli.entities.tenancy.ColorPalette;
 import isika.p3.amappli.entities.tenancy.FontChoice;
 import isika.p3.amappli.entities.user.User;
+import isika.p3.amappli.repo.amap.GraphismRepository;
 import isika.p3.amappli.repo.amappli.PermissionRepository;
 import isika.p3.amappli.security.CustomUserDetails;
 import isika.p3.amappli.service.amap.GraphismService;
@@ -128,16 +129,7 @@ public class RoleController {
 		model.addAttribute("rolePermissionsMap", rolePermissionsMap);
 
 		// Graphisme
-		model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
-		model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
-		model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
-		model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
-		// get tenancy info for header footer
-		model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
-		// get color palette
-		model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
-		// get font choice
-		model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+		graphismService.setUpModel(alias, model);
 		// Adding an empty DTO for the form
 		model.addAttribute("roleDTO", new RoleDTO());
 		model.addAttribute("amappli", false);
