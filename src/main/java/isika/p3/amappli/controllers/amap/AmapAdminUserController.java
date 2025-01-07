@@ -80,11 +80,11 @@ public class AmapAdminUserController {
 		return "redirect:../list";
 	}
 	
-	@GetMapping("/users/generateFakes")
-	public String usersAddFake(@PathVariable("tenancyAlias") String tenancyAlias) {
-		adminUserService.generateUsers(tenancyAlias);
-		return "redirect:list";
-	}
+	// @GetMapping("/users/generateFakes")
+	// public String usersAddFake(@PathVariable("tenancyAlias") String tenancyAlias) {
+	// 	adminUserService.generateUsers(tenancyAlias);
+	// 	return "redirect:list";
+	// }
 	
 	@GetMapping("/suppliers/list")
 	public String suppliersList(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {

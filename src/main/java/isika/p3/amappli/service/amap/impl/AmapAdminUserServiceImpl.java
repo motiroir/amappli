@@ -11,7 +11,6 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.github.javafaker.Faker;
 
 import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.entities.user.CompanyDetails;
@@ -131,57 +130,57 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 		return this.saveUser(user);
 	}
 
-	@Override
-	@Transactional
-	public void generateUsers(String tenancyAlias) {
+	// @Override
+	// @Transactional
+	// public void generateUsers(String tenancyAlias) {
 		
-		roleService.addtestRoles();
-		Tenancy tenancy = tenancyService.getTenancyByAlias(tenancyAlias);
-        Faker faker = new Faker(new Locale("fr-FR"));
-        for(int i=0;i < 20 ;i++){
-        	User u = new User();
-        	u.setEmail(faker.internet().emailAddress());
-        	u.setPassword(passwordEncoder.encode(faker.internet().password()));
-        	u.setCreditBalance(BigDecimal.ZERO);
-        	u.setActive(true);
-        	u.setTenancy(tenancy);
-        	saveUser(u);
+	// 	roleService.addtestRoles();
+	// 	Tenancy tenancy = tenancyService.getTenancyByAlias(tenancyAlias);
+    //     Faker faker = new Faker(new Locale("fr-FR"));
+    //     for(int i=0;i < 20 ;i++){
+    //     	User u = new User();
+    //     	u.setEmail(faker.internet().emailAddress());
+    //     	u.setPassword(passwordEncoder.encode(faker.internet().password()));
+    //     	u.setCreditBalance(BigDecimal.ZERO);
+    //     	u.setActive(true);
+    //     	u.setTenancy(tenancy);
+    //     	saveUser(u);
         	
-            Address a = Address.builder()
-                .line1(faker.address().buildingNumber())
-                .line2(faker.address().streetName())
-                .postCode("44190")
-                .city(faker.address().cityName())
-				.user(u)
-                .build();
-            this.addressService.save(a);
-            ContactInfo cI = ContactInfo.builder()
-                .name(faker.name().lastName())
-                .firstName(faker.name().firstName())
-                .phoneNumber("0102030405")
-				.user(u)
-                .build();
-            this.contactInfoService.save(cI);
-            CompanyDetails cD = CompanyDetails.builder()
-        		.companyName(faker.company().name())
-				.siretNumber(Long.toString(faker.number().randomNumber(14, true)))
-				.user(u)
-				.build();
-            this.companyDetailsService.save(cD);
-            Set<Role> roles = new HashSet<>();
-            Role member = roleService.findByName("Adherent");
-            Role supplier = roleService.findByName("Producteur");
-            roles.add(i%2 == 0 ? member : supplier);
-            roles.add(i%4 == 0 ? supplier : null);
+    //         Address a = Address.builder()
+    //             .line1(faker.address().buildingNumber())
+    //             .line2(faker.address().streetName())
+    //             .postCode("44190")
+    //             .city(faker.address().cityName())
+	// 			.user(u)
+    //             .build();
+    //         this.addressService.save(a);
+    //         ContactInfo cI = ContactInfo.builder()
+    //             .name(faker.name().lastName())
+    //             .firstName(faker.name().firstName())
+    //             .phoneNumber("0102030405")
+	// 			.user(u)
+    //             .build();
+    //         this.contactInfoService.save(cI);
+    //         CompanyDetails cD = CompanyDetails.builder()
+    //     		.companyName(faker.company().name())
+	// 			.siretNumber(Long.toString(faker.number().randomNumber(14, true)))
+	// 			.user(u)
+	// 			.build();
+    //         this.companyDetailsService.save(cD);
+    //         Set<Role> roles = new HashSet<>();
+    //         Role member = roleService.findByName("Adherent");
+    //         Role supplier = roleService.findByName("Producteur");
+    //         roles.add(i%2 == 0 ? member : supplier);
+    //         roles.add(i%4 == 0 ? supplier : null);
             
-            u.setAddress(a);
-            u.setContactInfo(cI);
-            u.setCompanyDetails(cD);
+    //         u.setAddress(a);
+    //         u.setContactInfo(cI);
+    //         u.setCompanyDetails(cD);
             
-            u.setRoles(roles);
-            saveUser(u);
-        }
-	}
+    //         u.setRoles(roles);
+    //         saveUser(u);
+    //     }
+	// }
 
     @Override
     public User saveUser(User user) {

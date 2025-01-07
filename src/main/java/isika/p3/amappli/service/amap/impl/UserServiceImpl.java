@@ -11,7 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.github.javafaker.Faker;
+// import com.github.javafaker.Faker;
 
 import isika.p3.amappli.dto.amap.NewUserDTO;
 
