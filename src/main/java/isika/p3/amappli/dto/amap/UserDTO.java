@@ -17,6 +17,8 @@ import lombok.Setter;
 @Setter
 @PasswordMatches
 public class UserDTO {
+	
+	
 
 	 @NotBlank( message = "L''email est obligatoire.")
 		@Size(max=70, message = "L''email doit faire 70 caractères maximum.")

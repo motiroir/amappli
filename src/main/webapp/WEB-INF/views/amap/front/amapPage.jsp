@@ -58,7 +58,7 @@
                     qui établissent un partenariat sous forme de contrat. Ensemble, ils définissent la diversité et la quantité de denrées à produire pour la saison. 
                     Ces denrées peuvent être aussi bien des fruits, des légumes, des œufs, du fromage, de la viande...
                 </p>
-                <p>
+                <p class="fc-alt">
                     La diversité est très importante car elle permet aux partenaires de l'AMAP de consommer une grande variété d'aliments,
                     d'étendre la durée de la saison, et de limiter les risques dus aux aléas climatiques et aux éventuels problèmes sanitaires.
                 </p>

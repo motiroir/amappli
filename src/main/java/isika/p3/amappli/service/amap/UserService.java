@@ -3,9 +3,11 @@ package isika.p3.amappli.service.amap;
 import java.util.List;
 
 import isika.p3.amappli.dto.amap.NewUserDTO;
+import isika.p3.amappli.dto.amap.UpdateProfileDTO;
 import isika.p3.amappli.dto.amap.UserDTO;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.User;
+import jakarta.validation.Valid;
 
 public interface UserService {
 
@@ -17,4 +19,8 @@ public interface UserService {
 	List<User> findAll();
 	User authenticateUser(String email, String password);
 	boolean existsByEmailAndTenancy(String email, Tenancy tenancy);
+	UserDTO getUserProfile(Long userId);
+	void updateUserProfile(Long userId, @Valid UpdateProfileDTO updateProfileDTO);
+	
+	
 }

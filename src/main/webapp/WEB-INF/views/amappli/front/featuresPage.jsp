@@ -27,7 +27,7 @@
    <div id="map"></div>   
     
     
-     <section class="features-section container">
+     <section class="features-section container flex-grow-1">
     <div class="row justify-content-center">
       <div class="col-md-8 col-lg-6 text-center">
         <h2 class="display-5 fc-300">Fonctionnalités</h2>

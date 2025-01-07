@@ -11,7 +11,7 @@
     href="<c:url value='/resources/bootstrap/bootstrap.min.css' />">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 <link rel="stylesheet"
-    href="<c:url value='/resources/css/amap/contactPage.css' />">
+ href="<c:url value='/resources/css/amap/contactPage.css' />">
 
 <!-- Leaflet CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -26,7 +26,7 @@
 
 <div id="map"></div>  
 
-<div class="container mt-5">
+<div class="container mt-5 mb-5 flex-grow-1">
     <div class="contact-container">
         <!-- Contact Information -->
         <div class="contact-info fc-100 bg-700">
