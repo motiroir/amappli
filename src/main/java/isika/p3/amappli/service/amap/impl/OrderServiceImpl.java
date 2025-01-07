@@ -155,32 +155,39 @@ public class OrderServiceImpl {
 	
 	@Transactional
 	public Order validatePayment(Long orderId, String paymentTypeString) {
-		//transform to PaymentType enum
-	    PaymentType paymentType;
-	    switch (paymentTypeString) {
-	        case "Carte bleue":
-	            paymentType = PaymentType.card;
-	            break;
-	        case "Chèque":
-	            paymentType = PaymentType.check;
-	            break;
-	        case "Espèces":
-	            paymentType = PaymentType.cash;
-	            break;
-	        default:
-	            throw new IllegalArgumentException("Type de paiement invalide : " + paymentTypeString);
-	    }
+		Order order = orderRepo.findById(orderId)
+				.orElseThrow(() -> new EntityNotFoundException("Commande introuvable pour l'ID : " + orderId));
 
-	    Order order = orderRepo.findById(orderId)
-	        .orElseThrow(() -> new EntityNotFoundException("Commande introuvable pour l'ID : " + orderId));
+		// set to récupérée
+		order.setOrderStatus(OrderStatus.DONE);
 
-	    order.setOrderStatus(OrderStatus.DONE);
-		Payment payment = Payment.builder().paymentType(paymentType).paymentDate(LocalDateTime.now())
-				.paymentAmount(BigDecimal.valueOf(order.getTotalAmount())).build();
+		// transform to PaymentType enum
+		PaymentType paymentType = null;
+		
+		if (paymentTypeString != null && !paymentTypeString.isEmpty()) {
+			switch (paymentTypeString) {
+			case "Carte bleue":
+				paymentType = PaymentType.card;
+				break;
+			case "Chèque":
+				paymentType = PaymentType.check;
+				break;
+			case "Espèces":
+				paymentType = PaymentType.cash;
+				break;
+			default:
+				throw new IllegalArgumentException("Type de paiement invalide : " + paymentTypeString);
+			}
 
-		order.setOrderPaid(true);
-		order.getPayments().add(payment);
-		payment.setOrder(order);
+			Payment payment = Payment.builder().paymentType(paymentType).paymentDate(LocalDateTime.now())
+					.paymentAmount(BigDecimal.valueOf(order.getTotalAmount())).build();
+
+			// change payment info
+			order.setOrderPaid(true);
+			order.getPayments().add(payment);
+			payment.setOrder(order);
+		}
+
 		orderRepo.save(order);
 		return order;
 	}
