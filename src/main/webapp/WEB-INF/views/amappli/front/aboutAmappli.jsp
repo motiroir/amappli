@@ -28,7 +28,7 @@
 
   <h2 class="title text-center fc-300">Qui sommes-nous ?</h2><hr class="bg-300">
 
-	<div class="container py-2">
+	<div class="container py-2 flex-grow-1">
 		<div class="row align-items">
 			<div class="col-lg-9 col-md-12 text-column">
 				<div class="mission-card">

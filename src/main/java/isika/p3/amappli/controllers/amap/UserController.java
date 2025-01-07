@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import isika.p3.amappli.dto.amap.UpdateProfileDTO;
 import isika.p3.amappli.dto.amap.UserDTO;
 import isika.p3.amappli.dto.amappli.LoginDTO;
 import isika.p3.amappli.entities.tenancy.Graphism;
@@ -34,6 +34,7 @@ public class UserController {
     private TenancyService tenancyService;
     @Autowired
     private GraphismService graphismService;
+    
 
     // Afficher le formulaire d'inscription
     @GetMapping("/signup")
@@ -198,25 +199,84 @@ public class UserController {
         return "amap/amaplogin/login";
     }
 
-    // Traitement de la connexion
-    // @PostMapping("/login")
-    // public String loginUser(@PathVariable("tenancyId") Long tenancyId, 
-    //                         @Valid LoginDTO loginDTO, 
-    //                         BindingResult bindingResult, 
-    //                         Model model) {
-    //     if (bindingResult.hasErrors()) {
-    //         return "amap/amaplogin/login";
-    //     }
+    
+    
+    
+    /**
+     * Affiche le profil utilisateur.
+     */
+    @GetMapping("/{userId}/profile")
+    public String viewProfile(@PathVariable("userId") Long userId,
+                              @PathVariable("tenancyAlias") String alias,
+                              Model model) {
+        // Récupérer les informations de l'utilisateur
+        UserDTO userDTO = userService.getUserProfile(userId);
 
-    //     try {
-    //         User user = userService.authenticateUser(loginDTO.getEmail(), loginDTO.getPassword());
-    //         // Authentification réussie, 
-    //         return "redirect:/tenancies/" + tenancyId + "/home"; 
-    //     } catch (RuntimeException e) {
-    //         model.addAttribute("error", e.getMessage());
-    //         return "amap/amaplogin/login";
-    //     }
-    // }
+        // Mapper les données de UserDTO vers UpdateProfileDTO
+        UpdateProfileDTO updateProfileDTO = new UpdateProfileDTO();
+        updateProfileDTO.setEmail(userDTO.getEmail());
+        updateProfileDTO.setAddress(userDTO.getAddress());
+        updateProfileDTO.setContactInfo(userDTO.getContactInfo());
+
+        // Ajouter UpdateProfileDTO au modèle
+        model.addAttribute("updateProfileDTO", updateProfileDTO);
+
+        // Ajouter les informations de la tenancy (si nécessaire)
+        Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
+        if (tenancy != null) {
+            model.addAttribute("tenancy", tenancy);
+            model.addAttribute("tenancyName", tenancy.getTenancyName());
+            model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
+
+            Graphism graphism = tenancy.getGraphism();
+            if (graphism != null) {
+                model.addAttribute("logoBase64", graphism.getLogoImg());
+                model.addAttribute("logoImgType", graphism.getLogoImgType());
+                model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
+                model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+                model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
+                model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+            }
+        }
+
+        return "amap/front/user-profile/profile";
+    }
+
+
+    /**
+     * Met à jour le profil utilisateur.
+     */
+    @PostMapping("/{userId}/profile")
+    public String updateProfile(@PathVariable("userId") Long userId,
+                                @PathVariable("tenancyAlias") String alias,
+                                @ModelAttribute @Valid UpdateProfileDTO updateProfileDTO,
+                                BindingResult bindingResult,
+                                Model model) {
+        // Gestion des erreurs de validation
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("updateProfileDTO", updateProfileDTO);
+            StringBuilder errorMessages = new StringBuilder("Certains champs sont invalides : ");
+            bindingResult.getAllErrors().forEach(error -> {
+                errorMessages.append(error.getDefaultMessage()).append(" ");
+            });
+            model.addAttribute("error", errorMessages.toString());
+            return "amap/front/user-profile/profile"; // Retourne à la vue du formulaire avec erreurs
+        }
+
+        try {
+            // Appelle le service pour mettre à jour les informations utilisateur
+            userService.updateUserProfile(userId, updateProfileDTO);
+            model.addAttribute("success", "Profil mis à jour avec succès.");
+        } catch (RuntimeException e) {
+            // Gère les exceptions liées à la logique métier ou à la base de données
+            model.addAttribute("error", e.getMessage());
+        }
+
+        // Ré-affiche le formulaire (avec ou sans succès/erreur)
+        model.addAttribute("updateProfileDTO", updateProfileDTO);
+        return "amap/front/user-profile/profile";
+    }
+    
     
     
 

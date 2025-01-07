@@ -6,12 +6,16 @@ import java.util.Locale;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.github.javafaker.Faker;
 
 import isika.p3.amappli.dto.amap.NewUserDTO;
+
+import isika.p3.amappli.dto.amap.UpdateProfileDTO;
 import isika.p3.amappli.dto.amap.UserDTO;
 import isika.p3.amappli.entities.auth.Permission;
 import isika.p3.amappli.entities.auth.Role;
@@ -27,6 +31,7 @@ import isika.p3.amappli.repo.amappli.PermissionRepository;
 import isika.p3.amappli.service.amap.UserService;
 import isika.p3.amappli.service.amappli.TenancyService;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 
 @Service
 @Primary
@@ -139,5 +144,53 @@ public class UserServiceImpl implements UserService {
 	public User findById(Long userId) {
 		return userRepository.findById(userId).orElse(null);
 	}
+	
+	 public UserDTO getUserProfile(Long userId) {
+	        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("Utilisateur introuvable."));
+	        UserDTO userDTO = new UserDTO();
+	        userDTO.setEmail(user.getEmail());
+	        userDTO.setContactInfo(user.getContactInfo());
+	        userDTO.setAddress(user.getAddress());
+	        return userDTO;
+	    }
+	 
+	 
+	 public void updateUserProfile(Long userId, UpdateProfileDTO updateProfileDTO) {
+		    // Récupérer l'utilisateur existant
+		    User user = userRepository.findById(userId)
+		                               .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
 
+		  
+		    user.setEmail(updateProfileDTO.getEmail());
+
+		    // Récupérer les objets existants
+		    ContactInfo existingContactInfo = user.getContactInfo();
+		    Address existingAddress = user.getAddress();
+
+		   
+		    if (existingContactInfo != null && updateProfileDTO.getContactInfo() != null) {
+		        existingContactInfo.setName(updateProfileDTO.getContactInfo().getName());
+		        existingContactInfo.setFirstName(updateProfileDTO.getContactInfo().getFirstName());
+		        existingContactInfo.setPhoneNumber(updateProfileDTO.getContactInfo().getPhoneNumber());
+		    }
+
+		   
+		    if (existingAddress != null && updateProfileDTO.getAddress() != null) {
+		        existingAddress.setLine1(updateProfileDTO.getAddress().getLine1());
+		        existingAddress.setLine2(updateProfileDTO.getAddress().getLine2());
+		        existingAddress.setPostCode(updateProfileDTO.getAddress().getPostCode());
+		        existingAddress.setCity(updateProfileDTO.getAddress().getCity());
+		    }
+
+		    
+		    userRepository.save(user);
+		}
+
+
+	 
+
+
+	
+	
+	
 }

@@ -528,7 +528,7 @@ public class DataInitializationService {
 		// Création d'une Tenancy
 		Tenancy t1 = Tenancy.builder().tenancyName("BioColi").tenancyAlias("biocoli")
 				.tenancySlogan("Manger bio, c'est facile avec BioColi!").email("contact@biocoli.fr")
-				.address(new Address("A12", "12 avenue de la localité", "69000", "Lyon"))
+				.address(new Address("", "12 avenue de la localité", "69000", "Lyon"))
 				.dateCreated(LocalDateTime.now()).dateLastModified(LocalDateTime.now()).tenancyLatitude("45.7400000") // lyon
 				.options(potager).tenancyLongitude("4.6370000").membershipFeePrice(new BigDecimal("10.0")).build();
 
