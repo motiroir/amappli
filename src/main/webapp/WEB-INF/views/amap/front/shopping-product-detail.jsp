@@ -89,7 +89,11 @@ request.setAttribute("currentPage", currentPage);
 			</div>
 
 	<!-- Footer -->
+<<<<<<< HEAD
 	<footer class="fc-main bg-main">
+=======
+	<footer>
+>>>>>>> 06104ee (sidebar with orders)
 		<jsp:include page="common/footer-amap.jsp" />
 	</footer>
 	<script>
