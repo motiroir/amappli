@@ -38,6 +38,9 @@
 							<li>
 								<a href="<c:url value='/amap/${tenancyAlias}/admin/contracts/list'/>" class="${currentPage.equals('contracts') ? 'active' : ''} text-decoration-none fch-600">Les contrats</a>
 							</li>
+							<li>
+								<a href="<c:url value='/amap/${tenancyAlias}/admin/orders/list'/>" class="${currentPage.equals('orders') ? 'active' : ''} text-decoration-none fch-600">Vos commandes</a>
+							</li>
 							<li class="d-flex justify-content-between">
 								<a class="disabled text-decoration-none">L'épicerie</a><span class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">€</span>
 							</li>

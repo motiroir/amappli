@@ -23,7 +23,7 @@ request.setAttribute("currentPage", currentPage);
 </head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
 	<!-- Header -->
-	<header class="fc-main bg-main">
+	<header class="fc-main bg-main border-1 border-alt">
 		<jsp:include page="common/header-amap.jsp" />
 	</header>
 	<jsp:include page="../front/common/sidebarUser.jsp" />
