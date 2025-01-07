@@ -30,12 +30,12 @@
 								href="<c:url value='/amap/${tenancyAlias}/account/my-orders/${userId}'/>"
 								class="${currentPage.equals('orders') ? 'active' : ''} text-decoration-none fch-600">Mes commandes passées</a></li>
 							<li><a
-								href="<c:url value='/amap/${tenancyAlias}/backoffice/contracts/list'/>"
+								href="<c:url value='/amap/${tenancyAlias}/admin/contracts/list'/>"
 								class="${currentPage.equals('contracts') ? 'active' : ''} text-decoration-none fch-600">Mon point de collecte</a></li>
 							
 							<li><a class="disabled text-decoration-none">Mes
 									ateliers</a> &emsp;<span
-								class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">PRO</span>
+								class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">€</span>
 							</li>
 						</ul>
 					</div>
@@ -68,7 +68,7 @@
 							type="button" data-bs-toggle="collapse" data-bs-target=""
 							aria-expanded="false" aria-controls="">
 							Mes favoris &emsp;<span
-								class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">PRO</span>
+								class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">€</span>
 						</button>
 					</h2>
 				</li>

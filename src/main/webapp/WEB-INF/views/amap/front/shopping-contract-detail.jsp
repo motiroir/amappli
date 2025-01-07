@@ -126,7 +126,7 @@ request.setAttribute("currentPage", currentPage);
 		<!-- Section pour la quantité et le bouton d'ajout au panier -->
 		<div class="text-end mt-4">
 			<form:form method="post"
-				action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cartId}/add">
+				action="${pageContext.request.contextPath}/amap/${tenancyAlias}/cart/${cartId}/add">
 				<div class="quantity-selector">
 					<label for="quantity">Quantité :</label> <input type="number"
 						id="quantity" name="quantity" value="1" min="1">
@@ -143,8 +143,8 @@ request.setAttribute("currentPage", currentPage);
 		<jsp:include page="common/footer.jsp" />
 	</footer>
 	<script>
-		var styleMapboxLight = "${mapStyleLight}"
-		var styleMapboxDark = "${mapStyleDark}"
+		var styleMapboxLight = "${mapStyleLight}";
+		var styleMapboxDark = "${mapStyleDark}";
 		var latitude = "${latitude}"
 		var longitude = "${longitude}"
 	</script>
@@ -153,10 +153,10 @@ request.setAttribute("currentPage", currentPage);
 		type="text/javascript"></script>
 	<script
 		src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
 		type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
+	
 		type="text/javascript"></script>
 </body>
 </html>

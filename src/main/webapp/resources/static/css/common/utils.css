@@ -123,6 +123,10 @@ input[type=range]:focus::-webkit-slider-runnable-track {
     background: #ccc;
 }
 
+.text-justify {
+	text-align: justify!important;
+}
+
 .nunito {
   font-family: 'Nunito' !important;
 }

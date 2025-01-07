@@ -10,7 +10,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -258,9 +257,12 @@ public class DataInitializationService {
 		contactInfoService.save(ci4);
 		user4.setAddress(a4);
 		user4.setContactInfo(ci4);
-
-		User user5 = User.builder().email("claire.fournier@example" + tenancy.getTenancyId() + ".com")
-				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
+		saveUser(user4);
+		
+		User user5 = User.builder().email("claire.fournier@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
+									.isActive(true)
+									.tenancy(tenancy)
+									.build();
 		user5.getRoles().add(Supplier);
 		saveUser(user5);
 		Address a5 = Address.builder().line2("31 rue des Lilas").line1("Appartement 4").postCode("44130")
@@ -383,6 +385,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci12);
 		user12.setAddress(a12);
 		user12.setContactInfo(ci12);
+		user12.setCompanyDetails(cd12);
 		saveUser(user12);
 
 		User user13 = User.builder().email("paul.brun@example" + tenancy.getTenancyId() + ".com")
@@ -414,6 +417,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci14);
 		user14.setAddress(a14);
 		user14.setContactInfo(ci14);
+		user14.setCompanyDetails(cd14);
 		saveUser(user14);
 
 		User user15 = User.builder().email("lucie.lafaye@example" + tenancy.getTenancyId() + ".com")
@@ -446,6 +450,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci16);
 		user16.setAddress(a16);
 		user16.setContactInfo(ci16);
+		user16.setCompanyDetails(cd16);
 		saveUser(user16);
 
 		User user17 = User.builder().email("laura.lemoine@example" + tenancy.getTenancyId() + ".com")
@@ -491,6 +496,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci19);
 		user19.setAddress(a19);
 		user19.setContactInfo(ci19);
+		user19.setCompanyDetails(cd19);
 		saveUser(user19);
 
 		User user20 = User.builder().email("bernard.morvan@example" + tenancy.getTenancyId() + ".com")

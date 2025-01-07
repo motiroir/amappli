@@ -34,7 +34,7 @@
 			<a href="roles">Roles List</a>
 		</li>
 		<li>
-			<a href="biocoli/backoffice/users/list">Admin backoffice tenancy 1 biocoli</a>
+			<a href="biocoli/admin/users/list">Admin admin tenancy 1 biocoli</a>
 		</li>
 		<li>
 			<a href="sectest/login"> Page de connexion </a>
