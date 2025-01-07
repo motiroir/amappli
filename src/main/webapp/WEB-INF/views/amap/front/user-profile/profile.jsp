@@ -36,7 +36,7 @@
             <div class="alert alert-danger text-center">${error}</div>
         </c:if>
 
-        <form action="${pageContext.request.contextPath}/tenancies/${tenancyAlias}/amap/amaplogin/${userId}/profile" method="post">
+        <form action="${pageContext.request.contextPath}/tenancies/amap/${tenancyAlias}/${userId}/profile" method="post">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
             <!-- Nom et Prénom -->

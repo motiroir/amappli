@@ -25,7 +25,7 @@ import isika.p3.amappli.service.amappli.TenancyService;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("{tenancyAlias}/amap/amaplogin")
+@RequestMapping("amap/{tenancyAlias}")
 public class UserController {
 
     @Autowired
@@ -164,40 +164,40 @@ public class UserController {
 
 
     
-    
-    // Afficher le formulaire de connexion
-    @GetMapping("/login")
-    public String showLoginForm(@RequestParam(value = "error", required = false) String error,
-                                @PathVariable("tenancyAlias") String alias,
-                                Model model) {
-        LoginDTO loginDTO = new LoginDTO();
-        model.addAttribute("loginDTO", loginDTO);
-        model.addAttribute("tenancyAlias", alias);
-        if (error != null) {
-            model.addAttribute("error", "Email ou mot de passe incorrect.");
-        }
-        Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
-        
-        // Ajouter les informations générales de la tenancy
-        model.addAttribute("tenancy", tenancy);
-        model.addAttribute("tenancyName", tenancy.getTenancyName());
-        model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
-        
-     // Ajouter les informations graphiques
-        Graphism graphism = tenancy.getGraphism();
-        String logoBase64 = graphism != null ? graphism.getLogoImg() : null;
-        String logoImgType = graphism != null ? graphism.getLogoImgType() : null;
-        model.addAttribute("logoBase64", logoBase64);
-        model.addAttribute("logoImgType", logoImgType);
-        
-        // Récupérer et ajouter les styles dynamiques via GraphismService
-        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
-        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
-        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
-        model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
-        
-        return "amap/amaplogin/login";
-    }
+//    
+//    // Afficher le formulaire de connexion
+//    @GetMapping("/login")
+//    public String showLoginForm(@RequestParam(value = "error", required = false) String error,
+//                                @PathVariable("tenancyAlias") String alias,
+//                                Model model) {
+//        LoginDTO loginDTO = new LoginDTO();
+//        model.addAttribute("loginDTO", loginDTO);
+//        model.addAttribute("tenancyAlias", alias);
+//        if (error != null) {
+//            model.addAttribute("error", "Email ou mot de passe incorrect.");
+//        }
+//        Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
+//        
+//        // Ajouter les informations générales de la tenancy
+//        model.addAttribute("tenancy", tenancy);
+//        model.addAttribute("tenancyName", tenancy.getTenancyName());
+//        model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
+//        
+//     // Ajouter les informations graphiques
+//        Graphism graphism = tenancy.getGraphism();
+//        String logoBase64 = graphism != null ? graphism.getLogoImg() : null;
+//        String logoImgType = graphism != null ? graphism.getLogoImgType() : null;
+//        model.addAttribute("logoBase64", logoBase64);
+//        model.addAttribute("logoImgType", logoImgType);
+//        
+//        // Récupérer et ajouter les styles dynamiques via GraphismService
+//        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
+//        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+//        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
+//        model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+//        
+//        return "amap/amaplogin/login";
+//    }
 
     
     
