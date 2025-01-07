@@ -80,7 +80,7 @@ public class ShopController {
 	    // Ajout des contrats et autres attributs au modèle
 	    model.addAttribute("contracts", contracts);
 	    model.addAttribute("tenancyAlias", tenancyAlias);
-	    addGraphismAttributes(tenancyAlias, model);
+	    graphismService.setUpModel(tenancyAlias, model);
 
 	    return "amap/front/shop-contracts";
 	}
@@ -119,7 +119,7 @@ public class ShopController {
 		model.addAttribute("products", formattedProducts);
 //		model.addAttribute("products", products);
 		model.addAttribute("tenancyAlias", tenancyAlias);
-		addGraphismAttributes(tenancyAlias, model);
+		graphismService.setUpModel(tenancyAlias, model);
 
 		return "amap/front/shop-products";
 	}
@@ -162,7 +162,7 @@ public class ShopController {
 //		model.addAttribute("workshops", workshops);
 	    model.addAttribute("workshops", formattedWorkshops);
 		model.addAttribute("tenancyAlias", tenancyAlias);
-		addGraphismAttributes(tenancyAlias, model);
+		graphismService.setUpModel(tenancyAlias, model);
 
 		return "amap/front/shop-workshops";
 	}
@@ -212,7 +212,7 @@ public class ShopController {
 //	    model.addAttribute("formattedNextDeliveryDate", formattedNextDeliveryDate);
 		model.addAttribute("contract", contract);
 //		model.addAttribute("nextDeliveryDate", nextDeliveryDate);
-		addGraphismAttributes(tenancyAlias, model);
+		graphismService.setUpModel(tenancyAlias, model);
 		return "amap/front/shopping-contract-detail";
 	}
 
@@ -262,7 +262,7 @@ public class ShopController {
 //		model.addAttribute("formattedExpirationDate", formattedExpirationDate);
 		model.addAttribute("product", product);
 //		model.addAttribute("nextDeliveryDate", nextDeliveryDate);
-		addGraphismAttributes(tenancyAlias, model);
+		graphismService.setUpModel(tenancyAlias, model);
 		return "amap/front/shopping-product-detail";
 	}
 
@@ -293,21 +293,8 @@ public class ShopController {
 	    String formattedWorkshopDateTime = workshop.getWorkshopDateTime().format(formatter);
 	    model.addAttribute("formattedWorkshopDateTime", formattedWorkshopDateTime);
 		model.addAttribute("workshop", workshop);
-		addGraphismAttributes(tenancyAlias, model);
+		graphismService.setUpModel(tenancyAlias, model);
 		return "amap/front/shopping-workshop-detail";
 	}
-	
-	public void addGraphismAttributes(String alias, Model model) {
-		// get map style depending on tenancy
-		model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
-		model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
-		model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
-		model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
-		// get tenancy info for header footer
-		model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
-		// get color palette
-		model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
-		// get font choice
-		model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
-	}
+
 }

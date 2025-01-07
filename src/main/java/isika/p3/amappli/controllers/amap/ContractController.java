@@ -88,7 +88,8 @@ public class ContractController {
 		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("pickupSchedule", tenancy.getPickUpSchedule());
-		addGraphismAttributes(tenancyAlias, model);
+		
+		graphismService.setUpModel(tenancyAlias, model);
 
 		return "amap/back/contracts/contract-form";
 	}
@@ -116,7 +117,8 @@ public class ContractController {
 		model.addAttribute("users", users);
 		model.addAttribute("contracts", contracts);
 		model.addAttribute("tenancyAlias", tenancyAlias);
-		addGraphismAttributes(tenancyAlias, model);
+		
+		graphismService.setUpModel(tenancyAlias, model);
 		return "amap/back/contracts/contract-list";
 	}
 
@@ -140,6 +142,7 @@ public class ContractController {
 		if (contract == null) {
 			return "redirect:/" + tenancyAlias + "/admin/contracts/list"; // Redirige si le contrat n'existe pas
 		}
+		
 	    Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
 	            .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
 	    Address address = tenancy.getAddress();
@@ -182,8 +185,9 @@ public class ContractController {
 		model.addAttribute("formattedDate", formattedDate);
 		model.addAttribute("contract", contract);
 		model.addAttribute("tenancyAlias", tenancyAlias);
-		addGraphismAttributes(tenancyAlias, model);
 		model.addAttribute("pickupSchedule", tenancy.getPickUpSchedule());
+
+		graphismService.setUpModel(tenancyAlias, model);
 		return "amap/back/contracts/contract-detail";
 	}
 
@@ -198,18 +202,4 @@ public class ContractController {
 		return "redirect:/amap/" + tenancyAlias + "/admin/contracts/list";
 	}
 	
-	public void addGraphismAttributes(String alias, Model model) {
-		// get map style depending on tenancy
-		model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
-		model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
-		model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
-		model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
-		// get tenancy info for header footer
-		model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
-		// get color palette
-		model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
-		// get font choice
-		model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
-	}
-
 }
