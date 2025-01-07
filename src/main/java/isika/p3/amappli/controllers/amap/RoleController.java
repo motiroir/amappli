@@ -48,15 +48,6 @@ public class RoleController {
 		this.graphismService = graphismService;
 	}
 	
-
-	@PreAuthorize("hasAuthority('gestion plateforme')")
-	@GetMapping
-	public String listRoles(Model model) {
-		List<Role> roles = roleService.findAllRoles();
-		model.addAttribute("roles", roles);
-		return "/amappli/back/roles/roleslist";
-	}
-
 	@PreAuthorize("hasAuthority('gestion plateforme')")
 	@GetMapping("/amappli/roles/manage")
 	public String showGeneralRolesWithPermissions(Model model) {
