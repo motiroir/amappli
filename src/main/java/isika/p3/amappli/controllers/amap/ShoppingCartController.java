@@ -32,7 +32,7 @@ public class ShoppingCartController {
 	@GetMapping("/{userId}")
 	public String viewCart(@PathVariable("userId") Long userId, @PathVariable("tenancyAlias") String alias,
 			Model model) {
-		// get user info from context (connected user) or userId = 1 when logout
+		// get user info from context (connected user) or userId = (check method) when logout
 		userId = getUserIdFromContext();
 
 		ShoppingCart cart = shoppingCartService.getCartByUserId(userId);
@@ -110,7 +110,7 @@ public class ShoppingCartController {
 		if (principal instanceof CustomUserDetails) {
 			CustomUserDetails loggedUserInfo = (CustomUserDetails) principal;
 			return (Long) loggedUserInfo.getAdditionalInfoByKey("userId");
-		} else return 2L;
+		} else return 6L;
 	}
 
 }

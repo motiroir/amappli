@@ -86,7 +86,7 @@ public class OrderController {
     	} else if ("OrderWithoutPayment".equals(action)) {
     		orderService.createOrderFromCartWithOnsitePayment(cart.getShoppingCartId());
     	}
-    	return "redirect:/{tenancyAlias}/account/my-orders/" + userId;
+    	return "redirect:/amap/{tenancyAlias}/account/my-orders/" + userId;
     }
     
     @PostMapping("order/updateOrder")
@@ -117,7 +117,7 @@ public class OrderController {
 		if (principal instanceof CustomUserDetails) {
 			CustomUserDetails loggedUserInfo = (CustomUserDetails) principal;
 			return (Long) loggedUserInfo.getAdditionalInfoByKey("userId");
-		} else return 1L;
+		} else return 6L;
 	}
 
 }

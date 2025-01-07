@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import org.hibernate.type.descriptor.java.LocalDateTimeJavaType;
 import org.springframework.stereotype.Service;
 
+import isika.p3.amappli.entities.membership.MembershipFee;
 import isika.p3.amappli.entities.order.Order;
 import isika.p3.amappli.entities.order.OrderItem;
 import isika.p3.amappli.entities.order.OrderStatus;
@@ -75,6 +76,13 @@ public class OrderServiceImpl {
 			// deals with issue on copying the shoppable attached to cartItem to get to
 			// attach to the orderItem
 			Shoppable attachedShoppable = entityManager.merge(cartItem.getShoppable());
+			// set user membershipfee cause he paid it
+			if(attachedShoppable instanceof MembershipFee) {
+				User user = cartItem.getShoppingCart().getUser();
+				((MembershipFee) attachedShoppable).setUser(user);
+				user.setMembershipFee((MembershipFee) attachedShoppable);
+				userRepo.save(user);
+			}
 			// builds all orderItems form cartItems
 			return OrderItem.builder().quantity(cartItem.getQuantity()).unitPrice(attachedShoppable.getPrice())
 					.total(cartItem.getQuantity() * attachedShoppable.getPrice()).shoppable(attachedShoppable).build();
