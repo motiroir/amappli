@@ -35,12 +35,7 @@ request.setAttribute("currentPage", currentPage);
 		<div class="container-fluid mt-2">
 			<div class="row justify-content-center">
 				<div class="col-12">
-					<div class="search-bar d-flex align-items-center mb-3">
-						<!-- Nombre total de fournisseurs -->
-						<div class="me-4 fs-5 fc-main d-none d-md-block">
-							<span>${suppliers.size()} éléments</span> <a
-								href="<c:url value='/amap/${tenancyAlias}/admin/users/generateFakes' />">ajouter 20 users</a>
-						</div>
+					<div class="search-bar d-flex align-items-center justify-content-between mb-3">
 						<!-- Dropdown pour trier -->
 						<div class="d-flex align-items-center me-4">
 							<label for="sortBy" class="me-2 fw-400 fs-3 text-nowrap fc-main">Trier par</label>
@@ -64,6 +59,10 @@ request.setAttribute("currentPage", currentPage);
 						<a href="<c:url value='/amap/${tenancyAlias}/admin/suppliers/form'/>" class="btn btn-outline-300 rounded-pill fch-main fw-bold border-2">
 						<span class="icon">+ </span><span class=" d-none d-md-inline">Ajouter un fournisseur</span>
 						</a>
+					</div>
+					<!-- Nombre total de fournisseurs -->
+					<div class="mb-2 fs-5 fc-main d-none d-md-block">
+						<span>${suppliers.size()} éléments</span>
 					</div>
 					<!-- Mode tableau -->
 					<table class="table table-hover table-responsive fc-main" style="--bs-table-bg: color-mix(in srgb, #ffffff, transparent 100%);">
@@ -101,20 +100,16 @@ request.setAttribute("currentPage", currentPage);
 		</div>
 	</div>
 	<script>
-		var styleMapboxLight = "${mapStyleLight}"
-		var styleMapboxDark = "${mapStyleDark}"
-
-		/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
-		const tenancyCity = "${tenancy.getAddress().getCity()}"
-		const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
-		 */
+		var styleMapboxLight = "${mapStyleLight}";
+		var styleMapboxDark = "${mapStyleDark}";
+		var latitude = "${latitude}";
+		var longitude = "${longitude}";
 	</script>
 	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/supplier-list.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/palette-swap.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />" type="text/javascript"></script>
 </body>

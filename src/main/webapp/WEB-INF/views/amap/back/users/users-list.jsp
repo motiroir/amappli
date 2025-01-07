@@ -34,7 +34,6 @@
 			<div class="row justify-content-center">
 				<div class="col-12">
 					<div class="search-bar d-flex align-items-center justify-content-between mb-3">
-						<!-- Nombre total d'adhérents -->
 						<!-- Dropdown pour trier -->
 						<div class="d-flex align-items-center me-4">
 							<label for="sortBy" class="me-2 fw-400 fs-3 text-nowrap fc-main">Trier par</label>
@@ -61,6 +60,7 @@
 							<span class="icon">+ </span><span class=" d-none d-md-inline">Créer un adhérent</span>
 						</a>
 					</div>
+					<!-- Nombre total d'adhérents -->
 					<div class="mb-2 fs-5 fc-main d-none d-md-block">
 						<span>${users.size()} éléments</span>
 					</div>
@@ -112,20 +112,16 @@
 		</div>
 	</div>
 	<script>
-		var styleMapboxLight = "${mapStyleLight}"
-		var styleMapboxDark = "${mapStyleDark}"
-
-		/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
-		const tenancyCity = "${tenancy.getAddress().getCity()}"
-		const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
-		 */
+		var styleMapboxLight = "${mapStyleLight}";
+		var styleMapboxDark = "${mapStyleDark}";
+		var latitude = "${latitude}";
+		var longitude = "${longitude}"; 
 	</script>
 	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/palette-swap.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />" type="text/javascript"></script>
 </body>
