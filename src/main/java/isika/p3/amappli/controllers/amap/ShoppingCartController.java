@@ -29,11 +29,11 @@ public class ShoppingCartController {
 	@Autowired
 	private GraphismService graphismService;
 
-	@GetMapping("/{userId}")
-	public String viewCart(@PathVariable("userId") Long userId, @PathVariable("tenancyAlias") String alias,
+	@GetMapping("/")
+	public String viewCart(@PathVariable("tenancyAlias") String alias,
 			Model model) {
 		// get user info from context (connected user) or userId = (check method) when logout
-		userId = getUserIdFromContext();
+		Long userId = getUserIdFromContext();
 
 		ShoppingCart cart = shoppingCartService.getCartByUserId(userId);
 
@@ -66,28 +66,32 @@ public class ShoppingCartController {
 		
 	}
 
-	@PostMapping("/{userId}/add")
-	public String addItem(@PathVariable("userId") Long userId, @PathVariable("tenancyAlias") String alias,
+	@PostMapping("/add")
+	public String addItem(@PathVariable("tenancyAlias") String alias,
 			@RequestParam("shoppableId") Long shoppableId, @RequestParam("shoppableType") String shoppableType,
 			@RequestParam("quantity") int quantity) {
-		userId = getUserIdFromContext();
+		Long userId = getUserIdFromContext();
 		ShoppingCart cart = shoppingCartService.getCartByUserId(userId);
 		shoppingCartService.addItemToCart(cart.getShoppingCartId(), shoppableId, shoppableType, quantity);
-		return "redirect:/amap/{tenancyAlias}/cart/" + userId;
+		return "redirect:/amap/{tenancyAlias}/cart/";
 	}
 
-	@PostMapping("/{userId}/updateQuantity/{itemId}")
-	public String updateItemQuantity(@PathVariable("userId") Long userId, @PathVariable("tenancyAlias") String alias,
+	@PostMapping("/updateQuantity/{itemId}")
+	public String updateItemQuantity(@PathVariable("tenancyAlias") String alias,
 			@PathVariable("itemId") Long itemId, @ModelAttribute("action") String action) {
-		userId = getUserIdFromContext();
+		Long userId = getUserIdFromContext();
 		ShoppingCart cart = shoppingCartService.getCartByUserId(userId);
 		if ("increase".equals(action)) {
 			shoppingCartService.increaseItemQuantity(cart.getShoppingCartId(), itemId);
 		} else if ("decrease".equals(action)) {
 			shoppingCartService.decreaseItemQuantity(cart.getShoppingCartId(), itemId);
 		}
-		return "redirect:/amap/{tenancyAlias}/cart/" + userId;
+		return "redirect:/amap/{tenancyAlias}/cart/";
 	}
+	
+	
+	
+	
 	
 	public void addGraphismAttributes(String alias, Model model) {
 		// get map style and coordinates depending on tenancy
@@ -110,7 +114,7 @@ public class ShoppingCartController {
 		if (principal instanceof CustomUserDetails) {
 			CustomUserDetails loggedUserInfo = (CustomUserDetails) principal;
 			return (Long) loggedUserInfo.getAdditionalInfoByKey("userId");
-		} else return 6L;
+		} else return 7L;
 	}
 
 }

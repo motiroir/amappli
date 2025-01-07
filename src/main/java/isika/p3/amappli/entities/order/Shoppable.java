@@ -3,6 +3,7 @@ package isika.p3.amappli.entities.order;
 import java.util.ArrayList;
 import java.util.List;
 
+import isika.p3.amappli.entities.membership.MembershipFee;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,5 +35,10 @@ public abstract class Shoppable {
 	public abstract double getPrice();
 	public abstract String getInfo();
 	public abstract String getImage();
+	
+	public boolean isMembershipFee() {
+	    return this instanceof MembershipFee;
+	}
+
 	
 }

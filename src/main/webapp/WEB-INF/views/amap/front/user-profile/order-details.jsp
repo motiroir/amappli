@@ -44,7 +44,7 @@ request.setAttribute("currentPage", currentPage);
 								id="bg-range">
 						</div>
 						<a class="btn btn-100"
-							href="<c:url value='/amap/${tenancyAlias}/account/my-orders/${userId}' />">Retourner
+							href="<c:url value='/amap/${tenancyAlias}/account/my-orders' />">Retourner
 							à mes commandes</a>
 					</div>
 					<div id="order-details">

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.hibernate.Hibernate;
 import org.hibernate.type.descriptor.java.LocalDateTimeJavaType;
 import org.springframework.stereotype.Service;
 
@@ -65,11 +66,21 @@ public class OrderServiceImpl {
     	Tenancy tenancy = tenancyRepo.findByTenancyAlias(alias).orElse(null);
     	List<Order> orders = orderRepo.findOrdersByTenancyId(tenancy.getTenancyId());
     	for (Order order : orders) {
-			orderRepo.findOrderWithPayments(order.getOrderId());
 			orderRepo.findOrderWithItems(order.getOrderId());
 		}
     	return orders;
     }
+
+	public List<Order> getListOrdersByUser(Long userId) {
+		User user = userRepo.findUserWithOrders(userId);
+		List<Order> orders = user.getOrders();
+		for (Order order : orders) {
+			//method because issue with fetching multiple bags (list) and payments lazily fetched 
+			//issue surprisingly not present in getOrdersByTenancyAlias
+			orderRepo.findOrderWithItems(order.getOrderId());
+		}
+		return orders;
+	}
 	
 	public List<OrderItem> copyCartItemsListToOrderItemsList(List<ShoppingCartItem> cartItems) {
 		return cartItems.stream().map(cartItem -> {
@@ -173,20 +184,12 @@ public class OrderServiceImpl {
 		orderRepo.save(order);
 		return order;
 	}
-
-	public List<Order> getListOrdersByUser(Long userId) {
-		User user = userRepo.findUserWithOrders(userId);
-		for (Order order : user.getOrders()) {
-			orderRepo.findOrderWithPayments(order.getOrderId());
-			orderRepo.findOrderWithItems(order.getOrderId());
-		}
-		return user.getOrders();
-	}
 	
 	@Transactional
 	public Order getOrderById(Long orderId) {
-		orderRepo.findOrderWithPayments(orderId);
 		return orderRepo.findOrderWithItemsAndShoppable(orderId);
 	}
+	
+
 	
 }
