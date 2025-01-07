@@ -12,7 +12,7 @@ public class Rerouter {
 
 	@GetMapping()
 	public String home(Model model) {
-	 	return "redirect:/amappli";
+	 	return "amappli/home";
 	}
 
 }

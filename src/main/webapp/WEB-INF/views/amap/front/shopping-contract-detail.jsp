@@ -74,7 +74,7 @@ request.setAttribute("currentPage", currentPage);
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
 	<!-- Header -->
 	<header class="fc-main bg-main border-1 border-alt">
-		<jsp:include page="common/header.jsp" />
+		<jsp:include page="common/header-amap.jsp" />
 	</header>
 	<jsp:include page="../front/common/sidebarUser.jsp" />
 	<div id="map" class="p-0"></div>
@@ -140,7 +140,7 @@ request.setAttribute("currentPage", currentPage);
 	</div>
 	<!-- Footer -->
 	<footer>
-		<jsp:include page="common/footer.jsp" />
+		<jsp:include page="common/footer-amap.jsp" />
 	</footer>
 	<script>
 		var styleMapboxLight = "${mapStyleLight}";
