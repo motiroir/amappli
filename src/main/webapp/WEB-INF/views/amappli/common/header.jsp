@@ -2,12 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <!DOCTYPE html>
-<div
-	class="container-fluid d-flex flex-row-reverse flex-md-row justify-content-between justify-content-md-evenly align-items-center">
+<div class="container-fluid d-flex flex-row-reverse flex-md-row justify-content-between justify-content-md-evenly align-items-center">
 
-	<img src="<c:url value='/resources/img/logo_amappli_peach_2.png'/>"
-		height="50" class="navbar-brand d-block d-md-none" />
-
+	<a href="<c:url value='/amappli/home'/>">
+		<img src="<c:url value='/resources/img/logo_amappli_peach_2.png'/>" height="50" class="navbar-brand d-block d-md-none" />
+	</a>
 	<svg id="logo-header" height="50" min-height="50" viewBox="0 0 697 726" xmlns="http://www.w3.org/2000/svg" class="my-2 my-sm-0 d-none d-md-block">
         <path class="fill-300"
 			d="M278.058 281.932L277.473 283.883C275.132 283.688 272.79 283.493 270.448 283.493C259.131 283.103 247.618 282.518 236.691 278.225C227.52 274.518 220.495 268.665 216.203 259.69C211.324 249.349 212.69 239.594 220.495 231.204C223.813 227.887 227.325 224.765 231.032 221.839C247.814 208.571 252.106 191.012 249.179 170.72C247.033 155.502 243.13 140.478 241.179 125.065C239.813 113.944 241.765 103.603 247.423 94.0425C250.155 89.3599 253.277 84.8723 255.619 80.1897C259.521 72.3854 257.57 66.7272 249.57 62.8251C239.813 57.7522 227.325 59.5082 219.13 67.1174C216.983 69.0685 215.032 71.2147 213.471 73.556C203.91 87.6039 191.031 97.3593 175.226 103.798C163.908 108.285 152.981 113.553 142.444 119.211L143.224 116.285C151.615 111.797 160.201 107.505 168.981 103.993C174.835 101.652 180.299 98.7251 185.763 95.9936C194.738 91.3109 202.153 84.8723 208.007 76.6778C210.934 72.3854 214.251 68.8734 217.959 65.3615C226.935 56.7767 243.326 55.606 253.472 62.4348C260.107 66.9223 262.058 72.9707 258.741 80.3848C257.765 82.7262 256.594 85.0675 255.033 87.0185C243.13 102.237 241.179 119.212 245.277 137.552C248.594 152.38 251.716 167.403 252.106 182.817C252.497 199.791 245.667 213.059 232.984 223.79C230.837 225.741 228.496 227.497 226.349 229.253C211.52 242.325 212.495 259.885 228.691 271.396C236.691 277.055 245.667 279.201 255.228 280.176C263.034 280.762 270.448 281.347 278.058 281.932Z" />
@@ -97,27 +96,24 @@
 	    </svg>
 	</div>
 	<nav class="navbar navbar-expand-md col-offset-1 col-md-8 col-2 align-content-center">
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+		<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
 			data-bs-target="#nav-content" aria-controls="nav-content"
 			aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div id="nav-content" class="collapse navbar-collapse">
-			<ul class="navbar-nav w-100 justify-content-md-evenly">
-				<li class="nav-item"><a href="features"
-					class="nav-link nunito text-decoration-none fc-300 fch-500">Fonctionnalités</a>
+		<div id="nav-content" class="offcanvas offcanvas-start navbar-collapse bg-main w-auto px-3">
+			<ul class="navbar-nav w-100 mt-4 mt-md-0 justify-content-evenly">
+				<li class="nav-item">
+					<a href="<c:url value='/amappli/features'/>" class="nav-link nunito text-decoration-none fc-300 fch-500">Fonctionnalités</a>
 				</li>
-
-				<li class="nav-item"><a href="about"
-					class="nav-link nunito text-decoration-none fc-300 fch-500"
-					>Qui sommes-nous ?</a></li>
-				<li class="nav-item"><a href="contact"
-					class="nav-link nunito text-decoration-none fc-300 fch-500">Contact</a>
+				<li class="nav-item">
+					<a href="<c:url value='/amappli/about'/>" class="nav-link nunito text-decoration-none fc-300 fch-500">Qui sommes-nous ?</a></li>
+				<li class="nav-item">
+					<a href="<c:url value='/amappli/contact'/>" class="nav-link nunito text-decoration-none fc-300 fch-500">Contact</a>
 				</li>
-				<!--   <li class="nav-item col-1">
-                </li> -->
-				<li class="nav-item"><a href="/start/signup"
-					class="btn rounded-pill btn-500 px-4">S'inscrire</a></li>
+				<li class="nav-item">
+					<a href="<c:url value='/amappli/start/signup'/>" class="btn rounded-pill btn-500 px-4">S'inscrire</a>
+				</li>
 			</ul>
 		</div>
 	</nav>

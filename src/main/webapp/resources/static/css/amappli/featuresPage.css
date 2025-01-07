@@ -27,21 +27,19 @@
 .features-section hr {
   width: 70%; 
   height: 2px; 
-  margin: 10px auto; 
-  
+  margin: 10px auto;
   border: none; 
 }
 
 .features-section p {
   font-size: 1.2rem;
-   
   margin-top: 0;
 }
 
 .card {
     border-radius: 25px; 
     overflow: hidden;
-    height: 750px; 
+    height: 100%; 
     width: 100%; 
     max-width: 450px; 
     margin: auto;
