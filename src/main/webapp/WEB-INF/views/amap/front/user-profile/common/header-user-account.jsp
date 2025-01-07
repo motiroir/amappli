@@ -29,7 +29,7 @@
 		<div class="collapse navbar-collapse" id="nav-content">
 			<ul class="navbar-nav w-100 justify-content-md-evenly">
 				<li class="nav-item">
-					<a href="<c:url value='/${tenancyAlias}/shop/contracts'/>" class="nav-link ${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900"><i class="bi bi-arrow-left"></i> Retour vers le site</a>
+					<a href="<c:url value='/amap/${tenancyAlias}/shop/contracts'/>" class="nav-link ${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900"><i class="bi bi-arrow-left"></i> Retour vers le site</a>
 				</li>
 				<li class="nav-item">
 					<h1 class="${font} fc-300 fw-bold">Mon espace personnel</h1>

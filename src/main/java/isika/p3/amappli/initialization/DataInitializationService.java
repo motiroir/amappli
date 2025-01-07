@@ -360,6 +360,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci12);
 		user12.setAddress(a12);
 		user12.setContactInfo(ci12);
+		user12.setCompanyDetails(cd12);
 		saveUser(user12);
 		
 		User user13 = User.builder().email("paul.brun@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
@@ -390,6 +391,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci14);
 		user14.setAddress(a14);
 		user14.setContactInfo(ci14);
+		user14.setCompanyDetails(cd14);
 		saveUser(user14);
 		
 		User user15 = User.builder().email("lucie.lafaye@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
@@ -421,6 +423,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci16);
 		user16.setAddress(a16);
 		user16.setContactInfo(ci16);
+		user16.setCompanyDetails(cd16);
 		saveUser(user16);
 		
 		User user17 = User.builder().email("laura.lemoine@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
@@ -465,6 +468,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci19);
 		user19.setAddress(a19);
 		user19.setContactInfo(ci19);
+		user19.setCompanyDetails(cd19);
 		saveUser(user19);
 		
 		User user20 = User.builder().email("bernard.morvan@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")

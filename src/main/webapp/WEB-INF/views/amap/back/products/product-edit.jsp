@@ -82,7 +82,7 @@ request.setAttribute("currentPage", currentPage);
 							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Modifier
 								un produit</h2>
 							<form:form id="productForm" name="productForm" method="POST"
-								action="${pageContext.request.contextPath}/${tenancyAlias}/admin/products/update"
+								action="${pageContext.request.contextPath}/amap/${tenancyAlias}/admin/products/update"
 								modelAttribute="product" enctype="multipart/form-data">
 								<form:hidden path="id" />
 								<div class="row">

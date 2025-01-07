@@ -15,10 +15,10 @@
 					<div id="submenu-users" data-bs-parent="#accordion-parent" class="bg-main accordion-collapse collapse ${currentMainMenu.equals('users') ? 'show' : ''}">
 						<ul class="accordion-body list-unstyled">
 							<li class="text-decoration-none">
-								<a href="<c:url value='/${tenancyAlias}/admin/users/list'/>" class="fch-600 text-decoration-none ${currentPage.equals('users') ? 'active' : ''}">Vos adhérents</a>
+								<a href="<c:url value='/amap/${tenancyAlias}/admin/users/list'/>" class="fch-600 text-decoration-none ${currentPage.equals('users') ? 'active' : ''}">Vos adhérents</a>
 							</li>
 							<li>
-								<a href="<c:url value='/${tenancyAlias}/admin/suppliers/list'/>" class="fch-600 text-decoration-none ${currentPage.equals('suppliers') ? 'active' : ''}">Vos fournisseurs</a>
+								<a href="<c:url value='/amap/${tenancyAlias}/admin/suppliers/list'/>" class="fch-600 text-decoration-none ${currentPage.equals('suppliers') ? 'active' : ''}">Vos fournisseurs</a>
 							</li>
 							<li>
 								<a class="disabled text-decoration-none">Vos rôles personnalisés</a> <span class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">PRO</span>
@@ -36,7 +36,7 @@
 					<div id="submenu-products" data-bs-parent="#accordion-parent" class="accordion-collapse collapse bg-main ${currentMainMenu.equals('products') ? 'show' : ''}">
 						<ul class="accordion-body list-unstyled">
 							<li>
-								<a href="<c:url value='/${tenancyAlias}/admin/contracts/list'/>" class="${currentPage.equals('contracts') ? 'active' : ''} text-decoration-none fch-600">Les contrats</a>
+								<a href="<c:url value='/amap/${tenancyAlias}/admin/contracts/list'/>" class="${currentPage.equals('contracts') ? 'active' : ''} text-decoration-none fch-600">Les contrats</a>
 							</li>
 							<li>
 								<a class="disabled text-decoration-none">L'épicerie</a> &emsp;<span class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">PRO</span>

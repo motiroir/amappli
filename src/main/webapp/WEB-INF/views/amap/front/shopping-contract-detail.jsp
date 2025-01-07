@@ -126,7 +126,7 @@ request.setAttribute("currentPage", currentPage);
 		<!-- Section pour la quantité et le bouton d'ajout au panier -->
 		<div class="text-end mt-4">
 			<form:form method="post"
-				action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cartId}/add">
+				action="${pageContext.request.contextPath}/amap/${tenancyAlias}/cart/${cartId}/add">
 				<div class="quantity-selector">
 					<label for="quantity">Quantité :</label> <input type="number"
 						id="quantity" name="quantity" value="1" min="1">

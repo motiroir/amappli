@@ -63,7 +63,7 @@
 			<p class="fc-300" >Pas encore inscrit.e ?</p>
 			<hr class="bg-300">
 			<a
-				href="${pageContext.request.contextPath}/${tenancyAlias}/amap/amaplogin/signup"
+				href="${pageContext.request.contextPath}/amap/${tenancyAlias}/amap/amaplogin/signup"
 				class="btn btn-500 px-4 rounded-pill">S'inscrire</a>
 		</div>
 

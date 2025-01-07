@@ -23,7 +23,7 @@
 	<div class="container py-5 flex-grow-1">
 		<div class="d-flex justify-content-between align-items-center">
     <h1 class="h3 fw-bold fc-300">Se connecter</h1>
-    <a href="/Amappli/${tenancyAlias}/home" class="btn-close" aria-label="Retour"></a>
+    <a href="/Amappli/amap/${tenancyAlias}/home" class="btn-close" aria-label="Retour"></a>
 </div>
 <hr class="bg-300 mb-4">
 
@@ -63,7 +63,7 @@
 			<p class="fc-300" >Pas encore inscrit.e ?</p>
 			<hr class="bg-300">
 			<a
-				href="${pageContext.request.contextPath}/${tenancyAlias}/amap/amaplogin/signup"
+				href="${pageContext.request.contextPath}/amap/${tenancyAlias}/amap/amaplogin/signup"
 				class="btn btn-500 px-4 rounded-pill">S'inscrire</a>
 		</div>
 

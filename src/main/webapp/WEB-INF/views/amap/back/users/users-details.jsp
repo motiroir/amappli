@@ -34,7 +34,7 @@ request.setAttribute("currentPage", currentPage);
             <div class="row justify-content-center">
                     <div class="form-container">
                         <div class="header-container">
-                            <a href="<c:url value='/${tenancyAlias}/admin/users/list'/>" class="${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900">
+                            <a href="<c:url value='/amap/${tenancyAlias}/admin/users/list'/>" class="${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900">
 								<i class="bi bi-arrow-left"></i> Liste<span class="d-none d-md-inline"> des adhérents</span>
 							</a>
 							<c:if test="${message.length() > 0}">
@@ -44,7 +44,7 @@ request.setAttribute("currentPage", currentPage);
 							</c:if>
 							<h2 class="my-4 fw-bold">Détails de l'adhérent</h2>
                         </div>
-                        <form:form  method="POST" action="/Amappli/${tenancyAlias}/admin/users/update" enctype="multipart/form-data" modelAttribute="user">
+                        <form:form  method="POST" action="/Amappli/amap/${tenancyAlias}/admin/users/update" enctype="multipart/form-data" modelAttribute="user">
                         	<form:hidden path="userId" value="${user.userId }"/>
                             <div class="row">
                                 <!-- Première colonne -->

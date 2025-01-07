@@ -20,13 +20,13 @@
 						class="bg-main accordion-collapse collapse ${currentMainMenu.equals('users') ? 'show' : ''}">
 						<ul class="accordion-body list-unstyled">
 							<li class="text-decoration-none"><a
-								href="<c:url value='/${tenancyAlias}/admin/users/list'/>"
+								href="<c:url value='/amap/${tenancyAlias}/admin/users/list'/>"
 								class="fch-600 text-decoration-none ${currentPage.equals('users') ? 'active' : ''}">Voir mon profil</a></li>
 							<li><a
-								href="<c:url value='/${tenancyAlias}/admin/suppliers/list'/>"
+								href="<c:url value='/amap/${tenancyAlias}/admin/suppliers/list'/>"
 								class="fch-600 text-decoration-none ${currentPage.equals('suppliers') ? 'active' : ''}">Modifier mon profil</a></li>
 							<li><a
-								href="<c:url value='/${tenancyAlias}/admin/suppliers/list'/>"
+								href="<c:url value='/amap/${tenancyAlias}/admin/suppliers/list'/>"
 								class="fch-600 text-decoration-none ${currentPage.equals('suppliers') ? 'active' : ''}">Supprimer mon compte</a></li>
 						</ul>
 					</div>
@@ -45,10 +45,10 @@
 						class="accordion-collapse collapse bg-main ${currentMainMenu.equals('orders') ? 'show' : ''}">
 						<ul class="accordion-body list-unstyled">
 							<li><a
-								href="<c:url value='/${tenancyAlias}/account/my-orders/${userId}'/>"
+								href="<c:url value='/amap/${tenancyAlias}/account/my-orders/${userId}'/>"
 								class="${currentPage.equals('orders') ? 'active' : ''} text-decoration-none fch-600">Mes commandes passées</a></li>
 							<li><a
-								href="<c:url value='/${tenancyAlias}/admin/contracts/list'/>"
+								href="<c:url value='/amap/${tenancyAlias}/admin/contracts/list'/>"
 								class="${currentPage.equals('contracts') ? 'active' : ''} text-decoration-none fch-600">Mon point de collecte</a></li>
 							
 							<li><a class="disabled text-decoration-none">Mes

@@ -84,14 +84,14 @@ request.setAttribute("currentPage", currentPage);
 					<div class="form-container">
 						<div class="header-container">
 							<a
-								href="<c:url value='/${tenancyAlias}/admin/contracts/list' />"
+								href="<c:url value='/amap/${tenancyAlias}/admin/contracts/list' />"
 								class="btn-back"> <i class="bi bi-arrow-left-circle"></i>
 							</a>
 							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Modifier
 								un contrat</h2>
 						</div>
 						<form:form id="contractForm" name="contractForm" method="POST"
-							action="${pageContext.request.contextPath}/${tenancyAlias}/admin/contracts/update"
+							action="${pageContext.request.contextPath}/amap/${tenancyAlias}/admin/contracts/update"
 							modelAttribute="contract" enctype="multipart/form-data">
 
 							<form:hidden path="id" />

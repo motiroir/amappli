@@ -77,7 +77,7 @@ request.setAttribute("currentPage", currentPage);
 		</div>
 		<div class="text-end mt-4">
 			<form:form method="post"
-				action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cartId}/add">
+				action="${pageContext.request.contextPath}/amap/${tenancyAlias}/cart/${cartId}/add">
 				<input type="hidden" name="shoppableId" value="${workshop.id}" />
 				<input type="hidden" name="shoppableType" value="WORKSHOP" />
 				<input type="hidden" name="quantity" value="1" />
@@ -85,7 +85,7 @@ request.setAttribute("currentPage", currentPage);
 					à cet atelier</button>
 			</form:form>
 			<a
-				href="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cartId}"
+				href="${pageContext.request.contextPath}/amap/${tenancyAlias}/cart/${cartId}"
 				class="btn-view-cart">Voir le panier</a>
 
 		</div>

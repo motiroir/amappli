@@ -34,7 +34,7 @@
 
 				<!-- Épicerie -->
 				<li class="mb-4"><a
-					href="<c:url value='/${tenancyAlias}/shop/products'/>"
+					href="<c:url value='/amap/${tenancyAlias}/shop/products'/>"
 					class="${currentMainMenu.equals('products') ? 'active' : ''} text-decoration-none">
 						<h2 class="fw-bold">Épicerie</h2>
 				</a>
@@ -42,7 +42,7 @@
 
 				<!-- Ateliers -->
 				<li class="mb-4"><a
-					href="<c:url value='/${tenancyAlias}/shop/workshops'/>"
+					href="<c:url value='/amap/${tenancyAlias}/shop/workshops'/>"
 					class="${currentMainMenu.equals('workshops') ? 'active' : ''} text-decoration-none">
 						<h2 class="fw-bold">Ateliers</h2>
 				</a>

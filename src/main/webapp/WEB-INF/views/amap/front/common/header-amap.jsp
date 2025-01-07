@@ -16,7 +16,7 @@
                  src="data:${logoImgType};base64,${logoBase64}" 
                  alt="Logo de ${tenancyName}" />
                   </c:if>
-    <a href="<c:url value='/${tenancyAlias}/cart/${cart.shoppingCartId}'/>" class="nav-link"><h1 class="fw-bold fs-2 mb-0 fc-300 fch-500">${tenancy.getTenancyName()}</h1></a>
+    <a href="<c:url value='/amap/${tenancyAlias}/cart/${cart.shoppingCartId}'/>" class="nav-link"><h1 class="fw-bold fs-2 mb-0 fc-300 fch-500">${tenancy.getTenancyName()}</h1></a>
 </div>
 	<div class="p-0 ms-2 ms-md-0 d-flex justify-content-evenly">
 		<svg class="my-auto mx-1" width="15" height="15" viewBox="0 0 30 30"
@@ -43,7 +43,7 @@
 		<div class="offcanvas offcanvas-start navbar-collapse bg-main w-auto px-3" id="nav-content">
 			<ul class="navbar-nav w-100 mt-4 mt-md-0 justify-content-evenly">
 				<li class="nav-item">
-					<a href="<c:url value='/${tenancyAlias}/shop/contracts'/>" class="nav-link ${font} text-decoration-none fc-300 fch-500">La boutique</a>
+					<a href="<c:url value='/amap/${tenancyAlias}/shop/contracts'/>" class="nav-link ${font} text-decoration-none fc-300 fch-500">La boutique</a>
 				</li>
 				<li class="nav-item">
 					<a href="amapPage" class="nav-link ${font} text-decoration-none fc-300 fch-500">C'est quoi une Amap ?</a>
@@ -52,7 +52,7 @@
 					<a href="contact" class="nav-link ${font} text-decoration-none fc-300 fch-500">Contact</a>
 				</li>
 				<li class="nav-item">
-					<a href="<c:url value='/${tenancyAlias}/cart/${cart.shoppingCartId}'/>"><i class="bi bi-bag-fill fs-4 fc-300 fch-500"></i></a>
+					<a href="<c:url value='/amap/${tenancyAlias}/cart/${cart.shoppingCartId}'/>"><i class="bi bi-bag-fill fs-4 fc-300 fch-500"></i></a>
                 </li> 
 				<li class="nav-item m-2 m-md-0"><a href="<c:url value='/amap/${tenancyAlias}/login'/>"
 					class="btn rounded-pill btn-500 px-4" >Se connecter</a></li>
