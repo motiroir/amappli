@@ -41,7 +41,7 @@ request.setAttribute("currentPage", currentPage);
 				<div class="form-container">
 					<div class="header-container">
 						<a
-							href="<c:url value='/${tenancyAlias}/backoffice/workshops/list' />"
+							href="<c:url value='/amap/${tenancyAlias}/admin/workshops/list' />"
 							class="${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900">
 							<i class="bi bi-arrow-left"></i><span class="d-none d-md-inline">Liste
 								des ateliers</span>
@@ -49,7 +49,7 @@ request.setAttribute("currentPage", currentPage);
 						<h2 class="my-4 fw-bold">Ajouter un atelier</h2>
 					</div>
 					<form:form method="POST"
-						action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/workshops/add"
+						action="${pageContext.request.contextPath}/amap/${tenancyAlias}/admin/workshops/add"
 						enctype="multipart/form-data">
 						<input type="hidden" id="tenancyAlias" name="tenancyAlias"
 							value="${tenancyAlias}">

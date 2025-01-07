@@ -31,7 +31,7 @@ import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.ProductService;
 
 @Controller
-@RequestMapping("/{tenancyAlias}/backoffice/products")
+@RequestMapping("/amap/{tenancyAlias}/admin/products")
 public class ProductController {
 
 	private final ProductService productService;
@@ -85,6 +85,7 @@ public class ProductController {
 		model.addAttribute("users", users);
 		model.addAttribute("address", address);
 		model.addAttribute("currentDate", currentDate);
+		model.addAttribute("pickupSchedule", tenancy.getPickUpSchedule());
 		addGraphismAttributes(tenancyAlias, model);
 		return "amap/back/products/product-form";
 	}
@@ -99,7 +100,7 @@ public class ProductController {
 		if (productDTO.getProductName() == null || productDTO.getProductName().isEmpty()) {
 			throw new IllegalArgumentException("Le champ 'Nom du produit' est obligatoire.");
 		}
-		return "redirect:/" + tenancyAlias + "/backoffice/products/list";
+		return "redirect:/amap/" + tenancyAlias + "/admin/products/list";
 	}
 
 	/**
@@ -127,7 +128,7 @@ public class ProductController {
 	@PostMapping("/delete/{id}")
 	public String deleteProduct(@PathVariable("id") Long id, @PathVariable("tenancyAlias") String tenancyAlias) {
 		productService.deleteById(id);
-		return "redirect:/" + tenancyAlias + "/backoffice/products/list";
+		return "redirect:/amap/" + tenancyAlias + "/admin/products/list";
 	}
 
 	/**
@@ -173,12 +174,12 @@ public class ProductController {
 		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
 		model.addAttribute("users", users);
 		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
-		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
 		String formattedDate = product.getDateCreation().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 		model.addAttribute("formattedDate", formattedDate);
 		model.addAttribute("product", product);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		addGraphismAttributes(tenancyAlias, model);
+		model.addAttribute("pickupSchedule", tenancy.getPickUpSchedule());
 		return "amap/back/products/product-detail";
 	}
 
@@ -189,7 +190,7 @@ public class ProductController {
 
 		productService.updateProduct(updatedProductDTO, image, tenancyAlias);
 
-		return "redirect:/" + tenancyAlias + "/backoffice/products/list";
+		return "redirect:/amap/" + tenancyAlias + "/admin/products/list";
 	}
 
 	public void addGraphismAttributes(String alias, Model model) {

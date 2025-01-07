@@ -18,9 +18,6 @@
                   </c:if>
     <a href="<c:url value='/${tenancyAlias}/cart/${cart.shoppingCartId}'/>" class="nav-link"><h1 class="fw-bold fs-2 mb-0 fc-300 fch-500">${tenancy.getTenancyName()}</h1></a>
 </div>
-
-
-	
 	<div class="p-0 ms-2 ms-md-0 d-flex justify-content-evenly">
 		<svg class="my-auto mx-1" width="15" height="15" viewBox="0 0 30 30"
 			xmlns="http://www.w3.org/2000/svg" class="m-auto">
@@ -37,14 +34,14 @@
 	    </svg>
 	</div>
 	
-	<nav class="navbar navbar-expand-md col-offset-1 col-8 align-content-center">
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+	<nav class="navbar navbar-expand-md col-offset-1 col-md-8 col-2 align-content-center">
+		<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
 			data-bs-target="#nav-content" aria-controls="nav-content"
 			aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="collapse navbar-collapse" id="nav-content">
-			<ul class="navbar-nav w-100 justify-content-md-evenly">
+		<div class="offcanvas offcanvas-start navbar-collapse bg-main w-auto px-3" id="nav-content">
+			<ul class="navbar-nav w-100 mt-4 mt-md-0 justify-content-evenly">
 				<li class="nav-item"><a href="<c:url value='/${tenancyAlias}/shop/contracts'/>" 
 					class="nav-link ${font} text-decoration-none fc-300 fch-500">La boutique</a>
 				</li>
@@ -56,7 +53,7 @@
 				<li class="nav-item"> <a href="<c:url value='/${tenancyAlias}/cart/${cart.shoppingCartId}'/>"><i class="bi bi-bag-fill fs-4 fc-300 fch-500"></i></a>
 				
                 </li> 
-				<li class="nav-item"><a href="<c:url value='/amap/${tenancyAlias}/login'/>"
+				<li class="nav-item m-2 m-md-0"><a href="<c:url value='/amap/${tenancyAlias}/login'/>"
 					class="btn rounded-pill btn-500 px-4" >Se connecter</a></li>
 			</ul>
 		</div>

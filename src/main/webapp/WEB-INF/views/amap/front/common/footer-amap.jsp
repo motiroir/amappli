@@ -9,7 +9,7 @@
 <div class="container mt-4">
 	<div class="row">
 		<!-- Colonne "Notre histoire" -->
-		<div class="nav-item col-md-4">
+		<div class="nav-item col-6 col-md-4">
 			<h5 class="fw-bold">Notre histoire</h5>
 			<ul class="list-unstyled">
 				<li><a href="#" class="nav-link">A propos</a></li>
@@ -19,21 +19,21 @@
 			</ul>
 		</div>
 		<!-- Colonne "Une question ?" -->
-		<div class="nav-item col-md-4">
+		<div class="nav-item col-6 col-md-4">
 			<h5 class="fw-bold">Une question ?</h5>
 			<ul class="list-unstyled">
 				<li><a href="#" class="nav-link">Contact</a></li>
 				<li><a href="#" class="nav-link">FAQ</a></li>
 			</ul>
 			<!-- RÃ©seaux sociaux -->
-			<div>
-				<h6 class="fw-bold">Réseaux sociaux :</h6>
-				<a href="#" class="nav-link me-2"><i class="bi bi-facebook"></i></a>
-				<a href="#" class="nav-link me-2"><i class="bi bi-instagram"></i></a>
+			<div class="nac-item col-6 col-md-4">
+				<h5 class="fw-bold text-nowrap">Réseaux sociaux :</h5>
+				<a href="#" class="nav-link me-2 d-inline"><i class="bi bi-facebook"></i></a>
+				<a href="#" class="nav-link me-2 d-inline"><i class="bi bi-instagram"></i></a>
 			</div>
 		</div>
 	
-		<div class="nav-item col-md-4">
+		<div class="nav-item col-6 col-md-4">
 			<h5 class="fw-bold">Où nous trouver ?</h5>
 			<ul class="list-unstyled">
 			<li>${addressLine1}</li>

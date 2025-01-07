@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import isika.p3.amappli.entities.tenancy.PickUpSchedule;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.entities.user.User;
@@ -11,6 +12,7 @@ import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.entities.order.Shoppable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -48,7 +50,7 @@ public class Contract extends Shoppable {
 	@Enumerated(EnumType.STRING)
 	public ContractType contractType;
 
-	@Column(length = 500)
+	@Column(length = 1000)
 	private String contractDescription;
 
 	@Enumerated(EnumType.STRING)
@@ -76,8 +78,8 @@ public class Contract extends Shoppable {
 	@Enumerated(EnumType.STRING)
 	private DeliveryRecurrence deliveryRecurrence;
 	
-	@Enumerated(EnumType.STRING)
-	private DeliveryDay deliveryDay;
+    @Embedded
+    private PickUpSchedule pickUpSchedule;
 	
 	private Integer quantity;
 	

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import isika.p3.amappli.dto.amap.UpdateProfileDTO;
 import isika.p3.amappli.dto.amap.UserDTO;
 import isika.p3.amappli.dto.amappli.LoginDTO;
 import isika.p3.amappli.entities.tenancy.Graphism;
@@ -25,7 +25,7 @@ import isika.p3.amappli.service.amappli.TenancyService;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("{tenancyAlias}/amap/amaplogin")
+@RequestMapping("amap/{tenancyAlias}")
 public class UserController {
 
     @Autowired
@@ -34,6 +34,7 @@ public class UserController {
     private TenancyService tenancyService;
     @Autowired
     private GraphismService graphismService;
+    
 
     // Afficher le formulaire d'inscription
     @GetMapping("/signup")
@@ -163,60 +164,119 @@ public class UserController {
 
 
     
+//    
+//    // Afficher le formulaire de connexion
+//    @GetMapping("/login")
+//    public String showLoginForm(@RequestParam(value = "error", required = false) String error,
+//                                @PathVariable("tenancyAlias") String alias,
+//                                Model model) {
+//        LoginDTO loginDTO = new LoginDTO();
+//        model.addAttribute("loginDTO", loginDTO);
+//        model.addAttribute("tenancyAlias", alias);
+//        if (error != null) {
+//            model.addAttribute("error", "Email ou mot de passe incorrect.");
+//        }
+//        Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
+//        
+//        // Ajouter les informations générales de la tenancy
+//        model.addAttribute("tenancy", tenancy);
+//        model.addAttribute("tenancyName", tenancy.getTenancyName());
+//        model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
+//        
+//     // Ajouter les informations graphiques
+//        Graphism graphism = tenancy.getGraphism();
+//        String logoBase64 = graphism != null ? graphism.getLogoImg() : null;
+//        String logoImgType = graphism != null ? graphism.getLogoImgType() : null;
+//        model.addAttribute("logoBase64", logoBase64);
+//        model.addAttribute("logoImgType", logoImgType);
+//        
+//        // Récupérer et ajouter les styles dynamiques via GraphismService
+//        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
+//        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+//        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
+//        model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+//        
+//        return "amap/amaplogin/login";
+//    }
+
     
-    // Afficher le formulaire de connexion
-    @GetMapping("/login")
-    public String showLoginForm(@RequestParam(value = "error", required = false) String error,
-                                @PathVariable("tenancyAlias") String alias,
-                                Model model) {
-        LoginDTO loginDTO = new LoginDTO();
-        model.addAttribute("loginDTO", loginDTO);
-        model.addAttribute("tenancyAlias", alias);
-        if (error != null) {
-            model.addAttribute("error", "Email ou mot de passe incorrect.");
-        }
+    
+    
+    /**
+     * Affiche le profil utilisateur.
+     */
+    @GetMapping("/{userId}/profile")
+    public String viewProfile(@PathVariable("userId") Long userId,
+                              @PathVariable("tenancyAlias") String alias,
+                              Model model) {
+        // Récupérer les informations de l'utilisateur
+        UserDTO userDTO = userService.getUserProfile(userId);
+
+        // Mapper les données de UserDTO vers UpdateProfileDTO
+        UpdateProfileDTO updateProfileDTO = new UpdateProfileDTO();
+        updateProfileDTO.setEmail(userDTO.getEmail());
+        updateProfileDTO.setAddress(userDTO.getAddress());
+        updateProfileDTO.setContactInfo(userDTO.getContactInfo());
+
+        // Ajouter UpdateProfileDTO au modèle
+        model.addAttribute("updateProfileDTO", updateProfileDTO);
+
+        // Ajouter les informations de la tenancy (si nécessaire)
         Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
-        
-        // Ajouter les informations générales de la tenancy
-        model.addAttribute("tenancy", tenancy);
-        model.addAttribute("tenancyName", tenancy.getTenancyName());
-        model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
-        
-     // Ajouter les informations graphiques
-        Graphism graphism = tenancy.getGraphism();
-        String logoBase64 = graphism != null ? graphism.getLogoImg() : null;
-        String logoImgType = graphism != null ? graphism.getLogoImgType() : null;
-        model.addAttribute("logoBase64", logoBase64);
-        model.addAttribute("logoImgType", logoImgType);
-        
-        // Récupérer et ajouter les styles dynamiques via GraphismService
-        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
-        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
-        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
-        model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
-        
-        return "amap/amaplogin/login";
+        if (tenancy != null) {
+            model.addAttribute("tenancy", tenancy);
+            model.addAttribute("tenancyName", tenancy.getTenancyName());
+            model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
+
+            Graphism graphism = tenancy.getGraphism();
+            if (graphism != null) {
+                model.addAttribute("logoBase64", graphism.getLogoImg());
+                model.addAttribute("logoImgType", graphism.getLogoImgType());
+                model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
+                model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+                model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
+                model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+            }
+        }
+
+        return "amap/front/user-profile/profile";
     }
 
-    // Traitement de la connexion
-    // @PostMapping("/login")
-    // public String loginUser(@PathVariable("tenancyId") Long tenancyId, 
-    //                         @Valid LoginDTO loginDTO, 
-    //                         BindingResult bindingResult, 
-    //                         Model model) {
-    //     if (bindingResult.hasErrors()) {
-    //         return "amap/amaplogin/login";
-    //     }
 
-    //     try {
-    //         User user = userService.authenticateUser(loginDTO.getEmail(), loginDTO.getPassword());
-    //         // Authentification réussie, 
-    //         return "redirect:/tenancies/" + tenancyId + "/home"; 
-    //     } catch (RuntimeException e) {
-    //         model.addAttribute("error", e.getMessage());
-    //         return "amap/amaplogin/login";
-    //     }
-    // }
+    /**
+     * Met à jour le profil utilisateur.
+     */
+    @PostMapping("/{userId}/profile")
+    public String updateProfile(@PathVariable("userId") Long userId,
+                                @PathVariable("tenancyAlias") String alias,
+                                @ModelAttribute @Valid UpdateProfileDTO updateProfileDTO,
+                                BindingResult bindingResult,
+                                Model model) {
+        // Gestion des erreurs de validation
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("updateProfileDTO", updateProfileDTO);
+            StringBuilder errorMessages = new StringBuilder("Certains champs sont invalides : ");
+            bindingResult.getAllErrors().forEach(error -> {
+                errorMessages.append(error.getDefaultMessage()).append(" ");
+            });
+            model.addAttribute("error", errorMessages.toString());
+            return "amap/front/user-profile/profile"; // Retourne à la vue du formulaire avec erreurs
+        }
+
+        try {
+            // Appelle le service pour mettre à jour les informations utilisateur
+            userService.updateUserProfile(userId, updateProfileDTO);
+            model.addAttribute("success", "Profil mis à jour avec succès.");
+        } catch (RuntimeException e) {
+            // Gère les exceptions liées à la logique métier ou à la base de données
+            model.addAttribute("error", e.getMessage());
+        }
+
+        // Ré-affiche le formulaire (avec ou sans succès/erreur)
+        model.addAttribute("updateProfileDTO", updateProfileDTO);
+        return "amap/front/user-profile/profile";
+    }
+    
     
     
 

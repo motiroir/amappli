@@ -1,11 +1,13 @@
 package isika.p3.amappli.entities.tenancy;
 
+import java.util.Set;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,10 +28,10 @@ public class Options {
 
     private Boolean option2Active;
 
-    private Boolean  option3Active;
+    @OneToMany(targetEntity = Tenancy.class, mappedBy = "options", cascade = CascadeType.ALL)
+    private Set<Tenancy> tenancies;
 
-    @OneToOne
-    @JoinColumn( name="tenancyId")
-    private Tenancy tenancy;
-
+    public void addTenancy(Tenancy tenancy) {
+    	this.tenancies.add(tenancy);
+    }
 }
