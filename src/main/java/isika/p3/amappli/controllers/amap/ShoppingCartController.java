@@ -33,11 +33,12 @@ public class ShoppingCartController {
 	public String viewCart(@PathVariable("tenancyAlias") String alias,
 			Model model) {
 		// get user info from context (connected user) or userId = (check method) when logout
-		Long userId = getUserIdFromContext();
-
+		Long userId = graphismService.getUserIdFromContext();
+		graphismService.addGraphismAttributes(alias, model);
+		
+		
 		ShoppingCart cart = shoppingCartService.getCartByUserId(userId);
 
-		addGraphismAttributes(alias, model);
 		model.addAttribute("userId", userId); 
 		model.addAttribute("cart", cart);
 		model.addAttribute("total", shoppingCartService.calculateTotal(cart.getShoppingCartId()));

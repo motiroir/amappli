@@ -1,10 +1,14 @@
 package isika.p3.amappli.service.amap.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
+import isika.p3.amappli.security.CustomUserDetails;
 import isika.p3.amappli.service.amap.GraphismService;
 
 @Service
@@ -13,6 +17,30 @@ public class GraphismServiceImpl implements GraphismService {
 	@Autowired
 	private TenancyRepository tenancyRepo;
 
+	public void  addGraphismAttributes(String alias, Model model) {
+		// get map style and coordinates depending on tenancy
+		model.addAttribute("mapStyleLight", getMapStyleLightByTenancyAlias(alias));
+		model.addAttribute("mapStyleDark", getMapStyleDarkByTenancyAlias(alias));
+		model.addAttribute("latitude", getLatitudeByTenancyAlias(alias));
+		model.addAttribute("longitude", getLongitudeByTenancyAlias(alias));
+		// get tenancy info for header footer
+		model.addAttribute("tenancy", getTenancyByAlias(alias));
+		// get color palette
+		model.addAttribute("cssStyle", getColorPaletteByTenancyAlias(alias));
+		// get font choice
+		model.addAttribute("font", getFontByTenancyAlias(alias));
+	}
+	
+	public Long getUserIdFromContext() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Object principal = authentication.getPrincipal();
+		//condition for when we don't want to login at each dev iteration
+		if (principal instanceof CustomUserDetails) {
+			CustomUserDetails loggedUserInfo = (CustomUserDetails) principal;
+			return (Long) loggedUserInfo.getAdditionalInfoByKey("userId");
+		} else return 1L;
+	}
+	
 	@Override
 	public String getMapStyleLightByTenancyAlias(String alias) {
 		Tenancy tenancy = tenancyRepo.findByTenancyAlias(alias).orElse(null);
