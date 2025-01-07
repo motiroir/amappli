@@ -19,6 +19,7 @@ import isika.p3.amappli.dto.amap.UserDTO;
 import isika.p3.amappli.dto.amappli.LoginDTO;
 import isika.p3.amappli.entities.tenancy.Graphism;
 import isika.p3.amappli.entities.tenancy.Tenancy;
+import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.UserService;
 import isika.p3.amappli.service.amappli.TenancyService;
@@ -61,6 +62,9 @@ public class UserController {
         model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
         model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
         model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+    	model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
+    	model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
+		model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
         
         return "amap/amaplogin/signup-form";
     }
@@ -89,6 +93,9 @@ public class UserController {
         model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
         model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
         model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+    	model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
+    	model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
+		model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
         return "amap/amaplogin/login-done";
     }
 
@@ -128,6 +135,9 @@ public class UserController {
             model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
             model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
             model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+        	model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
+        	model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
+    		model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
             
 
             return "amap/amaplogin/signup-form";
@@ -157,6 +167,9 @@ public class UserController {
             model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
             model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
             model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+        	model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
+        	model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
+    		model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
 
             return "amap/amaplogin/signup-form";
         }
@@ -220,28 +233,49 @@ public class UserController {
 
         // Ajouter UpdateProfileDTO au modèle
         model.addAttribute("updateProfileDTO", updateProfileDTO);
+        model.addAttribute("tenancyAlias", alias);
+    
+     // Récupérer la tenancy
+	    Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
 
-        // Ajouter les informations de la tenancy (si nécessaire)
-        Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
-        if (tenancy != null) {
-            model.addAttribute("tenancy", tenancy);
-            model.addAttribute("tenancyName", tenancy.getTenancyName());
-            model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
+	    if (tenancy != null) {
+	        // Ajouter les informations générales de la tenancy
+	        model.addAttribute("tenancy", tenancy);
+	        model.addAttribute("tenancyName", tenancy.getTenancyName());
+	        model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
 
-            Graphism graphism = tenancy.getGraphism();
-            if (graphism != null) {
-                model.addAttribute("logoBase64", graphism.getLogoImg());
-                model.addAttribute("logoImgType", graphism.getLogoImgType());
-                model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
-                model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
-                model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
-                model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
-            }
-        }
+	        // Ajouter les informations graphiques
+	        Graphism graphism = tenancy.getGraphism();
+	        String logoBase64 = graphism != null ? graphism.getLogoImg() : null;
+	        String logoImgType = graphism != null ? graphism.getLogoImgType() : null;
+	        model.addAttribute("logoBase64", logoBase64);
+	        model.addAttribute("logoImgType", logoImgType);
+
+	        // Ajouter les informations de contact et d'adresse
+	        Address address = tenancy.getAddress();
+	        model.addAttribute("addressLine1", address != null ? address.getLine1() : null);
+	        model.addAttribute("addressLine2", address != null ? address.getLine2() : null);
+	        model.addAttribute("addressPostCode", address != null ? address.getPostCode() : null);
+	        model.addAttribute("addressCity", address != null ? address.getCity() : null);
+	        model.addAttribute("email", tenancy.getEmail());
+	        model.addAttribute("phoneNumber", tenancy.getContactInfo() != null ? tenancy.getContactInfo().getPhoneNumber() : null);
+
+	        // Ajouter les styles et polices
+	        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
+	        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+	        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
+	        model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+	    	model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
+	    	model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
+			model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
+	    } else {
+	        model.addAttribute("message", "Tenancy non trouvée.");
+	    }
 
         return "amap/front/user-profile/profile";
     }
-
+    
+    
 
     /**
      * Met à jour le profil utilisateur.
@@ -260,6 +294,44 @@ public class UserController {
                 errorMessages.append(error.getDefaultMessage()).append(" ");
             });
             model.addAttribute("error", errorMessages.toString());
+            model.addAttribute("tenancyAlias", alias);
+            // Récupérer la tenancy
+    	    Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
+
+    	    if (tenancy != null) {
+    	        // Ajouter les informations générales de la tenancy
+    	        model.addAttribute("tenancy", tenancy);
+    	        model.addAttribute("tenancyName", tenancy.getTenancyName());
+    	        model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
+
+    	        // Ajouter les informations graphiques
+    	        Graphism graphism = tenancy.getGraphism();
+    	        String logoBase64 = graphism != null ? graphism.getLogoImg() : null;
+    	        String logoImgType = graphism != null ? graphism.getLogoImgType() : null;
+    	        model.addAttribute("logoBase64", logoBase64);
+    	        model.addAttribute("logoImgType", logoImgType);
+
+    	        // Ajouter les informations de contact et d'adresse
+    	        Address address = tenancy.getAddress();
+    	        model.addAttribute("addressLine1", address != null ? address.getLine1() : null);
+    	        model.addAttribute("addressLine2", address != null ? address.getLine2() : null);
+    	        model.addAttribute("addressPostCode", address != null ? address.getPostCode() : null);
+    	        model.addAttribute("addressCity", address != null ? address.getCity() : null);
+    	        model.addAttribute("email", tenancy.getEmail());
+    	        model.addAttribute("phoneNumber", tenancy.getContactInfo() != null ? tenancy.getContactInfo().getPhoneNumber() : null);
+
+    	        // Ajouter les styles et polices
+    	        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
+    	        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+    	        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
+    	        model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+    	    	model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
+    	    	model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
+    			model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
+    	    } else {
+    	        model.addAttribute("message", "Tenancy non trouvée.");
+    	    }
+            
             return "amap/front/user-profile/profile"; // Retourne à la vue du formulaire avec erreurs
         }
 
@@ -272,11 +344,48 @@ public class UserController {
             model.addAttribute("error", e.getMessage());
         }
 
+     // Récupérer la tenancy
+	    Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
+
+	    if (tenancy != null) {
+	        // Ajouter les informations générales de la tenancy
+	        model.addAttribute("tenancy", tenancy);
+	        model.addAttribute("tenancyName", tenancy.getTenancyName());
+	        model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
+
+	        // Ajouter les informations graphiques
+	        Graphism graphism = tenancy.getGraphism();
+	        String logoBase64 = graphism != null ? graphism.getLogoImg() : null;
+	        String logoImgType = graphism != null ? graphism.getLogoImgType() : null;
+	        model.addAttribute("logoBase64", logoBase64);
+	        model.addAttribute("logoImgType", logoImgType);
+
+	        // Ajouter les informations de contact et d'adresse
+	        Address address = tenancy.getAddress();
+	        model.addAttribute("addressLine1", address != null ? address.getLine1() : null);
+	        model.addAttribute("addressLine2", address != null ? address.getLine2() : null);
+	        model.addAttribute("addressPostCode", address != null ? address.getPostCode() : null);
+	        model.addAttribute("addressCity", address != null ? address.getCity() : null);
+	        model.addAttribute("email", tenancy.getEmail());
+	        model.addAttribute("phoneNumber", tenancy.getContactInfo() != null ? tenancy.getContactInfo().getPhoneNumber() : null);
+
+	        // Ajouter les styles et polices
+	        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
+	        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
+	        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
+	        model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+	    	model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
+	    	model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
+			model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
+	    } else {
+	        model.addAttribute("message", "Tenancy non trouvée.");
+	    }
+        
+        
         // Ré-affiche le formulaire (avec ou sans succès/erreur)
         model.addAttribute("updateProfileDTO", updateProfileDTO);
         return "amap/front/user-profile/profile";
     }
-    
     
     
 

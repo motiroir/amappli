@@ -25,7 +25,7 @@
 
 	<div id="map"></div>
 	
-    <div class="form-container mt-5  ms-5 fc-main">
+    <div class="form-container mt-5  ms-5 fc-main centered-form">
         <!-- Affichage du message de succès -->
         <c:if test="${not empty success}">
             <div class="alert alert-success text-center">${success}</div>
@@ -36,7 +36,7 @@
             <div class="alert alert-danger text-center">${error}</div>
         </c:if>
 
-        <form action="${pageContext.request.contextPath}/tenancies/amap/${tenancyAlias}/${userId}/profile" method="post">
+        <form action="${pageContext.request.contextPath}/amap/${tenancyAlias}/${userId}/profile" method="post">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
             <!-- Nom et Prénom -->
@@ -102,10 +102,11 @@
                     </c:if>
                 </div>
             </div>
+            <br>
 
           
             <div class="btn-container">
-                <button type="submit" class="btn btn-primary bg-500">Mettre à jour</button>
+                <button type="submit" class="btn  bg-500  rounded-pill">Mettre à jour</button>
             </div>
         </form>
     </div>
