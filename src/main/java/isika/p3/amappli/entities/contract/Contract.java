@@ -50,7 +50,7 @@ public class Contract extends Shoppable {
 	@Enumerated(EnumType.STRING)
 	public ContractType contractType;
 
-	@Column(length = 500)
+	@Column(length = 1000)
 	private String contractDescription;
 
 	@Enumerated(EnumType.STRING)
