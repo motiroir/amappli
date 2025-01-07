@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.hibernate.Hibernate;
 import org.hibernate.type.descriptor.java.LocalDateTimeJavaType;
 import org.springframework.stereotype.Service;
 
+import isika.p3.amappli.entities.membership.MembershipFee;
 import isika.p3.amappli.entities.order.Order;
 import isika.p3.amappli.entities.order.OrderItem;
 import isika.p3.amappli.entities.order.OrderStatus;
@@ -64,17 +66,34 @@ public class OrderServiceImpl {
     	Tenancy tenancy = tenancyRepo.findByTenancyAlias(alias).orElse(null);
     	List<Order> orders = orderRepo.findOrdersByTenancyId(tenancy.getTenancyId());
     	for (Order order : orders) {
-			orderRepo.findOrderWithPayments(order.getOrderId());
 			orderRepo.findOrderWithItems(order.getOrderId());
 		}
     	return orders;
     }
+
+	public List<Order> getListOrdersByUser(Long userId) {
+		User user = userRepo.findUserWithOrders(userId);
+		List<Order> orders = user.getOrders();
+		for (Order order : orders) {
+			//method because issue with fetching multiple bags (list) and payments lazily fetched 
+			//issue surprisingly not present in getOrdersByTenancyAlias
+			orderRepo.findOrderWithItems(order.getOrderId());
+		}
+		return orders;
+	}
 	
 	public List<OrderItem> copyCartItemsListToOrderItemsList(List<ShoppingCartItem> cartItems) {
 		return cartItems.stream().map(cartItem -> {
 			// deals with issue on copying the shoppable attached to cartItem to get to
 			// attach to the orderItem
 			Shoppable attachedShoppable = entityManager.merge(cartItem.getShoppable());
+			// set user membershipfee cause he paid it
+			if(attachedShoppable instanceof MembershipFee) {
+				User user = cartItem.getShoppingCart().getUser();
+				((MembershipFee) attachedShoppable).setUser(user);
+				user.setMembershipFee((MembershipFee) attachedShoppable);
+				userRepo.save(user);
+			}
 			// builds all orderItems form cartItems
 			return OrderItem.builder().quantity(cartItem.getQuantity()).unitPrice(attachedShoppable.getPrice())
 					.total(cartItem.getQuantity() * attachedShoppable.getPrice()).shoppable(attachedShoppable).build();
@@ -136,49 +155,48 @@ public class OrderServiceImpl {
 	
 	@Transactional
 	public Order validatePayment(Long orderId, String paymentTypeString) {
-		//transform to PaymentType enum
-	    PaymentType paymentType;
-	    switch (paymentTypeString) {
-	        case "Carte bleue":
-	            paymentType = PaymentType.card;
-	            break;
-	        case "Chèque":
-	            paymentType = PaymentType.check;
-	            break;
-	        case "Espèces":
-	            paymentType = PaymentType.cash;
-	            break;
-	        default:
-	            throw new IllegalArgumentException("Type de paiement invalide : " + paymentTypeString);
-	    }
+		Order order = orderRepo.findById(orderId)
+				.orElseThrow(() -> new EntityNotFoundException("Commande introuvable pour l'ID : " + orderId));
 
-	    Order order = orderRepo.findById(orderId)
-	        .orElseThrow(() -> new EntityNotFoundException("Commande introuvable pour l'ID : " + orderId));
+		// set to récupérée
+		order.setOrderStatus(OrderStatus.DONE);
 
-	    order.setOrderStatus(OrderStatus.DONE);
-		Payment payment = Payment.builder().paymentType(paymentType).paymentDate(LocalDateTime.now())
-				.paymentAmount(BigDecimal.valueOf(order.getTotalAmount())).build();
+		// transform to PaymentType enum
+		PaymentType paymentType = null;
+		
+		if (paymentTypeString != null && !paymentTypeString.isEmpty()) {
+			switch (paymentTypeString) {
+			case "Carte bleue":
+				paymentType = PaymentType.card;
+				break;
+			case "Chèque":
+				paymentType = PaymentType.check;
+				break;
+			case "Espèces":
+				paymentType = PaymentType.cash;
+				break;
+			default:
+				throw new IllegalArgumentException("Type de paiement invalide : " + paymentTypeString);
+			}
 
-		order.setOrderPaid(true);
-		order.getPayments().add(payment);
-		payment.setOrder(order);
+			Payment payment = Payment.builder().paymentType(paymentType).paymentDate(LocalDateTime.now())
+					.paymentAmount(BigDecimal.valueOf(order.getTotalAmount())).build();
+
+			// change payment info
+			order.setOrderPaid(true);
+			order.getPayments().add(payment);
+			payment.setOrder(order);
+		}
+
 		orderRepo.save(order);
 		return order;
-	}
-
-	public List<Order> getListOrdersByUser(Long userId) {
-		User user = userRepo.findUserWithOrders(userId);
-		for (Order order : user.getOrders()) {
-			orderRepo.findOrderWithPayments(order.getOrderId());
-			orderRepo.findOrderWithItems(order.getOrderId());
-		}
-		return user.getOrders();
 	}
 	
 	@Transactional
 	public Order getOrderById(Long orderId) {
-		orderRepo.findOrderWithPayments(orderId);
 		return orderRepo.findOrderWithItemsAndShoppable(orderId);
 	}
+	
+
 	
 }

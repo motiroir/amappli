@@ -73,6 +73,7 @@ request.setAttribute("currentPage", currentPage);
 										<h3>Valider la récupération</h3>
 										<c:if test="${order.orderPaid}">
 											<p>L'adhérent a déjà réglé sa commande en ligne.</p>
+											<input type="hidden" name="paymentType" value="" />
 										</c:if>
 										<input type="hidden" name="${_csrf.parameterName}"
 											value="${_csrf.token}" />

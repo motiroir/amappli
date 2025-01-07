@@ -1,14 +1,18 @@
 package isika.p3.amappli.service.amap.impl;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import isika.p3.amappli.entities.membership.MembershipFee;
 import isika.p3.amappli.entities.order.ProductMock;
 import isika.p3.amappli.entities.order.Shoppable;
 import isika.p3.amappli.entities.order.ShoppingCart;
 import isika.p3.amappli.entities.order.ShoppingCartItem;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.repo.amap.ContractRepository;
+import isika.p3.amappli.repo.amap.MembershipFeeRepository;
 import isika.p3.amappli.repo.amap.ProductMockRepository;
 import isika.p3.amappli.repo.amap.ProductRepository;
 import isika.p3.amappli.repo.amap.ShoppingCartItemRepository;
@@ -16,6 +20,7 @@ import isika.p3.amappli.repo.amap.ShoppingCartRepository;
 import isika.p3.amappli.repo.amap.UserRepository;
 import isika.p3.amappli.repo.amap.WorkshopRepository;
 import isika.p3.amappli.service.amap.ShoppingCartService;
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -36,18 +41,83 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	private ProductRepository productRepository;
 	@Autowired
 	private WorkshopRepository workshopRepository;
+	@Autowired 
+	private MembershipFeeRepository membershipRepo;
+	@Autowired
+	private EntityManager entityManager;
 	
 	
+	 public ShoppingCart getCartByUserId(Long userId) {
+	        User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+
+	        // get cart by user id or create new
+	        ShoppingCart cart = shoppingCartRepo.findByUserId(userId);
+	        if (cart == null) {
+	            cart = new ShoppingCart();
+	            cart.setUser(user);
+	            shoppingCartRepo.save(cart); // Persist ShoppingCart
+	        }
+
+	        // membershipfee logic
+	        handleMembershipFee(user, cart);
+
+	        return cart;
+	    }
+
+	    private void handleMembershipFee(User user, ShoppingCart cart) {
+	        // checks if fee is null or unvalid
+	        MembershipFee fee = user.getMembershipFee();
+	        if (fee == null || !isMembershipFeeValid(fee)) {
+	            // if true, create new
+	            fee = createNewMembershipFee(user);
+	            membershipRepo.save(fee); // persist explicitly
+	            // if membership is not in shopping cart
+	            if (!cartContainsMembershipFee(cart)) {
+	            	addMembershipFeeToCart(cart, fee);
+	            }
+	        }
+
+	    }
+
+	    private boolean isMembershipFeeValid(MembershipFee fee) {
+	        return fee.getDateEnd().isAfter(LocalDate.now());
+	    }
+
+	    private MembershipFee createNewMembershipFee(User user) {
+	        return MembershipFee.builder()
+	                .info("Cotisation annuelle")
+	                .stock(1)
+	                .price(user.getTenancy().getMembershipFeePrice().doubleValue())
+	                .dateBeginning(LocalDate.now())
+	                .dateEnd(LocalDate.now().plusDays(365))
+	                .build();
+	    }
+
+	    private boolean cartContainsMembershipFee(ShoppingCart cart) {
+	        return cart.getShoppingCartItems().stream()
+	                .anyMatch(item -> item.getShoppable() instanceof MembershipFee);
+	    }
+
+	    private void addMembershipFeeToCart(ShoppingCart cart, MembershipFee fee) {
+	        ShoppingCartItem newItem = ShoppingCartItem.builder()
+	                .shoppingCart(cart)
+	                .shoppable(fee)
+	                .quantity(1)
+	                .build();
+	        itemsRepo.save(newItem); 
+	        cart.getShoppingCartItems().add(newItem); 
+	        shoppingCartRepo.save(cart); 
+	    }
 	
-    public ShoppingCart getCartByUserId(Long userId) {
-        ShoppingCart cart = shoppingCartRepo.findByUserId(userId);
-        if (cart == null) {
-        	ShoppingCart newCart =new ShoppingCart();
-        	newCart.setUser(userRepo.findById(userId).orElse(null));
-        	shoppingCartRepo.save(newCart);
-        	return newCart;
-        } return cart;
-    }
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
     
 	public ShoppingCart getOrCreateCart(Long cartId) {
 	    return shoppingCartRepo.findById(cartId).orElseGet(() -> {

@@ -29,9 +29,9 @@ public class OrderController {
 	@Autowired
 	private GraphismService graphismService;
 	
-	@GetMapping("/account/my-orders/{userId}")
-	public String viewOrderByUser(@PathVariable("userId") Long userId, @PathVariable("tenancyAlias") String alias, Model model) {
-		userId = getUserIdFromContext();
+	@GetMapping("/account/my-orders")
+	public String viewOrderByUser(@PathVariable("tenancyAlias") String alias, Model model) {
+		Long userId = getUserIdFromContext();
 		
 		List<Order> orderByUser = orderService.getListOrdersByUser(userId);
 		model.addAttribute("orders", orderByUser);
@@ -74,11 +74,11 @@ public class OrderController {
 	}
 	
     
-    @PostMapping("order/{userId}/createOrder")
+    @PostMapping("order/createOrder")
     public String createOrder(
-    		@PathVariable("userId") Long userId,  @PathVariable("tenancyAlias") String alias, 
+    		 @PathVariable("tenancyAlias") String alias, 
             @ModelAttribute("action") String action) {
-    	userId = getUserIdFromContext();
+    	Long userId = getUserIdFromContext();
     	ShoppingCart cart = orderService.getCartByUserId(userId);
     	
     	if ("OrderWithPayment".equals(action)) {
@@ -86,7 +86,7 @@ public class OrderController {
     	} else if ("OrderWithoutPayment".equals(action)) {
     		orderService.createOrderFromCartWithOnsitePayment(cart.getShoppingCartId());
     	}
-    	return "redirect:/{tenancyAlias}/account/my-orders/" + userId;
+    	return "redirect:/amap/{tenancyAlias}/account/my-orders";
     }
     
     @PostMapping("order/updateOrder")
@@ -95,6 +95,12 @@ public class OrderController {
     	orderService.validatePayment(orderId, paymentType);
     	return "redirect:/amap/{tenancyAlias}/admin/order-details/" + orderId;
     }
+    
+    
+    
+    
+    
+    
     
 	public void addGraphismAttributes(String alias, Model model) {
 		// get map style and coordinates depending on tenancy
@@ -117,7 +123,7 @@ public class OrderController {
 		if (principal instanceof CustomUserDetails) {
 			CustomUserDetails loggedUserInfo = (CustomUserDetails) principal;
 			return (Long) loggedUserInfo.getAdditionalInfoByKey("userId");
-		} else return 1L;
+		} else return 7L;
 	}
 
 }
