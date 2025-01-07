@@ -31,7 +31,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         int slashIndex = uri.indexOf("/",14); // check if there's a slash after the tomcat /Amappli/amap/
 
         System.out.println("the slash index :"+slashIndex);
-        if(uri.startsWith("/Amappli/amap") && slashIndex > 14){ // there is a /part/ after amap
+        if(uri.startsWith("/Amappli/amap/") && slashIndex > 14){ // there is a /part/ after amap
             String potentialTenancyAlias = uri.substring(14, slashIndex);
             System.out.println("the potential tenancy alias :"+potentialTenancyAlias);
             if(!potentialTenancyAlias.equals("amappli")){ //if the potentialTenancyAlias is Amappli, that means that the uri is in fact a platform URI

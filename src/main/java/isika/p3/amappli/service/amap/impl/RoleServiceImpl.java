@@ -52,6 +52,11 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
+	public List<Role> findAmapExclusiveRoles(String tenancyAlias){
+		return roleRepository.findByTenancyTenancyAlias(tenancyAlias);
+	}
+
+	@Override
 	public Role createRole(Role role) {
 		if (roleRepository.findByName(role.getName()) != null) {
 			throw new IllegalArgumentException("Ce rôle existe déjà !");
@@ -120,4 +125,8 @@ public class RoleServiceImpl implements RoleService {
 		roleRepository.save(r);
 	}
 
+	@Override
+	public List<Role> findAllGenericRoles(){
+		return roleRepository.findByTenancyIsNullExceptRoleOne();
+	}
 }
