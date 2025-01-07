@@ -99,7 +99,7 @@ public class RoleController {
 		return "redirect:/amappli/roles/manage";
 	}
 
-	//@PreAuthorize("hasAuthority('gestion utilisateurs amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
+	@PreAuthorize("hasAuthority('gestion utilisateurs amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
 	@GetMapping("/amap/{tenancyAlias}/roles/manage")
 	public String showRolesWithPermissions(@PathVariable("tenancyAlias") String alias, Model model) {
 
@@ -146,7 +146,7 @@ public class RoleController {
 
 	}
 
-	//@PreAuthorize("hasAuthority('gestion utilisateurs amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
+	@PreAuthorize("hasAuthority('gestion utilisateurs amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
 	@PostMapping("/amap/{tenancyAlias}/roles/manage")
 	public String editRolesWithPermissions(@PathVariable("tenancyAlias") String alias, RoleDTO roleDTO) {
 		

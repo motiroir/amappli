@@ -2,6 +2,10 @@ package isika.p3.amappli.controllers.amappli;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +22,7 @@ import isika.p3.amappli.entities.tenancy.ColorPalette;
 import isika.p3.amappli.entities.tenancy.FontChoice;
 import isika.p3.amappli.exceptions.EmailAlreadyExistsException;
 import isika.p3.amappli.exceptions.TenancyAliasAlreadyTakenException;
+import isika.p3.amappli.security.CustomUserDetails;
 import isika.p3.amappli.service.amap.ContentBlockService;
 import isika.p3.amappli.service.amap.UserService;
 import isika.p3.amappli.service.amappli.TenancyService;
@@ -64,8 +69,19 @@ public class PlatformStartController {
         return "amappli/front/platformstart/signupdone";
     }
 
+    @PreAuthorize("hasAuthority('modification page accueil amap')")
     @GetMapping("/creation")
     public String createTenancy(Model model) {
+
+        // Get logged user
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		CustomUserDetails loggedUserInfo = (CustomUserDetails) authentication.getPrincipal();
+
+        String tenancyAlias = (String) loggedUserInfo.getAdditionalInfoByKey("tenancyAlias");
+        if(tenancyAlias != null){
+            return "redirect:/amap/" + tenancyAlias + "/home";
+        }
+
         model.addAttribute("errorspresent", false);
         NewTenancyDTO newTenancyDTO = new NewTenancyDTO();
         // Three possibles values
@@ -81,9 +97,14 @@ public class PlatformStartController {
         return "amappli/front/platformstart/createtenancy";
     }
 
+    @PreAuthorize("hasAuthority('modification page accueil amap')")
     @PostMapping("/creation")
     public String tenancyCreation(@Valid @ModelAttribute("newTenancyDTO") NewTenancyDTO newTenancyDTO, BindingResult result, Model model) {
         
+        // Get logged user
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		CustomUserDetails loggedUserInfo = (CustomUserDetails) authentication.getPrincipal();
+
         model.addAttribute("colorPalettes",ColorPalette.values());
         model.addAttribute("fontChoices", FontChoice.values());
         System.out.println(newTenancyDTO.getTenancyAlias());
@@ -95,7 +116,7 @@ public class PlatformStartController {
         }
         // Write tenancy to DB
         try {
-            tenancyService.createTenancyFromWelcomeForm(newTenancyDTO);
+            tenancyService.createTenancyFromWelcomeForm(newTenancyDTO, (Long) loggedUserInfo.getAdditionalInfoByKey("userId"));
         }
         catch (TenancyAliasAlreadyTakenException e){
             model.addAttribute("aliasError", e.getMessage());

@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import isika.p3.amappli.entities.tenancy.HomePageContent;
@@ -17,16 +16,27 @@ import isika.p3.amappli.entities.tenancy.ContentBlock;
 import isika.p3.amappli.entities.tenancy.Graphism;
 import isika.p3.amappli.entities.tenancy.Options;
 import isika.p3.amappli.entities.tenancy.Tenancy;
+import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.exceptions.TenancyAliasAlreadyTakenException;
+import isika.p3.amappli.repo.amap.UserRepository;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
+import isika.p3.amappli.service.amap.UserService;
 import isika.p3.amappli.service.amappli.TenancyService;
+import jakarta.transaction.Transactional;
 
 @Service
 public class TenancyServiceImpl implements TenancyService {
 
+	private final TenancyRepository tenancyRepository;
 
-	@Autowired
-	private TenancyRepository tenancyRepository;
+	private final UserRepository userRepository;
+
+
+	public TenancyServiceImpl(TenancyRepository tenancyRepository, UserRepository userRepository) {
+		this.tenancyRepository = tenancyRepository;
+		this.userRepository = userRepository;
+	}
+
 
 	@Override
 	public HomePageContent getHomePageContentByTenancyId(Long id) {
@@ -77,11 +87,11 @@ public class TenancyServiceImpl implements TenancyService {
 		return Base64.getEncoder().encodeToString(imageBytes);
 	}
 
-	
+	@Transactional
 	@Override
-	public void createTenancyFromWelcomeForm(NewTenancyDTO newTenancyDTO) {
+	public void createTenancyFromWelcomeForm(NewTenancyDTO newTenancyDTO, Long creatorUserId) {
 		Tenancy tenancy = new Tenancy();
-
+		
 		// Name
 		tenancy.setTenancyName(newTenancyDTO.getTenancyName());
 		// Address
@@ -186,6 +196,10 @@ public class TenancyServiceImpl implements TenancyService {
 		// Will cause error if tenancyAlias already taken
 		try {
 			tenancyRepository.save(tenancy);
+			// Affect it to the creator user
+			User creator = userRepository.findById(creatorUserId).get();
+			creator.setTenancy(tenancy);
+			userRepository.save(creator);
 		} catch (RuntimeException e) {
 			throw new TenancyAliasAlreadyTakenException("Cette url d'AMAP est déjà utilisée.");
 		}
