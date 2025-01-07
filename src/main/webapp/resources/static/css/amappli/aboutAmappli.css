@@ -17,15 +17,6 @@
 	border: 1.5px solid #FFBE98;
 } */
 
-.value-card {
-	background-color: #ffffff;
-	border-radius: 25px;
-	padding: 20px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	height: 100%;
-	border: 1.5px solid #FFBE98;
-	
-}
 
 .value-text {
 	color: #333333;
@@ -36,17 +27,7 @@
 	font-weight: bold;
 	font-size: 1.2rem;
 }
-.image-column2 img {
-	border-radius: 25px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	border: 1.5px solid #FFBE98;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	max-height: 80%;
-	object-fit: contain;
-	display: block;
-}
+
 
 .title {
 	font-weight: bold;

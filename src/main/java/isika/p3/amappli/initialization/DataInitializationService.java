@@ -237,6 +237,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci4);
 		user4.setAddress(a4);
 		user4.setContactInfo(ci4);
+		saveUser(user4);
 		
 		User user5 = User.builder().email("claire.fournier@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
 									.isActive(true)

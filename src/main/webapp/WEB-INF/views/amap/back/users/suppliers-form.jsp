@@ -34,12 +34,12 @@ request.setAttribute("currentPage", currentPage);
 			<div class="row justify-content-center">
 					<div class="form-container">
 						<div class="header-container">
-							<a href="<c:url value='/${tenancyAlias}/backoffice/suppliers/list' />" class="${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900">
+							<a href="<c:url value='/${tenancyAlias}/admin/suppliers/list' />" class="${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900">
 								<i class="bi bi-arrow-left"></i> Liste<span class="d-none d-md-inline"> des producteurs</span>
 							</a>
 							<h2 class="my-4 fw-bold">Ajouter un producteur</h2>
 						</div>
-						<form:form method="POST" action="/Amappli/${tenancyAlias}/backoffice/suppliers/add" enctype="multipart/form-data" modelAttribute="user">
+						<form:form method="POST" action="/Amappli/${tenancyAlias}/admin/suppliers/add" enctype="multipart/form-data" modelAttribute="user">
                             <div class="row">
                                 <!-- Première colonne -->
                                 <div class="col-md-4">

@@ -39,7 +39,7 @@ request.setAttribute("currentPage", currentPage);
 						<!-- Nombre total de fournisseurs -->
 						<div class="me-4 fs-5 fc-main d-none d-md-block">
 							<span>${suppliers.size()} éléments</span> <a
-								href="<c:url value='/${tenancyAlias}/backoffice/users/generateFakes' />">ajouter 20 users</a>
+								href="<c:url value='/${tenancyAlias}/admin/users/generateFakes' />">ajouter 20 users</a>
 						</div>
 						<!-- Dropdown pour trier -->
 						<div class="d-flex align-items-center me-4">
@@ -61,7 +61,7 @@ request.setAttribute("currentPage", currentPage);
 					<div
 						class="table-container d-flex justify-content-between align-items-center my-2">
 						<h2 class="fw-bold fc-main my-auto">Liste des fournisseurs</h2>
-						<a href="<c:url value='/${tenancyAlias}/backoffice/suppliers/form'/>" class="btn btn-outline-300 rounded-pill fch-main fw-bold border-2">
+						<a href="<c:url value='/${tenancyAlias}/admin/suppliers/form'/>" class="btn btn-outline-300 rounded-pill fch-main fw-bold border-2">
 						<span class="icon">+ </span><span class=" d-none d-md-inline">Ajouter un fournisseur</span>
 						</a>
 					</div>
@@ -82,7 +82,7 @@ request.setAttribute("currentPage", currentPage);
 										${supplier.contactInfo.name}</td>
 									<td>
 										<div class='d-flex justify-content-start align-items-center'>
-											<a href="<c:url value='/${tenancyAlias}/backoffice/suppliers/details/${supplier.userId}' />" class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1">
+											<a href="<c:url value='/${tenancyAlias}/admin/suppliers/details/${supplier.userId}' />" class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1">
 												<i class="bi bi-eye"></i>
 											</a>
 											<form:form action="delete/${supplier.userId}" class="d-inline" onsubmit="return confirm('Voulez-vous vraiment supprimer l\'adhérent ${supplier.contactInfo.firstName} ${supplier.contactInfo.name} ?');">
