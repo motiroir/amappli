@@ -80,13 +80,13 @@
 						<tbody>
 							<c:forEach var="user" items="${users}">
 								<tr>
-									<td>${user.contactInfo.firstName}
+									<td class="text-wrap">${user.contactInfo.firstName}
 										${user.contactInfo.name}</td>
-									<td class="text-break d-none d-md-table-cell">${user.email}</td>
+									<td class="text-wrap d-none d-md-table-cell">${user.email}</td>
 									<td class="d-table-cell d-md-none"></td>
 									<td class="d-none d-md-table-cell">${user.creditBalance == null ? 0 : user.creditBalance}</td>
 									<td class="d-table-cell d-md-none"></td>
-									<td>
+									<td class="text-wrap">
 										<c:forEach var="role" items="${user.roles}">
 	                                        <span>${role.name}</span>
 										</c:forEach>

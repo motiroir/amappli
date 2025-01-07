@@ -14,13 +14,9 @@ request.setAttribute("currentPage", currentPage);
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Liste des Contrats</title>
-<link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />"
-	rel="stylesheet">
-<link href="<c:url value='/resources/css/common/utils.css' />"
-	rel="stylesheet">
-<link
-	href="<c:url value='/resources/bootstrap/bootstrap-icons.min.css' />"
-	rel="stylesheet">
+<link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />" rel="stylesheet">
+<link href="<c:url value='/resources/css/common/utils.css' />" rel="stylesheet">
+<link href="<c:url value='/resources/bootstrap/bootstrap-icons.min.css' />" rel="stylesheet">
 </head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
 
@@ -37,7 +33,6 @@ request.setAttribute("currentPage", currentPage);
 	<div class="content col">
 		<div class="container-fluid mt-2">
 			<div class="row justify-content-center">
-				<div class="col-12">
 					<div class="search-bar d-flex align-items-center mb-3">
 						<!-- Nombre total de contrats -->
 						<div class="me-4 fs-5 fc-main d-none d-md-block">
@@ -80,26 +75,30 @@ request.setAttribute("currentPage", currentPage);
 						style="--bs-table-bg: color-mix(in srgb, #ffffff, transparent 100%);">
 						<thead>
 							<tr>
-								<th class="bg-700">Image</th>
+								<th class="d-none d-md-table-cell bg-700">Image</th>
+								<th class="d-table-cell d-md-none bg-700"></th>
 								<th class="bg-700">Nom</th>
-								<th class="bg-700">Type</th>
+								<th class="d-none d-md-table-cell bg-700">Type</th>
+								<th class="d-table-cell d-md-none bg-700"></th>
 								<th class="bg-700">Producteur</th>
-								<th class="bg-700">Prix</th>
+								<th class="d-none d-md-table-cell bg-700">Prix</th>
+								<th class="d-table-cell d-md-none bg-700"></th>
 								<th class="bg-700">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="contract" items="${contracts}">
 								<tr>
-									<td><c:if test="${not empty contract.imageData}">
-											<img
-												src="data:${contract.imageType};base64,${contract.imageData}"
-												alt="Image du contrat"
+									<td class="d-table-cell d-md-none"></td>
+									<td class="text-truncate d-none d-md-table-cell"><c:if test="${not empty contract.imageData}">
+											<img src="data:${contract.imageType};base64,${contract.imageData}" alt="Image du contrat"
 												style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover;">
 										</c:if></td>
-									<td class="d-none d-md-table-cell">${contract.contractName}</td>
+									<td class="text-wrap">${contract.contractName}</td>
+									<td class="d-table-cell d-md-none"></td>
 									<td class="d-none d-md-table-cell">${contract.contractType.displayName}</td>
-									<td class="d-none d-lg-table-cell">${contract.user.companyDetails.companyName}</td>
+									<td class="text-wrap">${contract.user.companyDetails.companyName}</td>
+									<td class="d-table-cell d-md-none"></td>
 									<td class="d-none d-md-table-cell">${contract.contractPrice}€</td>
 									<td>
 										<div class='d-flex justify-content-start align-items-center'>
@@ -124,7 +123,6 @@ request.setAttribute("currentPage", currentPage);
 							</c:forEach>
 						</tbody>
 					</table>
-				</div>
 			</div>
 		</div>
 	</div>
