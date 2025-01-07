@@ -20,8 +20,8 @@
 							<li>
 								<a href="<c:url value='/amap/${tenancyAlias}/admin/suppliers/list'/>" class="fch-600 text-decoration-none ${currentPage.equals('suppliers') ? 'active' : ''}">Vos fournisseurs</a>
 							</li>
-							<li>
-								<a class="disabled text-decoration-none">Vos rôles personnalisés</a> <span class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">PRO</span>
+							<li class="d-flex justify-content-between">
+								<a class="disabled text-decoration-none">Vos rôles personnalisés</a> <span class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">€</span>
 							</li>
 						</ul>
 					</div>
@@ -38,11 +38,11 @@
 							<li>
 								<a href="<c:url value='/amap/${tenancyAlias}/admin/contracts/list'/>" class="${currentPage.equals('contracts') ? 'active' : ''} text-decoration-none fch-600">Les contrats</a>
 							</li>
-							<li>
-								<a class="disabled text-decoration-none">L'épicerie</a> &emsp;<span class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">PRO</span>
+							<li class="d-flex justify-content-between">
+								<a class="disabled text-decoration-none">L'épicerie</a><span class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">€</span>
 							</li>
-							<li>
-								<a class="disabled text-decoration-none">Les ateliers</a> &emsp;<span class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">PRO</span>
+							<li class="d-flex justify-content-between">
+								<a class="disabled text-decoration-none">Les ateliers</a><span class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">€</span>
 							</li>
 						</ul>
 					</div>
@@ -57,7 +57,7 @@
 					<div id="submenu-site" data-bs-parent="#accordion-parent" class="accordion-collapse collapse bg-main ${currentMainMenu.equals('site') ? 'show' : ''}">
 						<ul class="accordion-body list-unstyled">
 							<!-- Pas de sous-rubrique pour l'instant -->
-							<li class="fc-alt">this is a test </li>
+							<li class="fc-alt"><a href="<c:url value='/amap/${tenancyAlias}/home'/>" class="text-decoration-none fch-600" >Page d'accueil de <span class="text-capitalize">${tenancyAlias}</span></a></li>
 						</ul>
 					</div>
 				</li>
@@ -66,7 +66,7 @@
 				<li class="accordion-item">
 					<h2 id="features" class="accordion-header" aria-expanded="${currentMainMenu.equals('features')}" aria-controls="submenu-features" data-bs-target="#submenu-features">
 						<button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse">
-							Vos fonctionnalités&emsp;&emsp;&emsp;
+							Votre abonnement&emsp;&emsp;&emsp;
 						</button>
 					</h2>
 					<div id="submenu-features" data-bs-parent="#accordion-parent" class="accordion-collapse collapse bg-main ${currentMainMenu.equals('features') ? 'show' : ''}">
@@ -79,22 +79,31 @@
 				<!-- Rubriques PRO -->
 				<li class="accordion-item pro">
 					<h2 class="accordion-header ${currentMainMenu.equals('stats') ? 'show' :''}">
-						<button class="accordion-button collapsed fw-bold disabled" type="button" data-bs-toggle="collapse" data-bs-target="" aria-expanded="false" aria-controls="">
-							Statistiques &emsp;<span class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">PRO</span>
+						<button class="accordion-button collapsed fw-bold disabled row pe-0 justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="" aria-expanded="false" aria-controls="">
+							<span class="col">Statistiques</span>
+							<div class="col-2">
+								<span class="badge rounded-circle text-secondary fw-bold float-end border border-2 border-secondary bg-transparent">€</span>
+							</div>
 						</button>
 					</h2>
 				</li>
 				<li class="accordion-item pro">
 					<h2 class="accordion-header ${currentMainMenu.equals('messages') ? 'show' :''}">
-						<button class="accordion-button collapsed fw-bold disabled" type="button" data-bs-toggle="collapse" data-bs-target="" aria-expanded="false" aria-controls="">
-							Messagerie &emsp;<span class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">PRO</span>
+						<button class="accordion-button collapsed fw-bold disabled row pe-0 justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="" aria-expanded="false" aria-controls="">
+							<span class="col">Messagerie</span>
+							<div class="col-2">
+								<span class="badge rounded-circle text-secondary fw-bold float-end border border-2 border-secondary bg-transparent">€</span>
+							</div>
 						</button>
 					</h2>
 				</li>
 				<li class="accordion-item pro">
 					<h2 class="accordion-header ${currentMainMenu.equals('newsletter') ? 'show' :''}">
-						<button class="accordion-button collapsed fw-bold disabled" type="button" data-bs-toggle="collapse" data-bs-target="" aria-expanded="false" aria-controls="">
-							Newsletter &emsp;<span class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">PRO</span>
+						<button class="accordion-button collapsed fw-bold disabled row pe-0 justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="" aria-expanded="false" aria-controls="">
+							<span class="col">Newsletter</span>
+							<div class="col-2">
+								<span class="badge rounded-circle text-secondary fw-bold float-end border border-2 border-secondary bg-transparent">€</span>
+							</div>
 						</button>
 					</h2>
 				</li>
