@@ -1,10 +1,13 @@
 package isika.p3.amappli.repo.amap;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import isika.p3.amappli.entities.auth.Permission;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.User;
 
@@ -18,5 +21,9 @@ public interface UserRepository extends JpaRepository<User, Long>{
 
 	@Query("SELECT u FROM User u LEFT JOIN FETCH u.orders WHERE u.id = :userId")
     User findUserWithOrders(@Param("userId") Long userId);
+	
+    @Query("SELECT u FROM User u JOIN u.roles r WHERE u.tenancy = :tenancy AND r.name = :roleName")
+    List<User> findByTenancyAndRole(@Param("tenancy") Tenancy tenancy, @Param("roleName") String roleName);
+    
 
 }
