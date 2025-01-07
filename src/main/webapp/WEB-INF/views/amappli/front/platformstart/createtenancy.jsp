@@ -216,7 +216,7 @@
                             <div class="col-12 col-md-6 col-lg-4 text-center align-self-center">
                                 <input type="radio" id="font-${font}" value="${font}" name="font-selection"/>
                                 <label for="font-${font}" class="font-choices d-flex align-items-center justify-content-center">
-                                    <h2 class="${fn:toLowerCase(font)}">${font}</h2>
+                                    <h1 class="${fn:toLowerCase(font)}">${font}</h1>
                                 </label>
                             </div>
                         </c:forEach>
@@ -372,12 +372,19 @@
             <div class="form-part px-0 my-4">
 
                 <h3 class="mb-3">Choississez maintenant votre abonnement à Amappli:</h3>
-
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
                 <div class="mb-3">
                     <ul class="row d-flex list-unstyled justify-content-around align-items-stretch">
                         <li class="col-12 col-md-4 d-flex pricing-list">
                             <form:radiobutton path="option" value="option-1" id="option-1" />
-                            <label for="option-1" class="w-100 flex-fill d-flex flex-column">
+                            <label for="option-1" id="option-1-label" class="w-100 flex-fill d-flex flex-column">
                                 <div id="pricing-1" class="pricing flex-fill text-center py-3 px-2 rounded-5 align-content-between bg-300">
                                     <h2 class="h4 fw-bold">Potager</h2>
                                     <p classe="my-2">Site opérationnel avec les fonctionnalités de base</p>
@@ -387,7 +394,7 @@
                         </li>
                         <li class="col-12 col-md-4 d-flex pricing-list">
                             <form:radiobutton path="option" value="option-2" id="option-2"  />
-                            <label for="option-2" class="w-100 flex-fill d-flex flex-column">
+                            <label for="option-2" id="option-2-label" class="w-100 flex-fill d-flex flex-column">
                                 <div id="pricing-2"	class="pricing flex-fill text-center py-3 px-2 rounded-5 align-content-between bg-400">
                                 <h2 class="h4 fw-bold">Verger</h2>
                                 <p classe="my-2">Plus d'outils avancés pour personnaliser et enrichir votre
@@ -398,7 +405,7 @@
                         </li>
                         <li class="col-12 col-md-4 d-flex pricing-list">
                             <form:radiobutton path="option" value="option-3" id="option-3" />
-                            <label for="option-3" class="w-100 flex-fill d-flex flex-column">
+                            <label for="option-3" id="option-3-label" class="w-100 flex-fill d-flex flex-column">
                                 <div id="pricing-3" class="pricing flex-fill text-center py-3 px-2 rounded-5 align-content-between bg-500">
                                     <h2 class="h4 fw-bold">Ferme</h2>
                                     <p classe="my-2">Toutes les fonctionnalités pour une gestion complète et
