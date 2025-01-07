@@ -10,16 +10,20 @@
     max-height: 100vh; /* Limite la hauteur pour éviter de dépasser l'écran */
 }
 
+.border-top-rounded {
+    border-radius: 5px 5px 0 0;
+}
+
 </style>
 <nav class="navbar h-50 p-5 w-auto">
 	<div
-		class="bg-100 border border-1 border-main d-flex flex-column justify-content-center mx-auto rounded-top">
+		class="bg-100 border border-1 border-main border-top-rounded d-flex flex-column justify-content-center mx-auto">
 		<div id="sidebar" class="flex-grow-1">
 			<ul class="nav flex-column text-start">
 				<!-- Paniers maraîchers -->
 				<li><a
 					href="<c:url value='/amap/${tenancyAlias}/shop/contracts'/>"
-					class="ps-2 pe-5 pt-3 d-flex align-items-left border-bottom ${currentMainMenu.equals('contracts') ? 'active bg-500 fc-100' : ' fc-500 text-decoration-none'}">
+					class="ps-2 pe-5 pt-3 d-flex align-items-left border-bottom border-top-rounded ${currentMainMenu.equals('contracts') ? 'active bg-500 fc-100' : ' fc-500 text-decoration-none'}">
 						<i class="bi bi-basket me-2"></i>
 						<h4 class="fw-bold">Paniers</h4>
 				</a>

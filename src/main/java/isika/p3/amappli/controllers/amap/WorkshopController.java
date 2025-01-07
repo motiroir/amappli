@@ -45,36 +45,22 @@ public class WorkshopController {
 	}
 
 	/**
-	 * Initializes custom data binding for LocalDate.
-	 */
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		binder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport() {
-			@Override
-			public void setAsText(String text) throws IllegalArgumentException {
-				if (text == null || text.isEmpty()) {
-					setValue(null);
-				} else {
-					setValue(LocalDate.parse(text, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-				}
-			}
-		});
-	}
-
-	/**
 	 * Displays the form for adding a new workshop.
 	 */
 	@GetMapping("/form")
 	public String showForm(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 
 		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
+		
 		Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
 				.orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+		
 		Address address = tenancy.getAddress();
 
+		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		
 		model.addAttribute("workshop", new Workshop());
 		model.addAttribute("tenancyAlias", tenancyAlias);
-		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("users", users);
 		model.addAttribute("address", address);
@@ -88,10 +74,12 @@ public class WorkshopController {
 	@PostMapping("/add")
 	public String addWorkshop(@ModelAttribute("workshopDTO") WorkshopDTO workshopDTO,
 			@PathVariable("tenancyAlias") String tenancyAlias) {
+		
 		workshopService.save(workshopDTO, tenancyAlias);
 		if (workshopDTO.getWorkshopName() == null || workshopDTO.getWorkshopName().isEmpty()) {
 			throw new IllegalArgumentException("Le champ 'Nom du produit' est obligatoire.");
 		}
+		
 		return "redirect:/amap/" + tenancyAlias + "/admin/workshops/list";
 	}
 
@@ -129,29 +117,28 @@ public class WorkshopController {
 		Workshop workshop = workshopService.findById(id);
 
 		if (workshop == null) {
-			return "redirect:/amap/workshops/list"; // Redirige si le contrat n'existe pas
+			return "redirect:/amap/workshops/list";
 		}
 
-		// Formater la date et l'heure pour le champ datetime-local
 		if (workshop.getWorkshopDateTime() != null) {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 			String formattedDateTime = workshop.getWorkshopDateTime().format(formatter);
 			model.addAttribute("workshopDateTime", formattedDateTime);
 		}
 
-		// Récupérer l'utilisateur associé
 		User user = workshop.getUser();
 		Address address = null;
 		if (user != null) {
-			address = user.getAddress(); // Récupérer l'adresse associée à l'utilisateur
+			address = user.getAddress();
 		}
 		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
+		
 		model.addAttribute("users", users);
 		model.addAttribute("address", address);
 		model.addAttribute("workshop", workshop);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 
-		return "amap/back/workshops/workshop-edit"; // Nom de la vue pour le formulaire d'édition
+		return "amap/back/workshops/workshop-edit";
 	}
 
 	/**
@@ -160,11 +147,11 @@ public class WorkshopController {
 	@GetMapping("/detail/{id}")
 	public String viewWorkshopDetail(@PathVariable("id") Long id, Model model,
 			@PathVariable("tenancyAlias") String tenancyAlias) {
+		
 		Workshop workshop = workshopService.findById(id);
 		if (workshop == null) {
 			throw new IllegalArgumentException("Contrat introuvable pour l'ID : " + id);
 		}
-		// Formater la date et l'heure pour le champ datetime-local
 		if (workshop.getWorkshopDateTime() != null) {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 			String formattedDateTime = workshop.getWorkshopDateTime().format(formatter);
@@ -173,10 +160,10 @@ public class WorkshopController {
 		Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
 				.orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
 		Address address = tenancy.getAddress();
-		model.addAttribute("address", address);
 		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
-		model.addAttribute("users", users);
 		String formattedDate = workshop.getDateCreation().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+		model.addAttribute("address", address);
+		model.addAttribute("users", users);
 		model.addAttribute("formattedDate", formattedDate);
 		model.addAttribute("workshop", workshop);
 		model.addAttribute("tenancyAlias", tenancyAlias);
@@ -194,17 +181,30 @@ public class WorkshopController {
 		return "redirect:/amap/" + tenancyAlias + "/admin/workshops/list";
 	}
 	
+	/**
+	 * Initializes custom data binding for LocalDate.
+	 */
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport() {
+			@Override
+			public void setAsText(String text) throws IllegalArgumentException {
+				if (text == null || text.isEmpty()) {
+					setValue(null);
+				} else {
+					setValue(LocalDate.parse(text, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+				}
+			}
+		});
+	}
+	
 	public void addGraphismAttributes(String alias, Model model) {
-		// get map style depending on tenancy
 		model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
 		model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
 		model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
 		model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
-		// get tenancy info for header footer
 		model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
-		// get color palette
 		model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
-		// get font choice
 		model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
 	}
 

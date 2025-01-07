@@ -29,8 +29,8 @@ request.setAttribute("currentPage", currentPage);
 	<jsp:include page="../front/common/sidebarUser.jsp" />
 	<div id="map" class="p-0"></div>
 
-	<div class="content col fc-main">
-		<div class="container-fluid mt-4">
+	<div class="content fc-main" style="max-width: 95%;">
+		<div class="container mt-4" style="max-width: 95%;">
 			<div class="search-bar row align-items-center mx-auto" items="${contracts}"
 				style="max-width: 95%;">
 				<!-- Première colonne -->
@@ -64,11 +64,11 @@ request.setAttribute("currentPage", currentPage);
 			</div>
 			<br>
 
-			<div class="container">
-				<div class="row g-4 mx-auto justify-content-center"
+			<div class="container-fluid">
+				<div class="row justify-content-center"
 					style="max-width: 95%;">
 					<c:forEach var="contract" items="${contracts}">
-						<div class="col-12 col-md-3" >
+						<div class="col-3" >
 							<div
 								class="card contract-card rounded-4 border border-1 border-main bg-100">
 								<c:if test="${not empty contract.imageData}">

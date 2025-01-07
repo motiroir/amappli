@@ -51,6 +51,158 @@ public class ContractController {
 	}
 
 	/**
+	 * Displays the form for adding a new contract.
+	 */
+	@GetMapping("/form")
+	public String showForm(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
+		
+		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
+		
+	    Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
+	            .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+	    
+	    Address address = tenancy.getAddress();
+	    
+		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		
+		model.addAttribute("users", users);
+		model.addAttribute("currentDate", currentDate);
+		model.addAttribute("pickupSchedule", tenancy.getPickUpSchedule());
+		model.addAttribute("address", address);
+		model.addAttribute("contract", new Contract());
+		model.addAttribute("tenancyAlias", tenancyAlias);
+		model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
+		model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
+		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
+		addGraphismAttributes(tenancyAlias, model);
+		
+		return "amap/back/contracts/contract-form";
+	}
+
+	/**
+	 * Saves a new contract to the database.
+	 */
+	@PostMapping("/add")
+	public String addContract(@ModelAttribute("contractDTO") ContractDTO newContractDTO,
+			@PathVariable("tenancyAlias") String tenancyAlias) {
+		
+		contractService.save(newContractDTO, tenancyAlias);
+		
+		return "redirect:/amap/" + tenancyAlias + "/admin/contracts/list";
+
+	}
+
+	/**
+	 * Displays a list of all contracts.
+	 */
+	@GetMapping("/list")
+	public String listContracts(Model model, @PathVariable String tenancyAlias) {
+		
+		Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
+				.orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+		
+		List<Contract> contracts = contractService.findAll(tenancyAlias);
+		
+		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
+		
+		model.addAttribute("users", users);
+		model.addAttribute("contracts", contracts);
+		model.addAttribute("tenancyAlias", tenancyAlias);
+		addGraphismAttributes(tenancyAlias, model);
+		
+		return "amap/back/contracts/contract-list";
+	}
+
+	/**
+	 * Deletes a contract by its ID.
+	 */
+	@PostMapping("/delete/{id}")
+	public String deleteContract(@PathVariable("id") Long id, @PathVariable("tenancyAlias") String tenancyAlias) {
+		
+		contractService.deleteById(id);
+		
+		return "redirect:/amap/" + tenancyAlias + "/admin/contracts/list";
+	}
+
+	/**
+	 * Displays the edit form for a specific contract.
+	 */
+	@GetMapping("/edit/{id}")
+	public String editContractForm(@PathVariable("tenancyAlias") String tenancyAlias, @PathVariable("id") Long id,
+			Model model) {
+		
+		Contract contract = contractService.findById(id);
+		if (contract == null) {
+			return "redirect:/" + tenancyAlias + "/admin/contracts/list"; // Redirige si le contrat n'existe pas
+		}
+		
+	    Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
+	            .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+	    
+	    Address address = tenancy.getAddress();
+	    
+	    List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
+	    
+	    model.addAttribute("address", address);
+		model.addAttribute("users", users);
+		model.addAttribute("contract", contract);
+		model.addAttribute("tenancyAlias", tenancyAlias);
+		model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
+		model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
+		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
+		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
+		
+		return "amap/back/contracts/contract-edit"; // Nom de la vue pour le formulaire d'édition
+	}
+
+	/**
+	 * Displays the details of a specific contract.
+	 */
+	@GetMapping("/detail/{id}")
+	public String viewContractDetail(@PathVariable("id") Long id, Model model,
+			@PathVariable("tenancyAlias") String tenancyAlias) {
+		
+		Contract contract = contractService.findById(id);
+		if (contract == null) {
+			throw new IllegalArgumentException("Contrat introuvable pour l'ID : " + id);
+		}
+		
+	    Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
+	            .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+	    
+	    Address address = tenancy.getAddress();
+	    
+	    List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
+	    
+	    String formattedDate = contract.getDateCreation().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+	    
+	    model.addAttribute("address", address);
+		model.addAttribute("users", users);
+		model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
+		model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
+		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
+		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
+		model.addAttribute("formattedDate", formattedDate);
+		model.addAttribute("contract", contract);
+		model.addAttribute("tenancyAlias", tenancyAlias);
+		model.addAttribute("pickupSchedule", tenancy.getPickUpSchedule());
+		addGraphismAttributes(tenancyAlias, model);
+		
+		return "amap/back/contracts/contract-detail";
+	}
+
+	@PostMapping("/update")
+	public String updateContract(
+		    @ModelAttribute("contract") ContractDTO updatedContractDTO,
+		    @RequestParam(value = "image", required = false) MultipartFile image,
+		    @PathVariable("tenancyAlias") String tenancyAlias) {
+
+		contractService.updateContract(updatedContractDTO, image, tenancyAlias);
+
+		return "redirect:/amap/" + tenancyAlias + "/admin/contracts/list";
+	}
+	
+	/**
 	 * Initializes custom data binding for LocalDate.
 	 */
 	@InitBinder
@@ -66,149 +218,15 @@ public class ContractController {
 			}
 		});
 	}
-
-	/**
-	 * Displays the form for adding a new contract.
-	 */
-	@GetMapping("/form")
-	public String showForm(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
-		
-		model.addAttribute("contract", new Contract());
-		model.addAttribute("tenancyAlias", tenancyAlias);
-		model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
-		model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
-		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
-		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
-		model.addAttribute("users", users);
-	    // Récupérer l'adresse de la tenancy
-	    Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
-	            .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
-	    Address address = tenancy.getAddress();
-	    model.addAttribute("address", address);
-		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-		model.addAttribute("currentDate", currentDate);
-		model.addAttribute("pickupSchedule", tenancy.getPickUpSchedule());
-		addGraphismAttributes(tenancyAlias, model);
-
-		return "amap/back/contracts/contract-form";
-	}
-
-	/**
-	 * Saves a new contract to the database.
-	 */
-	@PostMapping("/add")
-	public String addContract(@ModelAttribute("contractDTO") ContractDTO newContractDTO,
-			@PathVariable("tenancyAlias") String tenancyAlias) {
-		contractService.save(newContractDTO, tenancyAlias);
-		return "redirect:/amap/" + tenancyAlias + "/admin/contracts/list";
-
-	}
-
-	/**
-	 * Displays a list of all contracts.
-	 */
-	@GetMapping("/list")
-	public String listContracts(Model model, @PathVariable String tenancyAlias) {
-		Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
-				.orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
-		List<Contract> contracts = contractService.findAll(tenancyAlias);
-		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
-		model.addAttribute("users", users);
-		model.addAttribute("contracts", contracts);
-		model.addAttribute("tenancyAlias", tenancyAlias);
-		addGraphismAttributes(tenancyAlias, model);
-		return "amap/back/contracts/contract-list";
-	}
-
-	/**
-	 * Deletes a contract by its ID.
-	 */
-	@PostMapping("/delete/{id}")
-	public String deleteContract(@PathVariable("id") Long id, @PathVariable("tenancyAlias") String tenancyAlias) {
-		contractService.deleteById(id);
-		return "redirect:/amap/" + tenancyAlias + "/admin/contracts/list";
-	}
-
-	/**
-	 * Displays the edit form for a specific contract.
-	 */
-	@GetMapping("/edit/{id}")
-	public String editContractForm(@PathVariable("tenancyAlias") String tenancyAlias, @PathVariable("id") Long id,
-			Model model) {
-		Contract contract = contractService.findById(id);
-
-		if (contract == null) {
-			return "redirect:/" + tenancyAlias + "/admin/contracts/list"; // Redirige si le contrat n'existe pas
-		}
-	    Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
-	            .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
-	    Address address = tenancy.getAddress();
-	    model.addAttribute("address", address);
-		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
-		model.addAttribute("users", users);
-		model.addAttribute("contract", contract);
-		model.addAttribute("tenancyAlias", tenancyAlias);
-		model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
-		model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
-		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
-		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
-		
-
-
-		return "amap/back/contracts/contract-edit"; // Nom de la vue pour le formulaire d'édition
-	}
-
-	/**
-	 * Displays the details of a specific contract.
-	 */
-	@GetMapping("/detail/{id}")
-	public String viewContractDetail(@PathVariable("id") Long id, Model model,
-			@PathVariable("tenancyAlias") String tenancyAlias) {
-		Contract contract = contractService.findById(id);
-		if (contract == null) {
-			throw new IllegalArgumentException("Contrat introuvable pour l'ID : " + id);
-		}
-	    Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
-	            .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
-	    Address address = tenancy.getAddress();
-	    model.addAttribute("address", address);
-		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
-		model.addAttribute("users", users);
-		model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
-		model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
-		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
-		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
-		String formattedDate = contract.getDateCreation().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-		model.addAttribute("formattedDate", formattedDate);
-		model.addAttribute("contract", contract);
-		model.addAttribute("tenancyAlias", tenancyAlias);
-		addGraphismAttributes(tenancyAlias, model);
-		model.addAttribute("pickupSchedule", tenancy.getPickUpSchedule());
-		return "amap/back/contracts/contract-detail";
-	}
-
-	@PostMapping("/update")
-	public String updateContract(
-		    @ModelAttribute("contract") ContractDTO updatedContractDTO,
-		    @RequestParam(value = "image", required = false) MultipartFile image,
-		    @PathVariable("tenancyAlias") String tenancyAlias) {
-
-		contractService.updateContract(updatedContractDTO, image, tenancyAlias);
-
-		return "redirect:/amap/" + tenancyAlias + "/admin/contracts/list";
-	}
 	
 	public void addGraphismAttributes(String alias, Model model) {
-		// get map style depending on tenancy
+
 		model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
 		model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
 		model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
 		model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
-		// get tenancy info for header footer
 		model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
-		// get color palette
 		model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
-		// get font choice
 		model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
 	}
 

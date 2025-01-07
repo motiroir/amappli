@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
-String currentMainMenu = "shop";
+String currentMainMenu = "contracts";
 String currentPage = "contracts";
 request.setAttribute("currentMainMenu", currentMainMenu);
 request.setAttribute("currentPage", currentPage);
@@ -25,8 +25,7 @@ request.setAttribute("currentPage", currentPage);
 <style>
 .contract-detail-container {
 	display: flex;
-	gap: 40px; /* Espace entre les colonnes */
-	margin-top: 20px;
+	gap: 30px; /* Espace entre les colonnes */
 }
 
 .contract-image {
@@ -38,7 +37,7 @@ request.setAttribute("currentPage", currentPage);
 	width: 100%; /* Image responsive */
 	max-height: 300px;
 	object-fit: cover;
-	border-radius: 10px; /* Coins arrondis */
+	border-radius: 4px; /* Coins arrondis */
 }
 
 .contract-info {
@@ -56,6 +55,7 @@ request.setAttribute("currentPage", currentPage);
 	width: 50px;
 	text-align: center;
 }
+
 </style>
 </head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
@@ -66,11 +66,12 @@ request.setAttribute("currentPage", currentPage);
 	<jsp:include page="../front/common/sidebarUser.jsp" />
 	<div id="map" class="p-0"></div>
 
-	<div class="content col fc-main bg-100 border-main"
-		style="margin: 40px;">
+	<div class="content col fc-main bg-100 border border-1 border-main pb-3 mt-3 mb-2 me-5" style="border-radius: 10px 10px 0 0;">
+	<div class="header">
 				<a href="<c:url value='/amap/${tenancyAlias}/shop/contracts'/>" class="text-decoration-none">
-    <i class="bi bi-arrow-left-circle fs-1 m-3"></i>
+    <i class="bi bi-arrow-left-circle fs-1"></i>
 </a>
+</div>
 		<div class="contract-detail-container">
 			<!-- Colonne de gauche : image -->
 			<div class="contract-image">
@@ -98,15 +99,15 @@ request.setAttribute("currentPage", currentPage);
 				<p>
 					<strong>Composition du panier :<br></strong>
 					${contract.contractDescription}
-				</p>
+				</p><br>
 				<p>
 					<i class="bi bi-bag"></i> commandez aujourd'hui et récupèrez votre
-					premier panier le ${formattedNextDeliveryDate}
+					premier panier ${formattedNextDeliveryDate}
 				</p>
 				<p>
 					<i class="bi bi-info-circle"></i> L'abonnement au panier se termine
-					le ${formattedEndDate}
-				</p>
+					 ${formattedEndDate}
+				</p><br>
 				<h2 class="text-end mt-4">
 					<strong>${contract.contractPrice}&euro; / livraison</strong>
 				</h2>

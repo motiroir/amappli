@@ -49,33 +49,18 @@ public class ProductController {
 	}
 
 	/**
-	 * Initializes custom data binding for LocalDate.
-	 */
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		binder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport() {
-			@Override
-			public void setAsText(String text) throws IllegalArgumentException {
-				if (text == null || text.isEmpty()) {
-					setValue(null);
-				} else {
-					setValue(LocalDate.parse(text, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-				}
-			}
-		});
-	}
-
-	/**
 	 * Displays the form for adding a new product.
 	 */
 	@GetMapping("/form")
 	public String showForm(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 
 		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
+		
 		String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-		// Récupérer l'adresse de la tenancy
+		
 		Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
 				.orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+		
 		Address address = tenancy.getAddress();
 
 		model.addAttribute("product", new Product());
@@ -87,6 +72,7 @@ public class ProductController {
 		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("pickupSchedule", tenancy.getPickUpSchedule());
 		addGraphismAttributes(tenancyAlias, model);
+		
 		return "amap/back/products/product-form";
 	}
 
@@ -96,10 +82,12 @@ public class ProductController {
 	@PostMapping("/add")
 	public String addProduct(@ModelAttribute("productDTO") ProductDTO productDTO,
 			@PathVariable("tenancyAlias") String tenancyAlias) {
+		
 		productService.save(productDTO, tenancyAlias);
 		if (productDTO.getProductName() == null || productDTO.getProductName().isEmpty()) {
 			throw new IllegalArgumentException("Le champ 'Nom du produit' est obligatoire.");
 		}
+		
 		return "redirect:/amap/" + tenancyAlias + "/admin/products/list";
 	}
 
@@ -127,7 +115,9 @@ public class ProductController {
 	 */
 	@PostMapping("/delete/{id}")
 	public String deleteProduct(@PathVariable("id") Long id, @PathVariable("tenancyAlias") String tenancyAlias) {
+		
 		productService.deleteById(id);
+		
 		return "redirect:/amap/" + tenancyAlias + "/admin/products/list";
 	}
 
@@ -137,6 +127,7 @@ public class ProductController {
 	@GetMapping("/edit/{id}")
 	public String editProductForm(@PathVariable("id") Long id, Model model,
 			@PathVariable("tenancyAlias") String tenancyAlias) {
+		
 		Product product = productService.findById(id);
 
 		if (product == null) {
@@ -145,9 +136,12 @@ public class ProductController {
 
 		Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
 				.orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+		
 		Address address = tenancy.getAddress();
-		model.addAttribute("address", address);
+		
 		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
+		
+		model.addAttribute("address", address);
 		model.addAttribute("users", users);
 		model.addAttribute("product", product);
 		model.addAttribute("tenancyAlias", tenancyAlias);
@@ -163,23 +157,29 @@ public class ProductController {
 	@GetMapping("/detail/{id}")
 	public String viewProductDetail(@PathVariable("id") Long id, Model model,
 			@PathVariable("tenancyAlias") String tenancyAlias) {
+		
 		Product product = productService.findById(id);
 		if (product == null) {
 			throw new IllegalArgumentException("Contrat introuvable pour l'ID : " + id);
 		}
+		
 		Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
 				.orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+		
 		Address address = tenancy.getAddress();
-		model.addAttribute("address", address);
+		
 		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
+		
+		String formattedDate = product.getDateCreation().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+		
+		model.addAttribute("address", address);
 		model.addAttribute("users", users);
 		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
-		String formattedDate = product.getDateCreation().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 		model.addAttribute("formattedDate", formattedDate);
 		model.addAttribute("product", product);
 		model.addAttribute("tenancyAlias", tenancyAlias);
-		addGraphismAttributes(tenancyAlias, model);
 		model.addAttribute("pickupSchedule", tenancy.getPickUpSchedule());
+		addGraphismAttributes(tenancyAlias, model);
 		return "amap/back/products/product-detail";
 	}
 
@@ -192,18 +192,32 @@ public class ProductController {
 
 		return "redirect:/amap/" + tenancyAlias + "/admin/products/list";
 	}
+	
+	/**
+	 * Initializes custom data binding for LocalDate.
+	 */
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport() {
+			@Override
+			public void setAsText(String text) throws IllegalArgumentException {
+				if (text == null || text.isEmpty()) {
+					setValue(null);
+				} else {
+					setValue(LocalDate.parse(text, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+				}
+			}
+		});
+	}
 
 	public void addGraphismAttributes(String alias, Model model) {
-		// get map style depending on tenancy
+
 		model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
 		model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
 		model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
 		model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
-		// get tenancy info for header footer
 		model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
-		// get color palette
 		model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
-		// get font choice
 		model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
 	}
 }
