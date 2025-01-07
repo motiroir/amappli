@@ -61,6 +61,10 @@ public class ShoppingCartController {
 
 		return "amap/front/shopping-cart";
 	}
+	
+	public void addTotalsToCartView(ShoppingCart cart, Model model) {
+		
+	}
 
 	@PostMapping("/{userId}/add")
 	public String addItem(@PathVariable("userId") Long userId, @PathVariable("tenancyAlias") String alias,
@@ -106,7 +110,7 @@ public class ShoppingCartController {
 		if (principal instanceof CustomUserDetails) {
 			CustomUserDetails loggedUserInfo = (CustomUserDetails) principal;
 			return (Long) loggedUserInfo.getAdditionalInfoByKey("userId");
-		} else return 1L;
+		} else return 2L;
 	}
 
 }

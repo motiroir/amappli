@@ -1,14 +1,18 @@
 package isika.p3.amappli.service.amap.impl;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import isika.p3.amappli.entities.membership.MembershipFee;
 import isika.p3.amappli.entities.order.ProductMock;
 import isika.p3.amappli.entities.order.Shoppable;
 import isika.p3.amappli.entities.order.ShoppingCart;
 import isika.p3.amappli.entities.order.ShoppingCartItem;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.repo.amap.ContractRepository;
+import isika.p3.amappli.repo.amap.MembershipFeeRepository;
 import isika.p3.amappli.repo.amap.ProductMockRepository;
 import isika.p3.amappli.repo.amap.ProductRepository;
 import isika.p3.amappli.repo.amap.ShoppingCartItemRepository;
@@ -16,6 +20,7 @@ import isika.p3.amappli.repo.amap.ShoppingCartRepository;
 import isika.p3.amappli.repo.amap.UserRepository;
 import isika.p3.amappli.repo.amap.WorkshopRepository;
 import isika.p3.amappli.service.amap.ShoppingCartService;
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -36,18 +41,156 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	private ProductRepository productRepository;
 	@Autowired
 	private WorkshopRepository workshopRepository;
+	@Autowired 
+	private MembershipFeeRepository membershipRepo;
+	@Autowired
+	private EntityManager entityManager;
+	
+//	@Transactional
+//    public ShoppingCart getCartByUserId(Long userId) {
+//    	User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+//    	ShoppingCart cart = shoppingCartRepo.findByUserId(userId);
+//        if (cart == null) {
+//        	cart = new ShoppingCart();
+//        	cart.setUser(user);
+//        	user.setShoppingCart(cart);
+//        } 
+//        user.setMembershipFee(null);
+//        checkMembershipFee(user, cart);
+//        return cart;
+//    }
+//	
+//	public void checkMembershipFee(User user, ShoppingCart cart) {
+//	    MembershipFee existingFee = user.getMembershipFee();
+//	    //checks if cart already has a membershipFee
+//	    boolean cartContainsFee = cart.getShoppingCartItems().stream()
+//	            .anyMatch(item -> item.getShoppable() instanceof MembershipFee);
+//	    //if fee is null or isn't valid or isn't in shoppingcart
+//		if(existingFee == null || !user.isMembershipFeeValid() || !cartContainsFee) {
+//			if (existingFee != null || !cartContainsFee) {
+////				existingFee = membershipRepo.findById(existingFee.getId())
+////			            .orElseThrow(() -> new RuntimeException("MembershipFee not found"));
+////				membershipRepo.delete(existingFee);
+//				user.setMembershipFee(null);
+//			}
+//    		MembershipFee membershipFee = MembershipFee.builder()
+//    				.info("Cotisation annuelle")
+//    				.stock(1)
+//    				.price(user.getTenancy().getMembershipFeePrice().doubleValue())
+//    				.dateBeginning(LocalDate.now())
+//    				.dateEnd(LocalDate.now().plusDays(365))
+//    				.image("cotisationImg")
+//    				.build();
+//
+//    		//ensures (or not?) membershipFee is persisted before adding it to shoppingCartItem
+//    		membershipFee.setUser(user);
+//    		user.setMembershipFee(membershipFee);
+//    		userRepo.save(user);
+////    		if(membershipFee.getId()==null) {
+////    			membershipFee = membershipRepo.save(membershipFee);
+////    		}
+//    		entityManager.flush();
+//    		addMembershipFeeToCart(cart, membershipFee);
+//    	}
+//	}
+//	
+//	public void addMembershipFeeToCart(ShoppingCart cart, MembershipFee fee) {
+//		ShoppingCartItem newItem = ShoppingCartItem.builder()
+//                .shoppingCart(cart)
+//                .shoppable(fee)
+//                .quantity(1)
+//                .build();
+//        cart.getShoppingCartItems().add(newItem);
+//        itemsRepo.save(newItem);
+//        shoppingCartRepo.save(cart);
+//	}
 	
 	
 	
-    public ShoppingCart getCartByUserId(Long userId) {
-        ShoppingCart cart = shoppingCartRepo.findByUserId(userId);
-        if (cart == null) {
-        	ShoppingCart newCart =new ShoppingCart();
-        	newCart.setUser(userRepo.findById(userId).orElse(null));
-        	shoppingCartRepo.save(newCart);
-        	return newCart;
-        } return cart;
-    }
+	
+	
+	
+	
+	
+	 public ShoppingCart getCartByUserId(Long userId) {
+	        // Récupérer l'utilisateur
+	        User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+
+	        // Charger ou créer le ShoppingCart
+	        ShoppingCart cart = shoppingCartRepo.findByUserId(userId);
+	        if (cart == null) {
+	            cart = new ShoppingCart();
+	            cart.setUser(user);
+	            shoppingCartRepo.save(cart); // Persist ShoppingCart
+	        }
+
+	        // Vérifier et gérer le MembershipFee
+	        handleMembershipFee(user, cart);
+
+	        return cart;
+	    }
+
+	    private void handleMembershipFee(User user, ShoppingCart cart) {
+	        // Vérifier l'état du MembershipFee
+	        MembershipFee fee = user.getMembershipFee();
+	        if (fee == null || !isMembershipFeeValid(fee)) {
+	            // Si le MembershipFee est expiré ou inexistant, en créer un nouveau
+	            fee = createNewMembershipFee(user);
+	            membershipRepo.save(fee); // Sauvegarder dans la base
+	            user.setMembershipFee(fee);
+	            userRepo.save(user); // Mise à jour de l'utilisateur
+	        }
+
+	        // Ajouter le MembershipFee au panier si absent
+	        if (!cartContainsMembershipFee(cart)) {
+	            addMembershipFeeToCart(cart, fee);
+	        }
+	    }
+
+	    private boolean isMembershipFeeValid(MembershipFee fee) {
+	        // Vérifie si la date de fin est supérieure à aujourd'hui
+	        return fee.getDateEnd().isAfter(LocalDate.now());
+	    }
+
+	    private MembershipFee createNewMembershipFee(User user) {
+	        return MembershipFee.builder()
+	                .info("Cotisation annuelle")
+	                .stock(1)
+	                .price(user.getTenancy().getMembershipFeePrice().doubleValue())
+	                .dateBeginning(LocalDate.now())
+	                .dateEnd(LocalDate.now().plusDays(365))
+	                .image("cotisationImg")
+	                .user(user) // Lier à l'utilisateur
+	                .build();
+	    }
+
+	    private boolean cartContainsMembershipFee(ShoppingCart cart) {
+	        // Vérifie si le panier contient déjà un MembershipFee
+	        return cart.getShoppingCartItems().stream()
+	                .anyMatch(item -> item.getShoppable() instanceof MembershipFee);
+	    }
+
+	    private void addMembershipFeeToCart(ShoppingCart cart, MembershipFee fee) {
+	        // Créer un ShoppingCartItem pour le MembershipFee
+	        ShoppingCartItem newItem = ShoppingCartItem.builder()
+	                .shoppingCart(cart)
+	                .shoppable(fee)
+	                .quantity(1)
+	                .build();
+	        itemsRepo.save(newItem); // Sauvegarder l'item
+	        cart.getShoppingCartItems().add(newItem); // Mettre à jour le panier
+	        shoppingCartRepo.save(cart); // Sauvegarder le panier
+	    }
+	
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
     
 	public ShoppingCart getOrCreateCart(Long cartId) {
 	    return shoppingCartRepo.findById(cartId).orElseGet(() -> {
