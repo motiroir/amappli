@@ -116,7 +116,28 @@ public class ShopController {
 	        })
 	        .toList();
 //		List<Product> products = productService.findShoppableProductsByTenancy(tenancy);
+	    
+	    // Récupération des contrats "shoppable"
+	    List<Contract> contracts = contractService.findShoppableContractsByTenancy(tenancy);
+
+	    // Comptage des contrats par type
+	    long vegetableCount = contracts.stream()
+	            .filter(contract -> "VEGETABLES_CONTRACT".equals(contract.getContractType().name()))
+	            .count();
+
+	    long fruitCount = contracts.stream()
+	            .filter(contract -> "FRUITS_CONTRACT".equals(contract.getContractType().name()))
+	            .count();
+
+	    long mixedCount = contracts.stream()
+	            .filter(contract -> "MIX_CONTRACT".equals(contract.getContractType().name()))
+	            .count();
 		model.addAttribute("products", formattedProducts);
+	    // Ajout des comptages au modèle
+	    model.addAttribute("vegetableCount", vegetableCount);
+	    model.addAttribute("fruitCount", fruitCount);
+	    model.addAttribute("mixedCount", mixedCount);
+	    model.addAttribute("contracts", contracts);
 //		model.addAttribute("products", products);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		addGraphismAttributes(tenancyAlias, model);
@@ -160,6 +181,27 @@ public class ShopController {
 
 //		List<Workshop> workshops = workshopService.findShoppableWorkshopsByTenancy(tenancy);
 //		model.addAttribute("workshops", workshops);
+	    
+	    // Récupération des contrats "shoppable"
+	    List<Contract> contracts = contractService.findShoppableContractsByTenancy(tenancy);
+
+	    // Comptage des contrats par type
+	    long vegetableCount = contracts.stream()
+	            .filter(contract -> "VEGETABLES_CONTRACT".equals(contract.getContractType().name()))
+	            .count();
+
+	    long fruitCount = contracts.stream()
+	            .filter(contract -> "FRUITS_CONTRACT".equals(contract.getContractType().name()))
+	            .count();
+
+	    long mixedCount = contracts.stream()
+	            .filter(contract -> "MIX_CONTRACT".equals(contract.getContractType().name()))
+	            .count();
+	    // Ajout des comptages au modèle
+	    model.addAttribute("vegetableCount", vegetableCount);
+	    model.addAttribute("fruitCount", fruitCount);
+	    model.addAttribute("mixedCount", mixedCount);
+	    model.addAttribute("contracts", contracts);
 	    model.addAttribute("workshops", formattedWorkshops);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		addGraphismAttributes(tenancyAlias, model);
@@ -261,6 +303,26 @@ public class ShopController {
 //		model.addAttribute("formattedFabricationDate", formattedFabricationDate);
 //		model.addAttribute("formattedExpirationDate", formattedExpirationDate);
 		model.addAttribute("product", product);
+	    // Récupération des contrats "shoppable"
+	    List<Contract> contracts = contractService.findShoppableContractsByTenancy(tenancy);
+
+	    // Comptage des contrats par type
+	    long vegetableCount = contracts.stream()
+	            .filter(contract -> "VEGETABLES_CONTRACT".equals(contract.getContractType().name()))
+	            .count();
+
+	    long fruitCount = contracts.stream()
+	            .filter(contract -> "FRUITS_CONTRACT".equals(contract.getContractType().name()))
+	            .count();
+
+	    long mixedCount = contracts.stream()
+	            .filter(contract -> "MIX_CONTRACT".equals(contract.getContractType().name()))
+	            .count();
+	    // Ajout des comptages au modèle
+	    model.addAttribute("vegetableCount", vegetableCount);
+	    model.addAttribute("fruitCount", fruitCount);
+	    model.addAttribute("mixedCount", mixedCount);
+	    model.addAttribute("contracts", contracts);
 //		model.addAttribute("nextDeliveryDate", nextDeliveryDate);
 		addGraphismAttributes(tenancyAlias, model);
 		return "amap/front/shopping-product-detail";
@@ -293,6 +355,26 @@ public class ShopController {
 	    String formattedWorkshopDateTime = workshop.getWorkshopDateTime().format(formatter);
 	    model.addAttribute("formattedWorkshopDateTime", formattedWorkshopDateTime);
 		model.addAttribute("workshop", workshop);
+	    // Récupération des contrats "shoppable"
+	    List<Contract> contracts = contractService.findShoppableContractsByTenancy(tenancy);
+
+	    // Comptage des contrats par type
+	    long vegetableCount = contracts.stream()
+	            .filter(contract -> "VEGETABLES_CONTRACT".equals(contract.getContractType().name()))
+	            .count();
+
+	    long fruitCount = contracts.stream()
+	            .filter(contract -> "FRUITS_CONTRACT".equals(contract.getContractType().name()))
+	            .count();
+
+	    long mixedCount = contracts.stream()
+	            .filter(contract -> "MIX_CONTRACT".equals(contract.getContractType().name()))
+	            .count();
+	    // Ajout des comptages au modèle
+	    model.addAttribute("vegetableCount", vegetableCount);
+	    model.addAttribute("fruitCount", fruitCount);
+	    model.addAttribute("mixedCount", mixedCount);
+	    model.addAttribute("contracts", contracts);
 		addGraphismAttributes(tenancyAlias, model);
 		return "amap/front/shopping-workshop-detail";
 	}

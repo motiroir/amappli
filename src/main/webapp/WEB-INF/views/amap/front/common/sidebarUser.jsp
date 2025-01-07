@@ -1,56 +1,76 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<nav class="navbar h-100 position-sticky p-0 top-0 start-0 w-auto">
-	<div class="vh-100 bg-main p-4 border-1 border-end d-flex flex-column">
-		<div id="sidebar">
-			<ul class="nav flex-column">
+<style>
+.navbar {
+    position: sticky; /* Rendre sticky */
+    top: 0; /* Fixer au sommet lors du défilement */
+    z-index: 1020; /* S'assurer qu'elle reste devant les autres éléments */
+    overflow-y: auto; /* Pour gérer le contenu s'il dépasse la hauteur de la fenêtre */
+    max-height: 100vh; /* Limite la hauteur pour éviter de dépasser l'écran */
+}
+
+</style>
+<nav class="navbar h-50 p-5 w-auto">
+	<div
+		class="bg-100 border border-1 border-main d-flex flex-column justify-content-center mx-auto rounded-top">
+		<div id="sidebar" class="flex-grow-1">
+			<ul class="nav flex-column text-start">
 				<!-- Paniers maraîchers -->
-				<li class="mb-4">
-					<h2 class="fw-bold">Paniers</h2>
-					<hr class="my-2">
-					<ul class="list-unstyled ps-3">
-						<li class="d-flex justify-content-between"><a id="allBaskets"
-							href="#" class="text-decoration-none fch-600">Tous les
-								paniers</a> <span>${contracts.size()}</span> <!-- Affiche le nombre total de contrats -->
+				<li><a
+					href="<c:url value='/amap/${tenancyAlias}/shop/contracts'/>"
+					class="ps-2 pe-5 pt-3 d-flex align-items-left border-bottom ${currentMainMenu.equals('contracts') ? 'active bg-500 fc-100' : ' fc-500 text-decoration-none'}">
+						<i class="bi bi-basket me-2"></i>
+						<h4 class="fw-bold">Paniers</h4>
+				</a>
+					<ul class="list-unstyled ps-2">
+						<li class="d-flex justify-content-between pt-2">
+							<a id="allBaskets" href="#" class="text-decoration-none fc-300 fch-600 flex-grow-1">Tous
+								les paniers</a> <span class="badge bg-none fc-300 rounded-pill ms-5">${contracts.size()}</span>
 						</li>
-						<li class="d-flex justify-content-between"><a
-							id="vegetableBaskets" href="#"
-							class="text-decoration-none fch-600">Paniers légumes</a> <span>${vegetableCount}</span>
-							<!-- Affiche le nombre de contrats légumes --></li>
-						<li class="d-flex justify-content-between"><a
-							id="fruitBaskets" href="#" class="text-decoration-none fch-600">Paniers
-								fruits</a> <span>${fruitCount}</span> <!-- Affiche le nombre de contrats fruits -->
+						<br>
+						<li class="d-flex justify-content-between">
+							<a id="vegetableBaskets" href="#"
+							class="text-decoration-none fc-300 fch-600 flex-grow-1">Paniers
+								légumes</a> <span class="badge bg-none fc-300 rounded-pill ms-5">${vegetableCount}</span>
 						</li>
-						<li class="d-flex justify-content-between"><a
-							id="mixedBaskets" href="#" class="text-decoration-none fch-600">Paniers
-								mixtes</a> <span>${mixedCount}</span> <!-- Affiche le nombre de contrats mixtes -->
+						<br>
+						<li class="d-flex justify-content-between">
+							<a id="fruitBaskets" href="#"
+							class="text-decoration-none fc-300 fch-600 flex-grow-1">Paniers fruits</a> <span
+							class="badge bg-none fc-300 rounded-pill ms-5">${fruitCount}</span>
 						</li>
-					</ul>
+						<br>
+						<li class="d-flex justify-content-between border-bottom pb-3">
+							<a id="mixedBaskets" href="#"
+							class="text-decoration-none fc-300 fch-600 flex-grow-1">Paniers mixtes</a> <span
+							class="badge bg-none fc-300 rounded-pill ms-5">${mixedCount}</span><hr class="my-1">
+						</li>
+					</ul></li>
 
-
-				</li>
-				<br>
 
 				<!-- Épicerie -->
-				<li class="mb-4"><a
-					href="<c:url value='/${tenancyAlias}/shop/products'/>"
-					class="${currentMainMenu.equals('products') ? 'active' : ''} text-decoration-none">
-						<h2 class="fw-bold">Épicerie</h2>
+				<li><a
+					href="<c:url value='/amap/${tenancyAlias}/shop/products'/>"
+					class="ps-2 pe-5 pt-3 pb-2 d-flex align-items-left border-bottom ${currentMainMenu.equals('products') ? 'active bg-500 fc-100' : 'fc-500 text-decoration-none'}">
+						<i class="bi bi-shop-window me-2"></i>
+						<h4 class="fw-bold">Épicerie</h4>
 				</a>
-					<hr class="my-2"></li><br>
+					
+
 
 				<!-- Ateliers -->
-				<li class="mb-4"><a
-					href="<c:url value='/${tenancyAlias}/shop/workshops'/>"
-					class="${currentMainMenu.equals('workshops') ? 'active' : ''} text-decoration-none">
-						<h2 class="fw-bold">Ateliers</h2>
+				<li><a
+					href="<c:url value='/amap/${tenancyAlias}/shop/workshops'/>"
+					class="ps-2 pe-5 pt-3 pb-2 d-flex align-items-left border-bottom ${currentMainMenu.equals('workshops') ? 'active bg-500 fc-100' : 'fc-500 text-decoration-none'}">
+						<i class="bi bi-people me-2"></i>
+						<h4 class="fw-bold">Ateliers</h4>
 				</a>
-					<hr class="my-2"></li>
 			</ul>
 		</div>
 	</div>
 </nav>
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     // Récupération des liens de filtre
@@ -95,6 +115,4 @@ document.addEventListener('DOMContentLoaded', function () {
         filterContracts('MIX_CONTRACT');
     });
 });
-
 </script>
-

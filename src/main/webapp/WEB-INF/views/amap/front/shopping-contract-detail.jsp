@@ -56,31 +56,21 @@ request.setAttribute("currentPage", currentPage);
 	width: 50px;
 	text-align: center;
 }
-
-.btn-add-to-cart {
-	background-color: #FF8C42;
-	border: none;
-	padding: 10px 20px;
-	color: white;
-	border-radius: 5px;
-	cursor: pointer;
-}
-
-.btn-add-to-cart:hover {
-	background-color: #FF6A00;
-}
 </style>
 </head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
 	<!-- Header -->
 	<header class="fc-main bg-main border-1 border-alt">
-		<jsp:include page="common/header.jsp" />
+		<jsp:include page="common/header-amap.jsp" />
 	</header>
 	<jsp:include page="../front/common/sidebarUser.jsp" />
 	<div id="map" class="p-0"></div>
 
 	<div class="content col fc-main bg-100 border-main"
 		style="margin: 40px;">
+				<a href="<c:url value='/amap/${tenancyAlias}/shop/contracts'/>" class="text-decoration-none">
+    <i class="bi bi-arrow-left-circle fs-1 m-3"></i>
+</a>
 		<div class="contract-detail-container">
 			<!-- Colonne de gauche : image -->
 			<div class="contract-image">
@@ -133,14 +123,14 @@ request.setAttribute("currentPage", currentPage);
 				</div>
 				<input type="hidden" name="shoppableId" value="${contract.id}">
 				<input type="hidden" name="shoppableType" value="CONTRACT">
-				<button type="submit" class="btn-add-to-cart">Ajouter au
+				<button type="submit" class="btn btn-500 btn-order" name="action">Ajouter au
 					panier</button>
 			</form:form>
 		</div>
 	</div>
 	<!-- Footer -->
 	<footer>
-		<jsp:include page="common/footer.jsp" />
+		<jsp:include page="common/footer-amap.jsp" />
 	</footer>
 	<script>
 		var styleMapboxLight = "${mapStyleLight}"

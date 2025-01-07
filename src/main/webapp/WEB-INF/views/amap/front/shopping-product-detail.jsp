@@ -25,15 +25,18 @@ request.setAttribute("currentPage", currentPage);
 	rel="stylesheet">
 </head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
-	<!-- Header -->
 	<header class="fc-main bg-main border-1 border-alt">
-		<jsp:include page="common/header.jsp" />
+		<jsp:include page="common/header-amap.jsp" />
 	</header>
 	<jsp:include page="../front/common/sidebarUser.jsp" />
 	<div id="map" class="p-0"></div>
 
 	<div class="content col fc-main bg-100 border-main"
 		style="margin: 40px;">
+		<a href="<c:url value='/amap/${tenancyAlias}/shop/products'/>" class="text-decoration-none">
+    <i class="bi bi-arrow-left-circle fs-1 ml-3 mt-3"></i>
+</a>
+		
 		<div class="contract-detail-container">
 			<!-- Colonne de gauche : image -->
 			<div class="contract-image">
@@ -88,7 +91,7 @@ request.setAttribute("currentPage", currentPage);
 
 	<!-- Footer -->
 	<footer>
-		<jsp:include page="common/footer.jsp" />
+		<jsp:include page="common/footer-amap.jsp" />
 	</footer>
 	<script>
 		var styleMapboxLight = "${mapStyleLight}"
