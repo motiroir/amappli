@@ -86,7 +86,7 @@
 }
 
 
-    .card-body ul li {
+.card-body ul li {
     margin-bottom: 5px;
     display: flex; /* Définit un conteneur flexible */
     align-items: flex-start; /* Aligne les éléments au début */

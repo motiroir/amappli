@@ -15,6 +15,11 @@ public class HomeController {
 	 	return "amappli/home";
 	}
 	
+	@GetMapping("/home")
+	public String home2(Model model) {
+		return "amappli/home";
+	}
+	
 
 	@GetMapping("/contact")
 	public String contact() {

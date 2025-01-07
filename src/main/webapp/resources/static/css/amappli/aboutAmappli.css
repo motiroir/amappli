@@ -7,7 +7,7 @@
 
 
 
-.mission-card {
+/* .mission-card {
 	background-color: #ffffff;
 	border-radius: 25px;
 	padding: 20px;
@@ -15,42 +15,7 @@
 	margin-top: 40px;
 	height: 100%;
 	border: 1.5px solid #FFBE98;
-}
-
-.mission-text {
-	color: #333333;
-}
-
-.mission-title {
-	font-weight: bold;
-	font-size: 1.2rem;
-}
-
-.footer-text {
-	font-weight: bold;
-}
-
-.text-column {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	height: 100%;
-}
-
-.image-column img {
-	border-radius: 25px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	border: 1.5px solid #FFBE98;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 88%;
-	max-width: 100%;
-	object-fit: contain;
-	display: block;
-	margin-top: 40px;
-	margin-left: 0px;
-}
+} */
 
 .value-card {
 	background-color: #ffffff;
