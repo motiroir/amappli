@@ -13,14 +13,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import isika.p3.amappli.dto.amappli.RoleDTO;
 import isika.p3.amappli.entities.auth.Permission;
 import isika.p3.amappli.entities.auth.Role;
+import isika.p3.amappli.entities.tenancy.ColorPalette;
+import isika.p3.amappli.entities.tenancy.FontChoice;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.repo.amappli.PermissionRepository;
 import isika.p3.amappli.security.CustomUserDetails;
@@ -74,16 +74,26 @@ public class RoleController {
 		model.addAttribute("rolePermissionsMap", rolePermissionsMap);
 		// Adding an empty DTO for the form
 		model.addAttribute("roleDTO", new RoleDTO());
+		model.addAttribute("amappli", true);
+
+		// Graphism
+		model.addAttribute("latitude", 42.1880896);
+		model.addAttribute("longitude",  9.0684138);
+		model.addAttribute("mapStyleLight", "mapbox://styles/tiroirmorgane/cm4sw37wr001301s12frm2l2y");
+        model.addAttribute("mapStyleDark", "mapbox://styles/tiroirmorgane/cm52cqefg003101sa878udky6");
+        model.addAttribute("cssStyle", ColorPalette.PALETTE1);
+        model.addAttribute("font", FontChoice.FUTURA);
+
 		return "/amappli/back/roles/rolesmanagement";
 	}
 
 	@PreAuthorize("hasAuthority('gestion plateforme')")
-	@PostMapping("//amappli/roles/manage")
+	@PostMapping("/amappli/roles/manage")
 	public String editGeneralRolesWithPermissions(RoleDTO roleDTO) {
 		
 		//Role r = Role.builder().name(name).permissions().build();
 		roleService.manageRoleFromRoleManagmentPage(roleDTO);
-		return "redirect:/roles/rolesmanagement";
+		return "redirect:/amappli/roles/manage";
 	}
 
 	@PreAuthorize("hasAuthority('gestion utilisateurs amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
@@ -116,44 +126,17 @@ public class RoleController {
 
 		// Adding an empty DTO for the form
 		model.addAttribute("roleDTO", new RoleDTO());
+		model.addAttribute("amappli", false);
 		return "/amappli/back/roles/rolesmanagement";
 
 	}
 
-
-	// @GetMapping("/create")
-	// public String showCreateRoleForm(Model model) {
-	// 	model.addAttribute("role", new Role());
-	// 	return "roles/create"; // Vue JSP pour le formulaire de création
-	// }
-
-	// @PostMapping("/create")
-	// public String createRole(@ModelAttribute Role role, Model model) {
-	// 	try {
-	// 		roleService.createRole(role);
-	// 		return "redirect:/roles";
-	// 	} catch (IllegalArgumentException e) {
-	// 		model.addAttribute("error", e.getMessage());
-	// 		return "roles/create";
-	// 	}
-	// }
-
-	// @PostMapping("/delete/{id}")
-	// public String deleteRole(@PathVariable Long id) {
-	// 	roleService.deleteRole(id);
-	// 	return "redirect:/roles";
-	// }
-
-	// // Endpoint pour ajouter des rôles de test
-	// @GetMapping("/test-roles")
-	// public String addTestRoles(Model model) {
-	// 	try {
-	// 		roleService.addtestRoles();
-	// 		model.addAttribute("message", "Rôles ajoutés avec succès dans la Bdd !");
-	// 	} catch (Exception e) {
-	// 		model.addAttribute("error", "Erreur lors de l'ajout des rôles : " + e.getMessage());
-	// 	}
-	// 	return "roles/roleslist"; // Vue JSP pour afficher le résultat
-	// }
-
+	@PreAuthorize("hasAuthority('gestion utilisateurs amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
+	@PostMapping("/amap/roles/manage")
+	public String editRolesWithPermissions(RoleDTO roleDTO) {
+		
+		//Role r = Role.builder().name(name).permissions().build();
+		roleService.manageRoleFromRoleManagmentPage(roleDTO);
+		return "redirect:/amap/roles/manage";
+	}
 }

@@ -1,22 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
         <!DOCTYPE html>
         <html>
 
         <head>
             <meta charset="UTF-8">
-            <title>Création/Modification de roles</title>
+            <title>Gestion des roles</title>
+            <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+            <link rel="stylesheet" href="<c:url value='/resources/bootstrap/bootstrap.min.css' />">
+            <link rel="stylesheet" href="<c:url value='/resources/css/amap/rolesmanagement.css' />">
         </head>
 
-        <body>
-            <div>
-                <h2>Roles et Permissions</h2>
+        <body class="${cssStyle} light ${font}-title ${font}-button">
+            <header class="fc-main bg-main">
+                <c:choose>
+                    <c:when test="${amappli == true}">
+                        <jsp:include page="../../common/header.jsp" />
+                    </c:when>
+                    <c:otherwise>
+                        <jsp:include page="../../../amap/front/common/header-amap.jsp" />
+                    </c:otherwise>
+                </c:choose>
+            </header> 
+
+            <div id="map"></div>
+
+            <div class="fc-main">
+                <h2>Rôles et Permissions</h2>
 
                 <table id="rolesTable">
                     <thead>
                         <tr>
-                            <th>Role Name</th>
+                            <th>Rôle</th>
                             <c:forEach var="permission" items="${permissions}">
                                 <th>${permission.name}</th>
                             </c:forEach>
@@ -40,9 +56,16 @@
                     </tbody>
                 </table>
 
-                <h2>Create or Update Role</h2>
+                <h2>Créer ou Modifier un Rôle</h2>
 
-                <form action="${pageContext.request.contextPath}/roles/manage" method="post">
+                <c:choose>
+                    <c:when test="${amappli == true}">
+                        <form action="${pageContext.request.contextPath}/amappli/roles/manage" method="post">
+                    </c:when>
+                    <c:otherwise>
+                        <form action="${pageContext.request.contextPath}/amap/roles/manage" method="post">
+                    </c:otherwise>
+                </c:choose>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                     <input type="hidden" id="roleId" name="roleId">
                     <div>
@@ -70,42 +93,31 @@
                 </form>
             </div>
 
-            <script>
-                // Populate the form with data when a row is clicked
-                document.addEventListener('DOMContentLoaded', function () {
-    let rows = document.querySelectorAll('#rolesTable tbody tr');
+            <footer class="container-fluid fc-main bg-main">
+                <c:choose>
+                    <c:when test="${amappli == true}">
+                        <jsp:include page="../../common/footer.jsp" />
+                    </c:when>
+                    <c:otherwise>
+                        <jsp:include page="../../../amap/front/common/footer-amap.jsp" />
+                    </c:otherwise>
+                </c:choose>
+            </footer> 
 
-    rows.forEach(row => {
-        row.addEventListener('click', function () {
-            let roleId = this.getAttribute('data-role-id');
-            let roleName = this.querySelector('td:first-child').textContent.trim();
+            <script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 
-            // Set the form values
-            document.getElementById('roleId').value = roleId;
-            document.getElementById('roleName').value = roleName;
+        <script>
+            var styleMapboxLight = "${mapStyleLight}"
+            var styleMapboxDark = "${mapStyleDark}"
+            var latitude = "${latitude}"
+            var longitude = "${longitude}"
+        </script>
 
-            // Clear all checkboxes
-            document.querySelectorAll('#permissions input[type=checkbox]').forEach(checkbox => {
-                checkbox.checked = false;
-            });
-
-            // Find checked permissions from table cells
-            let cells = this.querySelectorAll('td[data-permission-id]');
-            cells.forEach(cell => {
-                console.log(cell.textContent.trim());
-                if (cell.textContent.trim() === '✓') { // Check if the cell contains a checkmark
-                    let permissionId = cell.getAttribute('data-permission-id');
-                    let checkboxId = "perm-"+permissionId;
-                    let checkbox = document.getElementById(checkboxId);
-                    if (checkbox) {
-                        checkbox.checked = true;
-                    }
-                }
-            });
-        });
-    });
-});
-            </script>
+	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script> 
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/palette-swap.js' />" type="text/javascript"></script>
+    <script src="<c:url value='/resources/js/amap/admin/rolesmanagement.js' />" type="text/javascript"></script>
 
         </body>
 
