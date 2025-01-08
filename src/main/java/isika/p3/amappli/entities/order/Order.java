@@ -66,7 +66,7 @@ public class Order {
 
 	@Getter @Setter
 	@Builder.Default
-	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 
 	public double getOutstandingAmount() {

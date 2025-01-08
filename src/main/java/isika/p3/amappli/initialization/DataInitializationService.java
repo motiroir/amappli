@@ -7,9 +7,11 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,6 +23,13 @@ import isika.p3.amappli.entities.contract.Contract;
 import isika.p3.amappli.entities.contract.ContractType;
 import isika.p3.amappli.entities.contract.ContractWeight;
 import isika.p3.amappli.entities.contract.DeliveryRecurrence;
+import isika.p3.amappli.entities.membership.MembershipFee;
+import isika.p3.amappli.entities.order.Order;
+import isika.p3.amappli.entities.order.OrderItem;
+import isika.p3.amappli.entities.order.OrderStatus;
+import isika.p3.amappli.entities.order.Shoppable;
+import isika.p3.amappli.entities.payment.Payment;
+import isika.p3.amappli.entities.payment.PaymentType;
 import isika.p3.amappli.entities.product.Product;
 import isika.p3.amappli.entities.tenancy.ColorPalette;
 import isika.p3.amappli.entities.tenancy.ContentBlock;
@@ -36,7 +45,10 @@ import isika.p3.amappli.entities.user.ContactInfo;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.entities.workshop.Workshop;
 import isika.p3.amappli.repo.amap.ContractRepository;
+import isika.p3.amappli.repo.amap.OrderItemRepository;
+import isika.p3.amappli.repo.amap.OrderRepository;
 import isika.p3.amappli.repo.amap.ProductRepository;
+import isika.p3.amappli.repo.amap.ShoppableRepository;
 import isika.p3.amappli.repo.amap.UserRepository;
 import isika.p3.amappli.repo.amap.WorkshopRepository;
 import isika.p3.amappli.repo.amappli.OptionsRepository;
@@ -46,6 +58,8 @@ import isika.p3.amappli.service.amap.AddressService;
 import isika.p3.amappli.service.amap.CompanyDetailsService;
 import isika.p3.amappli.service.amap.ContactInfoService;
 import isika.p3.amappli.service.amap.RoleService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -75,6 +89,12 @@ public class DataInitializationService {
 	private WorkshopRepository workshopRepository;
 	@Autowired
 	private OptionsRepository optionsRepository;
+	@Autowired 
+	private OrderRepository orderRepository;
+	@Autowired
+	private OrderItemRepository orderItemRepository;
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	public void dataInit() {
 		try {
@@ -95,6 +115,7 @@ public class DataInitializationService {
 		try {
 			for (Tenancy t : tenancyRepository.findAll()) {
 				userInit(t);
+				initMembershipFee(t);
 
 				// Génération de contrats pour chaque tenancy
 				try {
@@ -116,6 +137,12 @@ public class DataInitializationService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		initAllOrders();
+	}
+	
+	// test method to avoid initializing everything while developing and testing 
+	// accessible via http://localhost:8080/Amappli/data-init/test
+	public void WIPInit() {
 	}
 
 	@Transactional
@@ -1011,30 +1038,6 @@ public class DataInitializationService {
 
 	}
 
-//	public void contractInit() {
-//
-//		List<Tenancy> tenancies = tenancyRepository.findAll();
-//
-//		Tenancy tenancy0 = tenancies.get(0);
-//		Tenancy tenancy1 = tenancies.get(1);
-//		Tenancy tenancy2 = tenancies.get(2);
-//		Tenancy tenancy3 = tenancies.get(3);
-//		Tenancy tenancy4 = tenancies.get(4);
-//		Tenancy tenancy5 = tenancies.get(5);
-//
-//		Contract contract1 = Contract.builder().contractName("Panier de légumes bio - Printemps")
-//				.contractType(ContractType.VEGETABLES_CONTRACT)
-//				.contractDescription("Un panier hebdomadaire avec des légumes frais et bio.")
-//				.contractWeight(ContractWeight.AVERAGE).contractPrice(new BigDecimal("25.50"))
-//				.dateCreation(LocalDate.now()).startDate(LocalDate.of(2025, 4, 1)).endDate(LocalDate.of(2025, 6, 30))
-//				.deliveryRecurrence(DeliveryRecurrence.WEEKLY).quantity(15).shoppable(true).imageType("image/png")
-//				.pickUpSchedule(tenancy0.getPickUpSchedule()).address(tenancy0.getAddress()).tenancy(tenancy0)
-//				.user(userRepository.findByTenancyAndRole(tenancy0, "Producteur").get(0)).build();
-//
-//		contractRepository.save(contract1);
-//
-//	}
-
 	public void contractInitForTenancy(Tenancy tenancy) throws IOException {
 
 		List<User> producers = userRepository.findByTenancyAndRole(tenancy, "Producteur");
@@ -1308,6 +1311,122 @@ public class DataInitializationService {
 			}
 		}
 	}
+	
+	public void initMembershipFee(Tenancy tenancy) {
+		List<User> users = userRepository.findAll().stream()
+		.filter(u -> u.getTenancy().getTenancyId() == tenancy.getTenancyId()).toList();
+		for (User user : users) {
+			//random day logic
+			LocalDate randomStartDate = randomDate();
+		    //create fee and link it to user
+		    MembershipFee fee = MembershipFee.builder()
+		            .info("Cotisation annuelle")
+		            .stock(1)
+		            .price(user.getTenancy().getMembershipFeePrice().doubleValue())
+		            .dateBeginning(randomStartDate)
+		            .dateEnd(randomStartDate.plusDays(365))
+		            .build();
+		    fee.setUser(user);
+		    user.setMembershipFee(fee);
+		    //save by cascade
+		    userRepository.save(user);
+		}
+	}
+	
+	public LocalDate randomDate() {
+		LocalDate endDate = LocalDate.of(2025, 1, 10);
+	    LocalDate firstDate = LocalDate.of(2024, 1, 20);
+	    long daysBetween = ChronoUnit.DAYS.between(firstDate, endDate);
+	    int randomDays = new Random().nextInt((int) daysBetween + 1);
+	    LocalDate randomDate = firstDate.plusDays(randomDays);
+	    return randomDate;
+	}
+	
+	public void initAllOrders() {
+		int randomOrdersQuantity = new Random().nextInt(10);
+		for (int j=0; j<randomOrdersQuantity; j++) {
+			for(Long i=1L; i <120; i++) {
+				initOrder(i);
+			}
+		}
+	}
+	
+	@Transactional
+	public void initOrder(Long userId) {
+		User user = userRepository.findUserWithOrders(userId);
+		
+		int randomQuantityOrderItems = new Random().nextInt(5)+1;
+
+		LocalDate randomDate = randomDate();
+		int randomQuantityShoppable = new Random().nextInt(3)+1;
+		
+		//build order base
+		Order order = Order.builder()
+				.totalAmount(0)
+				.orderDate(randomDate)
+				.orderStatus(OrderStatus.DONE)
+				.orderPaid(true)
+				.user(user)
+				.build();
+		//get random order item from shoppables
+		for(int i=0; i <randomQuantityOrderItems; i++) {
+			Shoppable shoppable = getRandomShoppable();
+			if (shoppable == null) {
+				System.out.println("Shoppable null, jump iteration");
+				continue; // ignore iteration if no shoppable is found
+			}
+			OrderItem item = OrderItem.builder()
+					.quantity(randomQuantityShoppable)
+					.unitPrice(shoppable.getPrice())
+					.total(randomQuantityShoppable*shoppable.getPrice())
+//					.shoppable(shoppable)
+					.build();
+			// i know it's not pretty but it handles the jpa limits 
+			orderItemRepository.save(item);
+			item.setShoppable(shoppable);
+			orderItemRepository.save(item);
+			order.getOrderItems().add(item);
+			order.setTotalAmount(order.getTotalAmount()+randomQuantityShoppable*shoppable.getPrice());
+			orderRepository.save(order);
+			item.setOrder(order);
+			orderItemRepository.save(item);
+		}
+		addPaymentToOrder(order, user, randomDate);
+		addOrderToUser(order, user);
+	}
+	
+	private void addPaymentToOrder(Order order, User user, LocalDate randomDate) {
+		//create payment
+		Payment payment = Payment.builder()
+				.paymentDate(randomDate.atStartOfDay())
+				.paymentType(PaymentType.card)
+				.paymentAmount(BigDecimal.valueOf(order.getTotalAmount()))
+				.build();
+		payment.setOrder(order);
+		order.getPayments().add(payment);
+		//save by cascade
+		orderRepository.save(order);
+	}
+	
+	private void addOrderToUser(Order order, User user) {
+		user.getOrders().add(order);
+		userRepository.save(user);
+	}
+	
+	private Shoppable getRandomShoppable() {
+	    Random random = new Random();
+	    int randomChoice = random.nextInt(2)+1; 
+	    switch (randomChoice) {
+	        case 0:
+	            return productRepository.findRandom();
+	        case 1:
+	            return contractRepository.findRandom();
+	        case 2:
+	            return workshopRepository.findRandom();
+	        default:
+	            throw new IllegalStateException("Valeur aléatoire invalide : " + randomChoice);
+	    }
+	}
 
 	private String loadImageFromResources(String imageName) throws IOException {
 		InputStream imageStream = getClass().getClassLoader().getResourceAsStream("image/" + imageName);
@@ -1317,5 +1436,5 @@ public class DataInitializationService {
 		byte[] imageBytes = imageStream.readAllBytes();
 		return Base64.getEncoder().encodeToString(imageBytes);
 	}
-
+	
 }

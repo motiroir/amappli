@@ -22,7 +22,6 @@ import isika.p3.amappli.entities.auth.Role;
 import isika.p3.amappli.entities.tenancy.ColorPalette;
 import isika.p3.amappli.entities.tenancy.FontChoice;
 import isika.p3.amappli.entities.user.User;
-import isika.p3.amappli.repo.amap.GraphismRepository;
 import isika.p3.amappli.repo.amappli.PermissionRepository;
 import isika.p3.amappli.security.CustomUserDetails;
 import isika.p3.amappli.service.amap.GraphismService;

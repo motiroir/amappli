@@ -31,13 +31,13 @@ public class OrderItem {
 	@Getter
 	@Setter
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "orderId", nullable = false)
+	@JoinColumn(name = "orderId", nullable = true)
 	private Order order;
 
 	@Getter
 	@Setter
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "shoppableId", nullable = false)
+	@JoinColumn(name = "shoppableId", nullable = true)
 	private Shoppable shoppable;
 
 	@Getter
