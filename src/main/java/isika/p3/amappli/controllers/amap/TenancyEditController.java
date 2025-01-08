@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import isika.p3.amappli.dto.amap.TenancyUpdateAddressDTO;
 import isika.p3.amappli.dto.amap.TenancyUpdateLogo;
 import isika.p3.amappli.dto.amap.TenancyUpdateNameAliasDTO;
+import isika.p3.amappli.dto.amap.TenancyUpdatePickUpDTO;
 import isika.p3.amappli.dto.amap.TenancyUpdateSloganDTO;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.service.amap.GraphismService;
@@ -59,6 +60,11 @@ public class TenancyEditController {
         tenancyUpdateAddressDTO.setAddress(tenancy.getAddress());
         model.addAttribute("tenancyUpdateAddressDTO",tenancyUpdateAddressDTO);
         
+        // PickUpSchedule
+        TenancyUpdatePickUpDTO tenancyUpdatePickUpDTO = new TenancyUpdatePickUpDTO();
+        tenancyUpdatePickUpDTO.setPickUpSchedule(tenancy.getPickUpSchedule());
+        model.addAttribute("tenancyUpdatePickUpDTO", tenancyUpdatePickUpDTO);
+
         return "/amap/back/edit/edithomepage";
     }
 

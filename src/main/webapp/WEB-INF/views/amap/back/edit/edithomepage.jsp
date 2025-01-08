@@ -159,7 +159,88 @@
                     </h2>
                     <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            Place your content for "Modifier votre créneau d'ouverture" here.
+                            <form action="${pageContext.request.contextPath}/amap/${tenancyAlias}/admin/editthepickupschedule" method="post">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                <p>Vos utilisateurs seront avertis à partir de leurs prochaines commandes.</p>
+                                <div class="mb-3">
+                                    <label for="dayOfWeek" class="form-label">Jour de la Semaine</label>
+                                    <select class="from-control form-select" name="pickUpSchedule.dayOfWeek" id="dayOfWeek">
+                                        <option value="">Sélectionnez un Jour</option>
+                                            <c:choose>
+                                        <c:when test="${tenancyUpdatePickUpDTO.dayOfWeek.name() == 'MONDAY'}">
+                                            <option value="MONDAY" selected>Lundi</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="MONDAY">Lundi</option>
+                                        </c:otherwise>
+                                        </c:choose>
+
+                                        <c:choose>
+                                            <c:when test="${tenancyUpdatePickUpDTO.dayOfWeek.name() == 'TUESDAY'}">
+                                                <option value="TUESDAY" selected>Mardi</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="TUESDAY">Mardi</option>
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                        <c:choose>
+                                            <c:when test="${tenancyUpdatePickUpDTO.dayOfWeek.name() == 'WEDNESDAY'}">
+                                                <option value="WEDNESDAY" selected>Mercredi</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="WEDNESDAY">Mercredi</option>
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                        <c:choose>
+                                            <c:when test="${tenancyUpdatePickUpDTO.dayOfWeek.name() == 'THURSDAY'}">
+                                                <option value="THURSDAY" selected>Jeudi</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="THURSDAY">Jeudi</option>
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                        <c:choose>
+                                            <c:when test="${tenancyUpdatePickUpDTO.dayOfWeek.name() == 'FRIDAY'}">
+                                                <option value="FRIDAY" selected>Vendredi</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="FRIDAY">Vendredi</option>
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                        <c:choose>
+                                            <c:when test="${tenancyUpdatePickUpDTO.dayOfWeek.name() == 'SATURDAY'}">
+                                                <option value="SATURDAY" selected>Samedi</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="SATURDAY">Samedi</option>
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                        <c:choose>
+                                            <c:when test="${tenancyUpdatePickUpDTO.dayOfWeek.name() == 'SUNDAY'}">
+                                                <option value="SUNDAY" selected>Dimanche</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="SUNDAY">Dimanche</option>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </select>
+                                </div>
+                            
+                                <div class="mb-3">
+                                    <label for="startHour" class="form-label">Heure de Début</label>
+                                    <input value="${tenancyUpdatePickUpDTO.startHour}" name="pickUpSchedule.startHour" type="time" class="form-control" id="startHour" required="true" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="endHour" class="form-label">Heure de Fin</label>
+                                    <input value="${tenancyUpdatePickUpDTO.endHour}" name="pickUpSchedule.endHour" type="time" class="form-control" id="endHour" required="true" />
+                                </div>
+                                <button type="submit" class="btn btn-700">Sauvegarder</button>
+                            </form>
                         </div>
                     </div>
                 </div>
