@@ -107,7 +107,7 @@ public class DataInitializationService {
 		try {
 			for (Tenancy t : tenancyRepository.findAll()) {
 				userInit(t);
-
+				initMembershipFee(t);
 				// Génération de contrats pour chaque tenancy
 				try {
 					contractInitForTenancy(t);
@@ -122,6 +122,7 @@ public class DataInitializationService {
 			contractInitForTenancy(6L);
 			productInit();
 			workshopInit();
+			initAllOrders();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -212,7 +213,7 @@ public class DataInitializationService {
 
 		// users creation
 		User user1 = User.builder().email("marie.durand@example" + tenancy.getTenancyId() + ".com")
-				.password("AMAPamap11@").isActive(true).tenancy(null).build();
+				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
 		user1.getRoles().add(AdminPlateforme);
 		saveUser(user1);
 		Address a1 = Address.builder().line2("5 avenue des Roses").line1("Appartement 12").postCode("44000")
@@ -837,7 +838,7 @@ public class DataInitializationService {
 		String imagevalueB0 = loadImageFromResources("presentationgreenmaven1.png");
 		String imagevalueA2 = loadImageFromResources("valuet4a.png");
 		String imagevalueB2 = loadImageFromResources("valuet4b.png");
-		String imagevalueC2 = loadImageFromResources("valuet4b1.png");
+		String imagevalueC2 = loadImageFromResources("valuet4c.png");
 
 		// 1. Le ContentBlock pour la présentation de GreenHaven
 		ContentBlock presentationBlock4 = ContentBlock.builder().isValue(false)
