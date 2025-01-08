@@ -116,6 +116,11 @@ public class DataInitializationService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		try {
+			contractInitForTenancy(6L);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Transactional
@@ -1307,6 +1312,133 @@ public class DataInitializationService {
 						+ tenancy.getTenancyName());
 			}
 		}
+	}
+
+	public void contractInitForTenancy(Long tenancyId) throws IOException {
+
+		Tenancy tenancy = tenancyRepository.findById(tenancyId)
+	            .orElseThrow(() -> new IllegalArgumentException("Tenancy not found with ID: " + tenancyId));
+
+	    List<User> producers = userRepository.findByTenancyAndRole(tenancy, "Producteur");
+
+	    if (producers.isEmpty()) {
+	        throw new IllegalStateException("No producers found for the tenancy with ID: " + tenancyId);
+	    }
+
+	    String paniersoupe = loadImageFromResources("paniersoupe.png");
+	    String panierratatouille = loadImageFromResources("panierratatouille.png");
+	    String panierregionfrance = loadImageFromResources("panierregionfrance.png");
+	    String paniersaveurautomne = loadImageFromResources("paniersaveurautomne.png");
+	    String paniercroquant = loadImageFromResources("paniercroquant.png");
+
+	    Contract contract1 = Contract.builder()
+	            .contractName("Panier soupe 5 légumes")
+	            .contractType(ContractType.VEGETABLES_CONTRACT)
+	            .contractDescription("Un panier composé pour réaliser une délicieuse soupe aux 5 légumes\r\n"
+	            		+ "\r\n"
+	            		+ "Environs 4 kilo de légumes dans le panier")
+	            .contractWeight(ContractWeight.AVERAGE)
+	            .contractPrice(new BigDecimal("10.95"))
+	            .dateCreation(LocalDate.now())
+	            .startDate(LocalDate.of(2025, 4, 1))
+	            .endDate(LocalDate.of(2025, 6, 30))
+	            .deliveryRecurrence(DeliveryRecurrence.BIMONTHLY)
+	            .quantity(15)
+	            .shoppable(true)
+	            .imageType("image/png")
+	            .pickUpSchedule(tenancy.getPickUpSchedule())
+	            .address(tenancy.getAddress())
+	            .tenancy(tenancy)
+	            .user(producers.get(0))
+	            .imageData(paniersoupe)
+	            .build();
+	    
+	    Contract contract2 = Contract.builder()
+	    		.contractName("Saveur automnales")
+	    		.contractType(ContractType.VEGETABLES_CONTRACT)
+	    		.contractDescription("Carottes, panais, céleri-rave, pommes de terre, betteraves. Idéal pour des purées, soupes ou rôtis au four.")
+	    		.contractWeight(ContractWeight.AVERAGE)
+	    		.contractPrice(new BigDecimal("11.50"))
+	    		.dateCreation(LocalDate.now())
+	    		.startDate(LocalDate.of(2025, 1, 10))
+	    		.endDate(LocalDate.of(2025, 6, 30))
+	    		.deliveryRecurrence(DeliveryRecurrence.WEEKLY)
+	    		.quantity(12)
+	    		.shoppable(true)
+	    		.imageType("image/png")
+	    		.pickUpSchedule(tenancy.getPickUpSchedule())
+	    		.address(tenancy.getAddress())
+	    		.tenancy(tenancy)
+	    		.user(producers.get(3))
+	    		.imageData(paniersaveurautomne)
+	    		.build();
+	    
+	    Contract contract3 = Contract.builder()
+	    		.contractName("Panier spécial ratatouille")
+	            .contractType(ContractType.VEGETABLES_CONTRACT)
+	            .contractDescription("Aubergines, poivrons, tomates, oignons, courgettes. Tout ce qu'il faut pour une ratatouille traditionnelle.")
+	            .contractWeight(ContractWeight.AVERAGE)
+	            .contractPrice(new BigDecimal("20.00"))
+	            .dateCreation(LocalDate.now())
+	            .startDate(LocalDate.of(2025, 5, 1))
+	            .endDate(LocalDate.of(2025, 9, 30))
+	            .deliveryRecurrence(DeliveryRecurrence.WEEKLY)
+	            .quantity(10)
+	            .shoppable(true)
+	            .imageType("image/png")
+	            .imageData(panierratatouille)
+	            .pickUpSchedule(tenancy.getPickUpSchedule())
+	            .address(tenancy.getAddress())
+	            .tenancy(tenancy)
+	            .user(producers.get(0))
+	            .build();
+	    
+			    Contract contract4 = Contract.builder()
+			    .contractName("Panier douceur et croquant")
+		        .contractType(ContractType.FRUITS_CONTRACT)
+		        .contractDescription("Pommes, poires, raisins, noix, figues. Une douceur automnale.")
+		        .contractWeight(ContractWeight.BIG)
+		        .contractPrice(new BigDecimal("30.00"))
+		        .dateCreation(LocalDate.now())
+		        .startDate(LocalDate.of(2025, 10, 1))
+		        .endDate(LocalDate.of(2025, 12, 31))
+		        .deliveryRecurrence(DeliveryRecurrence.MONTHLY)
+		        .quantity(12)
+		        .shoppable(true)
+		        .imageType("image/png")
+		        .imageData(paniercroquant)
+		        .pickUpSchedule(tenancy.getPickUpSchedule())
+		        .address(tenancy.getAddress())
+		        .tenancy(tenancy)
+		        .user(producers.get(1))
+		        .build();
+			    
+			    Contract contract5 = Contract.builder()
+	            .contractName("Panier Régions de France")
+	            .contractType(ContractType.MIX_CONTRACT)
+	            .contractDescription("Une sélection des légumes et fruits emblématiques des régions françaises : choux de Bretagne, pommes de Normandie, raisins du Sud-Ouest.")
+	            .contractWeight(ContractWeight.BIG)
+	            .contractPrice(new BigDecimal("40.00"))
+	            .dateCreation(LocalDate.now())
+	            .startDate(LocalDate.of(2025, 1, 1))
+	            .endDate(LocalDate.of(2025, 12, 31))
+	            .deliveryRecurrence(DeliveryRecurrence.MONTHLY)
+	            .quantity(15)
+	            .shoppable(true)
+	            .imageType("image/png")
+	            .imageData(panierregionfrance)
+	            .pickUpSchedule(tenancy.getPickUpSchedule())
+	            .address(tenancy.getAddress())
+	            .tenancy(tenancy)
+	            .user(producers.get(2))
+	            .build();
+
+	    contractRepository.save(contract1);
+	    contractRepository.save(contract2);
+	    contractRepository.save(contract3);
+	    contractRepository.save(contract4);
+	    contractRepository.save(contract5);
+
 	}
 
 	private String loadImageFromResources(String imageName) throws IOException {

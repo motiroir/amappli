@@ -6,8 +6,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import isika.p3.amappli.dto.amap.ContractDTO;
 import isika.p3.amappli.entities.contract.Contract;
+import isika.p3.amappli.entities.contract.ContractType;
 import isika.p3.amappli.entities.tenancy.Tenancy;
-import isika.p3.amappli.entities.user.User;
 
 public interface ContractService {
 
@@ -26,6 +26,8 @@ public interface ContractService {
 	List<Contract> findAll(String tenancyAlias);
 	
 	List<Contract> findShoppableContractsByTenancy(Tenancy tenancy);
+
+	List<Contract> findShoppableContractsByTypeAndTenancy(ContractType type, Tenancy tenancy);
 
 
 }
