@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import isika.p3.amappli.entities.contract.Contract;
 import isika.p3.amappli.entities.contract.ContractType;
 import isika.p3.amappli.entities.product.Product;
+import isika.p3.amappli.entities.tenancy.Options;
 import isika.p3.amappli.entities.tenancy.PickUpSchedule;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.workshop.Workshop;
@@ -54,6 +55,8 @@ public class ShopController {
 
 		Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
 	            .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+		
+		Options options = tenancy.getOptions();
 
 	    List<Contract> contracts = contractService.findShoppableContractsByTenancy(tenancy);
 
@@ -84,6 +87,7 @@ public class ShopController {
 	    model.addAttribute("fruitCount", fruitCount);
 	    model.addAttribute("mixedCount", mixedCount);
 	    model.addAttribute("contracts", contracts);
+	    model.addAttribute("options", options);
 	    model.addAttribute("tenancyAlias", tenancyAlias);
 	    addGraphismAttributes(tenancyAlias, model);
 
@@ -133,6 +137,9 @@ public class ShopController {
 	            .filter(contract -> "MIX_CONTRACT".equals(contract.getContractType().name()))
 	            .count();
 	    
+	    Options options = tenancy.getOptions();
+	    
+	    model.addAttribute("options", options);
 		model.addAttribute("products", formattedProducts);
 	    model.addAttribute("vegetableCount", vegetableCount);
 	    model.addAttribute("fruitCount", fruitCount);
@@ -187,6 +194,9 @@ public class ShopController {
 	            .filter(contract -> "MIX_CONTRACT".equals(contract.getContractType().name()))
 	            .count();
 
+	    Options options = tenancy.getOptions();
+	    
+	    model.addAttribute("options", options);
 	    model.addAttribute("vegetableCount", vegetableCount);
 	    model.addAttribute("fruitCount", fruitCount);
 	    model.addAttribute("mixedCount", mixedCount);
@@ -252,7 +262,10 @@ public class ShopController {
 	    long mixedCount = contracts.stream()
 	            .filter(c -> "MIX_CONTRACT".equals(c.getContractType().name()))
 	            .count();
-
+	    
+	    Options options = tenancy.getOptions();
+	    
+	    model.addAttribute("options", options);
 	    model.addAttribute("vegetableCount", vegetableCount);
 	    model.addAttribute("fruitCount", fruitCount);
 	    model.addAttribute("mixedCount", mixedCount);
@@ -311,6 +324,10 @@ public class ShopController {
 	    model.addAttribute("vegetableCount", vegetableCount);
 	    model.addAttribute("fruitCount", fruitCount);
 	    model.addAttribute("mixedCount", mixedCount);
+	    
+	    Options options = tenancy.getOptions();
+	    
+	    model.addAttribute("options", options);
 
 	    // Ajout des dates formatées au modèle
 	    model.addAttribute("formattedFabricationDate", formattedFabricationDate);
@@ -355,6 +372,10 @@ public class ShopController {
 	    long mixedCount = contracts.stream()
 	            .filter(contract -> "MIX_CONTRACT".equals(contract.getContractType().name()))
 	            .count();
+	    
+	    Options options = tenancy.getOptions();
+	    
+	    model.addAttribute("options", options);
 	    
 	    model.addAttribute("vegetableCount", vegetableCount);
 	    model.addAttribute("fruitCount", fruitCount);
