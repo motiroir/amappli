@@ -108,19 +108,19 @@ public class DataInitializationService {
 			for (Tenancy t : tenancyRepository.findAll()) {
 				userInit(t);
 				initMembershipFee(t);
-				// contractInitForTenancy(t);
+				contractInitForTenancy(t);
 			}
 		} catch (Exception e) {
 		 	e.printStackTrace();
 		}
-		// try {
-		// 	productInit();
-		// 	workshopInit();
-		// 	contractInitForTenancy(6L);
-		// 	initAllOrders();
-		// } catch (Exception e) {
-		// 	e.printStackTrace();
-		// }
+		try {
+			productInit();
+			workshopInit();
+			contractInitForTenancy(6L);
+			initAllOrders();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 // test method to avoid initializing everything while developing and testing 
@@ -208,7 +208,7 @@ public class DataInitializationService {
 
 		// users creation
 		User user1 = User.builder().email("marie.durand@example" + tenancy.getTenancyId() + ".com")
-				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
+				.password("AMAPamap11@").isActive(true).tenancy(null).build();
 		user1.getRoles().add(AdminPlateforme);
 		saveUser(user1);
 		Address a1 = Address.builder().line2("5 avenue des Roses").line1("Appartement 12").postCode("44000")
