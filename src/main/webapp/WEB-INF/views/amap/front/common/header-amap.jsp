@@ -64,28 +64,39 @@
 					</a></li>
 				</c:if>
 				<c:if test="${empty user}">
-				<li class="nav-item m-2 m-md-0"><a
-					href="<c:url value='/amap/${tenancyAlias}/login'/>"
-					class="btn rounded-pill btn-500 px-4">Se connecter</a></li></c:if>
+					<li class="nav-item m-2 m-md-0"><a
+						href="<c:url value='/amap/${tenancyAlias}/login'/>"
+						class="btn rounded-pill btn-500 px-4">Se connecter</a></li>
+				</c:if>
 			</ul>
 		</div>
-<c:if test="${not empty user}">
-    <div class="d-flex align-items-center gap-3">
-        <!-- Icône gear -->
-        <a href="<c:url value='/amap/${tenancyAlias}/settings'/>" class="text-decoration-none">
-            <i class="bi bi-gear fs-4 fc-300 fch-500"></i>
-        </a>
+		<c:if test="${not empty user}">
+			<div class="d-flex align-items-center gap-3">
+				<!-- Icône gear -->
+				<c:if test="${not empty user and user.role == 'Admin'}">
+					<a href="<c:url value='/amap/${tenancyAlias}/settings'/>"
+						class="text-decoration-none"> <i
+						class="bi bi-gear fs-4 fc-300 fch-500"></i>
+					</a>
+				</c:if>
 
-        <!-- Icône box-arrow-left -->
-        <a href="<c:url value='/logout'/>" class="text-decoration-none">
-            <i class="bi bi-box-arrow-left fs-4 fc-300 fch-500"></i>
-        </a>
 
-        <!-- Icône person-circle -->
-        <a href="<c:url value='/amap/${tenancyAlias}/profile'/>" class="text-decoration-none">
-            <i class="bi bi-person-circle fs-4 fc-300 fch-500"></i>
-        </a>
-    </div>
-</c:if>
+				<!-- Icône box-arrow-left -->
+				<form action="<c:url value='/logout'/>" method="post"
+					class="d-inline"
+					onsubmit="return confirm('Êtes-vous sûr(e) de vouloir vous déconnecter ?');">
+					<button type="submit" class="btn p-0 border-0 bg-transparent">
+						<i class="bi bi-box-arrow-left fs-4 fc-300 fch-500"></i>
+					</button>
+				</form>
+
+
+				<!-- Icône person-circle -->
+				<a href="<c:url value='/amap/${tenancyAlias}/admin/contracts/list'/>"
+					class="text-decoration-none"> <i
+					class="bi bi-person-circle fs-4 fc-300 fch-500"></i>
+				</a>
+			</div>
+		</c:if>
 	</nav>
 </div>
