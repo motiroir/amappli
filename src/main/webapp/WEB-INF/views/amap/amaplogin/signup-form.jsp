@@ -26,7 +26,7 @@
     <div class="form-container py-5">
         <div class="d-flex justify-content-between align-items-center ">
             <h1 class="h3 fw-bold fc-300">S'inscrire</h1>
-            <a href="/Amappli/tenancies/${tenancyAlias}/home"class="btn-close fc-main" aria-label="Retour"></a>
+            <a href="/Amappli/amap/${tenancyAlias}/home"class="btn-close fc-main" aria-label="Retour"></a>
         </div>
         <hr class="bg-300 mb-4">
 
@@ -106,7 +106,7 @@
         
         <br>
 		<div class="text-center mt-4">
-			<p class="fc-300" >Déja inscrit.e ?</p>
+			<p class="fc-300 ms-4" >Déja inscrit.e ?</p>
 			<hr class="bg-300">
 			<a
 				href="${pageContext.request.contextPath}/tenancies/${tenancyAlias}/amap/amaplogin/login"
