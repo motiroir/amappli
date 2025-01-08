@@ -81,7 +81,7 @@
 							type="button" data-bs-toggle="collapse" data-bs-target=""
 							aria-expanded="false" aria-controls="">
 							Mes favoris &emsp;<span
-								class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">PRO</span>
+								class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">€</span>
 						</button>
 					</h2>
 				</li>

@@ -35,6 +35,7 @@ public class WebSecurityConfig {
 
     @Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		System.out.println("Using password encoder"+ passwordEncoder().getClass().getName());
 		http
 			.authorizeHttpRequests((requests) -> requests
 				.requestMatchers("/login*","/*/login*").permitAll()
@@ -63,6 +64,7 @@ public class WebSecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+		System.out.println("i'm being used!");
         return PasswordEncoderFactories.createDelegatingPasswordEncoder(); 
     }
 }

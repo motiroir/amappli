@@ -32,25 +32,26 @@
 						<li class="d-flex justify-content-between pt-2"><a
 							id="allBaskets"
 							href="<c:url value='/amap/${tenancyAlias}/shop/contracts?contractType=ALL'/>"
-							class="text-decoration-none fc-300 fch-600 flex-grow-1 pe-5">Tous
+							class="text-decoration-none flex-grow-1 ${currentMainMenu.equals('contracts') && param.contractType == 'ALL' ? 'text-decoration-underline fc-600' : 'fc-300 fch-600'}">Tous
 								les paniers</a> <span class="badge bg-none fc-300 rounded-pill ms-5">${contracts.size()}</span>
 						</li>
 						<li class="d-flex justify-content-between"><a
 							id="vegetableBaskets"
 							href="<c:url value='/amap/${tenancyAlias}/shop/contracts?contractType=VEGETABLES_CONTRACT'/>"
-							class="text-decoration-none fc-300 fch-600 flex-grow-1">Paniers
-								légumes</a> <span class="badge bg-none fc-300 rounded-pill ms-5">${vegetableCount}</span>
+							class="text-decoration-none flex-grow-1 ${currentMainMenu.equals('contracts') && param.contractType == 'VEGETABLES_CONTRACT' ? 'text-decoration-underline fc-600' : 'fc-300 fch-600'}">
+								Paniers légumes </a> <span
+							class="badge bg-none fc-300 rounded-pill ms-5">${vegetableCount}</span>
 						</li>
 						<li class="d-flex justify-content-between"><a
 							id="fruitBaskets"
 							href="<c:url value='/amap/${tenancyAlias}/shop/contracts?contractType=FRUITS_CONTRACT'/>"
-							class="text-decoration-none fc-300 fch-600 flex-grow-1">Paniers
-								fruits</a> <span class="badge bg-none fc-300 rounded-pill ms-5">${fruitCount}</span>
+							class="text-decoration-none flex-grow-1 ${currentMainMenu.equals('contracts') && param.contractType == 'FRUITS_CONTRACT' ? 'text-decoration-underline fc-600' : 'fc-300 fch-600'}">
+							Paniers	fruits</a> <span class="badge bg-none fc-300 rounded-pill ms-5">${fruitCount}</span>
 						</li>
 						<li class="d-flex justify-content-between border-bottom pb-3">
 							<a id="mixedBaskets"
 							href="<c:url value='/amap/${tenancyAlias}/shop/contracts?contractType=MIX_CONTRACT'/>"
-							class="text-decoration-none fc-300 fch-600 flex-grow-1">Paniers
+							class="text-decoration-none flex-grow-1 ${currentMainMenu.equals('contracts') && param.contractType == 'MIX_CONTRACT' ? 'text-decoration-underline fc-600' : 'fc-300 fch-600'}">Paniers
 								mixtes</a> <span class="badge bg-none fc-300 rounded-pill ms-5">${mixedCount}</span>
 						</li>
 					</ul> <!-- Épicerie --> <c:if test="${options.option1Active}">

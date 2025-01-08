@@ -56,9 +56,10 @@
                         <a href="#" class="text-white me-2"><i class="bi bi-instagram"></i></a>
                     </p>
                 </div>
+                <!-- Carte dynamique -->
+            <div class="map mt-4 " id="dynamic-map" style="height: 300px; width: 100%;"></div>
             </div>
-            <!-- Carte dynamique -->
-            <div class="map mt-4" id="dynamic-map" style="height: 300px; width: 100%;"></div>
+            
         </div>
 
         <!-- Contact Form -->
@@ -89,7 +90,7 @@
     </div>
 </div>
 
-	<footer class="container-fluid fc-main bg-main">
+	<footer class="container-fluid fc-main bg-main fixed-bottom">
 		<jsp:include page="../common/footer.jsp" />
 	</footer>
 

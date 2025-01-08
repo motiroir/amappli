@@ -98,12 +98,12 @@ public class DataInitializationService {
 
 	public void dataInit() {
 		try {
-			tenancyInit();
-			permissionInit();
-			roleInit();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		 	tenancyInit();
+		 	permissionInit();
+		 	roleInit();
+		 } catch (Exception e) {
+		 	e.printStackTrace();
+		 }
 		try {
 			for (Tenancy t : tenancyRepository.findAll()) {
 				userInit(t);
@@ -116,7 +116,7 @@ public class DataInitializationService {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+		 	e.printStackTrace();
 		}
 		try {
 			contractInitForTenancy(6L);
@@ -223,7 +223,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci1);
 		user1.setAddress(a1);
 		user1.setContactInfo(ci1);
-		saveUser(user1);
+		updateUser(user1);
 
 		User user2 = User.builder().email("lucas.martin@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -237,7 +237,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci2);
 		user2.setAddress(a2);
 		user2.setContactInfo(ci2);
-		saveUser(user2);
+		updateUser(user2);
 
 		User user3 = User.builder().email("jeanne.lemoine@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -257,7 +257,7 @@ public class DataInitializationService {
 		user3.setAddress(a3);
 		user3.setContactInfo(ci3);
 		user3.setCompanyDetails(cd3);
-		saveUser(user3);
+		updateUser(user3);
 
 		User user4 = User.builder().email("thomas.dupuis@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -271,7 +271,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci4);
 		user4.setAddress(a4);
 		user4.setContactInfo(ci4);
-		saveUser(user4);
+		updateUser(user4);
 
 		User user5 = User.builder().email("claire.fournier@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -289,7 +289,7 @@ public class DataInitializationService {
 		user5.setCompanyDetails(cd5);
 		user5.setAddress(a5);
 		user5.setContactInfo(ci5);
-		saveUser(user5);
+		updateUser(user5);
 
 		User user6 = User.builder().email("charlotte.petit@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -303,7 +303,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci6);
 		user6.setAddress(a6);
 		user6.setContactInfo(ci6);
-		saveUser(user6);
+		updateUser(user6);
 
 		User user7 = User.builder().email("victor.martin@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -320,7 +320,7 @@ public class DataInitializationService {
 		user7.setAddress(a7);
 		user7.setContactInfo(ci7);
 		user7.setCompanyDetails(cd7);
-		saveUser(user7);
+		updateUser(user7);
 
 		User user8 = User.builder().email("elise.muller@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -334,7 +334,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci8);
 		user8.setAddress(a8);
 		user8.setContactInfo(ci8);
-		saveUser(user8);
+		updateUser(user8);
 
 		User user9 = User.builder().email("jean.benoit@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -352,7 +352,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci9);
 		user9.setAddress(a9);
 		user9.setContactInfo(ci9);
-		saveUser(user9);
+		updateUser(user9);
 
 		User user10 = User.builder().email("amelie.rousseau@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -366,7 +366,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci10);
 		user10.setAddress(a10);
 		user10.setContactInfo(ci10);
-		saveUser(user10);
+		updateUser(user10);
 
 		User user11 = User.builder().email("henri.durand@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -380,7 +380,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci11);
 		user11.setAddress(a11);
 		user11.setContactInfo(ci11);
-		saveUser(user11);
+		updateUser(user11);
 
 		User user12 = User.builder().email("manon.fabre@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -398,7 +398,7 @@ public class DataInitializationService {
 		user12.setAddress(a12);
 		user12.setContactInfo(ci12);
 		user12.setCompanyDetails(cd12);
-		saveUser(user12);
+		updateUser(user12);
 
 		User user13 = User.builder().email("paul.brun@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -412,7 +412,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci13);
 		user13.setAddress(a13);
 		user13.setContactInfo(ci13);
-		saveUser(user13);
+		updateUser(user13);
 
 		User user14 = User.builder().email("sophie.martin@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -430,7 +430,7 @@ public class DataInitializationService {
 		user14.setAddress(a14);
 		user14.setContactInfo(ci14);
 		user14.setCompanyDetails(cd14);
-		saveUser(user14);
+		updateUser(user14);
 
 		User user15 = User.builder().email("lucie.lafaye@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -445,7 +445,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci15);
 		user15.setAddress(a15);
 		user15.setContactInfo(ci15);
-		saveUser(user15);
+		updateUser(user15);
 
 		User user16 = User.builder().email("alain.dubois@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -463,7 +463,7 @@ public class DataInitializationService {
 		user16.setAddress(a16);
 		user16.setContactInfo(ci16);
 		user16.setCompanyDetails(cd16);
-		saveUser(user16);
+		updateUser(user16);
 
 		User user17 = User.builder().email("laura.lemoine@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -477,7 +477,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci17);
 		user17.setAddress(a17);
 		user17.setContactInfo(ci17);
-		saveUser(user17);
+		updateUser(user17);
 
 		User user18 = User.builder().email("antoine.morel@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -491,7 +491,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci18);
 		user18.setAddress(a18);
 		user18.setContactInfo(ci18);
-		saveUser(user18);
+		updateUser(user18);
 
 		User user19 = User.builder().email("laurence.vincent@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -509,7 +509,7 @@ public class DataInitializationService {
 		user19.setAddress(a19);
 		user19.setContactInfo(ci19);
 		user19.setCompanyDetails(cd19);
-		saveUser(user19);
+		updateUser(user19);
 
 		User user20 = User.builder().email("bernard.morvan@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -523,12 +523,16 @@ public class DataInitializationService {
 		contactInfoService.save(ci20);
 		user20.setAddress(a20);
 		user20.setContactInfo(ci20);
-		saveUser(user20);
+		updateUser(user20);
 
 	}
 
 	public User saveUser(User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		return userRepository.save(user);
+	}
+
+	public User updateUser(User user) {
 		return userRepository.save(user);
 	}
 
@@ -573,6 +577,7 @@ public class DataInitializationService {
 				.build();
 
 		// Création des 4 ContentBlocks pour la Tenancy
+		String imagevalue0 = loadImageFromResources("presentationbiocoli.png");
 		String imagevalue1 = loadImageFromResources("value1.png");
 		String imagevalue2 = loadImageFromResources("value2.png");
 		String imagevalue3 = loadImageFromResources("value3.png");
@@ -581,7 +586,8 @@ public class DataInitializationService {
 		ContentBlock presentationBlock = ContentBlock.builder().isValue(false).contentTitle("Présentation de BioColi")
 				.contentText(
 						"BioColi est une AMAP dédiée à la distribution de paniers bio, locaux et de saison, visant à reconnecter les consommateurs avec des produits de qualité, cultivés près de chez eux. À travers notre plateforme, nous mettons en avant des produits frais, issus de fermes locales qui respectent des pratiques agricoles durables. Notre engagement va au-delà de la simple consommation : nous offrons aux membres une expérience enrichissante, où l’échange direct avec les producteurs permet de mieux comprendre l'origine des produits et de soutenir une agriculture plus respectueuse de l'environnement. Rejoindre BioColi, c'est faire le choix d’un avenir plus responsable, local et respectueux de la planète.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagelogo)
+
+				.contentImgName("value0.png").contentImgTypeMIME("image/png").contentImg(imagevalue0) 
 				.homePageContent(homePageContent1).build();
 
 		// 2. ContentBlock pour la première valeur de l'AMAP
@@ -654,7 +660,8 @@ public class DataInitializationService {
 		HomePageContent homePageContent2 = HomePageContent.builder().subTitle("Un panier bio, local et de saison.")
 				.showSuppliers(true).tenancy(t2) // Association de HomePageContent avec Tenancy
 				.build();
-
+		
+		String imagevalueZ = loadImageFromResources("presentationagrinov.png");
 		String imagevalueA = loadImageFromResources("valuet2a.png");
 		String imagevalueB = loadImageFromResources("valuet2b.png");
 		String imagevalueC = loadImageFromResources("valuet2c.png");
@@ -665,7 +672,7 @@ public class DataInitializationService {
 		ContentBlock presentationBlock2 = ContentBlock.builder().isValue(false).contentTitle("Présentation d'Agrinov")
 				.contentText(
 						"Agrinov est une AMAP qui a pour mission de promouvoir l’agriculture locale, bio et responsable, en facilitant l’accès à des paniers de produits de saison. En tant que plateforme, Agrinov permet aux consommateurs de soutenir directement les producteurs locaux et de participer à un modèle de consommation plus durable et respectueux de l'environnement. Nous mettons en valeur une sélection de produits frais, cultivés dans des fermes locales qui respectent des méthodes agricoles écologiques. Chaque panier livré chez vous porte l’engagement d’une agriculture plus verte, plus solidaire et plus transparente, contribuant ainsi à un cercle vertueux entre producteurs et consommateurs. Rejoindre Agrinov, c’est prendre part à un projet de société, où l'alimentation saine et locale est au cœur de notre action pour un monde plus durable.")
-				.contentImgName("valuet2a.png").contentImgTypeMIME("image/png").contentImg(imagelogo2)
+				.contentImgName("valuet2a.png").contentImgTypeMIME("image/png").contentImg(imagevalueZ) 
 				.homePageContent(homePageContent2).build();
 
 		// 2. ContentBlock pour la première valeur de l'AMAP
@@ -742,10 +749,12 @@ public class DataInitializationService {
 				.showSuppliers(true).tenancy(t3) // Association de HomePageContent avec Tenancy
 				.build();
 
-		String imagevalueA1 = loadImageFromResources("valuet3a.png");
-		String imagevalueB1 = loadImageFromResources("valuet3b.png");
-		String imagevalueC1 = loadImageFromResources("valuet3c.png");
-
+		
+				String imagevalueA0 = loadImageFromResources("presentationgroots.png");
+				String imagevalueA1 = loadImageFromResources("valuet3a.png");
+				String imagevalueB1 = loadImageFromResources("valuet5c.png");
+				String imagevalueC1 = loadImageFromResources("valuet3c.png");
+				
 		// Création des 4 ContentBlock pour la Tenancy
 
 		// 1. Le ContentBlock pour la présentation de l'AMAP
@@ -753,7 +762,7 @@ public class DataInitializationService {
 				.contentTitle("Groots - Connectez-vous aux producteurs locaux")
 				.contentText(
 						"Groots est une AMAP innovante qui vous connecte directement avec vos producteurs locaux. Notre objectif est de faciliter l'accès à des produits frais, bio et locaux tout en garantissant une meilleure transparence dans la chaîne de distribution. Chaque panier de produits est l'occasion de soutenir l'agriculture locale, de découvrir des produits de saison cultivés dans le respect de l'environnement, et de renforcer les liens entre les consommateurs et les producteurs. Grâce à Groots, vous avez la possibilité de participer activement à un modèle économique durable et solidaire, où la qualité des produits et la transparence de la provenance sont au cœur de notre démarche.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagelogo3)
+				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagevalueA0) 
 				.homePageContent(homePageContent3).build();
 
 		// 2. ContentBlock pour la première valeur de l'AMAP
@@ -824,17 +833,18 @@ public class DataInitializationService {
 
 		HomePageContent homePageContent4 = HomePageContent.builder().subTitle("Manger sainement avec GreenHaven")
 				.showSuppliers(true).tenancy(t4).build();
-
+		
+		String imagevalueB0 = loadImageFromResources("presentationgreenmaven1.png");
 		String imagevalueA2 = loadImageFromResources("valuet4a.png");
 		String imagevalueB2 = loadImageFromResources("valuet4b.png");
-		String imagevalueC2 = loadImageFromResources("valuet4c.png");
+		String imagevalueC2 = loadImageFromResources("valuet4b1.png");
 
 		// 1. Le ContentBlock pour la présentation de GreenHaven
 		ContentBlock presentationBlock4 = ContentBlock.builder().isValue(false)
 				.contentTitle("Présentation de GreenHaven")
 				.contentText(
 						"GreenHaven est une AMAP dédiée à la durabilité, à la qualité des produits et à la préservation de notre environnement. Nous proposons des paniers de produits locaux, cultivés dans le respect des cycles naturels et des principes de l'agriculture durable. Chaque panier contient des produits frais, soigneusement sélectionnés, cultivés par nos fermiers partenaires dans une démarche écoresponsable. En rejoignant GreenHaven, vous soutenez des pratiques agricoles qui respectent la biodiversité et l'équilibre écologique tout en bénéficiant de produits de saison, gages de qualité et de fraîcheur.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagelogo4)
+				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagevalueB0)
 				.homePageContent(homePageContent4).build();
 
 		// 2. ContentBlock pour la première valeur de l'AMAP : Respect de la Nature
@@ -854,7 +864,7 @@ public class DataInitializationService {
 		// 4. ContentBlock pour la troisième valeur de l'AMAP : Communauté Locale
 		ContentBlock valueBlock43 = ContentBlock.builder().isValue(true).contentTitle("Communauté Locale").contentText(
 				"GreenHaven est une AMAP ancrée dans sa communauté locale. Nous travaillons en étroite collaboration avec des producteurs locaux passionnés qui partagent notre vision d'une agriculture durable et responsable. Notre objectif est de renforcer les liens entre les membres de la communauté, de soutenir les fermiers locaux et de favoriser une économie circulaire. En rejoignant GreenHaven, vous devenez une partie prenante de ce réseau solidaire, où les produits de qualité se rencontrent avec des valeurs humaines fortes.")
-				.contentImgName("valuetac.png").contentImgTypeMIME("image/png").contentImg(imagevalueB2)
+				.contentImgName("valuetac.png").contentImgTypeMIME("image/png").contentImg(imagevalueC2)
 				.homePageContent(homePageContent4).build();
 
 		homePageContent4.getContents().add(presentationBlock4);
@@ -899,9 +909,11 @@ public class DataInitializationService {
 		HomePageContent homePageContent5 = HomePageContent.builder().subTitle("Cultivons ensemble un avenir durable.")
 				.showSuppliers(true).tenancy(t5).build();
 
+		
+		String imagevalueC0 = loadImageFromResources("presentationlacarottechantenay.png");
 		String imagevalueA3 = loadImageFromResources("valuet5a.png");
 		String imagevalueB3 = loadImageFromResources("valuet5b.png");
-		String imagevalueC3 = loadImageFromResources("value3.png");
+		String imagevalueC3 = loadImageFromResources("valuet5c.png");
 
 		// Création des ContentBlock
 		// 1. Le ContentBlock pour la présentation de La carotte de Chantenay
@@ -909,7 +921,7 @@ public class DataInitializationService {
 				.contentTitle("Présentation de La carotte de Chantenay")
 				.contentText(
 						"La carotte de Chantenay est une AMAP dédiée à la production de légumes biologiques, locaux et de qualité, ancrée dans un engagement durable envers l'environnement. Nous mettons en avant la carotte de Chantenay, un produit emblématique, tout en diversifiant notre offre de légumes de saison cultivés avec passion. En rejoignant notre communauté, vous soutenez l'agriculture biologique tout en accédant à des produits frais et savoureux, cultivés dans le respect de la nature.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagelogo5)
+				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagevalueC0)
 				.homePageContent(homePageContent5).build();
 
 		// 2. ContentBlock pour la première valeur de l'AMAP : Écologie et Durabilité
@@ -974,17 +986,18 @@ public class DataInitializationService {
 		// Création du HomePageContent pour la Tenancy
 		HomePageContent homePageContent6 = HomePageContent.builder().subTitle("Vivez local, mangez local.")
 				.showSuppliers(true).tenancy(t6).build();
-
+		
+		String imagevalueD0 = loadImageFromResources("presentationterralocal.png");
 		String imagevalueA4 = loadImageFromResources("valuet6a.png");
 		String imagevalueB4 = loadImageFromResources("valuet6c.png");
-		String imagevalueC4 = loadImageFromResources("valuet6b.png");
+		String imagevalueC4 = loadImageFromResources("valuet5c.png");
 
 		// 1. Le ContentBlock pour la présentation de TerraLocal
 		ContentBlock presentationBlock6 = ContentBlock.builder().isValue(false)
 				.contentTitle("Présentation de TerraLocal")
 				.contentText(
 						"TerraLocal est une AMAP engagée à mettre en avant les produits locaux afin de soutenir les agriculteurs de notre région. Nous croyons que chaque consommateur mérite d'avoir accès à des produits de qualité, cultivés près de chez lui, dans un respect total de l'environnement et des producteurs. Notre mission est de rapprocher les citoyens des producteurs locaux pour un futur plus durable, en offrant des produits frais, sains et responsables. Grâce à notre AMAP, vous soutenez directement les fermes locales tout en bénéficiant de produits locaux de haute qualité.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagelogo6)
+				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagevalueD0)
 				.homePageContent(homePageContent6).build();
 
 		// 2. ContentBlock pour la première valeur de l'AMAP : Origine Garantie
