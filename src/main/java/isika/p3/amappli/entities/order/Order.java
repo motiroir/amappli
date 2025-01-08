@@ -61,7 +61,7 @@ public class Order {
 	
 	@Getter @Setter
 	@Builder.Default
-	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Payment> payments = new ArrayList<Payment>();
 
 	@Getter @Setter

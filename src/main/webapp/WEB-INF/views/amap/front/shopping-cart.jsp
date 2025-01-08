@@ -49,14 +49,21 @@
 											</c:if></td>
 										<td>${item.shoppable.getInfo()}</td>
 										<td>${item.shoppable.getPrice()}€</td>
-										<td><div class="btn btn-100">
-												<form:form method="post"
-													action="${pageContext.request.contextPath}/amap/${tenancyAlias}/cart/${userId}/updateQuantity/${item.shoppingItemId}">
-													<button type="submit" name="action" value="decrease">-</button>
-													<span>${item.getQuantity()}</span>
-													<button type="submit" name="action" value="increase">+</button>
-												</form:form>
-											</div></td>
+										<td><c:choose>
+												<c:when test="${item.shoppable.membershipFee}">
+													<span>${item.quantity}</span>
+												</c:when>
+												<c:otherwise>
+													<div class="btn btn-100">
+														<form:form method="post"
+															action="${pageContext.request.contextPath}/amap/${tenancyAlias}/cart/updateQuantity/${item.shoppingItemId}">
+															<button type="submit" name="action" value="decrease">-</button>
+															<span>${item.quantity}</span>
+															<button type="submit" name="action" value="increase">+</button>
+														</form:form>
+													</div>
+												</c:otherwise>
+											</c:choose></td>
 
 										<td>${item.totalPrice}€</td>
 									</tr>
@@ -69,36 +76,39 @@
 							<tr>
 							<tr>
 								<td>Panier</td>
-								<td>${totalContracts} €</td>
+								<td>${totalContracts}€</td>
 								<!-- Affiche le nombre de contrats dans le panier -->
 							</tr>
 							<tr>
 								<td>Produits artisanaux</td>
-								<td>${totalProducts} €</td>
+								<td>${totalProducts}€</td>
 								<!-- Affiche le nombre de produits dans le panier -->
 							</tr>
 							<tr>
 								<td>Ateliers</td>
-								<td>${totalWorkshops} €</td>
+								<td>${totalWorkshops}€</td>
 								<!-- Affiche le nombre de produits dans le panier -->
 							</tr>
 							<tr>
 								<td>Cotisation</td>
-								<td>${tenancy.membershipFeePrice}</td>
+								<td>${tenancy.membershipFeePrice}€</td>
 							</tr>
 							<tr>
 								<td><h2 class="fw-bold">TOTAL</h2></td>
-								<td><h2 class="fw-bold">${total}</h2></td>
+								<td><h2 class="fw-bold">${total}€</h2></td>
 							</tr>
 
-							<form:form method="post" action="${pageContext.request.contextPath}/amap/${tenancyAlias}/order/${userId}/createOrder">
+							<form:form method="post"
+								action="${pageContext.request.contextPath}/amap/${tenancyAlias}/order/createOrder">
 								<tr>
 									<td colspan="2"><button class="btn btn-500 btn-order"
-											type="submit" name="action" value="OrderWithPayment">Passer au paiement</button></td>
+											type="submit" name="action" value="OrderWithPayment">Passer
+											au paiement</button></td>
 								</tr>
 								<tr>
 									<td colspan="2"><button class="btn btn-100 btn-order"
-											type="submit" name="action" value="OrderWithoutPayment">Payer sur place</button></td>
+											type="submit" name="action" value="OrderWithoutPayment">Payer
+											sur place</button></td>
 								</tr>
 							</form:form>
 						</table>
@@ -115,15 +125,13 @@
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 
 	<script>
-		var styleMapboxLight = "${mapStyleLight}"
-		var styleMapboxDark = "${mapStyleDark}"
+		var styleMapboxLight = "${mapStyleLight}";
+		var styleMapboxDark = "${mapStyleDark}";
 		var latitude = "${latitude}"
 		var longitude = "${longitude}"
 	</script>
-
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script> 
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script> 
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/palette-swap.js' />" type="text/javascript"></script>
 </body>
 </html>

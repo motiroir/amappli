@@ -34,7 +34,7 @@ request.setAttribute("currentPage", currentPage);
             <div class="row justify-content-center">
                     <div class="form-container">
                         <div class="header-container">
-                            <a href="<c:url value='/${tenancyAlias}/backoffice/users/list'/>" class="${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900">
+                            <a href="<c:url value='/amap/${tenancyAlias}/admin/users/list'/>" class="${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900">
 								<i class="bi bi-arrow-left"></i> Liste<span class="d-none d-md-inline"> des adhérents</span>
 							</a>
 							<c:if test="${message.length() > 0}">
@@ -44,7 +44,7 @@ request.setAttribute("currentPage", currentPage);
 							</c:if>
 							<h2 class="my-4 fw-bold">Détails de l'adhérent</h2>
                         </div>
-                        <form:form  method="POST" action="/Amappli/${tenancyAlias}/backoffice/users/update" enctype="multipart/form-data" modelAttribute="user">
+                        <form:form  method="POST" action="/Amappli/amap/${tenancyAlias}/admin/users/update" enctype="multipart/form-data" modelAttribute="user">
                         	<form:hidden path="userId" value="${user.userId }"/>
                             <div class="row">
                                 <!-- Première colonne -->
@@ -160,19 +160,19 @@ request.setAttribute("currentPage", currentPage);
             </div>
         </div>
     	<script>
-		var styleMapboxLight = "${mapStyleLight}"
-		var styleMapboxDark = "${mapStyleDark}"
+		var styleMapboxLight = "${mapStyleLight}";
+		var styleMapboxDark = "${mapStyleDark}";
 
-		/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
-		 const tenancyCity = "${tenancy.getAddress().getCity()}"
-		 const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
-		 */
+
+		 var latitude = "${latitude}";
+		 var longitude = "${longitude}"; 
+
 	</script>
 	<script	src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/palette-swap.js' />" type="text/javascript"></script>
+
 	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/user-details.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/user-form.js' />" type="text/javascript"></script>

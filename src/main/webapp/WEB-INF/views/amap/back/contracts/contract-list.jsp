@@ -14,13 +14,9 @@ request.setAttribute("currentPage", currentPage);
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Liste des Contrats</title>
-<link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />"
-	rel="stylesheet">
-<link href="<c:url value='/resources/css/common/utils.css' />"
-	rel="stylesheet">
-<link
-	href="<c:url value='/resources/bootstrap/bootstrap-icons.min.css' />"
-	rel="stylesheet">
+<link href="<c:url value='/resources/bootstrap/bootstrap.min.css' />" rel="stylesheet">
+<link href="<c:url value='/resources/css/common/utils.css' />" rel="stylesheet">
+<link href="<c:url value='/resources/bootstrap/bootstrap-icons.min.css' />" rel="stylesheet">
 </head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
 
@@ -38,29 +34,26 @@ request.setAttribute("currentPage", currentPage);
 		<div class="container-fluid mt-2">
 			<div class="row justify-content-center">
 				<div class="col-12">
-					<div class="search-bar d-flex align-items-center mb-3">
-						<!-- Nombre total de contrats -->
-						<div class="me-4 fs-5 fc-main d-none d-md-block">
-							<span>${contracts.size()} éléments</span><br />
-						</div>
-
+					<div class="search-bar d-flex align-items-center justify-content-between mb-3">
 						<!-- Dropdown pour trier -->
 						<div class="d-flex align-items-center me-4">
-							<label for="sortBy" class="me-2 fw-400 fs-3 text-nowrap fc-main">Trier
-								par</label> <select id="sortBy"
-								class="form-select custom-select border-main">
+							<label for="sortBy" class="me-2 fw-400 fs-3 text-nowrap fc-main">Trier par</label>
+							<select id="sortBy" class="form-select custom-select border-main">
 								<option value="name">Nom</option>
 								<option value="producer">Producteur</option>
-								<option value="priceAsc">Prix croissant</option>
-								<option value="priceDesc">Prix décroissant</option>
+								<option value="priceAsc" class="d-none d-md-block">Prix croissant</option>
+								<option value="priceDesc" class="d-none d-md-block">Prix décroissant</option>
 							</select>
 						</div>
-
 						<!-- Barre de recherche -->
 						<div>
 							<input type="text" id="searchBar"
 								class="form-control custom-input border-main"
 								placeholder="Rechercher...">
+						</div>
+						<div class="mx-3 d-none d-md-block">
+							<label class="fc-main">Opacité du tableau</label>
+    						<input type="range" class="form-range" min="0" max="100" value="100" id="bg-range">
 						</div>
 					</div>
 					<div
@@ -73,33 +66,40 @@ request.setAttribute("currentPage", currentPage);
 								un panier</span>
 						</a>
 					</div>
-					<br>
+						<!-- Nombre total de contrats -->
+						<div class="mb-2 fs-5 fc-main d-none d-md-block">
+							<span>${contracts.size()} éléments</span>
+						</div>
 					<!-- Mode tableau -->
 					<table
 						class="table table-hover table-responsive fc-main align-middle"
 						style="--bs-table-bg: color-mix(in srgb, #ffffff, transparent 100%);">
 						<thead>
 							<tr>
-								<th class="bg-700">Image</th>
+								<th class="d-none d-md-table-cell bg-700">Image</th>
+								<th class="d-table-cell d-md-none bg-700"></th>
 								<th class="bg-700">Nom</th>
-								<th class="bg-700">Type</th>
+								<th class="d-none d-md-table-cell bg-700">Type</th>
+								<th class="d-table-cell d-md-none bg-700"></th>
 								<th class="bg-700">Producteur</th>
-								<th class="bg-700">Prix</th>
+								<th class="d-none d-md-table-cell bg-700">Prix</th>
+								<th class="d-table-cell d-md-none bg-700"></th>
 								<th class="bg-700">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="contract" items="${contracts}">
 								<tr>
-									<td><c:if test="${not empty contract.imageData}">
-											<img
-												src="data:${contract.imageType};base64,${contract.imageData}"
-												alt="Image du contrat"
+									<td class="d-table-cell d-md-none"></td>
+									<td class="text-truncate d-none d-md-table-cell"><c:if test="${not empty contract.imageData}">
+											<img src="data:${contract.imageType};base64,${contract.imageData}" alt="Image du contrat"
 												style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover;">
 										</c:if></td>
-									<td class="d-none d-md-table-cell">${contract.contractName}</td>
+									<td class="text-wrap">${contract.contractName}</td>
+									<td class="d-table-cell d-md-none"></td>
 									<td class="d-none d-md-table-cell">${contract.contractType.displayName}</td>
-									<td class="d-none d-lg-table-cell">${contract.user.companyDetails.companyName}</td>
+									<td class="text-wrap">${contract.user.companyDetails.companyName}</td>
+									<td class="d-table-cell d-md-none"></td>
 									<td class="d-none d-md-table-cell">${contract.contractPrice}€</td>
 									<td>
 										<div class='d-flex justify-content-start align-items-center'>
@@ -129,26 +129,17 @@ request.setAttribute("currentPage", currentPage);
 		</div>
 	</div>
 	<script>
-		var styleMapboxLight = "${mapStyleLight}"
-		var styleMapboxDark = "${mapStyleDark}"
+		var styleMapboxLight = "${mapStyleLight}";
+		var styleMapboxDark = "${mapStyleDark}";
 		var latitude = "${latitude}"
 		var longitude = "${longitude}"
 	</script>
-	<script
-		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
-	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />"
-		type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
-		type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
-		type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />"
-		type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />"
-		type="text/javascript"></script>
+	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/contract-list.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />" type="text/javascript"></script>
 </body>
 </html>

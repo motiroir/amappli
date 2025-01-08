@@ -38,7 +38,7 @@
 		<div class="collapse navbar-collapse" id="nav-content">
 			<ul class="navbar-nav w-100 justify-content-between align-items-center">
 				<li class="nav-item">
-					<a href="../amap/${tenancyAlias}/home" class="nav-link ${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900"><i class="bi bi-arrow-left"></i><span class="d-none d-md-inline"> Retour vers le site</span></a>
+					<a href="<c:url value='/${tenancyAlias}/home'/>" class="nav-link ${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900"><i class="bi bi-arrow-left"></i> Retour vers le site</a>
 				</li>
 				<li class="nav-item">
 				<h1 class="${font} fc-300 fw-bold text-center">Mon Espace personnel<span class="d-none d-md-inline"></span></h1>

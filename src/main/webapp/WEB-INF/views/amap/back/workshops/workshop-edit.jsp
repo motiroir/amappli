@@ -82,7 +82,7 @@ request.setAttribute("currentPage", currentPage);
 							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Modifier
 								un produit</h2>
 							<form:form id="workshopForm" name="workshopForm" method="POST"
-								action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/workshops/update"
+								action="${pageContext.request.contextPath}/${tenancyAlias}/admin/workshops/update"
 								modelAttribute="workshop" enctype="multipart/form-data">
 								<form:hidden path="id" />
 								<div class="row">
@@ -203,7 +203,7 @@ request.setAttribute("currentPage", currentPage);
 		type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
 		type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
+	
 		type="text/javascript"></script>
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {

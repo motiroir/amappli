@@ -11,7 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.github.javafaker.Faker;
+// import com.github.javafaker.Faker;
 
 import isika.p3.amappli.dto.amap.NewUserDTO;
 
@@ -129,6 +129,11 @@ public class UserServiceImpl implements UserService {
     	return this.userRepository.existsByEmailAndTenancy(email, tenancy);
     }
     
+    @Override
+    public User updateUser(User user){
+        return userRepository.save(user);
+    }
+
     @Override
     public User saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));

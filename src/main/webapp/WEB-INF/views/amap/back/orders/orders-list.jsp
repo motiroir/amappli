@@ -33,11 +33,7 @@
 		<div class="container-fluid mt-2">
 			<div class="row justify-content-center">
 				<div class="col-12">
-					<div class="search-bar d-flex align-items-center mb-3">
-						<!-- Nombre total d'adhérents -->
-						<div class="me-4 fs-5 fc-main">
-							<span>${orders.size()} éléments</span><br/>
-						</div>
+					<div class="search-bar d-flex align-items-center justify-content-between mb-3">
 						<!-- Dropdown pour trier -->
 						<div class="d-flex align-items-center me-4">
 							<label for="sortBy" class="me-2 fw-400 fs-3 text-nowrap fc-main">Trié par</label>
@@ -58,6 +54,10 @@
 					</div>
 					<div class="table-container d-flex justify-content-between align-items-center">
 						<h2 class="fw-bold fc-main">Liste des commandes</h2>
+					</div>
+					<!-- Nombre total d'adhérents -->
+					<div class="mb-2 fs-5 fc-main d-none d-md-block">
+						<span>${orders.size()} éléments</span>
 					</div>
 					<!-- Mode tableau -->
 					<table class="table table-hover fc-main" style="--bs-table-bg: color-mix(in srgb, #ffffff, transparent 100%);">
@@ -102,17 +102,16 @@
 		</div>
 	</div>
 		<script>
-		var styleMapboxLight = "${mapStyleLight}"
-		var styleMapboxDark = "${mapStyleDark}"
+		var styleMapboxLight = "${mapStyleLight}";
+		var styleMapboxDark = "${mapStyleDark}";
 		var latitude = "${latitude}"
 		var longitude = "${longitude}"
 	</script>
 	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/palette-swap.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />" type="text/javascript"></script>
 </body>
 

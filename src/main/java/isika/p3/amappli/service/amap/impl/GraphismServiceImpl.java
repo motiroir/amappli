@@ -1,10 +1,16 @@
 package isika.p3.amappli.service.amap.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
+import isika.p3.amappli.entities.tenancy.Graphism;
 import isika.p3.amappli.entities.tenancy.Tenancy;
+import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
+import isika.p3.amappli.security.CustomUserDetails;
 import isika.p3.amappli.service.amap.GraphismService;
 
 @Service
@@ -13,9 +19,58 @@ public class GraphismServiceImpl implements GraphismService {
 	@Autowired
 	private TenancyRepository tenancyRepo;
 
-	@Override
-	public String getMapStyleLightByTenancyAlias(String alias) {
-		Tenancy tenancy = tenancyRepo.findByTenancyAlias(alias).orElse(null);
+	public void setUpModel(String alias, Model model) {
+		Tenancy tenancy = getTenancyByAlias(alias);
+		addTenancyInfos(tenancy, model);
+		addGraphismAttributes(tenancy, model);
+	}
+	
+	public void addTenancyInfos(Tenancy tenancy, Model model) {
+		// add tenancy infos
+		model.addAttribute("tenancy", tenancy);
+        model.addAttribute("tenancyName", tenancy.getTenancyName());
+        model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
+        // add tenancy address
+        Address address = tenancy.getAddress();
+        model.addAttribute("addressLine1", address != null ? address.getLine1() : null);
+        model.addAttribute("addressLine2", address != null ? address.getLine2() : null);
+        model.addAttribute("addressPostCode", address != null ? address.getPostCode() : null);
+        model.addAttribute("addressCity", address != null ? address.getCity() : null);
+        model.addAttribute("email", tenancy.getEmail());
+        model.addAttribute("phoneNumber", tenancy.getContactInfo() != null ? tenancy.getContactInfo().getPhoneNumber() : null);
+       //add tenancy logo
+        Graphism graphism = tenancy.getGraphism();
+        String logoBase64 = graphism != null ? graphism.getLogoImg() : null;
+        String logoImgType = graphism != null ? graphism.getLogoImgType() : null;
+        model.addAttribute("logoBase64", logoBase64);
+        model.addAttribute("logoImgType", logoImgType);
+	}
+	
+	public void  addGraphismAttributes(Tenancy tenancy, Model model) {
+		// set up model with all basic necessary informations concerning tenancy and graphism
+		model.addAttribute("mapStyleLight", getMapStyleLightByTenancyAlias(tenancy));
+		model.addAttribute("mapStyleDark", getMapStyleDarkByTenancyAlias(tenancy));
+		model.addAttribute("latitude", getLatitudeByTenancyAlias(tenancy));
+		model.addAttribute("longitude", getLongitudeByTenancyAlias(tenancy));
+		
+		model.addAttribute("tenancy", tenancy);
+		
+		model.addAttribute("cssStyle", getColorPaletteByTenancyAlias(tenancy));
+		
+		model.addAttribute("font", getFontByTenancyAlias(tenancy));
+	}
+	
+	public Long getUserIdFromContext() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Object principal = authentication.getPrincipal();
+		//condition for when we don't want to login at each dev iteration
+		if (principal instanceof CustomUserDetails) {
+			CustomUserDetails loggedUserInfo = (CustomUserDetails) principal;
+			return (Long) loggedUserInfo.getAdditionalInfoByKey("userId");
+		} else return 1L;
+	}
+	
+	public String getMapStyleLightByTenancyAlias(Tenancy tenancy) {
 		if (tenancy == null || tenancy.getGraphism() == null) {
 			return "mapbox://styles/tiroirmorgane/cm4sw37wr001301s12frm2l2y"; // theme1 white by default
 		}
@@ -40,9 +95,7 @@ public class GraphismServiceImpl implements GraphismService {
 		}
 	}
 
-	@Override
-	public String getMapStyleDarkByTenancyAlias(String alias) {
-		Tenancy tenancy = tenancyRepo.findByTenancyAlias(alias).orElse(null);
+	public String getMapStyleDarkByTenancyAlias(Tenancy tenancy) {
 		if (tenancy == null || tenancy.getGraphism() == null) {
 			return "mapbox://styles/tiroirmorgane/cm52cqefg003101sa878udky6"; // theme1 dark by default
 		}
@@ -72,9 +125,7 @@ public class GraphismServiceImpl implements GraphismService {
 		return tenancyRepo.findByTenancyAlias(alias).orElse(null);
 	}
 
-	@Override
-	public String getColorPaletteByTenancyAlias(String alias) {
-		Tenancy tenancy = tenancyRepo.findByTenancyAlias(alias).orElse(null);
+	public String getColorPaletteByTenancyAlias(Tenancy tenancy) {
 		if (tenancy == null || tenancy.getGraphism() == null) {
 			return "theme-1";
 		}
@@ -99,9 +150,7 @@ public class GraphismServiceImpl implements GraphismService {
 		}
 	}
 
-	@Override
-	public String getFontByTenancyAlias(String alias) {
-		Tenancy tenancy = tenancyRepo.findByTenancyAlias(alias).orElse(null);
+	public String getFontByTenancyAlias(Tenancy tenancy) {
 		if (tenancy == null || tenancy.getGraphism() == null) {
 			return "futura";
 		}
@@ -125,15 +174,13 @@ public class GraphismServiceImpl implements GraphismService {
 		}
 	}
 	
-	public String getLatitudeByTenancyAlias(String alias) {
-		Tenancy tenancy = tenancyRepo.findByTenancyAlias(alias).orElse(null);
+	public String getLatitudeByTenancyAlias(Tenancy tenancy) {
 		if (tenancy == null || tenancy.getGraphism() == null) {
 			return "42.1880896";
 		} else return tenancy.getTenancyLatitude();
 	}
 	
-	public String getLongitudeByTenancyAlias(String alias) {
-		Tenancy tenancy = tenancyRepo.findByTenancyAlias(alias).orElse(null);
+	public String getLongitudeByTenancyAlias(Tenancy tenancy) {
 		if (tenancy == null || tenancy.getGraphism() == null) {
 			return "9.0684138";
 		} else return tenancy.getTenancyLongitude();

@@ -7,11 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet"
-	href="<c:url value='/resources/bootstrap/bootstrap.min.css' />">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/amappli/featuresPage.css' />">
+<link rel="stylesheet" href="<c:url value='/resources/bootstrap/bootstrap.min.css' />">
+<link rel="stylesheet" href="<c:url value='/resources/css/amappli/featuresPage.css' />">
+<link href="<c:url value='/resources/bootstrap/bootstrap-icons.min.css' />" rel="stylesheet">
 
 <title>Fonctionnalités</title>
 
@@ -49,13 +47,13 @@
           <h2 class="h3 fw-bold">0€/an</h2>
           <p class="fc-600">Ou 0€/mois</p>
           <ul class="list-unstyled text-start">
-            <li><i class="bi bi-check-circle-fill text-dark me-2"></i> <span>Un site vitrine avec les informations de votre amap</span></li>
-            <li><i class="bi bi-check-circle-fill text-dark me-2"></i> <span> La possibilité d’ajouter votre logo, et le choix entre deux thèmes de couleurs et deux typographies</span></li>
-            <li><i class="bi bi-check-circle-fill text-dark me-2"></i> Une boutique pour que vos adhérents s’abonnent aux paniers</li>
-            <li><i class="bi bi-check-circle-fill text-dark me-2"></i>  La gestion des contrats et des stocks avec un paiement hors-ligne</li>
-            <li><i class="bi bi-check-circle-fill text-dark me-2"></i>  La gestion des commandes avec factures pour vos fournisseurs</li>
+            <li><i class="bi bi-check-circle-fill fc-900 me-2"></i> <span>Un site vitrine avec les informations de votre amap</span></li>
+            <li><i class="bi bi-check-circle-fill fc-900 me-2"></i> <span> La possibilité d’ajouter votre logo, et le choix entre deux thèmes de couleurs et deux typographies</span></li>
+            <li><i class="bi bi-check-circle-fill fc-900 me-2"></i> Une boutique pour que vos adhérents s’abonnent aux paniers</li>
+            <li><i class="bi bi-check-circle-fill fc-900 me-2"></i>  La gestion des contrats et des stocks avec un paiement hors-ligne</li>
+            <li><i class="bi bi-check-circle-fill fc-900 me-2"></i>  La gestion des commandes avec factures pour vos fournisseurs</li>
           </ul>
-          <a href="#" class="btn btn-100 rounded-pill px-4">Créer mon site</a>
+          <a href="<c:url value='/amappli/start/signup'/>" class="btn btn-100 rounded-pill px-4">Créer mon site</a>
         </div>
       </div>
     </div>
@@ -70,15 +68,15 @@
           <h2 class="h3 fw-bold fc-900">50€/an</h2>
           <p class="fc-600">Ou 5€/mois</p>
           <ul class="list-unstyled text-start">
-            <li><i class="bi bi-check-circle-fill text-dark me-2"></i>  Tout ce qu’il y a dans le potager plus :</li>
-            <li><i class="bi bi-check-circle-fill text-dark me-2"></i> Le paiement en ligne</li>
-            <li><i class="bi bi-check-circle-fill text-dark me-2"></i>  La possibilité d’ajouter des produits à l’unité et des ateliers dans la boutique</li>
-            <li><i class="bi bi-check-circle-fill text-dark me-2"></i>  Des rôles personnalisés pour vos bénévoles et fournisseurs</li>
-            <li><i class="bi bi-check-circle-fill text-dark me-2"></i>  Plus de choix de palettes de couleurs et de typographies</li>
-            <li><i class="bi bi-check-circle-fill text-dark me-2"></i>  Un choix parmi plusieurs modèles de site pour personnaliser encore plus !</li>
-            <li><i class="bi bi-check-circle-fill text-dark me-2"></i>  Choix d’un logo dans une banque de logos</li>
+            <li><i class="bi bi-check-circle-fill fc-900 me-2"></i>  Tout ce qu’il y a dans le potager plus :</li>
+            <li><i class="bi bi-check-circle-fill fc-900 me-2"></i> Le paiement en ligne</li>
+            <li><i class="bi bi-check-circle-fill fc-900 me-2"></i>  La possibilité d’ajouter des produits à l’unité et des ateliers dans la boutique</li>
+            <li><i class="bi bi-check-circle-fill fc-900 me-2"></i>  Des rôles personnalisés pour vos bénévoles et fournisseurs</li>
+            <li><i class="bi bi-check-circle-fill fc-900 me-2"></i>  Plus de choix de palettes de couleurs et de typographies</li>
+            <li><i class="bi bi-check-circle-fill fc-900 me-2"></i>  Un choix parmi plusieurs modèles de site pour personnaliser encore plus !</li>
+            <li><i class="bi bi-check-circle-fill fc-900 me-2"></i>  Choix d’un logo dans une banque de logos</li>
           </ul>
-          <a href="#" class="btn btn-100 rounded-pill px-4">Créer mon site</a>
+          <a href="<c:url value='/amappli/start/signup'/>" class="btn btn-100 rounded-pill px-4">Créer mon site</a>
         </div>
       </div>
     </div>
@@ -93,16 +91,16 @@
           <h2 class="h3 fw-bold">100€/an</h2>
           <p class="fc-600">Ou 10€/mois</p>
           <ul class="list-unstyled text-start">
-            <li><i class="bi bi-check-circle-fill text-dark me-2"></i>  Tout ce qu’il y a dans le verger plus :</li>
-            <li><i class="bi bi-check-circle-fill text-dark me-2"></i>  Une visibilité sur vos statistiques</li>
-            <li><i class="bi bi-check-circle-fill text-dark me-2"></i>  Un système de messagerie pour communiquer avec vos adhérents</li>
-            <li><i class="bi bi-check-circle-fill text-dark me-2"></i>  Un système de mailing automatique en cas d’oubli de commande par un adhérent</li>
-            <li><i class="bi bi-check-circle-fill text-dark me-2"></i>  La possibilité de créer des promotions et des lots, et de rajouter des produits en favoris</li>
-            <li><i class="bi bi-check-circle-fill text-dark me-2"></i>  La personnalisation du montant de la cotisation en fonction des adhérents</li>
-            <li><i class="bi bi-check-circle-fill text-dark me-2"></i>  Un système de newsletter</li>
-            <li><i class="bi bi-check-circle-fill text-dark me-2"></i>  Un accompagnement SEO personnalisé</li>
+            <li><i class="bi bi-check-circle-fill fc-900 me-2"></i>  Tout ce qu’il y a dans le verger plus :</li>
+            <li><i class="bi bi-check-circle-fill fc-900 me-2"></i>  Une visibilité sur vos statistiques</li>
+            <li><i class="bi bi-check-circle-fill fc-900 me-2"></i>  Un système de messagerie pour communiquer avec vos adhérents</li>
+            <li><i class="bi bi-check-circle-fill fc-900 me-2"></i>  Un système de mailing automatique en cas d’oubli de commande par un adhérent</li>
+            <li><i class="bi bi-check-circle-fill fc-900 me-2"></i>  La possibilité de créer des promotions et des lots, et de rajouter des produits en favoris</li>
+            <li><i class="bi bi-check-circle-fill fc-900 me-2"></i>  La personnalisation du montant de la cotisation en fonction des adhérents</li>
+            <li><i class="bi bi-check-circle-fill fc-900 me-2"></i>  Un système de newsletter</li>
+            <li><i class="bi bi-check-circle-fill fc-900 me-2"></i>  Un accompagnement SEO personnalisé</li>
           </ul>
-          <a href="#" class="btn btn-100 rounded-pill px-4">Créer mon site</a>
+          <a href="<c:url value='/amappli/start/signup'/>" class="btn btn-100 rounded-pill px-4">Créer mon site</a>
         </div>
       </div>
     </div>
@@ -115,8 +113,8 @@
 
 	<script	src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 	<script	src="<c:url value='/resources/js/amappli/loading-when-visible.js' />"></script>
-	<script	src="<c:url value='/resources/js/amappli/theme-swap.js' />"></script>
- <script	src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script	src="<c:url value='/resources/js/common/theme-swap.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
 	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  
 </body>
 </html>

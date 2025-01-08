@@ -2,11 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <!DOCTYPE html>
-<div
-	class="container-fluid d-flex flex-row-reverse flex-md-row justify-content-between justify-content-md-evenly align-items-center">
+<div class="container-fluid d-flex flex-row-reverse flex-md-row justify-content-between justify-content-md-evenly align-items-center">
 
-	<img src="<c:url value='/resources/img/logo_amappli_peach_2.png'/>"
-		height="50" class="navbar-brand d-block d-md-none" />
+	<a href="<c:url value='/amappli/home'/>">
+		<img src="<c:url value='/resources/img/logo_amappli_peach_2.png'/>" height="50" class="navbar-brand d-block d-md-none" />
+	</a>
 
 	<svg id="logo-header" height="50" min-height="50" viewBox="0 0 697 726" xmlns="http://www.w3.org/2000/svg" class="my-2 my-sm-0 d-none d-md-block">
         <path class="fill-300"
@@ -80,7 +80,9 @@
         <path class="fill-300"
 			d="M396.451 187.652L393.602 188.323L435.329 365.517L438.178 364.846L396.451 187.652Z" />
     </svg>
-	<h1 id="text-head" class="d-none d-md-block fw-bold fs-2">amappli</h1>
+	<a class="d-none d-md-block nav-link" href="<c:url value='/amappli/home'/>">
+		<h1 id="text-head" class="d-none d-md-block fw-bold fs-2">amappli</h1>
+	</a>
 	<div class="p-0 ms-2 ms-md-0 d-flex justify-content-evenly">
 		<svg class="my-auto mx-1" width="15" height="15" viewBox="0 0 30 30"
 			xmlns="http://www.w3.org/2000/svg" class="m-auto">
@@ -97,29 +99,24 @@
 	    </svg>
 	</div>
 	<nav class="navbar navbar-expand-md col-offset-1 col-md-8 col-2 align-content-center">
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+		<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
 			data-bs-target="#nav-content" aria-controls="nav-content"
 			aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div id="nav-content" class="collapse navbar-collapse">
-			<ul class="navbar-nav w-100 justify-content-md-evenly">
-				<li class="nav-item"><a href="features"
-					class="nav-link nunito text-decoration-none fc-300 fch-500">Fonctionnalités</a>
+		<div id="nav-content" class="offcanvas offcanvas-start navbar-collapse bg-main w-auto px-3">
+			<ul class="navbar-nav w-100 mt-4 mt-md-0 justify-content-evenly">
+				<li class="nav-item">
+					<a href="<c:url value='/amappli/features'/>" class="nav-link nunito text-decoration-none fc-300 fch-500">Fonctionnalités</a>
 				</li>
-
-
-				<li class="nav-item"><a href="about"
-					class="nav-link nunito text-decoration-none fc-300 fch-500"
-					>Qui sommes-nous ?</a></li>
-				<li class="nav-item"><a href="contact"
-
-					class="nav-link nunito text-decoration-none fc-300 fch-500">Contact</a>
+				<li class="nav-item">
+					<a href="<c:url value='/amappli/about'/>" class="nav-link nunito text-decoration-none fc-300 fch-500">Qui sommes-nous ?</a></li>
+				<li class="nav-item">
+					<a href="<c:url value='/amappli/contact'/>" class="nav-link nunito text-decoration-none fc-300 fch-500">Contact</a>
 				</li>
-				<!--   <li class="nav-item col-1">
-                </li> -->
-				<li class="nav-item"><a href="/start/signup"
-					class="btn rounded-pill btn-500 px-4">S'inscrire</a></li>
+				<li class="nav-item">
+					<a href="<c:url value='/amappli/start/signup'/>" class="btn rounded-pill btn-500 px-4">S'inscrire</a>
+				</li>
 			</ul>
 		</div>
 	</nav>

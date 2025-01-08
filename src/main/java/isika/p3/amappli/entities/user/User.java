@@ -1,6 +1,7 @@
 package isika.p3.amappli.entities.user;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Set;
 
 import isika.p3.amappli.entities.auth.Permission;
 import isika.p3.amappli.entities.auth.Role;
+import isika.p3.amappli.entities.membership.MembershipFee;
 import isika.p3.amappli.entities.order.Order;
 import isika.p3.amappli.entities.order.ShoppingCart;
 import isika.p3.amappli.entities.tenancy.Tenancy;
@@ -95,7 +97,10 @@ public class User {
 	@Builder.Default
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Order> orders = new ArrayList<Order>();
-
+	
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private MembershipFee membershipFee;
+	
     public Set<Permission> getPermissions(){
         Set<Permission> permissions = new HashSet<Permission>();
         for(Role r: roles){
@@ -105,5 +110,12 @@ public class User {
         }
         return permissions;
     }
+    
+    public boolean isMembershipFeeValid() {
+        LocalDate today = LocalDate.now();
+        LocalDate endDate = this.membershipFee.getDateEnd();
+        return endDate.isAfter(today) || endDate.isEqual(today);
+    }
 
+    
 }

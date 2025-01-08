@@ -26,14 +26,16 @@
     <div class="form-container py-5">
         <div class="d-flex justify-content-between align-items-center ">
             <h1 class="h3 fw-bold fc-300">S'inscrire</h1>
+
             <a href="/Amappli/amap/${tenancyAlias}/home"class="btn-close fc-main" aria-label="Retour"></a>
+
         </div>
         <hr class="bg-300 mb-4">
 
         <form:form 
             modelAttribute="userDTO" 
             method="post" 
-            action="${pageContext.request.contextPath}/tenancies/${tenancyAlias}/amap/amaplogin/signup">
+            action="${pageContext.request.contextPath}/tenancies/amap/${tenancyAlias}/amap/amaplogin/signup">
 
             <!-- Ajout du token CSRF -->
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -99,7 +101,7 @@
 
             <div class="text-center">
             
-                <button href="${pageContext.request.contextPath}/tenancies/${tenancyAlias}/amap/amaplogin/login-done" 
+                <button href="${pageContext.request.contextPath}/amap/${tenancyAlias}/login-done" 
                 type="submit" class="btn btn-500 px-4 rounded-pill">S'inscrire</button>
             </div>
         </form:form>
@@ -109,7 +111,7 @@
 			<p class="fc-300 ms-4" >Déja inscrit.e ?</p>
 			<hr class="bg-300">
 			<a
-				href="${pageContext.request.contextPath}/tenancies/${tenancyAlias}/amap/amaplogin/login"
+				href="<c:url value='/amap/${tenancyAlias}/login'/>"
 				class="btn bg-500  rounded-pill">Se connecter</a>
 		</div>
         </div>
@@ -120,17 +122,17 @@
     	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 
 	<script>
-		var styleMapboxLight = "${mapStyleLight}"
-		var styleMapboxDark = "${mapStyleDark}"
+		var styleMapboxLight = "${mapStyleLight}";
+		var styleMapboxDark = "${mapStyleDark}";
 
-		/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
-		 const tenancyCity = "${tenancy.getAddress().getCity()}"
-		 const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
-		 */
+
+		 var latitude = "${latitude}";
+		 var longitude = "${longitude}"; 
+
 	</script>
 
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>  
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script>  
 </body>
 </html>

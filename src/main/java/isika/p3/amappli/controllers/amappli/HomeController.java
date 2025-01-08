@@ -15,18 +15,23 @@ public class HomeController {
 	 	return "amappli/home";
 	}
 	
+	@GetMapping("/home")
+	public String home2(Model model) {
+		return "amappli/home";
+	}
+	
 
-	@GetMapping("contact")
+	@GetMapping("/contact")
 	public String contact() {
 	    return "amappli/front/contactAmappli"; 
 	}
 	
-	@GetMapping("about")
+	@GetMapping("/about")
 	public String aboutUs() {
 	    return "amappli/front/aboutAmappli"; 
 	}
 	
-	@GetMapping("features")
+	@GetMapping("/features")
 	public String getfeatures() {
 	    return "amappli/front/featuresPage"; 
 	}

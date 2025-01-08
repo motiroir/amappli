@@ -86,7 +86,8 @@ public class ProductController {
 		model.addAttribute("address", address);
 		model.addAttribute("currentDate", currentDate);
 		model.addAttribute("pickupSchedule", tenancy.getPickUpSchedule());
-		addGraphismAttributes(tenancyAlias, model);
+		
+		graphismService.setUpModel(tenancyAlias, model);
 		return "amap/back/products/product-form";
 	}
 
@@ -118,7 +119,8 @@ public class ProductController {
 		model.addAttribute("users", users);
 		model.addAttribute("products", products);
 		model.addAttribute("tenancyAlias", tenancyAlias);
-		addGraphismAttributes(tenancyAlias, model);
+		
+		graphismService.setUpModel(tenancyAlias, model);
 		return "amap/back/products/product-list";
 	}
 
@@ -178,8 +180,9 @@ public class ProductController {
 		model.addAttribute("formattedDate", formattedDate);
 		model.addAttribute("product", product);
 		model.addAttribute("tenancyAlias", tenancyAlias);
-		addGraphismAttributes(tenancyAlias, model);
 		model.addAttribute("pickupSchedule", tenancy.getPickUpSchedule());
+		
+		graphismService.setUpModel(tenancyAlias, model);
 		return "amap/back/products/product-detail";
 	}
 
@@ -191,19 +194,5 @@ public class ProductController {
 		productService.updateProduct(updatedProductDTO, image, tenancyAlias);
 
 		return "redirect:/amap/" + tenancyAlias + "/admin/products/list";
-	}
-
-	public void addGraphismAttributes(String alias, Model model) {
-		// get map style depending on tenancy
-		model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
-		model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
-		model.addAttribute("latitude", graphismService.getLatitudeByTenancyAlias(alias));
-		model.addAttribute("longitude", graphismService.getLongitudeByTenancyAlias(alias));
-		// get tenancy info for header footer
-		model.addAttribute("tenancy", graphismService.getTenancyByAlias(alias));
-		// get color palette
-		model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
-		// get font choice
-		model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
 	}
 }

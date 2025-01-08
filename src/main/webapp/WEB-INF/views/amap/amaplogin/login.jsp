@@ -26,7 +26,7 @@
 	<div class="container py-5 flex-grow-1">
 		<div class="d-flex justify-content-between align-items-center">
     <h1 class="h3 fw-bold fc-300">Se connecter</h1>
-    <a href="/Amappli/${tenancyAlias}/home" class="btn-close" aria-label="Retour"></a>
+    <a href="/Amappli/amap/${tenancyAlias}/home" class="btn-close" aria-label="Retour"></a>
 </div>
 <hr class="bg-300 mb-4">
 
@@ -68,7 +68,7 @@
 			<p class="fc-300 ms-4" >Pas encore inscrit.e ?</p>
 			<hr class="bg-300">
 			<a
-				href="${pageContext.request.contextPath}/${tenancyAlias}/amap/amaplogin/signup"
+				href="${pageContext.request.contextPath}/amap/${tenancyAlias}/signup"
 				class="btn btn-500 px-4 rounded-pill">S'inscrire</a>
 		</div>
 
@@ -79,17 +79,17 @@
 	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 
 	<script>
-		var styleMapboxLight = "${mapStyleLight}"
-		var styleMapboxDark = "${mapStyleDark}"
+		var styleMapboxLight = "${mapStyleLight}";
+		var styleMapboxDark = "${mapStyleDark}";
 
-		/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
-		 const tenancyCity = "${tenancy.getAddress().getCity()}"
-		 const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
-		 */
+
+		 var latitude = "${latitude}";
+		 var longitude = "${longitude}"; 
+
 	</script>
 
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>  
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script>  
 </body>
 </html>

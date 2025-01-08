@@ -44,7 +44,7 @@ request.setAttribute("currentPage", currentPage);
 								id="bg-range">
 						</div>
 						<a class="btn btn-100"
-							href="<c:url value='/amap/${tenancyAlias}/account/my-orders/${userId}' />">Retourner
+							href="<c:url value='/amap/${tenancyAlias}/account/my-orders' />">Retourner
 							à mes commandes</a>
 					</div>
 					<div id="order-details">
@@ -99,17 +99,17 @@ request.setAttribute("currentPage", currentPage);
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 
 	<script>
-		var styleMapboxLight = "${mapStyleLight}"
-		var styleMapboxDark = "${mapStyleDark}"
+		var styleMapboxLight = "${mapStyleLight}";
+		var styleMapboxDark = "${mapStyleDark}";
 		var latitude = "${latitude}"
 		var longitude = "${longitude}"
 	</script>
 
 	<script
 		src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script>
-	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
+	
 		type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />"
 		type="text/javascript"></script>

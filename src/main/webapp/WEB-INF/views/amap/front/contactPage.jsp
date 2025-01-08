@@ -91,16 +91,19 @@
 <script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 
 
-		<script>
-		const styleMapboxLight = "${mapStyleLight}"
-		const styleMapboxDark = "${mapStyleDark}"
-		var latitude = "${latitude}"
-		var longitude = "${longitude}"
-	    </script>
+	<script>
+		var styleMapboxLight = "${mapStyleLight}";
+		var styleMapboxDark = "${mapStyleDark}";
 
-	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-     <script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  
-	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script>
+
+		var latitude = "${latitude}";
+		var longitude = "${longitude}"; 
+
+	</script>
+
+    <script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+    <script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>  
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script>  
 
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -122,7 +125,7 @@
 
             // Ajout d'un marqueur
             L.marker([latitude, longitude]).addTo(map)
-                .bindPopup('Vous êtes ici')
+                .bindPopup('Nous sommes ici')
                 .openPopup();
         } else {
             console.error('Les coordonnées latitude et longitude ne sont pas définies.');

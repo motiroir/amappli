@@ -60,23 +60,7 @@ public class SecurityController {
         }
         Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
         
-        // Ajouter les informations générales de la tenancy
-        model.addAttribute("tenancy", tenancy);
-        model.addAttribute("tenancyName", tenancy.getTenancyName());
-        model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
-        
-     // Ajouter les informations graphiques
-        Graphism graphism = tenancy.getGraphism();
-        String logoBase64 = graphism != null ? graphism.getLogoImg() : null;
-        String logoImgType = graphism != null ? graphism.getLogoImgType() : null;
-        model.addAttribute("logoBase64", logoBase64);
-        model.addAttribute("logoImgType", logoImgType);
-        
-        // Récupérer et ajouter les styles dynamiques via GraphismService
-        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(alias));
-        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(alias));
-        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(alias));
-        model.addAttribute("font", graphismService.getFontByTenancyAlias(alias));
+        graphismService.setUpModel(alias, model);
 
         return "amap/amaplogin/login";
         //return "secexamples/tenantlogin";

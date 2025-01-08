@@ -33,12 +33,7 @@
 		<div class="container-fluid mt-2">
 			<div class="row justify-content-center">
 				<div class="col-12">
-					<div class="search-bar d-flex align-items-center mb-3">
-						<!-- Nombre total d'adhérents -->
-						<div class="me-4 fs-5 fc-main d-none d-md-block">
-							<span>${users.size()} éléments</span><br/>
-							<a href="<c:url value='/${tenancyAlias}/backoffice/users/generateFakes' />">ajouter 20 users</a>
-						</div>
+					<div class="search-bar d-flex align-items-center justify-content-between mb-3">
 						<!-- Dropdown pour trier -->
 						<div class="d-flex align-items-center me-4">
 							<label for="sortBy" class="me-2 fw-400 fs-3 text-nowrap fc-main">Trier par</label>
@@ -61,9 +56,13 @@
 					</div>
 					<div class="table-container d-flex justify-content-between align-items-center my-2">
 						<h2 class="fw-bold fc-main my-auto">Liste des adhérents</h2>
-						<a href="<c:url value='/${tenancyAlias}/backoffice/users/form'/>" class="btn btn-outline-300 rounded-pill fch-main fw-bold border-2">
+						<a href="<c:url value='/amap/${tenancyAlias}/admin/users/form'/>" class="btn btn-outline-300 rounded-pill fch-main fw-bold border-2">
 							<span class="icon">+ </span><span class=" d-none d-md-inline">Créer un adhérent</span>
 						</a>
+					</div>
+					<!-- Nombre total d'adhérents -->
+					<div class="mb-2 fs-5 fc-main d-none d-md-block">
+						<span>${users.size()} éléments</span>
 					</div>
 					<!-- Mode tableau -->
 					<table class="table table-hover table-responsive fc-main" style="--bs-table-bg: color-mix(in srgb, #ffffff, transparent 100%);">
@@ -81,20 +80,20 @@
 						<tbody>
 							<c:forEach var="user" items="${users}">
 								<tr>
-									<td>${user.contactInfo.firstName}
+									<td class="text-wrap">${user.contactInfo.firstName}
 										${user.contactInfo.name}</td>
-									<td class="text-break d-none d-md-table-cell">${user.email}</td>
+									<td class="text-wrap d-none d-md-table-cell">${user.email}</td>
 									<td class="d-table-cell d-md-none"></td>
 									<td class="d-none d-md-table-cell">${user.creditBalance == null ? 0 : user.creditBalance}</td>
 									<td class="d-table-cell d-md-none"></td>
-									<td>
+									<td class="text-wrap">
 										<c:forEach var="role" items="${user.roles}">
 	                                        <span>${role.name}</span>
 										</c:forEach>
 									</td>
 									<td>
 										<div class='d-flex justify-content-start align-items-center'>
-											<a href="<c:url value='/${tenancyAlias}/backoffice/users/details/${user.userId}' />"
+											<a href="<c:url value='/amap/${tenancyAlias}/admin/users/details/${user.userId}' />"
 												class="btn rounded-circle border-2 border-300 fc-main px-1 py-0 mx-1"> <i class="bi bi-eye"></i>
 											</a>
 											<form:form action="delete/${user.userId}" class="d-inline" onsubmit="return confirm('Voulez-vous vraiment supprimer l\'adhérent ${user.contactInfo.firstName} ${user.contactInfo.name} ?');">
@@ -113,20 +112,16 @@
 		</div>
 	</div>
 	<script>
-		var styleMapboxLight = "${mapStyleLight}"
-		var styleMapboxDark = "${mapStyleDark}"
-
-		/* 		REMPLACER par les coordinates -> à mettre en place dans la database du tenancy
-		const tenancyCity = "${tenancy.getAddress().getCity()}"
-		const tenancyPostCode = "${tenancy.getAddress().getPostCode()}" 
-		 */
+		var styleMapboxLight = "${mapStyleLight}";
+		var styleMapboxDark = "${mapStyleDark}";
+		var latitude = "${latitude}";
+		var longitude = "${longitude}"; 
 	</script>
 	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/palette-swap.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />" type="text/javascript"></script>
 </body>

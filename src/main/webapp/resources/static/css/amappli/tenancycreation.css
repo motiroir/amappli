@@ -200,22 +200,23 @@ input[type="radio"] {
 }
 /* Font choices */
 .font-choices {
-     display: flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    flex: 1 1 auto;
-    height: 100%;
     box-shadow: 0 0 0 4px transparent; 
 	border-radius: 0%;
     transition: box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
-.font-choices:hover {
-    box-shadow: 0 0 0 4px var(--main-font-color);
+.font-choices h1 {
+    padding: 15px;
+}
+.font-choices:hover h1{
+    box-shadow: 0 0 4px var(--orange-700);
     transform: scale(1.05);
 }
 
-input[type="radio"]:checked + .font-choices {
+input[type="radio"]:checked + .font-choices h1 {
     box-shadow: 0 0 0 4px var(--main-font-color);
 }
 
@@ -225,37 +226,30 @@ input[type="radio"]:checked + .font-choices {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex: 1 1 auto;
     height: 100%;
 }
 
 .palette-img {
     max-width: 100%; /* Prevents overflow */
-    height: auto; /* Maintains aspect ratio */
-    display: block; /* Ensures consistent rendering */
-    margin: 0 auto; /* Centers the image within its container */
-    border: 4px solid transparent; /* Default transparent border */
+    max-height: 80%; 
     border-radius: 20%;
-    box-sizing: border-box; /* Ensures border doesn't affect size */
     transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 /* On Hover */
 .palette-img:hover {
-    box-shadow: 0 0 8px var(--main-font-color); /* Hover shadow effect */
+    box-shadow: 0 0 8px var(--orange-700); /* Hover shadow effect */
     transform: scale(1.05); /* Slight zoom effect for hover */
 }
 
 /* Styling for Selected Radio Button */
 input[type="radio"]:checked + label .palette-img {
-    border-color: var(--main-font-color); /* Adds border color when selected */
-    box-shadow: 0 0 8px var(--main-font-color); /* Subtle glow for selected item */
+    box-shadow: 0 0 0 5px var(--green-700); /* Subtle glow for selected item */
 }
 
 /* Ensure No Size Changes */
 input[type="radio"]:checked + label .palette-img,
 .palette-img:hover {
-    border-width: 4px; /* Keep border width consistent */
     border-radius: 20%; /* Maintain border-radius */
 }
 
@@ -286,6 +280,13 @@ input[type="radio"]:checked + label .palette-img,
     --bs-btn-disabled-color       : var(--green-900);
     --bs-btn-disabled-bg          : var(--orange-100);
     --bs-btn-disabled-border-color: var(--orange-100);
+
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    transition: box-shadow 0.3s ease, transform 0.3s ease; 
+}
+
+.btn-submit:hover {
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); 
 }
 
 .btn-orange {
@@ -303,6 +304,13 @@ input[type="radio"]:checked + label .palette-img,
     --bs-btn-disabled-color       : var(--green-900);
     --bs-btn-disabled-bg          : var(--orange-100);
     --bs-btn-disabled-border-color: var(--orange-100);
+
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, transform 0.3s ease; 
+}
+
+.btn-orange:hover {
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); 
 }
 
 .btn-green {
@@ -320,6 +328,13 @@ input[type="radio"]:checked + label .palette-img,
     --bs-btn-disabled-color       : var(--green-900);
     --bs-btn-disabled-bg          : var(--green-400);
     --bs-btn-disabled-border-color: var(--green-400);
+
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, transform 0.3s ease; 
+}
+
+.btn-green:hover {
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); 
 }
 
 .btn-quizz {
@@ -340,6 +355,8 @@ input[type="radio"]:checked + label .palette-img,
 
     border-radius: 0;
 }
+
+
 
 /* The subscription choice part */
 

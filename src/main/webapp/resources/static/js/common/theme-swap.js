@@ -6,6 +6,11 @@ let ctheme = getCookie("amappliTheme");
 let today = new Date();
 let expiry = new Date(today.getTime() + 31 * 24 * 3600 * 1000); // plus 31 days
 
+if (typeof(styleMapboxLight) === "undefined") {
+	var styleMapboxLight = "mapbox://styles/tiroirmorgane/cm4sw37wr001301s12frm2l2y";
+	var styleMapboxDark = "mapbox://styles/tiroirmorgane/cm52cqefg003101sa878udky6";
+}
+
 switcher.addEventListener("click", function() {
     
     if (switcher.checked == true) {

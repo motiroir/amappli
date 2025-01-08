@@ -1,21 +1,27 @@
 package isika.p3.amappli.service.amap;
 
+import org.springframework.ui.Model;
+
 import isika.p3.amappli.entities.tenancy.Tenancy;
 
 public interface GraphismService {
 
-	String getMapStyleLightByTenancyAlias(String alias);
-
-	String getMapStyleDarkByTenancyAlias(String alias);
-
 	Tenancy getTenancyByAlias(String alias);
-
-	String getColorPaletteByTenancyAlias(String alias);
-
-	String getFontByTenancyAlias(String alias);
-
-	String getLatitudeByTenancyAlias(String alias);
-
-	String getLongitudeByTenancyAlias(String alias);
-
+	
+//	String getMapStyleLightByTenancyAlias(Tenancy tenancy);
+//
+//	String getMapStyleDarkByTenancyAlias(Tenancy tenancy);
+//
+//	String getColorPaletteByTenancyAlias(Tenancy tenancy);
+//
+//	String getFontByTenancyAlias(Tenancy tenancy);
+//
+//	String getLatitudeByTenancyAlias(Tenancy tenancy);
+//
+//	String getLongitudeByTenancyAlias(Tenancy tenancy);
+	
+	void setUpModel(String alias, Model model);
+	
+	Long getUserIdFromContext();
+	
 }

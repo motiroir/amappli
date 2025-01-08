@@ -51,11 +51,7 @@ public class AmapAdminUserController {
 		List<User> users = adminUserService.findAll(tenancyAlias);
 		model.addAttribute("users", users);
 		model.addAttribute("tenancyAlias", tenancyAlias);
-        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
-        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
-        model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
-        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
-        model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
+		graphismService.setUpModel(tenancyAlias, model);
 		return "amap/back/users/users-list";
 	}
 	
@@ -65,12 +61,7 @@ public class AmapAdminUserController {
 
 		model.addAttribute("user", model.containsAttribute("userDTO")? model.getAttribute("userDTO") : user);
 		model.addAttribute("tenancyAlias", tenancyAlias);
-		model.addAttribute("allRoles" , this.roleService.findAmapRoles(tenancyAlias));
-        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
-        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
-        model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
-        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
-        model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
+		graphismService.setUpModel(tenancyAlias, model);
 		return "amap/back/users/users-details";
 	}
 	
@@ -80,22 +71,18 @@ public class AmapAdminUserController {
 		return "redirect:../list";
 	}
 	
-	@GetMapping("/users/generateFakes")
-	public String usersAddFake(@PathVariable("tenancyAlias") String tenancyAlias) {
-		adminUserService.generateUsers(tenancyAlias);
-		return "redirect:list";
-	}
+	// @GetMapping("/users/generateFakes")
+	// public String usersAddFake(@PathVariable("tenancyAlias") String tenancyAlias) {
+	// 	adminUserService.generateUsers(tenancyAlias);
+	// 	return "redirect:list";
+	// }
 	
 	@GetMapping("/suppliers/list")
 	public String suppliersList(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 		List<User> suppliers = adminUserService.findSuppliers(tenancyAlias);
 		model.addAttribute("suppliers", suppliers);
 		model.addAttribute("tenancyAlias", tenancyAlias);
-        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
-        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
-        model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
-        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
-        model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
+		graphismService.setUpModel(tenancyAlias, model);
 		return "amap/back/users/suppliers-list";
 	}
 	
@@ -130,11 +117,7 @@ public class AmapAdminUserController {
 		model.addAttribute("user", model.containsAttribute("userDTO")? model.getAttribute("userDTO") : new UserDTO());
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAmapRoles(tenancyAlias));
-		model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
-		model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
-		model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
-		model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
-		model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
+		graphismService.setUpModel(tenancyAlias, model);
 		return "amap/back/users/users-form";
 	}
 
@@ -144,11 +127,7 @@ public class AmapAdminUserController {
 		model.addAttribute("user", model.containsAttribute("userDTO")? model.getAttribute("userDTO") : new UserDTO());
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAmapRoles(tenancyAlias));
-        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
-        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
-        model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
-        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
-        model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
+		graphismService.setUpModel(tenancyAlias, model);
 		return "amap/back/users/suppliers-form";
 	}
 	
@@ -213,11 +192,7 @@ public class AmapAdminUserController {
 	    model.addAttribute("user", supplier);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAmapRoles(tenancyAlias));
-        model.addAttribute("mapStyleLight", graphismService.getMapStyleLightByTenancyAlias(tenancyAlias));
-        model.addAttribute("mapStyleDark", graphismService.getMapStyleDarkByTenancyAlias(tenancyAlias));
-        model.addAttribute("tenancy", graphismService.getTenancyByAlias(tenancyAlias));
-        model.addAttribute("cssStyle", graphismService.getColorPaletteByTenancyAlias(tenancyAlias));
-        model.addAttribute("font", graphismService.getFontByTenancyAlias(tenancyAlias));
+		graphismService.setUpModel(tenancyAlias, model);
 	    return "amap/back/users/suppliers-details";
 	}
 	

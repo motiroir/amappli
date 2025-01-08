@@ -77,8 +77,8 @@ request.setAttribute("currentPage", currentPage);
 		<jsp:include page="common/footer.jsp" />
 	</footer>
 	<script>
-		var styleMapboxLight = "${mapStyleLight}"
-		var styleMapboxDark = "${mapStyleDark}"
+		var styleMapboxLight = "${mapStyleLight}";
+		var styleMapboxDark = "${mapStyleDark}";
 		var latitude = "${latitude}"
 		var longitude = "${longitude}"
 	</script>
@@ -87,10 +87,10 @@ request.setAttribute("currentPage", currentPage);
 		type="text/javascript"></script>
 	<script
 		src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
 		type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
+	
 		type="text/javascript"></script>
 </body>
 </html>

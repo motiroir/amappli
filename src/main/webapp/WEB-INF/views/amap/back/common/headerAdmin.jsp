@@ -4,7 +4,7 @@
 
 <div class="container-fluid d-flex flex-row-reverse flex-md-row justify-content-between justify-content-md-evenly align-items-center">
 
- <div class="logo-container d-flex align-items-center">
+	<div class="logo-container d-flex align-items-center">
         <c:if test="${not empty logoBase64}">
             <!-- Affichage du logo encodé en Base64 -->
             <img id="logo-header" 
@@ -14,9 +14,8 @@
                  class="my-2 my-sm-0 logo-image me-3" 
                  src="data:${logoImgType};base64,${logoBase64}" 
                  alt="Logo de ${tenancyName}" />
-                  </c:if>
-    <a href="<c:url value='/${tenancyAlias}/cart/${cart.shoppingCartId}'/>" class="nav-link"><h1 class="fw-bold fs-2 mb-0 fc-300 fch-500">${tenancy.getTenancyName()}</h1></a>
-</div>
+        </c:if>
+	</div>
 	
 	<div class="p-0 ms-2 ms-md-0 d-flex justify-content-evenly">
 		<svg class="my-auto mx-1" width="15" height="15" viewBox="0 0 30 30"
@@ -36,21 +35,13 @@
 	
 	<nav class="navbar navbar-expand col-offset-1 col-8 align-content-center">
 		<div class="collapse navbar-collapse" id="nav-content">
-			<ul class="navbar-nav w-100 justify-content-between align-items-center">
+			<ul class="navbar-nav w-100 justify-content-around align-items-center">
 				<li class="nav-item">
 					<a href="#" class="nav-link ${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900"><i class="bi bi-arrow-left"></i><span class="d-none d-md-inline"> Retour vers le site</span></a>
 				</li>
 				<li class="nav-item">
 					<h1 class="${font} fc-300 fw-bold text-center">Espace admin<span class="d-none d-md-inline">istrateur</span></h1>
 				</li>
-				<li class="nav-item d-none d-md-block">
-					<a href="#" class="swap-palette">1</a>
-					<a href="#" class="swap-palette">2</a>
-					<a href="#" class="swap-palette">3</a>
-					<a href="#" class="swap-palette">4</a>
-					<a href="#" class="swap-palette">5</a>
-					<a href="#" class="swap-palette">6</a>
-                </li>
 				<li class="nav-item d-block d-md-none">
 					<button id="button-collapse-2" class="navbar-toggler align-self-start m-2 d-block d-md-none" type="button" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebar" data-bs-target="#sidebar">
 						<span class="navbar-toggler-icon fill-main"></span>

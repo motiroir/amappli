@@ -38,11 +38,7 @@ request.setAttribute("currentPage", currentPage);
 		<div class="container-fluid mt-2">
 			<div class="row justify-content-center">
 				<div class="col-12">
-					<div class="search-bar d-flex align-items-center mb-3">
-						<!-- Nombre total de produits -->
-						<div class="me-4 fs-5 fc-main d-none d-md-block">
-							<span>${products.size()} éléments</span><br />
-						</div>
+					<div class="search-bar d-flex align-items-center justify-content-between mb-3">
 
 						<!-- Dropdown pour trier -->
 						<div class="d-flex align-items-center me-4">
@@ -71,6 +67,10 @@ request.setAttribute("currentPage", currentPage);
 								un produit</span>
 						</a>
 					</div>
+					<!-- Nombre total de produits -->
+					<div class="mb-2 fs-5 fc-main d-none d-md-block">
+						<span>${products.size()} éléments</span>
+					</div>
 					<!-- Mode tableau -->
 					<table
 						class="table table-hover table-responsive fc-main align-middle"
@@ -94,7 +94,7 @@ request.setAttribute("currentPage", currentPage);
 												style="width: 50px; height: 50px; border-radius: 8px; object-fit: cover;">
 										</c:if></td>
 									<td class="d-none d-md-table-cell">${product.productName}</td>
-									<td class="d-none d-lg-table-cell">${product.user.companyDetails.companyName}</td>
+									<td class="d-none d-md-table-cell">${product.user.companyDetails.companyName}</td>
 									<td class="d-none d-md-table-cell">${product.productPrice}€</td>
 									<td>
 										<div class='d-flex justify-content-start align-items-center'>
@@ -123,8 +123,8 @@ request.setAttribute("currentPage", currentPage);
 		</div>
 	</div>
 	<script>
-		var styleMapboxLight = "${mapStyleLight}"
-		var styleMapboxDark = "${mapStyleDark}"
+		var styleMapboxLight = "${mapStyleLight}";
+		var styleMapboxDark = "${mapStyleDark}";
 		var latitude = "${latitude}"
 		var longitude = "${longitude}"
 	</script>
@@ -133,16 +133,10 @@ request.setAttribute("currentPage", currentPage);
 		type="text/javascript"></script>
 	<script
 		src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
-	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />"
-		type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
-		type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
-		type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />"
-		type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />"
-		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />" type="text/javascript"></script>
 </body>
 </html>

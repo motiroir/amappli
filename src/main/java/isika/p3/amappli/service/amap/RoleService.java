@@ -12,7 +12,11 @@ public interface RoleService {
 	Role findById(Long roleId);
 
 	List<Role> findAllRoles();
-	
+
+	List<Role> findAllGenericRoles();
+
+	List<Role> findAmapExclusiveRoles(String tenancyAlias);
+
 	List<Role> findAmapRoles(String TenancyAlias);
 
 	Role createRole(Role role);

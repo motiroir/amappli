@@ -29,9 +29,6 @@ public class ProductMock extends Shoppable{
 	@Getter @Setter
 	private String image;
 	
-	
-	
-	
 	@Override
 	public String getInfo() {
 		return name;

@@ -10,7 +10,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -258,9 +257,12 @@ public class DataInitializationService {
 		contactInfoService.save(ci4);
 		user4.setAddress(a4);
 		user4.setContactInfo(ci4);
-
-		User user5 = User.builder().email("claire.fournier@example" + tenancy.getTenancyId() + ".com")
-				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
+		saveUser(user4);
+		
+		User user5 = User.builder().email("claire.fournier@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
+									.isActive(true)
+									.tenancy(tenancy)
+									.build();
 		user5.getRoles().add(Supplier);
 		saveUser(user5);
 		Address a5 = Address.builder().line2("31 rue des Lilas").line1("Appartement 4").postCode("44130")
@@ -383,6 +385,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci12);
 		user12.setAddress(a12);
 		user12.setContactInfo(ci12);
+		user12.setCompanyDetails(cd12);
 		saveUser(user12);
 
 		User user13 = User.builder().email("paul.brun@example" + tenancy.getTenancyId() + ".com")
@@ -414,6 +417,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci14);
 		user14.setAddress(a14);
 		user14.setContactInfo(ci14);
+		user14.setCompanyDetails(cd14);
 		saveUser(user14);
 
 		User user15 = User.builder().email("lucie.lafaye@example" + tenancy.getTenancyId() + ".com")
@@ -446,6 +450,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci16);
 		user16.setAddress(a16);
 		user16.setContactInfo(ci16);
+		user16.setCompanyDetails(cd16);
 		saveUser(user16);
 
 		User user17 = User.builder().email("laura.lemoine@example" + tenancy.getTenancyId() + ".com")
@@ -491,6 +496,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci19);
 		user19.setAddress(a19);
 		user19.setContactInfo(ci19);
+		user19.setCompanyDetails(cd19);
 		saveUser(user19);
 
 		User user20 = User.builder().email("bernard.morvan@example" + tenancy.getTenancyId() + ".com")
@@ -637,7 +643,7 @@ public class DataInitializationService {
 		
 		
 		String imagevalueA = loadImageFromResources("valuet2a.png");
-		String imagevalueB = loadImageFromResources("value2b.png");
+		String imagevalueB = loadImageFromResources("valuet2b.png");
 		String imagevalueC = loadImageFromResources("valuet2c.png");
 
 		// Création des 4 ContentBlock pour la Tenancy
@@ -723,9 +729,9 @@ public class DataInitializationService {
 				.build();
 		
 		
-				String imagevalueA1 = loadImageFromResources("value3a.png");
-				String imagevalueB1 = loadImageFromResources("value3b.png");
-				String imagevalueC1 = loadImageFromResources("value3.png");
+				String imagevalueA1 = loadImageFromResources("valuet3a.png");
+				String imagevalueB1 = loadImageFromResources("valuet3b.png");
+				String imagevalueC1 = loadImageFromResources("valuet3c.png");
 				
 		// Création des 4 ContentBlock pour la Tenancy
 
@@ -751,7 +757,7 @@ public class DataInitializationService {
 				.contentTitle("Transparence et Traçabilité")
 				.contentText(
 						"À Groots, nous croyons que la transparence est essentielle pour établir une relation de confiance entre les producteurs et les consommateurs. C'est pourquoi tous nos produits sont entièrement traçables. Chaque panier que vous recevez est une promesse de qualité et de transparence : vous pouvez suivre le parcours de chaque produit, depuis la ferme où il a été cultivé jusqu'à votre table. Grâce à notre plateforme, vous accédez à toutes les informations nécessaires pour connaître l'origine de vos produits et soutenir une économie locale et responsable.")
-				.contentImgName("value3b.png").contentImgTypeMIME("image/png").contentImg(imagevalueB1)
+				.contentImgName("valuet3b.png").contentImgTypeMIME("image/png").contentImg(imagevalueB1)
 				.homePageContent(homePageContent3) // Association avec HomePageContent
 				.build();
 
@@ -760,7 +766,7 @@ public class DataInitializationService {
 				.contentTitle("Frais et Local")
 				.contentText(
 						"Groots s'engage à vous offrir des produits frais, cultivés localement et livrés directement des fermes aux consommateurs. En choisissant Groots, vous choisissez la fraîcheur, la qualité et la proximité. Nos fermes partenaires cultivent des produits de saison, cueillis à maturité et livrés dans les plus brefs délais pour garantir une fraîcheur optimale. Ce modèle de distribution réduit l'empreinte carbone, soutient l'agriculture locale et permet à nos membres de savourer des produits en pleine saison, tout en renforçant les liens avec les producteurs locaux.")
-				.contentImgName("value3c.png").contentImgTypeMIME("image/png").contentImg(imagevalueC1)
+				.contentImgName("valuet3c.png").contentImgTypeMIME("image/png").contentImg(imagevalueC1)
 				.homePageContent(homePageContent3).build();
 
 		// Ajouter les ContentBlock dans HomePageContent
@@ -821,20 +827,20 @@ public class DataInitializationService {
 		ContentBlock valueBlock41 = ContentBlock.builder().isValue(true).contentTitle("Respect de la Nature")
 				.contentText(
 						"À GreenHaven, nous plaçons le respect de la nature au cœur de nos pratiques. Chaque producteur avec lequel nous collaborons adopte des méthodes de culture qui préservent la biodiversité, limitent l'utilisation de produits chimiques et favorisent des solutions naturelles. Nos fermiers prennent soin de la terre, respectent les cycles de la nature et utilisent des techniques qui restaurent la fertilité des sols. En choisissant GreenHaven, vous soutenez un modèle agricole durable qui protège notre planète pour les générations futures.")
-				.contentImgName("value4a.png").contentImgTypeMIME("image/png").contentImg(imagevalueA2)
+				.contentImgName("valuet4a.png").contentImgTypeMIME("image/png").contentImg(imagevalueA2)
 				.homePageContent(homePageContent4).build();
 
 		// 3. ContentBlock pour la deuxième valeur de l'AMAP : Produits de Qualité
 		ContentBlock valueBlock42 = ContentBlock.builder().isValue(true).contentTitle("Produits de Qualité")
 				.contentText(
 						"La qualité de nos produits est une priorité absolue. Chaque panier que nous proposons contient des produits soigneusement sélectionnés pour leur fraîcheur, leur saveur et leur qualité nutritionnelle. Nos fermiers, partenaires de confiance, cultivent des fruits, légumes et produits dérivés selon des critères stricts, garantissant des produits de saison et respectueux des normes les plus élevées en matière d'agriculture biologique et durable. En choisissant GreenHaven, vous êtes assuré de consommer des produits sains et de qualité supérieure, cultivés dans le respect de l'environnement.")
-				.contentImgName("valueab.png").contentImgTypeMIME("image/png").contentImg(imagevalueB2)
+				.contentImgName("valuetab.png").contentImgTypeMIME("image/png").contentImg(imagevalueB2)
 				.homePageContent(homePageContent4).build();
 
 		// 4. ContentBlock pour la troisième valeur de l'AMAP : Communauté Locale
 		ContentBlock valueBlock43 = ContentBlock.builder().isValue(true).contentTitle("Communauté Locale").contentText(
 				"GreenHaven est une AMAP ancrée dans sa communauté locale. Nous travaillons en étroite collaboration avec des producteurs locaux passionnés qui partagent notre vision d'une agriculture durable et responsable. Notre objectif est de renforcer les liens entre les membres de la communauté, de soutenir les fermiers locaux et de favoriser une économie circulaire. En rejoignant GreenHaven, vous devenez une partie prenante de ce réseau solidaire, où les produits de qualité se rencontrent avec des valeurs humaines fortes.")
-				.contentImgName("valueac.png").contentImgTypeMIME("image/png").contentImg(imagevalueB2)
+				.contentImgName("valuetac.png").contentImgTypeMIME("image/png").contentImg(imagevalueB2)
 				.homePageContent(homePageContent4).build();
 
 		homePageContent4.getContents().add(presentationBlock4);
@@ -880,7 +886,7 @@ public class DataInitializationService {
 				.showSuppliers(true).tenancy(t5).build();
 		
 		String imagevalueA3 = loadImageFromResources("valuet5a.png");
-		String imagevalueB3 = loadImageFromResources("value5b.png");
+		String imagevalueB3 = loadImageFromResources("valuet5b.png");
 		String imagevalueC3 = loadImageFromResources("value3.png");
 
 		// Création des ContentBlock
@@ -896,14 +902,14 @@ public class DataInitializationService {
 		ContentBlock valueBlock51 = ContentBlock.builder().isValue(true).contentTitle("Écologie et Durabilité")
 				.contentText(
 						"À La carotte de Chantenay, chaque produit soutient une agriculture écologique et durable. Nous nous engageons à respecter les principes de l'agriculture biologique et à utiliser des méthodes respectueuses de l'environnement. Nous préservons la biodiversité et limitons l'utilisation d'intrants chimiques, afin de cultiver des produits sains et respectueux des cycles naturels. Choisir notre AMAP, c'est participer activement à la protection de la planète en soutenant des pratiques agricoles responsables.")
-				.contentImgName("value5a.png").contentImgTypeMIME("image/png").contentImg(imagevalueA3)
+				.contentImgName("valuet5a.png").contentImgTypeMIME("image/png").contentImg(imagevalueA3)
 				.homePageContent(homePageContent5).build();
 
 		// 3. ContentBlock pour la deuxième valeur de l'AMAP : Engagement Communautaire
 		ContentBlock valueBlock52 = ContentBlock.builder().isValue(true).contentTitle("Engagement Communautaire")
 				.contentText(
 						"Nous croyons fermement en l'importance de l'engagement communautaire et en la collaboration avec les acteurs locaux. La carotte de Chantenay œuvre pour impliquer la communauté dans des actions concrètes en faveur de l'environnement et de l'agriculture durable. Nous organisons des événements, des ateliers et des rencontres avec nos producteurs afin de renforcer les liens entre les membres de l'AMAP et de sensibiliser à l'importance de soutenir l'agriculture locale. Ensemble, nous construisons un réseau solidaire qui profite à tous.")
-				.contentImgName("value5b.png").contentImgTypeMIME("image/png").contentImg(imagevalueB3)
+				.contentImgName("valuet5b.png").contentImgTypeMIME("image/png").contentImg(imagevalueB3)
 				.homePageContent(homePageContent5).build();
 
 		// 4. ContentBlock pour la troisième valeur de l'AMAP : Qualité Supérieure
@@ -956,7 +962,7 @@ public class DataInitializationService {
 		
 		String imagevalueA4 = loadImageFromResources("valuet6a.png");
 		String imagevalueB4 = loadImageFromResources("valuet6c.png");
-		String imagevalueC4 = loadImageFromResources("value6b.png");
+		String imagevalueC4 = loadImageFromResources("valuet6b.png");
 
 		// 1. Le ContentBlock pour la présentation de TerraLocal
 		ContentBlock presentationBlock6 = ContentBlock.builder().isValue(false)
@@ -976,14 +982,14 @@ public class DataInitializationService {
 		ContentBlock valueBlock62 = ContentBlock.builder().isValue(true).contentTitle("Convivialité et Partage")
 				.contentText(
 						"Nous mettons un accent particulier sur la convivialité et le partage au sein de notre communauté. TerraLocal organise régulièrement des événements, des rencontres et des ateliers pour renforcer les liens entre nos membres et nos producteurs locaux. Ces moments de partage permettent d’échanger autour de la Terre, de la production locale et de l'importance de consommer responsable. Nous croyons que la solidarité et la collaboration sont des piliers essentiels pour un monde plus juste et durable.")
-				.contentImgName("value6c.png").contentImgTypeMIME("image/png").contentImg(imagevalueB4)
+				.contentImgName("valuet6c.png").contentImgTypeMIME("image/png").contentImg(imagevalueB4)
 				.homePageContent(homePageContent6).build();
 
 		// 4. ContentBlock pour la troisième valeur de l'AMAP : Respect des Saisons
 		ContentBlock valueBlock63 = ContentBlock.builder().isValue(true).contentTitle("Respect des Saisons")
 				.contentText(
 						"Chez TerraLocal, nous respectons les cycles naturels des saisons pour vous offrir uniquement des produits de saison, cultivés dans les meilleures conditions. Nous croyons que chaque légume ou fruit a son moment idéal pour pousser et se récolter, et nous nous engageons à respecter ces cycles pour vous offrir des produits toujours frais, pleins de saveurs et bénéfiques pour votre santé. En consommant des produits de saison, vous contribuez à préserver l'environnement tout en soutenant les producteurs locaux.")
-				.contentImgName("value6b.png").contentImgTypeMIME("image/png").contentImg(imagevalueC4)
+				.contentImgName("valuet6b.png").contentImgTypeMIME("image/png").contentImg(imagevalueC4)
 				.homePageContent(homePageContent6).build();
 
 		homePageContent6.getContents().add(presentationBlock6);

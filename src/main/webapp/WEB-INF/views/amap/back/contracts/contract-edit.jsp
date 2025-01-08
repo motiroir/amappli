@@ -84,14 +84,14 @@ request.setAttribute("currentPage", currentPage);
 					<div class="form-container">
 						<div class="header-container">
 							<a
-								href="<c:url value='/${tenancyAlias}/backoffice/contracts/list' />"
+								href="<c:url value='/amap/${tenancyAlias}/admin/contracts/list' />"
 								class="btn-back"> <i class="bi bi-arrow-left-circle"></i>
 							</a>
 							<h2 class="mb-4" style="font-weight: bold; text-align: left;">Modifier
 								un contrat</h2>
 						</div>
 						<form:form id="contractForm" name="contractForm" method="POST"
-							action="${pageContext.request.contextPath}/${tenancyAlias}/backoffice/contracts/update"
+							action="${pageContext.request.contextPath}/amap/${tenancyAlias}/admin/contracts/update"
 							modelAttribute="contract" enctype="multipart/form-data">
 
 							<form:hidden path="id" />
@@ -237,7 +237,7 @@ request.setAttribute("currentPage", currentPage);
 		type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
 		type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
+	
 		type="text/javascript"></script>
 		<script>
 		document.addEventListener("DOMContentLoaded", function () {
