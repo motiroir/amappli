@@ -30,8 +30,6 @@ import isika.p3.amappli.repo.amappli.TenancyRepository;
 import isika.p3.amappli.service.amap.AmapAdminUserService;
 import isika.p3.amappli.service.amap.ContractService;
 import isika.p3.amappli.service.amap.GraphismService;
-import isika.p3.amappli.service.amap.UserService;
-import isika.p3.amappli.service.amappli.TenancyService;
 
 @Controller
 @RequestMapping("/amap/{tenancyAlias}/admin/contracts")

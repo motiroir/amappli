@@ -29,38 +29,36 @@
 						<h4 class="fw-bold">Paniers</h4>
 				</a>
 					<ul class="list-unstyled ps-2">
-						<li class="d-flex justify-content-between pt-2"><a
-							id="allBaskets"
-							href="<c:url value='/amap/${tenancyAlias}/shop/contracts?contractType=ALL'/>"
-							class="text-decoration-none fc-300 fch-600 flex-grow-1 pe-5">Tous
-								les paniers</a> <span class="badge bg-none fc-300 rounded-pill ms-5">${contracts.size()}</span>
+						<li class="d-flex justify-content-between pt-2">
+							<a id="allBaskets" href="<c:url value='/amap/${tenancyAlias}/shop/contracts?contractType=ALL'/>" class="text-decoration-none fc-300 fch-600 flex-grow-1 pe-5">
+								Tous les paniers
+							</a>
+						<span class="badge bg-none fc-300 rounded-pill ms-5">${contracts.size()}</span>
 						</li>
-						<li class="d-flex justify-content-between"><a
-							id="vegetableBaskets"
-							href="<c:url value='/amap/${tenancyAlias}/shop/contracts?contractType=VEGETABLES_CONTRACT'/>"
-							class="text-decoration-none fc-300 fch-600 flex-grow-1">Paniers
-								légumes</a> <span class="badge bg-none fc-300 rounded-pill ms-5">${vegetableCount}</span>
+						<li class="d-flex justify-content-between"><a id="vegetableBaskets" href="<c:url value='/amap/${tenancyAlias}/shop/contracts?contractType=VEGETABLES_CONTRACT'/>"
+							class="text-decoration-none fc-300 fch-600 flex-grow-1">
+							Paniers légumes</a> <span class="badge bg-none fc-300 rounded-pill ms-5">${vegetableCount}</span>
 						</li>
 						<li class="d-flex justify-content-between"><a
 							id="fruitBaskets"
 							href="<c:url value='/amap/${tenancyAlias}/shop/contracts?contractType=FRUITS_CONTRACT'/>"
-							class="text-decoration-none fc-300 fch-600 flex-grow-1">Paniers
-								fruits</a> <span class="badge bg-none fc-300 rounded-pill ms-5">${fruitCount}</span>
+							class="text-decoration-none fc-300 fch-600 flex-grow-1">
+							Paniers fruits</a> <span class="badge bg-none fc-300 rounded-pill ms-5">${fruitCount}</span>
 						</li>
 						<li class="d-flex justify-content-between border-bottom pb-3">
-							<a id="mixedBaskets"
-							href="<c:url value='/amap/${tenancyAlias}/shop/contracts?contractType=MIX_CONTRACT'/>"
-							class="text-decoration-none fc-300 fch-600 flex-grow-1">Paniers
-								mixtes</a> <span class="badge bg-none fc-300 rounded-pill ms-5">${mixedCount}</span>
+							<a id="mixedBaskets" href="<c:url value='/amap/${tenancyAlias}/shop/contracts?contractType=MIX_CONTRACT'/>"
+							class="text-decoration-none fc-300 fch-600 flex-grow-1">
+							Paniers mixtes</a> <span class="badge bg-none fc-300 rounded-pill ms-5">${mixedCount}</span>
 						</li>
 					</ul> <!-- Épicerie --> <c:if test="${options.option1Active}">
-						<li><a
-							href="<c:url value='/amap/${tenancyAlias}/shop/products'/>"
+						<li><a href="<c:url value='/amap/${tenancyAlias}/shop/products'/>"
 							class="ps-2 pe-5 pt-3 pb-2 d-flex align-items-left border-bottom text-decoration-none ${currentMainMenu.equals('products') ? 'active bg-500 fc-100' : 'fc-500 text-decoration-none'}">
 								<i class="bi bi-shop-window me-2"></i>
 								<h4 class="fw-bold">Épicerie</h4>
 						</a>
-					</c:if> <!-- Ateliers --> <c:if test="${options.option1Active}">
+					</c:if>
+					<!-- Ateliers -->
+					<c:if test="${options.option1Active}">
 						<li><a
 							href="<c:url value='/amap/${tenancyAlias}/shop/workshops'/>"
 							class="ps-2 pe-5 pt-3 pb-2 d-flex align-items-left border-bottom text-decoration-none ${currentMainMenu.equals('workshops') ? 'active bg-500 fc-100' : 'fc-500 text-decoration-none'}">

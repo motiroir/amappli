@@ -119,6 +119,6 @@ request.setAttribute("currentPage", currentPage);
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
 		type="text/javascript"></script>
 	
-		type="text/javascript"></script>
+
 </body>
 </html>

@@ -1,9 +1,9 @@
-let box = document.getElementById("role-box-SUPPLIER");
+let box = document.getElementById("role-box-Producteur");
 let section = document.getElementById("supplier-section");
 
 document.body.addEventListener("load", function() {
 	
-box = document.getElementById("role-box-SUPPLIER");
+box = document.getElementById("role-box-Producteur");
 section = document.getElementById("supplier-section");
 });
 

@@ -1,5 +1,6 @@
 package isika.p3.amappli.controllers.amap;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Set;
 
@@ -16,10 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import isika.p3.amappli.dto.amap.UpdateUserDTO;
 import isika.p3.amappli.dto.amap.UserDTO;
-import isika.p3.amappli.entities.tenancy.Options;
-import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.User;
-import isika.p3.amappli.repo.amappli.OptionsRepository;
 import isika.p3.amappli.service.amap.AmapAdminUserService;
 import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.RoleService;
@@ -42,15 +40,11 @@ public class AmapAdminUserController {
     
     @Autowired
     private final GraphismService graphismService;
-    
-    @Autowired
-    private final OptionsRepository optionsRepository;
 	
-	public AmapAdminUserController(AmapAdminUserService adminUserService, RoleService roleService, GraphismService graphismService, OptionsRepository optionsRepository) {
+	public AmapAdminUserController(AmapAdminUserService adminUserService, RoleService roleService, GraphismService graphismService) {
 		this.adminUserService = adminUserService;
 		this.roleService = roleService;
 		this.graphismService = graphismService;
-		this.optionsRepository = optionsRepository;
 	}
 
 	@GetMapping("/users/list")
@@ -59,20 +53,17 @@ public class AmapAdminUserController {
 		model.addAttribute("users", users);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		graphismService.setUpModel(tenancyAlias, model);
-		Tenancy tenancy = (Tenancy) model.getAttribute("tenancy");
-		model.addAttribute("options", tenancy != null ? tenancy.getOptions() : optionsRepository.findById(1L));
 		return "amap/back/users/users-list";
 	}
 	
 	@GetMapping("/users/details/{userId}")
 	public String usersDetails(@PathVariable("userId") Long userId, Model model, @PathVariable("tenancyAlias") String tenancyAlias, @ModelAttribute("message") String message) {
 		User user = adminUserService.findById(userId);
-
 		model.addAttribute("user", model.containsAttribute("userDTO")? model.getAttribute("userDTO") : user);
 		model.addAttribute("tenancyAlias", tenancyAlias);
+		model.addAttribute("dateEnd", user.getMembershipFee() != null ? new SimpleDateFormat("dd-MM-yyyy").format(user.getMembershipFee().getDateEnd()) : "Aucune cotisation effectuée");
+		model.addAttribute("allRoles" , this.roleService.findAmapRoles(tenancyAlias));
 		graphismService.setUpModel(tenancyAlias, model);
-		Tenancy tenancy = (Tenancy) model.getAttribute("tenancy");
-		model.addAttribute("options", tenancy != null ? tenancy.getOptions() : optionsRepository.findById(1L));
 		return "amap/back/users/users-details";
 	}
 	
@@ -82,20 +73,12 @@ public class AmapAdminUserController {
 		return "redirect:../list";
 	}
 	
-	// @GetMapping("/users/generateFakes")
-	// public String usersAddFake(@PathVariable("tenancyAlias") String tenancyAlias) {
-	// 	adminUserService.generateUsers(tenancyAlias);
-	// 	return "redirect:list";
-	// }
-	
 	@GetMapping("/suppliers/list")
 	public String suppliersList(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 		List<User> suppliers = adminUserService.findSuppliers(tenancyAlias);
 		model.addAttribute("suppliers", suppliers);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		graphismService.setUpModel(tenancyAlias, model);
-		Tenancy tenancy = (Tenancy) model.getAttribute("tenancy");
-		model.addAttribute("options", tenancy != null ? tenancy.getOptions() : optionsRepository.findById(1L));
 		return "amap/back/users/suppliers-list";
 	}
 	
@@ -131,8 +114,6 @@ public class AmapAdminUserController {
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAmapRoles(tenancyAlias));
 		graphismService.setUpModel(tenancyAlias, model);
-		Tenancy tenancy = (Tenancy) model.getAttribute("tenancy");
-		model.addAttribute("options", tenancy != null ? tenancy.getOptions() : optionsRepository.findById(1L));
 		return "amap/back/users/users-form";
 	}
 
@@ -143,8 +124,6 @@ public class AmapAdminUserController {
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAmapRoles(tenancyAlias));
 		graphismService.setUpModel(tenancyAlias, model);
-		Tenancy tenancy = (Tenancy) model.getAttribute("tenancy");
-		model.addAttribute("options", tenancy != null ? tenancy.getOptions() : optionsRepository.findById(1L));
 		return "amap/back/users/suppliers-form";
 	}
 	
@@ -155,7 +134,7 @@ public class AmapAdminUserController {
 		Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
 		for (ConstraintViolation<UserDTO> violation : violations) 
         {
-			String path = violation.getPropertyPath() + "";
+			String path = violation.getPropertyPath() + "Error";
             if (path.contains(".")) {
             	ra.addFlashAttribute(path.substring(path.indexOf('.') +1), violation.getMessage());
 			} else {
@@ -179,7 +158,7 @@ public class AmapAdminUserController {
 		Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
 		for (ConstraintViolation<UserDTO> violation : violations) 
 		{
-			String path = violation.getPropertyPath() + "";
+			String path = violation.getPropertyPath() + "Error";
 			if (path.contains(".")) {
 				ra.addFlashAttribute(path.substring(path.indexOf('.') +1), violation.getMessage());
 			} else {
@@ -207,14 +186,13 @@ public class AmapAdminUserController {
 	public String suppliersDetails(@PathVariable("userId") Long userId, Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 	    User supplier = adminUserService.findById(userId);
 	    model.addAttribute("user", supplier);
+		model.addAttribute("dateEnd", supplier.getMembershipFee() != null ? new SimpleDateFormat("dd-MM-yyyy").format(supplier.getMembershipFee().getDateEnd()) : "Aucune cotisation effectuée");
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAmapRoles(tenancyAlias));
 		graphismService.setUpModel(tenancyAlias, model);
-		Tenancy tenancy = (Tenancy) model.getAttribute("tenancy");
-		model.addAttribute("options", tenancy != null ? tenancy.getOptions() : optionsRepository.findById(1L));
 	    return "amap/back/users/suppliers-details";
 	}
-	
+
 	@PostMapping("/suppliers/update")
 	public String suppliersUpdate(@Valid @ModelAttribute("supplier") UpdateUserDTO supplier, BindingResult result, Model model, RedirectAttributes ra) {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -222,7 +200,7 @@ public class AmapAdminUserController {
 		Set<ConstraintViolation<UpdateUserDTO>> violations = validator.validate(supplier);
 		for (ConstraintViolation<UpdateUserDTO> violation : violations) 
         {
-			String path = violation.getPropertyPath() + "";
+			String path = violation.getPropertyPath() + "Error";
             if (path.contains(".")) {
             	ra.addFlashAttribute(path.substring(path.indexOf('.') +1), violation.getMessage());
 			} else {

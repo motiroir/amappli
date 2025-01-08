@@ -96,7 +96,7 @@
 	<script	src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 	<script	src="<c:url value='/resources/js/amappli/loading-when-visible.js' />"></script>
 	<script	src="<c:url value='/resources/js/common/theme-swap.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
 	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
 
 <!-- Leaflet JS -->

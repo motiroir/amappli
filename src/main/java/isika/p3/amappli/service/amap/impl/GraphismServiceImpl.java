@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import isika.p3.amappli.entities.tenancy.Graphism;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.Address;
+import isika.p3.amappli.repo.amappli.OptionsRepository;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
 import isika.p3.amappli.security.CustomUserDetails;
 import isika.p3.amappli.service.amap.GraphismService;
@@ -18,6 +19,9 @@ public class GraphismServiceImpl implements GraphismService {
 
 	@Autowired
 	private TenancyRepository tenancyRepo;
+	
+	@Autowired
+	private OptionsRepository optionsRepo;
 
 	public void setUpModel(String alias, Model model) {
 		Tenancy tenancy = getTenancyByAlias(alias);
@@ -30,6 +34,7 @@ public class GraphismServiceImpl implements GraphismService {
 		model.addAttribute("tenancy", tenancy);
         model.addAttribute("tenancyName", tenancy.getTenancyName());
         model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
+        model.addAttribute("options", tenancy.getOptions() != null ? tenancy.getOptions() : optionsRepo.findById(1L));
         // add tenancy address
         Address address = tenancy.getAddress();
         model.addAttribute("addressLine1", address != null ? address.getLine1() : null);

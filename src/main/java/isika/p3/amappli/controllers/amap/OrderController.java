@@ -37,7 +37,7 @@ public class OrderController {
         return "amap/front/user-profile/my-orders";
 	}
 
-	@GetMapping("/admin/orders")
+	@GetMapping("/admin/orders/list")
 	public String viewOrdersForAdmin(@PathVariable("tenancyAlias") String alias, Model model) {
 		List<Order> orders = orderService.getOrdersByTenancyAlias(alias);
 		model.addAttribute("orders", orders);
