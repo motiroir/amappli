@@ -117,6 +117,11 @@ public class DataInitializationService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		try {
+			contractInitForTenancy(6L);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Transactional
@@ -1290,6 +1295,69 @@ public class DataInitializationService {
 			}
 		}
 	}
+	
+	public void contractInitForTenancy(Long tenancyId) throws IOException {
+
+		Tenancy tenancy = tenancyRepository.findById(tenancyId)
+	            .orElseThrow(() -> new IllegalArgumentException("Tenancy not found with ID: " + tenancyId));
+
+	    List<User> producers = userRepository.findByTenancyAndRole(tenancy, "Producteur");
+
+	    if (producers.isEmpty()) {
+	        throw new IllegalStateException("No producers found for the tenancy with ID: " + tenancyId);
+	    }
+
+	    String paniersoupe = loadImageFromResources("paniersoupe.png");
+
+	    Contract contract1 = Contract.builder()
+	            .contractName("Panier soupe 5 légumes")
+	            .contractType(ContractType.VEGETABLES_CONTRACT)
+	            .contractDescription("Un panier composé pour réaliser une délicieuse soupe aux 5 légumes\r\n"
+	            		+ "\r\n"
+	            		+ "Environs 4 kilo de légumes dans le panier")
+	            .contractWeight(ContractWeight.AVERAGE)
+	            .contractPrice(new BigDecimal("10.95"))
+	            .dateCreation(LocalDate.now())
+	            .startDate(LocalDate.of(2025, 4, 1))
+	            .endDate(LocalDate.of(2025, 6, 30))
+	            .deliveryRecurrence(DeliveryRecurrence.BIMONTHLY)
+	            .quantity(15)
+	            .shoppable(true)
+	            .imageType("image/png")
+	            .pickUpSchedule(tenancy.getPickUpSchedule())
+	            .address(tenancy.getAddress())
+	            .tenancy(tenancy)
+	            .user(producers.get(0))
+	            .imageData(paniersoupe)
+	            .build();
+	    
+	    Contract contract2 = Contract.builder()
+	    		.contractName("Panier soupe 5 légumes")
+	    		.contractType(ContractType.VEGETABLES_CONTRACT)
+	    		.contractDescription("Un panier composé pour réaliser une délicieuse soupe aux 5 légumes\r\n"
+	    				+ "\r\n"
+	    				+ "Environs 4 kilo de légumes dans le panier")
+	    		.contractWeight(ContractWeight.AVERAGE)
+	    		.contractPrice(new BigDecimal("10.95"))
+	    		.dateCreation(LocalDate.now())
+	    		.startDate(LocalDate.of(2025, 4, 1))
+	    		.endDate(LocalDate.of(2025, 6, 30))
+	    		.deliveryRecurrence(DeliveryRecurrence.BIMONTHLY)
+	    		.quantity(15)
+	    		.shoppable(true)
+	    		.imageType("image/png")
+	    		.pickUpSchedule(tenancy.getPickUpSchedule())
+	    		.address(tenancy.getAddress())
+	    		.tenancy(tenancy)
+	    		.user(producers.get(0))
+	    		.imageData(paniersoupe)
+	    		.build();
+
+	    contractRepository.save(contract1);
+	    contractRepository.save(contract2);
+
+	}
+
 
 	private String loadImageFromResources(String imageName) throws IOException {
 		InputStream imageStream = getClass().getClassLoader().getResourceAsStream("image/" + imageName);
