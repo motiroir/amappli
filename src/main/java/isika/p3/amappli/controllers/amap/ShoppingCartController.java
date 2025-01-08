@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import isika.p3.amappli.entities.contract.Contract;
 import isika.p3.amappli.entities.order.ShoppingCart;
@@ -66,11 +67,28 @@ public class ShoppingCartController {
 	@PostMapping("/add")
 	public String addItem(@PathVariable("tenancyAlias") String alias,
 			@RequestParam("shoppableId") Long shoppableId, @RequestParam("shoppableType") String shoppableType,
-			@RequestParam("quantity") int quantity) {
+			@RequestParam("quantity") int quantity, RedirectAttributes redirectAttributes) {
 		Long userId = graphismService.getUserIdFromContext();
 		ShoppingCart cart = shoppingCartService.getCartByUserId(userId);
 		shoppingCartService.addItemToCart(cart.getShoppingCartId(), shoppableId, shoppableType, quantity);
-		return "redirect:/amap/{tenancyAlias}/cart/";
+		
+		 redirectAttributes.addFlashAttribute("successMessage", "L'article a bien été ajouté au panier !");
+		 String redirectUrl;
+		    switch (shoppableType) {
+		        case "PRODUCT":
+		            redirectUrl = "redirect:/amap/{tenancyAlias}/shop/products";
+		            break;
+		        case "CONTRACT":
+		            redirectUrl = "redirect:/amap/{tenancyAlias}/shop/contracts";
+		            break;
+		        case "WORKSHOP":
+		            redirectUrl = "redirect:/amap/{tenancyAlias}/shop/workshops";
+		            break;
+		        default:
+		            redirectUrl = "redirect:/amap/{tenancyAlias}/cart/";
+		            break;
+		    }
+		return redirectUrl;
 	}
 
 	@PostMapping("/updateQuantity/{itemId}")
