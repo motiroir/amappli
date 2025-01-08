@@ -23,7 +23,7 @@
 
 
 
-	<div class="container py-5 flex-grow-1">
+	<div class="container py-5 flex-grow-1 form-container">
 		<div class="d-flex justify-content-between align-items-center">
     <h1 class="h3 fw-bold fc-300">Se connecter</h1>
     <a href="/Amappli/amap/${tenancyAlias}/home" class="btn-close" aria-label="Retour"></a>

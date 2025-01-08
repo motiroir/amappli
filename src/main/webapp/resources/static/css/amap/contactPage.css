@@ -22,6 +22,8 @@
             padding: 20px;
             border-radius: 20px;
         }
+        
+        
         .contact-info h2 {
          text-align: center;
             font-weight: bold;
@@ -70,7 +72,6 @@
             margin: 10px auto;
             border: none;
             border-radius: 30px;
-            padding: 10px 20px;
             margin-top: 20px;
             width: 30% ;
             transition: background-color 0.3s ease;
@@ -84,11 +85,7 @@
             overflow: hidden;
             margin-top: 15px;
         }
-        .map img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-        }
+       
         @media (max-width: 768px) {
             .contact-container {
                 flex-direction: column;
@@ -105,5 +102,6 @@
 
 .map-container {
     width: 100%; /* La carte occupe toute la largeur de son conteneur */
-    height: 400px; /* Ajustez la hauteur selon vos besoins */
+   height: auto;
+   border-radius: 10px;
 }
