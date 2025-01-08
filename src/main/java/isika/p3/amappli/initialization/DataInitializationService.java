@@ -47,6 +47,7 @@ import isika.p3.amappli.entities.workshop.Workshop;
 import isika.p3.amappli.repo.amap.ContractRepository;
 import isika.p3.amappli.repo.amap.OrderItemRepository;
 import isika.p3.amappli.repo.amap.OrderRepository;
+import isika.p3.amappli.repo.amap.PaymentRepository;
 import isika.p3.amappli.repo.amap.ProductRepository;
 import isika.p3.amappli.repo.amap.UserRepository;
 import isika.p3.amappli.repo.amap.WorkshopRepository;
@@ -92,6 +93,8 @@ public class DataInitializationService {
 	private OrderRepository orderRepository;
 	@Autowired
 	private OrderItemRepository orderItemRepository;
+	@Autowired
+	private PaymentRepository paymentRepository;
 	@PersistenceContext
 	private EntityManager entityManager;
 
@@ -130,6 +133,7 @@ public class DataInitializationService {
 // test method to avoid initializing everything while developing and testing 
 // accessible via http://localhost:8080/Amappli/data-init/test
 	public void WIPInit() {
+		initOrder(1L);
 	}
 
 	@Transactional
@@ -1386,19 +1390,34 @@ public class DataInitializationService {
 
 	private void addPaymentToOrder(Order order, User user, LocalDate randomDate) {
 		// create payment
-		Payment payment = Payment.builder().paymentDate(randomDate.atStartOfDay()).paymentType(PaymentType.card)
+		Payment payment = Payment.builder().paymentDate(randomDate.atStartOfDay()).paymentType(getRandomPaymentType())
 				.paymentAmount(BigDecimal.valueOf(order.getTotalAmount())).build();
 		payment.setOrder(order);
 		order.getPayments().add(payment);
-		// save by cascade
+		paymentRepository.save(payment);
 		orderRepository.save(order);
 	}
-
+	
 	private void addOrderToUser(Order order, User user) {
 		user.getOrders().add(order);
 		userRepository.save(user);
 	}
 
+	private PaymentType getRandomPaymentType() {
+		int randomChoice = new Random().nextInt(2) + 1;
+		PaymentType paymentType;
+		switch (randomChoice) {
+		case 0:
+			return paymentType = PaymentType.card;
+		case 1:
+			return paymentType = PaymentType.check;
+		case 2:
+			return paymentType = PaymentType.cash;
+		default:
+			throw new IllegalStateException("Valeur aléatoire invalide : " + randomChoice);
+		}
+	}
+	
 	private Shoppable getRandomShoppable() {
 		Random random = new Random();
 		int randomChoice = random.nextInt(2) + 1;

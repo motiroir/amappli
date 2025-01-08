@@ -24,6 +24,7 @@ import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.repo.amap.OrderItemRepository;
 import isika.p3.amappli.repo.amap.OrderRepository;
+import isika.p3.amappli.repo.amap.PaymentRepository;
 import isika.p3.amappli.repo.amap.ShoppingCartRepository;
 import isika.p3.amappli.repo.amap.UserRepository;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
@@ -43,15 +44,17 @@ public class OrderServiceImpl {
 	private final UserRepository userRepo;
 	private final TenancyRepository tenancyRepo;
 	private final OrderItemRepository orderItemRepo;
+	private final PaymentRepository paymentRepo;
 
 	public OrderServiceImpl(EntityManager entityManager, OrderRepository orderRepo, ShoppingCartRepository cartRepo,
-			UserRepository userRepo, TenancyRepository tenancyRepo, OrderItemRepository orderItemRepo) {
+			UserRepository userRepo, TenancyRepository tenancyRepo, OrderItemRepository orderItemRepo, PaymentRepository paymentRepo) {
 		this.entityManager = entityManager;
 		this.orderRepo = orderRepo;
 		this.cartRepo = cartRepo;
 		this.userRepo = userRepo;
 		this.tenancyRepo = tenancyRepo;
 		this.orderItemRepo = orderItemRepo;
+		this.paymentRepo = paymentRepo;
 	}
 
     public ShoppingCart getCartByUserId(Long userId) {
@@ -154,7 +157,7 @@ public class OrderServiceImpl {
 		order.setOrderPaid(true);
 		order.getPayments().add(payment);
 		payment.setOrder(order);
-		// save order and order items and payment by cascade
+		paymentRepo.save(payment);
 		orderRepo.save(order);
 		return order;
 	}
@@ -192,6 +195,7 @@ public class OrderServiceImpl {
 			order.setOrderPaid(true);
 			order.getPayments().add(payment);
 			payment.setOrder(order);
+			paymentRepo.save(payment);
 		}
 
 		orderRepo.save(order);

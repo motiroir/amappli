@@ -146,10 +146,10 @@ public class UserController {
     /**
      * Affiche le profil utilisateur.
      */
-    @GetMapping("/{userId}/profile")
-    public String viewProfile(@PathVariable("userId") Long userId,
-                              @PathVariable("tenancyAlias") String alias,
+    @GetMapping("/account/my-profile")
+    public String viewProfile(@PathVariable("tenancyAlias") String alias,
                               Model model) {
+    	Long userId = graphismService.getUserIdFromContext();
         // Récupérer les informations de l'utilisateur
         UserDTO userDTO = userService.getUserProfile(userId);
 
@@ -162,15 +162,8 @@ public class UserController {
         // Ajouter UpdateProfileDTO au modèle
         model.addAttribute("updateProfileDTO", updateProfileDTO);
         model.addAttribute("tenancyAlias", alias);
-    
-     // Récupérer la tenancy
-	    Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
 
-	    if (tenancy != null) {
-	        graphismService.setUpModel(alias, model);
-	    } else {
-	        model.addAttribute("message", "Tenancy non trouvée.");
-	    }
+        graphismService.setUpModel(alias, model);
 
         return "amap/front/user-profile/profile";
     }
@@ -180,12 +173,12 @@ public class UserController {
     /**
      * Met à jour le profil utilisateur.
      */
-    @PostMapping("/{userId}/profile")
-    public String updateProfile(@PathVariable("userId") Long userId,
-                                @PathVariable("tenancyAlias") String alias,
+    @PostMapping("/account/profile")
+    public String updateProfile(@PathVariable("tenancyAlias") String alias,
                                 @ModelAttribute @Valid UpdateProfileDTO updateProfileDTO,
                                 BindingResult bindingResult,
                                 Model model) {
+    	Long userId = graphismService.getUserIdFromContext();
         // Gestion des erreurs de validation
         if (bindingResult.hasErrors()) {
             model.addAttribute("updateProfileDTO", updateProfileDTO);
@@ -195,14 +188,8 @@ public class UserController {
             });
             model.addAttribute("error", errorMessages.toString());
             model.addAttribute("tenancyAlias", alias);
-            // Récupérer la tenancy
-    	    Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
 
-    	    if (tenancy != null) {
     	        graphismService.setUpModel(alias, model);
-    	    } else {
-    	        model.addAttribute("message", "Tenancy non trouvée.");
-    	    }
             
             return "amap/front/user-profile/profile"; // Retourne à la vue du formulaire avec erreurs
         }
@@ -216,14 +203,7 @@ public class UserController {
             model.addAttribute("error", e.getMessage());
         }
 
-     // Récupérer la tenancy
-	    Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
-
-	    if (tenancy != null) {
-	        graphismService.setUpModel(alias, model);
-	    } else {
-	        model.addAttribute("message", "Tenancy non trouvée.");
-	    }
+        graphismService.setUpModel(alias, model);
         
         // Ré-affiche le formulaire (avec ou sans succès/erreur)
         model.addAttribute("updateProfileDTO", updateProfileDTO);
@@ -231,10 +211,10 @@ public class UserController {
     }
     
     
-    @GetMapping("/{userId}/adhesion")
-    public String viewMembership(@PathVariable("userId") Long userId,
-                                 @PathVariable("tenancyAlias") String alias,
+    @GetMapping("/account/membership")
+    public String viewMembership(@PathVariable("tenancyAlias") String alias,
                                  Model model) {
+    	Long userId = graphismService.getUserIdFromContext();
         // Récupérer l'adhésion via le service
         MembershipFeeDTO membershipFeeDTO = MemberShipService.getMembershipForUser(userId);
 
