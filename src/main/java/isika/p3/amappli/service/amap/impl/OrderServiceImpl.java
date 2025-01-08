@@ -22,6 +22,7 @@ import isika.p3.amappli.entities.payment.Payment;
 import isika.p3.amappli.entities.payment.PaymentType;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.User;
+import isika.p3.amappli.repo.amap.OrderItemRepository;
 import isika.p3.amappli.repo.amap.OrderRepository;
 import isika.p3.amappli.repo.amap.ShoppingCartRepository;
 import isika.p3.amappli.repo.amap.UserRepository;
@@ -41,14 +42,16 @@ public class OrderServiceImpl {
 	private final ShoppingCartRepository cartRepo;
 	private final UserRepository userRepo;
 	private final TenancyRepository tenancyRepo;
+	private final OrderItemRepository orderItemRepo;
 
 	public OrderServiceImpl(EntityManager entityManager, OrderRepository orderRepo, ShoppingCartRepository cartRepo,
-			UserRepository userRepo, TenancyRepository tenancyRepo) {
+			UserRepository userRepo, TenancyRepository tenancyRepo, OrderItemRepository orderItemRepo) {
 		this.entityManager = entityManager;
 		this.orderRepo = orderRepo;
 		this.cartRepo = cartRepo;
 		this.userRepo = userRepo;
 		this.tenancyRepo = tenancyRepo;
+		this.orderItemRepo = orderItemRepo;
 	}
 
     public ShoppingCart getCartByUserId(Long userId) {
@@ -111,19 +114,22 @@ public class OrderServiceImpl {
 
 		// change cartItems into orderItems
 		List<OrderItem> orderItems = copyCartItemsListToOrderItemsList(cart.getShoppingCartItems());
-
+		
+		
 		Double totalAmountFromItems = orderItems.stream().mapToDouble(OrderItem::getTotal).sum();
 		// create order
 		Order order = Order.builder().orderItems(new ArrayList<OrderItem>()).user(cart.getUser())
 				.totalAmount(totalAmountFromItems).installmentCount(1).installmentAmount(totalAmountFromItems / 1)
 				.orderDate(LocalDate.now()).orderStatus(OrderStatus.PENDING).build();
+		orderRepo.save(order);
 
 		// attache order to items and vice-versa
 		for (OrderItem item : orderItems) {
 			item.setOrder(order);
 			order.getOrderItems().add(item);
+			orderItemRepo.save(item);
 		}
-
+		
 		// empty shoppingCart and save
 		cart.getShoppingCartItems().clear();
 		cartRepo.save(cart);
