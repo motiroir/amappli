@@ -48,7 +48,6 @@ import isika.p3.amappli.repo.amap.ContractRepository;
 import isika.p3.amappli.repo.amap.OrderItemRepository;
 import isika.p3.amappli.repo.amap.OrderRepository;
 import isika.p3.amappli.repo.amap.ProductRepository;
-import isika.p3.amappli.repo.amap.ShoppableRepository;
 import isika.p3.amappli.repo.amap.UserRepository;
 import isika.p3.amappli.repo.amap.WorkshopRepository;
 import isika.p3.amappli.repo.amappli.OptionsRepository;
@@ -213,7 +212,7 @@ public class DataInitializationService {
 
 		// users creation
 		User user1 = User.builder().email("marie.durand@example" + tenancy.getTenancyId() + ".com")
-				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
+				.password("AMAPamap11@").isActive(true).tenancy(null).build();
 		user1.getRoles().add(AdminPlateforme);
 		saveUser(user1);
 		Address a1 = Address.builder().line2("5 avenue des Roses").line1("Appartement 12").postCode("44000")
@@ -1315,8 +1314,7 @@ public class DataInitializationService {
 	}
 
 	public void initMembershipFee(Tenancy tenancy) {
-		List<User> users = userRepository.findAll().stream()
-				.filter(u -> u.getTenancy().getTenancyId() == tenancy.getTenancyId()).toList();
+		List<User> users = userRepository.findByTenancy_TenancyId(tenancy.getTenancyId());
 		for (User user : users) {
 			// random day logic
 			LocalDate randomStartDate = randomDate();
