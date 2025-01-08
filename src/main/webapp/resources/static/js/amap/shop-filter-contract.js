@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const contractsContainer = document.querySelector(".row.row-cols-2"); // Conteneur des contrats
+    const contractsContainer = document.querySelector(".row.row-cols-1"); // Conteneur des contrats
     const sortBySelect = document.getElementById("sortByContracts");
     const searchBar = document.getElementById("searchBar");
 
-    let contracts = Array.from(document.querySelectorAll(".row.row-cols-2 .col")); // Liste des contrats
+    let contracts = Array.from(document.querySelectorAll(".row.row-cols-1 .col")); // Liste des contrats
 
     // Fonction pour trier les contrats
     function sortContracts(criteria) {

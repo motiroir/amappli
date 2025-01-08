@@ -20,6 +20,15 @@ request.setAttribute("currentPage", currentPage);
 	rel="stylesheet">
 <link href="<c:url value='/resources/css/amap/shop.css' />"
 	rel="stylesheet">
+		<style>
+	#successMessage {
+    transition: opacity 0.5s ease;
+}
+
+#successMessage.hidden {
+    opacity: 0;
+}
+	</style>
 </head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
 	<!-- Header -->
@@ -48,6 +57,11 @@ request.setAttribute("currentPage", currentPage);
 							croissant</option>
 					</select>
 				</div>
+								<c:if test="${not empty successMessage}">
+    <div id="successMessage" class="alert alert-success text-center" role="alert">
+        ${successMessage}
+    </div>
+</c:if>
 				<!-- Barre de recherche -->
 				<div class="d-flex align-items-center">
 					<input type="text" id="searchBar"
@@ -58,7 +72,7 @@ request.setAttribute("currentPage", currentPage);
 			<br>
 			
 		<div class="container">
-				<div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-4 mx-auto">
+				<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 mx-auto">
 					<!-- 			<div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-4 mx-auto"> -->
 				<c:if test="${not empty workshops}">
 				<c:forEach var="workshop" items="${workshops}">
@@ -115,5 +129,18 @@ request.setAttribute("currentPage", currentPage);
 	<script
 		src="<c:url value='/resources/js/amap/shop-filter-workshop.js' />"
 		type="text/javascript"></script>
+		<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const successMessage = document.getElementById("successMessage");
+        if (successMessage) {
+            setTimeout(() => {
+                successMessage.classList.add("hidden");
+            }, 1000); // Ajout de la classe pour l'animation
+            setTimeout(() => {
+                successMessage.style.display = "none";
+            }, 1500); // Masquer complètement après 1.5 seconde
+        }
+    });
+</script>
 </body>
 </html>
