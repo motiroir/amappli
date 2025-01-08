@@ -1,6 +1,7 @@
 package isika.p3.amappli.controllers.amap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,6 +65,7 @@ public class ShoppingCartController {
 		model.addAttribute("totalWorkshops", totalWorkshops);
 	}
 
+	@PreAuthorize("hasAuthority(#alias)")
 	@PostMapping("/add")
 	public String addItem(@PathVariable("tenancyAlias") String alias,
 			@RequestParam("shoppableId") Long shoppableId, @RequestParam("shoppableType") String shoppableType,
