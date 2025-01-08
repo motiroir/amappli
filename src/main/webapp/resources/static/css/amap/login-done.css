@@ -13,11 +13,16 @@ body {
 }
 
 
-.container {
+
+.container-success {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    margin: 0;
+    height: 100%;
+    padding: 15%
 }
 
 

@@ -5,15 +5,23 @@
 
 
 
-
-.container {
+.form-container {
 	margin: auto;
 	max-width: 600px;
 	padding: 30px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+    
 }
+
+/* Règles spécifiques pour aligner certains enfants à gauche si nécessaire */
+.form-container h1, 
+.form-container form {
+    text-align: left;
+}
+
+
 
 h1 {
 	font-size: 1.25rem;

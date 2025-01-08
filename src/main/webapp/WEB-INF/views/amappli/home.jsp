@@ -63,9 +63,11 @@
 						votre site web.
 					</p>
 					<div class="col-12 d-flex justify-content-evenly">
-						<a href="#" class="btn btn-100 rounded-pill px-4">Créer mon
-							site</a> <a href="#" class="btn btn-900 rounded-pill px-4">Planifier
-							une démonstration</a>
+
+						<a href="<c:url value='/amappli/start/signup'/>"  class="btn btn-100 rounded-pill px-4">Créer mon site</a>
+						<a href="#" class="btn btn-900 rounded-pill px-4">Planifier une
+							démonstration</a>
+
 					</div>
 				</div>
 			</div>
@@ -191,7 +193,9 @@
 				<h3 class="h5 fw-bold">100 € /an</h3>
 			</div>
 			<div class="mt-5 col-12 text-center">
-				<a href="#" class="btn rounded-pill btn-100">Comparer les offres</a>
+
+				<a href="<c:url value='/amappli/features'/>"
+					class="btn rounded-pill btn-100">Comparer les offres</a>
 			</div>
 		</div>
 	</section>
