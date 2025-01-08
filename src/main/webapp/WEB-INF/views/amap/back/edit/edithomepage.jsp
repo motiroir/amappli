@@ -43,18 +43,17 @@
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            Place your content for "Nom ou adresse internet" here.
                             <form action="${pageContext.request.contextPath}/amap/${tenancyAlias}/admin/editthenameandalias" method="post">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                                 <div class="mb-3">
                                     <label class="form-label" for="input-tenancyName">Nom de l'AMAP</label>
                                     <input class="form-control" type="text" class="form-control" id="input-tenancyName" name="tenancyName"
-                                        placeholder="Nom de votre AMAP" required>
+                                        value="${tenancyUpdateNameAliasDTO.tenancyName}" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="input-tenancyAlias">Adresse internet de l'AMAP</label>
                                     <input class="form-control" type="text" class="form-control" id="input-tenancyAlias" name="tenancyAlias"
-                                        placeholder="Adresse de votre AMAP" required>
+                                        value="${tenancyUpdateNameAliasDTO.tenancyAlias}" required>
                                 </div>
                                 <div class="mb-3">
                                     Votre AMAP sera accessible à l'adresse <i>www.amappli.fr/<span id="amap-url-example">...</span></i>
@@ -74,7 +73,15 @@
                     </h2>
                     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            Place your content for "Slogan" here.
+                            <form action="${pageContext.request.contextPath}/amap/${tenancyAlias}/admin/edittheslogan" method="post">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                <div class="mb-3">
+                                    <label class="form-label" for="input-tenancySlogan">Slogan de l'AMAP</label>
+                                    <input class="form-control" type="text" class="form-control" id="input-tenancySlogan" name="slogan"
+                                        value="${tenancyUpdateSloganDTO.slogan}" required>
+                                </div>
+                                <button type="submit" class="btn btn-700">Sauvegarder</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -88,21 +95,57 @@
                     </h2>
                     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            Place your content for "Logo" here.
+                            <form action="${pageContext.request.contextPath}/amap/${tenancyAlias}/admin/editthelogo" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                <div class="mb-3">
+                                    <img id="preview-logo" class="w-30" src="data:${tenancyUpdateLogo.logoImgType};base64,${tenancyUpdateLogo.logoImg}" alt="logo"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="input-tenancyLogo">Logo de l'AMAP</label>
+                                    <input class="form-control" type="file" class="form-control" id="input-tenancyLogo" name="file"
+                                        required accept="image/png,image/jpeg,image/svg">
+                                </div>
+                                <button type="button" id="cancel-preview-logo" class="btn btn-900" style="display: none;">Annuler</button>
+                                <button type="submit" class="btn btn-700">Sauvegarder</button>
+                            </form>
                         </div>
                     </div>
                 </div>
 
-                <!-- Coordoonnées -->
+                <!-- Adresse -->
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingFour">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                            <i class="bi bi-chevron-right me-2"></i> Coordoonnées
+                            <i class="bi bi-chevron-right me-2"></i> Adresse
                         </button>
                     </h2>
                     <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            Place your content for "Coordoonnées" here.
+                            <form action="${pageContext.request.contextPath}/amap/${tenancyAlias}/admin/edittheaddress" method="post">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                <p>Cela changera les courbes de niveau en arrière-plan de votre site.</p>
+                                <div class="mb-3">
+                                    <label class="form-label" for="input-tenancyAddressLine1">Complément d'adresse</label>
+                                    <input class="form-control" type="text" class="form-control" id="input-tenancyAddressLine1" name="address.line1"
+                                        value="${tenancyUpdateAddressDTO.address.line1}">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="input-tenancyAddressLine2">Numéro et Rue</label>
+                                    <input class="form-control" type="text" class="form-control" id="input-tenancyAddressLine2" name="address.line2"
+                                        value="${tenancyUpdateAddressDTO.address.line2}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="input-tenancyAddressPostCode">Code Postal</label>
+                                    <input class="form-control" type="text" class="form-control" id="input-tenancyAddressPostCode" name="address.postCode"
+                                        value="${tenancyUpdateAddressDTO.address.postCode}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="input-tenancyAddressCity">Ville</label>
+                                    <input class="form-control" type="text" class="form-control" id="input-tenancyAddressCity" name="address.city"
+                                        value="${tenancyUpdateAddressDTO.address.city}" required>
+                                </div>
+                                <button type="submit" class="btn btn-700">Sauvegarder</button>
+                            </form>
                         </div>
                     </div>
                 </div>
