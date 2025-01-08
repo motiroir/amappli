@@ -98,29 +98,29 @@ public class DataInitializationService {
 
 	public void dataInit() {
 		try {
-			tenancyInit();
-			permissionInit();
-			roleInit();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		 	tenancyInit();
+		 	permissionInit();
+		 	roleInit();
+		 } catch (Exception e) {
+		 	e.printStackTrace();
+		 }
 		try {
 			for (Tenancy t : tenancyRepository.findAll()) {
 				userInit(t);
 				initMembershipFee(t);
-				contractInitForTenancy(t);
+				// contractInitForTenancy(t);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+		 	e.printStackTrace();
 		}
-		try {
-			productInit();
-			workshopInit();
-			contractInitForTenancy(6L);
-			initAllOrders();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		// try {
+		// 	productInit();
+		// 	workshopInit();
+		// 	contractInitForTenancy(6L);
+		// 	initAllOrders();
+		// } catch (Exception e) {
+		// 	e.printStackTrace();
+		// }
 	}
 
 // test method to avoid initializing everything while developing and testing 
@@ -219,7 +219,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci1);
 		user1.setAddress(a1);
 		user1.setContactInfo(ci1);
-		saveUser(user1);
+		updateUser(user1);
 
 		User user2 = User.builder().email("lucas.martin@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -233,7 +233,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci2);
 		user2.setAddress(a2);
 		user2.setContactInfo(ci2);
-		saveUser(user2);
+		updateUser(user2);
 
 		User user3 = User.builder().email("jeanne.lemoine@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -253,7 +253,7 @@ public class DataInitializationService {
 		user3.setAddress(a3);
 		user3.setContactInfo(ci3);
 		user3.setCompanyDetails(cd3);
-		saveUser(user3);
+		updateUser(user3);
 
 		User user4 = User.builder().email("thomas.dupuis@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -267,7 +267,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci4);
 		user4.setAddress(a4);
 		user4.setContactInfo(ci4);
-		saveUser(user4);
+		updateUser(user4);
 
 		User user5 = User.builder().email("claire.fournier@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -285,7 +285,7 @@ public class DataInitializationService {
 		user5.setCompanyDetails(cd5);
 		user5.setAddress(a5);
 		user5.setContactInfo(ci5);
-		saveUser(user5);
+		updateUser(user5);
 
 		User user6 = User.builder().email("charlotte.petit@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -299,7 +299,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci6);
 		user6.setAddress(a6);
 		user6.setContactInfo(ci6);
-		saveUser(user6);
+		updateUser(user6);
 
 		User user7 = User.builder().email("victor.martin@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -316,7 +316,7 @@ public class DataInitializationService {
 		user7.setAddress(a7);
 		user7.setContactInfo(ci7);
 		user7.setCompanyDetails(cd7);
-		saveUser(user7);
+		updateUser(user7);
 
 		User user8 = User.builder().email("elise.muller@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -330,7 +330,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci8);
 		user8.setAddress(a8);
 		user8.setContactInfo(ci8);
-		saveUser(user8);
+		updateUser(user8);
 
 		User user9 = User.builder().email("jean.benoit@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -348,7 +348,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci9);
 		user9.setAddress(a9);
 		user9.setContactInfo(ci9);
-		saveUser(user9);
+		updateUser(user9);
 
 		User user10 = User.builder().email("amelie.rousseau@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -362,7 +362,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci10);
 		user10.setAddress(a10);
 		user10.setContactInfo(ci10);
-		saveUser(user10);
+		updateUser(user10);
 
 		User user11 = User.builder().email("henri.durand@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -376,7 +376,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci11);
 		user11.setAddress(a11);
 		user11.setContactInfo(ci11);
-		saveUser(user11);
+		updateUser(user11);
 
 		User user12 = User.builder().email("manon.fabre@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -394,7 +394,7 @@ public class DataInitializationService {
 		user12.setAddress(a12);
 		user12.setContactInfo(ci12);
 		user12.setCompanyDetails(cd12);
-		saveUser(user12);
+		updateUser(user12);
 
 		User user13 = User.builder().email("paul.brun@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -408,7 +408,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci13);
 		user13.setAddress(a13);
 		user13.setContactInfo(ci13);
-		saveUser(user13);
+		updateUser(user13);
 
 		User user14 = User.builder().email("sophie.martin@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -426,7 +426,7 @@ public class DataInitializationService {
 		user14.setAddress(a14);
 		user14.setContactInfo(ci14);
 		user14.setCompanyDetails(cd14);
-		saveUser(user14);
+		updateUser(user14);
 
 		User user15 = User.builder().email("lucie.lafaye@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -441,7 +441,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci15);
 		user15.setAddress(a15);
 		user15.setContactInfo(ci15);
-		saveUser(user15);
+		updateUser(user15);
 
 		User user16 = User.builder().email("alain.dubois@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -459,7 +459,7 @@ public class DataInitializationService {
 		user16.setAddress(a16);
 		user16.setContactInfo(ci16);
 		user16.setCompanyDetails(cd16);
-		saveUser(user16);
+		updateUser(user16);
 
 		User user17 = User.builder().email("laura.lemoine@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -473,7 +473,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci17);
 		user17.setAddress(a17);
 		user17.setContactInfo(ci17);
-		saveUser(user17);
+		updateUser(user17);
 
 		User user18 = User.builder().email("antoine.morel@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -487,7 +487,7 @@ public class DataInitializationService {
 		contactInfoService.save(ci18);
 		user18.setAddress(a18);
 		user18.setContactInfo(ci18);
-		saveUser(user18);
+		updateUser(user18);
 
 		User user19 = User.builder().email("laurence.vincent@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -505,7 +505,7 @@ public class DataInitializationService {
 		user19.setAddress(a19);
 		user19.setContactInfo(ci19);
 		user19.setCompanyDetails(cd19);
-		saveUser(user19);
+		updateUser(user19);
 
 		User user20 = User.builder().email("bernard.morvan@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
@@ -519,12 +519,16 @@ public class DataInitializationService {
 		contactInfoService.save(ci20);
 		user20.setAddress(a20);
 		user20.setContactInfo(ci20);
-		saveUser(user20);
+		updateUser(user20);
 
 	}
 
 	public User saveUser(User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		return userRepository.save(user);
+	}
+
+	public User updateUser(User user) {
 		return userRepository.save(user);
 	}
 
