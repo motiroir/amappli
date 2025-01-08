@@ -90,7 +90,7 @@ public class OrderServiceImpl {
 			// deals with issue on copying the shoppable attached to cartItem to get to
 			// attach to the orderItem
 			Shoppable attachedShoppable = entityManager.merge(cartItem.getShoppable());
-			// set user membershipfee cause he paid it
+			// set user membershipfee cause he paid it 
 			if(attachedShoppable instanceof MembershipFee) {
 				User user = cartItem.getShoppingCart().getUser();
 				((MembershipFee) attachedShoppable).setUser(user);

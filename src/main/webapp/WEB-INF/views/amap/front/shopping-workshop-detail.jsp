@@ -87,7 +87,7 @@ request.setAttribute("currentPage", currentPage);
 		<!-- Section pour la quantité et le bouton d'ajout au panier -->
 		<div class="text-end mt-4">
 			<form:form method="post"
-				action="${pageContext.request.contextPath}/amap/${tenancyAlias}/cart/${cartId}/add">
+				action="${pageContext.request.contextPath}/amap/${tenancyAlias}/cart/add">
 				<input type="hidden" name="shoppableId" value="${workshop.id}" />
 				<input type="hidden" name="shoppableType" value="WORKSHOP" />
 				<input type="hidden" name="quantity" value="1" />
