@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if(currentIndex == allFormParts.length - 1) {
                     computeOptionChoice();
                 }
-                else if ( currentIndex == allFormParts.length || currentIndex == allFormParts.length - 2){
+                else if ( currentIndex == allFormParts.length - 2){
                     removeOptionChoice();
                 }
             }
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if(currentIndex == allFormParts.length - 1) {
                 computeOptionChoice(); 
             }
-            else if ( currentIndex == allFormParts.length || currentIndex == allFormParts.length - 2){
+            else if ( currentIndex == allFormParts.length - 2){
                 removeOptionChoice();
             }
         }
@@ -139,41 +139,44 @@ document.addEventListener("DOMContentLoaded", function () {
         if(statisticsResponse == "true" ||  customRolesResponse == "true" || discountsResponse == "true"){
             option3button.setAttribute("data-bs-container","body");
             option3button.setAttribute("data-bs-toggle","popover");
+            option3button.setAttribute("data-bs-placement","top");
             option3button.setAttribute("data-bs-content",recommandation);
 
-            option1button.removeAttribute("data-bs-container");
+   /*         option1button.removeAttribute("data-bs-container");
             option1button.removeAttribute("data-bs-toggle");
             option1button.removeAttribute("data-bs-content");
 
             option2button.removeAttribute("data-bs-container");
             option2button.removeAttribute("data-bs-toggle");
-            option2button.removeAttribute("data-bs-content");
+            option2button.removeAttribute("data-bs-content");*/
         }
         else if(productsMarketPlaceResponse == "true" || onlinePaymentResponse == "true" || supplierAccountResponse == "true" || eventsResponse == "true") {
             option2button.setAttribute("data-bs-container","body");
             option2button.setAttribute("data-bs-toggle","popover");
+            option2button.setAttribute("data-bs-placement","top");
             option2button.setAttribute("data-bs-content",recommandation);
 
-            option1button.removeAttribute("data-bs-container");
+  /*          option1button.removeAttribute("data-bs-container");
             option1button.removeAttribute("data-bs-toggle");
             option1button.removeAttribute("data-bs-content");
 
             option3button.removeAttribute("data-bs-container");
             option3button.removeAttribute("data-bs-toggle");
-            option3button.removeAttribute("data-bs-content");
+            option3button.removeAttribute("data-bs-content");*/
         }
         else {
             option1button.setAttribute("data-bs-container","body");
             option1button.setAttribute("data-bs-toggle","popover");
+            option1button.setAttribute("data-bs-placement","top");
             option1button.setAttribute("data-bs-content",recommandation);
 
-            option3button.removeAttribute("data-bs-container");
+     /*       option3button.removeAttribute("data-bs-container");
             option3button.removeAttribute("data-bs-toggle");
             option3button.removeAttribute("data-bs-content");
 
             option2button.removeAttribute("data-bs-container");
             option2button.removeAttribute("data-bs-toggle");
-            option2button.removeAttribute("data-bs-content");
+            option2button.removeAttribute("data-bs-content");*/
         }
 
          // Enable Popover
@@ -182,25 +185,35 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     function removeOptionChoice(){
-        let option3button = document.getElementById("option-3-label");
-        let option2button = document.getElementById("option-2-label");
-        let option1button = document.getElementById("option-1-label");
+		
+		console.log("HELLO FROM THE OTHER SIIIIIIIDE");
+		
+        let popover = document.querySelectorAll(".popover-body").parentElement;
+		
+		if(popover[0] != null) {
+			popover.forEach(pops => {
+				pops.remove();
+			})
+		}
+				popover.remove();
 
-        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
-        const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
-        popoverList.forEach(popover => popover.dispose());
+		
+/*        [option1button, option2button, option3button].forEach(popover => {popover.dispose()});
 
         option1button.removeAttribute("data-bs-container");
         option1button.removeAttribute("data-bs-toggle");
         option1button.removeAttribute("data-bs-content");
+        option1button.removeAttribute("data-bs-placement");
 
         option2button.removeAttribute("data-bs-container");
         option2button.removeAttribute("data-bs-toggle");
         option2button.removeAttribute("data-bs-content");
+        option2button.removeAttribute("data-bs-placement");
 
         option3button.removeAttribute("data-bs-container");
         option3button.removeAttribute("data-bs-toggle");
         option3button.removeAttribute("data-bs-content");
+        option3button.removeAttribute("data-bs-placement");*/
     };
     // Input Control
 
