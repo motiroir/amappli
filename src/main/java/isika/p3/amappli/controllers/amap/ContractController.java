@@ -74,7 +74,7 @@ public class ContractController {
 		model.addAttribute("contractTypes", Arrays.asList(ContractType.values()));
 		model.addAttribute("contractWeights", Arrays.asList(ContractWeight.values()));
 		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
-		graphismService.setUpModel(tenancyAlias, model);		
+		graphismService.setUpModel(tenancyAlias, model);	
 		return "amap/back/contracts/contract-form";
 	}
 

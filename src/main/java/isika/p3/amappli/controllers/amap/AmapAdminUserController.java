@@ -16,7 +16,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import isika.p3.amappli.dto.amap.UpdateUserDTO;
 import isika.p3.amappli.dto.amap.UserDTO;
+import isika.p3.amappli.entities.tenancy.Options;
+import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.User;
+import isika.p3.amappli.repo.amappli.OptionsRepository;
 import isika.p3.amappli.service.amap.AmapAdminUserService;
 import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.RoleService;
@@ -39,11 +42,15 @@ public class AmapAdminUserController {
     
     @Autowired
     private final GraphismService graphismService;
+    
+    @Autowired
+    private final OptionsRepository optionsRepository;
 	
-	public AmapAdminUserController(AmapAdminUserService adminUserService, RoleService roleService, GraphismService graphismService) {
+	public AmapAdminUserController(AmapAdminUserService adminUserService, RoleService roleService, GraphismService graphismService, OptionsRepository optionsRepository) {
 		this.adminUserService = adminUserService;
 		this.roleService = roleService;
 		this.graphismService = graphismService;
+		this.optionsRepository = optionsRepository;
 	}
 
 	@GetMapping("/users/list")
@@ -52,6 +59,8 @@ public class AmapAdminUserController {
 		model.addAttribute("users", users);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		graphismService.setUpModel(tenancyAlias, model);
+		Tenancy tenancy = (Tenancy) model.getAttribute("tenancy");
+		model.addAttribute("options", tenancy != null ? tenancy.getOptions() : optionsRepository.findById(1L));
 		return "amap/back/users/users-list";
 	}
 	
@@ -62,6 +71,8 @@ public class AmapAdminUserController {
 		model.addAttribute("user", model.containsAttribute("userDTO")? model.getAttribute("userDTO") : user);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		graphismService.setUpModel(tenancyAlias, model);
+		Tenancy tenancy = (Tenancy) model.getAttribute("tenancy");
+		model.addAttribute("options", tenancy != null ? tenancy.getOptions() : optionsRepository.findById(1L));
 		return "amap/back/users/users-details";
 	}
 	
@@ -83,6 +94,8 @@ public class AmapAdminUserController {
 		model.addAttribute("suppliers", suppliers);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		graphismService.setUpModel(tenancyAlias, model);
+		Tenancy tenancy = (Tenancy) model.getAttribute("tenancy");
+		model.addAttribute("options", tenancy != null ? tenancy.getOptions() : optionsRepository.findById(1L));
 		return "amap/back/users/suppliers-list";
 	}
 	
@@ -118,6 +131,8 @@ public class AmapAdminUserController {
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAmapRoles(tenancyAlias));
 		graphismService.setUpModel(tenancyAlias, model);
+		Tenancy tenancy = (Tenancy) model.getAttribute("tenancy");
+		model.addAttribute("options", tenancy != null ? tenancy.getOptions() : optionsRepository.findById(1L));
 		return "amap/back/users/users-form";
 	}
 
@@ -128,6 +143,8 @@ public class AmapAdminUserController {
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAmapRoles(tenancyAlias));
 		graphismService.setUpModel(tenancyAlias, model);
+		Tenancy tenancy = (Tenancy) model.getAttribute("tenancy");
+		model.addAttribute("options", tenancy != null ? tenancy.getOptions() : optionsRepository.findById(1L));
 		return "amap/back/users/suppliers-form";
 	}
 	
@@ -193,6 +210,8 @@ public class AmapAdminUserController {
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAmapRoles(tenancyAlias));
 		graphismService.setUpModel(tenancyAlias, model);
+		Tenancy tenancy = (Tenancy) model.getAttribute("tenancy");
+		model.addAttribute("options", tenancy != null ? tenancy.getOptions() : optionsRepository.findById(1L));
 	    return "amap/back/users/suppliers-details";
 	}
 	
