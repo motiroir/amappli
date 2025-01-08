@@ -15,12 +15,13 @@
 </head>
 
 <body class="${cssStyle} light ${font}-title ${font}-button">
-
+<div class="d-flex flex-column min-vh-100">
 		<header class="fc-main bg-main">
 			<jsp:include page="common/header-amap.jsp" />
+			
 		</header>
- 
-	 <div id="map"></div>  
+
+<div id="map"></div>  
 	
 
  <div class="container my-5  flex-grow-1">
@@ -97,24 +98,22 @@
     
 
 
-	<footer class="fc-main bg-main">
+<footer class="fc-main bg-main">
 			<jsp:include page="common/footer-amap.jsp" />
 		</footer>
 		
 		
 		
-			<script
-		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
+	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 
 	<script>
 		var styleMapboxLight = "${mapStyleLight}";
 		var styleMapboxDark = "${mapStyleDark}";
 		var latitude = "${latitude}";
-		var longitude = "${longitude}"; 
+		var longitude = "${longitude}";
 	</script>
-
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>  
+    <script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>  
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script> 
 </body>
 </html>

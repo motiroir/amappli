@@ -125,7 +125,7 @@
 
             // Ajout d'un marqueur
             L.marker([latitude, longitude]).addTo(map)
-                .bindPopup('Vous êtes ici')
+                .bindPopup('Nous sommes ici')
                 .openPopup();
         } else {
             console.error('Les coordonnées latitude et longitude ne sont pas définies.');
