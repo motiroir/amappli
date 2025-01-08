@@ -14,7 +14,7 @@
                  src="data:${logoImgType};base64,${logoBase64}" 
                  alt="Logo de ${tenancyName}" />
                   </c:if>
-    <a href="<c:url value='/amap/${tenancyAlias}/cart/${cart.shoppingCartId}'/>" class="nav-link"><h1 class="fw-bold fs-2 mb-0 fc-300 fch-500">${tenancy.getTenancyName()}</h1></a>
+    <a href="<c:url value='/amap/${tenancyAlias}/home'/>" class="nav-link"><h1 class="fw-bold fs-2 mb-0 fc-300 fch-500">${tenancy.getTenancyName()}</h1></a>
 </div>
 	<div class="p-0 ms-2 ms-md-0 d-flex justify-content-evenly">
 		<svg class="my-auto mx-1" width="15" height="15" viewBox="0 0 30 30"

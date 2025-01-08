@@ -2,8 +2,8 @@
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
-	String currentMainMenu="users" ; // Détermine la rubrique active
-	String currentPage="users" ; // Détermine la sous-rubrique active
+	String currentMainMenu="products" ; // Détermine la rubrique active
+	String currentPage="orders" ; // Détermine la sous-rubrique active
 	request.setAttribute("currentMainMenu", currentMainMenu);
 	request.setAttribute("currentPage", currentPage);
 %>

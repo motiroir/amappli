@@ -39,7 +39,7 @@
 								<a href="<c:url value='/amap/${tenancyAlias}/admin/contracts/list'/>" class="${currentPage.equals('contracts') ? 'active' : ''} text-decoration-none fch-600">Les contrats</a>
 							</li>
 							<li>
-								<a href="<c:url value='/amap/${tenancyAlias}/admin/orders/list'/>" class="${currentPage.equals('orders') ? 'active' : ''} text-decoration-none fch-600">Vos commandes</a>
+								<a href="<c:url value='/amap/${tenancyAlias}/admin/orders'/>" class="${currentPage.equals('orders') ? 'active' : ''} text-decoration-none fch-600">Vos commandes</a>
 							</li>
 							<li class="d-flex justify-content-between">
 								<a class="disabled text-decoration-none">L'épicerie</a><span class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">€</span>
@@ -60,7 +60,12 @@
 					<div id="submenu-site" data-bs-parent="#accordion-parent" class="accordion-collapse collapse bg-main ${currentMainMenu.equals('site') ? 'show' : ''}">
 						<ul class="accordion-body list-unstyled">
 							<!-- Pas de sous-rubrique pour l'instant -->
-							<li class="fc-alt"><a href="<c:url value='/amap/${tenancyAlias}/home'/>" class="text-decoration-none fch-600" >Page d'accueil de <span class="text-capitalize">${tenancyAlias}</span></a></li>
+							<li>
+								<a href="<c:url value='/amap/${tenancyAlias}/home'/>" class="text-decoration-none fch-600" >Page d'accueil de <span class="text-capitalize">${tenancyAlias}</span></a>
+							</li>
+							<li>
+								<a href="<c:url value='/amap/${tenancyAlias}/home'/>" class="text-decoration-none disabled" >Modifier le design</a>
+							</li>
 						</ul>
 					</div>
 				</li>
@@ -74,7 +79,9 @@
 					</h2>
 					<div id="submenu-features" data-bs-parent="#accordion-parent" class="accordion-collapse collapse bg-main ${currentMainMenu.equals('features') ? 'show' : ''}">
 						<ul class="accordion-body list-unstyled">
-							<!-- Pas de sous-rubrique pour l'instant -->
+							<li>
+								<a href="<c:url value='/amap/${tenancyAlias}/home'/>" class="text-decoration-none fch-600 disabled" >On a qqch ?</a>
+							</li>
 						</ul>
 					</div>
 				</li>
@@ -82,7 +89,7 @@
 				<!-- Rubriques PRO -->
 				<li class="accordion-item pro">
 					<h2 class="accordion-header ${currentMainMenu.equals('stats') ? 'show' :''}">
-						<button class="accordion-button collapsed fw-bold disabled row pe-0 justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="" aria-expanded="false" aria-controls="">
+						<button class="accordion-button collapsed fw-bold disabled" type="button" data-bs-toggle="collapse" data-bs-target="" aria-expanded="false" aria-controls="">
 							<span class="col">Statistiques</span>
 							<div class="col-2">
 								<span class="badge rounded-circle text-secondary fw-bold float-end border border-2 border-secondary bg-transparent">€</span>
@@ -92,7 +99,7 @@
 				</li>
 				<li class="accordion-item pro">
 					<h2 class="accordion-header ${currentMainMenu.equals('messages') ? 'show' :''}">
-						<button class="accordion-button collapsed fw-bold disabled row pe-0 justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="" aria-expanded="false" aria-controls="">
+						<button class="accordion-button collapsed fw-bold disabled" type="button" data-bs-toggle="collapse" data-bs-target="" aria-expanded="false" aria-controls="">
 							<span class="col">Messagerie</span>
 							<div class="col-2">
 								<span class="badge rounded-circle text-secondary fw-bold float-end border border-2 border-secondary bg-transparent">€</span>
@@ -102,7 +109,7 @@
 				</li>
 				<li class="accordion-item pro">
 					<h2 class="accordion-header ${currentMainMenu.equals('newsletter') ? 'show' :''}">
-						<button class="accordion-button collapsed fw-bold disabled row pe-0 justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="" aria-expanded="false" aria-controls="">
+						<button class="accordion-button collapsed fw-bold disabled" type="button" data-bs-toggle="collapse" data-bs-target="" aria-expanded="false" aria-controls="">
 							<span class="col">Newsletter</span>
 							<div class="col-2">
 								<span class="badge rounded-circle text-secondary fw-bold float-end border border-2 border-secondary bg-transparent">€</span>

@@ -107,17 +107,21 @@ public class DataInitializationService {
 		try {
 			for (Tenancy t : tenancyRepository.findAll()) {
 				userInit(t);
-				initMembershipFee(t);
-				contractInitForTenancy(t);
+
+				// Génération de contrats pour chaque tenancy
+				try {
+					contractInitForTenancy(t);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		try {
+			contractInitForTenancy(6L);
 			productInit();
 			workshopInit();
-			contractInitForTenancy(6L);
-			initAllOrders();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -208,7 +212,7 @@ public class DataInitializationService {
 
 		// users creation
 		User user1 = User.builder().email("marie.durand@example" + tenancy.getTenancyId() + ".com")
-				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
+				.password("AMAPamap11@").isActive(true).tenancy(null).build();
 		user1.getRoles().add(AdminPlateforme);
 		saveUser(user1);
 		Address a1 = Address.builder().line2("5 avenue des Roses").line1("Appartement 12").postCode("44000")
@@ -714,7 +718,7 @@ public class DataInitializationService {
 		 ********************************************************/
 		// Création d'une Tenancy
 		Tenancy t3 = Tenancy.builder().tenancyName("Groots").tenancyAlias("groots")
-				.tenancySlogan("Avec vous jusqu'au bout des racines").email("groots@gmail.com")
+				.tenancySlogan("Des racines aujourd'hui pour des arbres demain").email("groots@gmail.com")
 				.address(new Address("", "16 rue D'Astorg", "44100", "Nantes")).dateCreated(LocalDateTime.now())
 				.dateLastModified(LocalDateTime.now()).tenancyLatitude("46.5050000") // nantes -> exemple peu de
 																						// dénivelés
