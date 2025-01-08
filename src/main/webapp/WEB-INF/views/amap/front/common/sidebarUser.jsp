@@ -72,30 +72,3 @@
 		</div>
 	</div>
 </nav>
-<script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const filterButtons = document.querySelectorAll(".filter-btn");
-    const contractCards = document.querySelectorAll("[data-contract-type]");
-
-    // Ajoute un événement de clic pour chaque bouton de filtre
-    filterButtons.forEach(button => {
-        button.addEventListener("click", function (e) {
-            e.preventDefault();
-
-            const filterType = this.getAttribute("data-filter");
-
-            // Affiche ou masque les cartes en fonction du type
-            contractCards.forEach(card => {
-                const contractType = card.getAttribute("data-contract-type");
-
-                if (filterType === "ALL" || filterType === contractType) {
-                    card.style.display = "block"; // Affiche la carte
-                } else {
-                    card.style.display = "none"; // Masque la carte
-                }
-            });
-        });
-    });
-});
-</script>
