@@ -1,5 +1,10 @@
 package isika.p3.amappli.service.amap.impl;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -7,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import isika.p3.amappli.entities.tenancy.Graphism;
+import isika.p3.amappli.entities.tenancy.PickUpSchedule;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.repo.amappli.OptionsRepository;
@@ -27,7 +33,23 @@ public class GraphismServiceImpl implements GraphismService {
 		Tenancy tenancy = getTenancyByAlias(alias);
 		addTenancyInfos(tenancy, model);
 		addGraphismAttributes(tenancy, model);
+		addNextPickUpDateToModel(model, tenancy);
 	}
+	
+	public void addNextPickUpDateToModel(Model model, Tenancy tenancy) {
+	    Optional<PickUpSchedule> pickUpSchedule = Optional.ofNullable(tenancy.getPickUpSchedule());
+	    if (pickUpSchedule.isPresent()) {
+	        LocalDateTime[] nextPickUp = pickUpSchedule.get().getNextPickUpLocalDateTimes();
+	        LocalDateTime nextDeliveryDate = nextPickUp[0];
+
+	        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("'Le' EEEE dd MMMM yyyy", Locale.FRENCH);
+	        String formattedNextDeliveryDate = nextDeliveryDate.format(formatter1);
+
+	        model.addAttribute("nextPickUpDate", formattedNextDeliveryDate);
+	    } else {
+	        model.addAttribute("nextPickUpDate", "Non disponible");
+	    }
+    }
 	
 	public void addTenancyInfos(Tenancy tenancy, Model model) {
 		// add tenancy infos

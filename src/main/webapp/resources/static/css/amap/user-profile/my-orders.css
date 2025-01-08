@@ -45,6 +45,10 @@
     margin-right: 5%;
 }
 
+.title{
+	margin-top:40px;
+}
+
 .order-details {
     flex: 1;
     display: flex;
@@ -56,4 +60,8 @@
     padding: 30px;
     margin-top: 20px;
     margin-bottom: 50px;
+}
+
+h5{
+	margin-top:20px;
 }

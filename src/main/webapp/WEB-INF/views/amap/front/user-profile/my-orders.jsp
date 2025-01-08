@@ -44,6 +44,15 @@ request.setAttribute("currentPage", currentPage);
 								id="bg-range">
 						</div>
 					</div>
+					<div>
+						<h3 class="fc-main fw-bold title">Où et quand récupérer votre commande ?</h3>
+						<h5 class="fc-main">Adresse de votre amap : </h5>
+						<p class="fc-main ">${tenancy.address.line1} ${tenancy.address.line2}</p>
+						<p class="fc-main">${tenancy.address.postCode} ${tenancy.address.city}</p>
+						<h5 class="fc-main">Prochaine permanence : </h5>
+						<p class="fc-main ">${nextPickUpDate}</p>
+					</div>
+						<h3 class="fc-main fw-bold title">Liste de vos dernières commandes</h3>
 					<table class="table">
 						<thead>
 							<tr>
