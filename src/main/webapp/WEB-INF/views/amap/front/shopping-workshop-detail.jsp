@@ -26,14 +26,22 @@ request.setAttribute("currentPage", currentPage);
 </head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
 	<!-- Header -->
-	<header class="fc-main bg-main">
+	<header class="fc-main bg-main border-1 border-alt">
 		<jsp:include page="common/header-amap.jsp" />
 	</header>
 	<jsp:include page="../front/common/sidebarUser.jsp" />
 	<div id="map" class="p-0"></div>
 
-	<div class="content col fc-main bg-100 border-main"
-		style="margin: 40px;">
+	<div class="content col fc-main bg-100 border border-3 border-main pb-3 mt-3 mb-2 me-5"
+		style="border-radius: 10px 10px 0 0;">
+		
+					<div class="header">
+				<a href="<c:url value='/amap/${tenancyAlias}/shop/contracts'/>" class="text-decoration-none">
+    <i class="bi bi-arrow-left-circle fs-1"></i>
+</a>
+</div>
+		
+		
 		<div class="contract-detail-container">
 			<!-- Colonne de gauche : image -->
 			<div class="contract-image">
@@ -75,19 +83,17 @@ request.setAttribute("currentPage", currentPage);
 				</h2>
 			</div>
 		</div>
+		
+		<!-- Section pour la quantité et le bouton d'ajout au panier -->
 		<div class="text-end mt-4">
 			<form:form method="post"
 				action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cartId}/add">
 				<input type="hidden" name="shoppableId" value="${workshop.id}" />
 				<input type="hidden" name="shoppableType" value="WORKSHOP" />
 				<input type="hidden" name="quantity" value="1" />
-				<button type="submit" class="btn-add-to-cart">Je m'inscris
+				<button type="submit" class="btn btn-500 btn-order ms-2">Je m'inscris
 					à cet atelier</button>
 			</form:form>
-			<a
-				href="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cartId}"
-				class="btn-view-cart">Voir le panier</a>
-
 		</div>
 	</div>
 

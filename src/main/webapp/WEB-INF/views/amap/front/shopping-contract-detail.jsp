@@ -66,7 +66,7 @@ request.setAttribute("currentPage", currentPage);
 	<jsp:include page="../front/common/sidebarUser.jsp" />
 	<div id="map" class="p-0"></div>
 
-	<div class="content col fc-main bg-100 border border-1 border-main pb-3 mt-3 mb-2 me-5" style="border-radius: 10px 10px 0 0;">
+	<div class="content col fc-main bg-100 border border-3 border-main pb-3 mt-3 mb-2 me-5" style="border-radius: 10px 10px 0 0;">
 	<div class="header">
 				<a href="<c:url value='/amap/${tenancyAlias}/shop/contracts'/>" class="text-decoration-none">
     <i class="bi bi-arrow-left-circle fs-1"></i>
@@ -115,7 +115,7 @@ request.setAttribute("currentPage", currentPage);
 		</div>
 
 		<!-- Section pour la quantité et le bouton d'ajout au panier -->
-		<div class="text-end mt-4">
+		<div class="text-end mt-2">
 			<form:form method="post"
 				action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cartId}/add">
 				<div class="quantity-selector">
@@ -124,7 +124,7 @@ request.setAttribute("currentPage", currentPage);
 				</div>
 				<input type="hidden" name="shoppableId" value="${contract.id}">
 				<input type="hidden" name="shoppableType" value="CONTRACT">
-				<button type="submit" class="btn btn-500 btn-order" name="action">Ajouter au
+				<button type="submit" class="btn btn-500 btn-order ms-2" name="action">Ajouter au
 					panier</button>
 			</form:form>
 		</div>

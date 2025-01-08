@@ -28,28 +28,26 @@
 						<h4 class="fw-bold">Paniers</h4>
 				</a>
 					<ul class="list-unstyled ps-2">
-						<li class="d-flex justify-content-between pt-2">
-							<a id="allBaskets" href="#" class="text-decoration-none fc-300 fch-600 flex-grow-1">Tous
-								les paniers</a> <span class="badge bg-none fc-300 rounded-pill ms-5">${contracts.size()}</span>
-						</li>
-						<br>
-						<li class="d-flex justify-content-between">
-							<a id="vegetableBaskets" href="#"
-							class="text-decoration-none fc-300 fch-600 flex-grow-1">Paniers
-								légumes</a> <span class="badge bg-none fc-300 rounded-pill ms-5">${vegetableCount}</span>
-						</li>
-						<br>
-						<li class="d-flex justify-content-between">
-							<a id="fruitBaskets" href="#"
-							class="text-decoration-none fc-300 fch-600 flex-grow-1">Paniers fruits</a> <span
-							class="badge bg-none fc-300 rounded-pill ms-5">${fruitCount}</span>
-						</li>
-						<br>
-						<li class="d-flex justify-content-between border-bottom pb-3">
-							<a id="mixedBaskets" href="#"
-							class="text-decoration-none fc-300 fch-600 flex-grow-1">Paniers mixtes</a> <span
-							class="badge bg-none fc-300 rounded-pill ms-5">${mixedCount}</span><hr class="my-1">
-						</li>
+<li class="d-flex justify-content-between pt-2">
+    <a id="allBaskets" href="#" class="filter-btn text-decoration-none fc-300 fch-600 flex-grow-1"
+       data-filter="ALL">Tous les paniers</a>
+    <span class="badge bg-none fc-300 rounded-pill ms-5">${contracts.size()}</span>
+</li>
+<li class="d-flex justify-content-between">
+    <a id="vegetableBaskets" href="#" class="filter-btn text-decoration-none fc-300 fch-600 flex-grow-1"
+       data-filter="VEGETABLES_CONTRACT">Paniers légumes</a>
+    <span class="badge bg-none fc-300 rounded-pill ms-5">${vegetableCount}</span>
+</li>
+<li class="d-flex justify-content-between">
+    <a id="fruitBaskets" href="#" class="filter-btn text-decoration-none fc-300 fch-600 flex-grow-1"
+       data-filter="FRUITS_CONTRACT">Paniers fruits</a>
+    <span class="badge bg-none fc-300 rounded-pill ms-5">${fruitCount}</span>
+</li>
+<li class="d-flex justify-content-between border-bottom pb-3">
+    <a id="mixedBaskets" href="#" class="filter-btn text-decoration-none fc-300 fch-600 flex-grow-1"
+       data-filter="MIX_CONTRACT">Paniers mixtes</a>
+    <span class="badge bg-none fc-300 rounded-pill ms-5">${mixedCount}</span>
+</li>
 					</ul></li>
 
 
@@ -74,49 +72,30 @@
 		</div>
 	</div>
 </nav>
-
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    // Récupération des liens de filtre
-    const vegetableButton = document.getElementById('vegetableBaskets');
-    const fruitButton = document.getElementById('fruitBaskets');
-    const mixedButton = document.getElementById('mixedBaskets');
-    const allButton = document.getElementById('allBaskets');
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const contractCards = document.querySelectorAll("[data-contract-type]");
 
-    // Récupération des contrats affichés
-    const contracts = document.querySelectorAll('.contract-card'); // Chaque contrat doit avoir cette classe
+    // Ajoute un événement de clic pour chaque bouton de filtre
+    filterButtons.forEach(button => {
+        button.addEventListener("click", function (e) {
+            e.preventDefault();
 
-    // Fonction pour filtrer les contrats
-    function filterContracts(contractType) {
-        contracts.forEach(contract => {
-            const type = contract.getAttribute('data-contract-type'); // Récupère le type de contrat
-            if (contractType === 'ALL' || type === contractType) {
-                contract.style.display = ''; // Affiche le contrat
-            } else {
-                contract.style.display = 'none'; // Masque le contrat
-            }
+            const filterType = this.getAttribute("data-filter");
+
+            // Affiche ou masque les cartes en fonction du type
+            contractCards.forEach(card => {
+                const contractType = card.getAttribute("data-contract-type");
+
+                if (filterType === "ALL" || filterType === contractType) {
+                    card.style.display = "block"; // Affiche la carte
+                } else {
+                    card.style.display = "none"; // Masque la carte
+                }
+            });
         });
-    }
-
-    // Ajout des événements de clic
-    allButton.addEventListener('click', function (e) {
-        e.preventDefault();
-        filterContracts('ALL');
-    });
-
-    vegetableButton.addEventListener('click', function (e) {
-        e.preventDefault();
-        filterContracts('VEGETABLES_CONTRACT');
-    });
-
-    fruitButton.addEventListener('click', function (e) {
-        e.preventDefault();
-        filterContracts('FRUITS_CONTRACT');
-    });
-
-    mixedButton.addEventListener('click', function (e) {
-        e.preventDefault();
-        filterContracts('MIX_CONTRACT');
     });
 });
 </script>

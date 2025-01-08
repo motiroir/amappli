@@ -41,9 +41,9 @@ request.setAttribute("currentPage", currentPage);
 							class="form-select custom-select border-main">
 							<option value="name">Nom</option>
 							<option value="workshopDateTime" class="d-none d-md-block">Date</option>
-							<option value="creditDesc" class="d-none d-md-block">Prix
+							<option value="priceDesc" class="d-none d-md-block">Prix
 								décroissant</option>
-							<option value="creditAsc" class="d-none d-md-block">Prix
+							<option value="priceAsc" class="d-none d-md-block">Prix
 								croissant</option>
 						</select>
 					</div>
@@ -123,7 +123,7 @@ request.setAttribute("currentPage", currentPage);
 		type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
 		type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/amap/shop-filter.js' />"
+	<script src="<c:url value='/resources/js/amap/shop-filter-workshop.js' />"
 		type="text/javascript"></script>
 </body>
 </html>

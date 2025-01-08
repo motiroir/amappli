@@ -29,20 +29,21 @@ request.setAttribute("currentPage", currentPage);
 	<jsp:include page="../front/common/sidebarUser.jsp" />
 	<div id="map" class="p-0"></div>
 
-	<div class="content fc-main" style="max-width: 95%;">
-		<div class="container mt-4" style="max-width: 95%;">
-			<div class="search-bar row align-items-center mx-auto" items="${contracts}"
+	<div class="content col fc-main">
+		<div class="container-fluid mt-4">
+			<div class="search-bar row align-items-center mx-auto"
 				style="max-width: 95%;">
 				<!-- Première colonne -->
 				<div class="col text-center">
 					<div class="d-flex justify-content-center align-items-center">
-						<label for="sortByContracts" class="me-2 fw-400 fs-3 text-nowrap fc-main">Trier
-							par</label> <select id="sortByContracts"
+						<label for="sortByContracts"
+							class="me-2 fw-400 fs-3 text-nowrap fc-main">Trier par</label> <select
+							id="sortByContracts"
 							class="form-select custom-select border-main">
 							<option value="name">Nom</option>
-							<option value="creditDesc" class="d-none d-md-block">Prix
+							<option value="priceDesc" class="d-none d-md-block">Prix
 								décroissant</option>
-							<option value="creditAsc" class="d-none d-md-block">Prix
+							<option value="priceAsc" class="d-none d-md-block">Prix
 								croissant</option>
 						</select>
 					</div>
@@ -64,34 +65,40 @@ request.setAttribute("currentPage", currentPage);
 			</div>
 			<br>
 
-			<div class="container-fluid">
-				<div class="row justify-content-center"
+			<div class="container">
+				<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 mx-auto"
 					style="max-width: 95%;">
-					<c:forEach var="contract" items="${contracts}">
-						<div class="col-3" >
-							<div
-								class="card contract-card rounded-4 border border-1 border-main bg-100">
-								<c:if test="${not empty contract.imageData}">
-									<img class="card-img-top rounded-top"
-										src="data:${contract.imageType};base64,${contract.imageData}"
-										alt="Image du contrat">
-								</c:if>
-								<div class="card-body">
-									<h1 class="card-title fw-bold"
-										style="text-transform: uppercase;">${contract.contractName}</h1>
-									<p class="card-text text-muted">
-										${contract.contractType.displayName}</p>
-									<p class="card-text">${contract.contractDescription}</p>
-									<p class="card-text text-end">
-										<b>${contract.contractPrice} €</b> <br> <em>${contract.deliveryRecurrence.displayName}</em>
-									</p>
-									<a
-										href="<c:url value='/amap/${tenancyAlias}/shop/contracts/${contract.id}' />"
-										class="btn btn-main rounded-pill bg-main text-nowrap">Voir les détails</a>
+					<c:if test="${not empty contracts}">
+						<c:forEach var="contract" items="${contracts}">
+
+							<div class="col" style="width: 30%; max-width: 30%;"
+								data-contract-type="${contract.contractType.name()}">
+								<div
+									class="card contract-card rounded-4 border border-3 border-main bg-100">
+									<c:if test="${not empty contract.imageData}">
+										<img class="card-img-top rounded-top"
+											src="data:${contract.imageType};base64,${contract.imageData}"
+											alt="Image du contrat">
+									</c:if>
+									<div class="card-body">
+										<h1 class="card-title fw-bold"
+											style="text-transform: uppercase;">${contract.contractName}</h1>
+										<p class="card-text text-muted">${contract.contractType.displayName}</p>
+										<p class="card-text">${contract.contractDescription}</p>
+										<p class="card-text text-end">
+											<b>${contract.contractPrice} €</b><br> <em>${contract.deliveryRecurrence.displayName}</em>
+										</p>
+										<a
+											href="<c:url value='/amap/${tenancyAlias}/shop/contracts/${contract.id}' />"
+											class="btn btn-main rounded-pill bg-main text-nowrap">Voir
+											les détails</a>
+									</div>
 								</div>
 							</div>
-						</div>
-					</c:forEach>
+
+
+						</c:forEach>
+					</c:if>
 					<c:if test="${empty contracts}">
 						<div class="col-12">
 							<p class="text-center">Aucun contrat disponible pour cette
@@ -123,7 +130,7 @@ request.setAttribute("currentPage", currentPage);
 		type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
 		type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/amap/shop-filter.js' />"
+	<script src="<c:url value='/resources/js/amap/shop-filter-contract.js' />"
 		type="text/javascript"></script>
 </body>
 </html>

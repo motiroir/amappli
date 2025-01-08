@@ -32,7 +32,7 @@ request.setAttribute("currentPage", currentPage);
 
 	<div class="content col fc-main">
 		<div class="container-fluid mt-4">
-			<div class="search-bar row align-items-center mx-auto"
+			<div class="search-bar row align-items-center mx-auto" items="${products}"
 				style="max-width: 95%;">
 				<!-- Première colonne -->
 				<div class="col text-center">
@@ -42,9 +42,9 @@ request.setAttribute("currentPage", currentPage);
 							class="form-select custom-select border-main">
 							<option value="name">Nom</option>
 							    <option value="expirationDate" class="d-none d-md-block">DLC</option>
-							<option value="creditDesc" class="d-none d-md-block">Prix
+							<option value="priceDesc" class="d-none d-md-block">Prix
 								décroissant</option>
-							<option value="creditAsc" class="d-none d-md-block">Prix
+							<option value="priceAsc" class="d-none d-md-block">Prix
 								croissant</option>
 						</select>
 					</div>
@@ -72,9 +72,9 @@ request.setAttribute("currentPage", currentPage);
 					<c:if test="${not empty products}">
 						<c:forEach var="product" items="${products}">
 							<div class="col" style="width: 30%; max-width: 30%;">
-								<div class="card contract-card rounded-4 border-main bg-100">
+								<div class="card contract-card rounded-4 border border-3 border-main bg-100">
 									<c:if test="${not empty product.imageData}">
-										<img class="card-img-top"
+										<img class="card-img-top rounded-top"
 											src="data:${product.imageType};base64,${product.imageData}"
 											alt="Image du produit">
 									</c:if>
@@ -107,7 +107,6 @@ request.setAttribute("currentPage", currentPage);
 			</div>
 		</div>
 	</div>
-	</div>
 	<!-- Footer -->
 	<footer>
 		<jsp:include page="common/footer-amap.jsp" />
@@ -128,7 +127,7 @@ request.setAttribute("currentPage", currentPage);
 		type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
 		type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/amap/shop-filter.js' />"
+	<script src="<c:url value='/resources/js/amap/shop-filter-product.js' />"
 		type="text/javascript"></script>
 </body>
 </html>

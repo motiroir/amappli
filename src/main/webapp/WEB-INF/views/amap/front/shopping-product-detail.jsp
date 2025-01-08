@@ -31,11 +31,13 @@ request.setAttribute("currentPage", currentPage);
 	<jsp:include page="../front/common/sidebarUser.jsp" />
 	<div id="map" class="p-0"></div>
 
-	<div class="content col fc-main bg-100 border-main"
-		style="margin: 40px;">
-		<a href="<c:url value='/amap/${tenancyAlias}/shop/products'/>" class="text-decoration-none">
-    <i class="bi bi-arrow-left-circle fs-1 ml-3 mt-3"></i>
+	<div class="content col fc-main bg-100 border border-3 border-main pb-3 mt-3 mb-2 me-5"
+		style="border-radius: 10px 10px 0 0;">
+			<div class="header">
+				<a href="<c:url value='/amap/${tenancyAlias}/shop/contracts'/>" class="text-decoration-none">
+    <i class="bi bi-arrow-left-circle fs-1"></i>
 </a>
+</div>
 		
 		<div class="contract-detail-container">
 			<!-- Colonne de gauche : image -->
@@ -63,7 +65,7 @@ request.setAttribute("currentPage", currentPage);
 				<p>
 					<i class="bi bi-exclamation-octagon"></i> Le producteur vous informe que le produit ne sera plus consommable après le
 					${formattedExpirationDate}
-				</p>
+				</p><br>
 				<h2 class="text-end mt-4">
 					<strong>${product.productPrice}&euro;</strong>
 				</h2>
@@ -71,7 +73,7 @@ request.setAttribute("currentPage", currentPage);
 		</div>
 
 		<!-- Section pour la quantité et le bouton d'ajout au panier -->
-		<div class="text-end mt-4">
+		<div class="text-end mt-2">
 			<form:form method="post"
 				action="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cartId}/add">
 				<div class="quantity-selector">
@@ -80,12 +82,9 @@ request.setAttribute("currentPage", currentPage);
 				</div>
 				<input type="hidden" name="shoppableId" value="${product.id}">
 				<input type="hidden" name="shoppableType" value="PRODUCT">
-				<button type="submit" class="btn-add-to-cart">Ajouter au
+				<button type="submit" class="btn btn-500 btn-order ms-2">Ajouter au
 					panier</button>
 			</form:form>
-		<a
-			href="${pageContext.request.contextPath}/${tenancyAlias}/cart/${cartId}"
-			class="btn-view-cart">Voir le panier</a>
 			</div>
 			</div>
 

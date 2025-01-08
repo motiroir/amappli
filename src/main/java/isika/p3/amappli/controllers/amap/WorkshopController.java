@@ -108,38 +108,7 @@ public class WorkshopController {
 		return "redirect:/amap/" + tenancyAlias + "/admin/workshops/list";
 	}
 
-	/**
-	 * Displays the edit form for a specific workshop.
-	 */
-	@GetMapping("/edit/{id}")
-	public String editWorkshopForm(@PathVariable("id") Long id, Model model,
-			@PathVariable("tenancyAlias") String tenancyAlias) {
-		Workshop workshop = workshopService.findById(id);
 
-		if (workshop == null) {
-			return "redirect:/amap/workshops/list";
-		}
-
-		if (workshop.getWorkshopDateTime() != null) {
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-			String formattedDateTime = workshop.getWorkshopDateTime().format(formatter);
-			model.addAttribute("workshopDateTime", formattedDateTime);
-		}
-
-		User user = workshop.getUser();
-		Address address = null;
-		if (user != null) {
-			address = user.getAddress();
-		}
-		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
-		
-		model.addAttribute("users", users);
-		model.addAttribute("address", address);
-		model.addAttribute("workshop", workshop);
-		model.addAttribute("tenancyAlias", tenancyAlias);
-
-		return "amap/back/workshops/workshop-edit";
-	}
 
 	/**
 	 * Displays the details of a specific workshop.

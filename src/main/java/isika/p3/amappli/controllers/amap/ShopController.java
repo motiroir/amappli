@@ -1,5 +1,6 @@
 package isika.p3.amappli.controllers.amap;
 
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,6 +11,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+
+import javax.swing.text.DateFormatter;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -205,7 +208,7 @@ public class ShopController {
 		} else if (contract.getTenancy() != null && contract.getTenancy().getAddress() != null) {
 			model.addAttribute("address", contract.getTenancy().getAddress());
 		} else {
-			model.addAttribute("address", null); // Pas d'adresse trouvée
+			model.addAttribute("address", null);
 		}
 		
 	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("'le' dd MMMM yyyy", Locale.FRENCH);
@@ -253,25 +256,25 @@ public class ShopController {
 		} else {
 			model.addAttribute("address", null);
 		}
-	    List<Contract> contracts = contractService.findShoppableContractsByTenancy(tenancy);
+		
+	    // Formatter pour les dates
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale.FRENCH);
 
-	    long vegetableCount = contracts.stream()
-	            .filter(contract -> "VEGETABLES_CONTRACT".equals(contract.getContractType().name()))
-	            .count();
+	    // Formatage des dates
+	    String formattedFabricationDate = product.getFabricationDate() != null
+	            ? product.getFabricationDate().format(formatter)
+	            : null;
 
-	    long fruitCount = contracts.stream()
-	            .filter(contract -> "FRUITS_CONTRACT".equals(contract.getContractType().name()))
-	            .count();
+	    String formattedExpirationDate = product.getExpirationDate() != null
+	            ? product.getExpirationDate().format(formatter)
+	            : null;
 
-	    long mixedCount = contracts.stream()
-	            .filter(contract -> "MIX_CONTRACT".equals(contract.getContractType().name()))
-	            .count();
-
-	    model.addAttribute("product", product);
-	    model.addAttribute("vegetableCount", vegetableCount);
-	    model.addAttribute("fruitCount", fruitCount);
-	    model.addAttribute("mixedCount", mixedCount);
-	    model.addAttribute("contracts", contracts);
+	    // Ajout des dates formatées au modèle
+	    model.addAttribute("formattedFabricationDate", formattedFabricationDate);
+	    model.addAttribute("formattedExpirationDate", formattedExpirationDate);
+		model.addAttribute("product", product);
+		model.addAttribute("tenancyAlias", tenancyAlias);
+		
 		addGraphismAttributes(tenancyAlias, model);
 		return "amap/front/shopping-product-detail";
 	}

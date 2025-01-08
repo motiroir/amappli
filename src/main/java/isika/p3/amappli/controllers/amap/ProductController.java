@@ -122,36 +122,6 @@ public class ProductController {
 	}
 
 	/**
-	 * Displays the edit form for a specific product.
-	 */
-	@GetMapping("/edit/{id}")
-	public String editProductForm(@PathVariable("id") Long id, Model model,
-			@PathVariable("tenancyAlias") String tenancyAlias) {
-		
-		Product product = productService.findById(id);
-
-		if (product == null) {
-			return "redirect:/amap/products/list"; // Redirige si le contrat n'existe pas
-		}
-
-		Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
-				.orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
-		
-		Address address = tenancy.getAddress();
-		
-		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
-		
-		model.addAttribute("address", address);
-		model.addAttribute("users", users);
-		model.addAttribute("product", product);
-		model.addAttribute("tenancyAlias", tenancyAlias);
-		model.addAttribute("deliveryRecurrence", Arrays.asList(DeliveryRecurrence.values()));
-		model.addAttribute("deliveryDay", Arrays.asList(DeliveryDay.values()));
-
-		return "amap/back/products/product-edit"; // Nom de la vue pour le formulaire d'édition
-	}
-
-	/**
 	 * Displays the details of a specific product.
 	 */
 	@GetMapping("/detail/{id}")
