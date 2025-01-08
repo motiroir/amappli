@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
-String currentMainMenu = "shop";
+String currentMainMenu = "contracts";
 String currentPage = "contracts";
 request.setAttribute("currentMainMenu", currentMainMenu);
 request.setAttribute("currentPage", currentPage);
@@ -21,66 +21,24 @@ request.setAttribute("currentPage", currentPage);
 <link
 	href="<c:url value='/resources/bootstrap/bootstrap-icons.min.css' />"
 	rel="stylesheet">
+	<link href="<c:url value='/resources/css/amap/shopping-detail.css' />"
+	rel="stylesheet">
 </head>
-<style>
-.contract-detail-container {
-	display: flex;
-	gap: 40px; /* Espace entre les colonnes */
-	margin-top: 20px;
-}
-
-.contract-image {
-	flex: 2; /* 20% de la largeur totale */
-	text-align: center;
-}
-
-.contract-image img {
-	width: 100%; /* Image responsive */
-	max-height: 300px;
-	object-fit: cover;
-	border-radius: 10px; /* Coins arrondis */
-}
-
-.contract-info {
-	flex: 7; /* 70% de la largeur totale */
-}
-
-.quantity-selector {
-	display: inline-flex;
-	align-items: center;
-	gap: 10px;
-	margin-top: 20px;
-}
-
-.quantity-selector input {
-	width: 50px;
-	text-align: center;
-}
-
-.btn-add-to-cart {
-	background-color: #FF8C42;
-	border: none;
-	padding: 10px 20px;
-	color: white;
-	border-radius: 5px;
-	cursor: pointer;
-}
-
-.btn-add-to-cart:hover {
-	background-color: #FF6A00;
-}
-</style>
 </head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
 	<!-- Header -->
 	<header class="fc-main bg-main border-1 border-alt">
-		<jsp:include page="common/header.jsp" />
+		<jsp:include page="common/header-amap.jsp" />
 	</header>
 	<jsp:include page="../front/common/sidebarUser.jsp" />
 	<div id="map" class="p-0"></div>
 
-	<div class="content col fc-main bg-100 border-main"
-		style="margin: 40px;">
+	<div class="content col fc-main bg-100 border border-3 border-main pb-3 mt-3 mb-2 mx-5" style="border-radius: 10px 10px 0 0;">
+	<div class="header">
+				<a href="<c:url value='/amap/${tenancyAlias}/shop/contracts'/>" class="text-decoration-none">
+    <i class="bi bi-arrow-left-circle fs-1 fc-500"></i>
+</a>
+</div>
 		<div class="contract-detail-container">
 			<!-- Colonne de gauche : image -->
 			<div class="contract-image">
@@ -108,15 +66,15 @@ request.setAttribute("currentPage", currentPage);
 				<p>
 					<strong>Composition du panier :<br></strong>
 					${contract.contractDescription}
-				</p>
+				</p><br>
 				<p>
 					<i class="bi bi-bag"></i> commandez aujourd'hui et récupèrez votre
-					premier panier le ${formattedNextDeliveryDate}
+					premier panier ${formattedNextDeliveryDate}
 				</p>
 				<p>
 					<i class="bi bi-info-circle"></i> L'abonnement au panier se termine
-					le ${formattedEndDate}
-				</p>
+					 ${formattedEndDate}
+				</p><br>
 				<h2 class="text-end mt-4">
 					<strong>${contract.contractPrice}&euro; / livraison</strong>
 				</h2>
@@ -124,7 +82,7 @@ request.setAttribute("currentPage", currentPage);
 		</div>
 
 		<!-- Section pour la quantité et le bouton d'ajout au panier -->
-		<div class="text-end mt-4">
+		<div class="text-end mt-2">
 			<form:form method="post"
 				action="${pageContext.request.contextPath}/amap/${tenancyAlias}/cart/${cartId}/add">
 				<div class="quantity-selector">
@@ -133,14 +91,14 @@ request.setAttribute("currentPage", currentPage);
 				</div>
 				<input type="hidden" name="shoppableId" value="${contract.id}">
 				<input type="hidden" name="shoppableType" value="CONTRACT">
-				<button type="submit" class="btn-add-to-cart">Ajouter au
+				<button type="submit" class="btn btn-500 btn-order ms-2" name="action">Ajouter au
 					panier</button>
 			</form:form>
 		</div>
 	</div>
 	<!-- Footer -->
 	<footer>
-		<jsp:include page="common/footer.jsp" />
+		<jsp:include page="common/footer-amap.jsp" />
 	</footer>
 	<script>
 		var styleMapboxLight = "${mapStyleLight}";

@@ -49,9 +49,7 @@ a {
     text-decoration: none; 
 }
 
-a:hover {
-    text-decoration: underline; 
-}
+
 
 .text-center img {
     margin: 20px auto;

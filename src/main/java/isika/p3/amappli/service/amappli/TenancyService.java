@@ -9,7 +9,7 @@ import isika.p3.amappli.entities.tenancy.Tenancy;
 public interface TenancyService {
 	
 	
-	void createTenancyFromWelcomeForm(NewTenancyDTO newTenancyDTO);
+	void createTenancyFromWelcomeForm(NewTenancyDTO newTenancyDTO, Long creatorUserId);
 	Tenancy createTenancy(Tenancy tenancy);
 	List<Tenancy> getAllTenancies();
 	Tenancy getTenancyById(Long id);

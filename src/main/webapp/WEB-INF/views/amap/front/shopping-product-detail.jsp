@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
-String currentMainMenu = "shop";
+String currentMainMenu = "products";
 String currentPage = "products";
 request.setAttribute("currentMainMenu", currentMainMenu);
 request.setAttribute("currentPage", currentPage);
@@ -25,15 +25,20 @@ request.setAttribute("currentPage", currentPage);
 	rel="stylesheet">
 </head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
-	<!-- Header -->
 	<header class="fc-main bg-main border-1 border-alt">
-		<jsp:include page="common/header.jsp" />
+		<jsp:include page="common/header-amap.jsp" />
 	</header>
 	<jsp:include page="../front/common/sidebarUser.jsp" />
 	<div id="map" class="p-0"></div>
 
-	<div class="content col fc-main bg-100 border-main"
-		style="margin: 40px;">
+	<div class="content col fc-main bg-100 border border-3 border-main pb-3 mt-3 mb-2 mx-5"
+		style="border-radius: 10px 10px 0 0;">
+			<div class="header">
+				<a href="<c:url value='/amap/${tenancyAlias}/shop/products'/>" class="text-decoration-none">
+    <i class="bi bi-arrow-left-circle fs-1 fc-500"></i>
+</a>
+</div>
+		
 		<div class="contract-detail-container">
 			<!-- Colonne de gauche : image -->
 			<div class="contract-image">
@@ -60,7 +65,7 @@ request.setAttribute("currentPage", currentPage);
 				<p>
 					<i class="bi bi-exclamation-octagon"></i> Le producteur vous informe que le produit ne sera plus consommable après le
 					${formattedExpirationDate}
-				</p>
+				</p><br>
 				<h2 class="text-end mt-4">
 					<strong>${product.productPrice}&euro;</strong>
 				</h2>
@@ -68,7 +73,7 @@ request.setAttribute("currentPage", currentPage);
 		</div>
 
 		<!-- Section pour la quantité et le bouton d'ajout au panier -->
-		<div class="text-end mt-4">
+		<div class="text-end mt-2">
 			<form:form method="post"
 				action="${pageContext.request.contextPath}/amap/${tenancyAlias}/cart/${cartId}/add">
 				<div class="quantity-selector">
@@ -77,18 +82,15 @@ request.setAttribute("currentPage", currentPage);
 				</div>
 				<input type="hidden" name="shoppableId" value="${product.id}">
 				<input type="hidden" name="shoppableType" value="PRODUCT">
-				<button type="submit" class="btn-add-to-cart">Ajouter au
+				<button type="submit" class="btn btn-500 btn-order ms-2">Ajouter au
 					panier</button>
 			</form:form>
-		<a
-			href="${pageContext.request.contextPath}/amap/${tenancyAlias}/cart/${cartId}"
-			class="btn-view-cart">Voir le panier</a>
 			</div>
 			</div>
 
 	<!-- Footer -->
 	<footer>
-		<jsp:include page="common/footer.jsp" />
+		<jsp:include page="common/footer-amap.jsp" />
 	</footer>
 	<script>
 		var styleMapboxLight = "${mapStyleLight}";
@@ -103,8 +105,6 @@ request.setAttribute("currentPage", currentPage);
 		src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
-		type="text/javascript"></script>
-	
 		type="text/javascript"></script>
 </body>
 </html>

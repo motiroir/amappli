@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
+   
+
     // Form Nav
     let allFormParts = document.querySelectorAll('.form-part');
     let currentIndex = 0;
@@ -15,8 +17,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (currentIndex < allFormParts.length - 1) {
                 currentIndex++;
                 updateVisibility();
-                if(currentIndex == allFormParts.length - 2) {
+                if(currentIndex == allFormParts.length - 1) {
                     computeOptionChoice();
+                }
+                else if ( currentIndex == allFormParts.length || currentIndex == allFormParts.length - 2){
+                    removeOptionChoice();
                 }
             }
     });
@@ -25,8 +30,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (currentIndex > 0){
             currentIndex--;
             updateVisibility();
-            if(currentIndex == allFormParts.length - 2) {
+            if(currentIndex == allFormParts.length - 1) {
                 computeOptionChoice(); 
+            }
+            else if ( currentIndex == allFormParts.length || currentIndex == allFormParts.length - 2){
+                removeOptionChoice();
             }
         }
     });
@@ -113,22 +121,87 @@ document.addEventListener("DOMContentLoaded", function () {
         let customRolesResponse = document.querySelector('input[name="question-6"]:checked').value;
         let statisticsResponse =  document.querySelector('input[name="question-7"]:checked').value;
 
-        let recommandation = document.createElement("div");
-        recommandation.innerHTML = "<div class='info-bubble'>Cette option vous permettra d'avoir toutes les fonctionnalités souhaitées!</div>";
-        if(statisticsResponse||  customRolesResponse || discountsResponse ){
-            let option3button = document.getElementById("option-3");
-            option3button.insertAdjacentElement("beforebegin", recommandation);
+        console.log("statresponse "+ statisticsResponse);
+        console.log("customroleresponse "+ customRolesResponse);
+        console.log("discount response  "+ discountsResponse);
+
+        console.log("productresponse "+ productsMarketPlaceResponse);
+        console.log("onlinepaymentresponse "+ onlinePaymentResponse);
+        console.log("suppl response  "+ supplierAccountResponse);
+        console.log("events response "+ eventsResponse);
+
+
+        let recommandation= "Cette option vous permettra d'avoir toutes les fonctionnalités souhaitées!";
+        let option3button = document.getElementById("option-3-label");
+        let option2button = document.getElementById("option-2-label");
+        let option1button = document.getElementById("option-1-label");
+
+        if(statisticsResponse == "true" ||  customRolesResponse == "true" || discountsResponse == "true"){
+            option3button.setAttribute("data-bs-container","body");
+            option3button.setAttribute("data-bs-toggle","popover");
+            option3button.setAttribute("data-bs-content",recommandation);
+
+            option1button.removeAttribute("data-bs-container");
+            option1button.removeAttribute("data-bs-toggle");
+            option1button.removeAttribute("data-bs-content");
+
+            option2button.removeAttribute("data-bs-container");
+            option2button.removeAttribute("data-bs-toggle");
+            option2button.removeAttribute("data-bs-content");
         }
-        else if(productsMarketPlaceResponse || onlinePaymentResponse || supplierAccountResponse || eventsResponse) {
-            let option2button = document.getElementById("option-2");
-            option2button.insertAdjacentElement("beforebegin", recommandation);
+        else if(productsMarketPlaceResponse == "true" || onlinePaymentResponse == "true" || supplierAccountResponse == "true" || eventsResponse == "true") {
+            option2button.setAttribute("data-bs-container","body");
+            option2button.setAttribute("data-bs-toggle","popover");
+            option2button.setAttribute("data-bs-content",recommandation);
+
+            option1button.removeAttribute("data-bs-container");
+            option1button.removeAttribute("data-bs-toggle");
+            option1button.removeAttribute("data-bs-content");
+
+            option3button.removeAttribute("data-bs-container");
+            option3button.removeAttribute("data-bs-toggle");
+            option3button.removeAttribute("data-bs-content");
         }
         else {
-            let option1button = document.getElementById("option-1");
-            option1button.insertAdjacentElement("beforebegin", recommandation);
+            option1button.setAttribute("data-bs-container","body");
+            option1button.setAttribute("data-bs-toggle","popover");
+            option1button.setAttribute("data-bs-content",recommandation);
+
+            option3button.removeAttribute("data-bs-container");
+            option3button.removeAttribute("data-bs-toggle");
+            option3button.removeAttribute("data-bs-content");
+
+            option2button.removeAttribute("data-bs-container");
+            option2button.removeAttribute("data-bs-toggle");
+            option2button.removeAttribute("data-bs-content");
         }
+
+         // Enable Popover
+        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+        const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl).show());
     };
 
+    function removeOptionChoice(){
+        let option3button = document.getElementById("option-3-label");
+        let option2button = document.getElementById("option-2-label");
+        let option1button = document.getElementById("option-1-label");
+
+        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+        const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
+        popoverList.forEach(popover => popover.dispose());
+
+        option1button.removeAttribute("data-bs-container");
+        option1button.removeAttribute("data-bs-toggle");
+        option1button.removeAttribute("data-bs-content");
+
+        option2button.removeAttribute("data-bs-container");
+        option2button.removeAttribute("data-bs-toggle");
+        option2button.removeAttribute("data-bs-content");
+
+        option3button.removeAttribute("data-bs-container");
+        option3button.removeAttribute("data-bs-toggle");
+        option3button.removeAttribute("data-bs-content");
+    };
     // Input Control
 
     let inputTenancyName = document.getElementById('input-tenancy-name');

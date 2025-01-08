@@ -89,7 +89,7 @@ public class DataInitializationService {
 	private WorkshopRepository workshopRepository;
 	@Autowired
 	private OptionsRepository optionsRepository;
-	@Autowired 
+	@Autowired
 	private OrderRepository orderRepository;
 	@Autowired
 	private OrderItemRepository orderItemRepository;
@@ -99,15 +99,7 @@ public class DataInitializationService {
 	public void dataInit() {
 		try {
 			tenancyInit();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
 			permissionInit();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		try {
 			roleInit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -116,32 +108,23 @@ public class DataInitializationService {
 			for (Tenancy t : tenancyRepository.findAll()) {
 				userInit(t);
 				initMembershipFee(t);
-
-				// Génération de contrats pour chaque tenancy
-				try {
-					contractInitForTenancy(t);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				try {
-					productInit();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				try {
-					workshopInit();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				contractInitForTenancy(t);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		initAllOrders();
+		try {
+			productInit();
+			workshopInit();
+			contractInitForTenancy(6L);
+			initAllOrders();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	
-	// test method to avoid initializing everything while developing and testing 
-	// accessible via http://localhost:8080/Amappli/data-init/test
+
+// test method to avoid initializing everything while developing and testing 
+// accessible via http://localhost:8080/Amappli/data-init/test
 	public void WIPInit() {
 	}
 
@@ -285,11 +268,9 @@ public class DataInitializationService {
 		user4.setAddress(a4);
 		user4.setContactInfo(ci4);
 		saveUser(user4);
-		
-		User user5 = User.builder().email("claire.fournier@example"+ tenancy.getTenancyId() +".com").password("AMAPamap11@")
-									.isActive(true)
-									.tenancy(tenancy)
-									.build();
+
+		User user5 = User.builder().email("claire.fournier@example" + tenancy.getTenancyId() + ".com")
+				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
 		user5.getRoles().add(Supplier);
 		saveUser(user5);
 		Address a5 = Address.builder().line2("31 rue des Lilas").line1("Appartement 4").postCode("44130")
@@ -547,10 +528,10 @@ public class DataInitializationService {
 		return userRepository.save(user);
 	}
 
-	
-	
-	/******************************************************FIRST TENANCY********************************************************/
-	
+	/******************************************************
+	 * FIRST TENANCY
+	 ********************************************************/
+
 	@Transactional
 	public void tenancyInit() throws IOException {
 		// Création des Options
@@ -565,8 +546,8 @@ public class DataInitializationService {
 		// Création d'une Tenancy
 		Tenancy t1 = Tenancy.builder().tenancyName("BioColi").tenancyAlias("biocoli")
 				.tenancySlogan("Manger bio, c'est facile avec BioColi!").email("contact@biocoli.fr")
-				.address(new Address("", "12 avenue de la localité", "69000", "Lyon"))
-				.dateCreated(LocalDateTime.now()).dateLastModified(LocalDateTime.now()).tenancyLatitude("45.7400000") // lyon
+				.address(new Address("", "12 avenue de la localité", "69000", "Lyon")).dateCreated(LocalDateTime.now())
+				.dateLastModified(LocalDateTime.now()).tenancyLatitude("45.7400000") // lyon
 				.options(potager).tenancyLongitude("4.6370000").membershipFeePrice(new BigDecimal("10.0")).build();
 
 		// Création du ContactInfo pour la Tenancy
@@ -596,7 +577,7 @@ public class DataInitializationService {
 		ContentBlock presentationBlock = ContentBlock.builder().isValue(false).contentTitle("Présentation de BioColi")
 				.contentText(
 						"BioColi est une AMAP dédiée à la distribution de paniers bio, locaux et de saison, visant à reconnecter les consommateurs avec des produits de qualité, cultivés près de chez eux. À travers notre plateforme, nous mettons en avant des produits frais, issus de fermes locales qui respectent des pratiques agricoles durables. Notre engagement va au-delà de la simple consommation : nous offrons aux membres une expérience enrichissante, où l’échange direct avec les producteurs permet de mieux comprendre l'origine des produits et de soutenir une agriculture plus respectueuse de l'environnement. Rejoindre BioColi, c'est faire le choix d’un avenir plus responsable, local et respectueux de la planète.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagelogo) 
+				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagelogo)
 				.homePageContent(homePageContent1).build();
 
 		// 2. ContentBlock pour la première valeur de l'AMAP
@@ -604,8 +585,8 @@ public class DataInitializationService {
 				.contentTitle("Soutien à l'Agriculture Durable")
 				.contentText(
 						"Chez BioColi, nous nous engageons fermement à soutenir l'agriculture durable en collaborant avec des producteurs locaux qui partagent notre vision d’une agriculture respectueuse de l’environnement. Nos fermes partenaires adoptent des pratiques de culture biologique, préservent la biodiversité et minimisent l’utilisation de produits chimiques. En vous inscrivant chez BioColi, vous contribuez à encourager des pratiques agricoles respectueuses des écosystèmes, permettant ainsi de protéger les sols, l'eau et la santé des générations futures. Nous croyons que chaque geste compte, et que chaque panier de produits bio que vous consommez est un soutien direct à un modèle agricole plus vertueux.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagevalue1) 
-				
+				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagevalue1)
+
 				.homePageContent(homePageContent1).build();
 
 		// 3. ContentBlock pour la deuxième valeur de l'AMAP
@@ -613,7 +594,7 @@ public class DataInitializationService {
 				.contentTitle("Transparence et Traçabilité")
 				.contentText(
 						"La transparence et la traçabilité sont au cœur de notre démarche chez BioColi. Chaque produit que vous recevez dans votre panier est issu de fermes locales partenaires, et nous nous assurons que vous puissiez suivre l’intégralité du parcours de vos produits. Grâce à une chaîne de production et de distribution maîtrisée, nous garantissons la qualité et la provenance de chaque ingrédient. Cette transparence vous permet de savoir exactement d'où provient ce que vous consommez, de la ferme jusqu’à votre assiette, et de soutenir des pratiques agricoles éthiques et responsables. Chez BioColi, nous pensons que la confiance se construit sur des informations claires et accessibles, et nous mettons tout en œuvre pour que vous ayez l’assurance que vos choix sont les bons.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagevalue2) 
+				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagevalue2)
 				.homePageContent(homePageContent1).build();
 
 		// 4. ContentBlock pour la troisième valeur de l'AMAP
@@ -643,7 +624,9 @@ public class DataInitializationService {
 		// Sauvegarder la Tenancy avec ses ContentBlocks et HomePageContent
 		tenancyRepository.save(t1);
 
-		/******************************************************SECOND TENANCY********************************************************/
+		/******************************************************
+		 * SECOND TENANCY
+		 ********************************************************/
 		// Création d'une Tenancy
 		Tenancy t2 = Tenancy.builder().tenancyName("Agrinov").tenancyAlias("agrinov")
 				.tenancySlogan("L'innovation au service de l'agriculture de proximité").email("agrinov@gmail.com")
@@ -657,7 +640,7 @@ public class DataInitializationService {
 		t2.setContactInfo(contactInfo2);
 
 		// Chargement des images en Base64
-				String imagelogo2 = loadImageFromResources("logoagrinov.png");
+		String imagelogo2 = loadImageFromResources("logoagrinov.png");
 		// Création du Graphism pour Tenancy
 		Graphism graphism2 = Graphism.builder().colorPalette(ColorPalette.PALETTE2).fontChoice(FontChoice.NUNITO)
 				.logoImgType("image/png").logoImg(imagelogo2).build();
@@ -667,11 +650,10 @@ public class DataInitializationService {
 		HomePageContent homePageContent2 = HomePageContent.builder().subTitle("Un panier bio, local et de saison.")
 				.showSuppliers(true).tenancy(t2) // Association de HomePageContent avec Tenancy
 				.build();
-		
-		
-		String imagevalueA = loadImageFromResources("value1.png");
-		String imagevalueB = loadImageFromResources("value2.png");
-		String imagevalueC = loadImageFromResources("value3.png");
+
+		String imagevalueA = loadImageFromResources("valuet2a.png");
+		String imagevalueB = loadImageFromResources("valuet2b.png");
+		String imagevalueC = loadImageFromResources("valuet2c.png");
 
 		// Création des 4 ContentBlock pour la Tenancy
 
@@ -679,7 +661,7 @@ public class DataInitializationService {
 		ContentBlock presentationBlock2 = ContentBlock.builder().isValue(false).contentTitle("Présentation d'Agrinov")
 				.contentText(
 						"Agrinov est une AMAP qui a pour mission de promouvoir l’agriculture locale, bio et responsable, en facilitant l’accès à des paniers de produits de saison. En tant que plateforme, Agrinov permet aux consommateurs de soutenir directement les producteurs locaux et de participer à un modèle de consommation plus durable et respectueux de l'environnement. Nous mettons en valeur une sélection de produits frais, cultivés dans des fermes locales qui respectent des méthodes agricoles écologiques. Chaque panier livré chez vous porte l’engagement d’une agriculture plus verte, plus solidaire et plus transparente, contribuant ainsi à un cercle vertueux entre producteurs et consommateurs. Rejoindre Agrinov, c’est prendre part à un projet de société, où l'alimentation saine et locale est au cœur de notre action pour un monde plus durable.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagelogo2) 
+				.contentImgName("valuet2a.png").contentImgTypeMIME("image/png").contentImg(imagelogo2)
 				.homePageContent(homePageContent2).build();
 
 		// 2. ContentBlock pour la première valeur de l'AMAP
@@ -687,7 +669,7 @@ public class DataInitializationService {
 				.contentTitle("Soutien à l'Agriculture Durable")
 				.contentText(
 						"Agrinov s’engage pleinement à soutenir l’agriculture durable en collaborant avec des fermes locales pratiquant une agriculture respectueuse de l’environnement. Nos partenaires utilisent des techniques agricoles biologiques qui préservent les sols, la biodiversité et l’eau, tout en réduisant les émissions de gaz à effet de serre. En choisissant Agrinov, vous contribuez à une production alimentaire plus responsable, tout en soutenant un modèle agricole qui respecte la nature et les générations futures. Nos membres participent à une démarche active de préservation de l’environnement, en consommant des produits frais et locaux, en saison, réduisant ainsi leur empreinte écologique.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagevalueA) 
+				.contentImgName("valuet2b.png").contentImgTypeMIME("image/png").contentImg(imagevalueA)
 				.homePageContent(homePageContent2) // Association avec HomePageContent
 				.build();
 
@@ -696,7 +678,7 @@ public class DataInitializationService {
 				.contentTitle("Transparence et Traçabilité")
 				.contentText(
 						"À Agrinov, la transparence est au cœur de notre démarche. Tous les produits que nous distribuons proviennent de fermes locales et sont totalement traçables. Nous garantissons à nos membres une transparence totale sur l’origine de chaque produit, de la ferme à l’assiette. Cette transparence vous permet de savoir exactement qui produit ce que vous consommez, et sous quelles conditions. Chaque produit est accompagné de son parcours, du champ jusqu’à la livraison, afin que vous puissiez être certain de soutenir une agriculture respectueuse, éthique et locale. Nous croyons fermement que la confiance se bâtit sur la transparence et l'accès à l'information.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagevalueB) 
+				.contentImgName("valuet2c.png").contentImgTypeMIME("image/png").contentImg(imagevalueB)
 				.homePageContent(homePageContent2) // Association avec HomePageContent
 				.build();
 
@@ -705,7 +687,7 @@ public class DataInitializationService {
 				.contentTitle("Frais et Local")
 				.contentText(
 						"Les produits que vous recevez via Agrinov sont toujours frais, car ils proviennent directement des fermes locales, cueillis à leur apogée de maturité. Ce modèle de distribution permet de garantir une qualité exceptionnelle et une fraîcheur incomparable, tout en réduisant l’impact environnemental lié au transport. En choisissant nos paniers, vous participez activement à une économie circulaire, en soutenant des fermes locales qui cultivent des produits en fonction des saisons. Chaque panier est une invitation à découvrir des produits nouveaux, frais et locaux, qui respectent les cycles naturels de la terre et vous offrent un goût authentique.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagevalueC) 
+				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagevalueC)
 				.homePageContent(homePageContent2).build();
 
 		// Ajouter les ContentBlock dans HomePageContent
@@ -727,8 +709,9 @@ public class DataInitializationService {
 		// Sauvegarder la Tenancy avec ses ContentBlock et HomePageContent
 		tenancyRepository.save(t2);
 
-
-		/******************************************************THIRD TENANCY********************************************************/
+		/******************************************************
+		 * THIRD TENANCY
+		 ********************************************************/
 		// Création d'une Tenancy
 		Tenancy t3 = Tenancy.builder().tenancyName("Groots").tenancyAlias("groots")
 				.tenancySlogan("Avec vous jusqu'au bout des racines").email("groots@gmail.com")
@@ -741,9 +724,9 @@ public class DataInitializationService {
 		ContactInfo contactInfo3 = ContactInfo.builder().name("Jean").firstName("Dupont").phoneNumber("0612345678")
 				.build();
 		t3.setContactInfo(contactInfo3);
-		
+
 		// Chargement des images en Base64
-				String imagelogo3 = loadImageFromResources("logogroots.png");
+		String imagelogo3 = loadImageFromResources("logogroots.png");
 
 		// Création du Graphism pour Tenancy
 		Graphism graphism3 = Graphism.builder().colorPalette(ColorPalette.PALETTE3).fontChoice(FontChoice.AUDIOWIDE)
@@ -754,12 +737,11 @@ public class DataInitializationService {
 		HomePageContent homePageContent3 = HomePageContent.builder().subTitle("Un panier bio, local et de saison.")
 				.showSuppliers(true).tenancy(t3) // Association de HomePageContent avec Tenancy
 				.build();
-		
-		
-				String imagevalueA1 = loadImageFromResources("value1.png");
-				String imagevalueB1 = loadImageFromResources("value2.png");
-				String imagevalueC1 = loadImageFromResources("value3.png");
-				
+
+		String imagevalueA1 = loadImageFromResources("valuet3a.png");
+		String imagevalueB1 = loadImageFromResources("valuet3b.png");
+		String imagevalueC1 = loadImageFromResources("valuet3c.png");
+
 		// Création des 4 ContentBlock pour la Tenancy
 
 		// 1. Le ContentBlock pour la présentation de l'AMAP
@@ -767,7 +749,7 @@ public class DataInitializationService {
 				.contentTitle("Groots - Connectez-vous aux producteurs locaux")
 				.contentText(
 						"Groots est une AMAP innovante qui vous connecte directement avec vos producteurs locaux. Notre objectif est de faciliter l'accès à des produits frais, bio et locaux tout en garantissant une meilleure transparence dans la chaîne de distribution. Chaque panier de produits est l'occasion de soutenir l'agriculture locale, de découvrir des produits de saison cultivés dans le respect de l'environnement, et de renforcer les liens entre les consommateurs et les producteurs. Grâce à Groots, vous avez la possibilité de participer activement à un modèle économique durable et solidaire, où la qualité des produits et la transparence de la provenance sont au cœur de notre démarche.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagelogo3) 
+				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagelogo3)
 				.homePageContent(homePageContent3).build();
 
 		// 2. ContentBlock pour la première valeur de l'AMAP
@@ -775,7 +757,7 @@ public class DataInitializationService {
 				.contentTitle("Soutien à l'Agriculture Durable")
 				.contentText(
 						"Groots soutient une agriculture durable qui respecte l'environnement et les principes de l'agroécologie. En favorisant les fermes locales qui adoptent des méthodes de culture biologiques et respectueuses des sols, nous participons activement à la préservation de la biodiversité et des ressources naturelles. Nos membres soutiennent des producteurs qui travaillent en harmonie avec la nature, en utilisant des pratiques agricoles visant à réduire l'empreinte écologique et à favoriser la santé des écosystèmes. Chaque panier acheté est un pas de plus vers un avenir plus vert et plus respectueux de notre planète.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagevalueA1)
+				.contentImgName("value3a.png").contentImgTypeMIME("image/png").contentImg(imagevalueA1)
 				.homePageContent(homePageContent3) // Association avec HomePageContent
 				.build();
 
@@ -784,7 +766,7 @@ public class DataInitializationService {
 				.contentTitle("Transparence et Traçabilité")
 				.contentText(
 						"À Groots, nous croyons que la transparence est essentielle pour établir une relation de confiance entre les producteurs et les consommateurs. C'est pourquoi tous nos produits sont entièrement traçables. Chaque panier que vous recevez est une promesse de qualité et de transparence : vous pouvez suivre le parcours de chaque produit, depuis la ferme où il a été cultivé jusqu'à votre table. Grâce à notre plateforme, vous accédez à toutes les informations nécessaires pour connaître l'origine de vos produits et soutenir une économie locale et responsable.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagevalueB1)
+				.contentImgName("valuet3b.png").contentImgTypeMIME("image/png").contentImg(imagevalueB1)
 				.homePageContent(homePageContent3) // Association avec HomePageContent
 				.build();
 
@@ -793,7 +775,7 @@ public class DataInitializationService {
 				.contentTitle("Frais et Local")
 				.contentText(
 						"Groots s'engage à vous offrir des produits frais, cultivés localement et livrés directement des fermes aux consommateurs. En choisissant Groots, vous choisissez la fraîcheur, la qualité et la proximité. Nos fermes partenaires cultivent des produits de saison, cueillis à maturité et livrés dans les plus brefs délais pour garantir une fraîcheur optimale. Ce modèle de distribution réduit l'empreinte carbone, soutient l'agriculture locale et permet à nos membres de savourer des produits en pleine saison, tout en renforçant les liens avec les producteurs locaux.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagevalueC1)
+				.contentImgName("valuet3c.png").contentImgTypeMIME("image/png").contentImg(imagevalueC1)
 				.homePageContent(homePageContent3).build();
 
 		// Ajouter les ContentBlock dans HomePageContent
@@ -815,8 +797,9 @@ public class DataInitializationService {
 		// Sauvegarder la Tenancy avec ses ContentBlock et HomePageContent
 		tenancyRepository.save(t3);
 
-
-		/******************************************************FOURTH TENANCY********************************************************/
+		/******************************************************
+		 * FOURTH TENANCY
+		 ********************************************************/
 		Tenancy t4 = Tenancy.builder().tenancyName("GreenMaven").tenancyAlias("greenmaven")
 				.tenancySlogan("Un havre de fraîcheur pour vos produits locaux").email("greenHaven@gmail.com")
 				.address(new Address("", "24 rue des Lilas", "65240", "Aulon")).dateCreated(LocalDateTime.now())
@@ -827,7 +810,7 @@ public class DataInitializationService {
 		ContactInfo contactInfo4 = ContactInfo.builder().name("Jean").firstName("Dupont").phoneNumber("0612345678")
 				.build();
 		t4.setContactInfo(contactInfo4);
-		
+
 		// Chargement des images en Base64
 		String imagelogo4 = loadImageFromResources("logogreenmaven.png");
 
@@ -837,10 +820,10 @@ public class DataInitializationService {
 
 		HomePageContent homePageContent4 = HomePageContent.builder().subTitle("Manger sainement avec GreenHaven")
 				.showSuppliers(true).tenancy(t4).build();
-		
-		String imagevalueA2 = loadImageFromResources("value1.png");
-		String imagevalueB2 = loadImageFromResources("value2.png");
-		String imagevalueC2 = loadImageFromResources("value3.png");
+
+		String imagevalueA2 = loadImageFromResources("valuet4a.png");
+		String imagevalueB2 = loadImageFromResources("valuet4b.png");
+		String imagevalueC2 = loadImageFromResources("valuet4c.png");
 
 		// 1. Le ContentBlock pour la présentation de GreenHaven
 		ContentBlock presentationBlock4 = ContentBlock.builder().isValue(false)
@@ -854,20 +837,20 @@ public class DataInitializationService {
 		ContentBlock valueBlock41 = ContentBlock.builder().isValue(true).contentTitle("Respect de la Nature")
 				.contentText(
 						"À GreenHaven, nous plaçons le respect de la nature au cœur de nos pratiques. Chaque producteur avec lequel nous collaborons adopte des méthodes de culture qui préservent la biodiversité, limitent l'utilisation de produits chimiques et favorisent des solutions naturelles. Nos fermiers prennent soin de la terre, respectent les cycles de la nature et utilisent des techniques qui restaurent la fertilité des sols. En choisissant GreenHaven, vous soutenez un modèle agricole durable qui protège notre planète pour les générations futures.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagevalueA2)
+				.contentImgName("valuet4a.png").contentImgTypeMIME("image/png").contentImg(imagevalueA2)
 				.homePageContent(homePageContent4).build();
 
 		// 3. ContentBlock pour la deuxième valeur de l'AMAP : Produits de Qualité
 		ContentBlock valueBlock42 = ContentBlock.builder().isValue(true).contentTitle("Produits de Qualité")
 				.contentText(
 						"La qualité de nos produits est une priorité absolue. Chaque panier que nous proposons contient des produits soigneusement sélectionnés pour leur fraîcheur, leur saveur et leur qualité nutritionnelle. Nos fermiers, partenaires de confiance, cultivent des fruits, légumes et produits dérivés selon des critères stricts, garantissant des produits de saison et respectueux des normes les plus élevées en matière d'agriculture biologique et durable. En choisissant GreenHaven, vous êtes assuré de consommer des produits sains et de qualité supérieure, cultivés dans le respect de l'environnement.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagevalueB2)
+				.contentImgName("valuetab.png").contentImgTypeMIME("image/png").contentImg(imagevalueB2)
 				.homePageContent(homePageContent4).build();
 
 		// 4. ContentBlock pour la troisième valeur de l'AMAP : Communauté Locale
 		ContentBlock valueBlock43 = ContentBlock.builder().isValue(true).contentTitle("Communauté Locale").contentText(
 				"GreenHaven est une AMAP ancrée dans sa communauté locale. Nous travaillons en étroite collaboration avec des producteurs locaux passionnés qui partagent notre vision d'une agriculture durable et responsable. Notre objectif est de renforcer les liens entre les membres de la communauté, de soutenir les fermiers locaux et de favoriser une économie circulaire. En rejoignant GreenHaven, vous devenez une partie prenante de ce réseau solidaire, où les produits de qualité se rencontrent avec des valeurs humaines fortes.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagevalueB2)
+				.contentImgName("valuetac.png").contentImgTypeMIME("image/png").contentImg(imagevalueB2)
 				.homePageContent(homePageContent4).build();
 
 		homePageContent4.getContents().add(presentationBlock4);
@@ -886,8 +869,9 @@ public class DataInitializationService {
 
 		tenancyRepository.save(t4);
 
-
-		/******************************************************FIFTH TENANCY********************************************************/
+		/******************************************************
+		 * FIFTH TENANCY
+		 ********************************************************/
 		Tenancy t5 = Tenancy.builder().tenancyName("La carotte de Chantenay").tenancyAlias("lacarottechantenay")
 				.tenancySlogan("Des champs verts pour des générations durables").email("lacarottedechantenay@gmail.com")
 				.address(new Address("", "25 avenue des Champs Verts", "74000", "Annecy"))
@@ -898,8 +882,7 @@ public class DataInitializationService {
 		ContactInfo contactInfo5 = ContactInfo.builder().name("Jean").firstName("Dupont").phoneNumber("0612345678")
 				.build();
 		t5.setContactInfo(contactInfo5);
-		
-		
+
 		// Chargement des images en Base64
 		String imagelogo5 = loadImageFromResources("logolacarottechantenay.png");
 
@@ -911,9 +894,9 @@ public class DataInitializationService {
 		// Création du HomePageContent pour la Tenancy
 		HomePageContent homePageContent5 = HomePageContent.builder().subTitle("Cultivons ensemble un avenir durable.")
 				.showSuppliers(true).tenancy(t5).build();
-		
-		String imagevalueA3 = loadImageFromResources("value1.png");
-		String imagevalueB3 = loadImageFromResources("value2.png");
+
+		String imagevalueA3 = loadImageFromResources("valuet5a.png");
+		String imagevalueB3 = loadImageFromResources("valuet5b.png");
 		String imagevalueC3 = loadImageFromResources("value3.png");
 
 		// Création des ContentBlock
@@ -929,14 +912,14 @@ public class DataInitializationService {
 		ContentBlock valueBlock51 = ContentBlock.builder().isValue(true).contentTitle("Écologie et Durabilité")
 				.contentText(
 						"À La carotte de Chantenay, chaque produit soutient une agriculture écologique et durable. Nous nous engageons à respecter les principes de l'agriculture biologique et à utiliser des méthodes respectueuses de l'environnement. Nous préservons la biodiversité et limitons l'utilisation d'intrants chimiques, afin de cultiver des produits sains et respectueux des cycles naturels. Choisir notre AMAP, c'est participer activement à la protection de la planète en soutenant des pratiques agricoles responsables.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagevalueA3)
+				.contentImgName("valuet5a.png").contentImgTypeMIME("image/png").contentImg(imagevalueA3)
 				.homePageContent(homePageContent5).build();
 
 		// 3. ContentBlock pour la deuxième valeur de l'AMAP : Engagement Communautaire
 		ContentBlock valueBlock52 = ContentBlock.builder().isValue(true).contentTitle("Engagement Communautaire")
 				.contentText(
 						"Nous croyons fermement en l'importance de l'engagement communautaire et en la collaboration avec les acteurs locaux. La carotte de Chantenay œuvre pour impliquer la communauté dans des actions concrètes en faveur de l'environnement et de l'agriculture durable. Nous organisons des événements, des ateliers et des rencontres avec nos producteurs afin de renforcer les liens entre les membres de l'AMAP et de sensibiliser à l'importance de soutenir l'agriculture locale. Ensemble, nous construisons un réseau solidaire qui profite à tous.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagevalueB3)
+				.contentImgName("valuet5b.png").contentImgTypeMIME("image/png").contentImg(imagevalueB3)
 				.homePageContent(homePageContent5).build();
 
 		// 4. ContentBlock pour la troisième valeur de l'AMAP : Qualité Supérieure
@@ -962,8 +945,9 @@ public class DataInitializationService {
 		// Sauvegarder la Tenancy
 		tenancyRepository.save(t5);
 
-
-		/******************************************************SIXTH TENANCY********************************************************/
+		/******************************************************
+		 * SIXTH TENANCY
+		 ********************************************************/
 		Tenancy t6 = Tenancy.builder().tenancyName("TerraLocal").tenancyAlias("terralocal")
 				.tenancySlogan("Des produits de la Terre pour les gens d'ici").email("terralocal@gmail.com")
 				.address(new Address("", "10 rue des Cultures", "13260", "Cassis")).dateCreated(LocalDateTime.now())
@@ -974,9 +958,9 @@ public class DataInitializationService {
 		ContactInfo contactInfo6 = ContactInfo.builder().name("Jean").firstName("Dupont").phoneNumber("0612345678")
 				.build();
 		t6.setContactInfo(contactInfo6);
-		
+
 		// Chargement des images en Base64
-		String imagelogo6 = loadImageFromResources("logobiocoli.png");
+		String imagelogo6 = loadImageFromResources("logoterralocal.png");
 
 		// Création du Graphism pour la Tenancy
 		Graphism graphism6 = Graphism.builder().colorPalette(ColorPalette.PALETTE6).fontChoice(FontChoice.LIMELIGHT)
@@ -986,10 +970,10 @@ public class DataInitializationService {
 		// Création du HomePageContent pour la Tenancy
 		HomePageContent homePageContent6 = HomePageContent.builder().subTitle("Vivez local, mangez local.")
 				.showSuppliers(true).tenancy(t6).build();
-		
-		String imagevalueA4 = loadImageFromResources("value1.png");
-		String imagevalueB4 = loadImageFromResources("value2.png");
-		String imagevalueC4 = loadImageFromResources("value3.png");
+
+		String imagevalueA4 = loadImageFromResources("valuet6a.png");
+		String imagevalueB4 = loadImageFromResources("valuet6c.png");
+		String imagevalueC4 = loadImageFromResources("valuet6b.png");
 
 		// 1. Le ContentBlock pour la présentation de TerraLocal
 		ContentBlock presentationBlock6 = ContentBlock.builder().isValue(false)
@@ -1002,21 +986,21 @@ public class DataInitializationService {
 		// 2. ContentBlock pour la première valeur de l'AMAP : Origine Garantie
 		ContentBlock valueBlock61 = ContentBlock.builder().isValue(true).contentTitle("Origine Garantie").contentText(
 				"À TerraLocal, nous certifions l'origine locale et biologique de tous nos produits. Chaque article que nous proposons provient directement des fermes de notre région, cultivé dans le respect des normes agricoles biologiques les plus strictes. Nos producteurs sont des artisans passionnés, soucieux de préserver l'environnement et de produire des aliments sains et goûteux. Choisir TerraLocal, c'est avoir la garantie d'une traçabilité totale et d'un respect profond des cycles naturels.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagevalueA4)
+				.contentImgName("value6a.png").contentImgTypeMIME("image/png").contentImg(imagevalueA4)
 				.homePageContent(homePageContent6).build();
 
 		// 3. ContentBlock pour la deuxième valeur de l'AMAP : Convivialité et Partage
 		ContentBlock valueBlock62 = ContentBlock.builder().isValue(true).contentTitle("Convivialité et Partage")
 				.contentText(
 						"Nous mettons un accent particulier sur la convivialité et le partage au sein de notre communauté. TerraLocal organise régulièrement des événements, des rencontres et des ateliers pour renforcer les liens entre nos membres et nos producteurs locaux. Ces moments de partage permettent d’échanger autour de la Terre, de la production locale et de l'importance de consommer responsable. Nous croyons que la solidarité et la collaboration sont des piliers essentiels pour un monde plus juste et durable.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagevalueB4)
+				.contentImgName("valuet6c.png").contentImgTypeMIME("image/png").contentImg(imagevalueB4)
 				.homePageContent(homePageContent6).build();
 
 		// 4. ContentBlock pour la troisième valeur de l'AMAP : Respect des Saisons
 		ContentBlock valueBlock63 = ContentBlock.builder().isValue(true).contentTitle("Respect des Saisons")
 				.contentText(
 						"Chez TerraLocal, nous respectons les cycles naturels des saisons pour vous offrir uniquement des produits de saison, cultivés dans les meilleures conditions. Nous croyons que chaque légume ou fruit a son moment idéal pour pousser et se récolter, et nous nous engageons à respecter ces cycles pour vous offrir des produits toujours frais, pleins de saveurs et bénéfiques pour votre santé. En consommant des produits de saison, vous contribuez à préserver l'environnement tout en soutenant les producteurs locaux.")
-				.contentImgName("value1.png").contentImgTypeMIME("image/png").contentImg(imagevalueC4)
+				.contentImgName("valuet6b.png").contentImgTypeMIME("image/png").contentImg(imagevalueC4)
 				.homePageContent(homePageContent6).build();
 
 		homePageContent6.getContents().add(presentationBlock6);
@@ -1311,82 +1295,71 @@ public class DataInitializationService {
 			}
 		}
 	}
-	
+
 	public void initMembershipFee(Tenancy tenancy) {
 		List<User> users = userRepository.findAll().stream()
-		.filter(u -> u.getTenancy().getTenancyId() == tenancy.getTenancyId()).toList();
+				.filter(u -> u.getTenancy().getTenancyId() == tenancy.getTenancyId()).toList();
 		for (User user : users) {
-			//random day logic
+			// random day logic
 			LocalDate randomStartDate = randomDate();
-		    //create fee and link it to user
-		    MembershipFee fee = MembershipFee.builder()
-		            .info("Cotisation annuelle")
-		            .stock(1)
-		            .price(user.getTenancy().getMembershipFeePrice().doubleValue())
-		            .dateBeginning(randomStartDate)
-		            .dateEnd(randomStartDate.plusDays(365))
-		            .build();
-		    fee.setUser(user);
-		    user.setMembershipFee(fee);
-		    //save by cascade
-		    userRepository.save(user);
+			// create fee and link it to user
+			MembershipFee fee = MembershipFee.builder().info("Cotisation annuelle").stock(1)
+					.price(user.getTenancy().getMembershipFeePrice().doubleValue()).dateBeginning(randomStartDate)
+					.dateEnd(randomStartDate.plusDays(365)).build();
+			fee.setUser(user);
+			user.setMembershipFee(fee);
+			// save by cascade
+			userRepository.save(user);
 		}
 	}
-	
+
 	public LocalDate randomDate() {
 		LocalDate endDate = LocalDate.of(2025, 1, 10);
-	    LocalDate firstDate = LocalDate.of(2024, 1, 20);
-	    long daysBetween = ChronoUnit.DAYS.between(firstDate, endDate);
-	    int randomDays = new Random().nextInt((int) daysBetween + 1);
-	    LocalDate randomDate = firstDate.plusDays(randomDays);
-	    return randomDate;
+		LocalDate firstDate = LocalDate.of(2024, 1, 20);
+		long daysBetween = ChronoUnit.DAYS.between(firstDate, endDate);
+		int randomDays = new Random().nextInt((int) daysBetween + 1);
+		LocalDate randomDate = firstDate.plusDays(randomDays);
+		return randomDate;
 	}
-	
+
 	public void initAllOrders() {
 		int randomOrdersQuantity = new Random().nextInt(10);
-		for (int j=0; j<randomOrdersQuantity; j++) {
-			for(Long i=1L; i <120; i++) {
+		for (int j = 0; j < randomOrdersQuantity; j++) {
+			for (Long i = 1L; i < 120; i++) {
 				initOrder(i);
 			}
 		}
 	}
-	
+
 	@Transactional
 	public void initOrder(Long userId) {
 		User user = userRepository.findUserWithOrders(userId);
-		
-		int randomQuantityOrderItems = new Random().nextInt(5)+1;
+
+		int randomQuantityOrderItems = new Random().nextInt(5) + 1;
 
 		LocalDate randomDate = randomDate();
-		int randomQuantityShoppable = new Random().nextInt(3)+1;
-		
-		//build order base
-		Order order = Order.builder()
-				.totalAmount(0)
-				.orderDate(randomDate)
-				.orderStatus(OrderStatus.DONE)
-				.orderPaid(true)
-				.user(user)
-				.build();
-		//get random order item from shoppables
-		for(int i=0; i <randomQuantityOrderItems; i++) {
+		int randomQuantityShoppable = new Random().nextInt(3) + 1;
+
+		// build order base
+		Order order = Order.builder().totalAmount(0).orderDate(randomDate).orderStatus(OrderStatus.DONE).orderPaid(true)
+				.user(user).build();
+		// get random order item from shoppables
+		for (int i = 0; i < randomQuantityOrderItems; i++) {
 			Shoppable shoppable = getRandomShoppable();
 			if (shoppable == null) {
 				System.out.println("Shoppable null, jump iteration");
 				continue; // ignore iteration if no shoppable is found
 			}
-			OrderItem item = OrderItem.builder()
-					.quantity(randomQuantityShoppable)
-					.unitPrice(shoppable.getPrice())
-					.total(randomQuantityShoppable*shoppable.getPrice())
+			OrderItem item = OrderItem.builder().quantity(randomQuantityShoppable).unitPrice(shoppable.getPrice())
+					.total(randomQuantityShoppable * shoppable.getPrice())
 //					.shoppable(shoppable)
 					.build();
-			// i know it's not pretty but it handles the jpa limits 
+			// i know it's not pretty but it handles the jpa limits
 			orderItemRepository.save(item);
 			item.setShoppable(shoppable);
 			orderItemRepository.save(item);
 			order.getOrderItems().add(item);
-			order.setTotalAmount(order.getTotalAmount()+randomQuantityShoppable*shoppable.getPrice());
+			order.setTotalAmount(order.getTotalAmount() + randomQuantityShoppable * shoppable.getPrice());
 			orderRepository.save(order);
 			item.setOrder(order);
 			orderItemRepository.save(item);
@@ -1394,38 +1367,109 @@ public class DataInitializationService {
 		addPaymentToOrder(order, user, randomDate);
 		addOrderToUser(order, user);
 	}
-	
+
 	private void addPaymentToOrder(Order order, User user, LocalDate randomDate) {
-		//create payment
-		Payment payment = Payment.builder()
-				.paymentDate(randomDate.atStartOfDay())
-				.paymentType(PaymentType.card)
-				.paymentAmount(BigDecimal.valueOf(order.getTotalAmount()))
-				.build();
+		// create payment
+		Payment payment = Payment.builder().paymentDate(randomDate.atStartOfDay()).paymentType(PaymentType.card)
+				.paymentAmount(BigDecimal.valueOf(order.getTotalAmount())).build();
 		payment.setOrder(order);
 		order.getPayments().add(payment);
-		//save by cascade
+		// save by cascade
 		orderRepository.save(order);
 	}
-	
+
 	private void addOrderToUser(Order order, User user) {
 		user.getOrders().add(order);
 		userRepository.save(user);
 	}
-	
+
 	private Shoppable getRandomShoppable() {
-	    Random random = new Random();
-	    int randomChoice = random.nextInt(2)+1; 
-	    switch (randomChoice) {
-	        case 0:
-	            return productRepository.findRandom();
-	        case 1:
-	            return contractRepository.findRandom();
-	        case 2:
-	            return workshopRepository.findRandom();
-	        default:
-	            throw new IllegalStateException("Valeur aléatoire invalide : " + randomChoice);
-	    }
+		Random random = new Random();
+		int randomChoice = random.nextInt(2) + 1;
+		switch (randomChoice) {
+		case 0:
+			return productRepository.findRandom();
+		case 1:
+			return contractRepository.findRandom();
+		case 2:
+			return workshopRepository.findRandom();
+		default:
+			throw new IllegalStateException("Valeur aléatoire invalide : " + randomChoice);
+		}
+	}
+
+	public void contractInitForTenancy(Long tenancyId) throws IOException {
+
+		Tenancy tenancy = tenancyRepository.findById(tenancyId)
+				.orElseThrow(() -> new IllegalArgumentException("Tenancy not found with ID: " + tenancyId));
+
+		List<User> producers = userRepository.findByTenancyAndRole(tenancy, "Producteur");
+
+		if (producers.isEmpty()) {
+			throw new IllegalStateException("No producers found for the tenancy with ID: " + tenancyId);
+		}
+
+		String paniersoupe = loadImageFromResources("paniersoupe.png");
+		String panierratatouille = loadImageFromResources("panierratatouille.png");
+		String panierregionfrance = loadImageFromResources("panierregionfrance.png");
+		String paniersaveurautomne = loadImageFromResources("paniersaveurautomne.png");
+		String paniercroquant = loadImageFromResources("paniercroquant.png");
+
+		Contract contract1 = Contract.builder().contractName("Panier soupe 5 légumes")
+				.contractType(ContractType.VEGETABLES_CONTRACT)
+				.contractDescription("Un panier composé pour réaliser une délicieuse soupe aux 5 légumes\r\n" + "\r\n"
+						+ "Environs 4 kilo de légumes dans le panier")
+				.contractWeight(ContractWeight.AVERAGE).contractPrice(new BigDecimal("10.95"))
+				.dateCreation(LocalDate.now()).startDate(LocalDate.of(2025, 4, 1)).endDate(LocalDate.of(2025, 6, 30))
+				.deliveryRecurrence(DeliveryRecurrence.BIMONTHLY).quantity(15).shoppable(true).imageType("image/png")
+				.pickUpSchedule(tenancy.getPickUpSchedule()).address(tenancy.getAddress()).tenancy(tenancy)
+				.user(producers.get(0)).imageData(paniersoupe).build();
+
+		Contract contract2 = Contract.builder().contractName("Saveur automnales")
+				.contractType(ContractType.VEGETABLES_CONTRACT)
+				.contractDescription(
+						"Carottes, panais, céleri-rave, pommes de terre, betteraves. Idéal pour des purées, soupes ou rôtis au four.")
+				.contractWeight(ContractWeight.AVERAGE).contractPrice(new BigDecimal("11.50"))
+				.dateCreation(LocalDate.now()).startDate(LocalDate.of(2025, 1, 10)).endDate(LocalDate.of(2025, 6, 30))
+				.deliveryRecurrence(DeliveryRecurrence.WEEKLY).quantity(12).shoppable(true).imageType("image/png")
+				.pickUpSchedule(tenancy.getPickUpSchedule()).address(tenancy.getAddress()).tenancy(tenancy)
+				.user(producers.get(3)).imageData(paniersaveurautomne).build();
+
+		Contract contract3 = Contract.builder().contractName("Panier spécial ratatouille")
+				.contractType(ContractType.VEGETABLES_CONTRACT)
+				.contractDescription(
+						"Aubergines, poivrons, tomates, oignons, courgettes. Tout ce qu'il faut pour une ratatouille traditionnelle.")
+				.contractWeight(ContractWeight.AVERAGE).contractPrice(new BigDecimal("20.00"))
+				.dateCreation(LocalDate.now()).startDate(LocalDate.of(2025, 5, 1)).endDate(LocalDate.of(2025, 9, 30))
+				.deliveryRecurrence(DeliveryRecurrence.WEEKLY).quantity(10).shoppable(true).imageType("image/png")
+				.imageData(panierratatouille).pickUpSchedule(tenancy.getPickUpSchedule()).address(tenancy.getAddress())
+				.tenancy(tenancy).user(producers.get(0)).build();
+
+		Contract contract4 = Contract.builder().contractName("Panier douceur et croquant")
+				.contractType(ContractType.FRUITS_CONTRACT)
+				.contractDescription("Pommes, poires, raisins, noix, figues. Une douceur automnale.")
+				.contractWeight(ContractWeight.BIG).contractPrice(new BigDecimal("30.00")).dateCreation(LocalDate.now())
+				.startDate(LocalDate.of(2025, 10, 1)).endDate(LocalDate.of(2025, 12, 31))
+				.deliveryRecurrence(DeliveryRecurrence.MONTHLY).quantity(12).shoppable(true).imageType("image/png")
+				.imageData(paniercroquant).pickUpSchedule(tenancy.getPickUpSchedule()).address(tenancy.getAddress())
+				.tenancy(tenancy).user(producers.get(1)).build();
+
+		Contract contract5 = Contract.builder().contractName("Panier Régions de France")
+				.contractType(ContractType.MIX_CONTRACT)
+				.contractDescription(
+						"Une sélection des légumes et fruits emblématiques des régions françaises : choux de Bretagne, pommes de Normandie, raisins du Sud-Ouest.")
+				.contractWeight(ContractWeight.BIG).contractPrice(new BigDecimal("40.00")).dateCreation(LocalDate.now())
+				.startDate(LocalDate.of(2025, 1, 1)).endDate(LocalDate.of(2025, 12, 31))
+				.deliveryRecurrence(DeliveryRecurrence.MONTHLY).quantity(15).shoppable(true).imageType("image/png")
+				.imageData(panierregionfrance).pickUpSchedule(tenancy.getPickUpSchedule()).address(tenancy.getAddress())
+				.tenancy(tenancy).user(producers.get(2)).build();
+
+		contractRepository.save(contract1);
+		contractRepository.save(contract2);
+		contractRepository.save(contract3);
+		contractRepository.save(contract4);
+		contractRepository.save(contract5);
+
 	}
 
 	private String loadImageFromResources(String imageName) throws IOException {
@@ -1436,5 +1480,5 @@ public class DataInitializationService {
 		byte[] imageBytes = imageStream.readAllBytes();
 		return Base64.getEncoder().encodeToString(imageBytes);
 	}
-	
+
 }

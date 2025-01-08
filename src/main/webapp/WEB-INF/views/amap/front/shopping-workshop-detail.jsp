@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
-String currentMainMenu = "shop";
+String currentMainMenu = "workshops";
 String currentPage = "workshops";
 request.setAttribute("currentMainMenu", currentMainMenu);
 request.setAttribute("currentPage", currentPage);
@@ -27,13 +27,21 @@ request.setAttribute("currentPage", currentPage);
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
 	<!-- Header -->
 	<header class="fc-main bg-main">
-		<jsp:include page="common/header.jsp" />
+		<jsp:include page="common/header-amap.jsp" />
 	</header>
 	<jsp:include page="../front/common/sidebarUser.jsp" />
 	<div id="map" class="p-0"></div>
 
-	<div class="content col fc-main bg-100 border-main"
-		style="margin: 40px;">
+	<div class="content col fc-main bg-100 border border-3 border-main pb-3 mt-3 mb-2 mx-5"
+		style="border-radius: 10px 10px 0 0;">
+		
+					<div class="header">
+				<a href="<c:url value='/amap/${tenancyAlias}/shop/workshops'/>" class="text-decoration-none">
+    <i class="bi bi-arrow-left-circle fs-1 fc-500"></i>
+</a>
+</div>
+		
+		
 		<div class="contract-detail-container">
 			<!-- Colonne de gauche : image -->
 			<div class="contract-image">
@@ -60,7 +68,7 @@ request.setAttribute("currentPage", currentPage);
 				<p>
 					<i class="bi bi-geo-alt"></i>
 					<c:if test="${not empty workshop.address}">
-            ${workshop.user.address.line1}, ${workshop.user.address.line2}, ${workshop.user.address.city} (${workshop.user.address.postCode})
+            ${workshop.user.address.line1} ${workshop.user.address.line2}, ${workshop.user.address.city} (${workshop.user.address.postCode})
         </c:if>
 					<c:if test="${empty workshop.address}">
             Aucune adresse associée.
@@ -75,25 +83,22 @@ request.setAttribute("currentPage", currentPage);
 				</h2>
 			</div>
 		</div>
+		
+		<!-- Section pour la quantité et le bouton d'ajout au panier -->
 		<div class="text-end mt-4">
 			<form:form method="post"
 				action="${pageContext.request.contextPath}/amap/${tenancyAlias}/cart/${cartId}/add">
 				<input type="hidden" name="shoppableId" value="${workshop.id}" />
 				<input type="hidden" name="shoppableType" value="WORKSHOP" />
 				<input type="hidden" name="quantity" value="1" />
-				<button type="submit" class="btn-add-to-cart">Je m'inscris
-					à cet atelier</button>
+				<button type="submit" class="btn btn-500 btn-order ms-2">S'inscrire à l'atelier</button>
 			</form:form>
-			<a
-				href="${pageContext.request.contextPath}/amap/${tenancyAlias}/cart/${cartId}"
-				class="btn-view-cart">Voir le panier</a>
-
 		</div>
 	</div>
 
 	<!-- Footer -->
-	<footer>
-		<jsp:include page="common/footer.jsp" />
+	<footer class="fc-main bg-main">
+		<jsp:include page="common/footer-amap.jsp" />
 	</footer>
 	<script>
 		var styleMapboxLight = "${mapStyleLight}";
@@ -110,6 +115,5 @@ request.setAttribute("currentPage", currentPage);
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
 		type="text/javascript"></script>
 	
-		type="text/javascript"></script>
 </body>
 </html>

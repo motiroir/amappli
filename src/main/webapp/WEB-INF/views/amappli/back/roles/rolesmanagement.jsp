@@ -77,7 +77,7 @@
                                     <form action="${pageContext.request.contextPath}/amappli/roles/manage" method="post">
                                 </c:when>
                                 <c:otherwise>
-                                    <form action="${pageContext.request.contextPath}/amap/{tenancyAlias}/roles/manage" method="post">
+                                    <form action="${pageContext.request.contextPath}/amap/${tenancyAlias}/roles/manage" method="post">
                                 </c:otherwise>
                             </c:choose>
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

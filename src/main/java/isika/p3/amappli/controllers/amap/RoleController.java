@@ -47,15 +47,6 @@ public class RoleController {
 		this.graphismService = graphismService;
 	}
 	
-
-	@PreAuthorize("hasAuthority('gestion plateforme')")
-	@GetMapping
-	public String listRoles(Model model) {
-		List<Role> roles = roleService.findAllRoles();
-		model.addAttribute("roles", roles);
-		return "/amappli/back/roles/roleslist";
-	}
-
 	@PreAuthorize("hasAuthority('gestion plateforme')")
 	@GetMapping("/amappli/roles/manage")
 	public String showGeneralRolesWithPermissions(Model model) {
@@ -99,7 +90,7 @@ public class RoleController {
 		return "redirect:/amappli/roles/manage";
 	}
 
-	//@PreAuthorize("hasAuthority('gestion utilisateurs amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
+	@PreAuthorize("hasAuthority('gestion utilisateurs amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
 	@GetMapping("/amap/{tenancyAlias}/roles/manage")
 	public String showRolesWithPermissions(@PathVariable("tenancyAlias") String alias, Model model) {
 
@@ -137,7 +128,7 @@ public class RoleController {
 
 	}
 
-	//@PreAuthorize("hasAuthority('gestion utilisateurs amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
+	@PreAuthorize("hasAuthority('gestion utilisateurs amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
 	@PostMapping("/amap/{tenancyAlias}/roles/manage")
 	public String editRolesWithPermissions(@PathVariable("tenancyAlias") String alias, RoleDTO roleDTO) {
 		

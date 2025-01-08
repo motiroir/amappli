@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import isika.p3.amappli.entities.contract.Contract;
-import isika.p3.amappli.entities.product.Product;
+import isika.p3.amappli.entities.contract.ContractType;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 
 @Repository
@@ -24,6 +24,8 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
         Long randomId = findRandomIdNative();
         return randomId != null ? findById(randomId).orElse(null) : null;
     }
-
+    
+    @Query("SELECT c FROM Contract c WHERE c.contractType = :type AND c.tenancy = :tenancy")
+    List<Contract> findByTypeAndTenancy(@Param("type") ContractType type, @Param("tenancy") Tenancy tenancy);
 
 }
