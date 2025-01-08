@@ -34,15 +34,15 @@
 				<h1 class="hero-text h1 fc-main">Bienvenue sur le site de ${tenancyName}</h1>
 				<h2 class="hero-text h2 fc-main">${tenancySlogan}</h2>
 				<div class="buttons mt-5 mt-md-4">
-					<a href="#qui-sommes-nous" class="btn rounded-pill btn-500 px-4 mb-2 me-2">Qui Sommes-nous?</a>
-					<a href="amap/amaplogin/signup" class="btn rounded-pill btn-500 px-4 mb-2 me-2">Adhérer à l' AMAP</a>
+					<a href="#presentation-section" class="btn rounded-pill btn-500 px-4 mb-2 me-2">Qui Sommes-nous?</a>
+					<a href="<c:url value='/amap/${tenancyAlias}/signup'/>" class="btn rounded-pill btn-500 px-4 mb-2 me-2">Adhérer à l' AMAP</a>
 				</div>
 			</div>
 		</div>
 	</main>
 
 	<!-- Affichage du block de présentation -->
-<div class="presentation-wrapper">
+<div id="presentation-section" class="presentation-wrapper">
     <div class="presentation-section">
         <h2 class="h3 fw-bold fc-300">Qui sommes-nous ?</h2>
         <div class="presentation-block fc-main">

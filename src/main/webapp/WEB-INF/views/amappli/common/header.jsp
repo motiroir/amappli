@@ -107,7 +107,7 @@
 		<div id="nav-content" class="offcanvas offcanvas-start navbar-collapse bg-main w-auto px-3">
 			<ul class="navbar-nav w-100 mt-4 mt-md-0 justify-content-evenly">
 				<li class="nav-item">
-					<a href="<c:url value='/amappli/features'/>" class="nav-link nunito text-decoration-none fc-300 fch-500">Fonctionnalités</a>
+					<a href="<c:url value='/amappli/features'/>" class="nav-link nunito text-decoration-none fc-300 fch-500">Nos offres</a>
 				</li>
 				<li class="nav-item">
 					<a href="<c:url value='/amappli/about'/>" class="nav-link nunito text-decoration-none fc-300 fch-500">Qui sommes-nous ?</a></li>

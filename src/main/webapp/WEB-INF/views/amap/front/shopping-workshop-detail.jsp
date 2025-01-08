@@ -32,7 +32,7 @@ request.setAttribute("currentPage", currentPage);
 	<jsp:include page="../front/common/sidebarUser.jsp" />
 	<div id="map" class="p-0"></div>
 
-	<div class="content col fc-main bg-100 border border-3 border-main pb-3 mt-3 mb-2 mx-5"
+	<div class="content col fc-main bg-100 border border-3 border-main pb-3 m-5"
 		style="border-radius: 10px 10px 0 0;">
 		
 					<div class="header">
@@ -97,7 +97,7 @@ request.setAttribute("currentPage", currentPage);
 	</div>
 
 	<!-- Footer -->
-	<footer class="fc-main bg-main">
+	<footer class="fc-main bg-main mt-5">
 		<jsp:include page="common/footer-amap.jsp" />
 	</footer>
 	<script>

@@ -1,21 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
+<div
+	class="container-fluid d-flex flex-row-reverse flex-md-row justify-content-between justify-content-md-evenly align-items-center">
 
-<div class="container-fluid d-flex flex-row-reverse flex-md-row justify-content-between justify-content-md-evenly align-items-center">
-    <div class="logo-container d-flex align-items-center">
-        <c:if test="${not empty logoBase64}">
-            <!-- Affichage du logo encodé en Base64 -->
-            <img id="logo-header" 
-                 height="50" 
-                 min-height="50" 
-                 viewBox="0 0 697 726" 
-                 class="my-2 my-sm-0 logo-image me-3" 
-                 src="data:${logoImgType};base64,${logoBase64}" 
-                 alt="Logo de ${tenancyName}" />
-                  </c:if>
-    <a href="<c:url value='/amap/${tenancyAlias}/home'/>" class="nav-link"><h1 class="fw-bold fs-2 mb-0 fc-300 fch-500">${tenancy.getTenancyName()}</h1></a>
-</div>
+	<div class="logo-container d-flex align-items-center">
+		<c:if test="${not empty logoBase64}">
+			<!-- Lien enveloppant l'image -->
+			<a href="<c:url value='/amap/${tenancyAlias}/home'/>"> <img
+				id="logo-header" height="50" min-height="50" viewBox="0 0 697 726"
+				class="my-2 my-sm-0 logo-image me-3"
+				src="data:${logoImgType};base64,${logoBase64}"
+				alt="Logo de ${tenancyName}" />
+			</a>
+		</c:if>
+		<a href="<c:url value='/amap/${tenancyAlias}/home'/>" class="nav-link">
+		<h1	class="fw-bold fs-2 mb-0 fc-300 fch-500">${tenancy.getTenancyName()}</h1></a>
+	</div>
 	<div class="p-0 ms-2 ms-md-0 d-flex justify-content-evenly">
 		<svg class="my-auto mx-1" width="15" height="15" viewBox="0 0 30 30"
 			xmlns="http://www.w3.org/2000/svg" class="m-auto">
@@ -91,7 +92,8 @@
 
 
 				<!-- Icône person-circle -->
-				<a href="<c:url value='/amap/${tenancyAlias}/admin/contracts/list'/>"
+				<a
+					href="<c:url value='/amap/${tenancyAlias}/admin/contracts/list'/>"
 					class="text-decoration-none"> <i
 					class="bi bi-person-circle fs-4 fc-300 fch-500"></i>
 				</a>

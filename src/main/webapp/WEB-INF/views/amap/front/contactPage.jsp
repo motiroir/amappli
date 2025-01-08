@@ -62,20 +62,20 @@
                 <div class="row mb-3 fc-main">
                     <div class="col-6">
                         <label for="nom" class="form-label">Votre nom</label>
-                        <input type="text" class="form-control" id="nom" name="nom" placeholder="Lamant" required>
+                        <input type="text" class="form-control border-bottom border-1 border-main" id="nom" name="nom" placeholder="Lamant" required>
                     </div>
                     <div class="col-6">
                         <label for="prenom" class="form-label">Votre prénom</label>
-                        <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Marie" required>
+                        <input type="text" class="form-control border-bottom border-1 border-main" id="prenom" name="prenom" placeholder="Marie" required>
                     </div>
                 </div>
                 <div class="mb-3 fc-main">
                     <label for="email" class="form-label">Votre email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="exemple@mail.fr" required>
+                    <input type="email" class="form-control border-bottom border-1 border-main" id="email" name="email" placeholder="exemple@mail.fr" required>
                 </div>
                 <div class="mb-3 fc-main">
                     <label for="message" class="form-label">Votre message</label>
-                    <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                    <textarea class="form-control border border-1 border-main" id="message" name="message" rows="4" required></textarea>
                 </div>
                 <button type="submit" class="btn rounded-pill btn-500 ">Envoyer</button>
             </form>
