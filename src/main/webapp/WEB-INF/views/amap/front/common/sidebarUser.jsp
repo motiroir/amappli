@@ -17,7 +17,7 @@
 </style>
 <nav class="navbar h-50 p-5 w-auto">
 	<div
-		class="bg-100 border border-1 border-main border-top-rounded d-flex flex-column justify-content-center mx-auto">
+		class="bg-100 border border-1 border-500 border-top-rounded d-flex flex-column justify-content-center mx-auto">
 		<div id="sidebar" class="flex-grow-1">
 			<ul class="nav flex-column text-start">
 				<!-- Paniers maraîchers -->
@@ -27,28 +27,29 @@
 						<i class="bi bi-basket me-2"></i>
 						<h4 class="fw-bold">Paniers</h4>
 				</a>
-					<ul class="list-unstyled ps-2">
-<li class="d-flex justify-content-between pt-2">
-    <a id="allBaskets" href="#" class="filter-btn text-decoration-none fc-300 fch-600 flex-grow-1"
-       data-filter="ALL">Tous les paniers</a>
-    <span class="badge bg-none fc-300 rounded-pill ms-5">${contracts.size()}</span>
-</li>
-<li class="d-flex justify-content-between">
-    <a id="vegetableBaskets" href="#" class="filter-btn text-decoration-none fc-300 fch-600 flex-grow-1"
-       data-filter="VEGETABLES_CONTRACT">Paniers légumes</a>
-    <span class="badge bg-none fc-300 rounded-pill ms-5">${vegetableCount}</span>
-</li>
-<li class="d-flex justify-content-between">
-    <a id="fruitBaskets" href="#" class="filter-btn text-decoration-none fc-300 fch-600 flex-grow-1"
-       data-filter="FRUITS_CONTRACT">Paniers fruits</a>
-    <span class="badge bg-none fc-300 rounded-pill ms-5">${fruitCount}</span>
-</li>
-<li class="d-flex justify-content-between border-bottom pb-3">
-    <a id="mixedBaskets" href="#" class="filter-btn text-decoration-none fc-300 fch-600 flex-grow-1"
-       data-filter="MIX_CONTRACT">Paniers mixtes</a>
-    <span class="badge bg-none fc-300 rounded-pill ms-5">${mixedCount}</span>
-</li>
-					</ul></li>
+<ul class="list-unstyled ps-2">
+    <li class="d-flex justify-content-between pt-2">
+        <a id="allBaskets" href="<c:url value='/amap/${tenancyAlias}/shop/contracts?contractType=ALL'/>" 
+           class="text-decoration-none fc-300 fch-600 flex-grow-1">Tous les paniers</a>
+        <span class="badge bg-none fc-300 rounded-pill ms-5">${contracts.size()}</span>
+    </li>
+    <li class="d-flex justify-content-between">
+        <a id="vegetableBaskets" href="<c:url value='/amap/${tenancyAlias}/shop/contracts?contractType=VEGETABLES_CONTRACT'/>" 
+           class="text-decoration-none fc-300 fch-600 flex-grow-1">Paniers légumes</a>
+        <span class="badge bg-none fc-300 rounded-pill ms-5">${vegetableCount}</span>
+    </li>
+    <li class="d-flex justify-content-between">
+        <a id="fruitBaskets" href="<c:url value='/amap/${tenancyAlias}/shop/contracts?contractType=FRUITS_CONTRACT'/>" 
+           class="text-decoration-none fc-300 fch-600 flex-grow-1">Paniers fruits</a>
+        <span class="badge bg-none fc-300 rounded-pill ms-5">${fruitCount}</span>
+    </li>
+    <li class="d-flex justify-content-between border-bottom pb-3">
+        <a id="mixedBaskets" href="<c:url value='/amap/${tenancyAlias}/shop/contracts?contractType=MIX_CONTRACT'/>" 
+           class="text-decoration-none fc-300 fch-600 flex-grow-1">Paniers mixtes</a>
+        <span class="badge bg-none fc-300 rounded-pill ms-5">${mixedCount}</span>
+    </li>
+</ul>
+
 
 
 				<!-- Épicerie -->

@@ -19,8 +19,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import isika.p3.amappli.entities.contract.Contract;
+import isika.p3.amappli.entities.contract.ContractType;
 import isika.p3.amappli.entities.product.Product;
 import isika.p3.amappli.entities.tenancy.PickUpSchedule;
 import isika.p3.amappli.entities.tenancy.Tenancy;
@@ -54,7 +56,7 @@ public class ShopController {
 	 * Displays all shoppable contracts in the shop view.
 	 */
 	@GetMapping("/contracts")
-	public String showAllShoppableContracts(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
+	public String showAllShoppableContracts(Model model, @PathVariable("tenancyAlias") String tenancyAlias, @RequestParam(value = "contractType", required = false) String contractType) {
 
 		Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
 	            .orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
@@ -72,6 +74,17 @@ public class ShopController {
 	    long mixedCount = contracts.stream()
 	            .filter(contract -> "MIX_CONTRACT".equals(contract.getContractType().name()))
 	            .count();
+	    
+	    if (contractType != null) {
+	        try {
+	            ContractType type = ContractType.valueOf(contractType);
+	            contracts = contractService.findShoppableContractsByTypeAndTenancy(type, tenancy);
+	        } catch (IllegalArgumentException e) {
+	            contracts = contractService.findShoppableContractsByTenancy(tenancy); // Valeur non valide
+	        }
+	    } else {
+	        contracts = contractService.findShoppableContractsByTenancy(tenancy);
+	    }
 
 	    model.addAttribute("vegetableCount", vegetableCount);
 	    model.addAttribute("fruitCount", fruitCount);
