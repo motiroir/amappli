@@ -24,7 +24,6 @@ request.setAttribute("currentPage", currentPage);
 	<link href="<c:url value='/resources/css/amap/shopping-detail.css' />"
 	rel="stylesheet">
 </head>
-</head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
 	<!-- Header -->
 	<header class="fc-main bg-main">
@@ -33,7 +32,7 @@ request.setAttribute("currentPage", currentPage);
 	<jsp:include page="../front/common/sidebarUser.jsp" />
 	<div id="map" class="p-0"></div>
 
-	<div class="content col fc-main bg-100 border border-3 border-main pb-3 mt-3 mb-2 mx-5" style="border-radius: 10px 10px 0 0;">
+	<div class="content col fc-main bg-100 border border-3 border-main pb-3 m-5" style="border-radius: 10px 10px 0 0;">
 	<div class="header">
 				<a href="<c:url value='/amap/${tenancyAlias}/shop/contracts'/>" class="text-decoration-none">
     <i class="bi bi-arrow-left-circle fs-1 fc-500"></i>
@@ -97,7 +96,7 @@ request.setAttribute("currentPage", currentPage);
 		</div>
 	</div>
 	<!-- Footer -->
-	<footer class="fc-main bg-main">
+	<footer class="fc-main bg-main mt-5">
 		<jsp:include page="common/footer-amap.jsp" />
 	</footer>
 	<script>

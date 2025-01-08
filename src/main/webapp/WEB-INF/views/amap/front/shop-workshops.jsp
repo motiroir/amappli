@@ -20,15 +20,8 @@ request.setAttribute("currentPage", currentPage);
 	rel="stylesheet">
 <link href="<c:url value='/resources/css/amap/shop.css' />"
 	rel="stylesheet">
-		<style>
-	#successMessage {
-    transition: opacity 0.5s ease;
-}
-
-#successMessage.hidden {
-    opacity: 0;
-}
-	</style>
+<link href="<c:url value='/resources/css/amap/success-message.css' />"
+	rel="stylesheet">
 </head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
 	<!-- Header -->
@@ -38,7 +31,7 @@ request.setAttribute("currentPage", currentPage);
 	<jsp:include page="../front/common/sidebarUser.jsp" />
 	<div id="map" class="p-0"></div>
 
-	<div class="content col fc-main">
+	<div class="content col fc-main mb-5">
 		<div class="container mt-4">
 			<div
 				class="row-controls d-flex justify-content-between align-items-center mx-auto"
@@ -92,7 +85,7 @@ request.setAttribute("currentPage", currentPage);
 								</p>
 								<a
 									href="<c:url value='/amap/${tenancyAlias}/shop/workshops/${workshop.id}' />"
-									class="btn btn-main rounded-pill bg-main text-nowrap">Voir
+									class="btn btn-main rounded-pill bg-main fc-main text-nowrap">Voir
 									les détails</a>
 									</div>
 								</div>

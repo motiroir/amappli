@@ -65,7 +65,7 @@
 					<div class="col-12 d-flex justify-content-evenly">
 
 						<a href="<c:url value='/amappli/start/signup'/>"  class="btn btn-100 rounded-pill px-4">Créer mon site</a>
-						<a href="#" class="btn btn-900 rounded-pill px-4">Planifier une
+						<a href="<c:url value='/amappli/contact'/>" class="btn btn-900 rounded-pill px-4">Planifier une
 							démonstration</a>
 
 					</div>
