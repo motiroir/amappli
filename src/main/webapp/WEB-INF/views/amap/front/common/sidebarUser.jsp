@@ -24,7 +24,7 @@
 				<!-- Paniers maraîchers -->
 				<li><a
 					href="<c:url value='/amap/${tenancyAlias}/shop/contracts'/>"
-					class="ps-2 pe-5 pt-3 d-flex align-items-left border-bottom border-top-rounded ${currentMainMenu.equals('contracts') ? 'active bg-500 fc-100' : ' fc-500 text-decoration-none'}">
+					class="ps-2 pe-5 pt-3 d-flex align-items-left border-bottom border-top-rounded text-decoration-none ${currentMainMenu.equals('contracts') ? 'active bg-500 fc-100' : ' fc-500 text-decoration-none'}">
 						<i class="bi bi-basket me-2"></i>
 						<h4 class="fw-bold">Paniers</h4>
 				</a>
@@ -56,14 +56,14 @@
 					</ul> <!-- Épicerie --> <c:if test="${options.option1Active}">
 						<li><a
 							href="<c:url value='/amap/${tenancyAlias}/shop/products'/>"
-							class="ps-2 pe-5 pt-3 pb-2 d-flex align-items-left border-bottom ${currentMainMenu.equals('products') ? 'active bg-500 fc-100' : 'fc-500 text-decoration-none'}">
+							class="ps-2 pe-5 pt-3 pb-2 d-flex align-items-left border-bottom text-decoration-none ${currentMainMenu.equals('products') ? 'active bg-500 fc-100' : 'fc-500 text-decoration-none'}">
 								<i class="bi bi-shop-window me-2"></i>
 								<h4 class="fw-bold">Épicerie</h4>
 						</a>
 					</c:if> <!-- Ateliers --> <c:if test="${options.option1Active}">
 						<li><a
 							href="<c:url value='/amap/${tenancyAlias}/shop/workshops'/>"
-							class="ps-2 pe-5 pt-3 pb-2 d-flex align-items-left border-bottom ${currentMainMenu.equals('workshops') ? 'active bg-500 fc-100' : 'fc-500 text-decoration-none'}">
+							class="ps-2 pe-5 pt-3 pb-2 d-flex align-items-left border-bottom text-decoration-none ${currentMainMenu.equals('workshops') ? 'active bg-500 fc-100' : 'fc-500 text-decoration-none'}">
 								<i class="bi bi-people me-2"></i>
 								<h4 class="fw-bold">Ateliers</h4>
 						</a>

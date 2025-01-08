@@ -25,7 +25,7 @@ request.setAttribute("currentPage", currentPage);
 	rel="stylesheet">
 </head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
-	<header class="fc-main bg-main border-1 border-alt">
+	<header class="fc-main bg-main">
 		<jsp:include page="common/header-amap.jsp" />
 	</header>
 	<jsp:include page="../front/common/sidebarUser.jsp" />
@@ -89,7 +89,7 @@ request.setAttribute("currentPage", currentPage);
 			</div>
 
 	<!-- Footer -->
-	<footer>
+	<footer class="fc-main bg-main">
 		<jsp:include page="common/footer-amap.jsp" />
 	</footer>
 	<script>
