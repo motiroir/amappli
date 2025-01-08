@@ -71,7 +71,7 @@
 								<th class="bg-700">Nom</th>
 								<th class="d-none d-md-table-cell bg-700">Email</th>
 								<th class="d-table-cell d-md-none bg-700"></th>
-								<th class="d-none d-md-table-cell bg-700">Credit Balance</th>
+								<th class="d-none d-md-table-cell bg-700">Avoir</th>
 								<th class="d-table-cell d-md-none bg-700"></th>
 								<th class="bg-700">Rôle</th>
 								<th class="bg-700">Actions</th>
@@ -84,7 +84,7 @@
 										${user.contactInfo.name}</td>
 									<td class="text-wrap d-none d-md-table-cell">${user.email}</td>
 									<td class="d-table-cell d-md-none"></td>
-									<td class="d-none d-md-table-cell">${user.creditBalance == null ? 0 : user.creditBalance}</td>
+									<td class="d-none d-md-table-cell">${user.creditBalance == null ? 0 : user.creditBalance} €</td>
 									<td class="d-table-cell d-md-none"></td>
 									<td class="text-wrap">
 										<c:forEach var="role" items="${user.roles}">
