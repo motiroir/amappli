@@ -55,8 +55,8 @@ request.setAttribute("currentPage", currentPage);
 			</div>
 			<br>
 			<div class="container">
-				<div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-4 mx-auto">
-					<!-- 			<div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-4 mx-auto"> -->
+<!-- 				<div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-4 mx-auto"> -->
+								<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 mx-auto">
 					<c:if test="${not empty contracts}">
 						<c:forEach var="contract" items="${contracts}">
 							<div class="col"

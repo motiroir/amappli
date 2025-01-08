@@ -36,7 +36,7 @@ request.setAttribute("currentPage", currentPage);
 		style="border-radius: 10px 10px 0 0;">
 		
 					<div class="header">
-				<a href="<c:url value='/amap/${tenancyAlias}/shop/contracts'/>" class="text-decoration-none">
+				<a href="<c:url value='/amap/${tenancyAlias}/shop/workshops'/>" class="text-decoration-none">
     <i class="bi bi-arrow-left-circle fs-1 fc-500"></i>
 </a>
 </div>
@@ -91,8 +91,7 @@ request.setAttribute("currentPage", currentPage);
 				<input type="hidden" name="shoppableId" value="${workshop.id}" />
 				<input type="hidden" name="shoppableType" value="WORKSHOP" />
 				<input type="hidden" name="quantity" value="1" />
-				<button type="submit" class="btn btn-500 btn-order ms-2">Je m'inscris
-					à cet atelier</button>
+				<button type="submit" class="btn btn-500 btn-order ms-2">S'inscrire à l'atelier</button>
 			</form:form>
 		</div>
 	</div>

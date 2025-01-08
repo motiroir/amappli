@@ -34,7 +34,7 @@ request.setAttribute("currentPage", currentPage);
 	<div class="content col fc-main bg-100 border border-3 border-main pb-3 mt-3 mb-2 mx-5"
 		style="border-radius: 10px 10px 0 0;">
 			<div class="header">
-				<a href="<c:url value='/amap/${tenancyAlias}/shop/contracts'/>" class="text-decoration-none">
+				<a href="<c:url value='/amap/${tenancyAlias}/shop/products'/>" class="text-decoration-none">
     <i class="bi bi-arrow-left-circle fs-1 fc-500"></i>
 </a>
 </div>

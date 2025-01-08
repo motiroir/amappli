@@ -21,42 +21,9 @@ request.setAttribute("currentPage", currentPage);
 <link
 	href="<c:url value='/resources/bootstrap/bootstrap-icons.min.css' />"
 	rel="stylesheet">
+	<link href="<c:url value='/resources/css/amap/shopping-detail.css' />"
+	rel="stylesheet">
 </head>
-<style>
-.contract-detail-container {
-	display: flex;
-	gap: 30px; /* Espace entre les colonnes */
-}
-
-.contract-image {
-	flex: 2; /* 20% de la largeur totale */
-	text-align: center;
-}
-
-.contract-image img {
-	width: 100%; /* Image responsive */
-	max-height: 300px;
-	object-fit: cover;
-	border-radius: 4px; /* Coins arrondis */
-}
-
-.contract-info {
-	flex: 7; /* 70% de la largeur totale */
-}
-
-.quantity-selector {
-	display: inline-flex;
-	align-items: center;
-	gap: 10px;
-	margin-top: 20px;
-}
-
-.quantity-selector input {
-	width: 50px;
-	text-align: center;
-}
-
-</style>
 </head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
 	<!-- Header -->
