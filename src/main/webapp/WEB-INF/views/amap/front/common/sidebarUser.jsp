@@ -55,13 +55,14 @@
 								mixtes</a> <span class="badge bg-none fc-300 rounded-pill ms-5">${mixedCount}</span>
 						</li>
 					</ul> <!-- Épicerie --> <c:if test="${options.option1Active}">
-						<li><a
-							href="<c:url value='/amap/${tenancyAlias}/shop/products'/>"
+						<li><a href="<c:url value='/amap/${tenancyAlias}/shop/products'/>"
 							class="ps-2 pe-5 pt-3 pb-2 d-flex align-items-left border-bottom text-decoration-none ${currentMainMenu.equals('products') ? 'active bg-500 fc-100' : 'fc-500 text-decoration-none'}">
 								<i class="bi bi-shop-window me-2"></i>
 								<h4 class="fw-bold">Épicerie</h4>
 						</a>
-					</c:if> <!-- Ateliers --> <c:if test="${options.option1Active}">
+					</c:if>
+					<!-- Ateliers -->
+					<c:if test="${options.option1Active}">
 						<li><a
 							href="<c:url value='/amap/${tenancyAlias}/shop/workshops'/>"
 							class="ps-2 pe-5 pt-3 pb-2 d-flex align-items-left border-bottom text-decoration-none ${currentMainMenu.equals('workshops') ? 'active bg-500 fc-100' : 'fc-500 text-decoration-none'}">

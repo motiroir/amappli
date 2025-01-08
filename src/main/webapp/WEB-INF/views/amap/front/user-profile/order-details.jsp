@@ -110,7 +110,7 @@ request.setAttribute("currentPage", currentPage);
 	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script>
 	
-		type="text/javascript"></script>
+
 	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />"
 		type="text/javascript"></script>
 </body>

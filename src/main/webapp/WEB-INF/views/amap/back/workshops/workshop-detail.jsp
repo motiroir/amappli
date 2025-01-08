@@ -151,7 +151,7 @@ request.setAttribute("currentPage", currentPage);
 										modification</button>
 								</div>
 								<div class="col text-center">
-									<button type="reset" class="btn btn-danger rounded-pill">Annuler</button>
+									<button type="reset" class="btn btn-900 fc-alt border-alt rounded-pill">Annuler</button>
 								</div>
 							</div>
 					</form:form>
@@ -177,7 +177,7 @@ request.setAttribute("currentPage", currentPage);
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
 		type="text/javascript"></script>
 	
-		type="text/javascript"></script>
+
 	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />"
 		type="text/javascript"></script>
 </body>

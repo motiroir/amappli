@@ -20,7 +20,7 @@
 								<a href="<c:url value='/amap/${tenancyAlias}/admin/suppliers/list'/>" class="fch-600 text-decoration-none ${currentPage.equals('suppliers') ? 'active' : ''}">Vos fournisseurs</a>
 							</li>
 							<li class="d-flex justify-content-between">
-								<a class="disabled text-decoration-none">Vos rôles personnalisés</a> <span class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">€</span>
+								<a href="<c:url value='/amap/${tenancyAlias}/admin/roles/manage'/>" class=" ${options.option1Active ? 'fch-600' : 'disabled'} text-decoration-none ${currentPage.equals('roles') ? 'active' : ''}">Vos rôles personnalisés</a> <span class="badge ${options.option1Active ? 'd-none' : 'text-secondary'} rounded-pill fw-bold border border-2 border-secondary bg-transparent">€</span>
 							</li>
 						</ul>
 					</div>
@@ -38,13 +38,14 @@
 								<a href="<c:url value='/amap/${tenancyAlias}/admin/contracts/list'/>" class="${currentPage.equals('contracts') ? 'active' : ''} text-decoration-none fch-600">Les contrats</a>
 							</li>
 							<li>
-								<a href="<c:url value='/amap/${tenancyAlias}/admin/orders'/>" class="${currentPage.equals('orders') ? 'active' : ''} text-decoration-none fch-600">Vos commandes</a>
+								<a href="<c:url value='/amap/${tenancyAlias}/admin/orders/list'/>" class="${currentPage.equals('orders') ? 'active' : ''} text-decoration-none fch-600">Vos commandes</a>
+							</li>
+							
+							<li class="d-flex justify-content-between">
+								<a href="<c:url value='/amap/${tenancyAlias}/admin/products/list'/>" class=" ${options.option1Active ? 'fch-600' : 'disabled'} text-decoration-none">L'épicerie</a><span class="badge rounded-pill ${options.option1Active ? 'd-none' : 'text-secondary'} fw-bold border border-2 border-secondary bg-transparent">€</span>
 							</li>
 							<li class="d-flex justify-content-between">
-								<a class="disabled text-decoration-none">L'épicerie</a><span class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">€</span>
-							</li>
-							<li class="d-flex justify-content-between">
-								<a class="disabled text-decoration-none">Les ateliers</a><span class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">€</span>
+								<a href="<c:url value='/amap/${tenancyAlias}/admin/workshops/list'/>" class=" ${options.option1Active ? 'fch-600' : 'disabled'} text-decoration-none">Les ateliers</a><span class="badge rounded-pill ${options.option1Active ? 'd-none' : 'text-secondary'} fw-bold border border-2 border-secondary bg-transparent">€</span>
 							</li>
 						</ul>
 					</div>
@@ -58,12 +59,11 @@
 					</h2>
 					<div id="submenu-site" data-bs-parent="#accordion-parent" class="accordion-collapse collapse bg-main ${currentMainMenu.equals('site') ? 'show' : ''}">
 						<ul class="accordion-body list-unstyled">
-							<!-- Pas de sous-rubrique pour l'instant -->
 							<li>
 								<a href="<c:url value='/amap/${tenancyAlias}/home'/>" class="text-decoration-none fch-600" >Page d'accueil de <span class="text-capitalize">${tenancyAlias}</span></a>
 							</li>
 							<li>
-								<a href="<c:url value='/amap/${tenancyAlias}/home'/>" class="text-decoration-none disabled" >Modifier le design</a>
+								<a href="<c:url value='/amap/${tenancyAlias}/admin/edithomepage'/>" class="text-decoration-none fch-600" >Personnaliser votre site</a>
 							</li>
 						</ul>
 					</div>
@@ -71,50 +71,18 @@
 			
 				<!-- Vos fonctionnalités -->
 				<li class="accordion-item">
-					<h2 id="features" class="accordion-header" aria-expanded="${currentMainMenu.equals('features')}" aria-controls="submenu-features" data-bs-target="#submenu-features">
-						<button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse">
+					<h2 id="features" class="accordion-header">
+						<button class="accordion-button fw-bold collapsed" type="button" data-bs-toggle="collapse" aria-expanded="${currentMainMenu.equals('features')}" aria-controls="submenu-features" data-bs-target="#submenu-features">
 							Votre abonnement&emsp;&emsp;&emsp;
 						</button>
 					</h2>
 					<div id="submenu-features" data-bs-parent="#accordion-parent" class="accordion-collapse collapse bg-main ${currentMainMenu.equals('features') ? 'show' : ''}">
 						<ul class="accordion-body list-unstyled">
 							<li>
-								<a href="<c:url value='/amap/${tenancyAlias}/home'/>" class="text-decoration-none fch-600 disabled" >On a qqch ?</a>
+								<a href="<c:url value='/amappli/features'/>" class="text-decoration-none fch-600" >Votre forfait Amappli</a>
 							</li>
 						</ul>
 					</div>
-				</li>
-			
-				<!-- Rubriques PRO -->
-				<li class="accordion-item pro">
-					<h2 class="accordion-header ${currentMainMenu.equals('stats') ? 'show' :''}">
-						<button class="accordion-button collapsed fw-bold disabled" type="button" data-bs-toggle="collapse" data-bs-target="" aria-expanded="false" aria-controls="">
-							<span class="col">Statistiques</span>
-							<div class="col-2">
-								<span class="badge rounded-circle text-secondary fw-bold float-end border border-2 border-secondary bg-transparent">€</span>
-							</div>
-						</button>
-					</h2>
-				</li>
-				<li class="accordion-item pro">
-					<h2 class="accordion-header ${currentMainMenu.equals('messages') ? 'show' :''}">
-						<button class="accordion-button collapsed fw-bold disabled" type="button" data-bs-toggle="collapse" data-bs-target="" aria-expanded="false" aria-controls="">
-							<span class="col">Messagerie</span>
-							<div class="col-2">
-								<span class="badge rounded-circle text-secondary fw-bold float-end border border-2 border-secondary bg-transparent">€</span>
-							</div>
-						</button>
-					</h2>
-				</li>
-				<li class="accordion-item pro">
-					<h2 class="accordion-header ${currentMainMenu.equals('newsletter') ? 'show' :''}">
-						<button class="accordion-button collapsed fw-bold disabled" type="button" data-bs-toggle="collapse" data-bs-target="" aria-expanded="false" aria-controls="">
-							<span class="col">Newsletter</span>
-							<div class="col-2">
-								<span class="badge rounded-circle text-secondary fw-bold float-end border border-2 border-secondary bg-transparent">€</span>
-							</div>
-						</button>
-					</h2>
 				</li>
 			</ul>
 		</div>

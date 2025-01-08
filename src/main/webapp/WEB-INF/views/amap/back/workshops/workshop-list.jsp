@@ -142,7 +142,7 @@ request.setAttribute("currentPage", currentPage);
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
 		type="text/javascript"></script>
 	
-		type="text/javascript"></script>
+
 	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />"
 		type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />"

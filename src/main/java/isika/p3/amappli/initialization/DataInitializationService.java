@@ -1065,7 +1065,7 @@ public class DataInitializationService {
 
 		contracts.add(Contract.builder().contractName("Panier de légumes bio - Printemps")
 				.contractType(ContractType.VEGETABLES_CONTRACT)
-				.contractDescription("Un panier hebdomadaire avec des légumes frais et bio pour la tenancy : "
+				.contractDescription("Un panier hebdomadaire avec des légumes frais et bio pour "
 						+ tenancy.getTenancyName())
 				.contractWeight(ContractWeight.AVERAGE).contractPrice(new BigDecimal("25.50"))
 				.dateCreation(LocalDate.now()).startDate(LocalDate.of(2025, 4, 1)).endDate(LocalDate.of(2025, 6, 30))
