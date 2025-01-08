@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import isika.p3.amappli.entities.auth.Permission;
@@ -22,6 +24,8 @@ import isika.p3.amappli.repo.amap.UserRepository;
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public CustomUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -37,6 +41,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
         System.out.println(user.getEmail());
 
+        System.out.println("Matches: " + passwordEncoder.matches("AMAPamap11@", passwordEncoder.encode("AMAPamap11@")));
         //userRepository.flush();
         // If the user is found, get his permissions
         //Set<Permission> permissions = userRepository.findPermissionsByEmail(username);
@@ -56,7 +61,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         //             .build();
         // }
         System.out.println("trying to authenticate 3");
-
+        System.out.println("the retrieved password : " );
+        System.out.println(user.getPassword());
         securityUser.addAdditionalInfo("userId",user.getUserId());
         if(user.getContactInfo() != null){
             securityUser.addAdditionalInfo("firstName",user.getContactInfo().getFirstName());

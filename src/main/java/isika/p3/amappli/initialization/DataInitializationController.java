@@ -18,4 +18,10 @@ public class DataInitializationController {
 		return "dispatch";
 	}
 	
+	@GetMapping("/test")
+	public String initializeWIP() {
+		initService.WIPInit();
+		return "dispatch";
+	}
+	
 }

@@ -56,9 +56,10 @@
                         <a href="#" class="text-white me-2"><i class="bi bi-instagram"></i></a>
                     </p>
                 </div>
+                <!-- Carte dynamique -->
+            <div class="map mt-4 " id="dynamic-map" style="height: 300px; width: 100%;"></div>
             </div>
-            <!-- Carte dynamique -->
-            <div class="map mt-4" id="dynamic-map" style="height: 300px; width: 100%;"></div>
+            
         </div>
 
         <!-- Contact Form -->
@@ -89,15 +90,14 @@
     </div>
 </div>
 
-<footer class="container-fluid fc-main bg-main">
-    <jsp:include page="../common/footer.jsp" />
-</footer>
+	<footer class="container-fluid fc-main bg-main fixed-bottom">
+		<jsp:include page="../common/footer.jsp" />
+	</footer>
 
-
-<script	src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
+	<script	src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 	<script	src="<c:url value='/resources/js/amappli/loading-when-visible.js' />"></script>
-	<script	src="<c:url value='/resources/js/amappli/theme-swap.js' />"></script>
- <script	src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script	src="<c:url value='/resources/js/common/theme-swap.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
 	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
 
 <!-- Leaflet JS -->

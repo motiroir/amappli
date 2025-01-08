@@ -1,4 +1,3 @@
-console.clear();
 // mo access token for mapbox 
 mapboxgl.accessToken = 'pk.eyJ1IjoidGlyb2lybW9yZ2FuZSIsImEiOiJja2cyOXRqYWkwcDdsMnRwaWtzYWR3Zjc2In0.yp4z_Ui7Ukj7I4p6au750g';
 

@@ -2,8 +2,8 @@
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
-	String currentMainMenu="users" ; // Détermine la rubrique active
-	String currentPage="users" ; // Détermine la sous-rubrique active
+	String currentMainMenu="products" ; // Détermine la rubrique active
+	String currentPage="orders" ; // Détermine la sous-rubrique active
 	request.setAttribute("currentMainMenu", currentMainMenu);
 	request.setAttribute("currentPage", currentPage);
 %>
@@ -109,7 +109,7 @@
 	</script>
 	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/user-list.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />" type="text/javascript"></script>

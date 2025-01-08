@@ -109,8 +109,11 @@ public class TenancyServiceImpl implements TenancyService {
 			tenancy.setTenancyLatitude(coor[1]);
 			tenancy.setTenancyLongitude(coor[0]);
 		}
+		
 		// Alias
-		tenancy.setTenancyAlias(newTenancyDTO.getTenancyAlias());
+		String alias = newTenancyDTO.getTenancyAlias().trim().toLowerCase().replace(' ', '-');
+		int copycats = this.getAllTenancies().stream().filter(t -> t.getTenancyAlias().equals(alias)).toList().size();		
+		tenancy.setTenancyAlias(copycats == 0 ? alias : alias + "-" + copycats);
 
 		// Slogan
 		tenancy.setTenancySlogan(newTenancyDTO.getTenancySlogan());

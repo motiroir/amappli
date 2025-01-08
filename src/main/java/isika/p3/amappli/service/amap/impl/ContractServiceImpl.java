@@ -182,6 +182,12 @@ public class ContractServiceImpl implements ContractService {
 	            .filter(Contract::isShoppable) // Garder uniquement les contrats shoppables
 	            .toList();
 	}
+	
+	@Override
+	public List<Contract> findShoppableContractsByTypeAndTenancy(ContractType type, Tenancy tenancy) {
+	    return contractRepository.findByTypeAndTenancy(type, tenancy);
+	}
+
 
 
 

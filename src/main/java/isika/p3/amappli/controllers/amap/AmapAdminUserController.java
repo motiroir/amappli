@@ -1,5 +1,6 @@
 package isika.p3.amappli.controllers.amap;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Set;
 
@@ -58,9 +59,10 @@ public class AmapAdminUserController {
 	@GetMapping("/users/details/{userId}")
 	public String usersDetails(@PathVariable("userId") Long userId, Model model, @PathVariable("tenancyAlias") String tenancyAlias, @ModelAttribute("message") String message) {
 		User user = adminUserService.findById(userId);
-
 		model.addAttribute("user", model.containsAttribute("userDTO")? model.getAttribute("userDTO") : user);
 		model.addAttribute("tenancyAlias", tenancyAlias);
+		model.addAttribute("dateEnd", user.getMembershipFee() != null ? new SimpleDateFormat("dd-MM-yyyy").format(user.getMembershipFee().getDateEnd()) : "Aucune cotisation effectuée");
+		model.addAttribute("allRoles" , this.roleService.findAmapRoles(tenancyAlias));
 		graphismService.setUpModel(tenancyAlias, model);
 		return "amap/back/users/users-details";
 	}
@@ -70,12 +72,6 @@ public class AmapAdminUserController {
 		adminUserService.hideById(userId);
 		return "redirect:../list";
 	}
-	
-	// @GetMapping("/users/generateFakes")
-	// public String usersAddFake(@PathVariable("tenancyAlias") String tenancyAlias) {
-	// 	adminUserService.generateUsers(tenancyAlias);
-	// 	return "redirect:list";
-	// }
 	
 	@GetMapping("/suppliers/list")
 	public String suppliersList(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
@@ -138,7 +134,7 @@ public class AmapAdminUserController {
 		Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
 		for (ConstraintViolation<UserDTO> violation : violations) 
         {
-			String path = violation.getPropertyPath() + "";
+			String path = violation.getPropertyPath() + "Error";
             if (path.contains(".")) {
             	ra.addFlashAttribute(path.substring(path.indexOf('.') +1), violation.getMessage());
 			} else {
@@ -162,7 +158,7 @@ public class AmapAdminUserController {
 		Set<ConstraintViolation<UserDTO>> violations = validator.validate(user);
 		for (ConstraintViolation<UserDTO> violation : violations) 
 		{
-			String path = violation.getPropertyPath() + "";
+			String path = violation.getPropertyPath() + "Error";
 			if (path.contains(".")) {
 				ra.addFlashAttribute(path.substring(path.indexOf('.') +1), violation.getMessage());
 			} else {
@@ -190,12 +186,13 @@ public class AmapAdminUserController {
 	public String suppliersDetails(@PathVariable("userId") Long userId, Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 	    User supplier = adminUserService.findById(userId);
 	    model.addAttribute("user", supplier);
+		model.addAttribute("dateEnd", supplier.getMembershipFee() != null ? new SimpleDateFormat("dd-MM-yyyy").format(supplier.getMembershipFee().getDateEnd()) : "Aucune cotisation effectuée");
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAmapRoles(tenancyAlias));
 		graphismService.setUpModel(tenancyAlias, model);
 	    return "amap/back/users/suppliers-details";
 	}
-	
+
 	@PostMapping("/suppliers/update")
 	public String suppliersUpdate(@Valid @ModelAttribute("supplier") UpdateUserDTO supplier, BindingResult result, Model model, RedirectAttributes ra) {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -203,7 +200,7 @@ public class AmapAdminUserController {
 		Set<ConstraintViolation<UpdateUserDTO>> violations = validator.validate(supplier);
 		for (ConstraintViolation<UpdateUserDTO> violation : violations) 
         {
-			String path = violation.getPropertyPath() + "";
+			String path = violation.getPropertyPath() + "Error";
             if (path.contains(".")) {
             	ra.addFlashAttribute(path.substring(path.indexOf('.') +1), violation.getMessage());
 			} else {

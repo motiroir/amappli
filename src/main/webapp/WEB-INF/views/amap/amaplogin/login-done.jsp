@@ -22,6 +22,7 @@
 <div id="map"></div>  
 		 
     <div class="container flex-grow-1">
+    <div class="container-success ">
     <div class="success">
         <h2 class="h2 fw-bold fc-300">Inscription réussie !</h2>
         <p class="fc-main">Votre compte a été créé avec succès. Vous pouvez maintenant vous connecter.</p>
@@ -29,7 +30,11 @@
             <a href="login" class="btn btn-500 rounded-pill">Se connecter</a>
         </div>
         </div>
+        </div>
     </div>
+    
+    
+    
      <footer class="fc-main bg-main">
 			<jsp:include page="../front/common/footer-amap.jsp" />
 		</footer> 
@@ -45,7 +50,7 @@
 
 	</script>
 
-	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
 	 <script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>  
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script>   
 </body>

@@ -5,7 +5,6 @@
 .contract-detail-container {
 	display: flex;
 	gap: 40px; /* Espace entre les colonnes */
-	margin-top: 20px;
 }
 
 .contract-image {
@@ -17,7 +16,7 @@
 	width: 100%; /* Image responsive */
 	max-height: 300px;
 	object-fit: cover;
-	border-radius: 10px; /* Coins arrondis */
+	border-radius: 4px; /* Coins arrondis */
 }
 
 .contract-info {
@@ -34,17 +33,4 @@
 .quantity-selector input {
 	width: 50px;
 	text-align: center;
-}
-
-.btn-add-to-cart {
-	background-color: #FF8C42;
-	border: none;
-	padding: 10px 20px;
-	color: white;
-	border-radius: 5px;
-	cursor: pointer;
-}
-
-.btn-add-to-cart:hover {
-	background-color: #FF6A00;
 }

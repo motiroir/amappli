@@ -26,9 +26,9 @@ public abstract class Shoppable {
 	@Getter @Setter
 	@OneToMany(mappedBy = "shoppable", cascade = CascadeType.ALL)
 	private List<ShoppingCartItem> shoppingCartItems = new ArrayList<ShoppingCartItem>();
-	@Getter @Setter
-	@OneToMany(mappedBy = "shoppable", cascade = CascadeType.ALL)
-	private List<OrderItem> orderItems = new ArrayList<OrderItem>();
+//	@Getter @Setter
+//	@OneToMany(mappedBy = "shoppable")
+//	private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 	
 	
 	public abstract int getStock();

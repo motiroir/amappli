@@ -13,14 +13,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import isika.p3.amappli.dto.amap.MembershipFeeDTO;
 import isika.p3.amappli.dto.amap.UpdateProfileDTO;
 import isika.p3.amappli.dto.amap.UserDTO;
-import isika.p3.amappli.dto.amappli.LoginDTO;
-import isika.p3.amappli.entities.tenancy.Graphism;
 import isika.p3.amappli.entities.tenancy.Tenancy;
-import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.service.amap.GraphismService;
+import isika.p3.amappli.service.amap.MemberShipService;
 import isika.p3.amappli.service.amap.UserService;
 import isika.p3.amappli.service.amappli.TenancyService;
 import jakarta.validation.Valid;
@@ -232,6 +231,21 @@ public class UserController {
     }
     
     
+    @GetMapping("/{userId}/adhesion")
+    public String viewMembership(@PathVariable("userId") Long userId,
+                                 @PathVariable("tenancyAlias") String alias,
+                                 Model model) {
+        // Récupérer l'adhésion via le service
+        MembershipFeeDTO membershipFeeDTO = MemberShipService.getMembershipForUser(userId);
+
+        // Ajouter les données au modèle
+        model.addAttribute("membershipFeeDTO", membershipFeeDTO);
+        model.addAttribute("tenancyAlias", alias);
+        graphismService.setUpModel(alias, model);
+
+        return "amap/front/user-profile/membershipfee";
+    }
+
 
 }
 

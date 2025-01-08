@@ -12,18 +12,18 @@
 		<div class="nav-item col-6 col-md-4">
 			<h5 class="fw-bold">Notre histoire</h5>
 			<ul class="list-unstyled">
-				<li><a href="#" class="nav-link">A propos</a></li>
+				<li><a href="<c:url value='/amap/${tenancyAlias}/home'/>" class="nav-link">A propos</a></li>
 				<li><a href="#" class="nav-link">Partenaires</a></li>
-				<li><a href="#" class="nav-link">Nos produits</a></li>
-				<li><a href="#" class="nav-link">Nos événements</a></li>
+				<li><a href="<c:url value='/amap/${tenancyAlias}/shop/contracts'/>" class="nav-link">Nos produits</a></li>
+				<li><a href="<c:url value='/amap/${tenancyAlias}/shop/workshop'/>" class="nav-link">Nos événements</a></li>
 			</ul>
 		</div>
 		<!-- Colonne "Une question ?" -->
 		<div class="nav-item col-6 col-md-4">
 			<h5 class="fw-bold">Une question ?</h5>
 			<ul class="list-unstyled">
-				<li><a href="#" class="nav-link">Contact</a></li>
-				<li><a href="#" class="nav-link">FAQ</a></li>
+				<li><a href="<c:url value='/amap/${tenancyAlias}/contact'/>" class="nav-link">Contact</a></li>
+				<li><a href="<c:url value='/amap/${tenancyAlias}/amapPage'/>" class="nav-link">FAQ</a></li>
 			</ul>
 			<!-- RÃ©seaux sociaux -->
 			<div class="nac-item col-6 col-md-4">

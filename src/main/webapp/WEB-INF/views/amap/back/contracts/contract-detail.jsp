@@ -178,11 +178,11 @@ request.setAttribute("currentPage", currentPage);
 							<div class="d-flex justify-content-evenly my-5">
 								<div class="col text-center">
 									<button id="submit-button" type="submit"
-										class="btn btn-success rounded-pill">Valider la
+										class="btn btn-300 rounded-pill">Valider la
 										modification</button>
 								</div>
 								<div class="col text-center">
-									<button type="reset" class="btn btn-danger rounded-pill">Annuler</button>
+									<button type="reset" class="btn btn-900 fc-alt border-alt rounded-pill">Annuler</button>
 								</div>
 							</div>
 						</div>
@@ -198,21 +198,12 @@ request.setAttribute("currentPage", currentPage);
 		var longitude = "${longitude}"
 	</script>
 	<script
-		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"
-		type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/image-format.js' />"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/amap/admin/contract-edit.js' />"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/image-format.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/contract-edit.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
-		type="text/javascript"></script>
-	
-		type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />"
-		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />" type="text/javascript"></script>
 </body>
 </html>

@@ -53,7 +53,7 @@
             <li><i class="bi bi-check-circle-fill fc-900 me-2"></i>  La gestion des contrats et des stocks avec un paiement hors-ligne</li>
             <li><i class="bi bi-check-circle-fill fc-900 me-2"></i>  La gestion des commandes avec factures pour vos fournisseurs</li>
           </ul>
-          <a href="#" class="btn btn-100 rounded-pill px-4">Créer mon site</a>
+          <a href="<c:url value='/amappli/start/signup'/>" class="btn btn-100 rounded-pill px-4">Créer mon site</a>
         </div>
       </div>
     </div>
@@ -76,7 +76,7 @@
             <li><i class="bi bi-check-circle-fill fc-900 me-2"></i>  Un choix parmi plusieurs modèles de site pour personnaliser encore plus !</li>
             <li><i class="bi bi-check-circle-fill fc-900 me-2"></i>  Choix d’un logo dans une banque de logos</li>
           </ul>
-          <a href="#" class="btn btn-100 rounded-pill px-4">Créer mon site</a>
+          <a href="<c:url value='/amappli/start/signup'/>" class="btn btn-100 rounded-pill px-4">Créer mon site</a>
         </div>
       </div>
     </div>
@@ -100,7 +100,7 @@
             <li><i class="bi bi-check-circle-fill fc-900 me-2"></i>  Un système de newsletter</li>
             <li><i class="bi bi-check-circle-fill fc-900 me-2"></i>  Un accompagnement SEO personnalisé</li>
           </ul>
-          <a href="#" class="btn btn-100 rounded-pill px-4">Créer mon site</a>
+          <a href="<c:url value='/amappli/start/signup'/>" class="btn btn-100 rounded-pill px-4">Créer mon site</a>
         </div>
       </div>
     </div>
@@ -114,7 +114,7 @@
 	<script	src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 	<script	src="<c:url value='/resources/js/amappli/loading-when-visible.js' />"></script>
 	<script	src="<c:url value='/resources/js/common/theme-swap.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
 	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  
 </body>
 </html>
