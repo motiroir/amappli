@@ -30,80 +30,59 @@ request.setAttribute("currentPage", currentPage);
 	<div id="map" class="p-0"></div>
 
 	<div class="content col fc-main">
-		<div class="container-fluid mt-4">
-			<div class="search-bar row align-items-center mx-auto"
+		<div class="container mt-4">
+			<div
+				class="row-controls d-flex justify-content-between align-items-center mx-auto"
 				style="max-width: 95%;">
-				<!-- Première colonne -->
-				<div class="col text-center">
-					<div class="d-flex justify-content-center align-items-center">
-						<label for="sortByContracts"
-							class="me-2 fw-400 fs-3 text-nowrap fc-main">Trier par</label> <select
-							id="sortByContracts"
-							class="form-select custom-select border-main">
-							<option value="name">Nom</option>
-							<option value="priceDesc" class="d-none d-md-block">Prix
-								décroissant</option>
-							<option value="priceAsc" class="d-none d-md-block">Prix
-								croissant</option>
-						</select>
-					</div>
+				<!-- Trier par -->
+				<div class="d-flex align-items-center">
+					<label for="sortByContracts"
+						class="me-2 fw-400 fs-5 text-nowrap fc-main">Trier par</label> <select
+						id="sortByContracts"
+						class="form-select custom-select border-main w-auto">
+						<option value="name">Nom</option>
+						<option value="priceDesc">Prix décroissant</option>
+						<option value="priceAsc">Prix croissant</option>
+					</select>
 				</div>
 
-				<!-- Deuxième colonne (vide ou avec du contenu si nécessaire) -->
-				<div class="col">
-					<!-- Vous pouvez ajouter du contenu ici si nécessaire -->
-				</div>
-
-				<!-- Troisième colonne -->
-				<div class="col text-center">
-					<div class="d-flex justify-content-center">
-						<input type="text" id="searchBar"
-							class="form-control custom-input border-300"
-							placeholder="Rechercher...">
-					</div>
+				<!-- Barre de recherche -->
+				<div class="d-flex align-items-center">
+					<input type="text" id="searchBar"
+						class="form-control custom-input border-300 w-auto"
+						placeholder="Rechercher...">
 				</div>
 			</div>
 			<br>
-
 			<div class="container">
-				<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 mx-auto"
-					style="max-width: 95%;">
+				<div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-4 mx-auto">
+					<!-- 			<div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-4 mx-auto"> -->
 					<c:if test="${not empty contracts}">
 						<c:forEach var="contract" items="${contracts}">
-
-							<div class="col" style="width: 30%; max-width: 30%;"
+							<div class="col"
 								data-contract-type="${contract.contractType.name()}">
 								<div
-									class="card contract-card rounded-4 border border-3 border-main bg-100">
+									class="card contract-card rounded-4 border border-3 border-main bg-100 h-100">
 									<c:if test="${not empty contract.imageData}">
 										<img class="card-img-top rounded-top"
 											src="data:${contract.imageType};base64,${contract.imageData}"
 											alt="Image du contrat">
 									</c:if>
-									<div class="card-body">
-										<h1 class="card-title fw-bold"
-											style="text-transform: uppercase;">${contract.contractName}</h1>
+									<div class="card-body d-flex flex-column">
+										<h1 class="card-title fw-bold fs-5 text-uppercase">${contract.contractName}</h1>
 										<p class="card-text text-muted">${contract.contractType.displayName}</p>
 										<p class="card-text">${contract.contractDescription}</p>
-										<p class="card-text text-end">
+										<p class="card-text text-end mt-auto">
 											<b>${contract.contractPrice} €</b><br> <em>${contract.deliveryRecurrence.displayName}</em>
 										</p>
 										<a
 											href="<c:url value='/amap/${tenancyAlias}/shop/contracts/${contract.id}' />"
-											class="btn btn-main rounded-pill bg-main text-nowrap">Voir
+											class="btn btn-main rounded-pill bg-main text-nowrap mt-3">Voir
 											les détails</a>
 									</div>
 								</div>
 							</div>
-
-
 						</c:forEach>
-					</c:if>
-					<c:if test="${empty contracts}">
-						<div class="col-12">
-							<p class="text-center">Aucun contrat disponible pour cette
-								AMAP.</p>
-						</div>
 					</c:if>
 				</div>
 			</div>
@@ -130,7 +109,8 @@ request.setAttribute("currentPage", currentPage);
 		type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
 		type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/amap/shop-filter-contract.js' />"
+	<script
+		src="<c:url value='/resources/js/amap/shop-filter-contract.js' />"
 		type="text/javascript"></script>
 </body>
 </html>

@@ -30,71 +30,60 @@ request.setAttribute("currentPage", currentPage);
 	<div id="map" class="p-0"></div>
 
 	<div class="content col fc-main">
-		<div class="container-fluid mt-4">
-			<div class="search-bar row align-items-center mx-auto"
-				items="${contracts}" style="max-width: 95%;">
-				<!-- Première colonne -->
-				<div class="col text-center">
-					<div class="d-flex justify-content-center align-items-center">
-						<label for="sortByWorkshops" class="me-2 fw-400 fs-3 text-nowrap fc-main">Trier
-							par</label> <select id="sortByWorkshops"
-							class="form-select custom-select border-main">
-							<option value="name">Nom</option>
-							<option value="workshopDateTime" class="d-none d-md-block">Date</option>
-							<option value="priceDesc" class="d-none d-md-block">Prix
-								décroissant</option>
-							<option value="priceAsc" class="d-none d-md-block">Prix
-								croissant</option>
-						</select>
-					</div>
+		<div class="container mt-4">
+			<div
+				class="row-controls d-flex justify-content-between align-items-center mx-auto"
+				style="max-width: 95%;">
+				<!-- Trier par -->
+				<div class="d-flex align-items-center">
+					<label for="sortByWorkshops"
+						class="me-2 fw-400 fs-5 text-nowrap fc-main">Trier par</label> <select
+						id="sortByWorkshops"
+						class="form-select custom-select border-main w-auto">
+						<option value="name">Nom</option>
+						<option value="workshopDateTime" class="d-none d-md-block">Date</option>
+						<option value="priceDesc" class="d-none d-md-block">Prix
+							décroissant</option>
+						<option value="priceAsc" class="d-none d-md-block">Prix
+							croissant</option>
+					</select>
 				</div>
-
-				<!-- Deuxième colonne (vide ou avec du contenu si nécessaire) -->
-				<div class="col">
-					<!-- Vous pouvez ajouter du contenu ici si nécessaire -->
-				</div>
-
-				<!-- Troisième colonne -->
-				<div class="col text-center">
-					<div class="d-flex justify-content-center">
-						<input type="text" id="searchBar"
-							class="form-control custom-input border-300"
-							placeholder="Rechercher...">
-					</div>
+				<!-- Barre de recherche -->
+				<div class="d-flex align-items-center">
+					<input type="text" id="searchBar"
+						class="form-control custom-input border-300 w-auto"
+						placeholder="Rechercher...">
 				</div>
 			</div>
 			<br>
-			<div class="container">
-				<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 mx-auto"
-					items="${workshops}" style="max-width: 95%;">
-					<c:forEach var="workshop" items="${workshops}">
-						<div class="col" style="width: 30%; max-width: 30%;">
-							<div class="card contract-card rounded-4 border-main bg-100">
-								<c:if test="${not empty workshop.imageData}">
-									<img class="card-img-top"
-										src="data:${workshop.imageType};base64,${workshop.imageData}"
-										alt="Image de l'atelier">
-								</c:if>
-								<div class="card-body">
-									<h3 class="card-title fw-bold"
-										style="text-transform: uppercase;">${workshop.workshopName}</h3>
-									<p class="card-text text-muted">${workshop.workshopDateTime}</p>
-									<p class="card-text">${workshop.workshopDescription}</p>
-									<p class="card-text text-end">
-										<em>${workshop.workshopDuration} minutes</em><br> <b>${workshop.workshopPrice}&euro;/personne</b>
-									</p>
-									<a
-										href="<c:url value='/amap/${tenancyAlias}/shop/workshops/${workshop.id}' />"
-										class="btn btn-main rounded-pill bg-main">Voir les détails</a>
+			
+		<div class="container">
+				<div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-4 mx-auto">
+					<!-- 			<div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-4 mx-auto"> -->
+				<c:if test="${not empty workshops}">
+				<c:forEach var="workshop" items="${workshops}">
+					<div class="col">
+						<div class="card contract-card rounded-4 border-main bg-100 h-100">
+							<c:if test="${not empty workshop.imageData}">
+								<img class="card-img-top rounded-top"
+									src="data:${workshop.imageType};base64,${workshop.imageData}"
+									alt="Image de l'atelier">
+							</c:if>
+							<div class="card-body d-flex flex-column">
+								<h3 class="card-title fw-bold fs-5 text-uppercase">${workshop.workshopName}</h3>
+								<p class="card-text text-muted">${workshop.workshopDateTime}</p>
+								<p class="card-text">${workshop.workshopDescription}</p>
+								<p class="card-text text-end mt-auto">
+									<em>${workshop.workshopDuration} minutes</em><br> <b>${workshop.workshopPrice}&euro;/personne</b>
+								</p>
+								<a
+									href="<c:url value='/amap/${tenancyAlias}/shop/workshops/${workshop.id}' />"
+									class="btn btn-main rounded-pill bg-main text-nowrap">Voir
+									les détails</a>
+									</div>
 								</div>
 							</div>
-						</div>
-					</c:forEach>
-					<c:if test="${empty workshops}">
-						<div class="col-12">
-							<p class="text-center">Aucun atelier disponible pour cette
-								AMAP.</p>
-						</div>
+						</c:forEach>
 					</c:if>
 				</div>
 			</div>
@@ -123,7 +112,8 @@ request.setAttribute("currentPage", currentPage);
 		type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/palette-swap.js' />"
 		type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/amap/shop-filter-workshop.js' />"
+	<script
+		src="<c:url value='/resources/js/amap/shop-filter-workshop.js' />"
 		type="text/javascript"></script>
 </body>
 </html>

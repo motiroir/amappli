@@ -66,10 +66,10 @@ request.setAttribute("currentPage", currentPage);
 	<jsp:include page="../front/common/sidebarUser.jsp" />
 	<div id="map" class="p-0"></div>
 
-	<div class="content col fc-main bg-100 border border-3 border-main pb-3 mt-3 mb-2 me-5" style="border-radius: 10px 10px 0 0;">
+	<div class="content col fc-main bg-100 border border-3 border-main pb-3 mt-3 mb-2 mx-5" style="border-radius: 10px 10px 0 0;">
 	<div class="header">
 				<a href="<c:url value='/amap/${tenancyAlias}/shop/contracts'/>" class="text-decoration-none">
-    <i class="bi bi-arrow-left-circle fs-1"></i>
+    <i class="bi bi-arrow-left-circle fs-1 fc-500"></i>
 </a>
 </div>
 		<div class="contract-detail-container">

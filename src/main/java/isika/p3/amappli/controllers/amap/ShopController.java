@@ -1,18 +1,12 @@
 package isika.p3.amappli.controllers.amap;
 
-import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjusters;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
-
-import javax.swing.text.DateFormatter;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -216,6 +210,7 @@ public class ShopController {
 
 		Contract contract = contractService.findById(id);
 
+
 		if (contract.getAddress() != null) {
 			model.addAttribute("address", contract.getAddress());
 		} else if (contract.getTenancy() != null && contract.getTenancy().getAddress() != null) {
@@ -244,7 +239,24 @@ public class ShopController {
 	    } else {
 	        model.addAttribute("formattedNextDeliveryDate", "Non disponible");
 	    }
-		
+	    
+	    List<Contract> contracts = contractService.findShoppableContractsByTenancy(tenancy);
+	    long vegetableCount = contracts.stream()
+	            .filter(c -> "VEGETABLES_CONTRACT".equals(c.getContractType().name()))
+	            .count();
+
+	    long fruitCount = contracts.stream()
+	            .filter(c -> "FRUITS_CONTRACT".equals(c.getContractType().name()))
+	            .count();
+
+	    long mixedCount = contracts.stream()
+	            .filter(c -> "MIX_CONTRACT".equals(c.getContractType().name()))
+	            .count();
+
+	    model.addAttribute("vegetableCount", vegetableCount);
+	    model.addAttribute("fruitCount", fruitCount);
+	    model.addAttribute("mixedCount", mixedCount);
+	    model.addAttribute("contracts", contracts);
 		model.addAttribute("contract", contract);
 		addGraphismAttributes(tenancyAlias, model);
 		return "amap/front/shopping-contract-detail";
@@ -261,6 +273,8 @@ public class ShopController {
 				.orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
 
 		Product product = productService.findById(id);
+		
+	    List<Contract> contracts = contractService.findShoppableContractsByTenancy(tenancy);
 
 		if (product.getAddress() != null) {
 			model.addAttribute("address", product.getAddress());
@@ -281,11 +295,28 @@ public class ShopController {
 	    String formattedExpirationDate = product.getExpirationDate() != null
 	            ? product.getExpirationDate().format(formatter)
 	            : null;
+	    
+	    long vegetableCount = contracts.stream()
+	            .filter(contract -> "VEGETABLES_CONTRACT".equals(contract.getContractType().name()))
+	            .count();
+
+	    long fruitCount = contracts.stream()
+	            .filter(contract -> "FRUITS_CONTRACT".equals(contract.getContractType().name()))
+	            .count();
+
+	    long mixedCount = contracts.stream()
+	            .filter(contract -> "MIX_CONTRACT".equals(contract.getContractType().name()))
+	            .count();
+	    
+	    model.addAttribute("vegetableCount", vegetableCount);
+	    model.addAttribute("fruitCount", fruitCount);
+	    model.addAttribute("mixedCount", mixedCount);
 
 	    // Ajout des dates formatées au modèle
 	    model.addAttribute("formattedFabricationDate", formattedFabricationDate);
 	    model.addAttribute("formattedExpirationDate", formattedExpirationDate);
 		model.addAttribute("product", product);
+	    model.addAttribute("contracts", contracts);
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		
 		addGraphismAttributes(tenancyAlias, model);

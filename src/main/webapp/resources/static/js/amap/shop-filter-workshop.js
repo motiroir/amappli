@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const workshopsContainer = document.querySelector(".row-cols-1"); // Conteneur des ateliers
+    const workshopsContainer = document.querySelector(".row.row-cols-2"); // Conteneur des ateliers
     const sortBySelect = document.getElementById("sortByWorkshops");
     const searchBar = document.getElementById("searchBar");
 
-    let workshops = Array.from(document.querySelectorAll(".row-cols-1 .col")); // Liste des ateliers
+    let workshops = Array.from(document.querySelectorAll(".row.row-cols-2 .col")); // Liste des ateliers
 
     // Fonction pour parser une date au format "'Le' dd MMMM yyyy 'à' HH:mm"
     function parseDateTime(dateTimeString) {
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const lowerCaseQuery = query.toLowerCase();
         workshops.forEach(workshop => {
             const name = workshop.querySelector(".card-title").innerText.toLowerCase();
-            workshop.style.display = name.includes(lowerCaseQuery) ? "" : "none";
+            workshop.style.display = name.includes(query) ? "" : "none";
         });
     }
 
