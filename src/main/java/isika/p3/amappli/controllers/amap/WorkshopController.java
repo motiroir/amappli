@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -47,6 +48,7 @@ public class WorkshopController {
 	/**
 	 * Displays the form for adding a new workshop.
 	 */
+	@PreAuthorize("hasAuthority('creation atelier amap') and (hasAuthority(#tenancyAlias) or hasAuthority('gestion plateforme'))")
 	@GetMapping("/form")
 	public String showForm(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 
@@ -71,6 +73,7 @@ public class WorkshopController {
 	/**
 	 * Saves a new workshop to the database.
 	 */
+	@PreAuthorize("hasAuthority('creation atelier amap') and (hasAuthority(#tenancyAlias) or hasAuthority('gestion plateforme'))")
 	@PostMapping("/add")
 	public String addWorkshop(@ModelAttribute("workshopDTO") WorkshopDTO workshopDTO,
 			@PathVariable("tenancyAlias") String tenancyAlias) {
@@ -86,6 +89,7 @@ public class WorkshopController {
 	/**
 	 * Displays a list of all workshops.
 	 */
+	@PreAuthorize("hasAuthority('creation atelier amap') and (hasAuthority(#tenancyAlias) or hasAuthority('gestion plateforme'))")
 	@GetMapping("/list")
 	public String listWorkshops(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 		List<Workshop> workshops = workshopService.findAll();
@@ -102,6 +106,7 @@ public class WorkshopController {
 	/**
 	 * Deletes a workshop by its ID.
 	 */
+	@PreAuthorize("hasAuthority('creation atelier amap') and (hasAuthority(#tenancyAlias) or hasAuthority('gestion plateforme'))")
 	@PostMapping("/delete/{id}")
 	public String deleteWorkshop(@PathVariable("id") Long id, @PathVariable("tenancyAlias") String tenancyAlias) {
 		workshopService.deleteById(id);
@@ -113,6 +118,7 @@ public class WorkshopController {
 	/**
 	 * Displays the details of a specific workshop.
 	 */
+	@PreAuthorize("hasAuthority('creation atelier amap') and (hasAuthority(#tenancyAlias) or hasAuthority('gestion plateforme'))")
 	@GetMapping("/detail/{id}")
 	public String viewWorkshopDetail(@PathVariable("id") Long id, Model model,
 			@PathVariable("tenancyAlias") String tenancyAlias) {
@@ -139,7 +145,7 @@ public class WorkshopController {
 		graphismService.setUpModel(tenancyAlias, model);
 		return "amap/back/workshops/workshop-detail";
 	}
-
+	@PreAuthorize("hasAuthority('creation atelier amap') and (hasAuthority(#tenancyAlias) or hasAuthority('gestion plateforme'))")
 	@PostMapping("/update")
 	public String updateWorkshop(@ModelAttribute("workshop") WorkshopDTO updatedWorkshopDTO,
 			@RequestParam(value = "image", required = false) MultipartFile image,
