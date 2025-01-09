@@ -15,7 +15,8 @@
 			</a>
 		</c:if>
 		<a href="<c:url value='/amap/${tenancyAlias}/home'/>" class="nav-link">
-		<h1	class="fw-bold fs-2 mb-0 fc-300 fch-500">${tenancy.getTenancyName()}</h1></a>
+			<h1 class="fw-bold fs-2 mb-0 fc-300 fch-500">${tenancy.getTenancyName()}</h1>
+		</a>
 	</div>
 	<div class="p-0 ms-2 ms-md-0 d-flex justify-content-evenly">
 		<svg class="my-auto mx-1" width="15" height="15" viewBox="0 0 30 30"
@@ -57,47 +58,48 @@
 					href="<c:url value='/amap/${tenancyAlias}/contact'/>"
 					class="nav-link ${font} text-decoration-none fc-300 fch-500">Contact</a>
 				</li>
-				<c:if test="${not empty user}">
+				<c:if test="${not empty pageContext.request.userPrincipal}">
 					<li class="nav-item"><a
 						href="<c:url value='/amap/${tenancyAlias}/cart/${cart.shoppingCartId}'/>">
 							<i class="bi bi-bag-fill fs-4 fc-300 fch-500"></i>
 					</a></li>
 				</c:if>
-				<c:if test="${empty user}">
+
+				<c:if test="${empty pageContext.request.userPrincipal}">
 					<li class="nav-item m-2 m-md-0"><a
 						href="<c:url value='/amap/${tenancyAlias}/login'/>"
-						class="btn rounded-pill btn-500 px-4">Se connecter</a></li>
+						class="btn rounded-pill btn-500 px-4"> Se connecter </a></li>
 				</c:if>
+
 			</ul>
 		</div>
-		<c:if test="${not empty user}">
-			<div class="d-flex align-items-center gap-3">
-				<!-- Icône gear -->
-				<c:if test="${not empty user and user.role == 'Admin'}">
-					<a href="<c:url value='/amap/${tenancyAlias}/settings'/>"
-						class="text-decoration-none"> <i
-						class="bi bi-gear fs-4 fc-300 fch-500"></i>
-					</a>
-				</c:if>
-
-
-				<!-- Icône box-arrow-left -->
-				<form action="<c:url value='/logout'/>" method="post"
+		<div class="d-flex align-items-center gap-3">
+			<!-- Icône gear -->
+			<%-- 			<c:if --%>
+			<%-- 				test="${not empty pageContext.request.userPrincipal and pageContext.request.isUserInRole('ROLE_ADMIN')}"> --%>
+			<%-- 				<a href="<c:url value='/amap/${tenancyAlias}/settings'/>" --%>
+			<!-- 					class="text-decoration-none"> <i -->
+			<!-- 					class="bi bi-gear fs-4 fc-300 fch-500"></i> -->
+			<!-- 				</a> -->
+			<%-- 			</c:if> --%>
+			<c:if test="${not empty pageContext.request.userPrincipal}">
+				<a
+					href="<c:url value='/amap/${tenancyAlias}/{userId}/profile'/>">
+					<i class="bi bi-person-circle fs-4 fc-300 fch-500"></i>
+				</a>
+			</c:if>
+			<!-- Icône box-arrow-left -->
+			<c:if test="${not empty pageContext.request.userPrincipal}">
+				<form action="<c:url value='/logout'/>" method="get"
 					class="d-inline"
 					onsubmit="return confirm('Êtes-vous sûr(e) de vouloir vous déconnecter ?');">
 					<button type="submit" class="btn p-0 border-0 bg-transparent">
 						<i class="bi bi-box-arrow-left fs-4 fc-300 fch-500"></i>
 					</button>
 				</form>
+			</c:if>
 
 
-				<!-- Icône person-circle -->
-				<a
-					href="<c:url value='/amap/${tenancyAlias}/admin/contracts/list'/>"
-					class="text-decoration-none"> <i
-					class="bi bi-person-circle fs-4 fc-300 fch-500"></i>
-				</a>
-			</div>
-		</c:if>
+		</div>
 	</nav>
 </div>
