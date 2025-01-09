@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/amappli/featuresPage.css' />">
 <link href="<c:url value='/resources/bootstrap/bootstrap-icons.min.css' />" rel="stylesheet">
 
-<title>Fonctionnalités</title>
+<title>Amappli - CGU</title>
 
 </head>
 

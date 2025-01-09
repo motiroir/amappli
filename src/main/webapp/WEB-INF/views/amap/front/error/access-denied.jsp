@@ -15,7 +15,7 @@
 
 </head>
 
-<body class="theme-1 dark bg-main fc-main">
+<body class=" ${cssStyle == null? 'theme-1' : cssStyle} light ${font}-title ${font}-button">
 
 
    <header class="fc-main bg-main">
@@ -25,22 +25,21 @@
    <div id="map"></div>   
     
 <section class="container py-5">
-  <div class="row justify-content-center">
+	<div class="row justify-content-center">
     <!-- Carte Potager -->
-    <div class="col-8 mb-4 bg-300 fc-900 rounded-5 px-5">
-          <h1 class="fw-bold text-center mb-5 mt-3">Accès refusé</h1>
-	<p class="text-center fs-6 pb-3">Vous n'avez pas les permissions nécessaires pour accéder à cette zone.</p>
-        </div>
-      </div>
+		<div class="col-8 mb-4 bg-300 fc-900 rounded-5 px-5">
+	        <h1 class="fw-bold text-center mb-5 mt-3">Accès refusé</h1>
+			<p class="text-center fs-6 pb-3">Vous n'avez pas les permissions nécessaires pour accéder à cette zone.</p>
+		</div>
+	</div>
 </section>
 
     
-   <footer class="container-fluid fc-main bg-main">
+	<footer class="container-fluid fc-main bg-main">
 		<jsp:include page="../common/footer-amap.jsp" />
 	</footer>
 
 	<script	src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
-	<script	src="<c:url value='/resources/js/amappli/loading-when-visible.js' />" type="text/javascript"></script>
 	<script	src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
 	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>  
