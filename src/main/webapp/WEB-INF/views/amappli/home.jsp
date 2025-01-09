@@ -12,18 +12,13 @@
 <link rel="icon" type="image/png"
 	href="<c:url value='/resources/img/icons/favicon-96x96.png'/>"
 	sizes="96x96" />
-<link rel="icon" type="image/svg+xml"
-	href="<c:url value='/resources/img/icons/favicon.svg'/>" />
-<link rel="shortcut icon"
-	href="<c:url value='/resources/img/icons/favicon.ico'/>" />
-<link rel="apple-touch-icon" sizes="180x180"
-	href="<c:url value='/resources/img/icons/apple-touch-icon.png'/>" />
-<link rel="manifest"
-	href="<c:url value='/resources/img/icons/site.webmanifest'/>" />
-<link rel="stylesheet"
-	href="<c:url value='/resources/bootstrap/bootstrap.min.css'/>" />
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/amappli/homepage.css'/>" />
+<link rel="icon" type="image/svg+xml" href="<c:url value='/resources/img/icons/favicon.svg'/>" />
+<link rel="shortcut icon" href="<c:url value='/resources/img/icons/favicon.ico'/>" />
+<link rel="apple-touch-icon" sizes="180x180" href="<c:url value='/resources/img/icons/apple-touch-icon.png'/>" />
+<link rel="manifest" href="<c:url value='/resources/img/icons/site.webmanifest'/>" />
+<link rel="stylesheet" href="<c:url value='/resources/bootstrap/bootstrap.min.css'/>" />
+<link rel="stylesheet" href="<c:url value='/resources/css/amappli/homepage.css'/>" />
+<link href="<c:url value='/resources/bootstrap/bootstrap-icons.min.css' />" rel="stylesheet">
 <!-- Mapbox CSS -->
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
 	rel="stylesheet" />

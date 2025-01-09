@@ -7,8 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet"
-    href="<c:url value='/resources/bootstrap/bootstrap.min.css' />">
+<link rel="stylesheet" href="<c:url value='/resources/bootstrap/bootstrap.min.css' />">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 <link rel="stylesheet"
  href="<c:url value='/resources/css/amap/contactPage.css' />">
@@ -96,9 +95,9 @@
 </div>
 	<script	src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 	<script	src="<c:url value='/resources/js/amappli/loading-when-visible.js' />"></script>
-	<script	src="<c:url value='/resources/js/common/theme-swap.js' />"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
 	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
+	<script	src="<c:url value='/resources/js/common/theme-swap.js' />"></script>
 
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>

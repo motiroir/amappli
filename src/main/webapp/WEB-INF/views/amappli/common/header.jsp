@@ -126,22 +126,15 @@
 					class="nav-link nunito text-decoration-none fc-300 fch-500">Contact</a>
 				</li>
 				<li class="nav-item">
-					<a href="<c:url value='/amappli/about'/>" class="nav-link nunito text-decoration-none fc-300 fch-500">Qui sommes-nous ?</a></li>
-				<li class="nav-item">
-					<a href="<c:url value='/amappli/contact'/>" class="nav-link nunito text-decoration-none fc-300 fch-500">Contact</a>
+				<c:choose>
+					<c:when test="${empty pageContext.request.userPrincipal}">
+							<a href="<c:url value='/amappli/start/signup'/>" class="btn rounded-pill btn-500 px-4">S'inscrire</a>					
+					</c:when>
+					<c:otherwise>
+							<a href="<c:url value='/logout'/>" class="nav-link ${font} text-decoration-none btn p-0 border-0 bg-transparent"><i class="bi bi-box-arrow-left fs-4 fc-300 fch-500"></i></a>
+					</c:otherwise>
+				</c:choose>
 				</li>
-					<li class="nav-item">
-				<c:if test="${empty pageContext.request.userPrincipal}">
-						<a href="<c:url value='/amappli/start/signup'/>" class="btn rounded-pill btn-500 px-4">S'inscrire</a>
-				</c:if>
-				<c:if test="${not empty pageContext.request.userPrincipal}">
-				<form action="<c:url value='/logout'/>" method="get" class="d-inline">
-					<button type="submit" class="btn p-0 border-0 bg-transparent">
-						<i class="bi bi-box-arrow-left fs-4 fc-300 fch-500"></i>
-					</button>
-				</form>
-			</c:if>
-					</li>
 			</ul>
 		</div>
 	</nav>

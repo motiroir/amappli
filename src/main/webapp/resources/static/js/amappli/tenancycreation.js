@@ -17,6 +17,9 @@ document.addEventListener("DOMContentLoaded", function () {
         if (currentIndex < allFormParts.length - 1) {
                 currentIndex++;
                 updateVisibility();
+				if(currentIndex == 12) {
+					setTheme1();
+				}
                 if(currentIndex == allFormParts.length - 1) {
                     computeOptionChoice();
                 }
@@ -30,6 +33,9 @@ document.addEventListener("DOMContentLoaded", function () {
         if (currentIndex > 0){
             currentIndex--;
             updateVisibility();
+				if(currentIndex == 10) {
+					setTheme1();
+				}
             if(currentIndex == allFormParts.length - 1) {
                 computeOptionChoice(); 
             }
@@ -304,5 +310,23 @@ document.addEventListener("DOMContentLoaded", function () {
             
         });
     });
+	
+	function setTheme1() {
+		if(!document.body.classList.contains('theme-1')) {
+		document.body.classList.remove('theme-2');
+		document.body.classList.remove('theme-3');
+		document.body.classList.remove('theme-4');
+		document.body.classList.remove('theme-5');
+		document.body.classList.remove('theme-6');
+		document.body.classList.add('theme-1');
+		styleMapboxLight = "mapbox://styles/tiroirmorgane/cm4sw37wr001301s12frm2l2y";
+		styleMapboxDark = "mapbox://styles/tiroirmorgane/cm52cqefg003101sa878udky6";
+        if (document.body.classList.contains('light')) {
+            map.setStyle(styleMapboxLight);
+        } else {
+            map.setStyle(styleMapboxDark);
+        }
+		}
+	}
 
 });

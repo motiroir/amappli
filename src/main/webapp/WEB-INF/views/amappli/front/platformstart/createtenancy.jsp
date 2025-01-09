@@ -10,8 +10,8 @@
 <title>Création de votre espace AMAP</title>
 <link href="<c:url value='/resources/bootstrap/bootstrap.min.css'/>" rel="stylesheet">
 <link href="<c:url value='/resources/css/amappli/tenancycreation.css'/>" rel="stylesheet">
-<!-- Mapbox CSS -->
-<link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+<!--  Mapbox CSS 
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" /> -->
 </head>
 <body class="theme-1 light bg-main fc-main">
 
@@ -388,5 +388,6 @@
     <script src="<c:url value='/resources/js/amappli/tenancycreation.js'/>" type="text/javascript"></script>
     <script	src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
 	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
+	<script	src="<c:url value='/resources/js/common/headerless-theme-swap.js' />" type="text/javascript"></script>
 </body>
 </html>

@@ -64,12 +64,12 @@
             </div>
 
             <div class="mb-3">
-                <form:input path="address.line1" cssClass="form-control" id="adresse" placeholder="Votre adresse" required="true" />
-                <form:errors path="address.line1" cssClass="text-danger" />
+                <form:input path="address.line2" cssClass="form-control" id="adresse" placeholder="Votre adresse" required="true" />
+                <form:errors path="address.line2" cssClass="text-danger" />
             </div>
 
             <div class="mb-3">
-                <form:input path="address.line2" cssClass="form-control" id="complement" placeholder="Complément d'adresse" />
+                <form:input path="address.line1" cssClass="form-control" id="complement" placeholder="Complément d'adresse" />
             </div>
 
             <div class="row mb-3">
@@ -127,7 +127,8 @@
 		var longitude = "${longitude}"; 
 	</script>
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>  
-	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>  
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/autofill.js' />" type="text/javascript"></script>
 </body>
 </html>
