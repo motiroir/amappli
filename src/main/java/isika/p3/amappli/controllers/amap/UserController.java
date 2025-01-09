@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import isika.p3.amappli.dto.amap.UpdateProfileDTO;
 import isika.p3.amappli.dto.amap.UserDTO;
-import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.UserService;
@@ -36,7 +35,7 @@ public class UserController {
     // Afficher le formulaire d'inscription
     @GetMapping("/signup")
     public String showRegistrationForm(@PathVariable("tenancyAlias") String alias, Model model) {
-    	Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
+    	//Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
         UserDTO userDTO = new UserDTO();
         model.addAttribute("userDTO", userDTO);
         model.addAttribute("tenancyAlias", alias);
@@ -50,7 +49,7 @@ public class UserController {
     @GetMapping("/login-done")
     public String showLoginDone(@PathVariable("tenancyAlias") String alias, Model model) {
     	
-    	Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
+    	//Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
     	
         model.addAttribute("tenancyAlias", alias);
         
@@ -76,7 +75,7 @@ public class UserController {
             model.addAttribute("errors", fieldErrors);
             model.addAttribute("userDTO", userDTO); // Conserver les données saisies
             
-         	Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
+         	//Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
          	
             graphismService.setUpModel(alias, model);
 
@@ -92,7 +91,7 @@ public class UserController {
             model.addAttribute("error", e.getMessage());
             model.addAttribute("userDTO", userDTO);
             
-         	Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
+         	//Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
             
             graphismService.setUpModel(alias, model);
 

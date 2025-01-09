@@ -3,7 +3,6 @@ package isika.p3.amappli.controllers;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,21 +14,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import isika.p3.amappli.entities.tenancy.ColorPalette;
 import isika.p3.amappli.entities.tenancy.FontChoice;
-import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.security.CustomUserDetails;
 import isika.p3.amappli.service.amap.GraphismService;
-import isika.p3.amappli.service.amappli.TenancyService;
 
 @Controller
 public class SecurityController {
     
     private final GraphismService graphismService;
-    private final TenancyService tenancyService;
 
 
-    public SecurityController(GraphismService graphismService, TenancyService tenancyService) {
+    public SecurityController(GraphismService graphismService) {
         this.graphismService = graphismService;
-        this.tenancyService = tenancyService;
     }
   
 
@@ -51,28 +46,14 @@ public class SecurityController {
     @GetMapping("/amap/{tenancyAlias}/login")
     public String goToTenancyLogin(@RequestParam(name = "error", required = false) String error, @PathVariable("tenancyAlias") String alias, Model model) {
 
-        // LoginDTO loginDTO = new LoginDTO();
-        // model.addAttribute("loginDTO", loginDTO);
         model.addAttribute("tenancyAlias", alias);
         if (error != null) {
             model.addAttribute("error", "Email ou mot de passe incorrect.");
         }
-        Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
-        
+       
         graphismService.setUpModel(alias, model);
 
         return "amap/amaplogin/login";
-        //return "secexamples/tenantlogin";
-    }
-
-    @GetMapping("/amappli/needanyauth")
-    public String goToAuthTest(Model model){
-        return "secexamples/needanyauth";
-    }
-
-    @GetMapping("/{tenancyAlias}/needanyauth")
-    public String goToAuthTestTenancy(@PathVariable("tenancyAlias") String alias, Model model){
-        return "secexamples/needanyauth";
     }
 
     @GetMapping("/showpermissions")
@@ -90,18 +71,6 @@ public class SecurityController {
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         model.addAttribute("authorities", authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
         return "secexamples/showloggeduserpermissions"; 
-    }
-
-    @PreAuthorize("hasAuthority('gestion utilisateurs amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
-    @GetMapping("/permissioncheck/{tenancyAlias}")
-    public String needPermissionA(@PathVariable("tenancyAlias") String alias){
-        return "secexamples/needpermission1";
-    }
-
-    @PreAuthorize("hasAuthority('Permission 2')")
-    @GetMapping("/needpermission2")
-    public String needPermissionB(){
-        return "secexamples/needpermission2";
     }
 
     @GetMapping("/amap/{tenancyAlias}/forbidden")

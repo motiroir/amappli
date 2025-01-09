@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import isika.p3.amappli.entities.product.Product;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.workshop.Workshop;
 

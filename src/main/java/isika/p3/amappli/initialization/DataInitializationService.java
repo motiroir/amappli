@@ -1406,14 +1406,13 @@ public class DataInitializationService {
 
 	private PaymentType getRandomPaymentType() {
 		int randomChoice = new Random().nextInt(2) + 1;
-		PaymentType paymentType;
 		switch (randomChoice) {
 		case 0:
-			return paymentType = PaymentType.card;
+			return PaymentType.card;
 		case 1:
-			return paymentType = PaymentType.check;
+			return PaymentType.check;
 		case 2:
-			return paymentType = PaymentType.cash;
+			return PaymentType.cash;
 		default:
 			throw new IllegalStateException("Valeur aléatoire invalide : " + randomChoice);
 		}

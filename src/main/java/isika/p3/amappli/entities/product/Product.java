@@ -5,7 +5,6 @@ import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import isika.p3.amappli.entities.contract.DeliveryDay;
 import isika.p3.amappli.entities.contract.DeliveryRecurrence;
 import isika.p3.amappli.entities.order.Shoppable;
 import isika.p3.amappli.entities.tenancy.PickUpSchedule;
@@ -90,6 +89,7 @@ public class Product extends Shoppable {
 
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean shoppable = true;
 
 

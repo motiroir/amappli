@@ -94,8 +94,8 @@ public class WorkshopController {
 	public String listWorkshops(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 		List<Workshop> workshops = workshopService.findAll();
 		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
-		Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
-				.orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
+		//Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
+		//		.orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
 		model.addAttribute("workshops", workshops);
 		model.addAttribute("users", users);
 		model.addAttribute("tenancyAlias", tenancyAlias);

@@ -12,20 +12,15 @@ import isika.p3.amappli.dto.amap.ContractDTO;
 import isika.p3.amappli.entities.contract.Contract;
 import isika.p3.amappli.entities.contract.ContractType;
 import isika.p3.amappli.entities.contract.ContractWeight;
-import isika.p3.amappli.entities.contract.DeliveryDay;
 import isika.p3.amappli.entities.contract.DeliveryRecurrence;
-import isika.p3.amappli.entities.order.ShoppingCartItem;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.entities.user.User;
-import isika.p3.amappli.exceptions.TenancyNotFoundException;
 import isika.p3.amappli.repo.amap.AddressRepository;
 import isika.p3.amappli.repo.amap.ContractRepository;
-import isika.p3.amappli.repo.amap.ShoppingCartItemRepository;
 import isika.p3.amappli.repo.amap.UserRepository;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
 import isika.p3.amappli.service.amap.ContractService;
-import isika.p3.amappli.service.amappli.TenancyService;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -34,13 +29,11 @@ public class ContractServiceImpl implements ContractService {
 	private final ContractRepository contractRepository;
 	private final UserRepository userRepository;
 	private final TenancyRepository tenancyRepository;
-	private final ShoppingCartItemRepository shoppingCartItemRepository;
 
-	public ContractServiceImpl(TenancyRepository tenancyRepository, ContractRepository contractRepository, UserRepository userRepository, AddressRepository addressRepository, ShoppingCartItemRepository shoppingCartItemRepository) {
+	public ContractServiceImpl(TenancyRepository tenancyRepository, ContractRepository contractRepository, UserRepository userRepository, AddressRepository addressRepository) {
 		this.contractRepository = contractRepository;
 		this.userRepository = userRepository;
 		this.tenancyRepository = tenancyRepository;
-		this.shoppingCartItemRepository = shoppingCartItemRepository;
 	}
 
 	@Override

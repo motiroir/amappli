@@ -2,8 +2,6 @@ package isika.p3.amappli.service.amap.impl;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.List;
 
@@ -11,9 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import isika.p3.amappli.dto.amap.WorkshopDTO;
-import isika.p3.amappli.entities.product.Product;
 import isika.p3.amappli.entities.tenancy.Tenancy;
-import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.entities.workshop.Workshop;
 import isika.p3.amappli.repo.amap.UserRepository;
@@ -95,7 +91,6 @@ public class WorkshopServiceImpl implements WorkshopService {
 
 	@Override
 	public Workshop findById(Long id) {
-		// TODO Auto-generated method stub
 		return workshopRepository.findById(id).orElse(null);
 	}
 

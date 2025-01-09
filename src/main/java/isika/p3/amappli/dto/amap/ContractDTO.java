@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import org.springframework.web.multipart.MultipartFile;
 
 import isika.p3.amappli.entities.tenancy.PickUpSchedule;
-import isika.p3.amappli.entities.tenancy.Tenancy;
 import lombok.Getter;
 import lombok.Setter;
 

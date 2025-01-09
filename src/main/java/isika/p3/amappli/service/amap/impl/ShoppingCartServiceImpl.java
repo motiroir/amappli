@@ -20,7 +20,6 @@ import isika.p3.amappli.repo.amap.ShoppingCartRepository;
 import isika.p3.amappli.repo.amap.UserRepository;
 import isika.p3.amappli.repo.amap.WorkshopRepository;
 import isika.p3.amappli.service.amap.ShoppingCartService;
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -43,8 +42,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	private WorkshopRepository workshopRepository;
 	@Autowired 
 	private MembershipFeeRepository membershipRepo;
-	@Autowired
-	private EntityManager entityManager;
 	
 	
 	 public ShoppingCart getCartByUserId(Long userId) {

@@ -3,7 +3,6 @@ package isika.p3.amappli.service.amap.impl;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,6 @@ import isika.p3.amappli.service.amap.ContactInfoService;
 import isika.p3.amappli.service.amap.RoleService;
 import isika.p3.amappli.service.amap.UserService;
 import isika.p3.amappli.service.amappli.TenancyService;
-import jakarta.transaction.Transactional;
 
 @Service
 public class AmapAdminUserServiceImpl implements AmapAdminUserService {
@@ -129,59 +127,7 @@ public class AmapAdminUserServiceImpl implements AmapAdminUserService {
 		// Sauvegarder l'utilisateur
 		return this.saveUser(user);
 	}
-
-	// @Override
-	// @Transactional
-	// public void generateUsers(String tenancyAlias) {
-		
-	// 	roleService.addtestRoles();
-	// 	Tenancy tenancy = tenancyService.getTenancyByAlias(tenancyAlias);
-    //     Faker faker = new Faker(new Locale("fr-FR"));
-    //     for(int i=0;i < 20 ;i++){
-    //     	User u = new User();
-    //     	u.setEmail(faker.internet().emailAddress());
-    //     	u.setPassword(passwordEncoder.encode(faker.internet().password()));
-    //     	u.setCreditBalance(BigDecimal.ZERO);
-    //     	u.setActive(true);
-    //     	u.setTenancy(tenancy);
-    //     	saveUser(u);
-        	
-    //         Address a = Address.builder()
-    //             .line1(faker.address().buildingNumber())
-    //             .line2(faker.address().streetName())
-    //             .postCode("44190")
-    //             .city(faker.address().cityName())
-	// 			.user(u)
-    //             .build();
-    //         this.addressService.save(a);
-    //         ContactInfo cI = ContactInfo.builder()
-    //             .name(faker.name().lastName())
-    //             .firstName(faker.name().firstName())
-    //             .phoneNumber("0102030405")
-	// 			.user(u)
-    //             .build();
-    //         this.contactInfoService.save(cI);
-    //         CompanyDetails cD = CompanyDetails.builder()
-    //     		.companyName(faker.company().name())
-	// 			.siretNumber(Long.toString(faker.number().randomNumber(14, true)))
-	// 			.user(u)
-	// 			.build();
-    //         this.companyDetailsService.save(cD);
-    //         Set<Role> roles = new HashSet<>();
-    //         Role member = roleService.findByName("Adherent");
-    //         Role supplier = roleService.findByName("Producteur");
-    //         roles.add(i%2 == 0 ? member : supplier);
-    //         roles.add(i%4 == 0 ? supplier : null);
-            
-    //         u.setAddress(a);
-    //         u.setContactInfo(cI);
-    //         u.setCompanyDetails(cD);
-            
-    //         u.setRoles(roles);
-    //         saveUser(u);
-    //     }
-	// }
-
+	
     @Override
     public User saveUser(User user) {
         userService.saveUser(user);

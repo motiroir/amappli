@@ -10,8 +10,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
-import org.springframework.util.SystemPropertyUtils;
-
 import isika.p3.amappli.entities.user.Address;
 
 public class NominatimAPI {

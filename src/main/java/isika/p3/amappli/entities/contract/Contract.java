@@ -10,7 +10,6 @@ import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.entities.user.User;
 
 import isika.p3.amappli.entities.order.Shoppable;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -21,10 +20,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
 import lombok.AllArgsConstructor;
@@ -97,6 +94,7 @@ public class Contract extends Shoppable {
 
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean shoppable = true;
 
 

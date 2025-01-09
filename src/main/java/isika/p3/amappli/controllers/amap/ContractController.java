@@ -99,10 +99,7 @@ public class ContractController {
 	@PreAuthorize("hasAuthority('creation contrats amap') and (hasAuthority(#tenancyAlias) or hasAuthority('gestion plateforme'))")
 	@GetMapping("/list")
 	public String listContracts(Model model, @PathVariable String tenancyAlias) {
-		
-		Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
-				.orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
-		
+				
 		List<Contract> contracts = contractService.findAll(tenancyAlias);
 		
 		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);

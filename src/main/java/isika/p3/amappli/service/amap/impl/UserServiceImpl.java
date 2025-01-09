@@ -1,28 +1,18 @@
 package isika.p3.amappli.service.amap.impl;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Locale;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Primary;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import isika.p3.amappli.dto.amap.MembershipFeeDTO;
-
-// import com.github.javafaker.Faker;
 
 import isika.p3.amappli.dto.amap.NewUserDTO;
 
 import isika.p3.amappli.dto.amap.UpdateProfileDTO;
 import isika.p3.amappli.dto.amap.UserDTO;
-import isika.p3.amappli.entities.auth.Permission;
 import isika.p3.amappli.entities.auth.Role;
-import isika.p3.amappli.entities.membership.MembershipFee;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.entities.user.ContactInfo;
@@ -31,11 +21,9 @@ import isika.p3.amappli.exceptions.EmailAlreadyExistsException;
 import isika.p3.amappli.exceptions.TenancyNotFoundException;
 import isika.p3.amappli.repo.amap.RoleRepository;
 import isika.p3.amappli.repo.amap.UserRepository;
-import isika.p3.amappli.repo.amappli.PermissionRepository;
 import isika.p3.amappli.service.amap.UserService;
 import isika.p3.amappli.service.amappli.TenancyService;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 
 @Service
 @Primary
@@ -46,17 +34,14 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     private final TenancyService tenancyService;
-
-    private final PermissionRepository permissionRepository;
-
+    
     private final RoleRepository roleRepository;
 
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, TenancyService tenancyService, PermissionRepository permissionRepository, RoleRepository roleRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, TenancyService tenancyService, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.tenancyService = tenancyService;
-        this.permissionRepository = permissionRepository;
         this.roleRepository = roleRepository;
     }
     

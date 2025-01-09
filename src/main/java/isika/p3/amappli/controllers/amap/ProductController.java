@@ -104,9 +104,6 @@ public class ProductController {
 		List<Product> products = productService.findAll();
 		List<User> users = AmapAdminUserService.findSuppliers(tenancyAlias);
 
-		Tenancy tenancy = tenancyRepository.findByTenancyAlias(tenancyAlias)
-				.orElseThrow(() -> new IllegalArgumentException("Tenancy not found for alias: " + tenancyAlias));
-
 		model.addAttribute("users", users);
 		model.addAttribute("products", products);
 		model.addAttribute("tenancyAlias", tenancyAlias);

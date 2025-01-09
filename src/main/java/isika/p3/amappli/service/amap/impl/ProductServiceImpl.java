@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import isika.p3.amappli.dto.amap.ProductDTO;
-import isika.p3.amappli.entities.contract.DeliveryDay;
 import isika.p3.amappli.entities.contract.DeliveryRecurrence;
 import isika.p3.amappli.entities.product.Product;
 import isika.p3.amappli.entities.tenancy.Tenancy;

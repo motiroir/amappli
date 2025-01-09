@@ -68,6 +68,7 @@ public class Workshop extends Shoppable {
     private User user;
 
     @Column(nullable = false)
+	@Builder.Default
 	private boolean shoppable = true;
 
 	@Column(name = "image_type")

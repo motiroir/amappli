@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import isika.p3.amappli.entities.tenancy.ContentBlock;
-import isika.p3.amappli.entities.tenancy.Graphism;
 import isika.p3.amappli.entities.tenancy.HomePageContent;
 import isika.p3.amappli.entities.tenancy.Tenancy;
-import isika.p3.amappli.entities.user.Address;
 import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amappli.TenancyService;
 
@@ -44,7 +42,7 @@ public class TenancyController {
 	public String getHomePageContentByAlias(@PathVariable("tenancyAlias") String alias, Model model) {
 	    // Récupérer le contenu de la page d'accueil
 	    HomePageContent homePageContent = tenancyService.getHomePageContentByTenancyAlias(alias);
-	    Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
+	   // Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
 
 	    // Vérifier si les données existent
 	    if (homePageContent != null) {
