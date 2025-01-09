@@ -121,7 +121,7 @@ public class TenancyController {
 	        model.addAttribute("message", "Tenancy non trouvée.");
 	    }
 
-	    return "amap/front/amapPage"; // Vue JSP correspondante
+	    return "amap/front/amapPage"; 
 	}
 
 
@@ -137,7 +137,7 @@ public class TenancyController {
 	        model.addAttribute("message", "Tenancy non trouvée.");
 	    }
 
-	    return "amap/front/contactPage"; // Vue JSP correspondante
+	    return "amap/front/contactPage"; 
 	}
 
 

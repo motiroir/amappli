@@ -25,9 +25,10 @@
 	<div class="container py-5 flex-grow-1 form-container">
 		<div class="d-flex justify-content-between align-items-center">
     <h1 class="h3 fw-bold fc-300">Se connecter</h1>
-    <a href="/Amappli/amap/${tenancyAlias}/home" class="btn-close" aria-label="Retour"></a>
+    
+    <a href="/Amappli/amap/${tenancyAlias}/home" class=" btn btn-main btn-close " aria-label="Retour"></a>
 </div>
-<hr class="bg-300 mb-4">
+<hr class="bg-main fc-main mb-4">
 
 	
 		
@@ -65,26 +66,32 @@
 		<br>
 		<div class="text-center mt-4">
 			<p class="fc-300 ms-4" >Pas encore inscrit.e ?</p>
-			<hr class="bg-300">
+			 <hr class="bg-main fc-main mb-4">
+			
 			<a
 				href="${pageContext.request.contextPath}/amap/${tenancyAlias}/signup"
 				class="btn btn-500 px-4 rounded-pill">S'inscrire</a>
 		</div>
 
 	</div>
+	
+	
 	 <footer class="fc-main bg-main fixed-bottom">
 			<jsp:include page="../front/common/footer-amap.jsp" />
-		</footer> 
+		</footer>
+			
+		
+		
 	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 
 	<script>
 		var styleMapboxLight = "${mapStyleLight}";
 		var styleMapboxDark = "${mapStyleDark}";
 		var latitude = "${latitude}";
-		var longitude = "${longitude}"; 
+		var longitude = "${longitude}";
 	</script>
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>  
-	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>  
+    <script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>  
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script> 
 </body>
 </html>

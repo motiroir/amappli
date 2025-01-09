@@ -38,24 +38,31 @@
 	<!-- Conteneur pour la carte -->
 	<div id="map"></div>
 
-	<section>
-		<img id="main-picture" class="container-fluid p-0"
-			src="<c:url value='/resources/img/ImageAccueil_WIP.png' />" />
-	</section>
+	<section class="align-items-center p-5">
+	<div id="catchphrase" class="text-center">
+		<h1 class="col-12">amappli</h1>
+		<span class="underline col-10 mx-auto my-2 d-block"> </span>
+		<h2 class="col-12">
+			vous avez l'amap<br>nous avons l'appli
+		</h2>
+	</div>
+</section>
+
 
 	<section id="call-to-action" class="">
-		<div class="container-fluid py-3 justify-content-center">
-			<div
-				class="col-12 row justify-content-around align-items-center text-center">
-				<div id="catchphrase" class="col-12 col-md-4 text-center">
-					<h1 class="col-12">amappli</h1>
-					<span class="underline col-10 mx-auto my-2 d-block"> </span>
-					<h2 class="col-12">
-						vous avez l'amap<br>nous avons l'appli
-					</h2>
-				</div>
-				<div
-					class="col-12 col-md-7 mx-auto mt-2 p-3 text-center bg-700 rounded-3">
+	<div class="container-fluid py-3 justify-content-center">
+		<div class="col-12 row justify-content-around align-items-stretch text-center">
+			<!-- Colonne de l'image -->
+			<div class="col-12 col-md-6 mx-auto mt-2 p-3 d-flex align-items-stretch">
+				<img id="main-picture" class="container-fluid p-0 h-100" 
+					style="object-fit: cover;" 
+					src="<c:url value='/resources/img/ImageAccueil_WIP.png' />" 
+					alt="Illustration Amappli" />
+			</div>
+
+			<!-- Colonne du texte et des boutons -->
+			<div class="col-12 col-md-6 mx-auto mt-2 p-3 text-center bg-700 rounded-3 d-flex flex-column justify-content-center align-items-center">
+				<div class="w-100">
 					<p class="col-12 text-center">
 						<b>AMAPPLI</b> vous aide à mieux gérer votre AMAP pour vous
 						concentrer sur l'essentiel. Grâce à son interface intuitive et
@@ -63,16 +70,18 @@
 						votre site web.
 					</p>
 					<div class="col-12 d-flex justify-content-evenly">
-
-						<a href="<c:url value='/amappli/start/signup'/>"  class="btn btn-100 rounded-pill px-4">Créer mon site</a>
-						<a href="<c:url value='/amappli/contact'/>" class="btn btn-900 rounded-pill px-4">Planifier une
-							démonstration</a>
-
+						<a href="<c:url value='/amappli/start/signup'/>"  
+							class="btn btn-100 rounded-pill px-4">Créer mon site</a>
+						<a href="<c:url value='/amappli/contact'/>" 
+							class="btn btn-900 rounded-pill px-4">Planifier une démonstration</a>
 					</div>
 				</div>
 			</div>
 		</div>
-	</section>
+	</div>
+</section>
+
+
 
 	<section id="advantages" class="container-fluid mt-3">
 		<div class="title-holder text-center mx-auto mb-3">
