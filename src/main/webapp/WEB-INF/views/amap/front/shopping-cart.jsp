@@ -101,9 +101,10 @@
 							<form:form method="post"
 								action="${pageContext.request.contextPath}/amap/${tenancyAlias}/order/createOrder">
 								<tr>
+								<c:if test="${options.option1Active}">
 									<td colspan="2"><button class="btn btn-500 btn-order"
-											type="submit" name="action" value="OrderWithPayment">Passer
-											au paiement</button></td>
+											type="submit" name="action" value="OrderWithPayment">Paiement en ligne</button></td>
+								</c:if>
 								</tr>
 								<tr>
 									<td colspan="2"><button class="btn btn-100 btn-order"

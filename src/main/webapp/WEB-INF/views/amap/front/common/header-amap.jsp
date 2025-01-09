@@ -89,11 +89,9 @@
 					<i class="bi bi-person-circle fs-4 fc-300 fch-500"></i>
 				</a>
 			</c:if>
-			<!-- Icône box-arrow-left -->
 			<c:if test="${not empty pageContext.request.userPrincipal}">
 				<form action="<c:url value='/logout'/>" method="get"
-					class="d-inline"
-					onsubmit="return confirm('Êtes-vous sûr(e) de vouloir vous déconnecter ?');">
+					class="d-inline">
 					<button type="submit" class="btn p-0 border-0 bg-transparent">
 						<i class="bi bi-box-arrow-left fs-4 fc-300 fch-500"></i>
 					</button>

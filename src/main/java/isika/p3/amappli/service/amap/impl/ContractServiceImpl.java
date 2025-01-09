@@ -3,6 +3,7 @@ package isika.p3.amappli.service.amap.impl;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Base64;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -173,6 +174,7 @@ public class ContractServiceImpl implements ContractService {
 	public List<Contract> findShoppableContractsByTenancy(Tenancy tenancy) {
 	    return contractRepository.findByTenancy(tenancy).stream()
 	            .filter(Contract::isShoppable) // Garder uniquement les contrats shoppables
+	            .sorted((c1, c2) -> c2.getId().compareTo(c1.getId()))
 	            .toList();
 	}
 	

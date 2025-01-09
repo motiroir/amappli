@@ -2,13 +2,17 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <!DOCTYPE html>
-<div class="container-fluid d-flex flex-row-reverse flex-md-row justify-content-between justify-content-md-evenly align-items-center">
+<div
+	class="container-fluid d-flex flex-row-reverse flex-md-row justify-content-between justify-content-md-evenly align-items-center">
 
-	<a href="<c:url value='/amappli/home'/>">
-		<img src="<c:url value='/resources/img/logo_amappli_peach_2.png'/>" height="50" class="navbar-brand d-block d-md-none" />
+	<a href="<c:url value='/amappli/home'/>"> <img
+		src="<c:url value='/resources/img/logo_amappli_peach_2.png'/>"
+		height="50" class="navbar-brand d-block d-md-none" />
 	</a>
 
-	<svg id="logo-header" height="50" min-height="50" viewBox="0 0 697 726" xmlns="http://www.w3.org/2000/svg" class="my-2 my-sm-0 d-none d-md-block">
+	<svg id="logo-header" height="50" min-height="50" viewBox="0 0 697 726"
+		xmlns="http://www.w3.org/2000/svg"
+		class="my-2 my-sm-0 d-none d-md-block">
         <path class="fill-300"
 			d="M278.058 281.932L277.473 283.883C275.132 283.688 272.79 283.493 270.448 283.493C259.131 283.103 247.618 282.518 236.691 278.225C227.52 274.518 220.495 268.665 216.203 259.69C211.324 249.349 212.69 239.594 220.495 231.204C223.813 227.887 227.325 224.765 231.032 221.839C247.814 208.571 252.106 191.012 249.179 170.72C247.033 155.502 243.13 140.478 241.179 125.065C239.813 113.944 241.765 103.603 247.423 94.0425C250.155 89.3599 253.277 84.8723 255.619 80.1897C259.521 72.3854 257.57 66.7272 249.57 62.8251C239.813 57.7522 227.325 59.5082 219.13 67.1174C216.983 69.0685 215.032 71.2147 213.471 73.556C203.91 87.6039 191.031 97.3593 175.226 103.798C163.908 108.285 152.981 113.553 142.444 119.211L143.224 116.285C151.615 111.797 160.201 107.505 168.981 103.993C174.835 101.652 180.299 98.7251 185.763 95.9936C194.738 91.3109 202.153 84.8723 208.007 76.6778C210.934 72.3854 214.251 68.8734 217.959 65.3615C226.935 56.7767 243.326 55.606 253.472 62.4348C260.107 66.9223 262.058 72.9707 258.741 80.3848C257.765 82.7262 256.594 85.0675 255.033 87.0185C243.13 102.237 241.179 119.212 245.277 137.552C248.594 152.38 251.716 167.403 252.106 182.817C252.497 199.791 245.667 213.059 232.984 223.79C230.837 225.741 228.496 227.497 226.349 229.253C211.52 242.325 212.495 259.885 228.691 271.396C236.691 277.055 245.667 279.201 255.228 280.176C263.034 280.762 270.448 281.347 278.058 281.932Z" />
         <path class="fill-300"
@@ -80,7 +84,8 @@
         <path class="fill-300"
 			d="M396.451 187.652L393.602 188.323L435.329 365.517L438.178 364.846L396.451 187.652Z" />
     </svg>
-	<a class="d-none d-md-block nav-link" href="<c:url value='/amappli/home'/>">
+	<a class="d-none d-md-block nav-link"
+		href="<c:url value='/amappli/home'/>">
 		<h1 id="text-head" class="d-none d-md-block fw-bold fs-2 fc-main">amappli</h1>
 	</a>
 	<div class="p-0 ms-2 ms-md-0 d-flex justify-content-evenly">
@@ -90,33 +95,51 @@
 				d="M6.458 10.428l-4.33-2.5c-.564-.325-.08-1.2.5-.866l4.33 2.5c.57.33.072 1.197-.5.866zm19.914 11.498l-4.33-2.5c-.564-.326-.08-1.2.5-.866l4.33 2.5c.57.33.072 1.196-.5.866zM9.568 6.952l-2.5-4.33c-.326-.564.53-1.08.866-.5l2.5 4.33c.33.57-.536 1.072-.866.5zm11.497 19.914l-2.5-4.33c-.325-.564.53-1.08.866-.5l2.5 4.33c.33.57-.535 1.072-.865.5zm-2.5-20.415l2.5-4.33c.326-.563 1.2-.08.866.5l-2.5 4.33c-.328.572-1.195.073-.865-.5zM7.068 26.366l2.5-4.33c.325-.564 1.2-.08.866.5l-2.5 4.33c-.33.57-1.196.072-.866-.5zM22.042 9.56l4.33-2.5c.564-.325 1.08.532.5.867l-4.33 2.5c-.57.33-1.072-.536-.5-.866zM2.128 21.06l4.33-2.5c.563-.325 1.08.53.5.866l-4.33 2.5c-.57.33-1.072-.536-.5-.866zM23.5 14h5c.65 0 .67 1 0 1h-5c-.66 0-.66-1 0-1zm-23 0h5c.65 0 .67 1 0 1h-5c-.66 0-.66-1 0-1zM15 23.5v5c0 .65-1 .67-1 0v-5c0-.66 1-.66 1 0zm0-23v5c0 .65-1 .67-1 0v-5c0-.66 1-.66 1 0zM14.5 8C10.916 8 8 10.916 8 14.5s2.916 6.5 6.5 6.5 6.5-2.916 6.5-6.5S18.084 8 14.5 8zm0 1c3.043 0 5.5 2.457 5.5 5.5 0 3.044-2.457 5.5-5.5 5.5S9 17.544 9 14.5C9 11.457 11.457 9 14.5 9z" />
 	    </svg>
 		<div class="form-switch">
-	    	<input id="switch" class="form-check-input" type="checkbox" checked />
-   		</div>
-		<svg class="m-auto" width="15" height="15" viewBox="0 0 32 32" version="1.1"
-			xmlns="http://www.w3.org/2000/svg" class="m-auto">
+			<input id="switch" class="form-check-input" type="checkbox" checked />
+		</div>
+		<svg class="m-auto" width="15" height="15" viewBox="0 0 32 32"
+			version="1.1" xmlns="http://www.w3.org/2000/svg" class="m-auto">
 	        <path class="fill-300"
 				d="M9.882 5.052c-0.847 1.717-1.295 3.614-1.295 5.564 0 6.977 5.676 12.653 12.653 12.653 2.052 0 4.035-0.489 5.812-1.412-2.15 3.869-6.248 6.37-10.862 6.37-6.866 0-12.451-5.585-12.451-12.451 0-4.491 2.409-8.533 6.143-10.724zM12.79 2.707c-5.817 1.509-10.118 6.78-10.118 13.069 0 7.465 6.053 13.517 13.518 13.517 6.387 0 11.726-4.435 13.139-10.389-2.087 2.039-4.939 3.298-8.088 3.298-6.399 0-11.587-5.188-11.587-11.587 0-3.061 1.196-5.838 3.137-7.909v0z" />
 	    </svg>
 	</div>
-	<nav class="navbar navbar-expand-md col-offset-1 col-md-8 col-2 align-content-center">
-		<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-			data-bs-target="#nav-content" aria-controls="nav-content"
-			aria-expanded="false" aria-label="Toggle navigation">
+	<nav
+		class="navbar navbar-expand-md col-offset-1 col-md-8 col-2 align-content-center">
+		<button class="navbar-toggler" type="button"
+			data-bs-toggle="offcanvas" data-bs-target="#nav-content"
+			aria-controls="nav-content" aria-expanded="false"
+			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div id="nav-content" class="offcanvas offcanvas-start navbar-collapse bg-main w-auto px-3">
+		<div id="nav-content"
+			class="offcanvas offcanvas-start navbar-collapse bg-main w-auto px-3">
 			<ul class="navbar-nav w-100 mt-4 mt-md-0 justify-content-evenly">
-				<li class="nav-item">
-					<a href="<c:url value='/amappli/features'/>" class="nav-link nunito text-decoration-none fc-300 fch-500">Nos offres</a>
+				<li class="nav-item"><a
+					href="<c:url value='/amappli/features'/>"
+					class="nav-link nunito text-decoration-none fc-300 fch-500">Nos
+						offres</a></li>
+				<li class="nav-item"><a href="<c:url value='/amappli/about'/>"
+					class="nav-link nunito text-decoration-none fc-300 fch-500">Qui
+						sommes-nous ?</a></li>
+				<li class="nav-item"><a
+					href="<c:url value='/amappli/contact'/>"
+					class="nav-link nunito text-decoration-none fc-300 fch-500">Contact</a>
 				</li>
-				<li class="nav-item">
-					<a href="<c:url value='/amappli/about'/>" class="nav-link nunito text-decoration-none fc-300 fch-500">Qui sommes-nous ?</a></li>
-				<li class="nav-item">
-					<a href="<c:url value='/amappli/contact'/>" class="nav-link nunito text-decoration-none fc-300 fch-500">Contact</a>
-				</li>
-				<li class="nav-item">
-					<a href="<c:url value='/amappli/start/signup'/>" class="btn rounded-pill btn-500 px-4">S'inscrire</a>
-				</li>
+				<c:if test="${empty pageContext.request.userPrincipal}">
+					<li class="nav-item"><a
+						href="<c:url value='/amappli/start/signup'/>"
+						class="btn rounded-pill btn-500 px-4">S'inscrire</a></li>
+				</c:if>
+				<c:if test="${not empty pageContext.request.userPrincipal}">
+					<form action="<c:url value='/logout'/>" method="get"
+						class="d-inline"
+						onsubmit="return confirm('Êtes-vous sûr(e) de vouloir vous déconnecter ?');">
+						<button type="submit" class="btn p-0 border-0 bg-transparent">
+							<i class="bi bi-box-arrow-left fs-4 fc-300 fch-500"></i>
+						</button>
+					</form>
+				</c:if>
+				<li>
 			</ul>
 		</div>
 	</nav>

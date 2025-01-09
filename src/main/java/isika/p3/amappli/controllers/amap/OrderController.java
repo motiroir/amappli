@@ -1,7 +1,9 @@
 package isika.p3.amappli.controllers.amap;
 
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +35,9 @@ public class OrderController {
 		
 		List<Order> orderByUser = orderService.getListOrdersByUser(userId);
 		model.addAttribute("orders", orderByUser);
-		
+		Order order = orderService.getOrderById(userId);
+		String formattedDate = order.getOrderDate().format(DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale.FRENCH));
+		model.addAttribute("formattedDate", formattedDate);
 		graphismService.setUpModel(alias, model);
         return "amap/front/user-profile/my-orders";
 	}
@@ -59,6 +63,9 @@ public class OrderController {
 		
 		Order order = orderService.getOrderById(orderId);
 		model.addAttribute("order", order);
+		
+		String formattedDate = order.getOrderDate().format(DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale.FRENCH));
+		model.addAttribute("formattedDate", formattedDate);
 		
 		graphismService.setUpModel(alias, model);
 		return "amap/front/user-profile/order-details";
