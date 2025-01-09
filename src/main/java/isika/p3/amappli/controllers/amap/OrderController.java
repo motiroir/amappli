@@ -42,6 +42,11 @@ public class OrderController {
 		graphismService.setUpModel(alias, model);
         return "amap/front/user-profile/my-orders";
 	}
+	@GetMapping("/account/pickup")
+	public String viewPickUpInfos(@PathVariable("tenancyAlias") String alias, Model model) {
+		graphismService.setUpModel(alias, model);
+		return "amap/front/user-profile/pickup-infos";
+	}
 
 	@GetMapping("/admin/orders/list")
 	public String viewOrdersForAdmin(@PathVariable("tenancyAlias") String alias, Model model) {

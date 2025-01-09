@@ -1,5 +1,6 @@
 package isika.p3.amappli.controllers.amap;
 
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,7 @@ import isika.p3.amappli.dto.amap.MembershipFeeDTO;
 import isika.p3.amappli.dto.amap.UpdateProfileDTO;
 import isika.p3.amappli.dto.amap.UserDTO;
 import isika.p3.amappli.entities.tenancy.Tenancy;
+import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amap.MemberShipService;
 import isika.p3.amappli.service.amap.UserService;
@@ -103,45 +105,6 @@ public class UserController {
         }
     }
 
-
-    
-//    
-//    // Afficher le formulaire de connexion
-//    @GetMapping("/login")
-//    public String showLoginForm(@RequestParam(value = "error", required = false) String error,
-//                                @PathVariable("tenancyAlias") String alias,
-//                                Model model) {
-//        LoginDTO loginDTO = new LoginDTO();
-//        model.addAttribute("loginDTO", loginDTO);
-//        model.addAttribute("tenancyAlias", alias);
-//        if (error != null) {
-//            model.addAttribute("error", "Email ou mot de passe incorrect.");
-//        }
-//        Tenancy tenancy = tenancyService.getTenancyByAlias(alias);
-//        
-//        // Ajouter les informations générales de la tenancy
-//        model.addAttribute("tenancy", tenancy);
-//        model.addAttribute("tenancyName", tenancy.getTenancyName());
-//        model.addAttribute("tenancySlogan", tenancy.getTenancySlogan());
-//        
-//     // Ajouter les informations graphiques
-//        Graphism graphism = tenancy.getGraphism();
-//        String logoBase64 = graphism != null ? graphism.getLogoImg() : null;
-//        String logoImgType = graphism != null ? graphism.getLogoImgType() : null;
-//        model.addAttribute("logoBase64", logoBase64);
-//        model.addAttribute("logoImgType", logoImgType);
-//        
-//        // Récupérer et ajouter les styles dynamiques via GraphismService
-//        graphismService.setUpModel(alias, model);
-//        
-//        
-//        
-//        
-//        return "amap/amaplogin/login";
-//    }
-
-    
-    
     
     /**
      * Affiche le profil utilisateur.
@@ -215,12 +178,10 @@ public class UserController {
     public String viewMembership(@PathVariable("tenancyAlias") String alias,
                                  Model model) {
     	Long userId = graphismService.getUserIdFromContext();
-        // Récupérer l'adhésion via le service
-        MembershipFeeDTO membershipFeeDTO = MemberShipService.getMembershipForUser(userId);
-
-        // Ajouter les données au modèle
-        model.addAttribute("membershipFeeDTO", membershipFeeDTO);
-        model.addAttribute("tenancyAlias", alias);
+    	User user = userService.findUserWithMembership(userId);
+    	Boolean isActive = user.getMembershipFee().getDateEnd().isAfter(LocalDate.now());
+        model.addAttribute("user", user);
+        model.addAttribute("isActive", isActive);
         graphismService.setUpModel(alias, model);
 
         return "amap/front/user-profile/membershipfee";

@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
 String currentMainMenu = "orders"; // Détermine la rubrique active
-String currentPage = "orders"; // Détermine la sous-rubrique active
+String currentPage = "pickup"; // Détermine la sous-rubrique active
 request.setAttribute("currentMainMenu", currentMainMenu);
 request.setAttribute("currentPage", currentPage);
 %>
@@ -12,14 +12,16 @@ request.setAttribute("currentPage", currentPage);
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Mes commandes</title>
+<title>Mon point de collecte</title>
 
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
 	rel="stylesheet" />
 <link rel="stylesheet"
 	href="<c:url value='/resources/bootstrap/bootstrap.min.css'/>" />
 <link rel="stylesheet"
-	href="<c:url value='/resources/css/amap/user-profile/my-orders.css' />">
+	href="<c:url value='/resources/css/amap/user-profile/pickup-infos.css' />">
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 
 
@@ -37,50 +39,21 @@ request.setAttribute("currentPage", currentPage);
 		<div class="container-fluid mt-2">
 			<div class="row justify-content-center">
 				<div class="col-12">
-					<div class="search-bar d-flex align-items-center mb-3">
-						<div class="mx-3">
-							<label class="fc-main">Opacité du tableau</label> <input
-								type="range" class="form-range" min="0" max="100" value="100"
-								id="bg-range">
+					<div>
+						<h3 class="fc-main fw-bold title">Où et quand récupérer votre commande ?</h3>
+						<h5 class="fc-main">Prochaine permanence : </h5>
+						<p class="fc-main ">${nextPickUpDate}</p>
+						<h5 class="fc-main">Adresse de votre amap : </h5>
+						<p class="fc-main ">${tenancy.address.line1} ${tenancy.address.line2}<br>${tenancy.address.postCode} ${tenancy.address.city}</p>
+						<div class="map-container">
+							<div class="map" id="dynamic-map"></div>
 						</div>
 					</div>
-						<h3 class="fc-main fw-bold title">Liste de vos dernières commandes</h3>
-					<table class="table">
-						<thead>
-							<tr>
-								<th>Numéro de commande</th>
-								<th>Date</th>
-								<th>Montant</th>
-								<th>Paiement</th>
-								<th>Statut</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="order" items="${orders}">
-								<tr>
-									<td>${order.orderId}</td>
-									<td>${order.orderDate}</td>
-									<td>${order.totalAmount}€</td>
-									<td><c:if test="${order.orderPaid}">
-										<c:forEach var="payment" items="${order.payments}">${payment.paymentType.displayName} </c:forEach> 
-									</c:if> <c:if test="${!order.orderPaid}">
-										Paiement sur place
-									</c:if></td>
-									<td>${order.orderStatus.displayName}</td>
-									<td><a class="btn btn-100" href="<c:url value='/amap/${tenancyAlias}/account/my-orders/order-details/${order.orderId}' />">Détails </a></td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
 
 				</div>
 			</div>
 		</div>
 	</div>
-
-
-
 
 
 	<script
@@ -98,8 +71,8 @@ request.setAttribute("currentPage", currentPage);
 	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script>
 	
-
-	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />"
-		type="text/javascript"></script>
+	<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="<c:url value='/resources/js/common/map-contact-page.js' />"></script>
 </body>
 </html>

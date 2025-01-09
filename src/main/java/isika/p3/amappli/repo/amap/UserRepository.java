@@ -25,6 +25,10 @@ public interface UserRepository extends JpaRepository<User, Long>{
     List<User> findByTenancyAndRole(@Param("tenancy") Tenancy tenancy, @Param("roleName") String roleName);
 
 	List<User> findByTenancy_TenancyId(Long tenancyId);
+	
+	@Query("SELECT u FROM User u LEFT JOIN FETCH u.membershipFee WHERE u.id = :userId")
+	User findUserWithMembership(@Param("userId") Long userId);
+	
     
 
 }

@@ -47,8 +47,8 @@ request.setAttribute("currentPage", currentPage);
 							href="<c:url value='/amap/${tenancyAlias}/account/my-orders' />">Retourner
 							à mes commandes</a>
 					</div>
-					<div id="order-details">
-						<h3>Commande n°${order.orderId}</h3>
+					<div id="order-details" class="fc-main">
+						<h3 class="fw-bold title">Commande n°${order.orderId}</h3>
 						<p>Montant total : ${order.totalAmount}€</p>
 						<p>Date de la commande : ${order.orderDate}</p>
 						<p>Etat : ${order.orderStatus.displayName}</p>
@@ -62,8 +62,8 @@ request.setAttribute("currentPage", currentPage);
 									</c:if>
 						</p>
 					</div>
+					<h3 class="fw-bold title">Détails des produits</h3>
 					<table class="table">
-					<h3>Détails des produits</h3>
 						<thead>
 							<tr>
 								<th></th>
