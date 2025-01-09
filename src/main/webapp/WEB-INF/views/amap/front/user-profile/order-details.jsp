@@ -12,7 +12,7 @@ request.setAttribute("currentPage", currentPage);
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Détail de ma commande n°${order.orderId}</title>
+<title>Détails de ma commande n°${order.orderId}</title>
 
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
 	rel="stylesheet" />
