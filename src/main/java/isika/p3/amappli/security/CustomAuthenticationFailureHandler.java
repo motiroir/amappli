@@ -17,12 +17,9 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) 
             throws IOException, ServletException {
 
-        System.out.println("Hello from the failure handler");
         // Retrieve the original login page from the login request
         String originalLoginPage = request.getParameter("origin");
 
-        System.out.println("the original login page: ");
-        System.out.println(originalLoginPage);
         if (originalLoginPage == null || originalLoginPage.isEmpty()) {
             // Fallback to a default login page
             response.sendRedirect("/Amappli/login?error=true");

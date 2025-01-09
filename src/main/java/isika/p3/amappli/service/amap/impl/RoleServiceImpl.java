@@ -13,6 +13,7 @@ import isika.p3.amappli.entities.auth.Permission;
 import isika.p3.amappli.entities.auth.Role;
 import isika.p3.amappli.repo.amap.RoleRepository;
 import isika.p3.amappli.repo.amappli.PermissionRepository;
+import isika.p3.amappli.repo.amappli.TenancyRepository;
 import isika.p3.amappli.service.amap.RoleService;
 
 @Service
@@ -22,10 +23,15 @@ public class RoleServiceImpl implements RoleService {
 
 	private final PermissionRepository permissionRepository;
 
-	public RoleServiceImpl(RoleRepository roleRepository, PermissionRepository permissionRepository) {
+	private final TenancyRepository tenancyRepository;
+
+
+	public RoleServiceImpl(RoleRepository roleRepository, PermissionRepository permissionRepository, TenancyRepository tenancyRepository) {
 		this.roleRepository = roleRepository;
 		this.permissionRepository = permissionRepository;
+		this.tenancyRepository = tenancyRepository;
 	}
+	
 
 	@Override
 	public Role findByName(String name) {
@@ -100,7 +106,7 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public void manageRoleFromRoleManagmentPage(RoleDTO roleDTO) {
+	public void manageRoleFromRoleManagmentPage(RoleDTO roleDTO, String alias) {
 		Role r = null;
 		if (roleDTO.getRoleId() != null) {
 			Optional<Role> oR = roleRepository.findById(roleDTO.getRoleId());
@@ -122,6 +128,9 @@ public class RoleServiceImpl implements RoleService {
 
 		Set<Permission> permissions = new HashSet<>(permissionsList);
 		r.setPermissions(permissions);
+		if(!alias.equals("amappli")){
+			r.setTenancy(tenancyRepository.findByTenancyAlias(alias).get());
+		}
 		roleRepository.save(r);
 	}
 

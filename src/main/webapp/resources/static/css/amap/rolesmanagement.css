@@ -1,6 +1,10 @@
 @charset "UTF-8";
 @import "../common/utils.css";
 
+.table {
+  background-color: transparent;
+}
+
 .table-header-rotated th.row-header{
     width: auto;
   }
@@ -42,10 +46,10 @@
   
   .table-header-rotated th.rotate-45 span {
     -ms-transform:skew(45deg,0deg) rotate(315deg) translate(-10px, 15px);
-    -moz-transform:skew(45deg,0deg) rotate(315deg);
-    -webkit-transform:skew(45deg,0deg) rotate(315deg);
-    -o-transform:skew(45deg,0deg) rotate(315deg);
-    transform:skew(45deg,0deg) rotate(315deg);
+    -moz-transform:skew(45deg,0deg) rotate(315deg) translate(-10px, 15px);
+    -webkit-transform:skew(45deg,0deg) rotate(315deg) translate(-10px, 15px);
+    -o-transform:skew(45deg,0deg) rotate(315deg) translate(-10px, 15px);
+    transform:skew(45deg,0deg) rotate(315deg) translate(-10px, 15px);
     position: absolute;
     bottom: 30px;
     left: -25px; 

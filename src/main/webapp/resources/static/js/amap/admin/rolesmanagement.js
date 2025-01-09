@@ -1,7 +1,6 @@
 // Populate the form with data when a row is clicked
 document.addEventListener('DOMContentLoaded', function () {
-    console.log("is my script loading?");
-    let rows = document.querySelectorAll('#rolesTable tbody tr');
+    let rows = document.querySelectorAll('#rolesTable tbody tr:not(.table-active)');
 
     rows.forEach(row => {
         row.addEventListener('click', function () {

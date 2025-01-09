@@ -25,20 +25,20 @@
                 </c:choose>
             </header> 
 
-            <!-- <div id="map"></div> -->
+            <div id="map"></div>
 
             <div class="fc-main content col d-flex">
                 <jsp:include page="../../../amap/back/common/sidebarAdmin.jsp" />
 
                 <div class="container-fluid row mt-2">
-                    <div class="col-8 mx-auto justify-content-start">
+                    <div class="col-8 mx-auto justify-content-center">
                         <h2 class="mb-3">Rôles et Permissions</h2>
 
-                        <table id="rolesTable" class="table table-striped table-hover table-header-rotated">
+                        <table id="rolesTable" class="table table-hover table-header-rotated">
                             <thead>
                                 <tr>
                                     <th class="col-2">Rôle</th>
-                                    <c:forEach var="permission" items="${permissions}">
+                                    <c:forEach var="permission" items="${permissionsToManage}">
                                         <th class="rotate-45">
                                             <div>
                                                 <span class="rotate-45__label m-3">
@@ -50,10 +50,26 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <!-- Default Roles -->
+                                <c:forEach var="role" items="${rolesNoModif}">
+                                    <tr class="table-active">
+                                        <th class="row-header">${role.name}</th>
+                                        <c:forEach var="permission" items="${permissionsToManage}">
+                                            <td>
+                                                <c:choose>
+                                                    <c:when
+                                                        test="${roleNoModifPermissionsMap[role.roleId] != null && roleNoModifPermissionsMap[role.roleId].contains(permission.permissionId)}">&#x2713;</c:when>
+                                                    <c:otherwise></c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                        </c:forEach>
+                                    </tr>
+                                </c:forEach>
+                                <!-- Roles to Manage-->
                                 <c:forEach var="role" items="${roles}">
                                     <tr data-role-id="${role.roleId}" data-role-name="${role.name}">
                                         <th class="row-header">${role.name}</th>
-                                        <c:forEach var="permission" items="${permissions}">
+                                        <c:forEach var="permission" items="${permissionsToManage}">
                                             <td data-permission-id="${permission.permissionId}">
                                                 <c:choose>
                                                     <c:when
@@ -91,7 +107,7 @@
                                 <div class="mb-3">
                                     <label class="form-label" for="permissions">Permissions disponibles</label>
                                     <div id="permissions" class="row">
-                                        <c:forEach var="permission" items="${permissions}">
+                                        <c:forEach var="permission" items="${permissionsToManage}">
                                             <div class="col-12 col-md-4 mb-2 form-check">
                                                 <input class="form-check-input" type="checkbox" id="perm-${permission.permissionId}" name="permissions"
                                                     value="${permission.permissionId}">
@@ -109,7 +125,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <footer class="container-fluid fc-main bg-main">
                 <c:choose>
                     <c:when test="${amappli == true}">
@@ -129,9 +145,9 @@
             var latitude = "${latitude}"
             var longitude = "${longitude}"
         </script>
-<!-- 
+ 
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  -->
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
     <script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
     <script src="<c:url value='/resources/js/amap/admin/bg-table.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />" type="text/javascript"></script>

@@ -48,7 +48,6 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
         // if also plateform user, send him to the amappli homepage
         CustomUserDetails loggedUserInfo = (CustomUserDetails) authentication.getPrincipal();
         if(loggedUserInfo.getAdditionalInfoByKey("tenancyAlias") != null){
-            System.out.println(loggedUserInfo.getAdditionalInfoByKey("tenancyAlias"));
             return "/amap/" + loggedUserInfo.getAdditionalInfoByKey("tenancyAlias") + "/home";
         }
         return "/amappli";

@@ -25,5 +25,5 @@ public interface RoleService {
 	
     void addtestRoles(); 
 
-	void manageRoleFromRoleManagmentPage(RoleDTO roleDTO);
+	void manageRoleFromRoleManagmentPage(RoleDTO roleDTO, String alias);
 }

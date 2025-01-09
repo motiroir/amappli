@@ -86,7 +86,7 @@ public class RoleController {
 	public String editGeneralRolesWithPermissions(RoleDTO roleDTO) {
 		
 		//Role r = Role.builder().name(name).permissions().build();
-		roleService.manageRoleFromRoleManagmentPage(roleDTO);
+		roleService.manageRoleFromRoleManagmentPage(roleDTO,"amappli");
 		return "redirect:/amappli/roles/manage";
 	}
 
@@ -95,11 +95,11 @@ public class RoleController {
 	public String showRolesWithPermissions(@PathVariable("tenancyAlias") String alias, Model model) {
 
 		// Get logged user
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		CustomUserDetails loggedUserInfo = (CustomUserDetails) authentication.getPrincipal();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails loggedUserInfo = (CustomUserDetails) authentication.getPrincipal();
 
 		User user = userService.findById((Long) loggedUserInfo.getAdditionalInfoByKey("userId"));
-		
+
 		// The roles that can't be modified
 		List<Role> rolesNoModif = roleService.findAllGenericRoles();
 		model.addAttribute("rolesNoModif",rolesNoModif);
@@ -107,15 +107,28 @@ public class RoleController {
 		List<Role> roles = roleService.findAmapExclusiveRoles(alias);
 		model.addAttribute("roles", roles);
 		// An user can only manage permissions he already has himself
-		Collection<Permission> permissions = user.getPermissions();
-        model.addAttribute("permissions", permissions);
+		Collection<Permission> permissionsToManage = user.getPermissions();
+	
+		model.addAttribute("permissionsToManage", permissionsToManage);
 
-		// Creating role/permission map because we can't check if an item is in a set with the jsp tags
+		//Creating role/permission map because we can't check if an item is in a set with the jsp tags
+		// for the default roles
+		Map<Long, Set<Long>> roleNoModifPermissionsMap = new HashMap<>();
+        for (Role role : rolesNoModif) {
+            Set<Long> permissionIds = role.getPermissions().stream()
+                .map(Permission::getPermissionId)
+				.filter( permissionId -> permissionsToManage.stream().anyMatch(p -> p.getPermissionId().equals(permissionId)))
+                .collect(Collectors.toSet());
+            roleNoModifPermissionsMap.put(role.getRoleId(), permissionIds);
+        }
+		model.addAttribute("roleNoModifPermissionsMap", roleNoModifPermissionsMap);
+
+		// for the roles to manage
 		Map<Long, Set<Long>> rolePermissionsMap = new HashMap<>();
         for (Role role : roles) {
             Set<Long> permissionIds = role.getPermissions().stream()
                 .map(Permission::getPermissionId)
-				.filter( permissionId -> permissions.stream().anyMatch(p -> p.getPermissionId().equals(permissionId)))
+				.filter( permissionId -> permissionsToManage.stream().anyMatch(p -> p.getPermissionId().equals(permissionId)))
                 .collect(Collectors.toSet());
             rolePermissionsMap.put(role.getRoleId(), permissionIds);
         }
@@ -136,7 +149,7 @@ public class RoleController {
 	public String editRolesWithPermissions(@PathVariable("tenancyAlias") String alias, RoleDTO roleDTO) {
 		
 		//Role r = Role.builder().name(name).permissions().build();
-		roleService.manageRoleFromRoleManagmentPage(roleDTO);
+		roleService.manageRoleFromRoleManagmentPage(roleDTO, alias);
 		return "redirect:/amap/"+alias+"/roles/manage";
 	}
 }
