@@ -27,6 +27,7 @@
 <!-- Mapbox CSS -->
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
 	rel="stylesheet" />
+	
 </head>
 
 <body class="theme-1 dark bg-main">
@@ -41,7 +42,7 @@
 	<section class="align-items-center p-5">
 	<div id="catchphrase" class="text-center">
 		<h1 class="col-12">amappli</h1>
-		<span class="underline col-10 mx-auto my-2 d-block"> </span>
+		<span class="underline col-3 mx-auto d-block"></span>
 		<h2 class="col-12">
 			vous avez l'amap<br>nous avons l'appli
 		</h2>
@@ -49,43 +50,75 @@
 </section>
 
 
-	<section id="call-to-action" class="">
-	<div class="container-fluid py-3 justify-content-center">
-		<div class="col-12 row justify-content-around align-items-stretch text-center">
-			<!-- Colonne de l'image -->
-			<div class="col-12 col-md-6 mx-auto mt-2 p-3 d-flex align-items-stretch">
-				<img id="main-picture" class="container-fluid p-0 h-100" 
-					style="object-fit: cover;" 
-					src="<c:url value='/resources/img/ImageAccueil_WIP.png' />" 
-					alt="Illustration Amappli" />
-			</div>
 
-			<!-- Colonne du texte et des boutons -->
-			<div class="col-12 col-md-6 mx-auto mt-2 p-3 text-center bg-700 rounded-3 d-flex flex-column justify-content-center align-items-center">
-				<div class="w-100">
-					<p class="col-12 text-center">
-						<b>AMAPPLI</b> vous aide à mieux gérer votre AMAP pour vous
-						concentrer sur l'essentiel. Grâce à son interface intuitive et
-						conviviale, vous pouvez facilement créer, gérer et personnaliser
-						votre site web.
-					</p>
-					<div class="col-12 d-flex justify-content-evenly">
-						<a href="<c:url value='/amappli/start/signup'/>"  
-							class="btn btn-100 rounded-pill px-4">Créer mon site</a>
-						<a href="<c:url value='/amappli/contact'/>" 
-							class="btn btn-900 rounded-pill px-4">Planifier une démonstration</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
+
+ <section class="amappli-section">
+    <div class="container">
+      <div class="row align-items-stretch">
+        <!-- Colonne Image -->
+        <div class="col-md-6 text-center d-flex align-items-center">
+          <img src="<c:url value='/resources/img/homepage_amappli.png'/>" alt="Illustration AMAPPLI" class="amappli-image mx-auto">
+        </div>
+        <!-- Colonne Texte et Boutons -->
+        <div class="col-md-6 amappli-text bg-700">
+          <p class="col-12 text-center">
+                        <b>AMAPPLI</b> vous aide à mieux gérer votre AMAP pour vous
+                        concentrer sur l'essentiel. Grâce à son interface intuitive et
+                        conviviale, vous pouvez facilement créer, gérer et personnaliser
+                        votre site web.
+                    </p>
+           <div class="amappli-buttons ">
+          <a href="<c:url value='/amappli/start/creation'/>" 
+             class="btn btn-100 rounded-pill px-4">Créer mon site</a>
+          <a href="<c:url value='/amappli/contact'/>" 
+             class="btn btn-100 rounded-pill px-4">Planifier une démonstration</a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+<%-- <section id="call-to-action">
+        <div class=" container-fluid row justify-content-around align-items-center text-center">
+            <!-- Colonne de l'image -->
+            <div class="col-12 col-md-6 mx-auto mt-5 p-5 mb-5 d-flex align-items-center justify-content-center px-4">
+                <img id="main-picture" class="img-fluid rounded-3" 
+                     style="object-fit: cover;" 
+                     src="<c:url value='/resources/img/homepage_amappli.png' />" 
+                     alt="Illustration Amappli" />
+            </div>
+
+            <!-- Colonne du texte et des boutons -->
+            <div class="col-12 col-md-4 mx-auto mt-5 p-5 mb-5 text-center bg-700 rounded-3 d-flex flex-column justify-content-center align-items-center ">
+                <div class="w-100">
+                    <p class="col-12 text-center">
+                        <b>AMAPPLI</b> vous aide à mieux gérer votre AMAP pour vous
+                        concentrer sur l'essentiel. Grâce à son interface intuitive et
+                        conviviale, vous pouvez facilement créer, gérer et personnaliser
+                        votre site web.
+                    </p>
+                    <div class="col-12 d-flex justify-content-evenly">
+                        <a href="<c:url value='/amappli/start/signup'/>"  
+                           class="btn btn-100 rounded-pill px-4">Créer mon site</a>
+                        <a href="<c:url value='/amappli/contact'/>" 
+                           class="btn btn-900 rounded-pill px-4">Planifier une démonstration</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section> --%>
+
+
+
+
 
 
 
 	<section id="advantages" class="container-fluid mt-3">
-		<div class="title-holder text-center mx-auto mb-3">
-			<h1 class="title mb-2">Tout pour vous aider</h1>
+		<div class="title-holder text-center mx-auto mb-4">
+			<h1 class="title mt-5">Tout pour vous aider</h1>
 			<span class="underline col-8 mx-auto d-block"></span>
 		</div>
 		<div class="col-12 row mx-0 justify-content-center">
@@ -176,7 +209,7 @@
 
 	<section id="subscriptions" class="container-fluid mt-3 mx-auto">
 		<div class="title-holder text-center mx-auto mb-3">
-			<h1 class="title mb-2">Les abonnements</h1>
+			<h1 class="title mt-5 mb-2">Les abonnements</h1>
 			<span class="underline col-8 mx-auto d-block"></span>
 		</div>
 		<div class="col-12 row mx-0 rounded-4 p-4 justify-content-evenly">
@@ -223,7 +256,7 @@
                     <img class="col-10 col-md-8 mx-auto d-block img-fluid"
                         src="<c:url value='/resources/img/logoterralocal.png' />" alt="GREENMAVEN Logo" />
                 </a>
-                <h4 class="fw-bold">TERRALOCAL</h4>
+                <h6 class="fw-bold text-break">TERRALOCAL</h6>
             </div>
         </div>
         <!-- Partner 2 -->
@@ -234,7 +267,7 @@
                     <img class="col-10 col-md-8 mx-auto d-block img-fluid"
                         src="<c:url value='/resources/img/logoagrinov.png' />" alt="AGRINOV Logo" />
                 </a>
-                <h4 class="fw-bold">AGRINOV</h4>
+                <h6 class="fw-bold text-break">AGRINOV</h6>
             </div>
         </div>
         <!-- Partner 3 -->
@@ -245,7 +278,7 @@
                     <img class="col-10 col-md-8 mx-auto d-block img-fluid"
                         src="<c:url value='/resources/img/logogroots.png' />" alt="GROOTS Logo" />
                 </a>
-                <h4 class="fw-bold">GROOTS</h4>
+                <h6 class="fw-bold text-break">GROOTS</h6>
             </div>
         </div>
         <!-- Partner 4 -->
@@ -256,7 +289,7 @@
                     <img class="col-10 col-md-8 mx-auto d-block img-fluid"
                         src="<c:url value='/resources/img/logobiocoli.png' />" alt="BIOCOLI Logo" />
                 </a>
-                <h4 class="fw-bold">BIOCOLI</h4>
+                <h6 class="fw-bold text-break">BIOCOLI</h6>
             </div>
         </div>
         <!-- Partner 5 -->
@@ -267,7 +300,7 @@
                     <img class="col-10 col-md-8 mx-auto d-block img-fluid"
                         src="<c:url value='/resources/img/logogreenmaven.png' />" alt="GREENMAVEN Logo" />
                 </a>
-                <h4 class="fw-bold">GREENMAVEN</h4>
+                <h6 class="fw-bold text-break">GREENMAVEN</h6>
             </div>
         </div>
         <!-- Partner 6 -->
@@ -278,7 +311,7 @@
                     <img class="col-10 col-md-8 mx-auto d-block img-fluid"
                         src="<c:url value='/resources/img/logolacarottechantenay.png' />" alt="GREENMAVEN Logo" />
                 </a>
-                <h6 class="fw-bold">LA CAROTTE CHANTENAY</h6>
+                <h6 class="fw-bold text-break">LA CAROTTE CHANTENAY</h6>
             </div>
         </div>
     </div>

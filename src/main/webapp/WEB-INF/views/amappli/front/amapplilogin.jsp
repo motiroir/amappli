@@ -25,9 +25,9 @@
 	<div class="container py-5 flex-grow-1 form-container">
 		<div class="d-flex justify-content-between align-items-center">
     <h1 class="h3 fw-bold fc-300">Se connecter</h1>
-    <a href="/amappli/home" class="btn-close" aria-label="Retour"></a>
+    <a href="<c:url value='/amappli/home'/>" class="btn-close" aria-label="Retour"></a>
 </div>
-<hr class="bg-300 mb-4">
+<hr class="bg-main fc-main mb-4">
 
 	
 		
@@ -64,7 +64,7 @@
 		<br>
 		<div class="text-center mt-4">
 			<p class="fc-300 ms-4" >Pas encore inscrit.e ?</p>
-			<hr class="bg-300">
+			<hr class="bg-main fc-main mb-4">
 			<a
 				href="${pageContext.request.contextPath}/amappli/start/signup"
 				class="btn btn-500 px-4 rounded-pill">S'inscrire</a>

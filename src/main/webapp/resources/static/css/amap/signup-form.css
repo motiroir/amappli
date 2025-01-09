@@ -15,8 +15,6 @@
 h1 {
 	font-size: 1.25rem;
 	font-weight: bold;
-	font-family: 'Futura', sans-serif;
-	color: #333;
 	padding: 10px;
 }
 
@@ -28,7 +26,7 @@ h1 {
 	cursor: pointer;
 }
 
-hr.bg-300 {
+hr {
     margin-top: 0; 
     margin-bottom: 1rem; 
     border: 0;
@@ -37,7 +35,6 @@ hr.bg-300 {
    
 }
 .text-center p {
-   
     font-size: rgb(255, 128, 64);
     font-weight: bold;
     color: #333;
@@ -47,7 +44,7 @@ hr.bg-300 {
 
 input[type="text"], input[type="email"], input[type="tel"], input[type="password"]
 	{
-	border-radius: 25px;
+	border-radius: 20px;
 	border: 1px solid #ccc;
 	padding: 10px 20px;
 	font-size: 1rem;
