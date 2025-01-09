@@ -76,10 +76,14 @@ request.setAttribute("currentPage", currentPage);
 		<div class="text-end mt-2">
 			<form:form method="post"
 				action="${pageContext.request.contextPath}/amap/${tenancyAlias}/cart/add">
-				<div class="quantity-selector">
-					<label for="quantity">Quantité :</label> <input type="number"
-						id="quantity" name="quantity" value="1" min="1">
+				<div class="btn btn-100 mt-0 px-1 py-1 quantity-selector">
+					<button type="button" id="decreaseQuantity"
+						class="btn p-0 mx-2 border-0 bg-transparent">-</button>
+					<span id="currentQuantity">1</span>
+					<button type="button" id="increaseQuantity"
+						class="btn p-0 mx-2 border-0 bg-transparent">+</button>
 				</div>
+				<input type="hidden" id="quantity" name="quantity" value="1">
 				<input type="hidden" name="shoppableId" value="${product.id}">
 				<input type="hidden" name="shoppableType" value="PRODUCT">
 				<button type="submit" class="btn btn-500 btn-order ms-2">Ajouter au
@@ -105,6 +109,8 @@ request.setAttribute("currentPage", currentPage);
 		src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/quantityselector.js' />"
 		type="text/javascript"></script>
 </body>
 </html>

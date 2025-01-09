@@ -21,8 +21,9 @@ request.setAttribute("currentPage", currentPage);
 <link
 	href="<c:url value='/resources/bootstrap/bootstrap-icons.min.css' />"
 	rel="stylesheet">
-	<link href="<c:url value='/resources/css/amap/shopping-detail.css' />"
+<link href="<c:url value='/resources/css/amap/shopping-detail.css' />"
 	rel="stylesheet">
+<style></style>
 </head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
 	<!-- Header -->
@@ -32,12 +33,15 @@ request.setAttribute("currentPage", currentPage);
 	<jsp:include page="../front/common/sidebarUser.jsp" />
 	<div id="map" class="p-0"></div>
 
-	<div class="content col fc-main bg-100 border border-3 border-main pb-3 m-5" style="border-radius: 10px 10px 0 0;">
-	<div class="header">
-				<a href="<c:url value='/amap/${tenancyAlias}/shop/contracts'/>" class="text-decoration-none">
-    <i class="bi bi-arrow-left-circle fs-1 fc-500"></i>
-</a>
-</div>
+	<div
+		class="content col fc-main bg-100 border border-3 border-main pb-3 m-5"
+		style="border-radius: 10px 10px 0 0;">
+		<div class="header">
+			<a href="<c:url value='/amap/${tenancyAlias}/shop/contracts'/>"
+				class="text-decoration-none"> <i
+				class="bi bi-arrow-left-circle fs-1 fc-500"></i>
+			</a>
+		</div>
 		<div class="contract-detail-container">
 			<!-- Colonne de gauche : image -->
 			<div class="contract-image">
@@ -65,16 +69,18 @@ request.setAttribute("currentPage", currentPage);
 				<p>
 					<strong>Composition du panier :<br></strong>
 					${contract.contractDescription}
-				</p><br>
+				</p>
+				<br>
 				<p>
 					<i class="bi bi-bag"></i> commandez aujourd'hui et récupèrez votre
 					premier panier ${formattedNextDeliveryDate}
 				</p>
 				<p>
 					<i class="bi bi-info-circle"></i> L'abonnement au panier se termine
-					 ${formattedEndDate}
-				</p><br>
-				<h2 class="text-end mt-4">
+					${formattedEndDate}
+				</p>
+				<br>
+				<h2 class="text-end mt-4 mb-3">
 					<strong>${contract.contractPrice}&euro; / livraison</strong>
 				</h2>
 			</div>
@@ -84,14 +90,18 @@ request.setAttribute("currentPage", currentPage);
 		<div class="text-end mt-2">
 			<form:form method="post"
 				action="${pageContext.request.contextPath}/amap/${tenancyAlias}/cart/add">
-				<div class="quantity-selector">
-					<label for="quantity">Quantité :</label> <input type="number"
-						id="quantity" name="quantity" value="1" min="1">
+				<div class="btn btn-100 mt-0 px-1 py-1 quantity-selector">
+					<button type="button" id="decreaseQuantity"
+						class="btn p-0 mx-2 border-0 bg-transparent">-</button>
+					<span id="currentQuantity">1</span>
+					<button type="button" id="increaseQuantity"
+						class="btn p-0 mx-2 border-0 bg-transparent">+</button>
 				</div>
+				<input type="hidden" id="quantity" name="quantity" value="1">
 				<input type="hidden" name="shoppableId" value="${contract.id}">
 				<input type="hidden" name="shoppableType" value="CONTRACT">
-				<button type="submit" class="btn btn-500 btn-order ms-2" name="action">Ajouter au
-					panier</button>
+				<button type="submit" class="btn btn-500 btn-order ms-2"
+					name="action">Ajouter au panier</button>
 			</form:form>
 		</div>
 	</div>
@@ -111,10 +121,14 @@ request.setAttribute("currentPage", currentPage);
 		type="text/javascript"></script>
 	<script
 		src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"
+		type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
 		type="text/javascript"></script>
-	
+	<script src="<c:url value='/resources/js/amap/quantityselector.js' />"
+		type="text/javascript"></script>
+
+
 
 </body>
 </html>

@@ -130,16 +130,8 @@
 						href="<c:url value='/amappli/start/signup'/>"
 						class="btn rounded-pill btn-500 px-4">S'inscrire</a></li>
 				</c:if>
-				<c:if test="${not empty pageContext.request.userPrincipal}">
-					<form action="<c:url value='/logout'/>" method="get"
-						class="d-inline"
-						onsubmit="return confirm('Êtes-vous sûr(e) de vouloir vous déconnecter ?');">
-						<button type="submit" class="btn p-0 border-0 bg-transparent">
-							<i class="bi bi-box-arrow-left fs-4 fc-300 fch-500"></i>
-						</button>
-					</form>
-				</c:if>
-				<li>
+				<li><a href="<c:url value='/amappli/login'/>"
+				class="btn bg-900  rounded-pill">Se connecter</a></li>
 			</ul>
 		</div>
 	</nav>

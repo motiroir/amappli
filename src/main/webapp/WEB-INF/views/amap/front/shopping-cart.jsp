@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<fmt:setLocale value="fr_FR" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,35 +79,42 @@
 							<tr>
 							<tr>
 								<td>Panier</td>
-								<td>${totalContracts}€</td>
-								<!-- Affiche le nombre de contrats dans le panier -->
+								<td><fmt:formatNumber value="${totalContracts}"
+										type="number" minFractionDigits="2" />€</td>
 							</tr>
 							<tr>
 								<td>Produits artisanaux</td>
-								<td>${totalProducts}€</td>
-								<!-- Affiche le nombre de produits dans le panier -->
+								<td><fmt:formatNumber value="${totalProducts}"
+										type="number" minFractionDigits="2" />€</td>
 							</tr>
 							<tr>
 								<td>Ateliers</td>
-								<td>${totalWorkshops}€</td>
-								<!-- Affiche le nombre de produits dans le panier -->
+								<td><fmt:formatNumber value="${totalWorkshops}"
+										type="number" minFractionDigits="2" />€</td>
 							</tr>
 							<tr>
 								<td>Cotisation</td>
-								<td>${tenancy.membershipFeePrice}€</td>
+								<td><fmt:formatNumber value="${tenancy.membershipFeePrice}"
+										type="number" minFractionDigits="2" />€</td>
 							</tr>
 							<tr>
 								<td><h2 class="fw-bold">TOTAL</h2></td>
-								<td><h2 class="fw-bold">${total}€</h2></td>
+								<td><h2 class="fw-bold">
+										<fmt:formatNumber value="${total}" type="number"
+											minFractionDigits="2" />
+										€
+									</h2></td>
 							</tr>
+
 
 							<form:form method="post"
 								action="${pageContext.request.contextPath}/amap/${tenancyAlias}/order/createOrder">
 								<tr>
-								<c:if test="${options.option1Active}">
-									<td colspan="2"><button class="btn btn-500 btn-order"
-											type="submit" name="action" value="OrderWithPayment">Paiement en ligne</button></td>
-								</c:if>
+									<c:if test="${options.option1Active}">
+										<td colspan="2"><button class="btn btn-500 btn-order"
+												type="submit" name="action" value="OrderWithPayment">Paiement
+												en ligne</button></td>
+									</c:if>
 								</tr>
 								<tr>
 									<td colspan="2"><button class="btn btn-100 btn-order"
@@ -131,8 +141,12 @@
 		var latitude = "${latitude}"
 		var longitude = "${longitude}"
 	</script>
-	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script> 
-	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
+	<script
+		src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"
+		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
+		type="text/javascript"></script>
 </body>
 </html>
