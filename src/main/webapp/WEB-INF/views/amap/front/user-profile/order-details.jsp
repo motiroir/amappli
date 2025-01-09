@@ -32,12 +32,13 @@ request.setAttribute("currentPage", currentPage);
 	<jsp:include page="common/sidebar-user-account.jsp" />
 
 	<div id="map"></div>
-	<
+	
 	<div class="content col fc-main">
 		<div class="container-fluid mt-2">
 			<div class="row justify-content-center">
 				<div class="col-12">
-					<div class="search-bar d-flex align-items-center justify-content-between mb-3">
+					<div
+						class="search-bar d-flex align-items-center justify-content-between mb-3">
 						<div class="mx-3">
 							<label class="fc-main">Opacité du tableau</label> <input
 								type="range" class="form-range" min="0" max="100" value="100"
@@ -49,11 +50,11 @@ request.setAttribute("currentPage", currentPage);
 					</div>
 					<div id="order-details" class="fc-main">
 						<h3 class="fw-bold title">Commande n°${order.orderId}</h3>
-						<p>Montant total : ${order.totalAmount}€</p>
-						<p>Date de la commande : ${order.orderDate}</p>
-						<p>Etat : ${order.orderStatus.displayName}</p>
+						<p><strong>Montant total :</strong> ${order.totalAmount}€</p>
+						<p><strong>Date de la commande :</strong> ${order.orderDate}</p>
+						<p><strong>Etat</strong> : ${order.orderStatus.displayName}</p>
 						<p>
-							Type de Paiement :
+							<strong>Type de Paiement :</strong>
 							<c:if test="${order.orderPaid}">
 										Paiement en ligne
 									</c:if>
@@ -66,21 +67,30 @@ request.setAttribute("currentPage", currentPage);
 					<table class="table">
 						<thead>
 							<tr>
-								<th></th>
 								<th>Nom de l'article</th>
 								<th>Prix à l'unité</th>
 								<th>Quantité</th>
 								<th>Total</th>
+								<th>En savoir plus</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="item" items="${order.orderItems}">
 								<tr>
-									<td></td>
 									<td>${item.shoppable.getInfo()}</td>
 									<td>${item.unitPrice}€</td>
 									<td>${item.quantity}</td>
 									<td>${item.total}€</td>
+
+									<c:set var="shoppableType"
+										value="${item.shoppable.shoppableType}" />
+
+									<!-- Condition to hide the link if shoppableType is "membershipFee" -->
+									<c:if test="${shoppableType != 'membershipFee'}">
+										<td><a class="btn btn-100"
+											href="<c:url value='/amap/${tenancyAlias}/shop/${shoppableType}s/${item.shoppable.id}' />">Détails
+										</a></td>
+									</c:if>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -107,9 +117,10 @@ request.setAttribute("currentPage", currentPage);
 
 	<script
 		src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"
+		type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script>
-	
+
 
 	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />"
 		type="text/javascript"></script>
