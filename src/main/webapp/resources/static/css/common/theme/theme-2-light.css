@@ -347,6 +347,10 @@
 	color: var(--main-font-color) !important;
 }
 
+.theme-2.light .fch-alt:hover {
+    color: var(--alt-font-color) !important;
+}
+
 .theme-2.light .fill-900 {
 	fill: var(--orange-100) !important;
 }

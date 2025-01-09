@@ -38,16 +38,18 @@
 	<nav class="navbar navbar-expand col-offset-1 col-8 align-content-center">
 		<div class="collapse navbar-collapse" id="nav-content">
 			<ul class="navbar-nav w-100 justify-content-around align-items-center">
-<%-- 			<li class="nav-item">
-					<a href="#" class="nav-link ${font} text-decoration-none rounded-pill btn btn-outline-300 border border-1 fw-bold fc-300 fch-900"><i class="bi bi-arrow-left"></i><span class="d-none d-md-inline"> Retour vers le site</span></a>
-				</li> --%>
 				<li class="nav-item d-block d-md-none">
 				<button id="button-collapse-2" class="navbar-toggler align-self-start d-block d-md-none m-2" type="button" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebar" data-bs-target="#sidebar">
 					<span class="navbar-toggler-icon fill-main"></span>
 				</button>
 				</li>
+	 			<li class="nav-item">
+				</li>
 				<li class="nav-item">
 					<h1 class="${font} fc-300 fw-bold text-center">Espace admin<span class="d-none d-md-inline">istrateur</span></h1>
+				</li>
+	 			<li class="nav-item">
+					<a href="<c:url value='/logout'/>" class="nav-link ${font} text-decoration-none btn p-0 border-0 bg-transparent"><i class="bi bi-box-arrow-left fs-4 fc-300 fch-500"></i></a>
 				</li>
 			</ul>
 		</div>
