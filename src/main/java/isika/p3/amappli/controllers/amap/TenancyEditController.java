@@ -1,14 +1,26 @@
 package isika.p3.amappli.controllers.amap;
 
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import isika.p3.amappli.dto.amap.ContentBlockDTO;
 import isika.p3.amappli.dto.amap.TenancyUpdateAddressDTO;
+import isika.p3.amappli.dto.amap.TenancyUpdateColorFontDTO;
+import isika.p3.amappli.dto.amap.TenancyUpdateHomePageContentDTO;
 import isika.p3.amappli.dto.amap.TenancyUpdateLogo;
 import isika.p3.amappli.dto.amap.TenancyUpdateNameAliasDTO;
 import isika.p3.amappli.dto.amap.TenancyUpdatePickUpDTO;
 import isika.p3.amappli.dto.amap.TenancyUpdateSloganDTO;
+import isika.p3.amappli.entities.tenancy.ColorPalette;
+import isika.p3.amappli.entities.tenancy.ContentBlock;
+import isika.p3.amappli.entities.tenancy.FontChoice;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.service.amap.GraphismService;
 import isika.p3.amappli.service.amappli.TenancyService;
@@ -65,6 +77,34 @@ public class TenancyEditController {
         tenancyUpdatePickUpDTO.setPickUpSchedule(tenancy.getPickUpSchedule());
         model.addAttribute("tenancyUpdatePickUpDTO", tenancyUpdatePickUpDTO);
 
+        // Font and Palette
+        TenancyUpdateColorFontDTO tenancyUpdateColorFontDTO = new TenancyUpdateColorFontDTO();
+        tenancyUpdateColorFontDTO.setColorPalette(tenancy.getGraphism().getColorPalette());
+        tenancyUpdateColorFontDTO.setFontChoice(tenancy.getGraphism().getFontChoice());
+        // Give the color palettes options for the form
+        model.addAttribute("colorPalettes",ColorPalette.values());
+        model.addAttribute("fontChoices", FontChoice.values());
+        
+        model.addAttribute("tenancyUpdateColorFontDTO",tenancyUpdateColorFontDTO);
+
+        // HomePageContent
+        List<ContentBlock> allContents = tenancy.getHomePageContent().getContents();
+        // Separate values from other contents block
+        Map<Boolean, List<ContentBlock>> sortedContents = allContents.stream().collect(Collectors.partitioningBy(cb -> cb.isValue()));
+        List<ContentBlock> contents = sortedContents.get(false);
+        List<ContentBlock> values = sortedContents.get(true);
+
+        TenancyUpdateHomePageContentDTO tenancyUpdateHomePageContentDTO = new TenancyUpdateHomePageContentDTO();
+        List<ContentBlockDTO> contentsDTO = contents.stream().map(
+                                                cb -> {
+                                                   ContentBlockDTO cbDTO = new ContentBlockDTO();
+                                                   BeanUtils.copyProperties(cb, cbDTO);
+                                                   return cbDTO;
+                                                }
+                                            ).collect(Collectors.toList());
+        tenancyUpdateHomePageContentDTO.setContents(contentsDTO);
+        model.addAttribute("tenancyUpdateHomePageContentDTO", tenancyUpdateHomePageContentDTO);
+
         return "/amap/back/edit/edithomepage";
     }
 
@@ -95,6 +135,18 @@ public class TenancyEditController {
     @PostMapping("/{tenancyAlias}/admin/edittheaddress")
     public String editLogo(TenancyUpdateAddressDTO tenancyDTO, @PathVariable("tenancyAlias") String alias, Model model){
         tenancyService.updateTenancyAddress(tenancyDTO, alias);
+        return "redirect:/amap/"+ alias + "/admin/edit";
+    }
+
+    @PostMapping("/{tenancyAlias}/admin/editthepickupschedule")
+    public String editPickUp(TenancyUpdatePickUpDTO tenancyDTO, @PathVariable("tenancyAlias") String alias, Model model){
+        tenancyService.updateTenancyPickUpSchedule(tenancyDTO, alias);
+        return "redirect:/amap/"+ alias + "/admin/edit";
+    }
+
+    @PostMapping("/{tenancyAlias}/admin/editthefontandcolor")
+    public String editFontColor(TenancyUpdateColorFontDTO tenancyDTO, @PathVariable("tenancyAlias") String alias, Model model){
+        tenancyService.updateTenancyColorFont(tenancyDTO, alias);
         return "redirect:/amap/"+ alias + "/admin/edit";
     }
 }

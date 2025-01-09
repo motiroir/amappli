@@ -8,5 +8,5 @@ import lombok.Setter;
 @Getter @Setter
 public class TenancyUpdatePickUpDTO {
 
-    private PickUpSchedule pickUpSchedule;
+   private PickUpSchedule pickUpSchedule;
 }

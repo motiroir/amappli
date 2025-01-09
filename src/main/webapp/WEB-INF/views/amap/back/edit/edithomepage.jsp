@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -166,8 +168,9 @@
                                     <label for="dayOfWeek" class="form-label">Jour de la Semaine</label>
                                     <select class="from-control form-select" name="pickUpSchedule.dayOfWeek" id="dayOfWeek">
                                         <option value="">Sélectionnez un Jour</option>
-                                            <c:choose>
-                                        <c:when test="${tenancyUpdatePickUpDTO.dayOfWeek.name() == 'MONDAY'}">
+                                        <option value="a">Test</option>
+                                        <c:choose>
+                                        <c:when test="${tenancyUpdatePickUpDTO.pickUpSchedule.dayOfWeek.getValue() == 1}">
                                             <option value="MONDAY" selected>Lundi</option>
                                         </c:when>
                                         <c:otherwise>
@@ -176,7 +179,7 @@
                                         </c:choose>
 
                                         <c:choose>
-                                            <c:when test="${tenancyUpdatePickUpDTO.dayOfWeek.name() == 'TUESDAY'}">
+                                            <c:when test="${tenancyUpdatePickUpDTO.pickUpSchedule.dayOfWeek.getValue() == 2}">
                                                 <option value="TUESDAY" selected>Mardi</option>
                                             </c:when>
                                             <c:otherwise>
@@ -185,7 +188,7 @@
                                         </c:choose>
 
                                         <c:choose>
-                                            <c:when test="${tenancyUpdatePickUpDTO.dayOfWeek.name() == 'WEDNESDAY'}">
+                                            <c:when test="${tenancyUpdatePickUpDTO.pickUpSchedule.dayOfWeek.getValue() == 3}">
                                                 <option value="WEDNESDAY" selected>Mercredi</option>
                                             </c:when>
                                             <c:otherwise>
@@ -194,7 +197,7 @@
                                         </c:choose>
 
                                         <c:choose>
-                                            <c:when test="${tenancyUpdatePickUpDTO.dayOfWeek.name() == 'THURSDAY'}">
+                                            <c:when test="${tenancyUpdatePickUpDTO.pickUpSchedule.dayOfWeek.getValue() == 4}">
                                                 <option value="THURSDAY" selected>Jeudi</option>
                                             </c:when>
                                             <c:otherwise>
@@ -203,7 +206,7 @@
                                         </c:choose>
 
                                         <c:choose>
-                                            <c:when test="${tenancyUpdatePickUpDTO.dayOfWeek.name() == 'FRIDAY'}">
+                                            <c:when test="${tenancyUpdatePickUpDTO.pickUpSchedule.dayOfWeek.getValue() == 5}">
                                                 <option value="FRIDAY" selected>Vendredi</option>
                                             </c:when>
                                             <c:otherwise>
@@ -212,7 +215,7 @@
                                         </c:choose>
 
                                         <c:choose>
-                                            <c:when test="${tenancyUpdatePickUpDTO.dayOfWeek.name() == 'SATURDAY'}">
+                                            <c:when test="${tenancyUpdatePickUpDTO.pickUpSchedule.dayOfWeek.getValue() == 6}">
                                                 <option value="SATURDAY" selected>Samedi</option>
                                             </c:when>
                                             <c:otherwise>
@@ -221,23 +224,23 @@
                                         </c:choose>
 
                                         <c:choose>
-                                            <c:when test="${tenancyUpdatePickUpDTO.dayOfWeek.name() == 'SUNDAY'}">
+                                            <c:when test="${tenancyUpdatePickUpDTO.pickUpSchedule.dayOfWeek.getValue() == 7}">
                                                 <option value="SUNDAY" selected>Dimanche</option>
                                             </c:when>
                                             <c:otherwise>
                                                 <option value="SUNDAY">Dimanche</option>
                                             </c:otherwise>
                                         </c:choose>
-                                    </select>
+                                     </select>
                                 </div>
                             
                                 <div class="mb-3">
                                     <label for="startHour" class="form-label">Heure de Début</label>
-                                    <input value="${tenancyUpdatePickUpDTO.startHour}" name="pickUpSchedule.startHour" type="time" class="form-control" id="startHour" required="true" />
+                                    <input value="${tenancyUpdatePickUpDTO.pickUpSchedule.startHour}" name="pickUpSchedule.startHour" type="time" class="form-control" id="startHour" required="true" />
                                 </div>
                                 <div class="mb-3">
                                     <label for="endHour" class="form-label">Heure de Fin</label>
-                                    <input value="${tenancyUpdatePickUpDTO.endHour}" name="pickUpSchedule.endHour" type="time" class="form-control" id="endHour" required="true" />
+                                    <input value="${tenancyUpdatePickUpDTO.pickUpSchedule.endHour}" name="pickUpSchedule.endHour" type="time" class="form-control" id="endHour" required="true" />
                                 </div>
                                 <button type="submit" class="btn btn-700">Sauvegarder</button>
                             </form>
@@ -249,12 +252,42 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingSix">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                            <i class="bi bi-chevron-right me-2"></i> Palette de couleurs et police
+                            <i class="bi bi-chevron-right me-2"></i> Palette de couleurs et police d'écriture
                         </button>
                     </h2>
                     <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            Place your content for "Palette de couleurs et police" here.
+                            <form action="${pageContext.request.contextPath}/amap/${tenancyAlias}/admin/editthefontandcolor" method="post">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                <p>Police de caractères pour vos titres et boutons.</p>
+                                <div class="mb-3">
+                                    <div id="font-choices" class="row g-3">
+                                        <c:forEach items="${fontChoices}" var="font">
+                                            <div class="col-12 col-md-6 col-lg-4 text-center align-self-center">
+                                                <input type="radio" id="font-${font}" value="${font}" name="fontChoice"/>
+                                                <label for="font-${font}" class="font-choices d-flex align-items-center justify-content-center">
+                                                    <h1 class="${fn:toLowerCase(font)}">${font}</h1>
+                                                </label>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                                <p>Palette de couleurs de votre page.</p>
+                                <div class="mb-3">
+
+                                    <div id="palette-choices" class="row g-3">
+                                        <c:forEach items="${colorPalettes}" var="palette" varStatus="status">
+                                            <div class="col-12 col-md-6 col-lg-4 text-center">
+                                                <input type="radio" id="palette-${status.index + 1}" name="colorPalette" value="${palette}" />
+                                                <label for="palette-${status.index+1}" class="palette-choices">
+                                                    <img src="<c:url value='/resources/img/palettes_samples/PALETTE${status.index + 1}.svg' />" class="palette-img"/>
+                                                </label>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-700">Sauvegarder</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -269,6 +302,38 @@
                     <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             Place your content for "Contenu de la page d'accueil" here.
+                            <form action="${pageContext.request.contextPath}/amap/${tenancyAlias}/admin/editthefontandcolor" method="post">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                <c:forEach var="content" items="${tenancyUpdateHomePageContentDTO.contents}">
+                                    <div class="mb-3">
+                                        <label for="input-hp-title-${content.contentBlockId}" class="form-label">Titre</label>
+                                        <input class="form-control" 
+                                            id="input-title-${content.contentBlockId}" 
+                                            aria-placeholder="titre" 
+                                            placeholder="titre" 
+                                            aria-describedby="input-title" 
+                                            name="contentTitle" 
+                                            value="${content.contentTitle}" />
+                                    </div>
+                                    <div class="row g-3 align-items-start">
+                                        <div class="col-11 col-md-5">
+                                            <label for="input-text-${content.contentBlockId}" class="form-label">Contenu</label>
+                                            <textarea class="form-control" rows="5"
+                                                    id="input-text-${content.contentBlockId}" 
+                                                    aria-placeholder="contenu" 
+                                                    placeholder="contenu" 
+                                                    aria-describedby="input-text" 
+                                                    name="contentText">${content.contentText}</textarea>
+                                        </div>
+                                        <div class="col-11 col-md-5">
+                                            <input class="form-control" type="file" class="form-control" id="input-img-${content.contentBlockId}" name="file"
+                                            required accept="image/png,image/jpeg,image/svg">
+                                            <img class="img-fluid" style="height: 100%;" src="data:${content.contentImgTypeMIME};base64,${content.contentImg}" alt="image"/>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </c:forEach>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -311,12 +376,12 @@
         var styleMapboxDark = "${mapStyleDark}"
         var latitude = "${latitude}"
         var longitude = "${longitude}"
+        var fontValue = "${tenancyUpdateColorFontDTO.fontChoice}"
+        var colorValue = "${tenancyUpdateColorFontDTO.colorPalette}"
     </script>
     <!-- 
     <script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
     <script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  -->
-    <script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
-    <script src="<c:url value='/resources/js/amap/admin/bg-table.js' />" type="text/javascript"></script>
     <script src="<c:url value='/resources/js/amap/admin/sidebar.js' />" type="text/javascript"></script>
     <script src="<c:url value='/resources/js/amap/admin/homepageedit.js' />" type="text/javascript"></script>
 </body>

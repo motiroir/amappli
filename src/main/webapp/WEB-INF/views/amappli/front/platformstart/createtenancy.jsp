@@ -214,7 +214,7 @@
                     <div id="font-choices" class="row g-3">
                         <c:forEach items="${fontChoices}" var="font">
                             <div class="col-12 col-md-6 col-lg-4 text-center align-self-center">
-                                <input type="radio" id="font-${font}" value="${font}" name="font-selection"/>
+                                <input type="radio" id="font-${font}" value="${font}" name="fontChoice"/>
                                 <label for="font-${font}" class="font-choices d-flex align-items-center justify-content-center">
                                     <h1 class="${fn:toLowerCase(font)}">${font}</h1>
                                 </label>
@@ -234,7 +234,7 @@
                     <div id="palette-choices" class="row g-3">
                         <c:forEach items="${colorPalettes}" var="palette" varStatus="status">
                             <div class="col-12 col-md-6 col-lg-4 text-center">
-                                <input type="radio" id="palette-${status.index + 1}" name="palette-selection" value="${palette}" />
+                                <input type="radio" id="palette-${status.index + 1}" name="colorPalette" value="${palette}" />
                                 <label for="palette-${status.index+1}" class="palette-choices">
                                     <img src="<c:url value='/resources/img/palettes_samples/PALETTE${status.index + 1}.svg' />" class="palette-img"/>
                                 </label>

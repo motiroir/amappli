@@ -5,15 +5,16 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import isika.p3.amappli.entities.tenancy.HomePageContent;
 import isika.p3.amappli.api.NominatimAPI;
 import isika.p3.amappli.dto.amap.TenancyUpdateAddressDTO;
+import isika.p3.amappli.dto.amap.TenancyUpdateColorFontDTO;
 import isika.p3.amappli.dto.amap.TenancyUpdateLogo;
 import isika.p3.amappli.dto.amap.TenancyUpdateNameAliasDTO;
+import isika.p3.amappli.dto.amap.TenancyUpdatePickUpDTO;
 import isika.p3.amappli.dto.amap.TenancyUpdateSloganDTO;
 import isika.p3.amappli.dto.amappli.NewTenancyDTO;
 import isika.p3.amappli.dto.amappli.ValueDTO;
@@ -271,4 +272,22 @@ public class TenancyServiceImpl implements TenancyService {
 			}
 		}
 	}
+
+	public void updateTenancyPickUpSchedule(TenancyUpdatePickUpDTO updateInfo, String alias){
+		Tenancy tenancy = tenancyRepository.findByTenancyAlias(alias).get();
+		if(tenancy != null){
+			tenancy.setPickUpSchedule(updateInfo.getPickUpSchedule());
+			tenancyRepository.save(tenancy);
+		}
+	}
+	
+	public void updateTenancyColorFont(TenancyUpdateColorFontDTO updateInfo, String alias){
+		Tenancy tenancy = tenancyRepository.findByTenancyAlias(alias).get();
+		if(tenancy != null){
+			tenancy.getGraphism().setColorPalette(updateInfo.getColorPalette());
+			tenancy.getGraphism().setFontChoice(updateInfo.getFontChoice());
+			tenancyRepository.save(tenancy);
+		}
+	}
+
 }

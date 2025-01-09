@@ -10,17 +10,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // Previewing the logo
-    const inputFile = document.getElementById('input-tenancyLogo');
-    const previewImage = document.getElementById('preview-logo');
-    const cancelButton = document.getElementById('cancel-preview-logo');
+    let inputFile = document.getElementById('input-tenancyLogo');
+    let previewImage = document.getElementById('preview-logo');
+    let cancelButton = document.getElementById('cancel-preview-logo');
 
     // Store the original logo
-    const originalImageSrc = previewImage.src;
+    let originalImageSrc = previewImage.src;
 
     let temporaryImageUrl = null; // for uploaded file
 
     inputFile.addEventListener('change', function (event) {
-        const file = event.target.files[0];
+        let file = event.target.files[0];
         if (file) {
             // erase previously upload img if necessary
             if (temporaryImageUrl) {
@@ -52,5 +52,26 @@ document.addEventListener("DOMContentLoaded", function () {
             temporaryImageUrl = null;
         }
     });
+
+    // Preselecting the current font and color
+    selectRadioButtons(fontValue,colorValue);
+
+    function selectRadioButtons(fontValue, colorValue) {
+    // Select the radio button for font
+        let fontRadio = document.querySelector(`input[name="fontChoice"][value="${fontValue}"]`);
+        if (fontRadio) {
+            fontRadio.checked = true;
+        } else {
+            console.warn(`Font value "${fontValue}" not found!`);
+        }
+
+        // Select the radio button for color palette
+        let colorRadio = document.querySelector(`input[name="colorPalette"][value="${colorValue}"]`);
+        if (colorRadio) {
+            colorRadio.checked = true;
+        } else {
+            console.warn(`Color palette value "${colorValue}" not found!`);
+        }
+    }
 
 });
