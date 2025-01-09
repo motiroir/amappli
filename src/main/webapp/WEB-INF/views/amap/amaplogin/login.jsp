@@ -55,7 +55,7 @@
 			<div class="mb-3">
 				<input type="password" class="form-control" id="motDePasse"
 					name="password" placeholder="Mot de passe" required>
-					<p class="fc-alt mt-1 ms-4" >Mot de passe oublié ?</p>
+					
 			</div>
 
 			<div class="text-center">
