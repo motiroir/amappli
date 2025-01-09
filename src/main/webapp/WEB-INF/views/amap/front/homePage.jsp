@@ -74,7 +74,7 @@
      class="value-image" />
 
                     </c:if>
-                    <h3 class="h4 fw-bold fc-300">${block.contentTitle}</h3>
+                    <h3 class="h4 fw-bold fc-300 wrap">${block.contentTitle}</h3>
                     <p class="text-justify">${block.contentText}</p>
                 </div>
             </c:forEach>

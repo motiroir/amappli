@@ -223,7 +223,7 @@
                     <img class="col-10 col-md-8 mx-auto d-block img-fluid"
                         src="<c:url value='/resources/img/logoterralocal.png' />" alt="GREENMAVEN Logo" />
                 </a>
-                <h4 class="fw-bold">TERRALOCAL</h4>
+                <h4 class="fw-bold wrap">TERRALOCAL</h4>
             </div>
         </div>
         <!-- Partner 2 -->
@@ -234,7 +234,7 @@
                     <img class="col-10 col-md-8 mx-auto d-block img-fluid"
                         src="<c:url value='/resources/img/logoagrinov.png' />" alt="AGRINOV Logo" />
                 </a>
-                <h4 class="fw-bold">AGRINOV</h4>
+                <h4 class="fw-bold wrap">AGRINOV</h4>
             </div>
         </div>
         <!-- Partner 3 -->
@@ -245,7 +245,7 @@
                     <img class="col-10 col-md-8 mx-auto d-block img-fluid"
                         src="<c:url value='/resources/img/logogroots.png' />" alt="GROOTS Logo" />
                 </a>
-                <h4 class="fw-bold">GROOTS</h4>
+                <h4 class="fw-bold wrap">GROOTS</h4>
             </div>
         </div>
         <!-- Partner 4 -->
@@ -256,7 +256,7 @@
                     <img class="col-10 col-md-8 mx-auto d-block img-fluid"
                         src="<c:url value='/resources/img/logobiocoli.png' />" alt="BIOCOLI Logo" />
                 </a>
-                <h4 class="fw-bold">BIOCOLI</h4>
+                <h4 class="fw-bold wrap">BIOCOLI</h4>
             </div>
         </div>
         <!-- Partner 5 -->
@@ -267,7 +267,7 @@
                     <img class="col-10 col-md-8 mx-auto d-block img-fluid"
                         src="<c:url value='/resources/img/logogreenmaven.png' />" alt="GREENMAVEN Logo" />
                 </a>
-                <h4 class="fw-bold">GREENMAVEN</h4>
+                <h4 class="fw-bold wrap">GREENMAVEN</h4>
             </div>
         </div>
         <!-- Partner 6 -->
@@ -278,7 +278,7 @@
                     <img class="col-10 col-md-8 mx-auto d-block img-fluid"
                         src="<c:url value='/resources/img/logolacarottechantenay.png' />" alt="GREENMAVEN Logo" />
                 </a>
-                <h6 class="fw-bold">LA CAROTTE CHANTENAY</h6>
+                <h6 class="fw-bold wrap">LA CAROTTE CHANTENAY</h6>
             </div>
         </div>
     </div>

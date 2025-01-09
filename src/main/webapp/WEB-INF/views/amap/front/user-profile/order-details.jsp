@@ -51,7 +51,7 @@ request.setAttribute("currentPage", currentPage);
 					<div id="order-details" class="fc-main">
 						<h3 class="fw-bold title">Commande n°${order.orderId}</h3>
 						<p><strong>Montant total :</strong> ${order.totalAmount}€</p>
-						<p><strong>Date de la commande :</strong> ${order.orderDate}</p>
+						<p><strong>Date de la commande :</strong> ${formattedDate}</p>
 						<p><strong>Etat</strong> : ${order.orderStatus.displayName}</p>
 						<p>
 							<strong>Type de Paiement :</strong>

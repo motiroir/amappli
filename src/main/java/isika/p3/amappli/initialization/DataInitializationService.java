@@ -1068,20 +1068,19 @@ public class DataInitializationService {
 
 		List<Contract> contracts = new ArrayList<>();
 
-		contracts.add(Contract.builder().contractName("Panier de légumes bio - Printemps")
+		contracts.add(Contract.builder().contractName("Panier de légumes bio")
 				.contractType(ContractType.VEGETABLES_CONTRACT)
-				.contractDescription("Un panier hebdomadaire avec des légumes frais et bio pour "
-						+ tenancy.getTenancyName())
+				.contractDescription("Un panier hebdomadaire avec des légumes frais")
 				.contractWeight(ContractWeight.AVERAGE).contractPrice(new BigDecimal("25.50"))
-				.dateCreation(LocalDate.now()).startDate(LocalDate.of(2025, 4, 1)).endDate(LocalDate.of(2025, 6, 30))
+				.dateCreation(LocalDate.now()).startDate(LocalDate.of(2025, 2, 1)).endDate(LocalDate.of(2025, 6, 26))
 				.deliveryRecurrence(DeliveryRecurrence.WEEKLY).quantity(15).shoppable(true).imageType("image/png")
 				.pickUpSchedule(tenancy.getPickUpSchedule()).address(tenancy.getAddress()).tenancy(tenancy)
 				.user(producer0).imageData(panierlegumesbio).build());
 
-		contracts.add(Contract.builder().contractName("Panier mixte - Automne").contractType(ContractType.MIX_CONTRACT)
+		contracts.add(Contract.builder().contractName("Panier mixte").contractType(ContractType.MIX_CONTRACT)
 				.contractDescription("Un panier mensuel avec une variété de fruits et légumes de saison.")
 				.contractWeight(ContractWeight.BIG).contractPrice(new BigDecimal("45.00")).dateCreation(LocalDate.now())
-				.startDate(LocalDate.of(2025, 9, 1)).endDate(LocalDate.of(2025, 11, 30))
+				.startDate(LocalDate.of(2024, 11, 1)).endDate(LocalDate.of(2025, 3, 18))
 				.deliveryRecurrence(DeliveryRecurrence.MONTHLY).quantity(20).shoppable(true).imageType("image/png")
 				.imageData(paniermixteautomne).pickUpSchedule(tenancy.getPickUpSchedule()).address(tenancy.getAddress())
 				.tenancy(tenancy).user(producer2).build());
@@ -1090,41 +1089,41 @@ public class DataInitializationService {
 				.contractType(ContractType.VEGETABLES_CONTRACT)
 				.contractDescription("Un panier bimensuel avec des légumes frais pour l'hiver.")
 				.contractWeight(ContractWeight.SMALL).contractPrice(new BigDecimal("15.00"))
-				.dateCreation(LocalDate.now()).startDate(LocalDate.of(2025, 12, 1)).endDate(LocalDate.of(2026, 2, 28))
+				.dateCreation(LocalDate.now()).startDate(LocalDate.of(2024, 12, 1)).endDate(LocalDate.of(2025, 5, 28))
 				.deliveryRecurrence(DeliveryRecurrence.BIMONTHLY).quantity(5).shoppable(true).imageType("image/png")
 				.imageData(panierlegumeshiver).pickUpSchedule(tenancy.getPickUpSchedule()).address(tenancy.getAddress())
 				.tenancy(tenancy).user(producer3).build());
 
-		contracts.add(Contract.builder().contractName("Panier de fruits exotiques")
+		contracts.add(Contract.builder().contractName("Panier fruité de Victor")
 				.contractType(ContractType.FRUITS_CONTRACT)
 				.contractDescription("Un panier hebdomadaire avec des fruits exotiques tels que mangues, ananas, etc.")
 				.contractWeight(ContractWeight.AVERAGE).contractPrice(new BigDecimal("30.00"))
-				.dateCreation(LocalDate.now()).startDate(LocalDate.of(2025, 7, 1)).endDate(LocalDate.of(2025, 9, 30))
+				.dateCreation(LocalDate.now()).startDate(LocalDate.of(2025, 1, 12)).endDate(LocalDate.of(2025, 9, 30))
 				.deliveryRecurrence(DeliveryRecurrence.WEEKLY).quantity(15).shoppable(true).imageType("image/png")
 				.imageData(panierfruitsexotiques).pickUpSchedule(tenancy.getPickUpSchedule())
 				.address(tenancy.getAddress()).tenancy(tenancy).user(producer4).build());
 
-		contracts.add(Contract.builder().contractName("Panier mixte - Noël").contractType(ContractType.MIX_CONTRACT)
+		contracts.add(Contract.builder().contractName("Panier mixte post-Noël").contractType(ContractType.MIX_CONTRACT)
 				.contractDescription("Un panier spécial Noël avec des produits festifs.")
 				.contractWeight(ContractWeight.BIG).contractPrice(new BigDecimal("60.00")).dateCreation(LocalDate.now())
-				.startDate(LocalDate.of(2025, 12, 1)).endDate(LocalDate.of(2025, 12, 25))
+				.startDate(LocalDate.of(2024, 10, 1)).endDate(LocalDate.of(2025, 12, 25))
 				.deliveryRecurrence(DeliveryRecurrence.MONTHLY).quantity(10).shoppable(true).imageType("image/png")
 				.imageData(paniernoel).pickUpSchedule(tenancy.getPickUpSchedule()).address(tenancy.getAddress())
 				.tenancy(tenancy).user(producer0).build());
 
-		contracts.add(Contract.builder().contractName("Panier de fruits variés - Été")
+		contracts.add(Contract.builder().contractName("Panier de fruits variés")
 				.contractType(ContractType.FRUITS_CONTRACT).contractDescription("Pommes, poires, cerises, noix, raisin")
 				.contractWeight(ContractWeight.AVERAGE).contractPrice(new BigDecimal("22.00"))
-				.dateCreation(LocalDate.now()).startDate(LocalDate.of(2025, 6, 1)).endDate(LocalDate.of(2025, 8, 31))
+				.dateCreation(LocalDate.now()).startDate(LocalDate.of(2025, 1, 3)).endDate(LocalDate.of(2025, 5, 2))
 				.deliveryRecurrence(DeliveryRecurrence.WEEKLY).quantity(12).shoppable(true).imageType("image/png")
 				.imageData(panierfruitsete).pickUpSchedule(tenancy.getPickUpSchedule()).address(tenancy.getAddress())
 				.tenancy(tenancy).user(producer0).build());
 
-		contracts.add(Contract.builder().contractName("Panier de légumes frais - Printemps")
+		contracts.add(Contract.builder().contractName("Panier de légumes frais")
 				.contractType(ContractType.VEGETABLES_CONTRACT)
 				.contractDescription("Carottes, navets, radis, laitue, épinards").contractWeight(ContractWeight.SMALL)
 				.contractPrice(new BigDecimal("18.50")).dateCreation(LocalDate.now())
-				.startDate(LocalDate.of(2025, 4, 1)).endDate(LocalDate.of(2025, 6, 30))
+				.startDate(LocalDate.of(2025, 2, 1)).endDate(LocalDate.of(2025, 5, 6))
 				.deliveryRecurrence(DeliveryRecurrence.WEEKLY).quantity(8).shoppable(true).imageType("image/png")
 				.imageData(panierlegumesfraisprintemps).pickUpSchedule(tenancy.getPickUpSchedule())
 				.address(tenancy.getAddress()).tenancy(tenancy).user(producer1).build());
@@ -1132,33 +1131,33 @@ public class DataInitializationService {
 		contracts.add(Contract.builder().contractName("Panier mixte - Hiver").contractType(ContractType.MIX_CONTRACT)
 				.contractDescription("Pommes de terre, oignons, poireaux, pommes, oranges")
 				.contractWeight(ContractWeight.BIG).contractPrice(new BigDecimal("40.00")).dateCreation(LocalDate.now())
-				.startDate(LocalDate.of(2025, 12, 1)).endDate(LocalDate.of(2026, 2, 28))
+				.startDate(LocalDate.of(2024, 12, 1)).endDate(LocalDate.of(2025, 3, 21))
 				.deliveryRecurrence(DeliveryRecurrence.BIMONTHLY).quantity(20).shoppable(true).imageType("image/png")
 				.imageData(paniermixtehiver).pickUpSchedule(tenancy.getPickUpSchedule()).address(tenancy.getAddress())
 				.tenancy(tenancy).user(producer2).build());
 
-		contracts.add(Contract.builder().contractName("Panier de fruits exotiques - Tropical")
+		contracts.add(Contract.builder().contractName("Panier sucré")
 				.contractType(ContractType.FRUITS_CONTRACT)
 				.contractDescription("Mangues, ananas, kiwis, bananes, papayes").contractWeight(ContractWeight.AVERAGE)
 				.contractPrice(new BigDecimal("30.00")).dateCreation(LocalDate.now())
-				.startDate(LocalDate.of(2025, 7, 1)).endDate(LocalDate.of(2025, 9, 30))
+				.startDate(LocalDate.of(2024, 11, 1)).endDate(LocalDate.of(2025, 9, 30))
 				.deliveryRecurrence(DeliveryRecurrence.MONTHLY).quantity(10).shoppable(true).imageType("image/png")
 				.imageData(panierexotique).pickUpSchedule(tenancy.getPickUpSchedule()).address(tenancy.getAddress())
 				.tenancy(tenancy).user(producer3).build());
 
-		contracts.add(Contract.builder().contractName("Panier de légumes racines - Automne")
+		contracts.add(Contract.builder().contractName("Panier de légumes racines")
 				.contractType(ContractType.VEGETABLES_CONTRACT)
 				.contractDescription("Betteraves, carottes, pommes de terre, céleri-rave, panais")
 				.contractWeight(ContractWeight.BIG).contractPrice(new BigDecimal("35.00")).dateCreation(LocalDate.now())
-				.startDate(LocalDate.of(2025, 10, 1)).endDate(LocalDate.of(2025, 12, 31))
+				.startDate(LocalDate.of(2024, 10, 1)).endDate(LocalDate.of(2025, 5, 18))
 				.deliveryRecurrence(DeliveryRecurrence.MONTHLY).quantity(18).shoppable(true).imageType("image/png")
 				.imageData(panierracine).pickUpSchedule(tenancy.getPickUpSchedule()).address(tenancy.getAddress())
 				.tenancy(tenancy).user(producer4).build());
 
-		contracts.add(Contract.builder().contractName("Panier mixte bio - Été").contractType(ContractType.MIX_CONTRACT)
+		contracts.add(Contract.builder().contractName("Panier mixte bio - Printemps").contractType(ContractType.MIX_CONTRACT)
 				.contractDescription("Tomates, poivrons, courgettes, abricots, melons")
 				.contractWeight(ContractWeight.AVERAGE).contractPrice(new BigDecimal("25.00"))
-				.dateCreation(LocalDate.now()).startDate(LocalDate.of(2025, 6, 1)).endDate(LocalDate.of(2025, 8, 31))
+				.dateCreation(LocalDate.now()).startDate(LocalDate.of(2025, 1, 9)).endDate(LocalDate.of(2025, 6, 21))
 				.deliveryRecurrence(DeliveryRecurrence.WEEKLY).quantity(15).shoppable(true).imageType("image/png")
 				.imageData(paniermixtebio).pickUpSchedule(tenancy.getPickUpSchedule()).address(tenancy.getAddress())
 				.tenancy(tenancy).user(producer0).build());
