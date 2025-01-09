@@ -54,17 +54,17 @@
             </div>
 
             <div class="mb-3">
-                <form:input path="contactInfo.phoneNumber" cssClass="form-control" id="telephone" placeholder="Votre numéro de téléphone" />
+                <form:input path="contactInfo.phoneNumber" cssClass="form-control" id="telephone" placeholder="Votre numéro de téléphone" required="true"/>
                 <form:errors path="contactInfo.phoneNumber" cssClass="text-danger" />
             </div>
 
             <div class="mb-3">
-                <form:input path="address.line1" cssClass="form-control" id="adresse" placeholder="Votre adresse" required="true" />
+                <form:input path="address.line1" cssClass="form-control" id="adresse" placeholder="Complément d'adresse" />
                 <form:errors path="address.line1" cssClass="text-danger" />
             </div>
 
             <div class="mb-3">
-                <form:input path="address.line2" cssClass="form-control" id="complement" placeholder="Complément d'adresse" />
+                <form:input path="address.line2" cssClass="form-control" id="complement" placeholder="Numéro et rue" required="true"/>
             </div>
 
             <div class="row mb-3">
@@ -81,6 +81,10 @@
             <div class="mb-3">
                 <form:input path="email" cssClass="form-control" id="email" placeholder="Votre adresse mail" required="true" />
                 <form:errors path="email" cssClass="text-danger" />
+                <c:if test="${not empty emailError}">
+                    <div class="invalid-feedback d-block">${emailError}</div>
+                </c:if>
+                <div id="email-help" class="form-text ml-5">Cet email sera votre identifiant de connexion. Il ne pourra pas être changé.</div>
             </div>
 
             <div class="mb-3">
@@ -97,7 +101,7 @@
                 <button type="submit" class="btn btn-500 px-4 rounded-pill">S'inscrire</button>
             </div>
         </form:form>
-<div class="text-center mt-4">
+        <div class="text-center mt-4">
 			<p class="fc-300 ms-4" >Déja inscrit.e ?</p>
 			<hr class="bg-300">
 			<a href="<c:url value='/amappli/login'/>"

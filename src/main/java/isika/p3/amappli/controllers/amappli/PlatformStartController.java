@@ -64,9 +64,9 @@ public class PlatformStartController {
         catch (EmailAlreadyExistsException e)
         {
             model.addAttribute("emailError", e.getMessage());
-            return "amappli/platformlogin/signup";
+            return "amappli/front/platformstart/signup";
         }
-        return "amappli/front/platformstart/signupdone";
+        return "redirect:/amappli/login";
     }
 
     @PreAuthorize("hasAuthority('modification page accueil amap')")

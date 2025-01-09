@@ -2,7 +2,7 @@
 @import "../common/utils.css";
 @import "../front/common/header-amap.jsp";
 @import "../front/common/footer-amap.jsp";
-
+@import "../common/customform.css";
 
 .form-container {
     max-width: 600px; /* Largeur maximale du formulaire */
