@@ -53,7 +53,7 @@ public class ContractController {
 	/**
 	 * Displays the form for adding a new contract.
 	 */
-	@PreAuthorize("hasAuthority('creation contrats amap') and (hasAuthority(#tenancyAlias) or hasAuthority('gestion plateforme'))")
+	@PreAuthorize("(hasAuthority('creation contrats amap') and hasAuthority(#tenancyAlias)) or hasAuthority('gestion plateforme')")
 	@GetMapping("/form")
 	public String showForm(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 		
