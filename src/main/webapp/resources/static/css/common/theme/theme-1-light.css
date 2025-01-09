@@ -333,6 +333,10 @@
     color: var(--main-font-color) !important;
 }
 
+.theme-1.light .fch-alt:hover {
+    color: var(--alt-font-color) !important;
+}
+
 .theme-1.light .fill-900 {
     fill: var(--orange-100) !important;
 }
