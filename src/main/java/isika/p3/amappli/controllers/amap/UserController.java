@@ -1,9 +1,7 @@
 package isika.p3.amappli.controllers.amap;
-
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,14 +12,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import isika.p3.amappli.dto.amap.MembershipFeeDTO;
 import isika.p3.amappli.dto.amap.UpdateProfileDTO;
 import isika.p3.amappli.dto.amap.UserDTO;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.service.amap.GraphismService;
-import isika.p3.amappli.service.amap.MemberShipService;
 import isika.p3.amappli.service.amap.UserService;
 import isika.p3.amappli.service.amappli.TenancyService;
 import jakarta.validation.Valid;

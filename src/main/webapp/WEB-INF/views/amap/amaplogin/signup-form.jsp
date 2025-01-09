@@ -28,12 +28,12 @@
             <a href="/Amappli/amap/${tenancyAlias}/home"class="btn-close fc-main" aria-label="Retour"></a>
 
         </div>
-        <hr class="bg-300 mb-4">
+        <hr class="bg-main fc-main mb-4 mt-0">
 
         <form:form 
             modelAttribute="userDTO" 
             method="post" 
-            action="${pageContext.request.contextPath}/tenancies/amap/${tenancyAlias}/amap/amaplogin/signup"
+            action="${pageContext.request.contextPath}/amap/${tenancyAlias}/signup"
              href="${pageContext.request.contextPath}/amap/${tenancyAlias}/login-done">
 
             <!-- Ajout du token CSRF -->
@@ -48,7 +48,7 @@
 
             <!-- Champs pour le formulaire -->
             <div class="row mb-3">
-                <div class="col-md-6">
+                <div class="col-md-6 mb-3 mb-md-0">
                     <form:input path="contactInfo.name" cssClass="form-control" id="nom" placeholder="Votre nom" required="true" />
                     <form:errors path="contactInfo.name" cssClass="text-danger" />
                 </div>
@@ -73,7 +73,7 @@
             </div>
 
             <div class="row mb-3">
-                <div class="col-md-6">
+                <div class="col-md-6 mb-3 mb-md-0">
                     <form:input path="address.postCode" cssClass="form-control" id="codePostal" placeholder="Code postal" required="true" />
                     <form:errors path="address.postCode" cssClass="text-danger" />
                 </div>
@@ -108,7 +108,7 @@
         <br>
 		<div class="text-center mt-4">
 			<p class="fc-300 ms-4" >Déja inscrit.e ?</p>
-			<hr class="bg-300">
+			<hr class="bg-main fc-main mb-4">
 			<a
 				href="<c:url value='/amap/${tenancyAlias}/login'/>"
 				class="btn bg-500  rounded-pill">Se connecter</a>
