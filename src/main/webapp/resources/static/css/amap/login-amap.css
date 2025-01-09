@@ -57,7 +57,6 @@ hr.bg-main {
 
 
 input[type="text"], input[type="email"], input[type="password"] {
-	border-radius: 25px;
 	border: 1px solid #ccc;
 	padding: 10px 20px;
 	font-size: 1rem;
@@ -84,18 +83,6 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 button[type="submit"]:hover {
 	background-color: #ffad7f;
 } */
-.text-center {
-    text-align: left; 
-}
-
-.text-center p {
-   
-    font-size: 1rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-    text-align: left
-}
 
 
 

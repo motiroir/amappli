@@ -20,7 +20,14 @@
 								<a href="<c:url value='/amap/${tenancyAlias}/admin/suppliers/list'/>" class="fch-600 text-decoration-none ${currentPage.equals('suppliers') ? 'active' : ''}">Vos fournisseurs</a>
 							</li>
 							<li class="d-flex justify-content-between">
-								<a href="<c:url value='/amap/${tenancyAlias}/admin/roles/manage'/>" class=" ${options.option1Active ? 'fch-600' : 'disabled'} text-decoration-none ${currentPage.equals('roles') ? 'active' : ''}">Vos rôles personnalisés</a> <span class="badge ${options.option1Active ? 'd-none' : 'text-secondary'} rounded-pill fw-bold border border-2 border-secondary bg-transparent">€</span>
+							<c:choose>
+								<c:when test="${options.option1Active}">
+									<a href="<c:url value='/amap/${tenancyAlias}/roles/manage'/>" class="fch-600 text-decoration-none ${currentPage.equals('roles') ? 'active' : ''}">Vos rôles personnalisés</a> <span class="badge d-none rounded-pill fw-bold border border-2 border-secondary bg-transparent">€</span>
+								</c:when>
+								<c:otherwise>
+									<a href="<c:url value='/amappli/features'/>" class="disabled cursor text-decoration-none ${currentPage.equals('roles') ? 'active' : ''}">Vos rôles personnalisés</a> <span class="badge text-secondary rounded-pill fw-bold border border-2 border-secondary bg-transparent">€</span>
+								</c:otherwise>
+							</c:choose>
 							</li>
 						</ul>
 					</div>
@@ -42,10 +49,24 @@
 							</li>
 							
 							<li class="d-flex justify-content-between">
-								<a href="<c:url value='/amap/${tenancyAlias}/admin/products/list'/>" class=" ${options.option1Active ? 'fch-600' : 'disabled'} text-decoration-none">L'épicerie</a><span class="badge rounded-pill ${options.option1Active ? 'd-none' : 'text-secondary'} fw-bold border border-2 border-secondary bg-transparent">€</span>
+							<c:choose>
+								<c:when test="${options.option1Active}">
+									<a href="<c:url value='/amap/${tenancyAlias}/admin/products/list'/>" class="fch-600 text-decoration-none">L'épicerie</a><span class="badge rounded-pill d-none fw-bold border border-2 border-secondary bg-transparent">€</span>
+								</c:when>
+								<c:otherwise>
+									<a href="<c:url value='/amappli/features'/>" class="disabled cursor text-decoration-none">L'épicerie</a><span class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">€</span>
+								</c:otherwise>
+							</c:choose>
 							</li>
 							<li class="d-flex justify-content-between">
-								<a href="<c:url value='/amap/${tenancyAlias}/admin/workshops/list'/>" class=" ${options.option1Active ? 'fch-600' : 'disabled'} text-decoration-none">Les ateliers</a><span class="badge rounded-pill ${options.option1Active ? 'd-none' : 'text-secondary'} fw-bold border border-2 border-secondary bg-transparent">€</span>
+							<c:choose>
+								<c:when test="${options.option1Active}">
+									<a href="<c:url value='/amap/${tenancyAlias}/admin/workshops/list'/>" class="fch-600 text-decoration-none">Les ateliers</a><span class="badge rounded-pill d-none fw-bold border border-2 border-secondary bg-transparent">€</span>
+								</c:when>
+								<c:otherwise>
+									<a href="<c:url value='/amappli/features'/>" class="disabled cursor text-decoration-none">Les ateliers</a><span class="badge rounded-pill text-secondary fw-bold border border-2 border-secondary bg-transparent">€</span>
+								</c:otherwise>
+							</c:choose>
 							</li>
 						</ul>
 					</div>
@@ -63,7 +84,7 @@
 								<a href="<c:url value='/amap/${tenancyAlias}/home'/>" class="text-decoration-none fch-600" >Page d'accueil de <span class="text-capitalize">${tenancyAlias}</span></a>
 							</li>
 							<li>
-								<a href="<c:url value='/amap/${tenancyAlias}/admin/edithomepage'/>" class="text-decoration-none fch-600" >Personnaliser votre site</a>
+								<a href="<c:url value='/amap/${tenancyAlias}/admin/edit'/>" class="text-decoration-none fch-600" >Personnaliser votre site</a>
 							</li>
 						</ul>
 					</div>

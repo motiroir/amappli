@@ -185,6 +185,10 @@ input[type=range]:focus::-webkit-slider-runnable-track {
   cursor: pointer !important;
 }
 
+.cursor {
+  cursor: default !important;
+}
+
 #map {
   width   : 100vw;
   height  : 100vh;

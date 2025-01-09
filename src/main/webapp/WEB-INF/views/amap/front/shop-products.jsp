@@ -25,6 +25,7 @@ request.setAttribute("currentPage", currentPage);
 	rel="stylesheet">
 </head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
+<div class="d-flex flex-column min-vh-100">
 	<!-- Header -->
 	<header class="fc-main bg-main border-1 border-alt">
 		<jsp:include page="common/header-amap.jsp" />
@@ -34,9 +35,7 @@ request.setAttribute("currentPage", currentPage);
 
 	<div class="content col fc-main mb-5">
 		<div class="container mt-4">
-			<div
-				class="row-controls d-flex justify-content-between align-items-center mx-auto"
-				style="max-width: 95%;">
+			<div class="row-controls d-flex justify-content-between align-items-center" style="max-width: 95%;"> <!-- modification ici Jason Corentin -->
 				<!-- Trier par -->
 				<div class="d-flex align-items-center">
 					<label for="sortByProducts"
@@ -106,6 +105,7 @@ request.setAttribute("currentPage", currentPage);
 	<footer class="fc-main bg-main">
 		<jsp:include page="common/footer-amap.jsp" />
 	</footer>
+	</div>
 	<script>
 		var styleMapboxLight = "${mapStyleLight}";
 		var styleMapboxDark = "${mapStyleDark}";

@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="<c:url value='/resources/css/amap/signup-form.css' />">
 </head>
 <body class="theme-1 light bg-main fc-main">
-
+<div class="d-flex flex-column min-vh-100">
 <header class="fc-main bg-main">
 	<jsp:include page="../../common/header.jsp" />
 </header>
@@ -29,7 +29,7 @@
         </div>
         <hr class="bg-300 mb-4">
 
-        <form:form action="${pageContext.request.contextPath}/start/signup" method="post" modelAttribute="newUserDTO">
+        <form:form action="${pageContext.request.contextPath}/amappli/start/signup" method="post" modelAttribute="newUserDTO">
 
             <!-- Ajout du token CSRF -->
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -109,6 +109,7 @@
     <footer class="fc-main bg-main">
 		<jsp:include page="../../common/footer.jsp" />
 	</footer> 
+    </div>
     <script src="<c:url value='/resources/js/amappli/platformsignup.js'/>"></script>
    	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>

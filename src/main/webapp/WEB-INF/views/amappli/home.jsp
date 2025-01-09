@@ -30,7 +30,7 @@
 </head>
 
 <body class="theme-1 dark bg-main">
-
+<div class="d-flex flex-column min-vh-100">
 	<header class="fc-main bg-main">
 		<jsp:include page="common/header.jsp" />
 	</header>
@@ -288,7 +288,7 @@
 	<footer class="container-fluid fc-main bg-main">
 		<jsp:include page="common/footer.jsp" />
 	</footer>
-
+</div>
 
 	<script
 		src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"

@@ -21,7 +21,7 @@
 		</header>
 
 <div id="map"></div>   
-	
+	 
 	
    <main class="hero">
 		<div class="row g-0">
@@ -85,7 +85,7 @@
 		<footer class="fc-main bg-main">
 			<jsp:include page="common/footer-amap.jsp" />
 		</footer>
-		
+		</div>
 		
 		
 	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>

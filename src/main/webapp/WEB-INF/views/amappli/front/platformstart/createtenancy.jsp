@@ -14,7 +14,7 @@
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
 </head>
 <body class="theme-1 light bg-main fc-main">
-
+<div class="d-flex flex-column min-vh-100">
 <header class="fc-main bg-main">
 	<jsp:include page="../../common/header.jsp" />
 </header>
@@ -441,9 +441,10 @@
     <script>
         const errorpresent = "${errorspresent}";
 	</script>
-	<footer class="fc-main bg-main fixed-bottom">
+	<footer class="fc-main bg-main">
 		<jsp:include page="../../common/footer.jsp" />
 	</footer> 
+    </div>
     <script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js'/>" type="text/javascript"></script>
     <script src="<c:url value='/resources/js/amappli/tenancycreation.js'/>" type="text/javascript"></script>
     <script	src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>

@@ -16,7 +16,7 @@
 </head>
 
 <body class=" ${cssStyle == null? 'theme-1' : cssStyle} light ${font}-title ${font}-button">
-
+<div class="d-flex flex-column min-vh-100">
 
    <header class="fc-main bg-main">
 		<jsp:include page="../common/header-amap.jsp" />
@@ -38,7 +38,7 @@
 	<footer class="container-fluid fc-main bg-main">
 		<jsp:include page="../common/footer-amap.jsp" />
 	</footer>
-
+</div>
 	<script	src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
 	<script	src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
