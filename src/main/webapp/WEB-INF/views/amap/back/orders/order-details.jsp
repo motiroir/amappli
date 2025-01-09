@@ -34,7 +34,6 @@ request.setAttribute("currentPage", currentPage);
 	<jsp:include page="../common/sidebarAdmin.jsp" />
 
 	<div id="map"></div>
-	<
 	<div class="content col fc-main">
 		<div class="container-fluid mt-2">
 			<div class="row justify-content-center">
@@ -79,7 +78,7 @@ request.setAttribute("currentPage", currentPage);
 											value="${_csrf.token}" />
 										<c:if test="${!order.orderPaid}">
 											<p>Sélectionnez le type de paiement de l'adhérent</p>
-											<select name="paymentType">
+											<select name="paymentType" class="form-select form-control">
 												<option value="">-- Sélectionnez un mode de
 													paiement --</option>
 												<option value="Carte bleue">Carte bleue</option>

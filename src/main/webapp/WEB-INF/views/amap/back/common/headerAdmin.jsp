@@ -5,7 +5,7 @@
 <div class="container-fluid d-flex flex-row-reverse flex-md-row justify-content-between justify-content-md-evenly align-items-center">
 
     <c:if test="${not empty logoBase64}">
-	    <a href="<c:url value='amap/${tenancyAlias}/home'/>">
+	    <a href="<c:url value='/amap/${tenancyAlias}/home'/>">
 			<div class="logo-container d-none d-md-flex align-items-center">
 	            <!-- Affichage du logo encodé en Base64 -->
 	            <img id="logo-header" 

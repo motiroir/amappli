@@ -161,7 +161,7 @@ request.setAttribute("currentPage", currentPage);
 							<div class="d-flex justify-content-evenly my-5">
 								<div class="col text-center">
 									<button id="submit-button" type="submit"
-										class="btn btn-success rounded-pill">Valider la
+										class="btn btn-300 rounded-pill">Valider la
 										modification</button>
 								</div>
 								<div class="col text-center">
