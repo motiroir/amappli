@@ -91,7 +91,7 @@ public class PlatformStartController {
         values.add(new ValueDTO());
         newTenancyDTO.setValues(values);
         model.addAttribute("newTenancyDTO",newTenancyDTO);
-        // Give the color palettes options for the form
+        // Give the color palettes and font options for the form
         model.addAttribute("colorPalettes",ColorPalette.values());
         model.addAttribute("fontChoices", FontChoice.values());
         return "amappli/front/platformstart/createtenancy";

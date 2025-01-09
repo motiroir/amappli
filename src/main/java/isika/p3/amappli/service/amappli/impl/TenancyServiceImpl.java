@@ -1,7 +1,7 @@
 package isika.p3.amappli.service.amappli.impl;
 
 import java.io.IOException;
-import java.io.InputStream;
+// import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
@@ -10,6 +10,12 @@ import org.springframework.stereotype.Service;
 
 import isika.p3.amappli.entities.tenancy.HomePageContent;
 import isika.p3.amappli.api.NominatimAPI;
+import isika.p3.amappli.dto.amap.TenancyUpdateAddressDTO;
+import isika.p3.amappli.dto.amap.TenancyUpdateColorFontDTO;
+import isika.p3.amappli.dto.amap.TenancyUpdateLogo;
+import isika.p3.amappli.dto.amap.TenancyUpdateNameAliasDTO;
+import isika.p3.amappli.dto.amap.TenancyUpdatePickUpDTO;
+import isika.p3.amappli.dto.amap.TenancyUpdateSloganDTO;
 import isika.p3.amappli.dto.amappli.NewTenancyDTO;
 import isika.p3.amappli.dto.amappli.ValueDTO;
 import isika.p3.amappli.entities.tenancy.ContentBlock;
@@ -20,8 +26,8 @@ import isika.p3.amappli.entities.user.User;
 import isika.p3.amappli.exceptions.TenancyAliasAlreadyTakenException;
 import isika.p3.amappli.repo.amap.UserRepository;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
-import isika.p3.amappli.service.amap.UserService;
 import isika.p3.amappli.service.amappli.TenancyService;
+import isika.p3.amappli.util.MultiPartFileToBase64;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -78,14 +84,14 @@ public class TenancyServiceImpl implements TenancyService {
 
 	// Méthode pour charger une image depuis les ressources internes et la convertir
 	// en Base64
-	private String loadImageFromResources(String imageName) throws IOException {
-		InputStream imageStream = getClass().getClassLoader().getResourceAsStream("image/" + imageName);
-		if (imageStream == null) {
-			throw new IOException("Image not found in resources: " + imageName);
-		}
-		byte[] imageBytes = imageStream.readAllBytes();
-		return Base64.getEncoder().encodeToString(imageBytes);
-	}
+	// private String loadImageFromResources(String imageName) throws IOException {
+	// 	InputStream imageStream = getClass().getClassLoader().getResourceAsStream("image/" + imageName);
+	// 	if (imageStream == null) {
+	// 		throw new IOException("Image not found in resources: " + imageName);
+	// 	}
+	// 	byte[] imageBytes = imageStream.readAllBytes();
+	// 	return Base64.getEncoder().encodeToString(imageBytes);
+	// }
 
 	@Transactional
 	@Override
@@ -224,4 +230,64 @@ public class TenancyServiceImpl implements TenancyService {
 
 		return null;
 	}
+
+	public void updateTenancyNameOrAlias(TenancyUpdateNameAliasDTO updateInfo, String alias){
+		Tenancy tenancy = tenancyRepository.findByTenancyAlias(alias).get();
+		if(tenancy != null){
+			tenancy.setTenancyName(updateInfo.getTenancyName());
+			tenancy.setTenancyAlias(updateInfo.getTenancyAlias());
+			tenancyRepository.save(tenancy);
+		}
+	}
+
+	public void updateTenancySlogan(TenancyUpdateSloganDTO updateInfo, String alias){
+		Tenancy tenancy = tenancyRepository.findByTenancyAlias(alias).get();
+		if(tenancy != null){
+			tenancy.setTenancySlogan(updateInfo.getSlogan());
+			tenancyRepository.save(tenancy);
+		}
+	}
+
+	public void updateTenancyLogo(TenancyUpdateLogo updateInfo, String alias){
+		Tenancy tenancy = tenancyRepository.findByTenancyAlias(alias).get();
+		if(tenancy != null){
+			String[] logoData = MultiPartFileToBase64.encodeMultiPartFile(updateInfo.getFile());
+			tenancy.getGraphism().setLogoImgType(logoData[0]);
+			tenancy.getGraphism().setLogoImg(logoData[1]);
+			tenancyRepository.save(tenancy);
+		}
+	}
+
+	public void updateTenancyAddress(TenancyUpdateAddressDTO updateInfo, String alias){
+		Tenancy tenancy = tenancyRepository.findByTenancyAlias(alias).get();
+		if(tenancy != null){
+			tenancy.setAddress(updateInfo.getAddress());
+			// Compute GPS coordinates from Address
+			String coordinates = NominatimAPI.getGPSFromAddress(updateInfo.getAddress());
+			if (coordinates != null) {
+			String[] coor = coordinates.split(",");
+			tenancy.setTenancyLatitude(coor[1]);
+			tenancy.setTenancyLongitude(coor[0]);
+			tenancyRepository.save(tenancy);
+			}
+		}
+	}
+
+	public void updateTenancyPickUpSchedule(TenancyUpdatePickUpDTO updateInfo, String alias){
+		Tenancy tenancy = tenancyRepository.findByTenancyAlias(alias).get();
+		if(tenancy != null){
+			tenancy.setPickUpSchedule(updateInfo.getPickUpSchedule());
+			tenancyRepository.save(tenancy);
+		}
+	}
+	
+	public void updateTenancyColorFont(TenancyUpdateColorFontDTO updateInfo, String alias){
+		Tenancy tenancy = tenancyRepository.findByTenancyAlias(alias).get();
+		if(tenancy != null){
+			tenancy.getGraphism().setColorPalette(updateInfo.getColorPalette());
+			tenancy.getGraphism().setFontChoice(updateInfo.getFontChoice());
+			tenancyRepository.save(tenancy);
+		}
+	}
+
 }

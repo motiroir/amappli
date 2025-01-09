@@ -10,6 +10,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
+import org.springframework.util.SystemPropertyUtils;
+
 import isika.p3.amappli.entities.user.Address;
 
 public class NominatimAPI {
@@ -18,7 +20,7 @@ public class NominatimAPI {
         try {
             // Turn address object into query string
             String query = URLEncoder.encode(
-                String.join(" ", address.getLine1(), address.getLine2(), address.getPostCode(), address.getCity()), 
+                String.join(" ", address.getLine2(), address.getPostCode(), address.getCity()), 
                 StandardCharsets.UTF_8
             );
 
@@ -34,6 +36,8 @@ public class NominatimAPI {
                 .header("User-Agent", "Java-HttpClient") // Nominatim requires a User-Agent
                 .build();
 
+            System.out.println("nominatim request");
+            System.out.println(request.toString());
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
             // Parse the JSON response
@@ -49,7 +53,7 @@ public class NominatimAPI {
                 return coordinates.get(0).asText() + "," + coordinates.get(1).asText();
             } else {
                 System.out.println("No results found.");
-                return null; // Or throw an exception depending on your requirements
+                return null; 
             }
             
         } catch (Exception e) {
