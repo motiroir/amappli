@@ -19,7 +19,7 @@
 <title>Contact Amappli</title>
 </head>
 <body class="theme-1 dark bg-main">
-
+<div class="d-flex flex-column min-vh-100">
 <header class="fc-main bg-main">
     <jsp:include page="../common/header.jsp" />
 </header>
@@ -90,10 +90,10 @@
     </div>
 </div>
 
-	<footer class="container-fluid fc-main bg-main fixed-bottom">
+	<footer class="container-fluid fc-main bg-main">
 		<jsp:include page="../common/footer.jsp" />
 	</footer>
-
+</div>
 	<script	src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 	<script	src="<c:url value='/resources/js/amappli/loading-when-visible.js' />"></script>
 	<script	src="<c:url value='/resources/js/common/theme-swap.js' />"></script>

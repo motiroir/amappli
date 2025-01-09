@@ -19,7 +19,6 @@ request.setAttribute("currentPage", currentPage);
 <link href="<c:url value='/resources/bootstrap/bootstrap-icons.min.css' />" rel="stylesheet">
 </head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
-
 	<header class="fc-main bg-main border-1 border-alt">
 		<!-- Inclusion du header -->
 		<jsp:include page="../common/headerAdmin.jsp" />

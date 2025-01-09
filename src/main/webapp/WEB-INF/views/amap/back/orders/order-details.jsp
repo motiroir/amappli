@@ -25,7 +25,6 @@ request.setAttribute("currentPage", currentPage);
 
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
 
-
 	<header class="fc-main bg-main border-1 border-alt">
 		<!-- Inclusion du header -->
 		<jsp:include page="../common/headerAdmin.jsp" />

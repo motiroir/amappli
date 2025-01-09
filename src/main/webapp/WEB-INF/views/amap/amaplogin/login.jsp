@@ -14,6 +14,7 @@
 	<title>Connexion</title>
 </head>
 <body class="${cssStyle} light ${font}-title ${font}-button">
+<div class="d-flex flex-column min-vh-100">
  <header class="fc-main bg-main">
 			<jsp:include page="../front/common/header-amap.jsp" />
 		</header> 
@@ -65,7 +66,7 @@
 		</form>
 		<br>
 		<div class="text-center mt-4">
-			<p class="fc-300 ms-4" >Pas encore inscrit.e ?</p>
+			<h1 class="h3 fw-bold fc-300" >Pas encore inscrit.e ?</h1>
 			 <hr class="bg-main fc-main mb-4">
 			
 			<a
@@ -76,10 +77,10 @@
 	</div>
 	
 	
-	 <footer class="fc-main bg-main fixed-bottom">
-			<jsp:include page="../front/common/footer-amap.jsp" />
-		</footer>
-			
+	 <footer class="fc-main bg-main">
+		<jsp:include page="../front/common/footer-amap.jsp" />
+	</footer>
+	</div>
 		
 		
 	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>

@@ -8,7 +8,7 @@
 <div class="container fc-main mt-4 justify-content-center">
     <div class="row">
         <!-- Colonne "Notre histoire" -->
-        <div class="col-12 col-md-4 mb-4">
+        <div class="col-12 col-md">
             <h5 class="fw-bold">Notre histoire</h5>
             <ul class="list-unstyled">
                 <li><a href="<c:url value='/amap/${tenancyAlias}/home'/>" class="nav-link">A propos</a></li>
@@ -19,7 +19,7 @@
         </div>
 
         <!-- Colonne "Une question ?" -->
-        <div class="col-12 col-md-4 mb-4">
+        <div class="col-12 col-md">
             <h5 class="fw-bold">Une question ?</h5>
             <ul class="list-unstyled">
                 <li><a href="<c:url value='/amap/${tenancyAlias}/contact'/>" class="nav-link">Contact</a></li>
@@ -33,7 +33,7 @@
         </div>
 
         <!-- Colonne "Où nous trouver ?" -->
-        <div class="col-12 col-md-4 mb-4">
+        <div class="col-12 col-md">
             <h5 class="fw-bold">Où nous trouver ?</h5>
             <ul class="list-unstyled">
                 <li>${addressLine1}</li>
@@ -44,7 +44,7 @@
     </div>
 
     <!-- Copyright -->
-    <div class="text-center mt-4 fc-main ">
-        <p class="mb-0">&copy; 2024 Groupe 1 - Projet 3 Isika - Tous droits réservés</p>
+    <div class="text-center mt-2">
+        <p class="mb-0 fc-main">&copy; 2024 Groupe 1 - Projet 3 Isika - Tous droits réservés</p>
     </div>
 </div>
