@@ -2,6 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%
+String currentMainMenu = "profile"; // Détermine la rubrique active
+String currentPage = "profile"; // Détermine la sous-rubrique active
+request.setAttribute("currentMainMenu", currentMainMenu);
+request.setAttribute("currentPage", currentPage);
+%>
 <!DOCTYPE html>
 <html>
 <head>

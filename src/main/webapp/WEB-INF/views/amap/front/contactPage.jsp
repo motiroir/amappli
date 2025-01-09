@@ -94,11 +94,8 @@
 	<script>
 		var styleMapboxLight = "${mapStyleLight}";
 		var styleMapboxDark = "${mapStyleDark}";
-
-
 		var latitude = "${latitude}";
 		var longitude = "${longitude}"; 
-
 	</script>
 
     <script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
@@ -107,31 +104,7 @@
 
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const latitude = parseFloat("${latitude}");
-        const longitude = parseFloat("${longitude}");
-        
-        if (latitude && longitude) {
-            // Initialisation de la carte avec Leaflet
-            const map = L.map('dynamic-map').setView([latitude, longitude], 13);
-
-            // Ajout des tuiles OpenStreetMap
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '© OpenStreetMap'
-            }).addTo(map);
-
-            // Ajout d'un marqueur
-            L.marker([latitude, longitude]).addTo(map)
-                .bindPopup('Nous sommes ici')
-                .openPopup();
-        } else {
-            console.error('Les coordonnées latitude et longitude ne sont pas définies.');
-        }
-    });
-</script>
+<script src="<c:url value='/resources/js/common/map-contact-page.js' />"></script>
 
 
 

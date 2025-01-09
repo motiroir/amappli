@@ -21,6 +21,7 @@ public interface UserService {
 	boolean existsByEmailAndTenancy(String email, Tenancy tenancy);
 	UserDTO getUserProfile(Long userId);
 	void updateUserProfile(Long userId, @Valid UpdateProfileDTO updateProfileDTO);
+	User findUserWithMembership(Long userId);
 	
 	
 }
