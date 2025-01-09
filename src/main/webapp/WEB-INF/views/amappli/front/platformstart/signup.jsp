@@ -29,7 +29,7 @@
         </div>
         <hr class="bg-300 mb-4">
 
-        <form:form action="${pageContext.request.contextPath}/start/signup" method="post" modelAttribute="newUserDTO">
+        <form:form action="${pageContext.request.contextPath}/amappli/start/signup" method="post" modelAttribute="newUserDTO">
 
             <!-- Ajout du token CSRF -->
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

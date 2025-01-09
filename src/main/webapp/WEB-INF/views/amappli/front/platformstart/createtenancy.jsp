@@ -44,7 +44,7 @@
             <h3>Etes-vous prêts ?</h3>
         </div>
 
-        <form:form action="${pageContext.request.contextPath}/start/creation" method="post" modelAttribute="newTenancyDTO" enctype="multipart/form-data">
+        <form:form action="${pageContext.request.contextPath}/amappli/start/creation" method="post" modelAttribute="newTenancyDTO" enctype="multipart/form-data">
             
             <div class="form-part px-0 my-4">
 
