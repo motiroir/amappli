@@ -35,5 +35,15 @@ public class HomeController {
 	public String getfeatures() {
 	    return "amappli/front/featuresPage"; 
 	}
+	
+	@GetMapping("/legal")
+	public String legalDisclaimer() {
+		return "amappli/front/legal/legalPage"; 
+	}
+	
+	@GetMapping("/gcu")
+	public String gcu() {
+		return "amappli/front/legal/gcu"; 
+	}
 
 }

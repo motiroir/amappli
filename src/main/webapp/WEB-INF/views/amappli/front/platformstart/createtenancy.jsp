@@ -9,12 +9,17 @@
 <meta charset="UTF-8">
 <title>Création de votre espace AMAP</title>
 <link href="<c:url value='/resources/bootstrap/bootstrap.min.css'/>" rel="stylesheet">
-<link href="<c:url value='/resources/css/common/theme/theme-1-light.css'/>" rel="stylesheet">
 <link href="<c:url value='/resources/css/amappli/tenancycreation.css'/>" rel="stylesheet">
 <!-- Mapbox CSS -->
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
 </head>
-<body class="d-flex justify-content-center theme-1 light">
+<body class="theme-1 light bg-main fc-main">
+
+<header class="fc-main bg-main">
+	<jsp:include page="../../common/header.jsp" />
+</header>
+
+<section class="container justify-content-center">
     <!-- Conteneur pour la carte -->
     <div id="map"></div>
 
@@ -178,9 +183,9 @@
                 <h3>Quelles sont vos valeurs?</h3>
                 <p>Elles apparaîtront sur votre page d'accueil.</p>
 
-                <div id="value-form" class="row g-3 justify-content-center">
+                <div id="value-form" class="row g-3 justify-content-evenly">
                 <c:forEach items="${newTenancyDTO.values}" var="valueDTO" varStatus="status">
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-3">
                         <div class="mb-3 d-flex flex-column">
                             <form:input class="form-control mb-3" id="input-value-name-${status.index}" aria-placeholder="valeur" placeholder="valeur" aria-describedby="input-value-name" path="values[${status.index}].name" />
                             <form:textarea class="form-control mb-3" id="input-value-description-${status.index}" aria-placeholder="description" placeholder="description" aria-describedby="input-value-description" path="values[${status.index}].description" />
@@ -432,15 +437,17 @@
         </form:form>
 
     </div>
+    </section>
     <script>
-		const styleMapboxLight = "mapbox://styles/tiroirmorgane/cm4sw37wr001301s12frm2l2y"
-		const styleMapboxDark = "mapbox://styles/tiroirmorgane/cm52cqefg003101sa878udky6"
         const errorpresent = "${errorspresent}";
 	</script>
-
-    <script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js'/>"></script>
-    <script src="<c:url value='/resources/js/amappli/tenancycreation.js'/>"></script>
-    <script	src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
+	<footer class="fc-main bg-main fixed-bottom">
+		<jsp:include page="../../common/footer.jsp" />
+	</footer> 
+    <script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js'/>" type="text/javascript"></script>
+    <script src="<c:url value='/resources/js/amappli/tenancycreation.js'/>" type="text/javascript"></script>
+    <script	src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
+	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script> 
 </body>
 </html>

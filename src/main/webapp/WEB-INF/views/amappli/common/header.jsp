@@ -81,7 +81,7 @@
 			d="M396.451 187.652L393.602 188.323L435.329 365.517L438.178 364.846L396.451 187.652Z" />
     </svg>
 	<a class="d-none d-md-block nav-link" href="<c:url value='/amappli/home'/>">
-		<h1 id="text-head" class="d-none d-md-block fw-bold fs-2">amappli</h1>
+		<h1 id="text-head" class="d-none d-md-block fw-bold fs-2 fc-main">amappli</h1>
 	</a>
 	<div class="p-0 ms-2 ms-md-0 d-flex justify-content-evenly">
 		<svg class="my-auto mx-1" width="15" height="15" viewBox="0 0 30 30"

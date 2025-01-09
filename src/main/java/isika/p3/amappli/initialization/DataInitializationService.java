@@ -125,6 +125,7 @@ public class DataInitializationService {
 			productInit();
 			workshopInit();
 			initAllOrders();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
