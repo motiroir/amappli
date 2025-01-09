@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -51,6 +53,7 @@ public class ContractController {
 	/**
 	 * Displays the form for adding a new contract.
 	 */
+	@PreAuthorize("hasAuthority('creation contrats amap') and (hasAuthority(#tenancyAlias) or hasAuthority('gestion plateforme'))")
 	@GetMapping("/form")
 	public String showForm(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 		
@@ -79,6 +82,7 @@ public class ContractController {
 	/**
 	 * Saves a new contract to the database.
 	 */
+	@PreAuthorize("hasAuthority('creation contrats amap') and (hasAuthority(#tenancyAlias) or hasAuthority('gestion plateforme'))")
 	@PostMapping("/add")
 	public String addContract(@ModelAttribute("contractDTO") ContractDTO newContractDTO,
 			@PathVariable("tenancyAlias") String tenancyAlias) {
@@ -92,6 +96,7 @@ public class ContractController {
 	/**
 	 * Displays a list of all contracts.
 	 */
+	@PreAuthorize("hasAuthority('creation contrats amap') and (hasAuthority(#tenancyAlias) or hasAuthority('gestion plateforme'))")
 	@GetMapping("/list")
 	public String listContracts(Model model, @PathVariable String tenancyAlias) {
 		
@@ -112,6 +117,7 @@ public class ContractController {
 	/**
 	 * Deletes a contract by its ID.
 	 */
+	@PreAuthorize("hasAuthority('creation contrats amap') and (hasAuthority(#tenancyAlias) or hasAuthority('gestion plateforme'))")
 	@PostMapping("/delete/{id}")
 	public String deleteContract(@PathVariable("id") Long id, @PathVariable("tenancyAlias") String tenancyAlias) {
 		
@@ -123,6 +129,7 @@ public class ContractController {
 	/**
 	 * Displays the details of a specific contract.
 	 */
+	@PreAuthorize("hasAuthority('creation contrats amap') and (hasAuthority(#tenancyAlias) or hasAuthority('gestion plateforme'))")
 	@GetMapping("/detail/{id}")
 	public String viewContractDetail(@PathVariable("id") Long id, Model model,
 			@PathVariable("tenancyAlias") String tenancyAlias) {
@@ -154,7 +161,7 @@ public class ContractController {
 		graphismService.setUpModel(tenancyAlias, model);		
 		return "amap/back/contracts/contract-detail";
 	}
-
+	@PreAuthorize("hasAuthority('creation contrats amap') and (hasAuthority(#tenancyAlias) or hasAuthority('gestion plateforme'))")
 	@PostMapping("/update")
 	public String updateContract(
 		    @ModelAttribute("contract") ContractDTO updatedContractDTO,
