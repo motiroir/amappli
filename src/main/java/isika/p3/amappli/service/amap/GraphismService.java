@@ -3,6 +3,7 @@ package isika.p3.amappli.service.amap;
 import org.springframework.ui.Model;
 
 import isika.p3.amappli.entities.tenancy.Tenancy;
+import isika.p3.amappli.security.CustomUserDetails;
 
 public interface GraphismService {
 
@@ -23,5 +24,7 @@ public interface GraphismService {
 	void setUpModel(String alias, Model model);
 	
 	Long getUserIdFromContext();
+
+	void getUserInfoFromContext(Model model);
 	
 }

@@ -4,9 +4,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -34,6 +36,7 @@ public class GraphismServiceImpl implements GraphismService {
 		addTenancyInfos(tenancy, model);
 		addGraphismAttributes(tenancy, model);
 		addNextPickUpDateToModel(model, tenancy);
+		getUserInfoFromContext(model);
 	}
 	
 	public void addNextPickUpDateToModel(Model model, Tenancy tenancy) {
@@ -213,5 +216,14 @@ public class GraphismServiceImpl implements GraphismService {
 		} else return tenancy.getTenancyLongitude();
 	}
 	
+	public void getUserInfoFromContext(Model model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Object principal = authentication.getPrincipal();
+		if (principal instanceof CustomUserDetails) {
+			CustomUserDetails loggedUserInfo = (CustomUserDetails) principal;
+			model.addAttribute("permissions", loggedUserInfo.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
+			model.addAttribute("loggedUserFirstName",loggedUserInfo.getAdditionalInfoByKey("firstName"));
+		}
+	}
 	
 }
