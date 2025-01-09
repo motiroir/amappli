@@ -1,5 +1,5 @@
 .theme-6.dark {
-redefinition of colours for current theme*/
+/*redefinition of colours for current theme*/
 	--orange-050: #D7EAD7;
 	--orange-100: #BBDDBC; 
 	--orange-300: #A1CCAF; 
@@ -346,6 +346,10 @@ redefinition of colours for current theme*/
 
 .theme-6.dark .fch-main:hover {
     color: var(--main-font-color) !important;
+}
+
+.theme-6.dark .fch-alt:hover {
+    color: var(--alt-font-color) !important;
 }
 
 .theme-6.dark .fill-900 {

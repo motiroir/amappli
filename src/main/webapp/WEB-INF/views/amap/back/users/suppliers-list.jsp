@@ -56,7 +56,7 @@ request.setAttribute("currentPage", currentPage);
 					<div
 						class="table-container d-flex justify-content-between align-items-center my-2">
 						<h2 class="fw-bold fc-main my-auto">Liste des fournisseurs</h2>
-						<a href="<c:url value='/amap/${tenancyAlias}/admin/suppliers/form'/>" class="btn btn-outline-300 rounded-pill fch-main fw-bold border-2">
+						<a href="<c:url value='/amap/${tenancyAlias}/admin/suppliers/form'/>" class="btn btn-outline-300 rounded-pill fch-100 fw-bold border-2">
 						<span class="icon">+ </span><span class=" d-none d-md-inline">Ajouter un fournisseur</span>
 						</a>
 					</div>

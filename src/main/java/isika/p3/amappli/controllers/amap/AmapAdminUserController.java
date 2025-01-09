@@ -1,6 +1,7 @@
 package isika.p3.amappli.controllers.amap;
 
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
 
@@ -62,7 +63,7 @@ public class AmapAdminUserController {
 		User user = adminUserService.findById(userId);
 		model.addAttribute("user", model.containsAttribute("userDTO")? model.getAttribute("userDTO") : user);
 		model.addAttribute("tenancyAlias", tenancyAlias);
-		model.addAttribute("dateEnd", user.getMembershipFee() != null ? new SimpleDateFormat("dd-MM-yyyy").format(user.getMembershipFee().getDateEnd()) : "Aucune cotisation effectuée");
+		model.addAttribute("dateEnd", user.getMembershipFee() != null ? user.getMembershipFee().getDateEnd().format(DateTimeFormatter.ofPattern("dd MMM yyyy")) : "Aucune cotisation effectuée");
 		model.addAttribute("allRoles" , this.roleService.findAmapRoles(tenancyAlias));
 		graphismService.setUpModel(tenancyAlias, model);
 		return "amap/back/users/users-details";
@@ -187,7 +188,7 @@ public class AmapAdminUserController {
 	public String suppliersDetails(@PathVariable("userId") Long userId, Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 	    User supplier = adminUserService.findById(userId);
 	    model.addAttribute("user", supplier);
-		model.addAttribute("dateEnd", supplier.getMembershipFee() != null ? new SimpleDateFormat("dd-MM-yyyy").format(supplier.getMembershipFee().getDateEnd()) : "Aucune cotisation effectuée");
+		model.addAttribute("dateEnd", supplier.getMembershipFee() != null ? supplier.getMembershipFee().getDateEnd().format(DateTimeFormatter.ofPattern("dd MMM yyyy")) : "Aucune cotisation effectuée");
 		model.addAttribute("tenancyAlias", tenancyAlias);
 		model.addAttribute("allRoles" , this.roleService.findAmapRoles(tenancyAlias));
 		graphismService.setUpModel(tenancyAlias, model);

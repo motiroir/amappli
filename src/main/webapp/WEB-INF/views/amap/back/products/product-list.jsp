@@ -62,7 +62,7 @@ request.setAttribute("currentPage", currentPage);
 						<h2 class="fw-bold fc-main my-auto">Liste des produits</h2>
 						<a
 							href="<c:url value='/amap/${tenancyAlias}/admin/products/form' />"
-							class="btn btn-outline-300 rounded-pill fch-main fw-bold border-2">
+							class="btn btn-outline-300 rounded-pill fch-100 fw-bold border-2">
 							<span class="icon">+ </span><span class=" d-none d-md-inline">Créer
 								un produit</span>
 						</a>

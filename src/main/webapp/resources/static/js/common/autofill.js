@@ -11,15 +11,35 @@ document.addEventListener('keydown', (event) => {
         switch (form.getAttribute("action")) {
             case "/Amappli/login":
                 inputs.forEach(input => {
-                    if (input.getAttribute("id") === "email") {
-                        input.setAttribute("value", "lucas.martin@example1.com");
+                    if (input.getAttribute("id") === "email") {					
+                        if (input.value==="lucas.martin@example6.com") {
+							input.value = "marie.durand@example1.com";
+                        } else {
+                            input.value = "lucas.martin@example6.com";
+                        }
                     }
                     if (input.getAttribute("id") === "motDePasse") {
-                        input.setAttribute("value", "AMAPamap11@");
+                        input.value = "AMAPamap11@";
                     }
                 });
                 break;
-        
+        	case "/Amappli/amap/biocoli/signup":
+				inputs.forEach(input => {
+					switch(input.getAttribute("id")) {
+						case "email":
+                            input.value = "marie.durand@example1.com";
+                        break;
+					}
+				    if (input.getAttribute("id") === "email") {					
+				        if (input.value==="lucas.martin@example6.com") {
+				        } else {
+				            input.value = "lucas.martin@example6.com";
+				        }
+				    }
+				    if (input.getAttribute("id") === "motDePasse") {
+				        input.value = "AMAPamap11@";
+				    }
+				});
             default:
                 break;
         }
