@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import isika.p3.amappli.security.CustomAccessDeniedHandler;
 import isika.p3.amappli.security.CustomAuthenticationEntryPoint;
 import isika.p3.amappli.security.CustomAuthenticationFailureHandler;
 import isika.p3.amappli.security.CustomAuthenticationSuccessHandler;
@@ -24,14 +25,17 @@ public class WebSecurityConfig {
 	private final CustomAuthenticationFailureHandler failureHandler;
 	private final CustomAuthenticationSuccessHandler successHandler;
 	private final CustomLogoutSuccessHandler logoutSuccessHandler;
+	private final CustomAccessDeniedHandler accessDeniedHandler;
 
 
-	public WebSecurityConfig(CustomAuthenticationEntryPoint entryPoint, CustomAuthenticationFailureHandler failureHandler, CustomAuthenticationSuccessHandler successHandler, CustomLogoutSuccessHandler logoutSuccessHandler) {
+	public WebSecurityConfig(CustomAuthenticationEntryPoint entryPoint, CustomAuthenticationFailureHandler failureHandler, CustomAuthenticationSuccessHandler successHandler, CustomLogoutSuccessHandler logoutSuccessHandler, CustomAccessDeniedHandler accessDeniedHandler) {
 		this.entryPoint = entryPoint;
 		this.failureHandler = failureHandler;
 		this.successHandler = successHandler;
 		this.logoutSuccessHandler = logoutSuccessHandler;
+		this.accessDeniedHandler = accessDeniedHandler;
 	}
+
 
     @Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -43,7 +47,8 @@ public class WebSecurityConfig {
 //				.requestMatchers("/**").authenticated() //all requests that match this need to be authenticated unless stated otherwise
 				.anyRequest().permitAll() //all other requests don't need authentication
 			)
-			.exceptionHandling(exception -> exception.authenticationEntryPoint(entryPoint)) //send user to the appropriate login page
+			.exceptionHandling(exception -> exception.authenticationEntryPoint(entryPoint)
+													.accessDeniedHandler(accessDeniedHandler)) //send user to the appropriate login page
 			.formLogin((form) -> form
 				//.loginPage("/sectest/login") 
 				.loginProcessingUrl("/login") //this is the post request endpoint for spring to process the login attempt
