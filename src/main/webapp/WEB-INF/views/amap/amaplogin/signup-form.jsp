@@ -12,7 +12,7 @@
 </head>
 
 <body  class="${cssStyle} light ${font}-title ${font}-button">
-
+<div class="d-flex flex-column min-vh-100">
        <header class="fc-main bg-main">
 			<jsp:include page="../front/common/header-amap.jsp" />
 		</header>
@@ -117,7 +117,8 @@
     </div>
    <footer class="fc-main bg-main">
 		<jsp:include page="../front/common/footer-amap.jsp" />
-	</footer> 
+	</footer>
+    </div>
    	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 	<script>
 		var styleMapboxLight = "${mapStyleLight}";

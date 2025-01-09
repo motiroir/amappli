@@ -25,7 +25,6 @@ request.setAttribute("currentPage", currentPage);
 
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
 
-
 	<header class="fc-main bg-main">
 		<jsp:include page="common/header-user-account.jsp" />
 	</header>
@@ -117,12 +116,9 @@ request.setAttribute("currentPage", currentPage);
 
 	<script
 		src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />"></script>
-	<script src="<c:url value='/resources/js/common/mapbox/map.js' />"
-		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script>
-
-
-	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />"
-		type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/bg-table.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />" type="text/javascript"></script>
 </body>
 </html>

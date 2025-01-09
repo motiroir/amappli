@@ -55,7 +55,6 @@ hr {
 
 
 input[type="text"], input[type="email"], input[type="password"] {
-	border-radius: 20px;
 	border: 1px solid #ccc;
 	padding: 10px 20px;
 	font-size: 1rem;
@@ -68,14 +67,20 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 	box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-.text-center p {
-   
-    font-size: 1rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-    text-align: left
+/* button[type="submit"] {
+	background-color:#ffc7a2; 
+	color: #fff;
+	border-radius: 25px;
+	padding: 10px 30px;
+	border: none;
+	font-size: 1rem;
+	cursor: pointer;
+	transition: background-color 0.3s;
 }
+
+button[type="submit"]:hover {
+	background-color: #ffad7f;
+} */
 
  .btn {
             display: inline-block;

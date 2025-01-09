@@ -14,6 +14,7 @@
         </head>
 
         <body class="${cssStyle} light ${font}-title ${font}-button">
+        <div class="d-flex flex-column min-vh-100">
             <header class="fc-main bg-main">
                 <c:choose>
                     <c:when test="${amappli == true}">
@@ -136,7 +137,7 @@
                     </c:otherwise>
                 </c:choose>
             </footer> 
-
+</div>
             <script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 
         <script>

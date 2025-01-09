@@ -24,6 +24,7 @@ request.setAttribute("currentPage", currentPage);
 	rel="stylesheet">
 </head>
 <body class="row ${cssStyle} light ${font}-title ${font}-button">
+
 	<!-- Header -->
 	<header class="fc-main bg-main border-1 border-alt">
 		<jsp:include page="common/header-amap.jsp" />
@@ -100,6 +101,7 @@ request.setAttribute("currentPage", currentPage);
 	<footer class="fc-main bg-main">
 		<jsp:include page="common/footer-amap.jsp" />
 	</footer>
+
 	<script>
 		var styleMapboxLight = "${mapStyleLight}";
 		var styleMapboxDark = "${mapStyleDark}";

@@ -101,7 +101,7 @@
 <footer class="fc-main bg-main">
 			<jsp:include page="common/footer-amap.jsp" />
 		</footer>
-		
+		</div>
 		
 		
 	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>

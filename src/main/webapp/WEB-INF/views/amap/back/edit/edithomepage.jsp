@@ -383,6 +383,7 @@
     <script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
     <script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  -->
     <script src="<c:url value='/resources/js/amap/admin/sidebar.js' />" type="text/javascript"></script>
+    <script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
     <script src="<c:url value='/resources/js/amap/admin/homepageedit.js' />" type="text/javascript"></script>
 </body>
 </html>
