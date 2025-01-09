@@ -100,6 +100,9 @@ public class RoleController {
 
 		User user = userService.findById((Long) loggedUserInfo.getAdditionalInfoByKey("userId"));
 		
+		// The roles that can't be modified
+		List<Role> rolesNoModif = roleService.findAllGenericRoles();
+		model.addAttribute("rolesNoModif",rolesNoModif);
 		// Get applicable roles and permissions
 		List<Role> roles = roleService.findAmapExclusiveRoles(alias);
 		model.addAttribute("roles", roles);

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import isika.p3.amappli.entities.tenancy.ColorPalette;
 import isika.p3.amappli.entities.tenancy.FontChoice;
-import isika.p3.amappli.entities.tenancy.Graphism;
 import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.security.CustomUserDetails;
 import isika.p3.amappli.service.amap.GraphismService;
