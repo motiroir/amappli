@@ -48,7 +48,6 @@ import isika.p3.amappli.repo.amap.ContractRepository;
 import isika.p3.amappli.repo.amap.OrderItemRepository;
 import isika.p3.amappli.repo.amap.OrderRepository;
 import isika.p3.amappli.repo.amap.ProductRepository;
-import isika.p3.amappli.repo.amap.ShoppableRepository;
 import isika.p3.amappli.repo.amap.UserRepository;
 import isika.p3.amappli.repo.amap.WorkshopRepository;
 import isika.p3.amappli.repo.amappli.OptionsRepository;
@@ -123,6 +122,7 @@ public class DataInitializationService {
 			productInit();
 			workshopInit();
 			initAllOrders();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

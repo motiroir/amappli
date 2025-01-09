@@ -6,10 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet"
-	href="<c:url value='/resources/bootstrap/bootstrap.min.css' />">
-<link rel="stylesheet"
-	href="<c:url value='/resources/css/amap/homePage.css' />">
+<link rel="stylesheet" href="<c:url value='/resources/bootstrap/bootstrap.min.css' />">
+<link rel="stylesheet" href="<c:url value='/resources/css/amap/homePage.css' />">
 
 <title>Page d'accueil - ${tenancyName}</title>
 
@@ -42,13 +40,13 @@
 	</main>
 
 	<!-- Affichage du block de présentation -->
-<div class="presentation-wrapper">
+<div id="qui-sommes-nous" class="presentation-wrapper">
     <div class="presentation-section">
         <h2 class="h3 fw-bold fc-300">Qui sommes-nous ?</h2>
         <div class="presentation-block fc-main">
             <div class="presentation-text">
                 <h3 class="h4 fw-bold fc-300">${presentationBlock.contentTitle}</h3>
-                <p>${presentationBlock.contentText}</p>
+                <p class="text-justify">${presentationBlock.contentText}</p>
             </div>
             <div class="presentation-image-container">
                 <c:if test="${not empty presentationBlock.contentImg}">
@@ -66,18 +64,18 @@
 <c:if test="${not empty valueBlocks}">
     <div class="values-section ">
         <h2 class="h3 fw-bold fc-300">Nos Valeurs</h2>
-        <div class="value-blocks">
+        <div class="row justify-content-evenly">
             <c:forEach items="${valueBlocks}" var="block">
-                <div class="value-block">
+                <div class="col-2 shadow-sm bg-100 rounded-3 p-3">
                     <c:if test="${not empty block.contentImg}">
                         <!-- Affichage de l'image encodée en Base64 pour chaque ContentBlock -->
-                       <img src="data:${block.contentImgTypeMIME};base64,${block.contentImg}" 
+                       <img class="object-fit-contain col-12" src="data:${block.contentImgTypeMIME};base64,${block.contentImg}" 
      alt="${block.contentTitle}" 
      class="value-image" />
 
                     </c:if>
                     <h3 class="h4 fw-bold fc-300">${block.contentTitle}</h3>
-                    <p>${block.contentText}</p>
+                    <p class="text-justify">${block.contentText}</p>
                 </div>
             </c:forEach>
         </div>

@@ -19,8 +19,8 @@
 }
 
 /* Padding */
-body {
-    padding: 100px;
+section {
+    padding-top: 100px;
 }
 
 /* Form inputs */

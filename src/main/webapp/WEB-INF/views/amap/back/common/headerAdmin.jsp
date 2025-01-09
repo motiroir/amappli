@@ -5,16 +5,18 @@
 <div class="container-fluid d-flex flex-row-reverse flex-md-row justify-content-between justify-content-md-evenly align-items-center">
 
     <c:if test="${not empty logoBase64}">
-		<div class="logo-container d-none d-md-flex align-items-center">
-            <!-- Affichage du logo encodé en Base64 -->
-            <img id="logo-header" 
-                 height="50" 
-                 min-height="50" 
-                 viewBox="0 0 697 726" 
-                 class="my-2 my-sm-0 logo-image me-3" 
-                 src="data:${logoImgType};base64,${logoBase64}" 
-                 alt="Logo de ${tenancyName}" />
-		</div>
+	    <a href="<c:url value='amap/${tenancyAlias}/home'/>">
+			<div class="logo-container d-none d-md-flex align-items-center">
+	            <!-- Affichage du logo encodé en Base64 -->
+	            <img id="logo-header" 
+	                 height="50" 
+	                 min-height="50" 
+	                 viewBox="0 0 697 726" 
+	                 class="my-2 my-sm-0 logo-image me-3" 
+	                 src="data:${logoImgType};base64,${logoBase64}" 
+	                 alt="Logo de ${tenancyName}" />
+			</div>
+	    </a>
     </c:if>
 	
 	<div class="p-0 ms-2 ms-md-0 d-flex justify-content-evenly">

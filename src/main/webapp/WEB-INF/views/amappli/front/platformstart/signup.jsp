@@ -7,124 +7,112 @@
 <head>
 <meta charset="UTF-8">
 <title>Inscription sur Amappli</title>
-<link href="<c:url value='/resources/bootstrap/bootstrap.min.css'/>" rel="stylesheet">
-<style>
-    body {
-        background-image: url("<c:url value='/resources/img/peach_lines.svg'/>");
-    }
-</style>
+<link rel="stylesheet" href="<c:url value='/resources/bootstrap/bootstrap.min.css' />">
+<link rel="stylesheet" href="<c:url value='/resources/css/amap/signup-form.css' />">
 </head>
-<body>
-    <div class="container w-75 p-5 pt-100 pb-100">
+<body class="theme-1 light bg-main fc-main">
 
-        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar" style="width: 0%" id="the-progress-bar"></div>
-        </div>
+<header class="fc-main bg-main">
+	<jsp:include page="../../common/header.jsp" />
+</header>
+		
+<div id="map"></div>
 
-        <div class="first-title d-flex">
-            <h1 class="display-4 w-100">S'inscrire
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg flex-shrink-1" viewBox="0 0 16 16">
-                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                </svg>
-            </h1>
+<div class="container py-5 flex-grow-1">
+    <div class="col-12 col-md-6 mx-auto py-5">
+
+        <div class="d-flex justify-content-between align-items-center ">
+            <h1 class="h3 fw-bold fc-300">S'inscrire</h1>
+
+            <a href="/Amappli/amappli/home"class="btn-close fc-main" aria-label="Retour"></a>
+
         </div>
-        <hr>
+        <hr class="bg-300 mb-4">
 
         <form:form action="${pageContext.request.contextPath}/start/signup" method="post" modelAttribute="newUserDTO">
-            <div id="form-part-1">
 
-                <div class="mb-3">
-                    <form:label for="input-email" class="form-label" path="email">Email</form:label>
-                    <form:input type="email" class="form-control" id="input-email" aria-describedby="emailHelp" path="email" required="true" aria-required="true"/>
-                    <form:errors path="email" class="invalid-feedback d-block" />
-                    <c:if test="${not empty emailError}">
-                            <div class="invalid-feedback d-block">${emailError}</div>
-                        </c:if>
-                    <div id="email-help" class="form-text">Cet email sera votre identifiant de connexion. Il ne pourra pas être changé.</div>
-                    </div>
+            <!-- Ajout du token CSRF -->
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
-                <div class="mb-3">
-                    <form:label for="input-password-1" class="form-label" path="password">Mot de Passe</form:label>
-                    <form:input type="password" class="form-control" id="input-password-1" path="password" required="true" aria-required="true"/>
-                    <form:errors path="password" class="invalid-feedback d-block" />
+            <!-- Affichage des erreurs générales -->
+            <c:if test="${not empty error}">
+                <div class="alert alert-danger">
+                    <strong>Erreur :</strong> ${error}
                 </div>
+            </c:if>
 
-                <div class="mb-3">
-                    <form:label for="input-password-3" class="form-label" path="confirmPassword">Confirmez le mot de Passe</form:label>
-                    <form:input type="password" class="form-control" id="input-password-2" path="confirmPassword" required="true" aria-required="true"/>
-                    <form:errors path="confirmPassword" class="invalid-feedback d-block" />
+            <!-- Champs pour le formulaire -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <form:input path="contactInfo.name" cssClass="form-control" id="nom" placeholder="Votre nom" required="true" />
+                    <form:errors path="contactInfo.name" cssClass="text-danger" />
                 </div>
-
-                <button type="button" class="rounded-pill bg-primary" id="sign-up-button">
-                    S'inscrire
-                </button>
+                <div class="col-md-6">
+                    <form:input path="contactInfo.firstName" cssClass="form-control" id="prenom" placeholder="Votre prénom" required="true" />
+                    <form:errors path="contactInfo.firstName" cssClass="text-danger" />
+                </div>
             </div>
 
-            <div id="connect">
-                <h1 class="display-5">Déjà inscrit.e ?</h1>
-                <hr>
-                <a class="rounded-pill bg-primary" href="${pageContext.request.contextPath}/">Se connecter</a>
+            <div class="mb-3">
+                <form:input path="contactInfo.phoneNumber" cssClass="form-control" id="telephone" placeholder="Votre numéro de téléphone" />
+                <form:errors path="contactInfo.phoneNumber" cssClass="text-danger" />
             </div>
 
-            <div id="form-part-2">
-
-                <button type="button" class="rounded-pill bg-primary" id="sign-up-button">
-                    Retour
-                </button>
-
-                <h1 class="display-6">Renseignez vos informations de contact</h1>
-
-                <div class="mb-3">
-                    <form:label for="contactinfo-name" class="form-label" path="contactInfo.name">Nom</form:label>
-                    <form:input type="text" class="form-control" id="contactinfo-name" path="contactInfo.name" required="true" aria-required="true"/>
-                    <form:errors path="contactInfo.name" class="invalid-feedback d-block" />
-                </div>
-
-                <div class="mb-3">
-                    <form:label for="contactinfo-firstname" class="form-label" path="contactInfo.firstName">Prénom</form:label>
-                    <form:input type="text" class="form-control" id="contactinfo-firstname" path="contactInfo.firstName" required="true" aria-required="true"/>
-                    <form:errors path="contactInfo.firstName" class="invalid-feedback d-block" />
-                </div>
-
-                <div class="mb-3">
-                    <form:label for="contactinfo-phone" class="form-label" path="contactInfo.phoneNumber">Téléphone</form:label>
-                    <form:input type="text" class="form-control" id="contactinfo-phone" path="contactInfo.phoneNumber" required="true" aria-required="true"/>
-                    <form:errors path="contactInfo.phoneNumber" class="invalid-feedback d-block" />
-                </div>
-
-                <h1 class="display-6">Renseignez votre adresse</h1>
-
-                <div class="mb-3">
-                    <form:label for="address-line1" class="form-label" path="address.line1">Ligne 1</form:label>
-                    <form:input type="text" class="form-control" id="address-line1" path="address.line1"/>
-                    <form:errors path="address.line1" class="invalid-feedback d-block" />
-                </div>
-
-                <div class="mb-3">
-                    <form:label for="address-line2" class="form-label" path="address.line2">Ligne 2</form:label>
-                    <form:input type="text" class="form-control" id="address-line2" path="address.line2" required="true" aria-required="true"/>
-                    <form:errors path="address.line2" class="invalid-feedback d-block" />
-                </div>
-
-                <div class="mb-3">
-                    <form:label for="address-postcode" class="form-label" path="address.postCode">Code Postal</form:label>
-                    <form:input type="text" class="form-control" id="address-postcode" path="address.postCode" required="true" aria-required="true"/>
-                    <form:errors path="address.postCode" class="invalid-feedback d-block" />
-                </div>
-
-                <div class="mb-3">
-                    <form:label for="address-city" class="form-label" path="address.city">Ville</form:label>
-                    <form:input type="text" class="form-control" id="address-city" path="address.city" required="true" aria-required="true"/>
-                    <form:errors path="address.city" class="invalid-feedback d-block" />
-                </div>
-
-                <button type="submit" class="btn btn-primary">Valider</button>
+            <div class="mb-3">
+                <form:input path="address.line1" cssClass="form-control" id="adresse" placeholder="Votre adresse" required="true" />
+                <form:errors path="address.line1" cssClass="text-danger" />
             </div>
 
+            <div class="mb-3">
+                <form:input path="address.line2" cssClass="form-control" id="complement" placeholder="Complément d'adresse" />
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <form:input path="address.postCode" cssClass="form-control" id="codePostal" placeholder="Code postal" required="true" />
+                    <form:errors path="address.postCode" cssClass="text-danger" />
+                </div>
+                <div class="col-md-6">
+                    <form:input path="address.city" cssClass="form-control" id="ville" placeholder="Ville" required="true" />
+                    <form:errors path="address.city" cssClass="text-danger" />
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <form:input path="email" cssClass="form-control" id="email" placeholder="Votre adresse mail" required="true" />
+                <form:errors path="email" cssClass="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <form:password path="password" cssClass="form-control" id="motDePasse" placeholder="Votre mot de passe" required="true" />
+                <form:errors path="password" cssClass="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <form:password path="confirmPassword" cssClass="form-control" id="confirmMotDePasse" placeholder="Confirmez votre mot de passe" required="true" />
+                <form:errors path="confirmPassword" cssClass="text-danger" />
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-500 px-4 rounded-pill">S'inscrire</button>
+            </div>
         </form:form>
+<div class="text-center mt-4">
+			<p class="fc-300 ms-4" >Déja inscrit.e ?</p>
+			<hr class="bg-300">
+			<a href="<c:url value='/amappli/login'/>"
+				class="btn bg-500  rounded-pill">Se connecter</a>
+		</div>
+	</div>
+</div>
 
-    </div>
-    </script src="<c:url value='/resources/js/platformsignup.js'/>"></script>
-    <script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js'/>"></script>
+    <footer class="fc-main bg-main">
+		<jsp:include page="../../common/footer.jsp" />
+	</footer> 
+    <script src="<c:url value='/resources/js/amappli/platformsignup.js'/>"></script>
+   	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
+	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>  
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>  
 </body>
 </html>

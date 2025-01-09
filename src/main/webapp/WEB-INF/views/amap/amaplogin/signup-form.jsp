@@ -13,8 +13,6 @@
 
 <body  class="${cssStyle} light ${font}-title ${font}-button">
 
-<div class="d-flex flex-column min-vh-100">
-
        <header class="fc-main bg-main">
 			<jsp:include page="../front/common/header-amap.jsp" />
 		</header>
@@ -35,7 +33,8 @@
         <form:form 
             modelAttribute="userDTO" 
             method="post" 
-            action="${pageContext.request.contextPath}/tenancies/amap/${tenancyAlias}/amap/amaplogin/signup">
+            action="${pageContext.request.contextPath}/tenancies/amap/${tenancyAlias}/amap/amaplogin/signup"
+             href="${pageContext.request.contextPath}/amap/${tenancyAlias}/login-done">
 
             <!-- Ajout du token CSRF -->
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -101,7 +100,7 @@
 
             <div class="text-center">
             
-                <button href="${pageContext.request.contextPath}/amap/${tenancyAlias}/login-done" 
+                <button 
                 type="submit" class="btn btn-500 px-4 rounded-pill">S'inscrire</button>
             </div>
         </form:form>
@@ -117,22 +116,17 @@
         </div>
     </div>
    <footer class="fc-main bg-main">
-			<jsp:include page="../front/common/footer-amap.jsp" />
-		</footer> 
-    	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
-
+		<jsp:include page="../front/common/footer-amap.jsp" />
+	</footer> 
+   	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />"></script>
 	<script>
 		var styleMapboxLight = "${mapStyleLight}";
 		var styleMapboxDark = "${mapStyleDark}";
-
-
-		 var latitude = "${latitude}";
-		 var longitude = "${longitude}"; 
-
+		var latitude = "${latitude}";
+		var longitude = "${longitude}"; 
 	</script>
-
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>  
-	<script src="<c:url value='/resources/js/common/theme-swap.js' />"></script>  
+	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>  
 </body>
 </html>
