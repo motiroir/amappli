@@ -3,6 +3,7 @@ package isika.p3.amappli.security;
 import java.io.IOException;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
@@ -49,6 +50,9 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
         CustomUserDetails loggedUserInfo = (CustomUserDetails) authentication.getPrincipal();
         if(loggedUserInfo.getAdditionalInfoByKey("tenancyAlias") != null){
             return "/amap/" + loggedUserInfo.getAdditionalInfoByKey("tenancyAlias") + "/home";
+        }
+        if(loggedUserInfo.getAdditionalInfoByKey("tenancyAlias") == null && !loggedUserInfo.getAuthorities().stream().map(GrantedAuthority::getAuthority).anyMatch("gestion plateforme"::equals)){
+            return "/amappli/start/creation";
         }
         return "/amappli";
     }

@@ -17,7 +17,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
@@ -83,8 +82,7 @@ public class Tenancy {
     @OneToOne(cascade = CascadeType.ALL)
     private Graphism graphism;
 
-    @ManyToOne
-    @JoinColumn( name="optionsId")
+    @Embedded
     @EqualsAndHashCode.Exclude
     private Options options;
 

@@ -95,7 +95,7 @@ public class TenancyServiceImpl implements TenancyService {
 
 	@Transactional
 	@Override
-	public void createTenancyFromWelcomeForm(NewTenancyDTO newTenancyDTO, Long creatorUserId) {
+	public Tenancy createTenancyFromWelcomeForm(NewTenancyDTO newTenancyDTO, Long creatorUserId) {
 		Tenancy tenancy = new Tenancy();
 		
 		// Name
@@ -159,7 +159,7 @@ public class TenancyServiceImpl implements TenancyService {
 
 		}
 
-		options.addTenancy(tenancy);
+		//options.addTenancy(tenancy);
 		tenancy.setOptions(options);
 		// HomePageContent
 		HomePageContent homePageContent = new HomePageContent();
@@ -209,6 +209,7 @@ public class TenancyServiceImpl implements TenancyService {
 			User creator = userRepository.findById(creatorUserId).get();
 			creator.setTenancy(tenancy);
 			userRepository.save(creator);
+			return tenancy;
 		} catch (RuntimeException e) {
 			throw new TenancyAliasAlreadyTakenException("Cette url d'AMAP est déjà utilisée.");
 		}

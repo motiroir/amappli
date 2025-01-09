@@ -30,9 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("trying to authenticate");
         User user = userRepository.findByEmail(username);
-        System.out.println("trying to authenticate 2");
         if(user == null){
             throw new UsernameNotFoundException("Utilisateur non trouvé avec l'email: "+ username);
         }

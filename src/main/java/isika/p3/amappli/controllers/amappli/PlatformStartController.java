@@ -20,6 +20,7 @@ import isika.p3.amappli.dto.amappli.ValueDTO;
 import isika.p3.amappli.entities.tenancy.ColorPalette;
 //import isika.p3.amappli.entities.tenancy.ContentBlock;
 import isika.p3.amappli.entities.tenancy.FontChoice;
+import isika.p3.amappli.entities.tenancy.Tenancy;
 import isika.p3.amappli.exceptions.EmailAlreadyExistsException;
 import isika.p3.amappli.exceptions.TenancyAliasAlreadyTakenException;
 import isika.p3.amappli.security.CustomUserDetails;
@@ -116,22 +117,14 @@ public class PlatformStartController {
         }
         // Write tenancy to DB
         try {
-            tenancyService.createTenancyFromWelcomeForm(newTenancyDTO, (Long) loggedUserInfo.getAdditionalInfoByKey("userId"));
+            Tenancy tenancy = tenancyService.createTenancyFromWelcomeForm(newTenancyDTO, (Long) loggedUserInfo.getAdditionalInfoByKey("userId"));
+            return "redirect:/amap/"+tenancy.getTenancyAlias()+"/home";
         }
         catch (TenancyAliasAlreadyTakenException e){
             model.addAttribute("aliasError", e.getMessage());
             model.addAttribute("errorspresent", true);
             return "amappli/front/platformstart/createtenancy";
         }
-        return "amappli/front/platformstart/signupdone";
     }
-
-    // @GetMapping("/showimg")
-    // public String tryToShowImg(Model model){
-    //     ContentBlock cb = contentBlockService.findById(1L);
-    //     String base64Image = "data:"+cb.getContentImgTypeMIME()+";base64," + cb.getContentImg();
-    //     model.addAttribute("image", base64Image);
-    //     return "amappli/front/platformstart/showimg";
-    // }
     
 }

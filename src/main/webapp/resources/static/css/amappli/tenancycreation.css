@@ -200,12 +200,12 @@ input[type="radio"]:checked + label .palette-img,
 
 .pricing:hover {
     box-shadow: 0 0px 4px rgba(0, 0, 0, 0.2); /* Slightly larger shadow on hover */
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
 /* Selected state (radio button checked) */
 input[type="radio"]:checked + label .pricing {
-    box-shadow: 0 0 8px var(--main-font-color); /* Highlighted blue shadow for selection */
+    box-shadow: 0 0 0 8px var(--orange-700); /* Highlighted blue shadow for selection */
 }
 
 .pricing,
@@ -221,38 +221,6 @@ input[type="radio"]:checked + label .pricing {
 .pricing p {
 	font-weight: 400;
 	font-size: 12px;
-}
-
-
-
-/* Pop-up styling */
-.info-bubble {
-    position: absolute;
-    top: 200px; /* Position above the element */
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--green-400); /* Bootstrap Primary Color */
-    color: var(--white-300);
-    padding: 10px 15px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 10;
-    white-space: nowrap; /* Prevent text from wrapping */
-    display: block; 
-    transition: opacity 0.3s ease-in-out;
-    opacity: 80;
-}
-
-.info-bubble::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 10px;
-    border-style: solid;
-    border-color: var(--green-400) transparent transparent transparent;
 }
 
 .pricing-list {

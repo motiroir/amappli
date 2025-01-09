@@ -114,29 +114,18 @@ document.addEventListener("DOMContentLoaded", function () {
     
     function computeOptionChoice() {
         let productsMarketPlaceResponse = document.querySelector('input[name="question-1"]:checked').value;
-        let discountsResponse= document.querySelector('input[name="question-2"]:checked').value;
         let eventsResponse = document.querySelector('input[name="question-3"]:checked').value;
         let onlinePaymentResponse = document.querySelector('input[name="question-4"]:checked').value;
         let supplierAccountResponse = document.querySelector('input[name="question-5"]:checked').value;
         let customRolesResponse = document.querySelector('input[name="question-6"]:checked').value;
-        let statisticsResponse =  document.querySelector('input[name="question-7"]:checked').value;
-
-        console.log("statresponse "+ statisticsResponse);
-        console.log("customroleresponse "+ customRolesResponse);
-        console.log("discount response  "+ discountsResponse);
-
-        console.log("productresponse "+ productsMarketPlaceResponse);
-        console.log("onlinepaymentresponse "+ onlinePaymentResponse);
-        console.log("suppl response  "+ supplierAccountResponse);
-        console.log("events response "+ eventsResponse);
-
+        let lightDarkResponse =  document.querySelector('input[name="question-8"]:checked').value;
 
         let recommandation= "Cette option vous permettra d'avoir toutes les fonctionnalités souhaitées!";
         let option3button = document.getElementById("option-3-label");
         let option2button = document.getElementById("option-2-label");
         let option1button = document.getElementById("option-1-label");
 
-        if(statisticsResponse == "true" ||  customRolesResponse == "true" || discountsResponse == "true"){
+        if(lightDarkResponse == "true" ||  customRolesResponse == "true"){
             option3button.setAttribute("data-bs-container","body");
             option3button.setAttribute("data-bs-toggle","popover");
             option3button.setAttribute("data-bs-placement","top");
@@ -196,22 +185,22 @@ document.addEventListener("DOMContentLoaded", function () {
 				popover.remove();
 
 		
-/*        [option1button, option2button, option3button].forEach(popover => {popover.dispose()});
+        // [option1button, option2button, option3button].forEach(popover => {popover.dispose()});
 
-        option1button.removeAttribute("data-bs-container");
-        option1button.removeAttribute("data-bs-toggle");
-        option1button.removeAttribute("data-bs-content");
-        option1button.removeAttribute("data-bs-placement");
+        // option1button.removeAttribute("data-bs-container");
+        // option1button.removeAttribute("data-bs-toggle");
+        // option1button.removeAttribute("data-bs-content");
+        // option1button.removeAttribute("data-bs-placement");
 
-        option2button.removeAttribute("data-bs-container");
-        option2button.removeAttribute("data-bs-toggle");
-        option2button.removeAttribute("data-bs-content");
-        option2button.removeAttribute("data-bs-placement");
+        // option2button.removeAttribute("data-bs-container");
+        // option2button.removeAttribute("data-bs-toggle");
+        // option2button.removeAttribute("data-bs-content");
+        // option2button.removeAttribute("data-bs-placement");
 
-        option3button.removeAttribute("data-bs-container");
-        option3button.removeAttribute("data-bs-toggle");
-        option3button.removeAttribute("data-bs-content");
-        option3button.removeAttribute("data-bs-placement");*/
+        // option3button.removeAttribute("data-bs-container");
+        // option3button.removeAttribute("data-bs-toggle");
+        // option3button.removeAttribute("data-bs-content");
+        // option3button.removeAttribute("data-bs-placement");
     };
     // Input Control
 

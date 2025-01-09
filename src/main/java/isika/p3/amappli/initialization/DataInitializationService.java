@@ -51,7 +51,7 @@ import isika.p3.amappli.repo.amap.PaymentRepository;
 import isika.p3.amappli.repo.amap.ProductRepository;
 import isika.p3.amappli.repo.amap.UserRepository;
 import isika.p3.amappli.repo.amap.WorkshopRepository;
-import isika.p3.amappli.repo.amappli.OptionsRepository;
+// import isika.p3.amappli.repo.amappli.OptionsRepository;
 import isika.p3.amappli.repo.amappli.PermissionRepository;
 import isika.p3.amappli.repo.amappli.TenancyRepository;
 import isika.p3.amappli.service.amap.AddressService;
@@ -87,8 +87,8 @@ public class DataInitializationService {
 	private ProductRepository productRepository;
 	@Autowired
 	private WorkshopRepository workshopRepository;
-	@Autowired
-	private OptionsRepository optionsRepository;
+	// @Autowired
+	// private OptionsRepository optionsRepository;
 	@Autowired
 	private OrderRepository orderRepository;
 	@Autowired
@@ -552,9 +552,10 @@ public class DataInitializationService {
 		Options verger = Options.builder().option1Active(true).option2Active(false).build();
 		Options ferme = Options.builder().option1Active(true).option2Active(true).build();
 
-		optionsRepository.save(potager);
-		optionsRepository.save(verger);
-		optionsRepository.save(ferme);
+		// Now embedded
+		// optionsRepository.save(potager);
+		// optionsRepository.save(verger);
+		// optionsRepository.save(ferme);
 
 		// Création d'une Tenancy
 		Tenancy t1 = Tenancy.builder().tenancyName("BioColi").tenancyAlias("biocoli")
