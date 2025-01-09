@@ -82,6 +82,12 @@ button[type="submit"]:hover {
 	background-color: #ffad7f;
 } */
 
+
+
+.text-center a.btn-dark:hover {
+    background-color: #455449;
+    box-shadow: 0 0 10px rgba(255, 175, 127, 0.5);
+}
  .btn {
             display: inline-block;
             text-decoration: none;
