@@ -104,4 +104,11 @@ public class SecurityController {
     public String needPermissionB(){
         return "secexamples/needpermission2";
     }
+
+    @GetMapping("/amap/{tenancyAlias}/forbidden")
+    public String forbidden(@PathVariable("tenancyAlias") String alias, Model model){
+        graphismService.setUpModel(alias, model);
+
+        return "amap/front/error/access-denied";
+    }
 }

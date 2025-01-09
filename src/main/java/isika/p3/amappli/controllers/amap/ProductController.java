@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -51,6 +52,7 @@ public class ProductController {
 	/**
 	 * Displays the form for adding a new product.
 	 */
+	@PreAuthorize("hasAuthority('creation atelier amap') and (hasAuthority(#tenancyAlias) or hasAuthority('gestion plateforme'))")
 	@GetMapping("/form")
 	public String showForm(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 
@@ -79,6 +81,7 @@ public class ProductController {
 	/**
 	 * Saves a new product to the database.
 	 */
+	@PreAuthorize("hasAuthority('creation atelier amap') and (hasAuthority(#tenancyAlias) or hasAuthority('gestion plateforme'))")
 	@PostMapping("/add")
 	public String addProduct(@ModelAttribute("productDTO") ProductDTO productDTO,
 			@PathVariable("tenancyAlias") String tenancyAlias) {
@@ -94,6 +97,7 @@ public class ProductController {
 	/**
 	 * Displays a list of all products.
 	 */
+	@PreAuthorize("hasAuthority('creation atelier amap') and (hasAuthority(#tenancyAlias) or hasAuthority('gestion plateforme'))")
 	@GetMapping("/list")
 	public String listProducts(Model model, @PathVariable("tenancyAlias") String tenancyAlias) {
 
@@ -114,6 +118,7 @@ public class ProductController {
 	/**
 	 * Deletes a contract by its ID.
 	 */
+	@PreAuthorize("hasAuthority('creation atelier amap') and (hasAuthority(#tenancyAlias) or hasAuthority('gestion plateforme'))")
 	@PostMapping("/delete/{id}")
 	public String deleteProduct(@PathVariable("id") Long id, @PathVariable("tenancyAlias") String tenancyAlias) {
 		
@@ -125,6 +130,7 @@ public class ProductController {
 	/**
 	 * Displays the details of a specific product.
 	 */
+	@PreAuthorize("hasAuthority('creation atelier amap') and (hasAuthority(#tenancyAlias) or hasAuthority('gestion plateforme'))")
 	@GetMapping("/detail/{id}")
 	public String viewProductDetail(@PathVariable("id") Long id, Model model,
 			@PathVariable("tenancyAlias") String tenancyAlias) {
@@ -154,7 +160,7 @@ public class ProductController {
 		graphismService.setUpModel(tenancyAlias, model);
 		return "amap/back/products/product-detail";
 	}
-
+	@PreAuthorize("hasAuthority('creation atelier amap') and (hasAuthority(#tenancyAlias) or hasAuthority('gestion plateforme'))")
 	@PostMapping("/update")
 	public String updateProduct(@ModelAttribute("product") ProductDTO updatedProductDTO,
 			@RequestParam(value = "image", required = false) MultipartFile image,
