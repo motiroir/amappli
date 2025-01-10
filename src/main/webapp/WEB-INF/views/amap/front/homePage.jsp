@@ -37,26 +37,30 @@
 		
 
 		<!-- Affichage du block de présentation -->
-		<div id="presentation-section" class="presentation-wrapper">
-			<div class="presentation-section">
-				<h2 class="h3 fw-bold fc-300">Qui sommes-nous ?</h2>
-				<div class="presentation-block fc-main">
-				<div class="presentation-image-container col-12 col-lg-6 order-1 order-lg-2 text-center ">
-						<c:if test="${not empty presentationBlock.contentImg}">
-							<img
-								src="data:${presentationBlock.contentImgTypeMIME};base64,${presentationBlock.contentImg}"
-								alt="${presentationBlock.contentTitle}"
-								class="presentation-image w-100" />
-						</c:if>
+		<c:forEach var="presentationBlock" items="${presentationBlocks}" varStatus="status">
+			<div id="presentation-section" class="presentation-wrapper">
+				<div class="presentation-section">
+					<c:if test="${status.index == 0}"> 
+						<h2 class="h3 fw-bold fc-300">Qui sommes-nous ?</h2>
+					</c:if>
+					<div class="presentation-block fc-main">
+					<div class="presentation-image-container col-12 col-lg-6 order-1 order-lg-2 text-center ">
+							<c:if test="${not empty presentationBlock.contentImg}">
+								<img
+									src="data:${presentationBlock.contentImgTypeMIME};base64,${presentationBlock.contentImg}"
+									alt="${presentationBlock.contentTitle}"
+									class="presentation-image w-100" />
+							</c:if>
+						</div>
+						<div class="presentation-text col-12 col-lg-6 order-2 order-lg-1  ">
+							<h3 class="h4 fw-bold fc-300">${presentationBlock.contentTitle}</h3>
+							<p class="text-justify">${presentationBlock.contentText}</p>
+						</div>
+						
 					</div>
-					<div class="presentation-text col-12 col-lg-6 order-2 order-lg-1  ">
-						<h3 class="h4 fw-bold fc-300">${presentationBlock.contentTitle}</h3>
-						<p class="text-justify">${presentationBlock.contentText}</p>
-					</div>
-					
 				</div>
 			</div>
-		</div>
+		</c:forEach>
 
 
 		<!-- Affichage des ContentBlock avec isValue == true -->

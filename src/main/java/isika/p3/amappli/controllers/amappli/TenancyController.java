@@ -1,6 +1,7 @@
 package isika.p3.amappli.controllers.amappli;
 
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
@@ -58,12 +59,12 @@ public class TenancyController {
 	        model.addAttribute("valueBlocks", valueBlocks);
 
 	        // Block de présentation
-	        ContentBlock presentationBlock = contentBlocks.stream()
-	            .filter(block -> !block.isValue())
-	            .findFirst()
-	            .orElse(null);
+	        List<ContentBlock> presentationBlocks = contentBlocks.stream()
+	            .filter(block -> !block.isValue()).collect(Collectors.toList());
+	           // .findFirst()
+	          // .orElse(null);
 
-	        model.addAttribute("presentationBlock", presentationBlock);
+	        model.addAttribute("presentationBlocks", presentationBlocks);
 	        
 	        graphismService.setUpModel(alias, model);
 

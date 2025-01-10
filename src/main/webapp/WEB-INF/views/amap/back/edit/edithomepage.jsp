@@ -303,36 +303,41 @@
                         <div class="accordion-body">
                             <form action="${pageContext.request.contextPath}/amap/${tenancyAlias}/admin/editthecontents" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                                <c:forEach var="content" items="${tenancyUpdateHomePageContentDTO.contents}" varStatus="status">
-                                    <input type="hidden" name="contents[${status.index}].contentBlockId" value="${content.contentBlockId}" />
-                                    <div class="mb-3">
-                                        <label for="input-hp-title-${content.contentBlockId}" class="form-label">Titre</label>
-                                        <input class="form-control" 
-                                            id="input-title-${content.contentBlockId}" 
-                                            aria-placeholder="titre" 
-                                            placeholder="titre" 
-                                            aria-describedby="input-title" 
-                                            name="contents[${status.index}].contentTitle" 
-                                            value="${content.contentTitle}" />
-                                    </div>
-                                    <div class="row g-3 align-items-start">
-                                        <div class="col-11 col-md-5">
-                                            <label for="input-text-${content.contentBlockId}" class="form-label">Contenu</label>
-                                            <textarea class="form-control" rows="5"
-                                                    id="input-text-${content.contentBlockId}" 
-                                                    aria-placeholder="contenu" 
-                                                    placeholder="contenu" 
-                                                    aria-describedby="input-text" 
-                                                    name="contents[${status.index}].contentText">${content.contentText}</textarea>
+                                <div id="content-form-sections">
+                                    <c:forEach var="content" items="${tenancyUpdateHomePageContentDTO.contents}" varStatus="status">
+                                        <input type="hidden" name="contents[${status.index}].contentBlockId" value="${content.contentBlockId}" />
+                                        <div class="content-form-section" data-index="${status.index}">
+                                            <div class="mb-3">
+                                                <label for="input-title-${content.contentBlockId}" class="form-label">Titre</label>
+                                                <input class="form-control" 
+                                                    id="input-title-${content.contentBlockId}" 
+                                                    aria-placeholder="titre" 
+                                                    placeholder="titre" 
+                                                    aria-describedby="input-title" 
+                                                    name="contents[${status.index}].contentTitle" 
+                                                    value="${content.contentTitle}" />
+                                            </div>
+                                            <div class="row g-3 align-items-start">
+                                                <div class="col-11 col-md-5">
+                                                    <label for="input-text-${content.contentBlockId}" class="form-label">Contenu</label>
+                                                    <textarea class="form-control" rows="5"
+                                                            id="input-text-${content.contentBlockId}" 
+                                                            aria-placeholder="contenu" 
+                                                            placeholder="contenu" 
+                                                            aria-describedby="input-text" 
+                                                            name="contents[${status.index}].contentText">${content.contentText}</textarea>
+                                                </div>
+                                                <div class="col-11 col-md-5 d-flex flex-column justify-content-center">
+                                                    <input class="form-control mb-3 file-input" type="file" id="input-img-${content.contentBlockId}" name="contents[${status.index}].image"
+                                                    accept="image/png,image/jpeg,image/svg">
+                                                    <img class="img-fluid preview-img" style="height: 100%;" src="data:${content.contentImgTypeMIME};base64,${content.contentImg}" alt="image"/>
+                                                </div>
+                                            </div>
+                                            <hr>
                                         </div>
-                                        <div class="col-11 col-md-5 d-flex flex-column justify-content-center">
-                                            <input class="form-control mb-3" type="file" id="input-img-${content.contentBlockId}" name="contents[${status.index}].image"
-                                            accept="image/png,image/jpeg,image/svg">
-                                            <img class="img-fluid" style="height: 100%;" src="data:${content.contentImgTypeMIME};base64,${content.contentImg}" alt="image"/>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                </c:forEach>
+                                    </c:forEach>
+                                </div>
+                                <button type="button" id="add-more-button" class="btn btn-900">Ajouter un nouveau contenu</button>
                                 <button type="submit" class="btn btn-700">Sauvegarder</button>
                             </form>
                         </div>
@@ -353,7 +358,7 @@
                                 <c:forEach var="content" items="${tenancyUpdateValuesDTO.contents}" varStatus="status">
                                     <input type="hidden" name="contents[${status.index}].contentBlockId" value="${content.contentBlockId}" />
                                     <div class="mb-3">
-                                        <label for="input-hp-title-${content.contentBlockId}" class="form-label">Titre</label>
+                                        <label for="input-title-${content.contentBlockId}" class="form-label">Titre</label>
                                         <input class="form-control" 
                                             id="input-title-${content.contentBlockId}" 
                                             aria-placeholder="titre" 
@@ -373,9 +378,9 @@
                                                     name="contents[${status.index}].contentText">${content.contentText}</textarea>
                                         </div>
                                         <div class="col-11 col-md-5 d-flex flex-column justify-content-center">
-                                            <input class="form-control mb-3" type="file" id="input-img-${content.contentBlockId}" name="contents[${status.index}].image"
+                                            <input class="form-control mb-3 file-input" type="file" id="input-img-${content.contentBlockId}" name="contents[${status.index}].image"
                                             accept="image/png,image/jpeg,image/svg">
-                                            <img class="img-fluid" style="height: 100%;" src="data:${content.contentImgTypeMIME};base64,${content.contentImg}" alt="image"/>
+                                            <img class="img-fluid preview-img" style="height: 100%;" src="data:${content.contentImgTypeMIME};base64,${content.contentImg}" alt="image"/>
                                         </div>
                                     </div>
                                     <hr>
