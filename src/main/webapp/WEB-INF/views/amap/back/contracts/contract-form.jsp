@@ -69,7 +69,7 @@ request.setAttribute("currentPage", currentPage);
 										id="contractType" name="contractType" required>
 										<option selected disabled></option>
 										<option value="FRUITS_CONTRACT">Panier de fruits</option>
-										<option id="select" value="VEGETABLES_CONTRACT">Panier de légumes</option>
+										<option id="select-1" value="VEGETABLES_CONTRACT">Panier de légumes</option>
 										<option value="MIX_CONTRACT">Panier mixte</option>
 									</select>
 									<div class="invalid-feedback"></div>

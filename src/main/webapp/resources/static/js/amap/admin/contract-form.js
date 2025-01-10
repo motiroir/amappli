@@ -70,5 +70,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Ajout des écouteurs d'événements
     startDateInput.addEventListener("change", handleStartDateChange);
-    handleFileInputChange();
+    // handleFileInputChange();
 });
