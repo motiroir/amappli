@@ -2,6 +2,8 @@ package isika.p3.amappli.dto.amap;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
+
 
 @Getter @Setter
 public class ContentBlockDTO {
@@ -18,5 +20,5 @@ public class ContentBlockDTO {
 
     private String contentImg;
 
-    private MultiPartFile image;
+    private MultipartFile image;
 }

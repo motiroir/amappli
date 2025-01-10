@@ -25,7 +25,7 @@
         <jsp:include page="../../../amap/back/common/headerAdmin.jsp" />
     </header>
 
-    <!-- <div id="map"></div> -->
+    <div id="map"></div>
 
     <div class="fc-main content col d-flex">
         <jsp:include page="../../../amap/back/common/sidebarAdmin.jsp" />
@@ -266,7 +266,7 @@
                                             <div class="col-12 col-md-6 col-lg-4 text-center align-self-center">
                                                 <input type="radio" id="font-${font}" value="${font}" name="fontChoice"/>
                                                 <label for="font-${font}" class="font-choices d-flex align-items-center justify-content-center">
-                                                    <h1 class="${fn:toLowerCase(font)}">${font}</h1>
+                                                    <p style="font-size: 2em; font-family: ${fn:toLowerCase(font)} !important;">${font}</p>
                                                 </label>
                                             </div>
                                         </c:forEach>
@@ -301,10 +301,10 @@
                     </h2>
                     <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            Place your content for "Contenu de la page d'accueil" here.
-                            <form action="${pageContext.request.contextPath}/amap/${tenancyAlias}/admin/editthefontandcolor" method="post">
+                            <form action="${pageContext.request.contextPath}/amap/${tenancyAlias}/admin/editthecontents" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                                <c:forEach var="content" items="${tenancyUpdateHomePageContentDTO.contents}">
+                                <c:forEach var="content" items="${tenancyUpdateHomePageContentDTO.contents}" varStatus="status">
+                                    <input type="hidden" name="contents[${status.index}].contentBlockId" value="${content.contentBlockId}" />
                                     <div class="mb-3">
                                         <label for="input-hp-title-${content.contentBlockId}" class="form-label">Titre</label>
                                         <input class="form-control" 
@@ -312,7 +312,7 @@
                                             aria-placeholder="titre" 
                                             placeholder="titre" 
                                             aria-describedby="input-title" 
-                                            name="contentTitle" 
+                                            name="contents[${status.index}].contentTitle" 
                                             value="${content.contentTitle}" />
                                     </div>
                                     <div class="row g-3 align-items-start">
@@ -323,16 +323,17 @@
                                                     aria-placeholder="contenu" 
                                                     placeholder="contenu" 
                                                     aria-describedby="input-text" 
-                                                    name="contentText">${content.contentText}</textarea>
+                                                    name="contents[${status.index}].contentText">${content.contentText}</textarea>
                                         </div>
-                                        <div class="col-11 col-md-5">
-                                            <input class="form-control" type="file" class="form-control" id="input-img-${content.contentBlockId}" name="file"
-                                            required accept="image/png,image/jpeg,image/svg">
+                                        <div class="col-11 col-md-5 d-flex flex-column justify-content-center">
+                                            <input class="form-control mb-3" type="file" id="input-img-${content.contentBlockId}" name="contents[${status.index}].image"
+                                            accept="image/png,image/jpeg,image/svg">
                                             <img class="img-fluid" style="height: 100%;" src="data:${content.contentImgTypeMIME};base64,${content.contentImg}" alt="image"/>
                                         </div>
                                     </div>
                                     <hr>
                                 </c:forEach>
+                                <button type="submit" class="btn btn-700">Sauvegarder</button>
                             </form>
                         </div>
                     </div>
@@ -347,21 +348,120 @@
                     </h2>
                     <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            Place your content for "Valeurs" here.
+                            <form action="${pageContext.request.contextPath}/amap/${tenancyAlias}/admin/editthevalues" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                <c:forEach var="content" items="${tenancyUpdateValuesDTO.contents}" varStatus="status">
+                                    <input type="hidden" name="contents[${status.index}].contentBlockId" value="${content.contentBlockId}" />
+                                    <div class="mb-3">
+                                        <label for="input-hp-title-${content.contentBlockId}" class="form-label">Titre</label>
+                                        <input class="form-control" 
+                                            id="input-title-${content.contentBlockId}" 
+                                            aria-placeholder="titre" 
+                                            placeholder="titre" 
+                                            aria-describedby="input-title" 
+                                            name="contents[${status.index}].contentTitle" 
+                                            value="${content.contentTitle}" />
+                                    </div>
+                                    <div class="row g-3 align-items-start">
+                                        <div class="col-11 col-md-5">
+                                            <label for="input-text-${content.contentBlockId}" class="form-label">Contenu</label>
+                                            <textarea class="form-control" rows="5"
+                                                    id="input-text-${content.contentBlockId}" 
+                                                    aria-placeholder="contenu" 
+                                                    placeholder="contenu" 
+                                                    aria-describedby="input-text" 
+                                                    name="contents[${status.index}].contentText">${content.contentText}</textarea>
+                                        </div>
+                                        <div class="col-11 col-md-5 d-flex flex-column justify-content-center">
+                                            <input class="form-control mb-3" type="file" id="input-img-${content.contentBlockId}" name="contents[${status.index}].image"
+                                            accept="image/png,image/jpeg,image/svg">
+                                            <img class="img-fluid" style="height: 100%;" src="data:${content.contentImgTypeMIME};base64,${content.contentImg}" alt="image"/>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </c:forEach>
+                                <button type="submit" class="btn btn-700">Sauvegarder</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prix de la cotisation -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingNine">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                            <i class="bi bi-chevron-right me-2"></i> Montant de la cotisation
+                        </button>
+                    </h2>
+                    <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <p>Cela s'appliquera aux futures adhésions.</p>
+                            <form action="${pageContext.request.contextPath}/amap/${tenancyAlias}/admin/editthemembershipfee" method="post">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                <div class="mb-3">
+                                    <label class="form-label" for="input-membershipfee">Montant de la cotisation annuelle</label>
+                                    <input class="form-control" type="text" class="form-control" id="input-membershipfee" name="membershipFeePrice"
+                                        value="${tenancyMembershipDTO.membershipFeePrice}">
+                                </div>
+                                <button type="submit" class="btn btn-700">Sauvegarder</button>
+                            </form>
                         </div>
                     </div>
                 </div>
 
                 <!-- Abonnement -->
                 <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingNine">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                    <h2 class="accordion-header" id="headingTen">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
                             <i class="bi bi-chevron-right me-2"></i> Abonnement
                         </button>
                     </h2>
-                    <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#accordionExample">
+                    <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            Place your content for "Abonnement" here.
+                            <p>Cela changera le montant de votre abonnement Amappli annuel.</p>
+                            <p>Pour l'instant, vous avez l'abonnement ${tenancyUpdateOptionsDTO.currentSubscription}</p>
+                            <form action="${pageContext.request.contextPath}/amap/${tenancyAlias}/admin/edittheoptions" method="post">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                <div class="mb-3">
+                                    <div class="mb-3">
+                                        <ul class="row d-flex list-unstyled justify-content-around align-items-stretch">
+                                            <li class="col-12 col-md-4 d-flex pricing-list">
+                                                <input type="radio" name="option" value="option-1" id="option-1" />
+                                                <label for="option-1" id="option-1-label" class="w-100 flex-fill d-flex flex-column">
+                                                    <div id="pricing-1" class="pricing flex-fill text-center py-3 px-2 rounded-5 align-content-between bg-300">
+                                                        <h2 class="h4 fw-bold">Potager</h2>
+                                                        <p classe="my-2">Site opérationnel avec les fonctionnalités de base</p>
+                                                        <h3 class="h5 fw-bold">Gratuit</h3>
+                                                    </div>
+                                                </label>
+                                            </li>
+                                            <li class="col-12 col-md-4 d-flex pricing-list">
+                                                <input type="radio" name="option" value="option-2" id="option-2"  />
+                                                <label for="option-2" id="option-2-label" class="w-100 flex-fill d-flex flex-column">
+                                                    <div id="pricing-2"	class="pricing flex-fill text-center py-3 px-2 rounded-5 align-content-between bg-400">
+                                                    <h2 class="h4 fw-bold">Verger</h2>
+                                                    <p classe="my-2">Plus d'outils avancés pour personnaliser et enrichir votre
+                                                        site</p>
+                                                    <h3 class="h5 fw-bold">50 € /an</h3>
+                                                    </div>
+                                                </label>
+                                            </li>
+                                            <li class="col-12 col-md-4 d-flex pricing-list">
+                                                <input type="radio" name="option" value="option-3" id="option-3" />
+                                                <label for="option-3" id="option-3-label" class="w-100 flex-fill d-flex flex-column">
+                                                    <div id="pricing-3" class="pricing flex-fill text-center py-3 px-2 rounded-5 align-content-between bg-500">
+                                                        <h2 class="h4 fw-bold">Ferme</h2>
+                                                        <p classe="my-2">Toutes les fonctionnalités pour une gestion complète et
+                                                            professionnelle de votre AMAP</p>
+                                                        <h3 class="h5 fw-bold">100 € /an</h3>
+                                                    </div>
+                                                </label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-700">Sauvegarder</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -379,9 +479,8 @@
         var fontValue = "${tenancyUpdateColorFontDTO.fontChoice}"
         var colorValue = "${tenancyUpdateColorFontDTO.colorPalette}"
     </script>
-    <!-- 
     <script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
-    <script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>  -->
+    <script src="<c:url value='/resources/js/common/mapbox/map.js' />"></script>
     <script src="<c:url value='/resources/js/amap/admin/sidebar.js' />" type="text/javascript"></script>
     <script src="<c:url value='/resources/js/amap/admin/homepageedit.js' />" type="text/javascript"></script>
 </body>
