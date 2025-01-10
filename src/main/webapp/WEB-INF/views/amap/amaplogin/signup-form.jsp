@@ -33,8 +33,7 @@
         <form:form 
             modelAttribute="userDTO" 
             method="post" 
-            action="${pageContext.request.contextPath}/amap/${tenancyAlias}/signup"
-             href="${pageContext.request.contextPath}/amap/${tenancyAlias}/login-done">
+            action="${pageContext.request.contextPath}/amap/${tenancyAlias}/signup">
 
             <!-- Ajout du token CSRF -->
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

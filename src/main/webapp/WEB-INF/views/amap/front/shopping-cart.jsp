@@ -92,11 +92,13 @@
 								<td><fmt:formatNumber value="${totalWorkshops}"
 										type="number" minFractionDigits="2" />€</td>
 							</tr>
+							<c:if test="${!tenancy.tenancyAlias.equals('terralocal')}">
 							<tr>
 								<td>Cotisation</td>
 								<td><fmt:formatNumber value="${tenancy.membershipFeePrice}"
 										type="number" minFractionDigits="2" />€</td>
 							</tr>
+							</c:if>
 							<tr>
 								<td><h2 class="fw-bold">TOTAL</h2></td>
 								<td><h2 class="fw-bold">

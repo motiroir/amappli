@@ -35,9 +35,7 @@ public class OrderController {
 		
 		List<Order> orderByUser = orderService.getListOrdersByUser(userId);
 		model.addAttribute("orders", orderByUser);
-		Order order = orderService.getOrderById(userId);
-		String formattedDate = order.getOrderDate().format(DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale.FRENCH));
-		model.addAttribute("formattedDate", formattedDate);
+
 		graphismService.setUpModel(alias, model);
         return "amap/front/user-profile/my-orders";
 	}

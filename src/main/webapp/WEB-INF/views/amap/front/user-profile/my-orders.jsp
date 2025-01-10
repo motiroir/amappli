@@ -58,7 +58,7 @@ request.setAttribute("currentPage", currentPage);
 							<c:forEach var="order" items="${orders}">
 								<tr>
 									<td>${order.orderId}</td>
-									<td>${formattedDate}</td>
+									<td>${order.orderDate}</td>
 									<td>${order.totalAmount}€</td>
 									<td><c:if test="${order.orderPaid}">
 										<c:forEach var="payment" items="${order.payments}">${payment.paymentType.displayName} </c:forEach> 

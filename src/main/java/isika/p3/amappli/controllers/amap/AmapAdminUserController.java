@@ -86,7 +86,7 @@ public class AmapAdminUserController {
 	
 	
 	@PostMapping("/users/update")
-	public String usersUpdate(@Valid @ModelAttribute("user") UpdateUserDTO user, BindingResult result, Model model, RedirectAttributes ra) {
+	public String usersUpdate(@Valid @ModelAttribute("user") UpdateUserDTO user, BindingResult result, Model model, RedirectAttributes ra, @PathVariable("tenancyAlias") String tenancyAlias) {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();
 		Set<ConstraintViolation<UpdateUserDTO>> violations = validator.validate(user);
