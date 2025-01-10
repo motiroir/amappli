@@ -84,7 +84,7 @@ public class AmapAdminUserController {
 		return "amap/back/users/suppliers-list";
 	}
 	
-	
+
 	@PostMapping("/users/update")
 	public String usersUpdate(@Valid @ModelAttribute("user") UpdateUserDTO user, BindingResult result, Model model, RedirectAttributes ra, @PathVariable("tenancyAlias") String tenancyAlias) {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();

@@ -13,8 +13,12 @@ document.addEventListener('keydown', (event) => {
                 inputs.forEach(input => {
                     if (input.getAttribute("id") === "email") {	
                         if (input.value === "amelie.rousseau@example.com") {
+							input.value = "sophie.legrand@example.com";
+                        } else if (input.value === "sophie.legrand@example.com") {
+							input.value = "laura.lemoine@example6.com";
+                        } else if (input.value === "laura.lemoine@example6.com") {
 							input.value = "lucas.martin@example6.com";
-                        }else if (input.value ==="lucas.martin@example6.com") {
+                        } else if (input.value ==="lucas.martin@example6.com") {
 							input.value = "marie.durand@example1.com";
                         } else {
                             input.value = "amelie.rousseau@example.com";
@@ -39,7 +43,7 @@ document.addEventListener('keydown', (event) => {
                 document.getElementById("select-1").setAttribute("selected", true);
                 document.getElementById("select-2").setAttribute("selected", true);
                 document.getElementById("select-3").setAttribute("selected", true);
-                document.getElementById("userId").lastChild.setAttribute("selected", true);
+                document.getElementById("userId").children[1].setAttribute("selected", true);
                 document.getElementById("contractDescription").value = "1 botte d\'asperges, 500g de petits pois (en gousses), 1 botte de radis roses, 1 laitue";
                 inputs.forEach(input => {
 					switch(input.getAttribute("id")) {
@@ -149,51 +153,46 @@ document.addEventListener('keydown', (event) => {
 				    }
 				});
                 break;
-        	case "/Amappli/amap/biocoli/signup":
-        	case "/Amappli/amap/agrinov/signup":
-        	case "/Amappli/amap/groots/signup":
-        	case "/Amappli/amap/greenmaven/signup":
-        	case "/Amappli/amap/lacarottechantenay/signup":
-        	case "/Amappli/amap/terralocal/signup":
         	case "/Amappli/amap/amapdes5/signup":
         	case "/Amappli/amap/amapdes5-1/signup":
         	case "/Amappli/amap/amapdes5-2/signup":
         	case "/Amappli/amap/amapdes5-3/signup":
         	case "/Amappli/amap/amapdes5-4/signup":
-				inputs.forEach(input => {
+                inputs.forEach(input => {
 					switch(input.getAttribute("id")) {
-						case "input-email":
-                            input.value = "amelie.rousseau@example1.com";
+						case "email":
+                            input.value = "sophie.legrand@example.com";
                         break;
-						case "input-password-1":
+						case "motDePasse":
                             input.value = "AMAPamap11@";
                         break;
-						case "input-password-2":
+						case "confirmMotDePasse":
                             input.value = "AMAPamap11@";
                         break;
-						case "contactinfo-name":
-                            input.value = "Rousseau";
+						case "nom":
+                            input.value = "Legrand";
                         break;
-						case "contactinfo-firstName":
-                            input.value = "Amélie";
+						case "prenom":
+                            input.value = "Sophie";
                         break;
-						case "contactinfo-phone":
-                            input.value = "0796584235";
+						case "telephone":
+                            input.value = "0721638788";
                         break;
-						case "address-line1":
-                            input.value = "1er étage";
+						case "complement":
+                            input.value = "";
                         break;
-						case "address-line2":
-                            input.value = "15 route du canal";
+						case "adresse":
+                            input.value = "13 Boulevard Poincaré";
                         break;
-						case "address-postcode":
+						case "codePostal":
                             input.value = "76000";
                         break;
-						case "address-city":
+						case "ville":
                             input.value = "Rouen";
                         break;
 				    }
 				});
+            break;
         	case "/Amappli/amappli/start/creation":
                 document.getElementById("dayOfWeek").children[7].setAttribute("selected", true);
                 document.getElementById("input-value-description-0").value = "Nous sommes une association créée par cinq passionnés désireux de reconnecter producteurs et consommateurs autour d\'une agriculture locale, solidaire et durable. Notre mission est de proposer des paniers de fruits, légumes et autres produits de saison, cultivés avec respect pour la terre et ceux qui la travaillent. En rejoignant notre AMAP, vous soutenez directement des producteurs locaux tout en bénéficiant de produits frais et de qualité. Ensemble, construisons une communauté engagée pour une alimentation responsable et une économie de proximité";
