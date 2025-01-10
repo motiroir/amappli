@@ -85,7 +85,7 @@ public class UserController {
         try {
             Long tenancyId = tenancyService.getTenancyByAlias(alias).getTenancyId();
             userService.addTenancyUser(userDTO, tenancyId);
-            return "redirect:/tenancies/" + alias + "/amap/amaplogin/login-done";
+            return "redirect:/amap/" + alias + "/login-done";
         } catch (RuntimeException e) {
             // Gérer les erreurs générales
             model.addAttribute("error", e.getMessage());

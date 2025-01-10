@@ -55,6 +55,7 @@ hr {
 
 
 input[type="text"], input[type="email"], input[type="password"] {
+	border-radius: 20px;
 	border: 1px solid #ccc;
 	padding: 10px 20px;
 	font-size: 1rem;
