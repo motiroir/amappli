@@ -60,3 +60,38 @@ input[type="radio"]:checked + label .palette-img,
 .palette-img:hover {
     border-radius: 20%; /* Maintain border-radius */
 }
+
+.pricing {
+	cursor: pointer;
+    transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth transition for box-shadow and scale */
+    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1); /* Default shadow */
+}
+
+.pricing:hover {
+    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.2); /* Slightly larger shadow on hover */
+    transform: scale(1.02);
+}
+
+/* Selected state (radio button checked) */
+input[type="radio"]:checked + label .pricing {
+    box-shadow: 0 0 0 8px var(--orange-700); /* Highlighted blue shadow for selection */
+}
+
+.pricing,
+input[type="radio"]:checked + label .pricing {
+    box-sizing: border-box; /* Include border and padding in dimensions */
+}
+
+.pricing h2,
+.pricing h3 {
+	overflow-y: hidden;
+}
+
+.pricing p {
+	font-weight: 400;
+	font-size: 12px;
+}
+
+.pricing-list {
+    position: relative;
+}

@@ -4,8 +4,11 @@ import java.util.List;
 
 import isika.p3.amappli.dto.amap.TenancyUpdateAddressDTO;
 import isika.p3.amappli.dto.amap.TenancyUpdateColorFontDTO;
+import isika.p3.amappli.dto.amap.TenancyUpdateHomePageContentDTO;
 import isika.p3.amappli.dto.amap.TenancyUpdateLogo;
+import isika.p3.amappli.dto.amap.TenancyUpdateMemberShipFeePriceDTO;
 import isika.p3.amappli.dto.amap.TenancyUpdateNameAliasDTO;
+import isika.p3.amappli.dto.amap.TenancyUpdateOptionsDTO;
 import isika.p3.amappli.dto.amap.TenancyUpdatePickUpDTO;
 import isika.p3.amappli.dto.amap.TenancyUpdateSloganDTO;
 import isika.p3.amappli.dto.amappli.NewTenancyDTO;
@@ -27,7 +30,10 @@ public interface TenancyService {
 	void updateTenancyAddress(TenancyUpdateAddressDTO updateInfo, String alias);
 	void updateTenancyPickUpSchedule(TenancyUpdatePickUpDTO updateInfo, String alias);
 	void updateTenancyColorFont(TenancyUpdateColorFontDTO updateInfo, String alias);
-
+	void updateTenancyHomePageContent(TenancyUpdateHomePageContentDTO updateInfo, String alias);
+	void updateTenancyValues(TenancyUpdateHomePageContentDTO updateInfo, String alias);
+	void updateTenancyMemberShipFeePrice(TenancyUpdateMemberShipFeePriceDTO updateInfo, String alias);
+	void updateTenancyOptions(TenancyUpdateOptionsDTO updateInfo, String alias);
 	
 	HomePageContent getHomePageContentByTenancyId(Long id);
 	HomePageContent getHomePageContentByTenancyAlias(String alias);

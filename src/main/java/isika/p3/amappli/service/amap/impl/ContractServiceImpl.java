@@ -3,7 +3,6 @@ package isika.p3.amappli.service.amap.impl;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Base64;
-import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;

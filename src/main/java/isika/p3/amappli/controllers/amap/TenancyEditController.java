@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,9 @@ import isika.p3.amappli.dto.amap.TenancyUpdateAddressDTO;
 import isika.p3.amappli.dto.amap.TenancyUpdateColorFontDTO;
 import isika.p3.amappli.dto.amap.TenancyUpdateHomePageContentDTO;
 import isika.p3.amappli.dto.amap.TenancyUpdateLogo;
+import isika.p3.amappli.dto.amap.TenancyUpdateMemberShipFeePriceDTO;
 import isika.p3.amappli.dto.amap.TenancyUpdateNameAliasDTO;
+import isika.p3.amappli.dto.amap.TenancyUpdateOptionsDTO;
 import isika.p3.amappli.dto.amap.TenancyUpdatePickUpDTO;
 import isika.p3.amappli.dto.amap.TenancyUpdateSloganDTO;
 import isika.p3.amappli.entities.tenancy.ColorPalette;
@@ -43,7 +46,7 @@ public class TenancyEditController {
         this.graphismService = graphismService;
     }
     
-
+	@PreAuthorize("hasAuthority('modification page accueil amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
     @GetMapping("/{tenancyAlias}/admin/edit")    
     public String editHomePageContent(@PathVariable("tenancyAlias") String alias, Model model) {
 
@@ -104,10 +107,40 @@ public class TenancyEditController {
                                             ).collect(Collectors.toList());
         tenancyUpdateHomePageContentDTO.setContents(contentsDTO);
         model.addAttribute("tenancyUpdateHomePageContentDTO", tenancyUpdateHomePageContentDTO);
+        
+        TenancyUpdateHomePageContentDTO tenancyUpdateValuesDTO = new TenancyUpdateHomePageContentDTO();
+        List<ContentBlockDTO> valuesDTO = values.stream().map(
+                cb -> {
+                ContentBlockDTO cbDTO = new ContentBlockDTO();
+                BeanUtils.copyProperties(cb, cbDTO);
+                return cbDTO;
+                }
+            ).collect(Collectors.toList());
+        tenancyUpdateValuesDTO.setContents(valuesDTO);
+        model.addAttribute("tenancyUpdateValuesDTO", tenancyUpdateValuesDTO);
+
+        // Membership Fee Price
+        TenancyUpdateMemberShipFeePriceDTO tenancyUpdateMemberShipFeePriceDTO = new TenancyUpdateMemberShipFeePriceDTO();
+        tenancyUpdateMemberShipFeePriceDTO.setMembershipFeePrice(tenancy.getMembershipFeePrice());
+        model.addAttribute("tenancyMembershipDTO", tenancyUpdateMemberShipFeePriceDTO);
+
+        // Amappli subscription
+        TenancyUpdateOptionsDTO tenancyUpdateOptionsDTO = new TenancyUpdateOptionsDTO();
+        if(tenancy.getOptions().getOption1Active() && tenancy.getOptions().getOption2Active()){
+            tenancyUpdateOptionsDTO.setCurrentSubscription("Ferme à 100€/an");
+        }
+        else if (tenancy.getOptions().getOption1Active()){
+            tenancyUpdateOptionsDTO.setCurrentSubscription("Verger à 50€/an");
+        }
+        else{
+            tenancyUpdateOptionsDTO.setCurrentSubscription("Potager à 0€/an");
+        }
+        model.addAttribute("tenancyUpdateOptionsDTO", tenancyUpdateOptionsDTO);
 
         return "/amap/back/edit/edithomepage";
     }
 
+    @PreAuthorize("hasAuthority('modification page accueil amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
     @PostMapping("/{tenancyAlias}/admin/editthenameandalias")    
     public String editNameAlias(TenancyUpdateNameAliasDTO tenancyDTO, @PathVariable("tenancyAlias") String alias, Model model) {
 
@@ -120,33 +153,66 @@ public class TenancyEditController {
         return "redirect:/amap/"+ alias + "/admin/edit";
     }
 
+    @PreAuthorize("hasAuthority('modification page accueil amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
     @PostMapping("/{tenancyAlias}/admin/edittheslogan")
     public String editSlogan(TenancyUpdateSloganDTO tenancyDTO, @PathVariable("tenancyAlias") String alias, Model model){
         tenancyService.updateTenancySlogan(tenancyDTO, alias);
         return "redirect:/amap/"+ alias + "/admin/edit";
     }
 
+    @PreAuthorize("hasAuthority('modification page accueil amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
     @PostMapping("/{tenancyAlias}/admin/editthelogo")
     public String editLogo(TenancyUpdateLogo tenancyDTO, @PathVariable("tenancyAlias") String alias, Model model){
         tenancyService.updateTenancyLogo(tenancyDTO, alias);
         return "redirect:/amap/"+ alias + "/admin/edit";
     }
 
+    @PreAuthorize("hasAuthority('modification page accueil amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
     @PostMapping("/{tenancyAlias}/admin/edittheaddress")
     public String editLogo(TenancyUpdateAddressDTO tenancyDTO, @PathVariable("tenancyAlias") String alias, Model model){
         tenancyService.updateTenancyAddress(tenancyDTO, alias);
         return "redirect:/amap/"+ alias + "/admin/edit";
     }
 
+    @PreAuthorize("hasAuthority('modification page accueil amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
     @PostMapping("/{tenancyAlias}/admin/editthepickupschedule")
     public String editPickUp(TenancyUpdatePickUpDTO tenancyDTO, @PathVariable("tenancyAlias") String alias, Model model){
         tenancyService.updateTenancyPickUpSchedule(tenancyDTO, alias);
         return "redirect:/amap/"+ alias + "/admin/edit";
     }
 
+    @PreAuthorize("hasAuthority('modification page accueil amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
     @PostMapping("/{tenancyAlias}/admin/editthefontandcolor")
     public String editFontColor(TenancyUpdateColorFontDTO tenancyDTO, @PathVariable("tenancyAlias") String alias, Model model){
         tenancyService.updateTenancyColorFont(tenancyDTO, alias);
+        return "redirect:/amap/"+ alias + "/admin/edit";
+    }
+
+    @PreAuthorize("hasAuthority('modification page accueil amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
+    @PostMapping("/{tenancyAlias}/admin/editthecontents")
+    public String editContents(TenancyUpdateHomePageContentDTO tenancyDTO, @PathVariable("tenancyAlias") String alias, Model model){
+        tenancyService.updateTenancyHomePageContent(tenancyDTO, alias);
+        return "redirect:/amap/"+ alias + "/admin/edit";
+    }
+
+    @PreAuthorize("hasAuthority('modification page accueil amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
+    @PostMapping("/{tenancyAlias}/admin/editthevalues")
+    public String editValues(TenancyUpdateHomePageContentDTO tenancyDTO, @PathVariable("tenancyAlias") String alias, Model model){
+        tenancyService.updateTenancyValues(tenancyDTO, alias);
+        return "redirect:/amap/"+ alias + "/admin/edit";
+    }
+
+    @PreAuthorize("hasAuthority('modification page accueil amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
+    @PostMapping("/{tenancyAlias}/admin/editthemembershipfee")
+    public String editMemberShip(TenancyUpdateMemberShipFeePriceDTO tenancyDTO, @PathVariable("tenancyAlias") String alias, Model model){
+        tenancyService.updateTenancyMemberShipFeePrice(tenancyDTO, alias);
+        return "redirect:/amap/"+ alias + "/admin/edit";
+    }
+
+    @PreAuthorize("hasAuthority('modification page accueil amap') and (hasAuthority(#alias) or hasAuthority('gestion plateforme'))")
+    @PostMapping("/{tenancyAlias}/admin/edittheoptions")
+    public String editOptions(TenancyUpdateOptionsDTO tenancyDTO, @PathVariable("tenancyAlias") String alias, Model model){
+        tenancyService.updateTenancyOptions(tenancyDTO, alias);
         return "redirect:/amap/"+ alias + "/admin/edit";
     }
 }
