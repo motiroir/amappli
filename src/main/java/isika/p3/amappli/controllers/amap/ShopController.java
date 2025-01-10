@@ -242,7 +242,7 @@ public class ShopController {
 	        LocalDateTime[] nextPickUp = pickUpSchedule.get().getNextPickUpLocalDateTimes();
 	        LocalDateTime nextDeliveryDate = nextPickUp[0];
 
-	        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("'le' EEEE dd MMMM yyyy 'entre' HH:mm 'et' HH:mm", Locale.FRENCH);
+	        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("'le' EEEE dd MMMM yyyy", Locale.FRENCH);
 	        String formattedNextDeliveryDate = nextDeliveryDate.format(formatter1);
 
 	        model.addAttribute("formattedNextDeliveryDate", formattedNextDeliveryDate);
