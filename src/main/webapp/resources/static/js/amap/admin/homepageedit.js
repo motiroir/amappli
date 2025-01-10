@@ -75,6 +75,29 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     let formSections = document.getElementById("content-form-sections");
+
+    formSections.addEventListener("change", function (event) {
+        if (event.target.classList.contains("file-input")) {
+            const input = event.target;
+            const file = input.files[0]; // Get the selected file
+    
+            if (file) {
+                const reader = new FileReader();
+    
+                reader.onload = function (e) {
+                    // Locate the corresponding preview image
+                    const img = input.parentElement.querySelector(".preview-img");
+                    if (img) {
+                        img.src = e.target.result; // Update the image preview
+                    }
+                };
+    
+                // Read the file as a data URL
+                reader.readAsDataURL(file);
+            }
+        }
+    });
+    
     let addMoreButton = document.getElementById("add-more-button");
     let currentIndex = document.querySelectorAll(".content-form-section").length;
 
