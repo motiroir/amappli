@@ -18,7 +18,7 @@
 </style>
 <nav class="navbar h-50 py-5 my-5 ms-5 ps-5 w-auto">
 	<div
-		class="bg-100 border border-1 border-500 border-top-rounded d-flex flex-column justify-content-center mx-auto">
+		class="bg-100 border border-1 border-500 border-top-rounded d-flex flex-column justify-content-center">
 		<div id="sidebar" class="flex-grow-1">
 			<ul class="nav flex-column text-start">
 				<!-- Paniers maraîchers -->
