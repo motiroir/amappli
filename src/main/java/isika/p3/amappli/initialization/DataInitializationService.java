@@ -439,7 +439,6 @@ public class DataInitializationService {
 
 		User user15 = User.builder().email("lucie.lafaye@example" + tenancy.getTenancyId() + ".com")
 				.password("AMAPamap11@").isActive(true).tenancy(tenancy).build();
-		user15.getRoles().add(AdminPlateforme);
 		user15.getRoles().add(Admin);
 		saveUser(user15);
 		Address a15 = Address.builder().line2("5 rue du Pont").line1("").postCode("69000").city("Lyon").user(user15)

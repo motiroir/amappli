@@ -69,7 +69,7 @@ request.setAttribute("currentPage", currentPage);
 										id="contractType" name="contractType" required>
 										<option selected disabled></option>
 										<option value="FRUITS_CONTRACT">Panier de fruits</option>
-										<option value="VEGETABLES_CONTRACT">Panier de légumes</option>
+										<option id="select" value="VEGETABLES_CONTRACT">Panier de légumes</option>
 										<option value="MIX_CONTRACT">Panier mixte</option>
 									</select>
 									<div class="invalid-feedback"></div>
@@ -79,7 +79,7 @@ request.setAttribute("currentPage", currentPage);
 										du panier</label> <select class="form-select form-control"
 										id="contractWeight" name="contractWeight" required>
 										<option selected disabled></option>
-										<option value="SMALL">Petit panier (2-4kg)</option>
+										<option id="select-2" value="SMALL">Petit panier (2-4kg)</option>
 										<option value="AVERAGE">Moyen panier (5-8kg)</option>
 										<option value="BIG">Grand panier (9kg et +)</option>
 									</select>
@@ -136,7 +136,7 @@ request.setAttribute("currentPage", currentPage);
 										class="form-select form-control" id="deliveryRecurrence"
 										name="deliveryRecurrence" required>
 										<option selected disabled></option>
-										<option value="WEEKLY">Hebdomadaire</option>
+										<option id="select-3" value="WEEKLY">Hebdomadaire</option>
 										<option value="BIMONTHLY">Bimensuel</option>
 										<option value="MONTHLY">Mensuel</option>
 									</select>
@@ -219,7 +219,7 @@ request.setAttribute("currentPage", currentPage);
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />"
 		type="text/javascript"></script>
 	
-
+	<script src="<c:url value='/resources/js/common/autofill.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />"
 		type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/image-format.js' />"

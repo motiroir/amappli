@@ -45,32 +45,32 @@ request.setAttribute("currentPage", currentPage);
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="form-label">Nom de famille</label>
-                                        <form:input path="contactInfo.name" class="form-control ${nameError != null ? 'is-invalid' : ''}" required="true" />
+                                        <form:input id="name" path="contactInfo.name" class="form-control ${nameError != null ? 'is-invalid' : ''}" required="true" />
                                         <div class="invalid-feedback"> ${nameError} </div>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Prénom</label>
-                                        <form:input path="contactInfo.firstName" class="form-control ${firstNameError != null ? 'is-invalid' : ''}" required="true" />
+                                        <form:input id="first-name" path="contactInfo.firstName" class="form-control ${firstNameError != null ? 'is-invalid' : ''}" required="true" />
                                         <div class="invalid-feedback"> ${firstNameError} </div>
                                     </div>
                                     <div class="mb-3 has-validation">
                                         <label class="form-label">E-mail</label>
-                                        <form:input path="email" class="form-control ${emailError != null ? 'is-invalid' : ''}" required="true" />
+                                        <form:input id="email" path="email" class="form-control ${emailError != null ? 'is-invalid' : ''}" required="true" />
                                         <div class="invalid-feedback"> ${emailError} </div>
                                     </div>
                                     <div class="mb-3">
 										<label class="form-label">Mot de passe</label>
-										<form:password showPassword="true" class="form-control ${passwordError != null ? 'is-invalid' : ''}" path="password" />
+										<form:password id="password-1" showPassword="true" class="form-control ${passwordError != null ? 'is-invalid' : ''}" path="password" />
                                         <div class="invalid-feedback"> ${passwordError} </div>
 									</div>
 									<div class="mb-3">
 										<label class="form-label">Confirmer le mot de passe</label>
-                                        <form:password showPassword="true" class="form-control ${confirmPasswordError != null ? 'is-invalid' : ''}" path="confirmPassword" />
+                                        <form:password id="password-2" showPassword="true" class="form-control ${confirmPasswordError != null ? 'is-invalid' : ''}" path="confirmPassword" />
                                         <div class="invalid-feedback"> ${confirmPasswordError} </div>
 									</div>
                                     <div class="mb-3">
                                         <label class="form-label">Balance crédit</label>
-                                        <form:input path="creditBalance" type="number" class="form-control ${creditBalanceError != null ? 'is-invalid' : ''}" value="0" />
+                                        <form:input id="credit-balance" path="creditBalance" type="number" class="form-control ${creditBalanceError != null ? 'is-invalid' : ''}" value="0" />
                                         <div class="invalid-feedback"> ${creditBalanceError} </div>
                                     </div>
                                 </div>
@@ -79,27 +79,27 @@ request.setAttribute("currentPage", currentPage);
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="form-label">Adresse</label>
-                                        <form:input path="address.line2" class="form-control ${line2Error != null ? 'is-invalid' : ''}" placeholder="151 avenue de la République" />
+                                        <form:input id="line-2" path="address.line2" class="form-control ${line2Error != null ? 'is-invalid' : ''}" placeholder="151 avenue de la République" />
                                         <div class="invalid-feedback"> ${line2Error} </div>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Complément d'adresse</label>
-                                        <form:input path="address.line1" class="form-control ${line1Error != null ? 'is-invalid' : ''}" placeholder="Appartement 9bis"/>
+                                        <form:input id="line-1" path="address.line1" class="form-control ${line1Error != null ? 'is-invalid' : ''}" placeholder="Appartement 9bis"/>
                                         <div class="invalid-feedback"> ${line1Error} </div>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Code Postal</label>
-                                        <form:input path="address.postCode" class="form-control ${postCodeError != null ? 'is-invalid' : ''}"/>
+                                        <form:input id="post-code" path="address.postCode" class="form-control ${postCodeError != null ? 'is-invalid' : ''}"/>
                                         <div class="invalid-feedback"> ${postCodeError} </div>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Ville</label>
-                                        <form:input path="address.city" class="form-control ${cityError != null ? 'is-invalid' : ''}"/>
+                                        <form:input id="city" path="address.city" class="form-control ${cityError != null ? 'is-invalid' : ''}"/>
                                         <div class="invalid-feedback"> ${cityError} </div>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Numéro de téléphone</label>
-                                        <form:input path="contactInfo.phoneNumber" class="form-control ${phoneNumberError != null ? 'is-invalid' : ''}"/>
+                                        <form:input id="phone" path="contactInfo.phoneNumber" class="form-control ${phoneNumberError != null ? 'is-invalid' : ''}"/>
                                         <div class="invalid-feedback"> ${phoneNumberError} </div>
                                     </div>
                                 </div>
@@ -125,12 +125,12 @@ request.setAttribute("currentPage", currentPage);
                                         <section id="supplier-section" class="d-none">
                                             <div class="mb-3">
                                                 <label class="form-label">Exploitation</label>
-                                                <form:input path="companyDetails.companyName" class="form-control ${companyNameError != null ? 'is-invalid' : ''}"/>
+                                                <form:input id="company-name" path="companyDetails.companyName" class="form-control ${companyNameError != null ? 'is-invalid' : ''}"/>
                                                 <div class="invalid-feedback"> ${companyNameError} </div>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label">N° Siret</label>
-                                                <form:input path="companyDetails.siretNumber" class="form-control ${siretNumberError != null ? 'is-invalid' : ''}" placeholder="14 chiffres"/>
+                                                <form:input id="siret" path="companyDetails.siretNumber" class="form-control ${siretNumberError != null ? 'is-invalid' : ''}" placeholder="14 chiffres"/>
                                                 <div class="invalid-feedback"> ${siretNumbeErrorr} </div>
                                             </div>
                                         </section>
@@ -154,17 +154,14 @@ request.setAttribute("currentPage", currentPage);
 	<script>
 		var styleMapboxLight = "${mapStyleLight}";
 		var styleMapboxDark = "${mapStyleDark}";
-
-
-		 var latitude = "${latitude}";
-		 var longitude = "${longitude}"; 
-
+		var latitude = "${latitude}";
+		var longitude = "${longitude}"; 
 	</script>
 	<script src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
-
+	<script src="<c:url value='/resources/js/common/autofill.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/user-details.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/user-form.js' />" type="text/javascript"></script>

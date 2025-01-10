@@ -154,17 +154,14 @@ request.setAttribute("currentPage", currentPage);
 		<script>
 		var styleMapboxLight = "${mapStyleLight}";
 		var styleMapboxDark = "${mapStyleDark}";
-
-
-		 var latitude = "${latitude}";
-		 var longitude = "${longitude}"; 
-
+		var latitude = "${latitude}";
+		var longitude = "${longitude}"; 
 	</script>
 	<script	src="<c:url value='/resources/bootstrap/bootstrap.bundle.min.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/common/theme-swap.js' />" type="text/javascript"></script>
-
+	<script src="<c:url value='/resources/js/common/autofill.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/sidebar.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/user-details.js' />" type="text/javascript"></script>
 	<script src="<c:url value='/resources/js/amap/admin/user-form.js' />" type="text/javascript"></script>

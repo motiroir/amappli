@@ -333,7 +333,7 @@
                         <li class="col-12 col-md-4 d-flex pricing-list">
                             <form:radiobutton path="option" value="option-1" id="option-1" />
                             <label for="option-1" id="option-1-label" class="w-100 flex-fill d-flex flex-column">
-                                <div id="pricing-1" class="pricing flex-fill text-center py-3 px-2 rounded-5 align-content-between bg-300">
+                                <div id="pricing-1" class="pricing flex-fill text-center py-3 px-2 rounded-5 align-content-between bg-300 fc-900">
                                     <h2 class="h4 fw-bold">Potager</h2>
                                     <p classe="my-2">Site opérationnel avec les fonctionnalités de base</p>
                                     <h3 class="h5 fw-bold">Gratuit</h3>
@@ -343,7 +343,7 @@
                         <li class="col-12 col-md-4 d-flex pricing-list">
                             <form:radiobutton path="option" value="option-2" id="option-2"  />
                             <label for="option-2" id="option-2-label" class="w-100 flex-fill d-flex flex-column">
-                                <div id="pricing-2"	class="pricing flex-fill text-center py-3 px-2 rounded-5 align-content-between bg-400">
+                                <div id="pricing-2"	class="pricing flex-fill text-center py-3 px-2 rounded-5 align-content-between bg-400 fc-900">
                                 <h2 class="h4 fw-bold">Verger</h2>
                                 <p classe="my-2">Plus d'outils avancés pour personnaliser et enrichir votre
                                     site</p>
@@ -354,7 +354,7 @@
                         <li class="col-12 col-md-4 d-flex pricing-list">
                             <form:radiobutton path="option" value="option-3" id="option-3" />
                             <label for="option-3" id="option-3-label" class="w-100 flex-fill d-flex flex-column">
-                                <div id="pricing-3" class="pricing flex-fill text-center py-3 px-2 rounded-5 align-content-between bg-500">
+                                <div id="pricing-3" class="pricing flex-fill text-center py-3 px-2 rounded-5 align-content-between bg-500 fc-900">
                                     <h2 class="h4 fw-bold">Ferme</h2>
                                     <p classe="my-2">Toutes les fonctionnalités pour une gestion complète et
                                         professionnelle de votre AMAP</p>
@@ -389,5 +389,6 @@
     <script	src="<c:url value='/resources/js/common/mapbox/mapbox-gl.js' />" type="text/javascript"></script>
 	<script	src="<c:url value='/resources/js/common/mapbox/map.js' />" type="text/javascript"></script>
 	<script	src="<c:url value='/resources/js/common/headerless-theme-swap.js' />" type="text/javascript"></script>
+	<script	src="<c:url value='/resources/js/common/autofill.js' />" type="text/javascript"></script>
 </body>
 </html>
