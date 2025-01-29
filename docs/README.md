@@ -1,5 +1,7 @@
 # Amappli - SaaS for AMAPs
 
+![Amappli logos](images/logos.png)
+
 ## Introduction
 Amappli is a SaaS platform designed for **AMAPs (Associations for the Maintenance of Small-Scale Farming)**. Its mission is to create a connected network of AMAPs across France, providing greater visibility and making it easier for potential members to find and join local AMAPs.
 
@@ -13,6 +15,8 @@ The platform enables AMAPs to **effortlessly create and manage their own website
 - **Customizable Website**: Modify design elements, content, and branding.
 - **Dark/Light Mode Toggle** for enhanced user experience.
 - **Dynamic Topographic Illustrations**: Each AMAP's site features **unique terrain-based designs** generated from its geographical location via Mapbox API.
+
+![Dynamic Topographic Illustrations](images/topographic.png)
 
 ## Tech Stack & Architecture
 - **Backend**: Java EE with **Spring MVC**, **Spring Security 6**, and **Spring Data JPA**.
@@ -35,10 +39,12 @@ The platform enables AMAPs to **effortlessly create and manage their own website
 - **Scalability**: Designed to grow with the AMAP ecosystem.
 
 ## Get Started
-1. **Sign up** for an account.
-2. **Create your AMAP’s website** in just a few clicks.
-3. **Customize** with your branding and features.
-4. **Start managing your members, orders, and content** seamlessly!
+![Amappli homepage](images/homepage-amappli.png)
+![Amappli homepage](images/homepage-amappli-dark.png)
+1. **Sign up** for an account. 
+2. **Create your AMAP’s website** in just a few clicks. ![Signup form](images/creation-form-1.png) ![Signup form](images/creation-form-2.png)
+3. **Customize** with your branding and features. ![Signup form](images/amap1-shop.png) ![Signup form](images/amap2-shop.png)
+4. **Start managing your members, orders, and content** seamlessly! ![Signup form](images/amap1-backoffice-light.png) ![Signup form](images/amap1-backoffice-dark.png)
 
 ---
 
